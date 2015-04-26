@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'FA Campaign Mission 2 - Coop',
-    description = '',
+    description = '<LOC X1CA_002_description>Aeon Loyalists, led by Crusader Rhiza, were captured while conducting sabotage and intelligence missions against Order and QAI positions. You must rescue the Loyalists being held by QAI and defeat all enemy commanders operating on the planet.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

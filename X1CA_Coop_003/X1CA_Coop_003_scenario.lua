@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'FA Campaign Mission 3 - Coop',
-    description = '',
+    description = '<LOC X1CA_Coop_003_description>Princess Burke has returned, but she is in grave danger. Seraphim forces have her trapped on the planet Blue Sky, and she has no chance of escaping. You will go to Blue Sky, destroy the Seraphim commanders, and save Princess Burke.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
