@@ -178,9 +178,9 @@ function OnPopulate(scenario)
   -- ! No starting base for now
   -- ScenarioUtils.CreateArmyGroup('Player', 'Base')
   -- ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
-  -- local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships', 'ChevronFormation')
+  -- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships', 'ChevronFormation')
   -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
-  -- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Interceptors', 'ChevronFormation')
+  -- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Interceptors', 'ChevronFormation')
   -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
 
@@ -212,14 +212,14 @@ function OnPopulate(scenario)
     end
 
     -- Naval base Engineers
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Naval_Engineers_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Naval_Engineers_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'M1_Naval'
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'CybranM1Naval'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
     -- Node base engineers
     if DiffLevel > 1 then
-        plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Node_Engineers_D'..DiffLevel, 'AttackFormation')
+        plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Node_Engineers_D'..DiffLevel, 'AttackFormation')
         plat.PlatoonData.MaintainBaseTemplate = 'M1_Node'
         plat.PlatoonData.AssistFactories = true
         plat.PlatoonData.LocationType = 'CybranM1Node'
@@ -248,7 +248,7 @@ function OnPopulate(scenario)
     units = ScenarioUtils.CreateArmyGroup('Nexus_Defense', 'Nexus_Walls_D'..DiffLevel)
     ForkThread(UnitsFlash, units)
     -- Nexus04 base Engineers
-    ScenarioInfo.CivilianEngineers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Nexus_Defense','M1_Nexus_Engineers_D'..DiffLevel,'AttackFormation')
+    ScenarioInfo.CivilianEngineers = ScenarioUtils.CreateArmyGroupAsPlatoon('Nexus_Defense','M1_Nexus_Engineers_D'..DiffLevel,'AttackFormation')
     ScenarioInfo.CivilianEngineers.PlatoonData.MaintainBaseTemplate = 'Nexus_Base'
     ScenarioInfo.CivilianEngineers.PlatoonData.MaintainDiffLevel = 3
     ScenarioInfo.CivilianEngineers.PlatoonData.PatrolChain = 'Nexus_North_Patrol_Chain'
@@ -368,10 +368,10 @@ function StartMission1()
     --SetArmyUnitCap('Player', 400)
 
     -- === Spawn units === #
-    local blockadeDestroyers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Destroyer_Blockade_D'..DiffLevel,
+    local blockadeDestroyers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Destroyer_Blockade_D'..DiffLevel,
                                 'GrowthFormation')
     blockadeDestroyers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Destroyer_Blockade_Marker'), false)
-    local blockadeCruisers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Cruiser_Blockade_D'..DiffLevel,
+    local blockadeCruisers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Cruiser_Blockade_D'..DiffLevel,
                                 'GrowthFormation')
 	marker = 1
     for k,v in blockadeCruisers:GetPlatoonUnits() do
@@ -729,39 +729,39 @@ function StartMission2()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Defenses_D'..DiffLevel)
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Resources_D'..DiffLevel)
     local plat
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_Engineers_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'CybranMainframeBase'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
     -- Defensive units
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_SW_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_SW_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_SW_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_SE_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_SE_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_SE_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_MidWest_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_MidWest_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_MidWest_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_MidEast_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_MidEast_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_MidEast_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_NW_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_NW_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_NW_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_NE_Units_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Mainframe_NE_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_NE_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_South_Air_Patrol_1_D'..DiffLevel, 'ChevronFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_South_Air_Patrol_1_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_South_Patrol_Chain')
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_North_Air_Patrol_1_D'..DiffLevel, 'ChevronFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_North_Air_Patrol_1_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_North_Patrol_Chain')
 
     for k,unit in ArmyBrains[Cybran]:GetListOfUnits(categories.urb2108, false) do
@@ -881,7 +881,7 @@ function M2BeginMainframeAttacks()
     -- Off map bases
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_East_Base')
     if DiffLevel > 1 then
-        plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_East_Engineers_D'..DiffLevel, 'NoFormation')
+        plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_East_Engineers_D'..DiffLevel, 'NoFormation')
         plat.PlatoonData.AssistFactories = true
         plat.PlatoonData.LocationType = 'CybranEastBase'
         plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
@@ -889,7 +889,7 @@ function M2BeginMainframeAttacks()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_NW_Base')
 
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_SW_Base')
--- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_SW_Engineers_D'..DiffLevel, 'NoFormation')
+-- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_SW_Engineers_D'..DiffLevel, 'NoFormation')
 -- plat.PlatoonData.AssistFactories = true
 -- LocationType = 'CybranSWBase'
 -- plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
@@ -919,7 +919,7 @@ end
 function M2AttackOne()
     ScenarioFramework.Dialogue(OpStrings.A04_M02_070)
     -- LOG('*DEBUG: M2 Attack One')
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A1_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A1_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(plat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
     -- LOG('*DEBUG: M2 Attack One Finished')
 end
@@ -927,12 +927,12 @@ end
 -- Second attack - transports and air sent to mainframe
 function M2AttackTwo()
     -- LOG('*DEBUG: M2 Attack Two')
-    local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Transports_D'..DiffLevel, 'ChevronFormation')
-    local landUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Land_Assault_D'..DiffLevel, 'AttackFormation')
+    local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A2_Transports_D'..DiffLevel, 'ChevronFormation')
+    local landUnits = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A2_Land_Assault_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.AttachUnitsToTransports(landUnits:GetPlatoonUnits(), transports:GetPlatoonUnits())
     ForkThread(M2EastLandAssault, landUnits, transports)
     WaitSeconds(23)
-    local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A2_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(airPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
     -- LOG('*DEBUG: M2 Attack Two Finish')
 end
@@ -940,10 +940,10 @@ end
 -- Third attack - air sent from NW to mainframe over NW node; SW air sent to player initial base then mainframe
 function M2AttackThree()
     -- LOG('*DEBUG: M2 Attack Three')
-    local nwPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A3_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local nwPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A3_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(nwPlat, 'Cybran_M2_West_NW_Mainframe_Chain')
     WaitSeconds(13)
-    local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A3_Player_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A3_Player_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
     -- LOG('*DEBUG: M2 Attack Three Finish')
 end
@@ -952,17 +952,17 @@ end
 function M2AttackFour()
     -- LOG('*DEBUG: M2 Attack Four')
     -- Transports
-    local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Transports_D'..DiffLevel, 'NoFormation')
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Land_Units_D'..DiffLevel, 'NoFormation')
+    local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A4_Transports_D'..DiffLevel, 'NoFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A4_Land_Units_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.AttachUnitsToTransports(units:GetPlatoonUnits(), transports:GetPlatoonUnits())
     ForkThread(M2EastLandAssault, units, transports)
 
     -- Naval attacks
     WaitSeconds(19)
-    local frigates = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Frigates_D'..DiffLevel, 'NoFormation')
+    local frigates = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A4_Frigates_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(frigates, 'Cybran_M2_East_Naval_Chain')
     WaitSeconds(29)
-    local destroyers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Destroyers_D'..DiffLevel, 'NoFormation')
+    local destroyers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A4_Destroyers_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(destroyers, 'Cybran_M2_East_Destroyers_Player_Chain')
     -- LOG('*DEBUG: M2 Attack Four Finish')
 end
@@ -971,12 +971,12 @@ end
 function M2AttackFive()
     -- LOG('*DEBUG: M2 Attack Five')
     -- Navy
-    local navy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_NW_Naval_D'..DiffLevel, 'NoFormation')
+    local navy = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_NW_Naval_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(navy, 'Cybran_M2_NW_Naval_Chain')
 
     -- Player Air Attack
     WaitSeconds(29)
-    local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_SW_Player_Air_D'..DiffLevel, 'ChevronFormation')
+    local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_SW_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(airPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
 
     -- Air Attack NW
@@ -989,10 +989,10 @@ function M2AttackFive()
         end
     end
     if navyCounter > 5 then
-        local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_NW_Air_Naval_D'..DiffLevel, 'ChevronFormation')
+        local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_NW_Air_Naval_D'..DiffLevel, 'ChevronFormation')
         ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Naval_Chain')
     else
-        local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_NW_Air_No_Naval_D'..DiffLevel, 'ChevronFormation')
+        local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_NW_Air_No_Naval_D'..DiffLevel, 'ChevronFormation')
         ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Chain')
     end
     -- LOG('*DEBUG: M2 Attack Five Finish')
@@ -1001,11 +1001,11 @@ end
 -- Sixth attack - NW air to mainframe; East air attack against player base
 function M2AttackSix()
     -- LOG('*DEBUG: M2 Attack Six')
-    local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A6_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A6_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Naval_Chain')
 
     WaitSeconds(17)
-    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A6_East_Player_Attack_D'..DiffLevel, 'ChevronFormation')
+    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A6_East_Player_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_Player_Chain')
     -- LOG('*DEBUG: M2 Attack Six Finish')
 end
@@ -1014,9 +1014,9 @@ end
 function M2AttackSeven()
     -- LOG('*DEBUG: M2 Attack Seven')
     -- Air attacks
-    local playerAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_Player_Air_D'..DiffLevel, 'ChevronFormation')
+    local playerAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A7_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerAirPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
-    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_East_Mainframe_Air_D'..DiffLevel, 'ChevronFormation')
+    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A7_East_Mainframe_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
 
     -- LOG('*DEBUG: M2 Attack Seven Finish')
@@ -1024,19 +1024,19 @@ end
 
 function M2DestroyerAttack()
     -- Destroyers
-    local eastDest = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_Destroyers_East_D'..DiffLevel, 'AttackFormation')
+    local eastDest = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A7_Destroyers_East_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.PlatoonMoveChain(eastDest, 'Cybran_M2_East_Naval_Mainframe_Chain')
     WaitSeconds(60)
-    local westDest = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_Destroyers_NW_D'..DiffLevel, 'AttackFormation')
+    local westDest = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A7_Destroyers_NW_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.PlatoonMoveChain(westDest, 'Cybran_M2_NW_Naval_Chain')
 end
 
 -- Eigth attack - East air to mainframe; SW air to player
 function M2AttackEight()
     -- LOG('*DEBUG: M2 Attack Eight')
-    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A8_East_Air_D'..DiffLevel, 'ChevronFormation')
+    local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A8_East_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
-    local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A8_Player_Air_D'..DiffLevel, 'ChevronFormation')
+    local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A8_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
     -- LOG('*DEBUG: M2 Attack Eight Finish')
 end

@@ -123,25 +123,25 @@ function OnPopulate(scenario)
     -- --------------------
     -- Hex5 Initial Patrols
     -- --------------------
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Main_LandDefWest_D' .. Difficulty, 'GrowthFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Main_LandDefWest_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Hex5_Main_LandDefWest_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Main_LandDefEast_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Main_LandDefEast_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Hex5_Main_LandDefEast_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Main_AirDef_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Main_AirDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Hex5_Main_AirDef_Chain')))
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Resource1_LandDef_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Resource1_LandDef_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Hex5_Resource1_Def1_Chain')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Resource2_AirDef_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Resource2_AirDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Hex5_Resource2_AirDef_Chain')))
     end
@@ -160,7 +160,7 @@ function OnPopulate(scenario)
     ScenarioInfo.Prison:SetCanBeKilled(false)
     ScenarioInfo.Prison:SetReclaimable(false)
     ScenarioUtils.CreateArmyGroup('Hex5', 'M1_Hex5_Prison_D' .. Difficulty)
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M1_Hex5_Prison_LandDef_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Prison_LandDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Hex5_Prison_LandDef_Chain')
     end
@@ -646,22 +646,22 @@ function IntroMission2()
             -- --------------------
             -- Hex5 Initial Patrols
             -- --------------------
-            local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitAir_North_D' .. Difficulty, 'GrowthFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitAir_North_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Hex5_Main_AirDef_N_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitAir_West_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitAir_West_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Hex5_Main_AirDef_W_Chain')))
             end
 
             for i = 1, 2 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitGround_North' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitGround_North' .. i .. '_D' .. Difficulty, 'GrowthFormation')
                 ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_Main_LandDef_N' .. i .. '_Chain')
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitGround_West_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitGround_West_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_Main_LandDef_W_Chain')
 
             -- ------------------
@@ -872,14 +872,14 @@ function M2Counterattack()
 
     -- Default Air Attacks
     for i = 1, 3 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitAir_' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitAir_' .. i .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
     end
 
     -- Default Land Attacks
     local landChains = {'M2_Hex5_InitLand_3_Chain', 'M2_Hex5_InitLand_2_Chain', 'M2_Hex5_InitLand_2_Chain', 'M2_Hex5_InitLand_2_Chain', 'M2_Hex5_InitLand_2_Chain', 'M2_Hex5_InitLand_1_Chain'}
     for i = 1, 6 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_InitLand_' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_InitLand_' .. i .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, landChains[i])
     end
 
@@ -891,17 +891,17 @@ function M2Counterattack()
 
     trigger = {225, 200, 25}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_1', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_1', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_3_Chain')
         -- If player > [250, 225, 50] structures, spawns land attack
         trigger = {250, 225, 50}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_2', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_2', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_3_Chain')
             -- If player > [275, 250, 75] structures, spawns land attack
             trigger = {275, 250, 75}
             if(num > trigger[Difficulty]) then
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_3', 'GrowthFormation', 5)
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_3', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_2_Chain')
             end
         end
@@ -915,17 +915,17 @@ function M2Counterattack()
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_4', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_4', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_2_Chain')
         -- If player > [30, 20, 10] T2/T3 DF or artillery structures, spawns land attack
         trigger = {30, 20, 10}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_5', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_5', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_2_Chain')
             -- If player > [35, 25, 15] T2/T3 DF or artillery structures, spawns land attack
             trigger = {35, 25, 15}
             if(num > trigger[Difficulty]) then
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_6', 'GrowthFormation', 5)
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_InitLandAtack_6', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitLand_1_Chain')
             end
         end
@@ -939,12 +939,12 @@ function M2Counterattack()
 
     trigger = {20, 10, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Siege', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Siege', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         -- If player has > [40, 15, 8] T2/T3 factories, spawn siege bots
         trigger = {40, 15, 8}
         if(num > trigger[ScenarioInfo.Options.Diffculty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Siege_b', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Siege_b', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         end
     end
@@ -957,12 +957,12 @@ function M2Counterattack()
 
     trigger = {450, 400, 200}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Missile', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Missile', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         -- If player has > [475, 450, 200] units, spawn mobile missiles
         trigger = {475, 450, 200}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Missile_b', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Missile_b', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         end
     end
@@ -975,12 +975,12 @@ function M2Counterattack()
 
     trigger = {30, 20, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Artil', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Artil', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         -- If player has > [35, 25, 5] shields, spawn artillery
         trigger = {35, 25, 5}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_L_Artil_b', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_L_Artil_b', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_LandAdapt_Chain')
         end
     end
@@ -1043,7 +1043,7 @@ function M2Counterattack()
             num = 8
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_Adapt_Xport1', 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_Adapt_Xport1', 'GrowthFormation')
             for k,v in units:GetPlatoonUnits() do
                 if(v:GetUnitId() == 'ura0104') then
                     local interceptors = ScenarioUtils.CreateArmyGroup('Hex5', 'M2_Hex5_Adapt_Xport_Interceptors')
@@ -1065,7 +1065,7 @@ function M2Counterattack()
             end
             for i = 1, num do
                 for j = 1, Difficulty do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Hex5', 'M2_Hex5_Adapt_Bombers', 'GrowthFormation')
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_Adapt_Bombers', 'GrowthFormation')
                     IssueAttack(units:GetPlatoonUnits(), experimentals[i])
                     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
                 end
@@ -1086,7 +1086,7 @@ function M2Counterattack()
             num = trigger[Difficulty]
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_Gunships', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_Gunships', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
         end
     end
@@ -1104,7 +1104,7 @@ function M2Counterattack()
             num = 6
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Hex5', 'M2_Hex5_Adapt_AirSup', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Hex5', 'M2_Hex5_Adapt_AirSup', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
         end
     end
@@ -1368,28 +1368,28 @@ function IntroMission3()
             -- -------------------
             -- QAI Initial Patrols
             -- -------------------
-            local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_InitialAir_Defense_D' .. Difficulty, 'GrowthFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_InitialAir_Defense_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_AirBase_Def_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_LandBase_InitLand_Def1_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_LandBase_InitLand_Def1_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_QAI_LandBase_LandDef_Chain')
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Main_Base_InitLand_Defense_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Main_Base_InitLand_Defense_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_QAI_Main_Base_LandDef_Chain')
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Main_Base_InitAir_Defense_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Main_Base_InitAir_Defense_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Main_Base_AirDef_Chain')))
             end
 
             for i = 1, 2 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Naval_Def' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Naval_Def' .. i .. '_D' .. Difficulty, 'GrowthFormation')
                 ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_NavalBase_Def' .. i .. '_Chain')
             end
 
@@ -1566,10 +1566,10 @@ function M3Counterattack()
     -- -------------
 
     -- Default Fletcher Attacks
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Counter_Fletcher_Land_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Counter_Fletcher_Land_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_Fatboy_AttackFletcher_Chain')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Counter_Fletcher_Air_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Counter_Fletcher_Air_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_AttackFletcher_Chain')
 
     -- If Fletcher > X fatboys, spawn spiderbots
@@ -1590,14 +1590,14 @@ function M3Counterattack()
     -- Default Air Attacks
     local airChains = {'M3_QAI_ExpBase_Attack_Chain', 'M3_QAI_ExpBase_Attack_Chain', 'M3_QAI_AirBase_Attack_1_Chain'}
     for i = 1, 3 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_CounterAttack_Air' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_CounterAttack_Air' .. i .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, airChains[i])
     end
 
     -- Default Land Attacks
     local landChains = {'M3_QAI_ExpBase_Attack_Chain', 'M3_QAI_ExpBase_Attack_Chain', 'M3_QAI_LandBase_Attack1_Chain', 'M3_QAI_Main_Base_LandAttack_Chain', 'M3_QAI_Main_Base_LandAttack_Chain', 'M3_QAI_Main_Base_LandAttack_Chain'}
     for i = 1, 6 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_CounterAttack_Land' .. i .. '_D' .. Difficulty, 'GrowthFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_CounterAttack_Land' .. i .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, landChains[i])
     end
 
@@ -1609,17 +1609,17 @@ function M3Counterattack()
 
     trigger = {225, 200, 25}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_1', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_1', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         -- If player > [250, 225, 50] structures, spawns land attack
         trigger = {250, 225, 50}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_2', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_2', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
             -- If player > [275, 250, 75] structures, spawns land attack
             trigger = {275, 250, 75}
             if(num > trigger[Difficulty]) then
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_3', 'GrowthFormation', 5)
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_3', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
             end
         end
@@ -1633,17 +1633,17 @@ function M3Counterattack()
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_4', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_4', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         -- If player > [30, 20, 10] T2/T3 DF or artillery structures, spawns land attack
         trigger = {30, 20, 10}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_5', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_5', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
             -- If player > [35, 25, 15] T2/T3 DF or artillery structures, spawns land attack
             trigger = {35, 25, 15}
             if(num > trigger[Difficulty]) then
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_6', 'GrowthFormation', 5)
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_6', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
             end
         end
@@ -1657,12 +1657,12 @@ function M3Counterattack()
 
     trigger = {20, 10, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_7', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_7', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         -- If player has > [40, 15, 8] T2/T3 factories, spawns land attack
         trigger = {40, 15, 8}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_8', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_8', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         end
     end
@@ -1675,12 +1675,12 @@ function M3Counterattack()
 
     trigger = {30, 20, 5}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_9', 'GrowthFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_9', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         -- If player has > [35, 25, 5] T2/T3 factories, spawns land attack
         trigger = {35, 25, 5}
         if(num > trigger[Difficulty]) then
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_10', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M3_QAI_Counter_Land_Adapt_10', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_ExpBase_Attack_Chain')
         end
     end
@@ -1740,7 +1740,7 @@ function M3Counterattack()
             num = 5
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Adapt_AirSup', 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_AirSup', 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_Attack_2_Chain')
         end
     end
@@ -1756,7 +1756,7 @@ function M3Counterattack()
                     end
                     for i = 1, num do
                         for j = 1, Difficulty do
-                            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Adapt_Bombers', 'GrowthFormation')
+                            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_Bombers', 'GrowthFormation')
                             IssueAttack(units:GetPlatoonUnits(), experimentals[i])
                             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_Attack_1_Chain')
                         end
@@ -1778,7 +1778,7 @@ function M3Counterattack()
             num = 5
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Adapt_Gunships', 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_Gunships', 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_Attack_1_Chain')
         end
     end
@@ -1796,7 +1796,7 @@ function M3Counterattack()
             num = 6
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('QAI', 'M3_QAI_Adapt_Xport', 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_Xport', 'GrowthFormation')
             for k,v in units:GetPlatoonUnits() do
                 if(v:GetUnitId() == 'ura0104') then
                     local interceptors = ScenarioUtils.CreateArmyGroup('QAI', 'M3_QAI_Adapt_Xport_Interceptors')

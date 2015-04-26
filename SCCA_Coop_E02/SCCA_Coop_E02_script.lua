@@ -1411,7 +1411,7 @@ function M15Wave2Attack()
 
     -- Spawn them
     local AttackGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave2_Attackers'))
-    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M15_Transports', 'ChevronFormation')
+    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'ChevronFormation')
 
     ScenarioFramework.AttachUnitsToTransports(AttackGroup, Transports:GetPlatoonUnits())
 
@@ -1490,7 +1490,7 @@ function M15Wave3Attack()
     -- Spawn them
     local AttackGroupLand = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Land'))
     local AttackGroupAir = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Air'))
-    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M15_Transports', 'ChevronFormation')
+    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'ChevronFormation')
 
     ScenarioFramework.AttachUnitsToTransports(AttackGroupLand, Transports:GetPlatoonUnits())
 

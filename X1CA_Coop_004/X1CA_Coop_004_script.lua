@@ -106,13 +106,13 @@ function OnPopulate(scenario)
     -- ------------------------
     -- Seraphim Initial Patrols
     -- ------------------------
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAir_Def_D' .. Difficulty, 'AttackFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAir_Def_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_AirPatrol_Chain')))
     end
 
     for i = 1, 2 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitLand_Def' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitLand_Def' .. i .. '_D' .. Difficulty, 'AttackFormation')
         for k, v in units:GetPlatoonUnits() do
             ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_LandPatrol_' .. i .. '_Chain')
         end
@@ -419,7 +419,7 @@ function M1BrickAttack(location)
         ScenarioInfo.M1BrickPingUsed = true
         ScenarioInfo.M1BrickPing:Destroy()
 
-        local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Dostya', 'M1_Dostya_Bricks_D' .. Difficulty, 'AttackFormation')
+        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Dostya', 'M1_Dostya_Bricks_D' .. Difficulty, 'AttackFormation')
         units:Patrol(ScenarioUtils.MarkerToPosition('M1_Dostya_Bricks_Entry_Point'))
         units:Patrol(location)
         units:Patrol(ScenarioUtils.MarkerToPosition('M1_Dostya_Bricks_Exit_3'))
@@ -476,7 +476,7 @@ function IntroMission2()
             -- ------------------------
             -- Seraphim Initial Patrols
             -- ------------------------
-            local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_AirPatrol_D' .. Difficulty, 'AttackFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_AirPatrol_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_AirDef_Chain')))
             end
@@ -490,7 +490,7 @@ function IntroMission2()
             if(num > 0) then
                 num = math.ceil(num/50)
                 for i = 1, num do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'AttackFormation', 5)
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'AttackFormation', 5)
                     for k, v in units:GetPlatoonUnits() do
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_AirDef_Chain')))
                     end
@@ -498,7 +498,7 @@ function IntroMission2()
             end
 
             for i = 1, 2 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_LandPatrol' .. i .. '_D' .. Difficulty, 'AttackFormation')
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_LandPatrol' .. i .. '_D' .. Difficulty, 'AttackFormation')
                 for k,v in units:GetPlatoonUnits() do
                     ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_LandDef_' .. i .. '_Chain')
                 end
@@ -574,13 +574,13 @@ function M2InitialAttack()
     local trigger = {}
 
     -- Land Attacks
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_North_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_North_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_InitAttack_LandNorth_Chain')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_Mid_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_Mid_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Attack_2_Chain')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_South_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_South_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_LandAttack_3_Chain')
 
     local num = 0
@@ -610,7 +610,7 @@ function M2InitialAttack()
         end
         for i = 1, num do
             for j = 1, 2 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_Trans' .. j .. '_D' .. Difficulty, 'AttackFormation')
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_Trans' .. j .. '_D' .. Difficulty, 'AttackFormation')
                 for k,v in units:GetPlatoonUnits() do
                     if(v:GetUnitId() == 'xsa0104') then
                         local interceptors = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_Trans_Interceptors')
@@ -624,10 +624,10 @@ function M2InitialAttack()
     end
 
     -- Air Attacks
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_AirNorth_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_AirNorth_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_1_Chain')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAttack_AirSouth_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_AirSouth_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_2_Chain')
 
     -- If player > 250 units, spawns gunships for every 60, 50, 40 land units, up to 7 groups
@@ -649,7 +649,7 @@ function M2InitialAttack()
                 num = 7
             end
             for i = 1, num do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation', 5)
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
             end
         end
@@ -665,7 +665,7 @@ function M2InitialAttack()
         trigger = {30, 25, 20}
         num = math.ceil(num/trigger[Difficulty])
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
         end
     end
@@ -678,19 +678,19 @@ function M2InitialAttack()
     end
 
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_North1', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_North1', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_InitAttack_LandNorth_Chain')
     end
     -- Spawns land units if player has > 40, 35, 25 T2/T3 defensive & artillery structures
     trigger = {40, 35, 25}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_North2', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_North2', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_InitAttack_LandNorth_Chain')
     end
     -- Spawns land units if player has > 55, 50, 35 T2/T3 defensive & artillery structures
     trigger = {55, 50, 35}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_North3', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_North3', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_InitAttack_LandNorth_Chain')
     end
 
@@ -702,19 +702,19 @@ function M2InitialAttack()
 
     trigger = {350, 325, 300}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid1', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid1', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Attack_2_Chain')
     end
     -- Spawns land units if player has > 400, 375, 350 units
     trigger = {400, 375, 350}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid2', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid2', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Attack_2_Chain')
     end
     -- Spawns land units if player has > 450, 425, 400 units
     trigger = {450, 425, 400}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid3', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_Mid3', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Attack_2_Chain')
     end
 
@@ -726,13 +726,13 @@ function M2InitialAttack()
 
     trigger = {70, 50, 30}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_South1', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_South1', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_LandAttack_3_Chain')
     end
     -- Spawns land units if player has > 140, 100, 50 T2/T3 land units
     trigger = {140, 100, 50}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_South2', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_South2', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_LandAttack_3_Chain')
     end
 
@@ -744,7 +744,7 @@ function M2InitialAttack()
 
     trigger = {50, 30, 20}
     if(num > trigger[Difficulty]) then
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_InitAttack_South3', 'AttackFormation', 5)
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_South3', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_LandAttack_3_Chain')
     end
 
@@ -758,7 +758,7 @@ function M2InitialAttack()
             end
             for i = 1, num do
                 for j = 1, 2 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation')
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation')
                     IssueAttack(units:GetPlatoonUnits(), exp[i])
                     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
                 end
@@ -776,7 +776,7 @@ function M2InitialAttack()
             end
             for i = 1, num do
                 for j = 1, 2 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
                     IssueAttack(units:GetPlatoonUnits(), exp[i])
                     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
                 end
@@ -850,7 +850,7 @@ end
 
 function DostyaAirAttack()
     if(ScenarioInfo.MissionNumber == 2) then
---   local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Dostya', 'M2_Dostya_AirAttack_' .. Random(1, 3) .. '_D' .. Difficulty, 'GrowthFormation')
+--   local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Dostya', 'M2_Dostya_AirAttack_' .. Random(1, 3) .. '_D' .. Difficulty, 'GrowthFormation')
 --   ScenarioFramework.PlatoonPatrolChain(units, 'M2_Dostya_AirAttack_' .. Random(1, 2) .. '_Chain')
 --
 --   ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 60)
@@ -870,7 +870,7 @@ function M2PingAttack(location)
         ScenarioInfo.M2PingUsed = true
         ScenarioInfo.M2Ping:Destroy()
 
-        local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Dostya', 'M2_Dostya_Air_Ping', 'GrowthFormation')
+        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Dostya', 'M2_Dostya_Air_Ping', 'GrowthFormation')
         units:Patrol(ScenarioUtils.MarkerToPosition('M2_AirPing_Entry'))
         units:Patrol(location)
     end
@@ -896,7 +896,7 @@ function AttackDostya()
 
         IssueMove({ ScenarioInfo.DostyaCDR }, ScenarioUtils.MarkerToPosition('Dostya_Destination'))
 
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2DostyaAttackAir', 'GrowthFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2DostyaAttackAir', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'DostyaAttackChain')
 
         units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2DostyaAttackLandEast')
@@ -1063,38 +1063,38 @@ function IntroMission3()
     -- Seraphim Initial Attack
     -- -----------------------
 
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_S_D' .. Difficulty, 'GrowthFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_S_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_NE_D' .. Difficulty, 'AttackFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_NE_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_NorthEast_LandAttack_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_N_D' .. Difficulty, 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_N_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_NW_D' .. Difficulty, 'AttackFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_NW_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_NorthWest_LandAttack_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_W_D' .. Difficulty, 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_W_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttackb_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M3_Seraph_OuterAir_North_D' .. Difficulty, 'GrowthFormation', 5)
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M3_Seraph_OuterAir_North_D' .. Difficulty, 'GrowthFormation', 5)
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_North_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'M3_Seraph_OuterAir_South_D' .. Difficulty, 'GrowthFormation', 5)
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M3_Seraph_OuterAir_South_D' .. Difficulty, 'GrowthFormation', 5)
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_South_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_SE_D' .. Difficulty, 'AttackFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_SE_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_SouthEast_LandAttack_Chain')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_E_D' .. Difficulty, 'AttackFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_E_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_East_LandAttack_Chain')
 
     if (Difficulty > 1) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_SW_D' .. Difficulty, 'AttackFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_SW_D' .. Difficulty, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_SouthWest_LandAttack_Chain')
 
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_InitAttack_ESE_D' .. Difficulty, 'GrowthFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_ESE_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')
     end
 
@@ -1110,7 +1110,7 @@ function IntroMission3()
             end
             for i = 1, num do
                 for j = 1, 2 do
-                    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'Seraph_M3Adapt_AirSup_' .. j, 'GrowthFormation', 5)
+                    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_AirSup_' .. j, 'GrowthFormation', 5)
                     for k, v in airExp do
                         if(v and not v:IsDead()) then
                             platoon:AttackTarget(v)
@@ -1134,7 +1134,7 @@ function IntroMission3()
                 num = 5
             end
             for i = 1, num do
-                platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalancedVeteran('Seraphim', 'Seraph_M3Adapt_StratBomb', 'GrowthFormation', 5)
+                platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_StratBomb', 'GrowthFormation', 5)
                 for k, v in landExp do
                     if(v and not v:IsDead()) then
                         platoon:AttackTarget(v)

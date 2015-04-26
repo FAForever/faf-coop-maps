@@ -111,14 +111,14 @@ function OnPopulate(scenario)
     for k, v in ScenarioInfo.ErisEngineers do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -ScenarioInfo.Options.Difficulty)
     end
-    ScenarioInfo.ErisLandPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Eris', 'LandUnits', 'AttackFormation')
+    ScenarioInfo.ErisLandPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Eris', 'LandUnits', 'AttackFormation')
     for k, v in ScenarioInfo.ErisLandPatrol:GetPlatoonUnits() do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -ScenarioInfo.Options.Difficulty)
     end
     ScenarioInfo.ErisLandPatrol.PlatoonData = {}
     ScenarioInfo.ErisLandPatrol.PlatoonData.PatrolChain = 'PlayerBase_Chain'
     ScenarioPlatoonAI.PatrolThread(ScenarioInfo.ErisLandPatrol)
-    ScenarioInfo.ErisNavyPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Eris', 'NavalUnits', 'AttackFormation')
+    ScenarioInfo.ErisNavyPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Eris', 'NavalUnits', 'AttackFormation')
     for k, v in ScenarioInfo.ErisNavyPatrol:GetPlatoonUnits() do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -ScenarioInfo.Options.Difficulty)
     end
@@ -354,7 +354,7 @@ end
 function ErisLeaves()
     if(not ScenarioInfo.OpEnded) then
         -- Transport Eris
-        ScenarioInfo.Escort = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Eris', 'TransportEscort', 'ChevronFormation')
+        ScenarioInfo.Escort = ScenarioUtils.CreateArmyGroupAsPlatoon('Eris', 'TransportEscort', 'ChevronFormation')
         for k, v in ScenarioInfo.Escort:GetPlatoonUnits() do
             v:SetCanTakeDamage(false)
             v:SetCanBeKilled(false)
@@ -416,7 +416,7 @@ end
 
 function PreWave()
     for i = 1, ScenarioInfo.Options.Difficulty do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'PreWave_D' .. i, 'ChevronFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'PreWave_D' .. i, 'ChevronFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'ErisAll_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -426,7 +426,7 @@ end
 function FirstWave()
     if(ScenarioInfo.FirstWave < 4) then
         for i = 1, ScenarioInfo.Options.Difficulty do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.FirstWave .. '_D' .. i, 'ChevronFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.FirstWave .. '_D' .. i, 'ChevronFormation')
             platoon.PlatoonData = {}
             platoon.PlatoonData.PatrolChain = 'ErisAll_Chain'
             platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -461,11 +461,11 @@ end
 function SecondWave()
     if(ScenarioInfo.SecondWave < 7) then
         for i = 1, ScenarioInfo.Options.Difficulty do
-            local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Air_D' .. i, 'ChevronFormation')
+            local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Air_D' .. i, 'ChevronFormation')
             airPlatoon.PlatoonData = {}
             airPlatoon.PlatoonData.PatrolChain = 'ErisAll_Chain'
             airPlatoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-            local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Land_D' .. i, 'AttackFormation')
+            local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Land_D' .. i, 'AttackFormation')
             local transport = ScenarioUtils.CreateArmyGroup('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Transport_D' .. i)
             ScenarioFramework.AttachUnitsToTransports(landPlatoon:GetPlatoonUnits(), transport)
             IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[uef], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
@@ -497,17 +497,17 @@ function ThirdWave()
     if(ScenarioInfo.ThirdWave < 11) then
         for i = 1, ScenarioInfo.Options.Difficulty do
             for j = 1, 2 do
-                local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Air_D' .. i, 'ChevronFormation')
+                local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Air_D' .. i, 'ChevronFormation')
                 airPlatoon.PlatoonData = {}
                 airPlatoon.PlatoonData.PatrolChain = 'ErisAll_Chain'
                 airPlatoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
             end
-            local navyPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Navy_D' .. i, 'AttackFormation')
+            local navyPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Navy_D' .. i, 'AttackFormation')
             navyPlatoon.PlatoonData = {}
             navyPlatoon.PlatoonData.PatrolChain = 'ErisNavy_Chain' .. i
             navyPlatoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
             if(ScenarioInfo.ThirdWave == 10) then
-                local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Land_D' .. i, 'AttackFormation')
+                local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Land_D' .. i, 'AttackFormation')
                 local transport = ScenarioUtils.CreateArmyGroup('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Transport_D' .. i)
                 ScenarioFramework.AttachUnitsToTransports(landPlatoon:GetPlatoonUnits(), transport)
                 IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[uef], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
@@ -556,7 +556,7 @@ function IntroMission2()
     -- Land Base
     ScenarioUtils.CreateArmyGroup('UEF', 'LandBasePreBuilt_D' .. ScenarioInfo.Options.Difficulty)
     for i = 1, ScenarioInfo.Options.Difficulty do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'LandBasePatrol_D' .. i, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'LandBasePatrol_D' .. i, 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'LandBase_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -889,7 +889,7 @@ function IntroMission3()
 
     -- Main Base
     ScenarioUtils.CreateArmyGroup('UEF', 'MainBasePreBuilt_D' .. ScenarioInfo.Options.Difficulty)
-    ScenarioInfo.NavalAttack = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'NavalAttack_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+    ScenarioInfo.NavalAttack = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'NavalAttack_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
     ScenarioInfo.NavalAttack.PlatoonData = {}
     ScenarioInfo.NavalAttack.PlatoonData.PatrolChain = 'MainBaseNaval_Chain'
     ScenarioInfo.NavalAttack:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -916,7 +916,7 @@ function IntroMission3()
 
     -- Land Patrol
     for i = 1, ScenarioInfo.Options.Difficulty do
-        local landPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'MainBaseLandPatrol_D' .. i, 'AttackFormation')
+        local landPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'MainBaseLandPatrol_D' .. i, 'AttackFormation')
         landPatrol.PlatoonData = {}
         landPatrol.PlatoonData.PatrolChain = 'MainBase_Chain'
         landPatrol:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)

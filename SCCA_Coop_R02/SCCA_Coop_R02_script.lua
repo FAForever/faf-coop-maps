@@ -440,12 +440,12 @@ end
 
 function M1CreateUnits()
     -- Defeat all the units defending the NE temple
-    ScenarioInfo.NeTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_NE_Village_Defenders'), 'TravellingFormation')
+    ScenarioInfo.NeTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_NE_Village_Defenders'), 'TravellingFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1NEDefendersKilled, ScenarioInfo.NeTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.NeTempleDefenders, ScenarioUtils.ChainToPositions('TempleNE_Route'))
 
     -- Defeat all the units defending the SE temple
-    local seTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_SE_Village_Defenders'), 'TravellingFormation')
+    local seTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_SE_Village_Defenders'), 'TravellingFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1SEDefendersKilled, seTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(seTempleDefenders, ScenarioUtils.ChainToPositions('TempleSE_Route'))
 
@@ -516,7 +516,7 @@ function M1AeonAirAttack()
         if ScenarioInfo.M1InitialAirAttackDead then
             m1AeonAir = MakeGroupsIntoPlatoon(ArmyBrains[Aeon], AdjustForDifficulty('M1_Aeon_AirAttack_Interceptors'), AdjustForDifficulty('M1_Aeon_AirAttack_Bombers'))
         else
-            m1AeonAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_Aeon_AirAttack_Initial'), 'TravellingFormation')
+            m1AeonAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_AirAttack_Initial'), 'TravellingFormation')
         end
 
         RandomizeLocationsInPlatoon(m1AeonAir, 5)
@@ -564,7 +564,7 @@ function M1AeonNavalAttack()
                 ArmyBrains[Aeon]:AssignUnitsToPlatoon(m1AeonNaval, {unit}, 'Attack', 'ChevronFormation')
             end
         else
-            m1AeonNaval = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_Aeon_NavalAttack_Initial'), 'TravellingFormation')
+            m1AeonNaval = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_NavalAttack_Initial'), 'TravellingFormation')
         end
 
         RandomizeLocationsInPlatoon(m1AeonNaval, 5)
@@ -1192,13 +1192,13 @@ function M1JanusFirstTechReturnHome(PickupPoint)
     -- Spawn the large air force to come attack the player
     counter = ScenarioInfo.VarTable['M1AeonTech1ResponseGroups']
     while counter > 0 do
-        airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_Tech1_Response_Bombers', 'AttackChevron')
+        airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Tech1_Response_Bombers', 'AttackChevron')
         RandomizeLocationsInPlatoon(airPlatoon, 10)
         airPlatoon.PlatoonData.Location = PickupPoint
         airPlatoon:ForkAIThread(PatrolAtLocation)
 
         if ArmyBrains[Player]:GetCurrentUnits(categories.AIR * categories.MOBILE) > 0 then
-            airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_Tech1_Response_AirOnly', 'AttackChevron')
+            airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Tech1_Response_AirOnly', 'AttackChevron')
             RandomizeLocationsInPlatoon(airPlatoon, 10)
             airPlatoon.PlatoonData.Location = PickupPoint
             airPlatoon:ForkAIThread(PatrolAtLocation)
@@ -1264,11 +1264,11 @@ end
 
 function M1_AdditionalAirResponseThread()
     -- Send some air to the player base area. 1 group, + 1 more per difficulty
-    local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
+    local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(airPlatoon, 'PlayerBase_Area_PatrolChain')
     WaitSeconds(1)
     for i = 1, ScenarioInfo.Difficulty do
-        local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
+        local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
         ScenarioFramework.PlatoonPatrolChain(airPlatoon, 'PlayerBase_Area_PatrolChain')
         WaitSeconds(1)
     end
@@ -1316,8 +1316,8 @@ function M1SpawnSecondTechDefense()
 
         -- Send a small transport force to the players base, as an indication of attacks to come.
         for i = 1, ScenarioInfo.Difficulty do
-            local xportAttackers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M1_FirstTempResponse_Land', 'AttackFormation')
-            local xportTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M1_FirstTempResponse_Trans', 'ChevronFormation')
+            local xportAttackers = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M1_FirstTempResponse_Land', 'AttackFormation')
+            local xportTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M1_FirstTempResponse_Trans', 'ChevronFormation')
             ForkThread(TransportLandAttack,xportTransports, xportAttackers, i)
         end
 
@@ -1551,7 +1551,7 @@ function M1SpawnSecondTechResponse()
     local position = nil
 
     while navalCounter > 0 do
-        local navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_Final_Assault_Naval', 'TravellingFormation')
+        local navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Final_Assault_Naval', 'TravellingFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(M1FinalAssaultNavalDeathCounter, navalPlatoon)
 
         for teleportCounter, unit in navalPlatoon:GetPlatoonUnits() do
@@ -1860,7 +1860,7 @@ function M2AeonOffscreenNavalAssault()
 
         while navalPlatoonCounter > 0 do
             navalPlatoonCounter = navalPlatoonCounter - 1
-            navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_Offscreen_Naval', 'TravellingFormation')
+            navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Offscreen_Naval', 'TravellingFormation')
             navalPlatoon.PlatoonData.Location = ScenarioUtils.MarkerToPosition('Initial_Player_Pos')
             navalPlatoon:ForkAIThread(ScenarioPlatoonAI.PlatoonAttackLocation)
             WaitSeconds(10)
@@ -1880,11 +1880,11 @@ function M2GiveTech()
 end
 
 function M2AeonPatrols()
-    local mobileAAPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M2_Naval_Base_Mobile_AA'), 'TravellingFormation')
+    local mobileAAPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_Mobile_AA'), 'TravellingFormation')
     ScenarioFramework.PlatoonPatrolRoute(mobileAAPlatoon, ScenarioUtils.ChainToPositions('M2_Aeon_Naval_Base_MobileAA_Route'))
 
-    local frigateGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M2_Naval_Base_Frigates'), 'NoFormation')
-    local laBoatGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M2_Naval_Base_LABoats'), 'NoFormation')
+    local frigateGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_Frigates'), 'NoFormation')
+    local laBoatGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_LABoats'), 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(frigateGroup, 'M2_Aeon_Frigate_Patrol')
     ScenarioFramework.PlatoonPatrolChain(laBoatGroup, 'M2_Aeon_Frigate_Patrol')
 end
@@ -2193,40 +2193,40 @@ function M3CreateUnits()
     ScenarioUtils.CreateArmyGroup('CybranJanus', 'M3_Janus_Other_Walls')
     ScenarioUtils.CreateArmyGroup('CybranJanus', 'M3_Janus_Economy_Zone')
 
-    local leftDefenses = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Left_Defenses', 'TravellingFormation')
+    local leftDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Left_Defenses', 'TravellingFormation')
 
     for counter, unit in leftDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
         ScenarioFramework.CreateUnitDeathTrigger(M3JanusNorthDefensesCheck, unit)
     end
 
-    local leftEngineer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Left_Engineer', 'AttackFormation')
+    local leftEngineer = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Left_Engineer', 'AttackFormation')
     leftEngineer.PlatoonData.MaintainBaseTemplate = 'M3_Janus_NorthDefense_Left_Defenses'
     leftEngineer:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    local centerDefenses = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Center_Defenses', 'TravellingFormation')
+    local centerDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Center_Defenses', 'TravellingFormation')
 
     for counter, unit in centerDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
         ScenarioFramework.CreateUnitDeathTrigger(M3JanusNorthDefensesCheck, unit)
     end
 
-    local centerEngineer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Center_Engineer', 'AttackFormation')
+    local centerEngineer = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Center_Engineer', 'AttackFormation')
     centerEngineer.PlatoonData.MaintainBaseTemplate = 'M3_Janus_NorthDefense_Center_Defenses'
     centerEngineer:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    local rightDefenses = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Right_Defenses', 'TravellingFormation')
+    local rightDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Right_Defenses', 'TravellingFormation')
 
     for counter, unit in rightDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
         ScenarioFramework.CreateUnitDeathTrigger(M3JanusNorthDefensesCheck, unit)
     end
 
-    local rightEngineer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_NorthDefense_Right_Engineer', 'AttackFormation')
+    local rightEngineer = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Right_Engineer', 'AttackFormation')
     rightEngineer.PlatoonData.MaintainBaseTemplate = 'M3_Janus_NorthDefense_Right_Defenses'
     rightEngineer:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    local economyEngineers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', AdjustForDifficulty('M3_Janus_Economy_Engineers'), 'AttackFormation')
+    local economyEngineers = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', AdjustForDifficulty('M3_Janus_Economy_Engineers'), 'AttackFormation')
     economyEngineers.PlatoonData.MaintainBaseTemplate = 'M3_Janus_Economy_Zone'
     economyEngineers:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 end
@@ -2238,7 +2238,7 @@ function M3JanusScouting()
     while counter < 5 do
         if not ScenarioInfo.JanusDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime))
-            janusScouts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('CybranJanus', 'M3_Janus_Scouts', 'ChevronFormation')
+            janusScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_Scouts', 'ChevronFormation')
             janusScouts.PlatoonData.PatrolChain = 'M3_Janus_Attack_Points'
             janusScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2248,7 +2248,7 @@ function M3JanusScouting()
     while counter < 20 do
         if not ScenarioInfo.JanusDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime) + Random(120, 240))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2263,7 +2263,7 @@ function M3AeonScouting()
     while counter < 4 do
         if not ScenarioInfo.AeonCDRDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2273,7 +2273,7 @@ function M3AeonScouting()
     while counter < 20 do
         if not ScenarioInfo.AeonCDRDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime) + Random(120, 240))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end

@@ -311,11 +311,11 @@ function OnPopulate(scenario)
     ScenarioInfo.AeonMainBaseWalls = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Walls')
 
     -- ! Spawn initial Aeon attacks
-    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Aeon_First_Air_Attack_D'..ScenarioInfo.Difficulty, 'ChevronFormation')
-    ScenarioInfo.AeonFirstGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Aeon_First_Ground_Attack_D'..ScenarioInfo.Difficulty, 'AttackFormation')
-    ScenarioInfo.AeonGroundAttackRF1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Aeon_Initial_Ground_Attack_RF1', 'AttackFormation')
-    ScenarioInfo.AeonAirAttackRF2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Aeon_Initial_Air_Attack_RF2', 'ChevronFormation')
-    ScenarioInfo.AeonSecondGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Aeon_Second_Ground_Attack_Player', 'AttackFormation')
+    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Air_Attack_D'..ScenarioInfo.Difficulty, 'ChevronFormation')
+    ScenarioInfo.AeonFirstGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Ground_Attack_D'..ScenarioInfo.Difficulty, 'AttackFormation')
+    ScenarioInfo.AeonGroundAttackRF1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Ground_Attack_RF1', 'AttackFormation')
+    ScenarioInfo.AeonAirAttackRF2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Air_Attack_RF2', 'ChevronFormation')
+    ScenarioInfo.AeonSecondGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Second_Ground_Attack_Player', 'AttackFormation')
 
     -- ! Spawn Nuke 2 base, make a new template for nuke2base engineers to maintain
     ScenarioInfo.AeonNuke2BaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke2_Base_Engineers_D'..ScenarioInfo.Difficulty)

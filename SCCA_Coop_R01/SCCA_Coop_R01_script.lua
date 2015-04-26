@@ -444,8 +444,8 @@ function M1_BeginPart2()
 
 
     -- Defenders for it, with patrol and death triggers
-    ScenarioInfo.M1RadarPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF' ,'M1_UEFRadar_Patrol1_'..DifficultyConc ,'AttackFormation')
-    ScenarioInfo.M1RadarPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF' ,'M1_UEFRadar_Patrol2_'..DifficultyConc ,'AttackFormation')
+    ScenarioInfo.M1RadarPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1_UEFRadar_Patrol1_'..DifficultyConc ,'AttackFormation')
+    ScenarioInfo.M1RadarPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1_UEFRadar_Patrol2_'..DifficultyConc ,'AttackFormation')
 
     ForkThread(PatrolWithPauseThread,'M1_NorthRadarPatrolChain',ScenarioInfo.M1RadarPatrol1)
     ForkThread(PatrolWithPauseThread,'M1_WestRadarPatrolChain',ScenarioInfo.M1RadarPatrol2)
@@ -565,8 +565,8 @@ function M1_DestroyMass()
     if ScenarioInfo.Difficulty == 3 then
         ScenarioUtils.CreateArmyGroup('UEF', 'M1UEFMassDefStatic')
     end
-    local massDefense = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF' ,'M1UEFMassDefPatrol_'..DifficultyConc ,'AttackFormation')
-    ScenarioInfo.MassDefenseAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF' ,'M1UEFMassAirPatrol_'..DifficultyConc ,'ChevronFormation')
+    local massDefense = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1UEFMassDefPatrol_'..DifficultyConc ,'AttackFormation')
+    ScenarioInfo.MassDefenseAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1UEFMassAirPatrol_'..DifficultyConc ,'ChevronFormation')
 
     -- Send defenders on patrol. Use a pausing patrol for the land defense.
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.MassDefenseAir, 'UEFMassAirPatrol_Chain')
@@ -652,9 +652,9 @@ end
 
 function Part2CreatUEFUnitsObjectives()
     -- Patrolers
-    ScenarioInfo.UefPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFPatrol_1_'..DifficultyConc, 'NoFormation')
-    ScenarioInfo.UefPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFPatrol_2_'..DifficultyConc, 'NoFormation')
-    ScenarioInfo.UefPatrol3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFPatrol_3_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.UefPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFPatrol_1_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.UefPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFPatrol_2_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.UefPatrol3 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFPatrol_3_'..DifficultyConc, 'NoFormation')
 
     ScenarioFramework.CreatePlatoonDeathTrigger(Part2PatrolsObjective, ScenarioInfo.UefPatrol1)
     ScenarioFramework.CreatePlatoonDeathTrigger(Part2PatrolsObjective, ScenarioInfo.UefPatrol2)
@@ -944,23 +944,23 @@ function Part3SpawnEasternUnits()
     symbtiontBuilding2:SetCustomName(LOC '{i BLD_Symb_R1Name}')
 
     -- Spawn Heavy UEF Symbiont defenders
-    ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M3UEFEastDefender1'..DifficultyConc, 'AttackFormation')
-    ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M3UEFEastDefender2'..DifficultyConc, 'AttackFormation')
+    ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3UEFEastDefender1'..DifficultyConc, 'AttackFormation')
+    ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3UEFEastDefender2'..DifficultyConc, 'AttackFormation')
 
     -- Spawn the UEF patrolers, send them on a simple patrol
-    ScenarioInfo.UEFEastPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M3UEFEastUnits1'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.UEFEastPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3UEFEastUnits1'..DifficultyConc, 'AttackFormation')
     ScenarioInfo.UEFEastPatrol1:Patrol(ScenarioUtils.MarkerToPosition('M3East1Patrol1'))
     ScenarioInfo.UEFEastPatrol1:Patrol(ScenarioUtils.MarkerToPosition('M3East1Patrol2'))
     ScenarioInfo.UEFEastPatrol1:Patrol(ScenarioUtils.MarkerToPosition('M3East1Patrol3'))
     ScenarioInfo.UEFEastPatrol1:Patrol(ScenarioUtils.MarkerToPosition('M3East1Patrol2'))
 
-    ScenarioInfo.UEFEastPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M3UEFEastUnits2'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.UEFEastPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3UEFEastUnits2'..DifficultyConc, 'AttackFormation')
     ScenarioInfo.UEFEastPatrol2:Patrol(ScenarioUtils.MarkerToPosition('M3East2Patrol1'))
     ScenarioInfo.UEFEastPatrol2:Patrol(ScenarioUtils.MarkerToPosition('M3East2Patrol2'))
     ScenarioInfo.UEFEastPatrol2:Patrol(ScenarioUtils.MarkerToPosition('M3East2Patrol3'))
     ScenarioInfo.UEFEastPatrol2:Patrol(ScenarioUtils.MarkerToPosition('M3East2Patrol2'))
 
-    ScenarioInfo.UEFEastPatrol3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M3UEFEastUnits3'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.UEFEastPatrol3 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3UEFEastUnits3'..DifficultyConc, 'AttackFormation')
     ScenarioInfo.UEFEastPatrol3:Patrol(ScenarioUtils.MarkerToPosition('M3East3Patrol1'))
     ScenarioInfo.UEFEastPatrol3:Patrol(ScenarioUtils.MarkerToPosition('M3East3Patrol2'))
     ScenarioInfo.UEFEastPatrol3:Patrol(ScenarioUtils.MarkerToPosition('M3East3Patrol3'))
@@ -968,7 +968,7 @@ function Part3SpawnEasternUnits()
 
     -- If we are in Hard difficulty, create an air patrol for the eastern UEF area.
     if ScenarioInfo.Difficulty == 3 then
-        local eastAirStrong = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'UEFM3EastPatrolStrong', 'AttackChevron')
+        local eastAirStrong = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3EastPatrolStrong', 'AttackChevron')
         for i = 1, 5 do
             eastAirStrong:Patrol(ScenarioUtils.MarkerToPosition('M3UEFEastAirPatrol'..i))
         end
@@ -984,9 +984,9 @@ function Part3SpawnEasternUnits()
 end
 
 function Part3_DelayedInitialAirFight()
-    local aeonAir1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-    local aeonAir2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-    local uefAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
+    local aeonAir1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
+    local aeonAir2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
+    local uefAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(aeonAir1, 'M2_AirGroupPatrol_Chain')
     ScenarioFramework.PlatoonPatrolChain(aeonAir2, 'M2_AirGroupPatrol_Chain')
     ScenarioFramework.PlatoonPatrolChain(uefAir, 'M2_AirGroupPatrol_Chain')
@@ -998,13 +998,13 @@ function Part3_AeonUEFAirFight()
         -- choose from one of two setups
         local rnd = Random(1,2)
         if rnd == 1 then
-            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
+            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
+            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
             ScenarioFramework.PlatoonPatrolChain(aeonAirGroup, 'M2_AirGroupPatrol_Chain')
             ScenarioFramework.PlatoonPatrolChain(uefAirGroup, 'M2_AirGroupPatrol_Chain')
         elseif rnd == 2 then
-            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AeonAir_Group2', 'ChevronFormation')
-            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_UEFAir_Group1', 'ChevronFormation')
+            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group2', 'ChevronFormation')
+            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group1', 'ChevronFormation')
             ScenarioFramework.PlatoonPatrolChain(aeonAirGroup, 'M2_AirGroupPatrol_Chain')
             ScenarioFramework.PlatoonPatrolChain(uefAirGroup, 'M2_AirGroupPatrol_Chain')
         end
@@ -1018,7 +1018,7 @@ function Part3_OffmapAeonAir()
 
     if ScenarioInfo.MissionNumber == 7 and Part3EasternAAGroupsDestroyed == 0 then
         local rnd = Random(1, 3)
-        local aeonPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AeonAir_Offmap'..rnd, 'ChevronFormation')
+        local aeonPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Offmap'..rnd, 'ChevronFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(Part3_OffmapAeonAirPause, aeonPatrol)
         ScenarioFramework.PlatoonPatrolChain(aeonPatrol, 'M2_Aeon_OffmapAir_Chain'..rnd)
     end
@@ -1196,13 +1196,13 @@ function Part4SpawnAeonUnits()
     -- Spawn in starting groups of engineers, one for each factory. Assign them to guard (ie, assist) each
     -- factory. Spawn them as a platoon so the PBM or engineer assist load balance doesnt grab
     -- them. Do an extra group in hard difficulty.
-    ScenarioInfo.AeonStartingEngineerPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AeonBaseStartEngineers1', 'AttackFormation')
+    ScenarioInfo.AeonStartingEngineerPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AeonBaseStartEngineers1', 'AttackFormation')
     ScenarioInfo.AeonStartingEngineers = ScenarioInfo.AeonStartingEngineerPlatoon:GetPlatoonUnits()
     for i = 1, 5 do
         IssueGuard({ScenarioInfo.AeonStartingEngineers[i]}, ScenarioInfo.AeonFactories[i])
     end
     if ScenarioInfo.Difficulty == 3 then
-        ScenarioInfo.AeonStartingEngineerPlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AeonBaseStartEngineers2', 'AttackFormation')
+        ScenarioInfo.AeonStartingEngineerPlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AeonBaseStartEngineers2', 'AttackFormation')
         ScenarioInfo.AeonStartingEngineers2 = ScenarioInfo.AeonStartingEngineerPlatoon2:GetPlatoonUnits()
         for i = 1, 5 do
             IssueGuard({ScenarioInfo.AeonStartingEngineers2[i]}, ScenarioInfo.AeonFactories[i])
@@ -1245,9 +1245,9 @@ function Part4SpawnAeonUnits()
     ScenarioFramework.CreateTimerTrigger(M8P1Reminder1, ReminderSubsequentTime1)
 
     -- Defenders and patrols for the Aeon base
-    ScenarioInfo.M3AeonBaseDef1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefenders1_'..DifficultyConc ,'AttackFormation')
-    ScenarioInfo.M3AeonBaseDef2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefenders2_'..DifficultyConc ,'AttackFormation')
-    ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefendersBackAA','AttackFormation')
+    ScenarioInfo.M3AeonBaseDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefenders1_'..DifficultyConc ,'AttackFormation')
+    ScenarioInfo.M3AeonBaseDef2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefenders2_'..DifficultyConc ,'AttackFormation')
+    ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersBackAA','AttackFormation')
     ScenarioInfo.M3AeonBaseDef1:Patrol(ScenarioUtils.MarkerToPosition('M3AeonBasePatrolFront1'))
     ScenarioInfo.M3AeonBaseDef1:Patrol(ScenarioUtils.MarkerToPosition('M3AeonBasePatrolFront2'))
     ScenarioInfo.M3AeonBaseDef1:Patrol(ScenarioUtils.MarkerToPosition('M3AeonBasePatrolFront3'))
@@ -1258,20 +1258,20 @@ function Part4SpawnAeonUnits()
     ScenarioInfo.M3PlayerAirCount = ArmyBrains[Player]:GetCurrentUnits(categories.AIR)
     -- On easy, no defenders present unless the player has a sizable force of air
     if ScenarioInfo.Difficulty == 2 then
-        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefendersAirMedium' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirMedium' ,'AttackChevron')
         ScenarioInfo.M3AeonAirDef1:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.Difficulty == 3 then
         -- Extra AA towers in hard difficulty
-        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefendersAirStrong' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirStrong' ,'AttackChevron')
         ScenarioInfo.M3AeonAirDef1:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.M3PlayerAirCount > 10 then
-        ScenarioInfo.M3AeonAirDef2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefendersAirAdd1' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirAdd1' ,'AttackChevron')
         ScenarioInfo.M3AeonAirDef2:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.M3PlayerAirCount > 20 then
-        ScenarioInfo.M3AeonAirDef3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M3PlacedDefendersAirAdd2' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirAdd2' ,'AttackChevron')
         ScenarioInfo.M3AeonAirDef3:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     -- Send some attacks in from offmap UEF, against the Aeon base
@@ -1287,7 +1287,7 @@ end
 function Part4_UEFAttackAeon()
     Part4UEFWaveCount = Part4UEFWaveCount + 1
     if Part4UEFWaveCount < 7 then
-        ScenarioInfo.UEFAttackAeonPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'UEFM3_AeonAttacks', 'ChevronFormation')
+        ScenarioInfo.UEFAttackAeonPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3_AeonAttacks', 'ChevronFormation')
         ScenarioInfo.UEFAttackAeonPlatoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M3_UEF_AttackAeon_Point_1'), false)
         ScenarioInfo.UEFAttackAeonPlatoon:Patrol(ScenarioUtils.MarkerToPosition('M3_UEF_AttackAeon_Point_2'))
         ScenarioFramework.CreatePlatoonDeathTrigger(Part4_UEFAttackAeonPause, ScenarioInfo.UEFAttackAeonPlatoon)

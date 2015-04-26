@@ -599,7 +599,7 @@ end
 
 function M1ReoccurringAttack()
     if ScenarioInfo.MissionNumber == 1 then
-        local Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Reoccurring_Transports', 'ChevronFormation')
+        local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Reoccurring_Transports', 'ChevronFormation')
         local GroundUnits = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Reoccurring_Ground'))
         local AirUnits = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Reoccurring_Air'))
 
@@ -1072,7 +1072,7 @@ function BeginMission3()
     IssuePatrol({ ScenarioInfo.CybranCommander }, ScenarioUtils.MarkerToPosition('M3_Commander_Patrol_2'))
 
     ScenarioInfo.M3Attackers = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M3_Attackers'))
-    ScenarioInfo.M3Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', AdjustForDifficulty('M3_Transports'), 'ChevronFormation')
+    ScenarioInfo.M3Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', AdjustForDifficulty('M3_Transports'), 'ChevronFormation')
     local Scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
 
     ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M3Attackers, ScenarioInfo.M3Transports:GetPlatoonUnits())

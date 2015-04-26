@@ -439,7 +439,7 @@ function M4_OffmapAir1()
             M4_OffmapAir_Patrol = 1
         end
         -- Alternate between two patrol chains
-        local air = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M4_UEF_AirGroup_Int', 'ChevronFormation')
+        local air = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M4_UEF_AirGroup_Int', 'ChevronFormation')
         ScenarioFramework.PlatoonPatrolChain(air, 'M4_UEF_AirPatrol_Chain'..M4_OffmapAir_Patrol)
         ScenarioFramework.CreatePlatoonDeathTrigger(M4_OffmapInterlude, air)
     end
@@ -554,13 +554,13 @@ function M6_ResourceBaseUnits()
         end
 
         -- Small air group that will patrol over player base area from north, after a brief pause
-        ScenarioInfo.M6AirHard1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M6_UEFPatrol3_Attack', 'ChevronFormation')
+        ScenarioInfo.M6AirHard1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol3_Attack', 'ChevronFormation')
         ScenarioFramework.CreateTimerTrigger(M6_Hard_DelayedAirAttack,10)
     end
 
     -- Patrolers
-    local airPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M6_UEFPatrol1_'..DifficultyConc, 'ChevronFormation')
-    local airPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M6_UEFPatrol2_'..DifficultyConc, 'ChevronFormation')
+    local airPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol1_'..DifficultyConc, 'ChevronFormation')
+    local airPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol2_'..DifficultyConc, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(airPatrol1, 'M6_UEFAirPatrol_Chain1')
     ScenarioFramework.PlatoonPatrolChain(airPatrol2, 'M6_UEFAirPatrol_Chain2')
 
@@ -624,7 +624,7 @@ function M7_BeginMission()
     ScenarioInfo.M7_FauxUEFCommanderUnit:SetCapturable(false)
     ScenarioFramework.CreateUnitDeathTrigger(M7_FauxUEFCommanderKilled, ScenarioInfo.M7_FauxUEFCommanderUnit)
 
-    local fauxUEFInitPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('FauxUEF', 'M7_FauxUEF_InitalPatrol', 'NoFormation')
+    local fauxUEFInitPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('FauxUEF', 'M7_FauxUEF_InitalPatrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(fauxUEFInitPatrol  , 'FauxUEF_Air_Patrol_Chain1')
 
     -- Rhiza base
@@ -647,7 +647,7 @@ function M7_BeginMission()
     SetGroupFlags(rhizaFact)
     SetGroupFlags(rhizaInEng)
 
-    local rhizaInitPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M7_Rhiza_InitalPatrol', 'NoFormation')
+    local rhizaInitPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'M7_Rhiza_InitalPatrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(rhizaInitPatrol  , 'Rhiza_Init_Attack_Chain')
 
     -- General UEF
@@ -678,10 +678,10 @@ function M7_BeginMission()
     end
 
     -- Naval groups, patrols - Main Island. Set the frigates to not use spoofing, so the scene isnt too overwhelming.
-    ScenarioInfo.M7UEF_FrigatePlatoon1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_Naval_FrigateGroup1_'..DifficultyConc, 'AttackFormation')
-    ScenarioInfo.M7UEF_FrigatePlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_Naval_FrigateGroup2_'..DifficultyConc, 'AttackFormation')
-    ScenarioInfo.M7UEF_FrigatePlatoon3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_Naval_FrigateGroup3_'..DifficultyConc, 'AttackFormation')
-    ScenarioInfo.M7UEF_CruiserPlatoon  = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_Naval_CruiserGroup_'..DifficultyConc, 'AttackFormation' )
+    ScenarioInfo.M7UEF_FrigatePlatoon1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_Naval_FrigateGroup1_'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.M7UEF_FrigatePlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_Naval_FrigateGroup2_'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.M7UEF_FrigatePlatoon3 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_Naval_FrigateGroup3_'..DifficultyConc, 'AttackFormation')
+    ScenarioInfo.M7UEF_CruiserPlatoon  = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_Naval_CruiserGroup_'..DifficultyConc, 'AttackFormation' )
 
     local frigateGroup1 = ScenarioInfo.M7UEF_FrigatePlatoon1:GetPlatoonUnits()
     local frigateGroup2 = ScenarioInfo.M7UEF_FrigatePlatoon2:GetPlatoonUnits()
@@ -697,10 +697,10 @@ function M7_BeginMission()
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.M7UEF_CruiserPlatoon  , 'M7_UEFCruiser_Chain')
 
     -- Air groups, patrols  - Main Island
-    ScenarioInfo.M7UEF_AirPlatoon1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_AirPatrol1_'..DifficultyConc, 'NoFormation')
-    ScenarioInfo.M7UEF_AirPlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_AirPatrol2_'..DifficultyConc, 'NoFormation')
-    ScenarioInfo.M7UEF_AirPlatoon3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_AirPatrol3_'..DifficultyConc, 'NoFormation')
-    ScenarioInfo.M7UEF_AirPlatoon4 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEF_AirPatrol4_'..DifficultyConc, 'NoFormation' )
+    ScenarioInfo.M7UEF_AirPlatoon1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_AirPatrol1_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.M7UEF_AirPlatoon2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_AirPatrol2_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.M7UEF_AirPlatoon3 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_AirPatrol3_'..DifficultyConc, 'NoFormation')
+    ScenarioInfo.M7UEF_AirPlatoon4 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEF_AirPatrol4_'..DifficultyConc, 'NoFormation' )
 
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.M7UEF_AirPlatoon1 , 'M7_UEFAir_North_Chain')
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.M7UEF_AirPlatoon2 , 'M7_UEFAir_North_Chain')
@@ -717,12 +717,12 @@ function M7_BeginMission()
         local navalBaseEng = ScenarioUtils.CreateArmyGroup('UEF', 'M7_UEFNavalBase_InitialEngineers_Strong')
         M7_CreateUnitDeathTriggerNaval(navalBaseEng)
 
-        local hardAttack = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEFNavalBase_Patrol3_Hard', 'AttackFormation')
+        local hardAttack = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEFNavalBase_Patrol3_Hard', 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(hardAttack , 'M7_UEFNaval_InitialAttack_Chain')
     end
 
-    local navalBasePatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEFNavalBase_Patrol1_'..DifficultyConc, 'AttackFormation')
-    local navalBasePatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEFNavalBase_Patrol2_'..DifficultyConc, 'AttackFormation' )
+    local navalBasePatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEFNavalBase_Patrol1_'..DifficultyConc, 'AttackFormation')
+    local navalBasePatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEFNavalBase_Patrol2_'..DifficultyConc, 'AttackFormation' )
     local navalBasePatrolUnits1 = navalBasePatrol1:GetPlatoonUnits()
     local navalBasePatrolUnits2 = navalBasePatrol2:GetPlatoonUnits()
  -- local navalBasePatrolUnits2 = navalBasePatrol2:GetPlatoonUnits() #not using the back/east patrol, for now
@@ -749,7 +749,7 @@ function M7_BeginMission()
         M7_CreateUnitDeathTriggerAir(airBaseEng)
     end
 
-    local airBasePatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M7_UEFAirBase_Patrol1_'..DifficultyConc, 'NoFormation')
+    local airBasePatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M7_UEFAirBase_Patrol1_'..DifficultyConc, 'NoFormation')
     local airBasePatrolUnits1 = airBasePatrol1:GetPlatoonUnits()
     ScenarioFramework.PlatoonPatrolChain(airBasePatrol1 , 'M7_UEFAir_Chain1')
 
@@ -1063,7 +1063,7 @@ function M7_CreateCzar()
         -- a problem with the defense of the base).
         ScenarioInfo.CzarSpawned = true
         -- Create Czar as platoon, and get a handle it to it as a unit
-        ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('FauxRhiza', 'M7_Czar', 'ChevronFormation')
+        ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('FauxRhiza', 'M7_Czar', 'ChevronFormation')
         ScenarioInfo.RhizaCzar = ScenarioInfo.UnitNames[FauxRhiza]['Rhiza_Czar']
 
         -- Temporarily set czar viz radius to zero, so we dont have any vis to share with player ally
@@ -1712,7 +1712,7 @@ end
 -- end
 --
 -- function TrackingTest()
--- ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('FauxRhiza', 'M7_Czar', 'ChevronFormation')
+-- ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('FauxRhiza', 'M7_Czar', 'ChevronFormation')
 -- ScenarioInfo.RhizaCzar = ScenarioInfo.UnitNames[FauxRhiza]['Rhiza_Czar']
 --
 -- #Temporarily set czar viz radius to zero, so we dont have any vis to share with player ally

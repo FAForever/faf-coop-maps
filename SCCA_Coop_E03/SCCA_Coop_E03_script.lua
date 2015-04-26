@@ -73,24 +73,24 @@ function OnPopulate(scenario)
     ScenarioUtils.CreateArmyGroup('Aeon', 'ResourceIsland_PreBuilt')
 
     -- Frigates - M1P1 Target
- 	ScenarioInfo.M1AeonDefenseFrigate = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_DefenseFrigate_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+ 	ScenarioInfo.M1AeonDefenseFrigate = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseFrigate_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
  	ScenarioInfo.M1AeonDefenseFrigate.PlatoonData = {}
  	ScenarioInfo.M1AeonDefenseFrigate.PlatoonData.PatrolChain = 'M1ResourceIslandNaval_Chain1'
  	ScenarioInfo.M1AeonDefenseFrigate:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     -- Attack Boats
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_DefenseEscort_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseEscort_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
     platoon.PlatoonData = {}
     platoon.PlatoonData.PatrolChain = 'M1ResourceIslandNaval_Chain2'
     platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     -- Subs - M1S1 Target
- 	ScenarioInfo.M1Subs1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+ 	ScenarioInfo.M1Subs1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
  	ScenarioInfo.M1Subs1.PlatoonData = {}
  	ScenarioInfo.M1Subs1.PlatoonData.PatrolChain = 'M1Sub_Chain1'
  	ScenarioInfo.M1Subs1:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
-    ScenarioInfo.M1Subs2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+    ScenarioInfo.M1Subs2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
  	ScenarioInfo.M1Subs2.PlatoonData = {}
  	ScenarioInfo.M1Subs2.PlatoonData.PatrolChain = 'M1Sub_Chain2'
  	ScenarioInfo.M1Subs2:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
@@ -345,7 +345,7 @@ function M1FirstAirAttack()
         ScenarioFramework.Dialogue(OpStrings.E03_M01_050)
         ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled1, ArmyBrains[Player], 'M1EnemiesKilled1',
             {{StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.ALLUNITS}})
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_FirstAir_Attack', 'ChevronFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_FirstAir_Attack', 'ChevronFormation')
         platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Spawn_Point' .. Random(1,5)), false)
         platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_AirMain'))
         platoon:Patrol(ScenarioUtils.MarkerToPosition('M1_Aeon_Resource_Island_Main'))
@@ -363,7 +363,7 @@ end
 function M1AirAttack()
     WaitSeconds(Random(60, 180))
     if(ScenarioInfo.M1P1.Active) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_AirAttack_D' .. ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_AirAttack_D' .. ScenarioInfo.Options.Difficulty, 'ChevronFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(RespawnM1AirAttack, platoon)
         platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Spawn_Point' .. Random(1, 5)), false)
         platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Point' .. Random(1, 5)))
@@ -398,7 +398,7 @@ function ArnoldDeath()
             v:AdjustHealth(v, Random(health / 2, (health - 1)) * -1)
         end
 
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_Arnold_Attack', 'NoFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Arnold_Attack', 'NoFormation')
 
         -- Spawn a second Arnold and nuke him too - so the base has the nuke explosion
         local unit = ScenarioUtils.CreateArmyUnit('Arnold', 'Arnold_CDR')
@@ -488,11 +488,11 @@ function M2Wave1()
     -- Air Attack
     local platoon = nil
     if(ScenarioInfo.Options.Difficulty == 1) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
     elseif(ScenarioInfo.Options.Difficulty == 2) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
     else
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
     end
 
     -- 1/5 of platoon damaged 20 - 90%
@@ -520,7 +520,7 @@ end
 
 function M2Wave2()
     -- Naval Attack
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave2_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave2_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M2Wave2Defeated, platoon)
 
     platoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M1_Defense_Point4'))
@@ -544,18 +544,18 @@ function M2Wave3()
     -- Air Attack
     local platoon = nil
     if(ScenarioInfo.Options.Difficulty == 1) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
     elseif(ScenarioInfo.Options.Difficulty == 2) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
     else
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
     end
     ScenarioFramework.CreatePlatoonDeathTrigger(M2Wave3AirDefeated, platoon)
     platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Point' .. Random(1,5)))
     platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_AirMain'))
 
     -- Naval Attack
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_AttackWave2_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave2_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M2Wave3NavalDefeated, platoon)
 
     platoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M1_Defense_Point1'))
@@ -672,7 +672,7 @@ end
 function M3NavyPatrol()
     WaitSeconds(Random(30, 120))
     if(ScenarioInfo.M3P1.Active) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Frigate_D' .. ScenarioInfo.Options.Difficulty, 'TravellingFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Frigate_D' .. ScenarioInfo.Options.Difficulty, 'TravellingFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(ReSpawnM3NavyPatrol, platoon)
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'M3_Aeon_Patrol_Navy_Chain'
@@ -694,7 +694,7 @@ function M3Strike()
             'M3_Torpedo_D' .. ScenarioInfo.Options.Difficulty}
         local formations = {'ChevronFormation', 'AttackFormation', 'AttackFormation', 'ChevronFormation'}
         local num = Random(1,4)
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', attacks[num], formations[num])
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', attacks[num], formations[num])
         ScenarioFramework.CreatePlatoonDeathTrigger(ReSpawnM3Strike, platoon)
         platoon:Patrol(ScenarioUtils.MarkerToPosition('M3_Attack_PlayerBase'))
         platoon:Patrol(ScenarioUtils.MarkerToPosition('M3_Attack_EndPoint'))
@@ -745,7 +745,7 @@ function IntroMission4()
 
     -- T1 Navy
     for i = 1, 5 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M4_T1DefenseNavy' .. i .. '_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_T1DefenseNavy' .. i .. '_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'M4_Aeon_DefenseFar_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -753,20 +753,20 @@ function IntroMission4()
 
     -- T2 Navy
     if(ScenarioInfo.Options.Difficulty == 1) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M4_T2DefenseNavy1_D1', 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_T2DefenseNavy1_D1', 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'M4_Aeon_DefenseFar_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
     elseif(ScenarioInfo.Options.Difficulty == 2) then
         for i = 1, 3 do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M4_T2DefenseNavy' .. i .. '_D2', 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_T2DefenseNavy' .. i .. '_D2', 'AttackFormation')
             platoon.PlatoonData = {}
             platoon.PlatoonData.PatrolChain = 'M4_Aeon_DefenseFar_Chain'
             platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
     elseif(ScenarioInfo.Options.Difficulty == 3) then
         for i = 1, 4 do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M4_T2DefenseNavy' .. i .. '_D3', 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_T2DefenseNavy' .. i .. '_D3', 'AttackFormation')
             platoon.PlatoonData = {}
             platoon.PlatoonData.PatrolChain = 'M4_Aeon_DefenseFar_Chain'
             platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -793,7 +793,7 @@ function IntroMission4()
 
     -- Subs
     for i = 1, 3 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M4_DefenseSub' .. i .. '_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M4_DefenseSub' .. i .. '_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'M4_Aeon_DefenseTorpedo_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)

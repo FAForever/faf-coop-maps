@@ -212,7 +212,7 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranNeutralColor(Civilian)
 
     -- Initial player bombers
-    local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player' ,'M1_Bombers', 'AttackFormation')
+    local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Player' ,'M1_Bombers', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(intialBombers, 'InitialBomber_Chain')
 
     ScenarioInfo.M1AttackUnits = ScenarioUtils.CreateArmyGroup('Player', 'M1_Initial_Units')
@@ -337,7 +337,7 @@ function InitialBerryTaunt()
 end
 
 function SetupM1Triggers()
-    ScenarioInfo.York18AttackWave = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M1_Init_Attack', 'AttackFormation')
+    ScenarioInfo.York18AttackWave = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Init_Attack', 'AttackFormation')
     -- ScenarioFramework.PlatoonPatrolChain(york18AttackWave, 'York_18_Attack')
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.York18AttackWave, ScenarioUtils.ChainToPositions('York_18_Attack'))
 
@@ -863,7 +863,7 @@ function StartMission2()
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_LAI_N_Support')
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_LAI_S_Support')
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_LAI_S_Mobile')
-    local LAI_N_Mobile_Platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'M2_LAI_N_Mobile', 'AttackFormation')
+    local LAI_N_Mobile_Platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_LAI_N_Mobile', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(LAI_N_Mobile_Platoon, 'M2_ArtNE_Chain')
 
     -- Assign M2P1, M2P2
@@ -998,7 +998,7 @@ end
 
 function OffScreenAirAttack()
     -- Spawn in A2A attackers to harass the player
-    local m2FastInterceptors = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', AdjustForDifficulty('M2_Air_Attack'), 'AttackFormation')
+    local m2FastInterceptors = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', AdjustForDifficulty('M2_Air_Attack'), 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M2FastInterceptorsKilled, m2FastInterceptors)
     -- ScenarioFramework.PlatoonPatrolRoute(m2FastInterceptors, ScenarioUtils.ChainToPositions('M2_Convoy_Attack_Chain'))
     ScenarioFramework.PlatoonPatrolChain(m2FastInterceptors, 'M2_Convoy_Attack_Chain')

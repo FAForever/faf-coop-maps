@@ -273,7 +273,7 @@ function StartMission1()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Expansion_Base_Premade_D'..Difficulty)
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Research_Base_Defense_D'..Difficulty)
 
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_York_Patrol_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_York_Patrol_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'M1_York18_Patrol_Chain')
 
     -- append difficulty info to make new master base maintenance template
@@ -843,7 +843,7 @@ function M2OnTruckAttackTimer()
     LOG('debugMatt:M2 Truck Cybran comming')
     ScenarioFramework.Dialogue(OpStrings.E04_M02_090)
 
-    ScenarioInfo.M2TruckHunters = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Truck_Chase_D'..Difficulty, 'AttackFormation')
+    ScenarioInfo.M2TruckHunters = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Truck_Chase_D'..Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.M2TruckHunters, ScenarioUtils.ChainToPositions('M2_Truck_Chase_Chain'))
 end
 

@@ -476,7 +476,7 @@ function IntroMission4()
     ScenarioInfo.Radar = ScenarioUtils.CreateArmyUnit('Cybran', 'Radar')
     ScenarioInfo.Radar:SetCapturable(false)
     ScenarioInfo.Radar:SetReclaimable(false)
-    local radarPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'RadarPatrol', 'AttackFormation')
+    local radarPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'RadarPatrol', 'AttackFormation')
     for i = 1, 3 do
         radarPatrol:Patrol(ScenarioUtils.MarkerToPosition('Radar_Patrol' .. i))
     end
@@ -580,7 +580,7 @@ function IntroMission5()
     -- Cybran Air Base Patrols
     for i = 1, ScenarioInfo.Options.Difficulty do
         for j = 1, 2 do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'AirBasePatrol' .. j .. '_D' .. i, 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'AirBasePatrol' .. j .. '_D' .. i, 'AttackFormation')
             platoon.PlatoonData = {}
             platoon.PlatoonData.PatrolChain = 'AirBase_Chain'
             platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -700,7 +700,7 @@ function IntroMission6()
     -- Cybran Defensive Line
     ScenarioInfo.DefensiveLine = ScenarioUtils.CreateArmyGroup('Cybran', 'DefensiveLineStructures_D' .. ScenarioInfo.Options.Difficulty)
     for i = 1, ScenarioInfo.Options.Difficulty do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'DefensiveLinePatrol_D' .. i, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'DefensiveLinePatrol_D' .. i, 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'DefensiveLine_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -855,7 +855,7 @@ function IntroMission7()
     ScenarioUtils.CreateArmyGroup('Cybran', 'MainBaseStructures_D' .. ScenarioInfo.Options.Difficulty)
 
     -- Research Attack
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'ResearchAttack', 'AttackFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'ResearchAttack', 'AttackFormation')
     platoon.PlatoonData = {}
     platoon.PlatoonData.PatrolChain = 'Research_Chain'
     platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)

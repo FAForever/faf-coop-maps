@@ -248,7 +248,7 @@ function OnPopulate(scen)
 
     -- Aeon
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Base_D' .. ScenarioInfo.Options.Difficulty)
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'M2_Base'
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'AeonM2Base'
@@ -256,11 +256,11 @@ function OnPopulate(scen)
 
     -- Cybran
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Base_D' .. ScenarioInfo.Options.Difficulty)
-    local engPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Engineer_Platoon_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local engPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Engineer_Platoon_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
     engPlatoon.PlatoonData.AssistFactories = true
     engPlatoon.PlatoonData.LocationType = 'CybranBase'
     engPlatoon:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
-    local navalEngPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Naval_Engineer_Platoon_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local navalEngPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Naval_Engineer_Platoon_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     navalEngPlatoon.PlatoonData.AssistFactories = true
     navalEngPlatoon.PlatoonData.LocationType = 'CybranNaval'
     navalEngPlatoon:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
@@ -670,7 +670,7 @@ function StartMission2()
 
     -- Spawn in defensive naval units and send them out to their destinations
     for i=1,ScenarioInfo.Options.Difficulty do
-        local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_Start_Navy_'..i, 'AttackFormation')
+        local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Start_Navy_'..i, 'AttackFormation')
         plat.PlatoonData.PatrolChain = 'Aeon_M2_Defensive_Fleets_Chain_' .. i
         plat.PlatoonData.BaseReturnMarker = 'Aeon_M2_Defensive_Fleet_Marker_' .. i
         plat:ForkAIThread(M2AeonNavalGroupThread)
@@ -788,7 +788,7 @@ function M2TransferUnitsToPlayer()
     while GetArmyUnitCostTotal(Player) > 425 do
         WaitSeconds(10)
     end
-    local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Black_Sun', 'M2_Transports', 'ChevronFormation')
+    local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'M2_Transports', 'ChevronFormation')
     local units = ScenarioUtils.CreateArmyGroup('Black_Sun', 'M2_Units')
     ScenarioFramework.AttachUnitsToTransports(units, transports:GetPlatoonUnits())
     local cmd = transports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Player_M2_Transfer_Unit_Landing_Marker'))
@@ -828,7 +828,7 @@ function M2CybranAttackBegin()
     local lastSpiderBot
 
     -- Create and move Spider bots
-    local spiderBots = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
+    local spiderBots = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Spider_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
     for num, unit in spiderBots:GetPlatoonUnits() do
         IssueMove({ScenarioInfo.UnitNames[Cybran]['Spider_'..num]}, ScenarioUtils.MarkerToPosition('Cybran_Spider_Move_'..num))
         lastSpiderBot = unit
@@ -847,7 +847,7 @@ function M2CybranAttackBegin()
     end
 
     -- Create and move Air units
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_Spider_Air_Chain')
 
     -- Nuke Clump 4
@@ -897,7 +897,7 @@ end
 function M2CybranRepeatSpiderAir()
     -- LOG('*DEBUG: REPEAT SPIDER AIR ATTACK')
     if ScenarioInfo.MissionNumber == 2 then
-        local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+        local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
         ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_Spider_Air_Chain')
         if not ScenarioInfo.M2CybranSpiderAirRepeated then
             ScenarioFramework.CreateTimerTrigger(M2CybranRepeatSpiderAir, M2CybranSpiderAirTimer)
@@ -946,9 +946,9 @@ function M2CybranCaptureSend(forceSend)
         else
             ScenarioInfo.M2CaptureGroups = ScenarioInfo.M2CaptureGroups + 1
         end
-        local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Capture_Transports_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
-        local passengers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Capture_Passengers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
-        local escorts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Capture_Escort_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+        local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Transports_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+        local passengers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Passengers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+        local escorts = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Escort_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
         ScenarioFramework.AttachUnitsToTransports(passengers:GetPlatoonUnits(), transports:GetPlatoonUnits())
         ScenarioFramework.CreatePlatoonDeathTrigger(M2CybranPassengersKilled, passengers)
         ScenarioFramework.CreatePlatoonDeathTrigger(M2CybranEscortsKilled, escorts)
@@ -1129,7 +1129,7 @@ function StartMission3()
         end
 
         -- Create Aeon Stuff
-        ScenarioInfo.ArnoldPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Arnold_Unit', 'AttackFormation')
+        ScenarioInfo.ArnoldPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Arnold_Unit', 'AttackFormation')
         ScenarioFramework.CreateUnitDestroyedTrigger(M3ArnoldDefeated, ScenarioInfo.ArnoldPlatoon:GetPlatoonUnits()[1])
         ScenarioInfo.ArnoldPlatoon:ForkAIThread(M3ArnoldAIThread)
         ScenarioInfo.ArnoldPlatoon:GetPlatoonUnits()[1]:SetCustomName(LOC '{i CDR_Arnold}')
@@ -1143,13 +1143,13 @@ function StartMission3()
             unit:GiveNukeSiloAmmo(5)
         end
 
-        local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Arnold_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+        local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Arnold_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
         plat.PlatoonData.MaintainBaseTemplate = 'M3_Arnold_Base'
         plat.PlatoonData.AssistFactories = true
         plat.PlatoonData.LocationType = 'AeonArnoldBase'
         plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-        local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_SW_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+        local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_SW_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
         plat.PlatoonData.MaintainBaseTemplate = 'M3_SW_Base'
         plat.PlatoonData.AssistFactories = true
         plat.PlatoonData.LocationType = 'AeonM3Base'
@@ -1270,17 +1270,17 @@ end
 
 -- First scripted attack of M3 - Naval Cybran and Aeon
 function M3AttackWaveOne()
-    local aeonNavy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A1_Naval_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local aeonNavy = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A1_Naval_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(aeonNavy, 'Aeon_M3_Attack_One_Chain')
 
     -- 6 minutes for destroyers to hit land
-    local cybNavyGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A1_Naval_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local cybNavyGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A1_Naval_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybNavyGroup,'Cybran_M3_Attack_One_Group_Chain')
 
-    local cybNavyDest = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A1_Naval_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local cybNavyDest = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A1_Naval_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybNavyDest, 'Cybran_M3_Attack_One_Dest_Chain')
 
-    local cybNavyWest = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran','M3A1_Naval_West_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local cybNavyWest = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran','M3A1_Naval_West_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybNavyWest, 'Cybran_M3_Attack_One_West_Chain')
 end
 
@@ -1315,7 +1315,7 @@ function M3AttackWaveZeroAeon(clumpNum)
     end
     IssueNuke({nukeLaunchers[1]}, ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_'..clumpNum))
 
-    local airPlat1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A0_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local airPlat1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A0_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_'..clumpNum))
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 end
@@ -1332,7 +1332,7 @@ function M3AttackWaveZeroCybran(clumpNum)
     IssueNuke({nukeLaunchers[1]}, ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_4'))
 
 
-    local airPlat1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A0_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local airPlat1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A0_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_'..clumpNum))
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 end
@@ -1397,19 +1397,19 @@ function M3AttackWaveTwo()
 
     -- Aeon Clearing Attacks
     WaitSeconds(40)
-    local aeonAirGroup1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local aeonAirGroup1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A2_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.GroupPatrolChain(aeonAirGroup1:GetPlatoonUnits(), 'Aeon_M3_Attack_Two_Air_G1_Chain')
 
-    local aeonAirGroup2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local aeonAirGroup2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A2_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.GroupPatrolChain(aeonAirGroup2:GetPlatoonUnits(), 'Aeon_M3_Attack_Two_Air_G2_Chain')
 
     -- Aeon Forward Base Building
     WaitSeconds(40)
-    local aeonDefenseG1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Defense_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local aeonDefenseG1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A2_Air_Defense_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(aeonDefenseG1, 'Aeon_M3_Attack_Two_Air_Defense_Chain')
     for i=1,ScenarioInfo.Options.Difficulty do
-        local engs = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Engineers_D'..i, 'AttackFormation')
-        local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Transports_D'..i, 'ChevronFormation')
+        local engs = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A2_Engineers_D'..i, 'AttackFormation')
+        local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A2_Transports_D'..i, 'ChevronFormation')
         ScenarioFramework.AttachUnitsToTransports(engs:GetPlatoonUnits(),transports:GetPlatoonUnits())
         ForkThread(M3MoveStartAeonEngineers, engs, transports)
     end
@@ -1459,22 +1459,22 @@ function M3AttackWaveThree()
     WaitSeconds(M3AttackThreeDelay)
 
     -- Cybran Attacks
-    local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Transports_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Land_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Transports_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Land_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.AttachUnitsToTransports(units:GetPlatoonUnits(), transports:GetPlatoonUnits())
     ForkThread(M3CybranLandAssault, units, transports)
 
-    local cybAir1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local cybAir1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybAir1, 'Cybran_M3_Attack_Two_Land_G1_Chain')
 
-    local soulRippers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_SoulRippers_D'..ScenarioInfo.Options.Difficulty, 'None')
+    local soulRippers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_SoulRippers_D'..ScenarioInfo.Options.Difficulty, 'None')
     ScenarioFramework.PlatoonAttackChain(soulRippers, 'Cybran_M3_Attack_Two_Land_G1_Chain')
 
-    local cybAir2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local cybAir2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybAir1, 'Cybran_M3_Attack_Three_Air_G2_Chain')
 
     -- Send in Aeon Navy
-    local aeonNavyPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A3_Navy_Attack_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local aeonNavyPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3A3_Navy_Attack_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     for k,v in aeonNavyPlat:GetPlatoonUnits() do
         if not v:IsDead() and EntityCategoryContains(categories.uas0401, v) then
             IssueDive({v})
@@ -1484,8 +1484,8 @@ function M3AttackWaveThree()
 
     -- Send in the Cybran Engineers
     WaitSeconds(30)
-    local engTrans = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Forward_Base_Transports_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
-    local engs = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Forward_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local engTrans = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Forward_Base_Transports_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local engs = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3A3_Forward_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.AttachUnitsToTransports(engs:GetPlatoonUnits(), engTrans:GetPlatoonUnits())
     ForkThread(M3MoveStartCybranEngineers, engs, engTrans)
 end
@@ -1545,7 +1545,7 @@ end
 -- Navy sent 2 minutes before last Aeon attack occurs
 function M3BeforeFinalAttackNavy()
     -- Aeon Navy
-    local navyPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Naval_Group_D'..ScenarioInfo.Options.Difficulty, 'GrowthFormation')
+    local navyPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Naval_Group_D'..ScenarioInfo.Options.Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonMoveChain(navyPlat, 'Aeon_M3_Attack_Final_Naval_Chain')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, navyPlat)
 end
@@ -1574,7 +1574,7 @@ function M3FinalAttack()
     ScenarioFramework.GroupAttackChain(tBombers, 'Aeon_M3_Attack_Final_Torpedo_Chain')
 
     -- Czar and its stored units
-    local czarPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Czar_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local czarPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Czar_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     local czarUnit = czarPlat:GetPlatoonUnits()[1]
     ScenarioFramework.CreatePlatoonDeathTrigger(M3CzarDestroyed, czarPlat)
     local airCzarStorage = ScenarioUtils.CreateArmyGroup('Aeon', 'M3AF_Storage_Czar_D'..ScenarioInfo.Options.Difficulty)
@@ -1615,20 +1615,20 @@ function M3FinalAttack()
     WaitSeconds(90)
 
     -- Land Transports
-    local trans1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Transports_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
-    local land1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Land_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local trans1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local land1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, land1)
     ScenarioInfo.FinalAttackPlatoonCounter = ScenarioInfo.FinalAttackPlatoonCounter + 1
     ForkThread(M3LandAttack, trans1, land1, 1)
 
-    local trans2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Transports_G2_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
-    local land2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Land_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local trans2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G2_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local land2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, land2)
     ScenarioInfo.FinalAttackPlatoonCounter = ScenarioInfo.FinalAttackPlatoonCounter + 1
     ForkThread(M3LandAttack, trans2, land2, 2)
 
-    local trans3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Transports_G3_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
-    local land3 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Land_G3_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
+    local trans3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G3_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+    local land3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G3_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, land3)
     ScenarioInfo.FinalAttackPlatoonCounter = ScenarioInfo.FinalAttackPlatoonCounter + 1
     ForkThread(M3LandAttack, trans3, land3, 3)

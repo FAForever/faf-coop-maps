@@ -160,14 +160,14 @@ function OnPopulate(scenario)
     ScenarioFramework.CreateUnitDestroyedTrigger(RhizaDestroyed, ScenarioInfo.RhizaUnit)
     IssueMove({ ScenarioInfo.RhizaUnit }, ScenarioUtils.MarkerToPosition('Rhiza_MoveTo_Marker'))
     ScenarioUtils.CreateArmyGroup('Player', 'Player_Base')
--- local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
+-- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships')
 -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
--- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
+-- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships')
 -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
-    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Air_Patrol', 'NoFormation')
+    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Air_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(airPatrol, 'Player_Air_Patrol_Chain')
-    local groundPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Ground_Patrol', 'AttackFormation')
+    local groundPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Ground_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(groundPatrol, 'Player_Land_Patrol_Chain')
 
     -- Some activity in the player base
@@ -301,7 +301,7 @@ function StartMission1()
                                     categories.uaa0304)
 
     -- Assist engineers in M1
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_Air_Base_Engineers_D'..DiffLevel, 'NoFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1_Air_Base_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'ArielM1AirBase'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
@@ -402,9 +402,9 @@ function M1AttackShields()
     if not ScenarioInfo.M1ShieldAttackSent and ScenarioInfo.MissionNumber == 1 then
         ScenarioInfo.M1ShieldAttackSent = true
         -- Attack players shields
-        local westPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_West_Colony_Bombers_D'..DiffLevel, 'NoFormation')
+        local westPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1_West_Colony_Bombers_D'..DiffLevel, 'NoFormation')
         westPlat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('West_Colony_Marker'))
-        local eastPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_East_Colony_Bombers_D'..DiffLevel, 'NoFormation')
+        local eastPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1_East_Colony_Bombers_D'..DiffLevel, 'NoFormation')
         eastPlat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
         local bombers = {}
         for num, unit in westPlat:GetPlatoonUnits() do
@@ -577,7 +577,7 @@ end
 function M1AttackWaveOne()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_100)
     WaitSeconds(M1FirstAttackDelay)
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A1_Air_Group_D'..DiffLevel, 'ChevronFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A1_Air_Group_D'..DiffLevel, 'ChevronFormation')
     plat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
     -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackWaveTwo, plat)
     ScenarioFramework.CreateTimerTrigger(M1AttackWaveTwo, M1AttackWaveTwoTimer)
@@ -594,10 +594,10 @@ end
 -- Attack two which is a land attack via transports
 function M1AttackTwoDelay()
     WaitSeconds(M1AttackTwoDelayTime)
-    local escorts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Escorts_D'..DiffLevel, 'NoFormation')
+    local escorts = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A2_Escorts_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(escorts, 'Ariel_M1_West_Air_Patrol_Chain')
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Unit_Group_D'..DiffLevel, 'AttackFormation')
-    local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Transport_Group_D'..DiffLevel, 'NoFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A2_Unit_Group_D'..DiffLevel, 'AttackFormation')
+    local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A2_Transport_Group_D'..DiffLevel, 'NoFormation')
     -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThree, units)
     ScenarioFramework.CreateTimerTrigger(M1AttackThree, M1AttackThreeTimer)
     ForkThread(M1LandAttack, units, transports, 'West')
@@ -614,19 +614,19 @@ end
 -- Attack Three which is combined attacks on both targets
 function M1AttackThreeDelay()
     WaitSeconds(M1AttackThreeDelayTimer)
-    local westAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local westAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     westAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('West_Colony_Marker'))
-    local westUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Ground_Units_D'..DiffLevel, 'AttackFormation')
-    local westTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Transports_D'..DiffLevel, 'NoFormation')
+    local westUnits = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Ground_Units_D'..DiffLevel, 'AttackFormation')
+    local westTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Transports_D'..DiffLevel, 'NoFormation')
 -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westUnits)
 -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westAir)
     ForkThread(M1LandAttack, westUnits, westTransports, 'West')
 
 
-    local eastAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_East_Air_Attack_D'..DiffLevel, 'ChevronFormation')
+    local eastAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     eastAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
-    local eastUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_East_Ground_Units_D'..DiffLevel, 'AttackFormation')
-    local eastTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_East_Transports_D'..DiffLevel, 'NoFormation')
+    local eastUnits = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Ground_Units_D'..DiffLevel, 'AttackFormation')
+    local eastTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Transports_D'..DiffLevel, 'NoFormation')
 -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastUnits)
 -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastAir)
     ForkThread(M1LandAttack, eastUnits, eastTransports, 'East')
@@ -799,13 +799,13 @@ function StartMission2()
 
     ScenarioUtils.CreateArmyGroup('UEF' ,'Wreck_M2', true) -- Storing all wreckage in UEF army
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'West_Base_Engineers_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'West_Base_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'WestBase'
     plat.PlatoonData.MaintainBaseTemplate = 'West_Base'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'Blake_Group', 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'Blake_Group', 'NoFormation')
     ScenarioInfo.BlakeUnit = plat:GetPlatoonUnits()[1]
     ScenarioInfo.BlakeUnit:SetCustomName(LOC '{i CDR_Blake}')
     ScenarioInfo.BlakeUnit:CreateEnhancement('Shield')
@@ -859,18 +859,18 @@ function M2SetupArtilleryPositions()
     ScenarioUtils.CreateArmyGroup('UEF', 'Middle_Artillery_D'..DiffLevel)
     ScenarioUtils.CreateArmyGroup('UEF', 'South_Artillery_D'..DiffLevel)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'North_Unit_Defenses_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'North_Unit_Defenses_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'UEF_M2_North_Artillery_Patrol_Chain')
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'Middle_Unit_Defenses_D'..DiffLevel, 'AttackFormation')
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'South_Unit_Defenses_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'Middle_Unit_Defenses_D'..DiffLevel, 'AttackFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'South_Unit_Defenses_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'UEF_M2_South_Artillery_Patrol_Chain')
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'North_Engineers_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'North_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'North_Artillery'
     plat.PlatoonData.PatrolChain = 'UEF_M2_North_Eng_Art_Patrol_Chain'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'Middle_Engineers_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'Middle_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'Middle_Artillery'
     plat.PlatoonData.MaintainDiffLevel = 1
     plat.PlatoonData.PatrolChain = 'UEF_M2_Middle_Eng_Art_Patrol_Chain'
@@ -879,7 +879,7 @@ function M2SetupArtilleryPositions()
         ScenarioFramework.CreateUnitBuiltTrigger(M2ArtilleryBuilt, unit, categories.ueb2302)
     end
 
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'South_Engineers_D'..DiffLevel, 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'South_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'South_Artillery'
     plat.PlatoonData.MaintainDiffLevel = 1
     plat.PlatoonData.PatrolChain = 'UEF_M2_South_Eng_Art_Patrol_Chain'
@@ -1120,14 +1120,14 @@ function StartMission3()
 
     -- Base Air Patrols
     local plat
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M3_Eastern_Patrol', 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M3_Eastern_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Ariel_M3_East_Patrol_Chain')
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M3_Main_Base_Patrol', 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M3_Main_Base_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Ariel_MainBase_BasePatrolChain')
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M3_NW_Patrol', 'NoFormation')
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M3_NW_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Ariel_M3_NW_Patrol_Chain')
 
-    ScenarioInfo.ArielPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Ariel_Group', 'NoFormation')
+    ScenarioInfo.ArielPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Ariel_Group', 'NoFormation')
     ScenarioInfo.ArielUnit = ScenarioInfo.ArielPlatoon:GetPlatoonUnits()[1]
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.ArielUnit)
     ScenarioInfo.ArielUnit:SetCustomName(LOC '{i CDR_Ariel}')
@@ -1144,19 +1144,19 @@ function StartMission3()
     ScenarioInfo.ArielPlatoon.CDRData.LeashRadius = 50
     ScenarioInfo.ArielPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
 
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M3_Main_Base_Engineers_D'..DiffLevel, 'NoFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M3_Main_Base_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.MaintainBaseTemplate = 'Main_Base'
     plat.PlatoonData.LocationType = 'MainBase'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
     -- Colossus Spawn in and stuff
-    ScenarioInfo.ColTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Transports_D'..DiffLevel, 'NoFormation')
-    ScenarioInfo.ColLand = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Land_Units_D'..DiffLevel, 'AttackFormation')
-    ScenarioInfo.ColHover = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Hover_Units_D'..DiffLevel, 'AttackFormation')
-    ScenarioInfo.ColAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Air_Units_D'..DiffLevel, 'NoFormation')
+    ScenarioInfo.ColTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Colossus_Transports_D'..DiffLevel, 'NoFormation')
+    ScenarioInfo.ColLand = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Colossus_Land_Units_D'..DiffLevel, 'AttackFormation')
+    ScenarioInfo.ColHover = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Colossus_Hover_Units_D'..DiffLevel, 'AttackFormation')
+    ScenarioInfo.ColAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Colossus_Air_Units_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.ColAir, 'Ariel_M3_Col_Air_Patrol')
-    ScenarioInfo.ColossusPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus', 'AttackFormation')
+    ScenarioInfo.ColossusPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'Colossus', 'AttackFormation')
     for k, unit in ScenarioInfo.ColossusPlat:GetPlatoonUnits() do
         ScenarioInfo.Colossus = unit
     end

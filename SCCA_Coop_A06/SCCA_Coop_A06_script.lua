@@ -631,8 +631,8 @@ function M1NavalAttack()
     ScenarioInfo.M1P1Complete = true
 
     -- spawn naval armies
-    local CybranNavy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', AdjustForDifficulty('M1_Naval_Attack'), 'AttackFormation')
-    local UEFNavy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', AdjustForDifficulty('M1_Naval_Attack'), 'AttackFormation')
+    local CybranNavy = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', AdjustForDifficulty('M1_Naval_Attack'), 'AttackFormation')
+    local UEFNavy = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', AdjustForDifficulty('M1_Naval_Attack'), 'AttackFormation')
 
     -- move them to the player's base
     CybranNavy:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M1_Naval_Attack_1'))
@@ -681,7 +681,7 @@ function M1ReoccurringLightAttack()
     if ScenarioInfo.MissionNumber == 1 then
         if(Random(0, 100) < 30) then
             -- create as platoon, send on patrol
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', AdjustForDifficulty('M1_Light_Attack'), 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', AdjustForDifficulty('M1_Light_Attack'), 'AttackFormation')
             for k, location in ScenarioUtils.ChainToPositions('M3_Naval_Patrol') do
                 platoon:Patrol(location)
             end
@@ -700,7 +700,7 @@ function M1CybranLightAttack()
     if ScenarioInfo.MissionNumber == 1 then
         if(Random(0, 100) < 30) then
             -- create as platoon, send on patrol
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', AdjustForDifficulty('M1_Light_Attack'), 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', AdjustForDifficulty('M1_Light_Attack'), 'AttackFormation')
             for k, location in ScenarioUtils.ChainToPositions('M2_Cybran_Naval_Patrol') do
                 platoon:Patrol(location)
             end
@@ -725,7 +725,7 @@ function M1CybranMediumAttack()
     if ScenarioInfo.MissionNumber == 1 then
         if(Random(0, 100) < 30) then
             -- create as platoon, send on patrol
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', AdjustForDifficulty('M1_Medium_Attack'), 'AttackFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', AdjustForDifficulty('M1_Medium_Attack'), 'AttackFormation')
             for k, location in ScenarioUtils.ChainToPositions('M2_Cybran_Naval_Patrol') do
                 platoon:Patrol(location)
             end
@@ -1028,7 +1028,7 @@ function BeginMission3()
     end
 
     ScenarioInfo.FriendlyCommander = ScenarioUtils.CreateArmyUnit('Aeon', 'Friendly_Commander')
-    local AeonCommanderPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'Commander_Group', 'NoFormation')
+    local AeonCommanderPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Commander_Group', 'NoFormation')
     for k, unit in AeonCommanderPlatoon:GetPlatoonUnits() do
         ScenarioInfo.AeonCommander = unit
         -- Delay the explosion so that we can catch it on camera
@@ -1111,7 +1111,7 @@ function BeginMission3()
     ScenarioInfo.MissionNumber = 3
 
     -- Spawn a naval force and move them to the player's base
-    local AeonNavy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M3_Naval_Attack'), 'GrowthFormation')
+    local AeonNavy = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M3_Naval_Attack'), 'GrowthFormation')
     AeonNavy:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M3_Naval_Patrol_1'))
     AeonNavy:Patrol(ScenarioUtils.MarkerToPosition('M3_Naval_Patrol_2'))
     AeonNavy:Patrol(ScenarioUtils.MarkerToPosition('M3_Naval_Patrol_1'))

@@ -124,34 +124,34 @@ function OnPopulate()
     -- ------------------------
     -- Seraphim Initial Patrols
     -- ------------------------
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_Init_AirDef1_D' .. Difficulty, 'GrowthFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_Init_AirDef1_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_Main_AirDef_Chain')))
     end
 
     for i = 1, 2 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_Init_NavalDef' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_Init_NavalDef' .. i .. '_D' .. Difficulty, 'AttackFormation')
         for k, v in units:GetPlatoonUnits() do
             ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Main_NavalDef' .. i .. '_Chain')
         end
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_MidFleet_West_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_MidFleet_West_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_MidPatrol_West' .. Random(1,2) .. '_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_MidFleet_East_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_MidFleet_East_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_MidPatrol_East' .. Random(1,2) .. '_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_MidFleet_General_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_MidFleet_General_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Sub_Patrol_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_Mid_InitAir_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_Mid_InitAir_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_MidAir_Def_Chain')))
     end
@@ -159,22 +159,22 @@ function OnPopulate()
     -- ------------------------
     -- Seraphim Initial Attacks
     -- ------------------------
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Air_1', 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Air_1', 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_InitAir_Attack_Chain')))
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Air_2', 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Air_2', 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_Air_Attack1_Chain')))
     end
 
     for i = 1, 2 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Naval_' .. i, 'AttackFormation')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Naval_' .. i, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Init_Naval_2_Chain')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Naval_3', 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Naval_3', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Naval_Attack2_Chain')
 
     -- ------------------------
@@ -235,12 +235,12 @@ function OnPopulate()
     -- ---------------------
     -- Rhiza Initial Patrols
     -- ---------------------
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M1_Rhiza_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'M1_Rhiza_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Rhiza_AirDef_Chain')))
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M1_Rhiza_Init_NavalDef_D' .. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'M1_Rhiza_Init_NavalDef_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Rhiza_NavalDef_Chain')
     end
@@ -828,10 +828,10 @@ function IntroMission2()
             -- ------------------------
             -- Seraphim Initial Attacks
             -- ------------------------
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAir_Attack_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAir_Attack_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_North_AirMain_1_Chain')
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitNaval_Attack_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitNaval_Attack_D' .. Difficulty, 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_South_NavalMain_1_Chain')
 
             -- ------------------------
@@ -1533,42 +1533,42 @@ function IntroMission3()
             -- Seraphim Initial Patrols
             -- ------------------------
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_North_LandDef_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphNorth_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_North_AirDef_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphSouth_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphSouth_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_South_AirDef_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphSouth_Init_NavalDef_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphSouth_Init_NavalDef_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_Seraph_South_NavalDef_Chain')
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_NavalMid_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalMid_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalMid_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_NavalSouth_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalSouth_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSouth_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_NavalNW_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalNW_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalNW_Chain')))
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_NavalSW_D' .. Difficulty, 'AttackFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalSW_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSW_Chain')))
             end
@@ -1577,16 +1577,16 @@ function IntroMission3()
             -- Seraphim Initial Attacks
             -- ------------------------
             for i = 1, 3 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphNorth_Init_Stream' .. i, 'AttackFormation')
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_Stream' .. i, 'AttackFormation')
                 for k, v in units:GetPlatoonUnits() do
                     IssueMove({v}, ScenarioUtils.MarkerToPosition('M3_Seraph_Stream' .. i .. '_Marker'))
                 end
             end
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_StreamNorth_Init_Air', 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_StreamNorth_Init_Air', 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_North_AirAttack_Chain')
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphSouth_Init_AirAttack_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphSouth_Init_AirAttack_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupMoveChain({v}, 'M3_Seraph_InitAir_Chain')
             end
@@ -1628,7 +1628,7 @@ function IntroMission3()
             -- ------------------------
             -- Princess Initial Patrols
             -- ------------------------
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Princess', 'M3_Princess_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Princess', 'M3_Princess_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Princess_AirDef_Chain')))
             end
