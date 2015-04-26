@@ -16404,25 +16404,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['Player_ACUs'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_ACU'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 58.500000, 21.000000, 981.500000 },
                                 Orientation = { 0.000000, 2.679083, 0.000000 },
                             },
-                            ['UEF_ACU'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 60.500000, 21.000000, 982.500000 },
                                 Orientation = { 0.000000, 2.661626, 0.000000 },
                             },
-                            ['Aeon_ACU'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -16469,25 +16469,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['Player_ACUs'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_ACU'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 58.500000, 21.000000, 981.500000 },
                                 Orientation = { 0.000000, 2.679083, 0.000000 },
                             },
-                            ['UEF_ACU'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 60.500000, 21.000000, 982.500000 },
                                 Orientation = { 0.000000, 2.661626, 0.000000 },
                             },
-                            ['Aeon_ACU'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -16534,25 +16534,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['Player_ACUs'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_ACU'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 58.500000, 21.000000, 981.500000 },
                                 Orientation = { 0.000000, 2.679083, 0.000000 },
                             },
-                            ['UEF_ACU'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 60.500000, 21.000000, 982.500000 },
                                 Orientation = { 0.000000, 2.661626, 0.000000 },
                             },
-                            ['Aeon_ACU'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -16600,25 +16600,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['Player_ACUs'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_ACU'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 58.500000, 21.000000, 981.500000 },
                                 Orientation = { 0.000000, 2.679083, 0.000000 },
                             },
-                            ['UEF_ACU'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 60.500000, 21.000000, 982.500000 },
                                 Orientation = { 0.000000, 2.661626, 0.000000 },
                             },
-                            ['Aeon_ACU'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -17832,14 +17832,14 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Loy_ACU_East'] = {
+                            ['LoyPlayer_East'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 833.500000, 35.000000, 912.500000 },
                                 Orientation = { 0.000000, 5.000000, 0.000000 },
                             },
-                            ['Loy_ACU_West'] = {
+                            ['LoyPlayer_West'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',

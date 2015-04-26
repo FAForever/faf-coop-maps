@@ -373,11 +373,11 @@ function IntroNIS()
     Cinematics.ExitNISMode()
 
     if(Faction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Aeon_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
     elseif(Faction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEF_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
     elseif(Faction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Cybran_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
     end
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     
@@ -389,11 +389,11 @@ function IntroNIS()
 		if iArmy >= ScenarioInfo.Coop1 then
 			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
 			if(factionIdx == 1) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEF_ACU')
+				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
 			elseif(factionIdx == 2) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Aeon_ACU')
+				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
 			else
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Cybran_ACU')
+				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
 			end
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
 			coop = coop + 1

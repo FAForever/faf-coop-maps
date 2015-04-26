@@ -6632,25 +6632,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['CDRS'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_Player_CDR'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['UEF_Player_CDR'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['Aeon_Player_CDR'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -6695,25 +6695,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['CDRS'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_Player_CDR'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['UEF_Player_CDR'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['Aeon_Player_CDR'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -6758,25 +6758,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['CDRS'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_Player_CDR'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['UEF_Player_CDR'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['Aeon_Player_CDR'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
@@ -6821,25 +6821,25 @@ Scenario = {
                         Units = {
                         },
                     },
-                    ['CDRS'] = GROUP {
+                    ['ACUs'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['Cybran_Player_CDR'] = {
+                            ['CybranPlayer'] = {
                                 type = 'url0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['UEF_Player_CDR'] = {
+                            ['UEFPlayer'] = {
                                 type = 'uel0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 255.500000, 18.000000, 912.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-                            ['Aeon_Player_CDR'] = {
+                            ['AeonPlayer'] = {
                                 type = 'ual0001',
                                 orders = '',
                                 platoon = '',
