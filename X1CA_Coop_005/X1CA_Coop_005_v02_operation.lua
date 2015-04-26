@@ -1,8 +1,8 @@
-# ONLY EDIT THESE VARS 
-opID = 'X1CA_Coop_005_v02'						# should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opDesc = '<LOC X1CA_Coop_005_v02_description>Because of the events on Hades, QAI must be destroyed once and for all. Using intelligence acquired from the Seven Hand Node, the Coalition has learned that QAI\'s mainframe is on the planet Pearl II. Your mission is to establish a foothold on Pearl II, thus clearing the way for Dr. Brackman, who will arrive and personally shut down QAI.'							# used in op select screen
+-- ONLY EDIT THESE VARS 
+opID = 'X1CA_Coop_005_v02'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opDesc = '<LOC X1CA_Coop_005_v02_description>Because of the events on Hades, QAI must be destroyed once and for all. Using intelligence acquired from the Seven Hand Node, the Coalition has learned that QAI\'s mainframe is on the planet Pearl II. Your mission is to establish a foothold on Pearl II, thus clearing the way for Dr. Brackman, who will arrive and personally shut down QAI.'							-- used in op select screen
 
-# DO NOT EDIT
+-- DO NOT EDIT
 local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'X', 5)
 
 operationData = 

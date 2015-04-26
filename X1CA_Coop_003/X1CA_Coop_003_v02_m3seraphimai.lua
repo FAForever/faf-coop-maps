@@ -1,25 +1,25 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_m3seraphimai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Seraphim army AI for Mission 3 - X1CA_Coop_003_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_m3seraphimai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Seraphim army AI for Mission 3 - X1CA_Coop_003_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Seraphim = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local SeraphimM3Mini1 = BaseManager.CreateBaseManager()
 local SeraphimM3Mini2 = BaseManager.CreateBaseManager()
 local SeraphimM3Mini3 = BaseManager.CreateBaseManager()
@@ -80,9 +80,9 @@ end
 function SeraphimM3MiniD1Attacks()
     local opai = nil
 
-    # -------------------------
-    # Seraphim M3 Mini D1 Op AI
-    # -------------------------
+    -- -------------------------
+    -- Seraphim M3 Mini D1 Op AI
+    -- -------------------------
 
     opai = SeraphimM3Mini1:AddOpAI('BasicLandAttack', 'M3Mini1_LandAttack',
         {
@@ -165,9 +165,9 @@ end
 function SeraphimM3MiniD2Attacks()
     local opai = nil
 
-    # -------------------------
-    # Seraphim M3 Mini D2 Op AI
-    # -------------------------
+    -- -------------------------
+    -- Seraphim M3 Mini D2 Op AI
+    -- -------------------------
 
     opai = SeraphimM3Mini7:AddOpAI('BasicLandAttack', 'M3Mini7_LandAttack',
         {
@@ -195,9 +195,9 @@ end
 function SeraphimM3MiniD3Attacks()
     local opai = nil
 
-    # -------------------------
-    # Seraphim M3 Mini D3 Op AI
-    # -------------------------
+    -- -------------------------
+    -- Seraphim M3 Mini D3 Op AI
+    -- -------------------------
 
     opai = SeraphimM3Mini9:AddOpAI('BasicLandAttack', 'M3Mini9_LandAttack',
         {
@@ -234,9 +234,9 @@ end
 
 function SeraphimM3SouthBaseAI()
 
-    # ----------------------
-    # Seraphim M3 South Base
-    # ----------------------
+    -- ----------------------
+    -- Seraphim M3 South Base
+    -- ----------------------
     SeraphimM3SouthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_South', 'M3_Seraph_South', 150, {M3_Seraph_South = 100})
     SeraphimM3SouthBase:StartNonZeroBase({{9, 17, 23}, {8, 15, 20}})
     SeraphimM3SouthBase:SetActive('AirScouting', true)
@@ -257,11 +257,11 @@ function SeraphimM3SouthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    # -----------------------------------------
-    # Seraphim M3 South Base Op AI, Air Attacks
-    # -----------------------------------------
+    -- -----------------------------------------
+    -- Seraphim M3 South Base Op AI, Air Attacks
+    -- -----------------------------------------
 
-    # sends 14, 21, 28 [bombers]
+    -- sends 14, 21, 28 [bombers]
     quantity = {14, 21, 28}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks1',
         {
@@ -274,7 +274,7 @@ function SeraphimM3SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
 
-    # sends 7, 14, 21 [interceptors]
+    -- sends 7, 14, 21 [interceptors]
     quantity = {7, 14, 21}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks2',
         {
@@ -287,7 +287,7 @@ function SeraphimM3SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
 
-    # sends 7, 14, 21 [gunships]
+    -- sends 7, 14, 21 [gunships]
     quantity = {7, 14, 21}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks3',
         {
@@ -300,7 +300,7 @@ function SeraphimM3SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
 
-    # sends 14, 20, 28 [gunships, combat fighter] if player has >= 10, 7, 5 T2/T3 AA
+    -- sends 14, 20, 28 [gunships, combat fighter] if player has >= 10, 7, 5 T2/T3 AA
     quantity = {14, 20, 28}
     trigger = {10, 7, 5}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks4',
@@ -316,7 +316,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR - categories.TECH1})
 
-    # sends 14, 21, 28 [gunships] if player has >= 100, 80, 60 mobile land
+    -- sends 14, 21, 28 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {14, 21, 28}
     trigger = {100, 80, 60}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks5',
@@ -332,7 +332,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 7, 14, 21 [air superiority] if player has >= 100, 80, 60 mobile air
+    -- sends 7, 14, 21 [air superiority] if player has >= 100, 80, 60 mobile air
     quantity = {7, 14, 21}
     trigger = {100, 80, 60}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks6',
@@ -348,7 +348,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 7, 14, 21 [air superiority] if player has >= 60, 50, 40 gunships
+    -- sends 7, 14, 21 [air superiority] if player has >= 60, 50, 40 gunships
     quantity = {7, 14, 21}
     trigger = {60, 50, 40}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks7',
@@ -364,7 +364,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 7, 7, 14 [torpedo bombers] if player has >= 10, 8, 5 boats
+    -- sends 7, 7, 14 [torpedo bombers] if player has >= 10, 8, 5 boats
     quantity = {7, 7, 14}
     trigger = {10, 8, 5}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks8',
@@ -380,7 +380,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 14, 20 [combat fighters, gunships] if player has >= 60, 50, 40 T3 units
+    -- sends 6, 14, 20 [combat fighters, gunships] if player has >= 60, 50, 40 T3 units
     quantity = {6, 14, 20}
     trigger = {60, 50, 40}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks9',
@@ -396,7 +396,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 7 [air superiority] if player has >= 1 strat bomber
+    -- sends 7 [air superiority] if player has >= 1 strat bomber
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks10',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -410,7 +410,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 14, 20, 28 [bombers, gunships] if player has >= 350, 400, 450 units
+    -- sends 14, 20, 28 [bombers, gunships] if player has >= 350, 400, 450 units
     quantity = {14, 20, 28}
     trigger = {350, 400, 450}
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks11',
@@ -426,7 +426,7 @@ function SeraphimM3SouthBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends [gunships] at the princess
+    -- sends [gunships] at the princess
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirAttacks12',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -438,7 +438,7 @@ function SeraphimM3SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 4)
 
-    # Air Defense
+    -- Air Defense
     opai = SeraphimM3SouthBase:AddOpAI('AirAttacks', 'M3South_AirDefense1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -466,11 +466,11 @@ function SeraphimM3SouthBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    # -------------------------------------------
-    # Seraphim M3 South Base Op AI, Naval Attacks
-    # -------------------------------------------
+    -- -------------------------------------------
+    -- Seraphim M3 South Base Op AI, Naval Attacks
+    -- -------------------------------------------
 
-    # sends 3 frigate power of [frigates]
+    -- sends 3 frigate power of [frigates]
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -484,7 +484,7 @@ function SeraphimM3SouthBaseNavalAttacks()
         }
     )
 
-    # sends 6 - 10 frigate power of all but T3
+    -- sends 6 - 10 frigate power of all but T3
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -498,7 +498,7 @@ function SeraphimM3SouthBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    # sends 6 frigate power of [frigates, subs] if player has >= 8, 6, 4 boats
+    -- sends 6 frigate power of [frigates, subs] if player has >= 8, 6, 4 boats
     trigger = {8, 6, 4}
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack3',
         {
@@ -515,7 +515,7 @@ function SeraphimM3SouthBaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE})
 
-    # sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
+    -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
     trigger = {5, 3, 2}
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack4',
         {
@@ -532,7 +532,7 @@ function SeraphimM3SouthBaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    # sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
+    -- sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     trigger = {6, 5, 4}
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack5',
         {
@@ -549,7 +549,7 @@ function SeraphimM3SouthBaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 		
-	# sends 20 frigate power
+	-- sends 20 frigate power
 	for i = 1, 2 do
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack6' .. i,
         {

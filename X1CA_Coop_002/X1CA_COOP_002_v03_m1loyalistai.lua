@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m1loyalistai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Loyalist army AI for Mission 1 - X1CA_Coop_002_v03
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m1loyalistai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Loyalist army AI for Mission 1 - X1CA_Coop_002_v03
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
@@ -16,21 +16,21 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Loyalist = 4
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local LoyalistM1MainBase = BaseManager.CreateBaseManager()
 
 function LoyalistM1MainBaseAI()
 
-    # ---------------------
-    # Loyalist M1 Main Base
-    # ---------------------
+    -- ---------------------
+    -- Loyalist M1 Main Base
+    -- ---------------------
     ScenarioUtils.CreateArmyGroup('Loyalist', 'Starting_Units')
     LoyalistM1MainBase:InitializeDifficultyTables(ArmyBrains[Loyalist], 'M1_Loy_StartBase', 'Loyalist_M1_Pinned_Base', 70, {M1_Loy_StartBase = 110})
     LoyalistM1MainBase:StartNonZeroBase({{16, 12, 9}, {14, 10, 7}})
@@ -46,7 +46,7 @@ function LoyalistM1MainBaseAI()
     LoyalistM1MainBaseLandAttacks()
 	LoyalistM1BaseLandDefense()
     LoyalistM1MainBaseAirAttacks()
-    # LoyalistM4TransportAttacks()
+    -- LoyalistM4TransportAttacks()
 end
 
 function LoyalistNewEngCount()
@@ -57,9 +57,9 @@ end
 function LoyalistM1MainBaseAirAttacks()
     local opai = nil
 
-    # ----------------------------------------
-    # Loyalist M1 Main Base Op AI, Air Attacks
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- Loyalist M1 Main Base Op AI, Air Attacks
+    -- ----------------------------------------
 
     for i = 1, 2 do
         opai = LoyalistM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttack1_' .. i,
@@ -76,9 +76,9 @@ function LoyalistM1MainBaseAirAttacks()
 	local template = {
         'M1_AirAttack2',
         'NoPlan',
-        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },	# Air Superiority
-        { 'uaa0203', 1, 3, 'Attack', 'GrowthFormation' },	# Gunships
-        { 'uaa0103', 1, 4, 'Attack', 'GrowthFormation' },	# Bombers
+        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },	-- Air Superiority
+        { 'uaa0203', 1, 3, 'Attack', 'GrowthFormation' },	-- Gunships
+        { 'uaa0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Bombers
     }
 	local builder = {
         BuilderName = 'M1_AirAttack2',
@@ -126,9 +126,9 @@ function LoyalistM1MainBaseLandAttacks()
     local opai = nil
     local platoons = {}
 
-    # -----------------------------------------
-    # Loyalist M1 Main Base Op AI, Land Attacks
-    # -----------------------------------------
+    -- -----------------------------------------
+    -- Loyalist M1 Main Base Op AI, Land Attacks
+    -- -----------------------------------------
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_BasicLandAttack',
         {
@@ -197,7 +197,7 @@ function LoyalistM1BaseLandDefense()
     local opai = nil
 	local platoons = {}
 	
-	# Land Defense
+	-- Land Defense
     platoons = {2, 2, 1}
     for i = 1, platoons[Difficulty] do
         opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandDef1_' .. i,
@@ -248,11 +248,11 @@ function LoyalistM1MainAirAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-#####################################################################
-# BIJ GEBRUIK VAN 'cmd' MOET JE EEN 'PLATOON' COMMANDO GEBRUIKEN !! #
-#####################################################################
+-- ####################################################################
+-- BIJ GEBRUIK VAN 'cmd' MOET JE EEN 'PLATOON' COMMANDO GEBRUIKEN !! #
+-- ####################################################################
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
 
@@ -274,7 +274,7 @@ function LoyalistM1MainLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
             if(ScenarioInfo.MissionNumber == 1) then

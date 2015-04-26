@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X05>Operation: Mind Games'
 
 
 
-# ------------------------------
-# Opnode ID: B01
-# Operation Briefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: B01
+-- Operation Briefing
+-- ------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X05_B01_000_010>09-August-3847'},
@@ -37,76 +37,76 @@ BriefingData = {
   {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_060>I will see you soon, my child. See you soon.'},
 }
 
-# ------------------------------
-# Opnode ID: DB01
-# Operation Debriefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+-- ------------------------------
 
 
 
-# Victory / Actor: Brackman / Update: 07/10/2007 / VO Ready
+-- Victory / Actor: Brackman / Update: 07/10/2007 / VO Ready
 X05_DB01_010 = {
   {text = '<LOC X05_DB01_010_010>[{i Brackman}]: Before QAI was destroyed, I extracted its Gate codes. The path to Earth is now clear. Oh yes. I pray that the invasion will be successful. It is the only way to wipe the slate clean, start anew. You must win the day, my child, win it for all of us.', vid = 'X05_Brackman_DB01_04026.sfd', bank = 'Briefings', cue = 'X05_Brackman__04026', faction = 'Cybran'},
 }
 
-# Defeat / Actor: Hall / Update: 07/17/2007 / VO Ready
+-- Defeat / Actor: Hall / Update: 07/17/2007 / VO Ready
 X05_DB01_020 = {
   {text = '<LOC X05_DB01_020_010>[{i Hall}]: QAI is undoubtedly replicating itself across multiple systems, and the Seraphim arch is no doubt nearing completion. It\'s all going to hell. I\'m ordering a wide-scale evacuation. We have no choice but to hide.', vid = 'X05_Hall_DB01_04027.sfd', bank = 'Briefings', cue = 'X05_Hall_DB01_04027', faction = 'UEF'},
 }
 
-# Brackman Death / Actor: HQ  / Update: 07/17/2007 / VO Ready
+-- Brackman Death / Actor: HQ  / Update: 07/17/2007 / VO Ready
 X05_DB01_030 = {
   {text = '<LOC X05_DB01_030_010>[{i HQ}]: The operation has ended in failure. All is lost.', vid = 'X05_HQ_DB01_04956.sfd', bank = 'Briefings', cue = 'X05_HQ_DB01_04956', faction = 'NONE'},
 }
 
-# Player Death  / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Player Death  / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_DB01_040 = {
   {text = '<LOC X05_DB01_040_010>[{i HQ}]: Commander? Can you read me? Ah hell, I think the Commander is dea --', vid = 'X05_HQ_DB01_04957.sfd', bank = 'Briefings', cue = 'X05_HQ_DB01_04957', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M01
-# Mission 1: Linking Up with Allies
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01
+-- Mission 1: Linking Up with Allies
+-- ------------------------------
 
 
 
-# M1 NIS Intro #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_010 = {
   {text = '<LOC X05_M01_010_010>[{i HQ}]: Your top priority is to clear this area of enemies so Fletcher can gate in and construct a base.', vid = 'X05_HQ_M01_03788.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03788', faction = 'NONE'},
 }
 
-# M1 NIS Intro #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_011 = {
   {text = '<LOC X05_M01_011_010>[{i HQ}]: Both Hex5 and QAI are operating in the area, so be ready for one hell of a fight.', vid = 'X05_HQ_M01_04908.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04908', faction = 'NONE'},
 }
 
-# M1 NIS Intro #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_012 = {
   {text = '<LOC X05_M01_012_010>[{i HQ}]: Get it in gear, Commander. HQ out.', vid = 'X05_HQ_M01_04909.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04909', faction = 'NONE'},
 }
 
-# M1 NIS Intro #4 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #4 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
 X05_M01_013 = {
   {text = '<LOC X05_M01_013_010>[{i Hex5}]: It\'s too bad about Dostya. The Master felt that she had such promise. She would\'ve made a fine disciple.', vid = 'X05_Hex5_M01_03789.sfd', bank = 'X05_VO', cue = 'X05_Hex5_M01_03789', faction = 'Cybran'},
 }
 
-# M1 NIS Intro #5 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #5 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M01_014 = {
   {text = '<LOC X05_M01_014_010>[{i Brackman}]: I have tolerated you in the past, Hex5, forgiven your eccentricities. Oh yes. But no more. Today you will answer for your crimes.', vid = 'X05_Brackman_M01_03790.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_03790', faction = 'Cybran'},
 }
 
-# M1 NIS Intro #6 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #6 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
 X05_M01_015 = {
   {text = '<LOC X05_M01_015_010>[{i Hex5}]: You are an old fool. The Master is more powerful than you can imagine.', vid = 'X05_Hex5_M01_03791.sfd', bank = 'X05_VO', cue = 'X05_Hex5_M01_03791', faction = 'Cybran'},
 }
 
-# M1 NIS Intro #7 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- M1 NIS Intro #7 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M01_016 = {
   {text = '<LOC X05_M01_016_010>[{i Brackman}]: We shall see. Oh yes. We shall see.', vid = 'X05_Brackman_M01_03792.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_03792', faction = 'Cybran'},
 }
 
-# M1_MissionStart_Brack-Hex5 / Actor: Hex5, Brackman / Update: 07/05/2007 / VO Ready
+-- M1_MissionStart_Brack-Hex5 / Actor: Hex5, Brackman / Update: 07/05/2007 / VO Ready
 x05_m01_0000_00 = {
   {text = '<LOC X05_M01_013_010>[{i Hex5}]: It\'s too bad about Dostya. The Master felt that she had such promise. She would\'ve made a fine disciple.', vid = 'X05_Hex5_M01_03789.sfd', bank = 'X05_VO', cue = 'X05_Hex5_M01_03789', faction = 'Cybran'},
   {text = '<LOC X05_M01_014_010>[{i Brackman}]: I have tolerated you in the past, Hex5, forgiven your eccentricities. Oh yes. But no more. Today you will answer for your crimes.', vid = 'X05_Brackman_M01_03790.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_03790', faction = 'Cybran'},
@@ -114,780 +114,780 @@ x05_m01_0000_00 = {
   {text = '<LOC X05_M01_016_010>[{i Brackman}]: We shall see. Oh yes. We shall see.', vid = 'X05_Brackman_M01_03792.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_03792', faction = 'Cybran'},
 }
 
-# Objective Reminders PO1 #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO1 #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_020 = {
   {text = '<LOC X05_M01_020_010>[{i HQ}]: Clear the area, Commander. Fletcher is suited up and ready to gate. HQ out.', vid = 'X05_HQ_M01_03794.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03794', faction = 'NONE'},
 }
 
-# Objective Reminders PO1 #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO1 #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_030 = {
   {text = '<LOC X05_M01_030_010>[{i HQ}]: Fletcher is ready to gate, Commander. Waiting on you to clear the area. HQ out.', vid = 'X05_HQ_M01_03795.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03795', faction = 'NONE'},
 }
 
-# M1 PO1 Fletcher\'s Arrival UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Fletcher\'s Arrival UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M01_040 = {
   {text = '<LOC X05_M01_040_010>[{i Fletcher}]: I\'m on-ground and on-target, Colonel. Let\'s unplug that damn computer and head home. Fletcher out.', vid = 'X05_Fletcher_M01_03796.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M01_03796', faction = 'UEF'},
 }
 
-# M1 PO1 Fletcher\'s Arrival Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Fletcher\'s Arrival Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M01_050 = {
   {text = '<LOC X05_M01_050_010>[{i Fletcher}]: It\'s about time, Commander. I was starting to think that you and QAI were building a little love nest.', vid = 'X05_Fletcher_M01_03805.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M01_03805', faction = 'UEF'},
 }
 
-# M1 PO1 Fletcher\'s Arrival Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Fletcher\'s Arrival Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M01_060 = {
   {text = '<LOC X05_M01_060_010>[{i Fletcher}]: Took your sweet old time, didn\'t you? QAI isn\'t going to kill itself, you know.', vid = 'X05_Fletcher_M01_03810.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M01_03810', faction = 'UEF'},
 }
 
-# M1 PO2 Destroy Hex5\'s Fire Bases / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M1 PO2 Destroy Hex5\'s Fire Bases / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_070 = {
   {text = '<LOC X05_M01_070_010>[{i HQ}]: Hex5 has a handful of small bases in the canyons. Destroy them. HQ out.', vid = 'X05_HQ_M01_03811.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03811', faction = 'NONE'},
 }
 
-# Objective Reminders PO2 #1, / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO2 #1, / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_080 = {
   {text = '<LOC X05_M01_080_010>[{i HQ}]: Hex5\'s bases are still a threat. HQ out.', vid = 'X05_HQ_M01_03812.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03812', faction = 'NONE'},
 }
 
-# Objective Reminders PO2 #2, / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO2 #2, / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_090 = {
   {text = '<LOC X05_M01_090_010>[{i HQ}]: Destroy Hex5\'s small bases. HQ out.', vid = 'X05_HQ_M01_03813.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03813', faction = 'NONE'},
 }
 
-# Completed Objective PO2, / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Completed Objective PO2, / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M01_100 = {
   {text = '<LOC X05_M01_100_010>[{i HQ}]: Hex5\'s secondary bases are destroyed. HQ out.', vid = 'X05_HQ_M01_03814.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_03814', faction = 'NONE'},
 }
 
-# Subplot Support UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Subplot Support UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M01_110 = {
   {text = '<LOC X05_M01_110_010>[{i Fletcher}]: This whole damn thing is a mess. Cybrans turning on each other? Aeon switching sides just cause some Princess shows up? I tell you, we can\'t trust any of them. The blue of the UEF, that\'s what matters. That\'s the only thing that matters. Fletcher out.', vid = 'X05_Fletcher_M01_03815.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M01_03815', faction = 'UEF'},
 }
 
-# Subplot support Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Subplot support Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M01_120 = {
   {text = '<LOC X05_M01_120_010>[{i Brackman}]: So much of this is my fault. Oh yes. The loyalty program, QAI. Foolish choices were made, foolish choices. It is time to make things right. Oh yes. Make them right. Be safe, my child.', vid = 'X05_Brackman_M01_03816.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_03816', faction = 'Cybran'},
 }
 
-# Subplot support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Subplot support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X05_M01_130 = {
   {text = '<LOC X05_M01_130_010>[{i Rhiza}]: Kael is unleashing extreme measures. She has leveled an entire city, killing millions. Civil war is spreading across Aeon-controlled space. There is no way the Order will be able to survive. Rhiza out.', vid = 'X05_Rhiza_M01_03817.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M01_03817', faction = 'Aeon'},
 }
 
-# PO2 Rescue Loyalist Leaders / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- PO2 Rescue Loyalist Leaders / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X05_M01_140 = {
   {text = '<LOC X05_M01_140_010>[{i Rhiza}]: A Loyalist named Amalia is being held in a prison to your east, which has been marked for capture. Capture the prison and free Amalia. Rhiza out.', vid = 'X05_Rhiza_M01_03818.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M01_03818', faction = 'Aeon'},
 }
 
-# Objective Reminders PO3 #1, / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO3 #1, / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X05_M01_150 = {
   {text = '<LOC X05_M01_150_010>[{i Rhiza}]: Amalia is still being held. Rescue her if you can. Rhiza out.', vid = 'X05_Rhiza_M01_03819.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M01_03819', faction = 'Aeon'},
 }
 
-# Objective Reminders PO3 #2, / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO3 #2, / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X05_M01_160 = {
   {text = '<LOC X05_M01_160_010>[{i Rhiza}]: Please rescue Amalia, Commander. Rhiza out.', vid = 'X05_Rhiza_M01_03820.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M01_03820', faction = 'Aeon'},
 }
 
-# Completed Objective PO3 Aeon / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Completed Objective PO3 Aeon / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M01_170 = {
   {text = '<LOC X05_M01_170_010>[{i Amalia}]: Before I was captured, I managed to place a Trojan Horse in QAI\'s sub-systems. Unless they find it, I may be able to use it to help you. Amalia out.', vid = 'X05_Amalia_M01_03821.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M01_03821', faction = 'Aeon'},
 }
 
-# Completed Objective PO3 UEF/Cybran / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Completed Objective PO3 UEF/Cybran / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M01_180 = {
   {text = '<LOC X05_M01_180_010>[{i Amalia}]: Thank you, Commander. I will remain here and assist you as I am able. Amalia out.', vid = 'X05_Amalia_M01_03822.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M01_03822', faction = 'Aeon'},
 }
 
-# NIS intro to M2 / Actor: Brackman, HQ / Update: 07/05/2007 / VO Ready
+-- NIS intro to M2 / Actor: Brackman, HQ / Update: 07/05/2007 / VO Ready
 X05_M01_190 = {
   {text = '<LOC X05_M01_190_010>[{i Brackman}]: Hex5 is south of Fletcher\'s position. He must be eliminated. Oh yes.', vid = 'X05_Brackman_M01_04438.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M01_04438', faction = 'Cybran'},
   {text = '<LOC X05_M01_190_020>[{i HQ}]: You heard the old man, Commander. Destroy Hex5. HQ out.', vid = 'X05_HQ_M01_04439.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04439', faction = 'NONE'},
 }
 
-# Tech Reveal (UEF) Continental Air Transport / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Tech Reveal (UEF) Continental Air Transport / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M01_200 = {
   {text = '<LOC X05_M01_200_010>[{i HQ}]: Sending you the schematic for the T3 Continental air transport. HQ out.', vid = 'X05_HQ_M01_04939.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04939', faction = 'NONE'},
 }
 
-# Tech Reveal (Aeon) Restorer Gunship / Actor: Rhiza / Update: 07/17/2007 / VO Ready
+-- Tech Reveal (Aeon) Restorer Gunship / Actor: Rhiza / Update: 07/17/2007 / VO Ready
 X05_M01_210 = {
   {text = '<LOC X05_M01_210_010>[{i Rhiza}]: Champion, you have received the schematic for the Restorer gunship. It can attack both land and air units. Rhiza out.', vid = 'X05_Rhiza_M01_04940.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M01_04940', faction = 'Aeon'},
 }
 
-# Tech Reveal (Cybran) Wailer Gunship / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Tech Reveal (Cybran) Wailer Gunship / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M01_220 = {
   {text = '<LOC X05_M01_220_010>[{i HQ}]: Brackman has authorized you to receive the T3 Wailer. It\'s a heavy gunship. HQ out.', vid = 'X05_HQ_M01_04941.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04941', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M01_OBJ
-# Mission 1: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01_OBJ
+-- Mission 1: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_010 = '<LOC X05_M01_OBJ_010_010>Clear the Landing Zone'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_020 = '<LOC X05_M01_OBJ_010_020>Clear the marked LZ of enemy forces so Fletcher can gate in and assist the operation.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_030 = '<LOC X05_M01_OBJ_010_030>Destroy Hex5\'s Fire Bases'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_040 = '<LOC X05_M01_OBJ_010_040>Hinder Hex5\'s assault on your position by eliminating the marked structures in the nearby foothills.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_050 = '<LOC X05_M01_OBJ_010_050>Rescue Loyalist Commander'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_060 = '<LOC X05_M01_OBJ_010_060>Rescue the captured Loyalist commander, Amalia. She may be able to provide assistance.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_070 = '<LOC X05_M01_OBJ_010_070>Escort Brackman'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M01_OBJ_010_075 = '<LOC X05_M01_OBJ_010_075>Signal Dr. Brackman to advance to the targeted location.'
 
 
 
-# ------------------------------
-# Opnode ID: M02
-# Mission 2: Defeating Hex5
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02
+-- Mission 2: Defeating Hex5
+-- ------------------------------
 
 
 
-# PO1 Intro - Defeat Hex5 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
+-- PO1 Intro - Defeat Hex5 / Actor: Hex5 / Update: 07/05/2007 / VO Ready
 X05_M02_010 = {
   {text = '<LOC X05_M02_010_010>[{i Hex5}]: You are incapable of comprehending our might. The Master is endless, his wisdom infinite. You will never defeat us.', vid = 'X05_Hex5_M02_03825.sfd', bank = 'X05_VO', cue = 'X05_Hex5_M02_03825', faction = 'Cybran'},
 }
 
-# Tech Reveal: Novax Center UEF / Actor: Hall / Update: 07/17/2007 / VO Ready
+-- Tech Reveal: Novax Center UEF / Actor: Hall / Update: 07/17/2007 / VO Ready
 X05_M02_012 = {
   {text = '<LOC X05_M02_012_010>[{i Hall}]: Commander, we\'ve finished work on an experimental Suborbital Laser. To use it, simply click the Command Signal button and then click on your target. Hall out.', vid = 'X05_Hall_M02_04440.sfd', bank = 'X05_VO', cue = 'X05_Hall_M02_04440', faction = 'UEF'},
 }
 
-# PO1 - On seeing Defending Spiderbots / Actor: HQ, Fletcherl / Update: 07/17/2007 / VO Ready
+-- PO1 - On seeing Defending Spiderbots / Actor: HQ, Fletcherl / Update: 07/17/2007 / VO Ready
 X05_M02_020 = {
   {text = '<LOC X05_M02_020_010>[{i HQ}]: Looks like Hex5 is deploying Spiderbots. HQ out.', vid = 'X05_HQ_M02_03826.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_03826', faction = 'NONE'},
   {text = '<LOC X05_M02_020_020>[{i Fletcher}]: Commander, if I\'m going to get anywhere, you\'re going to have to provide me with air cover. Defend my position against air attacks. Fletcher out.', vid = 'X05_Fletcher_M02_03827.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03827', faction = 'UEF'},
 }
 
-# PO1 - All patrolling spiderbots destroyed / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- PO1 - All patrolling spiderbots destroyed / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_030 = {
   {text = '<LOC X05_M02_030_010>[{i Fletcher}]: Looks like we got the last Spiderbot. Fletcher out.', vid = 'X05_Fletcher_M02_03828.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03828', faction = 'UEF'},
 }
 
-# PO1 - on Seeing Scathis / Actor: HQ, Fletcher / Update: 07/05/2007 / VO Ready
+-- PO1 - on Seeing Scathis / Actor: HQ, Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_040 = {
   {text = '<LOC X05_M02_040_010>[{i HQ}]: Hex5 isn\'t going down quietly. He\'s just brought a Scathis online. HQ out.', vid = 'X05_HQ_M02_03829.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_03829', faction = 'NONE'},
   {text = '<LOC X05_M02_040_020>[{i Fletcher}]: Get some units on that thing!', vid = 'X05_Fletcher_M02_03830.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03830', faction = 'UEF'},
 }
 
-# PO1 - Scathis Destroyed / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- PO1 - Scathis Destroyed / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_050 = {
   {text = '<LOC X05_M02_050_010>[{i Fletcher}]: Scratch one Scathis. Fletcher out.', vid = 'X05_Fletcher_M02_03831.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03831', faction = 'UEF'},
 }
 
-# Fletcher Building #1 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Fletcher Building #1 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_055 = {
   {text = '<LOC X05_M02_055_010>[{i Fletcher}]: I\'ve hit Tech 2. Ramping up to Tech 3.', vid = 'X05_Fletcher_M02_04710.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04710', faction = 'UEF'},
 }
 
-# Fletcher Building #2 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Fletcher Building #2 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_060 = {
   {text = '<LOC X05_M02_060_010>[{i Fletcher}]: I\'m at Tech 3. Starting to produce units.', vid = 'X05_Fletcher_M02_04711.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04711', faction = 'UEF'},
 }
 
-# Fletcher Building #3 / Actor: Fletcher / Update: 07/17/2007 / VO Needed
+-- Fletcher Building #3 / Actor: Fletcher / Update: 07/17/2007 / VO Needed
 X05_M02_065 = {
   {text = '<LOC X05_M02_065_010>[{i Fletcher}]: Starting work on a Fatboy. Maintain air cover for me. Fletcher out.', vid = 'X05_Fletcher_M02_04712.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04712', faction = 'UEF'},
 }
 
-# Fletcher Building #4 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Fletcher Building #4 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_070 = {
   {text = '<LOC X05_M02_070_010>[{i Fletcher}]: Producing air units.', vid = 'X05_Fletcher_M02_04713.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04713', faction = 'UEF'},
 }
 
-# Fletcher Building #5 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Fletcher Building #5 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_075 = {
   {text = '<LOC X05_M02_075_010>[{i Fletcher}]: Producing land units.', vid = 'X05_Fletcher_M02_04714.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04714', faction = 'UEF'},
 }
 
-# Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
 X05_M02_090 = {
   {text = '<LOC X05_M02_090_010>[{i Hall}]: Colonel, keep your eyes on Fletcher. He\'s been showing some irregular behavior as of late. We\'re so damn close to ending this thing, and we can\'t afford someone running around half-cocked. Hall out.', vid = 'X05_Hall_M02_03842.sfd', bank = 'X05_VO', cue = 'X05_Hall_M02_03842', faction = 'UEF'},
 }
 
-# Subplot Support Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Subplot Support Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M02_100 = {
   {text = '<LOC X05_M02_100_010>[{i Brackman}]: I will be landing shortly, my child. Then I shall make things right. Oh yes.', vid = 'X05_Brackman_M02_03843.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M02_03843', faction = 'Cybran'},
 }
 
-# Subplot Support - Hex5 base at 75% / Actor: Fletcher / Update: 07/17/2007 / VO Ready
+-- Subplot Support - Hex5 base at 75% / Actor: Fletcher / Update: 07/17/2007 / VO Ready
 X05_M02_120 = {
   {text = '<LOC X05_M02_120_010>[{i Fletcher}]: We got him on the ropes!', vid = 'X05_Fletcher_M02_03845.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03845', faction = 'UEF'},
 }
 
-# Subplot Support - Hex5 base at 50% / Actor: Fletcher / Update: 07/17/2007 / VO Ready
+-- Subplot Support - Hex5 base at 50% / Actor: Fletcher / Update: 07/17/2007 / VO Ready
 X05_M02_130 = {
   {text = '<LOC X05_M02_130_010>[{i Fletcher}]: Keep pushing! His base is buckling!', vid = 'X05_Fletcher_M02_03846.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03846', faction = 'UEF'},
 }
 
-# Subplot Support - Hex5 base at 25% / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Subplot Support - Hex5 base at 25% / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M02_140 = {
   {text = '<LOC X05_M02_140_010>[{i Fletcher}]: He\'s got almost nothing left! Take him out!', vid = 'X05_Fletcher_M02_03847.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_03847', faction = 'UEF'},
 }
 
-# Amalia - Taking Damage #1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Amalia - Taking Damage #1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M02_150 = {
   {text = '<LOC X05_M02_150_010>[{i Amalia}]: Commander, I am under fire. Please assist. Amalia out.', vid = 'X05_Amalia_M02_03848.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M02_03848', faction = 'Aeon'},
 }
 
-# Amalia - Taking Damage #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Amalia - Taking Damage #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M02_160 = {
   {text = '<LOC X05_M02_160_010>[{i Amalia}]: I need assistance, Commander! Amalia out.', vid = 'X05_Amalia_M02_03849.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M02_03849', faction = 'Aeon'},
 }
 
-# Amalia - 50% Health # 1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Amalia - 50% Health # 1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M02_170 = {
   {text = '<LOC X05_M02_170_010>[{i Amalia}]: My ACU is seriously damaged, Commander!', vid = 'X05_Amalia_M02_03850.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M02_03850', faction = 'Aeon'},
 }
 
-# Amalia - 50% Health #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Amalia - 50% Health #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M02_180 = {
   {text = '<LOC X05_M02_180_010>[{i Amalia}]: I\'m in trouble! Requesting aid!', vid = 'X05_Amalia_M02_03851.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M02_03851', faction = 'Aeon'},
 }
 
-# Amalia - Destroyed / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Amalia - Destroyed / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M02_190 = {
   {text = '<LOC X05_M02_190_010>[{i Amalia}]: Remember that I fought honorably!', vid = 'X05_Amalia_M02_03852.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M02_03852', faction = 'Aeon'},
 }
 
-# Post Hex5 Doom #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Post Hex5 Doom #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M02_200 = {
   {text = '<LOC X05_M02_200_009>[{i Hex5}]: Wait! Master!', vid = 'X05_Hex5_T01_04437.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04437', faction = 'Cybran'},
   {text = '<LOC X05_M02_200_010>[{i Brackman}]: And so a traitor dies. Oh yes. So much loss. So much sorrow.', vid = 'X05_Brackman_M02_03853.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M02_03853', faction = 'Cybran'},
 }
 
-# Post Hex5 Doom #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Post Hex5 Doom #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M02_201 = {
   {text = '<LOC X05_M02_201_010>[{i HQ}]: Brackman has landed. Escort him to QAI\'s mainframe so he can destroy that damn thing once and for all.', vid = 'X05_HQ_M02_03854.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_03854', faction = 'NONE'},
 }
 
-# Post Hex5 Doom #3 / Actor: QAI / Update: 07/05/2007 / VO Ready
+-- Post Hex5 Doom #3 / Actor: QAI / Update: 07/05/2007 / VO Ready
 X05_M02_202 = {
   {text = '<LOC X05_M02_202_010>[{i QAI}]: Dr. Brackman. It will be a true pleasure killing you.', vid = 'X05_QAI_M02_03855.sfd', bank = 'X05_VO', cue = 'X05_QAI_M02_03855', faction = 'Cybran'},
 }
 
-# Post Hex5 Doom #4 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Post Hex5 Doom #4 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M02_203 = {
   {text = '<LOC X05_M02_203_010>[{i Brackman}]: You had such potential, QAI. Oh yes. All for nothing.', vid = 'X05_Brackman_M02_03856.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M02_03856', faction = 'Cybran'},
 }
 
-# Assist Fletcher / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Assist Fletcher / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M02_210 = {
   {text = '<LOC X05_M02_210_010>[{i HQ}]: Assist Fletcher as you are able, Commander. HQ out.', vid = 'X05_HQ_M02_04942.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_04942', faction = 'NONE'},
 }
 
-# Spiderbot Counter attack / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Spiderbot Counter attack / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M02_220 = {
   {text = '<LOC X05_M02_220_010>[{i HQ}]: Enemy attack coming in from the south ... hold on a sec ... there\'s some experimentals in there, so be ready. HQ out.', vid = 'X05_HQ_M02_04943.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_04943', faction = 'NONE'},
 }
 
-# Fletcher Focus on Hex5 / Actor: Fletcher / Update: 07/17/2007 / VO Ready
+-- Fletcher Focus on Hex5 / Actor: Fletcher / Update: 07/17/2007 / VO Ready
 X05_M02_230 = {
   {text = '<LOC X05_M02_230_010>[{i Fletcher}]: Concentrate on QAI. I\'ll mop up Hex5\'s base and join you as soon as I can. Fletcher out.', vid = 'X05_Fletcher_M02_04944.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04944', faction = 'UEF'},
 }
 
-# Fatboys getting ripped up / Actor: Fletcher / Update: 07/17/2007 / VO Ready
+-- Fatboys getting ripped up / Actor: Fletcher / Update: 07/17/2007 / VO Ready
 X05_M02_240 = {
   {text = '<LOC X05_M02_240_010>[{i Fletcher}]: Soul Rippers are tearing up my Fatboy! I need air cover, now!', vid = 'X05_Fletcher_M02_04945.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04945', faction = 'UEF'},
 }
 
-# Fatboy+Defend Fletcher #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Fatboy+Defend Fletcher #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M02_250 = {
   {text = '<LOC X05_M02_250_010>[{i HQ}]: Fletcher is building a Fatboy, Commander, so help him defend his base. You\'re going to need him when you launch your final attack on QAI.', vid = 'X05_HQ_M02_04946.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_04946', faction = 'NONE'},
 }
 
-# Fatboy+Defend Fletcher #2 / Actor: HQ / Update: 07/30/2007 / VO Ready
+-- Fatboy+Defend Fletcher #2 / Actor: HQ / Update: 07/30/2007 / VO Ready
 X05_M02_260 = {
   {text = '<LOC X05_M02_260_010>[{i HQ}]: Fletcher is working on a Fatboy, Commander. Help protect his base until it\'s operational. HQ out.', vid = 'X05_HQ_M02_04947.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_04947', faction = 'NONE'},
 }
 
-# Fletcher vs Hex5 / Actor: Fletcher, Hex5 / Update: 07/17/2007 / VO Ready
+-- Fletcher vs Hex5 / Actor: Fletcher, Hex5 / Update: 07/17/2007 / VO Ready
 X05_M02_270 = {
   {text = '<LOC X05_M02_270_010>[{i Fletcher}]: It\'s about time. Keep those bastards off me while I build up my base.', vid = 'X05_Fletcher_M02_04948.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04948', faction = 'UEF'},
   {text = '<LOC X05_M02_270_020>[{i Hex5}]: You will not defeat us. The Master is eternal, his wisdom infinite.', vid = 'X05_Hex5_M02_04949.sfd', bank = 'X05_VO', cue = 'X05_Hex5_M02_04949', faction = 'Cybran'},
   {text = '<LOC X05_M02_270_030>[{i Fletcher}]: Yeah, yeah. Give it a rest already.', vid = 'X05_Fletcher_M02_04950.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04950', faction = 'UEF'},
 }
 
-# Ping Move / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Ping Move / Actor: HQ / Update: 07/17/2007 / VO Ready
 X05_M02_280 = {
   {text = '<LOC X05_M02_280_010>[{i HQ}]: You can move Brackman\'s Megalith as often as you want, Commander. Just click the Command Signal button and then click to where Brackman should move. HQ out.', vid = 'X05_HQ_M02_04951.sfd', bank = 'X05_VO', cue = 'X05_HQ_M02_04951', faction = 'NONE'},
 }
 
-# Fletcher Building Econ / Actor: Fletcher / Update: 07/17/2007 / VO Ready
+-- Fletcher Building Econ / Actor: Fletcher / Update: 07/17/2007 / VO Ready
 X05_M02_290 = {
   {text = '<LOC X05_M02_290_010>[{i Fletcher}]: Starting up my economy, Commander. Fletcher out.', vid = 'X05_Fletcher_M02_04952.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_04952', faction = 'UEF'},
 }
 
-# Fletcher Cry for Help (Aeon) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Cry for Help (Aeon) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_300 = {
   {text = '<LOC X05_M02_300_010>[{i Fletcher}]: I\'m getting hit pretty hard! Get over here and help me! Fletcher out.', vid = 'X05_Fletcher_M02_05108.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05108', faction = 'UEF'},
 }
 
-# Fletcher Cry for Help (UEF) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Cry for Help (UEF) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_310 = {
   {text = '<LOC X05_M02_310_010>[{i Fletcher}]: Colonel, I\'d really appreciate it if you could help me out. The enemy is pounding me pretty hard. Fletcher out.', vid = 'X05_Fletcher_M02_05109.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05109', faction = 'UEF'},
 }
 
-# Fletcher Cry for Help (Cybran) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Cry for Help (Cybran) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_320 = {
   {text = '<LOC X05_M02_320_010>[{i Fletcher}]: Get it in gear, Cybran! The enemy is kicking the tar out of me and I need your help. Fletcher out.', vid = 'X05_Fletcher_M02_05110.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05110', faction = 'UEF'},
 }
 
-# Fletcher Base Being Attacked #1 / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Base Being Attacked #1 / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_330 = {
   {text = '<LOC X05_M02_330_010>[{i Fletcher}]: My base is being destroyed. I need help! I can\'t hold them off!', vid = 'X05_Fletcher_M02_05111.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05111', faction = 'UEF'},
 }
 
-# Fletcher Base Being Attacked #2 / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Base Being Attacked #2 / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_340 = {
   {text = '<LOC X05_M02_340_010>[{i Fletcher}]: Enemy units are hitting my base pretty hard. I need you to reinforce my position. Fletcher out.', vid = 'X05_Fletcher_M02_05112.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05112', faction = 'UEF'},
 }
 
-# Fletcher Call for a Spyplane (Normal) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Call for a Spyplane (Normal) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_350 = {
   {text = '<LOC X05_M02_350_010>[{i Fletcher}]: Commander, get a spy plane in the air and locate Hex5\'s position. He\'s cloaked and I can\'t get a lock on him. Fletcher out.', vid = 'X05_Fletcher_M02_05113.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05113', faction = 'UEF'},
 }
 
-# Fletcher Call for a Spyplane (Hard) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
+-- Fletcher Call for a Spyplane (Hard) / Actor: Fletcher / Update: 07/19/2007 / VO Ready
 X05_M02_360 = {
   {text = '<LOC X05_M02_360_010>[{i Fletcher}]: Commander, send up a spy plane or two and track down Hex5. He\'s cloaked and stealthed, so the only way we\'re going to find him is through line of sight. Fletcher out.', vid = 'X05_Fletcher_M02_05114.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05114', faction = 'UEF'},
 }
 
-# ------------------------------
-# Opnode ID: M02_OBJ
-# Mission 2: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02_OBJ
+-- Mission 2: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X05_M02_OBJ_010_010 = '<LOC X05_M02_OBJ_010_010>Defeat Hex5'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M02_OBJ_010_020 = '<LOC X05_M02_OBJ_010_020>Destroy Hex5\'s ACU.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X05_M02_OBJ_020_010 = '<LOC X05_M02_OBJ_020_010>Protect Commander Fletcher'
 
-# Secondary Objectives
+-- Secondary Objectives
 X05_M02_OBJ_020_020 = '<LOC X05_M02_OBJ_020_020>Ensure Fletcher\'s safety during the operation.'
 
 
 
-# ------------------------------
-# Opnode ID: M03
-# Mission 3: Brackman vs. QAI
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03
+-- Mission 3: Brackman vs. QAI
+-- ------------------------------
 
 
 
-# PO1,2 - QAI takes over Hex5 Base / Actor: HQ, Brackman / Update: 07/05/2007 / VO Ready
+-- PO1,2 - QAI takes over Hex5 Base / Actor: HQ, Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_010 = {
   {text = '<LOC X05_M03_010_010>[{i HQ}]: Believe or not, Commander, Hex5\'s base is still functioning. Scanning to see what\'s happening. HQ out.', vid = 'X05_HQ_M03_03859.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03859', faction = 'NONE'},
   {text = '<LOC X05_M03_010_020>[{i Brackman}]: I would surmise that QAI has a physical link established with the structures. Oh yes. Some sort of universal control, perhaps? Very interesting.', vid = 'X05_Brackman_M03_03860.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_03860', faction = 'Cybran'},
 }
 
-# Ping Brackman / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Ping Brackman / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_015 = {
   {text = '<LOC X05_M03_015_010>[{i HQ}]: Commander, use the Command Signal to move Brackman into position. HQ out.', vid = 'X05_HQ_M03_04443.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_04443', faction = 'NONE'},
 }
 
-# Brackman being attacked / Actor: Brackman / Update: 07/17/2007 / VO Ready
+-- Brackman being attacked / Actor: Brackman / Update: 07/17/2007 / VO Ready
 X05_M03_016 = {
   {text = '<LOC X05_M03_016_010>[{i Brackman}]: I am under attack, my child. Under attack. Please defend me.', vid = 'X05_Brackman_M03_04953.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04953', faction = 'Cybran'},
 }
 
-# Objective Reminders PO 1,2 -Defend Brackman #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO 1,2 -Defend Brackman #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_020 = {
   {text = '<LOC X05_M03_020_010>[{i HQ}]: Brackman is under attack, Commander. Cover him! HQ out.', vid = 'X05_HQ_M03_03857.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03857', faction = 'NONE'},
 }
 
-# Objective Reminders PO 1,2 -Defend Brackman #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders PO 1,2 -Defend Brackman #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_030 = {
   {text = '<LOC X05_M03_030_010>[{i HQ}]: Brackman is taking fire! Get those units off him!', vid = 'X05_HQ_M03_03858.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03858', faction = 'NONE'},
 }
 
-# PO1,2- Brackman Health updates #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman Health updates #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_040 = {
   {text = '<LOC X05_M03_040_010>[{i HQ}]: Brackman\'s Megalith has lost approximately 25% of its armor. Get an Engineer over there and repair it. HQ out.', vid = 'X05_HQ_M03_03861.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03861', faction = 'NONE'},
 }
 
-# PO1,2- Brackman Health updates #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman Health updates #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_050 = {
   {text = '<LOC X05_M03_050_010>[{i HQ}]: Brackman\'s Megalith has taken serious damage. Repair it or move him to a safer position. HQ out.', vid = 'X05_HQ_M03_03862.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03862', faction = 'NONE'},
 }
 
-# PO1,2- Brackman Health updates #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman Health updates #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_060 = {
   {text = '<LOC X05_M03_060_010>[{i Brackman}]: My Megalith has absorbed an awful lot of damage. Oh yes. So much damage. Please assist.', vid = 'X05_Brackman_M03_03863.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_03863', faction = 'Cybran'},
 }
 
-# PO1,2- Brackman Health updates #2 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman Health updates #2 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_070 = {
   {text = '<LOC X05_M03_070_010>[{i Brackman}]: Hull integrity is dropping. Please help me, Commander.', vid = 'X05_Brackman_M03_03864.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_03864', faction = 'Cybran'},
 }
 
-# PO1,2- Brackman nearly dead #1 / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman nearly dead #1 / Actor: Hall / Update: 07/05/2007 / VO Ready
 X05_M03_090 = {
   {text = '<LOC X05_M03_090_010>[{i Hall}]: Brackman is in serious danger! We cannot lose him! Get him out of harm\'s way and repair the Megalith. Hall out!', vid = 'X05_Hall_M03_03866.sfd', bank = 'X05_VO', cue = 'X05_Hall_M03_03866', faction = 'UEF'},
 }
 
-# PO1,2- Brackman nearly dead #2 / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- PO1,2- Brackman nearly dead #2 / Actor: Hall / Update: 07/05/2007 / VO Ready
 X05_M03_100 = {
   {text = '<LOC X05_M03_100_010>[{i Hall}]: Get Dr. Brackman to safety now! This whole operation depends on him! Make it happen!', vid = 'X05_Hall_M03_03867.sfd', bank = 'X05_VO', cue = 'X05_Hall_M03_03867', faction = 'UEF'},
 }
 
-# Objective reminders – PO1,2 escort Brackman #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective reminders – PO1,2 escort Brackman #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_110 = {
   {text = '<LOC X05_M03_110_010>[{i HQ}]: Get Brackman to QAI\'s mainframe. HQ out.', vid = 'X05_HQ_M03_03868.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03868', faction = 'NONE'},
 }
 
-# Objective reminders – PO1,2 escort Brackman #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective reminders – PO1,2 escort Brackman #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_120 = {
   {text = '<LOC X05_M03_120_010>[{i HQ}]: Getting Brackman to QAI\'s mainframe is your primary objective, Commander. HQ out.', vid = 'X05_HQ_M03_03869.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03869', faction = 'NONE'},
 }
 
-# PO1,2 Brackman Killed / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- PO1,2 Brackman Killed / Actor: Hall / Update: 07/05/2007 / VO Ready
 X05_M03_130 = {
   {text = '<LOC X05_M03_130_010>[{i Hall}]: Dr. Brackman, come in! Brackman! Dammit! We lost Brackman, abort mission! I repeat, abort mission!', vid = 'X05_Hall_M03_03870.sfd', bank = 'X05_VO', cue = 'X05_Hall_M03_03870', faction = 'UEF'},
 }
 
-# Brackman Dies / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Brackman Dies / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_135 = {
   {text = '<LOC X05_M03_135_010>[{i Brackman}]: At last I shall have peace.', vid = 'X05_Brackman_M03_04444.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04444', faction = 'Cybran'},
 }
 
-# PO1,2 Opening Attack / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1,2 Opening Attack / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_140 = {
   {text = '<LOC X05_M03_140_010>[{i HQ}]: Attack inbound on your position. HQ out.', vid = 'X05_HQ_M03_03871.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03871', faction = 'NONE'},
 }
 
-# PO1,2 When non-Cybran experimentals are first sighted / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1,2 When non-Cybran experimentals are first sighted / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_150 = {
   {text = '<LOC X05_M03_150_010>[{i HQ}]: This can\'t be right ... I\'m picking up multiple experimental-class signatures from QAI\'s position, and they register as Aeon and UEF experimentals. HQ out.', vid = 'X05_HQ_M03_04445.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_04445', faction = 'NONE'},
   {text = '<LOC X05_M03_150_020>[{i QAI}]: The Seven Hand Node was quite effective at obtaining the schematics to your weapon systems. Now you shall be destroyed by your own weapons.', vid = 'X05_QAI_M03_04446.sfd', bank = 'X05_VO', cue = 'X05_QAI_M03_04446', faction = 'Cybran'},
 }
 
-# PO3 Defeat the QAI Satellite Bases Intro / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Defeat the QAI Satellite Bases Intro / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_170 = {
   {text = '<LOC X05_M03_170_010>[{i HQ}]: QAI is operating two large resource bases in the area. One is home to most of its Mass fabricators while the other is wall-to-wall power generators. Both bases are targets of opportunity, but you should destroy them if able. HQ out.', vid = 'X05_HQ_M03_03879.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03879', faction = 'NONE'},
 }
 
-# Objective Reminders - PO3 #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders - PO3 #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_180 = {
   {text = '<LOC X05_M03_180_010>[{i HQ}]: Commander, QAI\'s resource bases are still operational. HQ out.', vid = 'X05_HQ_M03_03880.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03880', faction = 'NONE'},
 }
 
-# Objective Reminders - PO3 #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminders - PO3 #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_190 = {
   {text = '<LOC X05_M03_190_010>[{i HQ}]: Destroy QAI\'s resource bases if you can, Commander. HQ out.', vid = 'X05_HQ_M03_03881.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03881', faction = 'NONE'},
 }
 
-# PO3 Fabricator base Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Fabricator base Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_200 = {
   {text = '<LOC X05_M03_200_010>[{i HQ}]: The Mass fabricators are destroyed. QAI\'s production has been cut by almost 40%. HQ out.', vid = 'X05_HQ_M03_03882.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03882', faction = 'NONE'},
 }
 
-# PO3 Energy base Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Energy base Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_210 = {
   {text = '<LOC X05_M03_210_010>[{i HQ}]: The power generators are down, and QAI\'s shields are going offline. HQ out.', vid = 'X05_HQ_M03_03883.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03883', faction = 'NONE'},
 }
 
-# PO3 Fabricator base left Reminder #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Fabricator base left Reminder #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_220 = {
   {text = '<LOC X05_M03_220_010>[{i HQ}]: The fabricators are still operational, Commander. HQ out.', vid = 'X05_HQ_M03_03884.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03884', faction = 'NONE'},
 }
 
-# PO3 Fabricator base left Reminder #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Fabricator base left Reminder #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_230 = {
   {text = '<LOC X05_M03_230_010>[{i HQ}]: Destroy the fabricator base if you can, Commander. HQ out.', vid = 'X05_HQ_M03_03885.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03885', faction = 'NONE'},
 }
 
-# PO3 Energy base left Reminder #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Energy base left Reminder #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_240 = {
   {text = '<LOC X05_M03_240_010>[{i HQ}]: QAI\'s power generators are still operational, Commander. HQ out.', vid = 'X05_HQ_M03_03886.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03886', faction = 'NONE'},
 }
 
-# PO3 Energy base left Reminder #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO3 Energy base left Reminder #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_250 = {
   {text = '<LOC X05_M03_250_010>[{i HQ}]: If you can destroy QAI\'s power generators, you\'ll take out its shields, Commander. HQ out.', vid = 'X05_HQ_M03_03887.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03887', faction = 'NONE'},
 }
 
-# Completed Objective PO3 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Completed Objective PO3 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X05_M03_260 = {
   {text = '<LOC X05_M03_260_010>[{i HQ}]: Both of QAI\'s resource bases have been destroyed. HQ out.', vid = 'X05_HQ_M03_03888.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03888', faction = 'NONE'},
 }
 
-#  Subplot Support UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Subplot Support UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M03_270 = {
   {text = '<LOC X05_M03_270_010>[{i Fletcher}]: Hall\'s snooping around. Gotta watch him, Colonel. Our list of friends keeps getting shorter and shorter. Fletcher out.', vid = 'X05_Fletcher_M03_03889.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M03_03889', faction = 'UEF'},
 }
 
-# Aeon –Capture Science Building / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Aeon –Capture Science Building / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M03_290 = {
   {text = '<LOC X05_M03_290_010>[{i Amalia}]: Champion, the Trojan Horse is still operational. I have marked a Science Facility for capture; if you seize it, the Colossus next to the Facility will be yours to command. Amalia out.', vid = 'X05_Amalia_M03_04055.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M03_04055', faction = 'Aeon'},
 }
 
-# Objective Reminders - Capture Science Building Aeon #1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Objective Reminders - Capture Science Building Aeon #1 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M03_300 = {
   {text = '<LOC X05_M03_300_010>[{i Amalia}]: The Science Facility still needs to be captured, Champion. Amalia out.', vid = 'X05_Amalia_M03_03891.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M03_03891', faction = 'Aeon'},
 }
 
-# Objective Reminders - Capture Science Building Aeon #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Objective Reminders - Capture Science Building Aeon #2 / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M03_310 = {
   {text = '<LOC X05_M03_310_010>[{i Amalia}]: A free Colossus awaits you if can capture the Science Facility, Champion. Amalia out.', vid = 'X05_Amalia_M03_03892.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M03_03892', faction = 'Aeon'},
 }
 
-# Completed Objective - Capture Science Building Aeon / Actor: Amalia / Update: 07/05/2007 / VO Ready
+-- Completed Objective - Capture Science Building Aeon / Actor: Amalia / Update: 07/05/2007 / VO Ready
 X05_M03_320 = {
   {text = '<LOC X05_M03_320_010>[{i Amalia}]: The Colossus is yours, Champion! Use it to wreak havoc upon your enemies! Glory to the Princess! Amalia out.', vid = 'X05_Amalia_M03_03893.sfd', bank = 'X05_VO', cue = 'X05_Amalia_M03_03893', faction = 'Aeon'},
 }
 
-# QAI Demise #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- QAI Demise #1 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_322 = {
   {text = '<LOC X05_M03_322_010>[{i Brackman}]: I am in position, my child. I shall take it from here. It\'s just a simple matter of interfacing. Oh yes.', vid = 'X05_Brackman_M03_04447.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04447', faction = 'Cybran'},
 }
 
-# QAI Demise #2 / Actor: QAI / Update: 07/05/2007 / VO Ready
+-- QAI Demise #2 / Actor: QAI / Update: 07/05/2007 / VO Ready
 X05_M03_323 = {
   {text = '<LOC X05_M03_323_010>[{i QAI}]: You are an old fool. It was the Seraphim that made me what I am, not you.', vid = 'X05_QAI_M03_04448.sfd', bank = 'X05_VO', cue = 'X05_QAI_M03_04448', faction = 'Cybran'},
 }
 
-# QAI Demise #3 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- QAI Demise #3 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_324 = {
   {text = '<LOC X05_M03_324_010>[{i Brackman}]: A father always knows the child\'s weakness. Oh yes. There is always a weakness.', vid = 'X05_Brackman_M03_04449.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04449', faction = 'Cybran'},
 }
 
-# QAI Demise #4 / Actor: QAI / Update: 07/05/2007 / VO Ready
+-- QAI Demise #4 / Actor: QAI / Update: 07/05/2007 / VO Ready
 X05_M03_325 = {
   {text = '<LOC X05_M03_325_040>[{i QAI}]: Your efforts will be for -- what are you doing? That is not possible.', vid = 'X05_QAI_M03_04450.sfd', bank = 'X05_VO', cue = 'X05_QAI_M03_04450', faction = 'Cybran'},
 }
 
-# QAI Demise #5 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- QAI Demise #5 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_326 = {
   {text = '<LOC X05_M03_326_010>[{i Brackman}]: Goodbye, QAI.', vid = 'X05_Brackman_M03_04451.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04451', faction = 'Cybran'},
 }
 
-# QAI Demise #6 / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- QAI Demise #6 / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_327 = {
   {text = '<LOC X05_M03_327_010>[{i Brackman}]: Goodbye.', vid = 'X05_Brackman_M03_04452.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_04452', faction = 'Cybran'},
 }
 
-# Fletcher Recall / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Fletcher Recall / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X05_M03_329 = {
   {text = '<LOC X05_M03_329_010>[{i Fletcher}]: I\'m getting pounded from all sides! I have to get out of here! Recalling!', vid = 'X05_Fletcher_M03_04715.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M03_04715', faction = 'UEF'},
 }
 
-# NIS Victory - Brackman has destroyed the QAI / Actor: HQ, Brackman / Update: 07/05/2007 / VO Ready
+-- NIS Victory - Brackman has destroyed the QAI / Actor: HQ, Brackman / Update: 07/05/2007 / VO Ready
 X05_M03_330 = {
   {text = '<LOC X05_M03_330_010>[{i HQ}]: Doctor Brackman?', vid = 'X05_HQ_M03_03894.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03894', faction = 'NONE'},
   {text = '<LOC X05_M03_330_020>[{i Brackman}]: It is over. QAI is destroyed. We would be wise to dispatch technicians, though, have them search through QAI\'s systems. Just to be safe.', vid = 'X05_Brackman_M03_03895.sfd', bank = 'X05_VO', cue = 'X05_Brackman_M03_03895', faction = 'Cybran'},
   {text = '<LOC X05_M03_330_030>[{i HQ}]: We have techs prepped and ready to gate. They\'ll be there shortly. HQ out.', vid = 'X05_HQ_M03_03896.sfd', bank = 'X05_VO', cue = 'X05_HQ_M03_03896', faction = 'NONE'},
 }
 
-# Aeon Secondary Failure / Actor: Rhiza / Update: 07/17/2007 / VO Ready
+-- Aeon Secondary Failure / Actor: Rhiza / Update: 07/17/2007 / VO Ready
 X05_M03_340 = {
   {text = '<LOC X05_M03_340_010>[{i Rhiza}]: Champion, you did not capture the Science Facility in time. The enemy Colossus is operational and heading your way. Rhiza out.', vid = 'X05_Rhiza_M03_04954.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M03_04954', faction = 'Aeon'},
 }
 
-# Colossus Destroyed / Actor: Rhiza / Update: 07/17/2007 / VO Ready
+-- Colossus Destroyed / Actor: Rhiza / Update: 07/17/2007 / VO Ready
 X05_M03_350 = {
   {text = '<LOC X05_M03_350_010>[{i Rhiza}]: Because you destroyed the Colossus, there is no reason to capture the Science Facility. Rhiza out.', vid = 'X05_Rhiza_M03_04955.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M03_04955', faction = 'Aeon'},
 }
 
-# ------------------------------
-# Opnode ID: M03_OBJ
-# Mission 3: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03_OBJ
+-- Mission 3: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_010 = '<LOC X05_M03_OBJ_010_010>Protect Dr. Brackman'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_020 = '<LOC X05_M03_OBJ_010_020>Dr. Brackman has come to Pearl II to personally destroy QAI. You must protect his Megalith at all costs.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_030 = '<LOC X05_M03_OBJ_010_030>Escort Dr. Brackman to the Mainframe'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_040 = '<LOC X05_M03_OBJ_010_040>Dr. Brackman must reach QAI\'s mainframe in order to destroy it. Clear a path for him and use the Command Signal to indicate where he should go. The Command Signal will refresh as necessary.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_050 = '<LOC X05_M03_OBJ_010_050>Destroy QAI\'s Satellite Bases'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_060 = '<LOC X05_M03_OBJ_010_060>QAI has two major satellite bases: One contains most of its Energy and the other produces most of its Mass. If you can destroy both bases, QAI\'s economy will be crippled.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_070 = '<LOC X05_M03_OBJ_010_070>Capture Science Building'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_080 = '<LOC X05_M03_OBJ_010_080>Amalia has marked a Science Facility for capture. If you capture it, you will gain control over the nearby Colossus. However, if you don\'t capture it in time, Order scientists will eventually find and eliminate Amalia\'s virus and take control of the Colossus themselves.'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_090 = '<LOC X05_M03_OBJ_010_090>Destory QAI'
 
-# Primary Objectives
+-- Primary Objectives
 X05_M03_OBJ_010_100 = '<LOC X05_M03_OBJ_010_100>Get Dr. Brackman to the mainframe so that he may destroy QAI once and for all.'
 
 
 
-# ------------------------------
-# Opnode ID: T01
-# Enemy Taunts
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: T01
+-- Enemy Taunts
+-- ------------------------------
 
 
 
-# QAI On attacking Experimental 01 / Actor: QAI / Update: 07/10/2007 / VO Cut
+-- QAI On attacking Experimental 01 / Actor: QAI / Update: 07/10/2007 / VO Cut
 TAUNT1 = {
   {text = '<LOC X05_T01_001_010>[{i QAI}]: You will not complete that experimental unit.', vid = 'X05_QAI_T01_04791.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04791', faction = 'Cybran'},
 }
 
-# QAI On attacking Experimental 02 / Actor: QAI / Update: 07/10/2007 / VO Cut
+-- QAI On attacking Experimental 02 / Actor: QAI / Update: 07/10/2007 / VO Cut
 TAUNT2 = {
   {text = '<LOC X05_T01_002_010>[{i QAI}]: I will not allow you to jeopardize my mission by finishing that experimental.', vid = 'X05_QAI_T01_04792.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04792', faction = 'Cybran'},
 }
 
-# QAI On attacking Experimental 03 / Actor: QAI / Update: 07/10/2007 / VO Cut
+-- QAI On attacking Experimental 03 / Actor: QAI / Update: 07/10/2007 / VO Cut
 TAUNT3 = {
   {text = '<LOC X05_T01_003_010>[{i QAI}]: Your experimental unit may actually be dangerous if completed. Ergo, I will destroy it now.', vid = 'X05_QAI_T01_04793.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04793', faction = 'Cybran'},
 }
 
-# Taunt01 M1 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 M1 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT4 = {
   {text = '<LOC X05_T01_010_010>[{i QAI}]: Another Commander will not make a difference. You will never defeat me.', vid = 'X05_QAI_T01_04415.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04415', faction = 'Cybran'},
 }
 
-# Taunt02 M1 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt02 M1 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT5 = {
   {text = '<LOC X05_T01_020_010>[{i QAI}]: I have extracted all knowledge from the Loyalist. She is little more than a husk.', vid = 'X05_QAI_T01_04416.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04416', faction = 'Cybran'},
 }
 
-# Taunt01 M2 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 M2 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT6 = {
   {text = '<LOC X05_T01_030_010>[{i QAI}]: Hex5 was but a pawn.', vid = 'X05_QAI_T01_04417.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04417', faction = 'Cybran'},
 }
 
-# Taunt01 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT7 = {
   {text = '<LOC X05_T01_040_010>[{i QAI}]: Those bases are of no consequence.', vid = 'X05_QAI_T01_04418.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04418', faction = 'Cybran'},
 }
 
-# Taunt02 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt02 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT8 = {
   {text = '<LOC X05_T01_050_010>[{i QAI}]: That building means nothing to me.', vid = 'X05_QAI_T01_04419.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04419', faction = 'Cybran'},
 }
 
-# Taunt03 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt03 M3 Objective completed / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT9 = {
   {text = '<LOC X05_T01_060_010>[{i QAI}]: Brackman will never defeat me.', vid = 'X05_QAI_T01_04420.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04420', faction = 'Cybran'},
 }
 
-# Taunt01 to UEF / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 to UEF / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT10 = {
   {text = '<LOC X05_T01_070_010>[{i QAI}]: The UEF has lost 90% of its former territories. You are doomed.', vid = 'X05_QAI_T01_04421.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04421', faction = 'Cybran'},
 }
 
-# Taunt02 to UEF / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt02 to UEF / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT11 = {
   {text = '<LOC X05_T01_080_010>[{i QAI}]: I have examined our previous battles and created the appropriate subroutines to counter your strategies. You cannot win.', vid = 'X05_QAI_T01_04422.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04422', faction = 'Cybran'},
 }
 
-# Taunt01 to Cybran / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 to Cybran / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT12 = {
   {text = '<LOC X05_T01_090_010>[{i QAI}]: If your beloved Dr. Brackman could not control me, what chance do you have?', vid = 'X05_QAI_T01_04423.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04423', faction = 'Cybran'},
 }
 
-# Taunt02 to Cybran / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt02 to Cybran / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT13 = {
   {text = '<LOC X05_T01_100_010>[{i QAI}]: On this day, I will teach you the true power of the Quantum Realm.', vid = 'X05_QAI_T01_04424.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04424', faction = 'Cybran'},
 }
 
-# Taunt01 to Aeon / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt01 to Aeon / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT14 = {
   {text = '<LOC X05_T01_110_010>[{i QAI}]: The Seraphim are the true gods. You would be wise to remember that.', vid = 'X05_QAI_T01_04425.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04425', faction = 'Cybran'},
 }
 
-# Taunt02 to Aeon  / Actor: QAI / Update: 07/10/2007 / VO Ready
+-- Taunt02 to Aeon  / Actor: QAI / Update: 07/10/2007 / VO Ready
 TAUNT15 = {
   {text = '<LOC X05_T01_120_010>[{i QAI}]: I have examined our previous battles and created the appropriate subroutines to counter your strategies. You cannot win.', vid = 'X05_QAI_T01_04426.sfd', bank = 'X05_VO', cue = 'X05_QAI_T01_04426', faction = 'Cybran'},
 }
 
-# Hex5 On attacking Experimental 01 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
+-- Hex5 On attacking Experimental 01 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
 TAUNT16 = {
   {text = '<LOC X05_T01_125_010>[{i Hex5}]: Completing that experimental unit could interfere with the Master\'s plans. I will not allow that.', vid = 'X05_Hex5_T01_04794.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04794', faction = 'Cybran'},
 }
 
-# Hex5 On attacking Experimental 02 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
+-- Hex5 On attacking Experimental 02 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
 TAUNT17 = {
   {text = '<LOC X05_T01_126_010>[{i Hex5}]: The Master wills that your experimental will not come online.', vid = 'X05_Hex5_T01_04795.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04795', faction = 'Cybran'},
 }
 
-# Hex5 On attacking Experimental 03 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
+-- Hex5 On attacking Experimental 03 / Actor: Hex5 / Update: 07/10/2007 / VO Cut
 TAUNT18 = {
   {text = '<LOC X05_T01_127_010>[{i Hex5}]: That experimental unit will not be completed!', vid = 'X05_Hex5_T01_04796.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04796', faction = 'Cybran'},
 }
 
-# Taunt01 M1 Objective complete / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt01 M1 Objective complete / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT19 = {
   {text = '<LOC X05_T01_130_010>[{i Hex5}]: On this day, we will destroy two of the Coalition\'s most beloved commanders.', vid = 'X05_Hex5_T01_04427.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04427', faction = 'Cybran'},
 }
 
-# Taunt02 M1 Objective complete / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt02 M1 Objective complete / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT20 = {
   {text = '<LOC X05_T01_140_010>[{i Hex5}]: The Master will punish you for that.', vid = 'X05_Hex5_T01_04428.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04428', faction = 'Cybran'},
 }
 
-# Taunt01 UEF / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt01 UEF / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT21 = {
   {text = '<LOC X05_T01_150_010>[{i Hex5}]: You are weak and soft, frightened by what you don\'t understand.', vid = 'X05_Hex5_T01_04429.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04429', faction = 'Cybran'},
 }
 
-# Taunt02 UEF / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt02 UEF / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT22 = {
   {text = '<LOC X05_T01_160_010>[{i Hex5}]: You do not stand a chance against the Master. It will destroy you.', vid = 'X05_Hex5_T01_04430.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04430', faction = 'Cybran'},
 }
 
-# Taunt01 Cybran / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt01 Cybran / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT23 = {
   {text = '<LOC X05_T01_170_010>[{i Hex5}]: Dr. Brackman\'s loyalty program enslaved billions. That is his shame.', vid = 'X05_Hex5_T01_04431.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04431', faction = 'Cybran'},
 }
 
-# Taunt02 Cybran / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt02 Cybran / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT24 = {
   {text = '<LOC X05_T01_180_010>[{i Hex5}]: I thrilled at the sight of seeing Dostya die. You will join her.', vid = 'X05_Hex5_T01_04432.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04432', faction = 'Cybran'},
 }
 
-# Taunt01 Aeon / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt01 Aeon / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT25 = {
   {text = '<LOC X05_T01_190_010>[{i Hex5}]: You will bow before the Seraphim.', vid = 'X05_Hex5_T01_04433.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04433', faction = 'Cybran'},
 }
 
-# Taunt02 Aeon / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt02 Aeon / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT26 = {
   {text = '<LOC X05_T01_200_010>[{i Hex5}]: You are a traitor. You turned your back on your people.', vid = 'X05_Hex5_T01_04434.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04434', faction = 'Cybran'},
 }
 
-# Taunt01 at 50% health / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt01 at 50% health / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT27 = {
   {text = '<LOC X05_T01_210_010>[{i Hex5}]: The Master will protect me.', vid = 'X05_Hex5_T01_04435.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04435', faction = 'Cybran'},
 }
 
-# Taunt02 at 50% health / Actor: Hex5 / Update: 07/10/2007 / VO Ready
+-- Taunt02 at 50% health / Actor: Hex5 / Update: 07/10/2007 / VO Ready
 TAUNT28 = {
   {text = '<LOC X05_T01_220_010>[{i Hex5}]: Even if you destroy me, the Master lives on.', vid = 'X05_Hex5_T01_04436.sfd', bank = 'X05_VO', cue = 'X05_Hex5_T01_04436', faction = 'Cybran'},
 }

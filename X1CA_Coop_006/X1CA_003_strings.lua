@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X03>Operation: Red Flag'
 
 
 
-# ------------------------------
-# Opnode ID: B01
-# Operation Briefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: B01
+-- Operation Briefing
+-- ------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X03_B01_000_010>02-August-3847'},
@@ -34,238 +34,238 @@ BriefingData = {
   {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_003_020>Rhiza is already on-planet and awaits your arrival. You gate immediately. Be safe, my child. Be safe.'},
 }
 
-# ------------------------------
-# Opnode ID: DB01
-# Operation Debriefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+-- ------------------------------
 
 
 
-# Victory / Actor: Princess / Update: 07/10/2007 / VO Ready
+-- Victory / Actor: Princess / Update: 07/10/2007 / VO Ready
 X03_DB01_010 = {
   {text = '<LOC X03_DB01_010_010>[{i Princess}]: I must admit that I feared for my life when the Seraphim landed. They are maniacal in their desire to see me dead, but I now understand how they are to be defeated. I will meet with General Hall and Dr. Brackman to begin preparations. You will learn more when the time has come.', vid = 'X03_Princess__04022.sfd', bank = 'Briefings', cue = 'X03_Princess__04022', faction = 'Aeon'},
 }
 
-# Defeat / Actor: Hall / Update: 07/12/2007 / VO Ready
+-- Defeat / Actor: Hall / Update: 07/12/2007 / VO Ready
 X03_DB01_020 = {
   {text = '<LOC X03_DB01_020_010>[{i Hall}]: We\'re in a bad way, Gustaf. The Princess is dead, and all of the Aeon people are uniting behind Kael. They\'re launching attacks across the galaxy, and I don\'t see how we can possibly win. We only have a couple of options, and none of them are pretty.', vid = 'X03_Hall_DB01_04023.sfd', bank = 'Briefings', cue = 'X03_Hall_DB01_04023', faction = 'UEF'},
 }
 
-# Defeat / Actor: HQ / Update: 07/12/2007 / VO Ready
+-- Defeat / Actor: HQ / Update: 07/12/2007 / VO Ready
 X03_DB01_030 = {
   {text = '<LOC X03_DB01_030_010>[{i HQ}]: Commander, do you read me ... Commander?', vid = 'X03_HQ_DB01_04918.sfd', bank = 'Briefings', cue = 'X03_HQ_DB01_04918', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M01
-# Mission 1: Command and Conquer
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01
+-- Mission 1: Command and Conquer
+-- ------------------------------
 
 
 
-# M01 NIS / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M01 NIS / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M01_010 = {
   {text = '<LOC X03_M01_010_010>[{i HQ}]: This is going to be a hell of a fight, Commander. Link up with Rhiza and get Burke out of there. HQ out.', vid = 'X03_HQ_M01_03281.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_03281', faction = 'NONE'},
 }
 
-# Opening NIS UEF #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS UEF #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_020 = {
   {text = '<LOC X03_M01_020_010>[{i Rhiza}]: Colonel, before we can launch our primary offensive, we must destroy a Seraphim naval base located to your north.', vid = 'X03_Rhiza_M01_03284.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03284', faction = 'Aeon'},
 }
 
-# Opening NIS UEF #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS UEF #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_021 = {
   {text = '<LOC X03_M01_021_010>[{i Rhiza}]: This will secure our flank and allow us to push east.', vid = 'X03_Rhiza_M01_04861.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04861', faction = 'Aeon'},
 }
 
-# Opening NIS UEF #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS UEF #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_022 = {
   {text = '<LOC X03_M01_022_010>[{i Rhiza}]: Prepare your forces. Rhiza out.', vid = 'X03_Rhiza_M01_04862.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04862', faction = 'Aeon'},
 }
 
-# Opening NIS Cybran #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Cybran #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_030 = {
   {text = '<LOC X03_M01_030_010>[{i Rhiza}]: A Cybran coming to the aid of the Princess? Your first task is to destroy the Seraphim naval base to the north. ', vid = 'X03_Rhiza_M01_03285.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03285', faction = 'Aeon'},
 }
 
-# Opening NIS Cybran #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Cybran #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_031 = {
   {text = '<LOC X03_M01_031_010>[{i Rhiza}]: This will secure our flank and allow us to push east.', vid = 'X03_Rhiza_M01_04863.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04863', faction = 'Aeon'},
 }
 
-# Opening NIS Cybran #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Cybran #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_032 = {
   {text = '<LOC X03_M01_032_010>[{i Rhiza}]: Prepare your forces. Rhiza out.', vid = 'X03_Rhiza_M01_04864.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04864', faction = 'Aeon'},
 }
 
-# Opening NIS Aeon #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Aeon #1 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_040 = {
   {text = '<LOC X03_M01_040_010>[{i Rhiza}]: It is an honor to again fight by your side, Champion. Your first task is to destroy the Seraphim naval base to the north.', vid = 'X03_Rhiza_M01_03286.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03286', faction = 'Aeon'},
 }
 
-# Opening NIS Aeon #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Aeon #2 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_041 = {
   {text = '<LOC X03_M01_041_010>[{i Rhiza}]: This will secure our flank and allow us to push east.', vid = 'X03_Rhiza_M01_04865.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04865', faction = 'Aeon'},
 }
 
-# Opening NIS Aeon #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
+-- Opening NIS Aeon #3 / Actor: Rhiza / Update: 07/30/2007 / VO Ready
 X03_M01_042 = {
   {text = '<LOC X03_M01_042_010>[{i Rhiza}]: Prepare your forces. Rhiza out.', vid = 'X03_Rhiza_M01_04866.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04866', faction = 'Aeon'},
 }
 
-# M1 PO1 Defeat Seraphim Naval Bases - UEF or Cybran / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Defeat Seraphim Naval Bases - UEF or Cybran / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M01_050 = {
   {text = '<LOC X03_M01_050_010>[{i Princess}]: I am honored that you are fighting on my behalf, but please make haste. My palace defenses will not be able to hold off the Seraphim much longer.', vid = 'X03_Princess_M01_03287.sfd', bank = 'X03_VO', cue = 'X03_Princess_M01_03287', faction = 'Aeon'},
 }
 
-# M1 PO1 Defeat Seraphim Naval Bases - Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Defeat Seraphim Naval Bases - Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M01_060 = {
   {text = '<LOC X03_M01_060_010>[{i Princess}]: My beloved Champion. I am ecstatic that you have arrived, but please make haste. My palace defenses will not be able to hold off the Seraphim much longer.', vid = 'X03_Princess_M01_03288.sfd', bank = 'X03_VO', cue = 'X03_Princess_M01_03288', faction = 'Aeon'},
 }
 
-# M1 PO1 All Address / Actor: Princess, HQ / Update: 07/05/2007 / VO Ready
+-- M1 PO1 All Address / Actor: Princess, HQ / Update: 07/05/2007 / VO Ready
 X03_M01_064 = {
   {text = '<LOC X03_M01_064_010>[{i HQ}]: Dammit, we\'re getting some weird readings from the Seraphim naval base. They\'re using some sort of jamming field.', vid = 'X03_HQ_M01_04353.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_04353', faction = 'NONE'},
   {text = '<LOC X03_M01_064_020>[{i Princess}]: It is Blue Sky\'s crystals, Commander. Their unique structure reflects radar waves, creating an effect similar to jamming. Omni radar will quell the effect, as will destroying the crystals.', vid = 'X03_Princess_M01_04354.sfd', bank = 'X03_VO', cue = 'X03_Princess_M01_04354', faction = 'Aeon'},
   {text = '<LOC X03_M01_064_030>[{i HQ}]: You heard the lady. Either get an Omni online or blow up the crystals. HQ out.', vid = 'X03_HQ_M01_04355.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_04355', faction = 'NONE'},
 }
 
-# Tech Reveal Harms Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Harms Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
 X03_M01_066 = {
   {text = '<LOC X03_M01_066_010>[{i Dostya}]: Our technicians managed to recover one of QAI\'s new torpedo systems. We have christened it the HARMS and are uploading it to your ACU. Dostya out.', vid = 'X03_Dostya_M01_04356.sfd', bank = 'X03_VO', cue = 'X03_Dostya_M01_04356', faction = 'Cybran'},
 }
 
-# Tech Reveal Bulwark UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Bulwark UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M01_067 = {
   {text = '<LOC X03_M01_067_010>[{i HQ}]: Colonel, we got a new naval schematic for you. It\'s called the Bulwark and is a T2 shield mounted on a small boat. HQ out.', vid = 'X03_HQ_M01_04357.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_04357', faction = 'NONE'},
 }
 
-# Subplot - UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Subplot - UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X03_M01_070 = {
   {text = '<LOC X03_M01_070_010>[{i Fletcher}]: Using a secure channel here, Colonel. Never know who else might be listening. You gotta watch your back. You really think once this is over the Aeon and Cybran are going to join hands and let us live in peace? We have to be ready for anything, even if it means kicking off another war. Fletcher out.', vid = 'X03_Fletcher_M01_03289.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M01_03289', faction = 'UEF'},
 }
 
-# Subplot - Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
+-- Subplot - Cybran / Actor: Brackman / Update: 07/05/2007 / VO Ready
 X03_M01_080 = {
   {text = '<LOC X03_M01_080_010>[{i Brackman}]: We are so close, my child, so close to completing work on the translator. Just a few more algorithms to decipher and it will be ready. The intelligence boon will be substantial. Oh yes.', vid = 'X03_Brackman_M01_03290.sfd', bank = 'X03_VO', cue = 'X03_Brackman_M01_03290', faction = 'Cybran'},
 }
 
-# Subplot - Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Subplot - Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M01_090 = {
   {text = '<LOC X03_M01_090_010>[{i Rhiza}]: The fighting amongst the Aeon grows, Champion. We tread in very treacherous waters; Kael still controls the military and is purging anyone suspected of Loyalist leanings. Be on your guard.', vid = 'X03_Rhiza_M01_03291.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03291', faction = 'Aeon'},
 }
 
-# Subplot All / Actor: Kael, Princess, HQ, Rhiza / Update: 07/05/2007 / VO Ready
+-- Subplot All / Actor: Kael, Princess, HQ, Rhiza / Update: 07/05/2007 / VO Ready
 X03_M01_100 = {
   {text = '<LOC X03_M01_100_010>[{i Kael}]: You\'re going to die here, Burke. And then I shall deal with your so-called Loyalists.', vid = 'X03_Kael_M01_03302.sfd', bank = 'X03_VO', cue = 'X03_Kael_M01_03302', faction = 'Aeon'},
   {text = '<LOC X03_M01_100_020>[{i Princess}]: My people reject you, Kael, turn their back on your hatred and lies. It\'s only a matter of time now.', vid = 'X03_Princess_M01_03303.sfd', bank = 'X03_VO', cue = 'X03_Princess_M01_03303', faction = 'Aeon'},
 }
 
-# Increased Activity / Actor: HQ / Update: 06/29/2007 / VO Ready
+-- Increased Activity / Actor: HQ / Update: 06/29/2007 / VO Ready
 X03_M01_101 = {
   {text = '<LOC X03_M01_101_010>[{i HQ}]: Picking up increased activity on the island to your north. Dunno what that alien is up to, but it\'s building something big. Keep your eyes open. HQ out.', vid = 'X03_HQ_M01_03304.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_03304', faction = 'NONE'},
 }
 
-# Island Captured / Actor: Rhiza / Update: 06/29/2007 / VO Ready
+-- Island Captured / Actor: Rhiza / Update: 06/29/2007 / VO Ready
 X03_M01_102 = {
   {text = '<LOC X03_M01_102_010>[{i Rhiza}]: The island is ours, Commander. We can now begin our assault on the base. Rhiza out.', vid = 'X03_Rhiza_M01_03305.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03305', faction = 'Aeon'},
 }
 
-# Completed PO1 / Actor: HQ / 07/05/2007 / VO Ready
+-- Completed PO1 / Actor: HQ / 07/05/2007 / VO Ready
 X03_M01_150 = {
   {text = '<LOC X03_M01_150_010>[{i HQ}]: Scratch one naval base. HQ out.', vid = 'X03_HQ_M01_03308.sfd', bank = 'X03_VO', cue = 'X03_HQ_M01_03308', faction = 'NONE'},
 }
 
-# Objective Reminders for PO1, #1 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1, #1 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M01_200 = {
   {text = '<LOC X03_M01_200_010>[{i Rhiza}]: We must destroy the naval base. Every moment we tarry places the Princess in greater danger!', vid = 'X03_Rhiza_M01_03306.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03306', faction = 'Aeon'},
 }
 
-# Objective Reminders for PO1, #2 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1, #2 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M01_210 = {
   {text = '<LOC X03_M01_210_010>[{i Rhiza}]: The Princess is in danger! We must destroy the base quickly!', vid = 'X03_Rhiza_M01_03307.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_03307', faction = 'Aeon'},
 }
 
-# Sweeping Area #1 / Actor: Rhiza / Update: 07/11/2007 / VO Ready
+-- Sweeping Area #1 / Actor: Rhiza / Update: 07/11/2007 / VO Ready
 X03_M01_220 = {
   {text = '<LOC X03_M01_220_010>[{i Rhiza}]: My forces are sweeping and clearing the areas you have already attacked. Any remaining enemy units or structures will be destroyed. Rhiza out.', vid = 'X03_Rhiza_M01_04914.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04914', faction = 'Aeon'},
 }
 
-# Sweeping Area #2 / Actor: Rhiza / Update: 07/11/2007 / VO Ready
+-- Sweeping Area #2 / Actor: Rhiza / Update: 07/11/2007 / VO Ready
 X03_M01_230 = {
   {text = '<LOC X03_M01_230_010>[{i Rhiza}]: I have ordered my forces to deal with any enemies that remain in your operational area. Rhiza out.', vid = 'X03_Rhiza_M01_04915.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04915', faction = 'Aeon'},
 }
 
-# ------------------------------
-# Opnode ID: M01_OBJ
-# Recover Translator Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01_OBJ
+-- Recover Translator Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_010 = '<LOC X03_M01_OBJ_010_010>Destroy the Seraphim Naval Base'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_020 = '<LOC X03_M01_OBJ_010_020>Secure the local waterway by destroying the marked Seraphim structures.'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_030 = '<LOC X03_M01_OBJ_010_030>The Eye of Rhianne'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_035 = '<LOC X03_M01_OBJ_010_035>Scry through the fog of war to temporarily counter the jamming crystals.'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_PNG_010_010 = '<LOC X03_M01_PNG_010_010>Move Colossus'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_PNG_010_015 = '<LOC X03_M01_PNG_010_015>Order Rhiza to move her Colossus to where you want it to go'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_040 = '<LOC X03_M01_OBJ_010_040>Escort the Loyalists'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_045 = '<LOC X03_M01_OBJ_010_045>Signal the Loyalist refugees to move to the targeted location.'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_050 = '<LOC X03_M01_OBJ_010_050>Call in the Loyalist Saboteur'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M01_OBJ_010_055 = '<LOC X03_M01_OBJ_010_055>A saboteur will stun Seraphim units in an area for a short time.'
 
 
 
-# ------------------------------
-# Opnode ID: M02
-# Mission 2
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02
+-- Mission 2
+-- ------------------------------
 
 
 
-# M02 NIS / Actor: Princess / Update: 07/30/2007 / VO Ready
+-- M02 NIS / Actor: Princess / Update: 07/30/2007 / VO Ready
 X03_M02_010 = {
   {text = '<LOC X03_M02_010_010>[{i Princess}]: Commander, I am getting some strange readings from my northwest. The Seraphim commander appears to be amassing a fleet of strange units. I do not know what they are, but their size suggests that they are capable of inflicting terrible damage.', vid = 'X03_Princess_M02_03282.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03282', faction = 'Aeon'},
 }
 
-# Tech Reveal CI:18 Mermaid Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Tech Reveal CI:18 Mermaid Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_011 = {
   {text = '<LOC X03_M02_011_010>[{i HQ}]: Uploading a new weapon schematic, Commander. It\'s called the Mermaid and is a stealth boat. Only thing that can detect it is Omni. HQ out.', vid = 'X03_HQ_M02_04358.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04358', faction = 'NONE'},
 }
 
-# Alternate From 10 / Actor: Princess/ Update: 07/25/2007 / VO Ready
+-- Alternate From 10 / Actor: Princess/ Update: 07/25/2007 / VO Ready
 X03_M02_012 = {
   {text = '<LOC X03_M02_012_010>[{i Princess}]: Commander, I am getting some strange readings from my southwest. The Seraphim commander appears to be amassing a fleet of strange units. I do not know what they are, but their size suggests that they are capable of inflicting terrible damage.', vid = 'X03_Princess_M02_05124.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_05124', faction = 'Aeon'},
 }
 
-# On reveal / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- On reveal / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_013 = {
   {text = '<LOC X03_M02_013_010>[{i HQ}]: Looks like the southern base is primarily a resource base for the experimental bombers. If you can destroy the resource buildings, you\'ll slow down the production of the bombers. HQ out.', vid = 'X03_HQ_M02_04701.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04701', faction = 'NONE'},
 }
 
-# On success / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- On success / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_014 = {
   {text = '<LOC X03_M02_014_010>[{i HQ}]: You got \'em. Now those bombers will take twice as long to build. HQ out.', vid = 'X03_HQ_M02_04702.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04702', faction = 'NONE'},
 }
 
-# Destroy the Seraphim Experimental Bombers / Actor: Kael, Princess / Update: 07/05/2007 / VO Ready
+-- Destroy the Seraphim Experimental Bombers / Actor: Kael, Princess / Update: 07/05/2007 / VO Ready
 X03_M02_015 = {
   {text = '<LOC X03_M02_015_010>[{i Kael}]: I\'ve been waiting a long time for this day, Burke. Your death will mark the closing chapter of a plan I hatched years ago.', vid = 'X03_Kael_M02_03309.sfd', bank = 'X03_VO', cue = 'X03_Kael_M02_03309', faction = 'Aeon'},
   {text = '<LOC X03_M02_015_020>[{i Princess}]: Your only plan is to sow death and destruction. You were always too foolish to look beyond your own petty desires.', vid = 'X03_Princess_M02_03310.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03310', faction = 'Aeon'},
@@ -276,650 +276,650 @@ X03_M02_015 = {
   {text = '<LOC X03_M02_015_070>[{i Kael}]: You will die a fool\'s death, Burke. No one will remember you, no one will call out your name. I will see to that myself.', vid = 'X03_Kael_M02_04359.sfd', bank = 'X03_VO', cue = 'X03_Kael_M02_04359', faction = 'Aeon'},
 }
 
-# M2 Seraphim Base NIS #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 Seraphim Base NIS #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_016 = {
   {text = '<LOC X03_M02_016_010>[{i HQ}]: Got two enemy bases operating in your area. The one to the southeast is pretty standard fare. The one to the northeast is --', vid = 'X03_HQ_M02_04867.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04867', faction = 'NONE'},
 }
 
-# M2 Seraphim Base NIS #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- M2 Seraphim Base NIS #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_017 = {
   {text = '<LOC X03_M02_017_010>[{i Princess}]: Commanders, I\'m detecting some extremely alarming readings from the Seraphim base to your northeast. It\'s amassing a fleet of strange units, and their size suggests that they are capable of inflicting terrible damage.', vid = 'X03_Princess_M02_04868.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_04868', faction = 'Aeon'},
 }
 
-# M2 Seraphim Base NIS #3 / Actor: HQ / Update: 07/30/2007 / VO Ready
+-- M2 Seraphim Base NIS #3 / Actor: HQ / Update: 07/30/2007 / VO Ready
 X03_M02_018 = {
   {text = '<LOC X03_M02_018_010>[{i HQ}]: I got confirmation on Burke\'s intel. The Seraphim are building several experimental-class bombers, the same kind that blew the hell out of the Earth. If they take off, Princess Burke is in big trouble. Either destroy the bombers or the Engineers constructing them. No matter what, they can\'t be allowed to get in the air. HQ out.', vid = 'X03_HQ_M02_03283.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_03283', faction = 'NONE'},
 }
 
-# Objective Reminder for PO1, #1 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for PO1, #1 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M02_019 = {
   {text = '<LOC X03_M02_019_010>[{i Rhiza}]: We must destroy those bombers!', vid = 'X03_Rhiza_M02_03321.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M02_03321', faction = 'Aeon'},
 }
 
-# Objective Reminder for PO1, #2 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for PO1, #2 / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M02_020 = {
   {text = '<LOC X03_M02_020_010>[{i Rhiza}]: Those bombers must be destroyed!', vid = 'X03_Rhiza_M02_03322.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M02_03322', faction = 'Aeon'},
 }
 
-# Sub Warning and Tech Reveal (on first getting LoS on the Experimental area) / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Sub Warning and Tech Reveal (on first getting LoS on the Experimental area) / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_021 = {
   {text = '<LOC X03_M02_021_010>[{i HQ}]: Got some intel on the Seraphim -- it\'s mainly using subs and AA for defense. Going to be a pain to get in there ... wait a sec...', vid = 'X03_HQ_M02_04360.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04360', faction = 'NONE'},
 }
 
-# Tech Reveal Cooper – Torpedo Boat UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Cooper – Torpedo Boat UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_022 = {
   {text = '<LOC X03_M02_022_010>[{i HQ}]: Another new unit coming online, a T2 torpedo boat. It\'s got an anti-torpedo charge on it, too, so it should be able to counter those subs. HQ out.', vid = 'X03_HQ_M02_04361.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04361', faction = 'NONE'},
 }
 
-# Tech Reveal Barracuda – Sub Killer Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Barracuda – Sub Killer Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
 X03_M02_023 = {
   {text = '<LOC X03_M02_023_010>[{i Dostya}]: I have received a report on the situation, Commander. We are uploading the schematic for our new T2 Barracuda. It\'s a dedicated sub-killer and should help you clear out those subs. Dostya out.', vid = 'X03_Dostya_M02_04362.sfd', bank = 'X03_VO', cue = 'X03_Dostya_M02_04362', faction = 'Cybran'},
 }
 
-# Tech Reveal Vesper – Submarine Hunter Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Vesper – Submarine Hunter Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X03_M02_024 = {
   {text = '<LOC X03_M02_024_010>[{i Rhiza}]: Champion, this is the Vesper, a dedicated submarine hunter. Use it against the Seraphim subs. Rhiza out.', vid = 'X03_Rhiza_M02_04363.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M02_04363', faction = 'Aeon'},
 }
 
-# Ping Eye of Rhianne / Actor: Princess, HQ / Update: 07/05/2007 / VO Ready
+-- Ping Eye of Rhianne / Actor: Princess, HQ / Update: 07/05/2007 / VO Ready
 X03_M02_025 = {
   {text = '<LOC X03_M02_025_010>[{i Princess}]: Commander, I have a Quantum Optics Device that will counter the crystals and reveal an area. Because of its Energy consumption, I can only use it every few minutes.', vid = 'X03_Princess_M02_04364.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_04364', faction = 'Aeon'},
   {text = '<LOC X03_M02_025_020>[{i HQ}]: That should cut through the jamming. Click on the Command Signal button and then click on the area you want to see. We\'ll refresh the button as it becomes available. HQ out.', vid = 'X03_HQ_M02_04365.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04365', faction = 'NONE'},
 }
 
-# Bomber Destroyed #01 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Bomber Destroyed #01 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_030 = {
   {text = '<LOC X03_M02_030_010>[{i HQ}]: One bomber destroyed. HQ out.', vid = 'X03_HQ_M02_04366.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04366', faction = 'NONE'},
 }
 
-# Bomber Destroyed # 02 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Bomber Destroyed # 02 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_040 = {
   {text = '<LOC X03_M02_040_010>[{i HQ}]: A bomber has been destroyed. HQ out.', vid = 'X03_HQ_M02_03315.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_03315', faction = 'NONE'},
 }
 
-# Bomber Destroyed #03 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Bomber Destroyed #03 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_050 = {
   {text = '<LOC X03_M02_050_010>[{i HQ}]: Another one down, Commander. HQ out.', vid = 'X03_HQ_M02_03316.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_03316', faction = 'NONE'},
 }
 
-# Bomber Warning #01/ Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Bomber Warning #01/ Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M02_060 = {
   {text = '<LOC X03_M02_060_010>[{i HQ}]: If the bombers get in the air, Burke is finished. Destroy them while they\'re still on the ground. HQ out', vid = 'X03_HQ_M02_04223.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04223', faction = 'NONE'},
 }
 
-# Bomber Warning #02 / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Bomber Warning #02 / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M02_070 = {
   {text = '<LOC X03_M02_070_010>[{i HQ}]: Those bombers are about halfway done. Destroy them. HQ out.', vid = 'X03_HQ_M02_02842.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_02842', faction = 'NONE'},
 }
 
-# Bomber Warning #03 / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Bomber Warning #03 / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M02_080 = {
   {text = '<LOC X03_M02_080_010>[{i HQ}]: The bombers are nearly finished. Attack and destroy them! HQ out.', vid = 'X03_HQ_M02_02843.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_02843', faction = 'NONE'},
 }
 
-# Bomber Warning #04 / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Bomber Warning #04 / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M02_081 = {
   {text = '<LOC X03_M02_081_010>[{i HQ}]: The Seraphim is prepping its attack! This is your last chance! Destroy the bombers! HQ out.', vid = 'X03_HQ_M02_04842.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04842', faction = 'NONE'},
 }
 
-# Bomber Last Second Destruction / Actor: HQ / Update:06/28/2007 / VO Ready
+-- Bomber Last Second Destruction / Actor: HQ / Update:06/28/2007 / VO Ready
 X03_M02_082 = {
   {text = '<LOC X03_M02_082_010>[{i HQ}]: Holy ... I can\'t believe it. You actually destroyed them.', vid = 'X03_HQ_M02_04843.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04843', faction = 'NONE'},
 }
 
-# Bombers/Base Destroyed on the Ground / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Bombers/Base Destroyed on the Ground / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_090 = {
   {text = '<LOC X03_M02_090_010>[{i Princess}]: Thank you, Commander. Those bombers would have easily penetrated my defenses. All that remains now is to defeat the two Seraphim commanders.', vid = 'X03_Princess_M02_03317.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03317', faction = 'Aeon'},
 }
 
-# Bombers Escape / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Bombers Escape / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M02_100 = {
   {text = '<LOC X03_M02_100_010>[{i HQ}]: The attack is beginning, and there\'s nothing we can do. You failed your mission. The Princess faces certain death.', vid = 'X03_HQ_M02_03318.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_03318', faction = 'NONE'},
 }
 
-# Princess Death / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Princess Death / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_109 = {
   {text = '<LOC X03_M02_109_010>[{i Princess}]: I shall live on in The Way.', vid = 'X03_Princess_M02_04367.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_04367', faction = 'Aeon'},
 }
 
-# Bombers Destroyed in the Air / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Bombers Destroyed in the Air / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_110 = {
   {text = '<LOC X03_M02_110_010>[{i Princess}]: Thank you, Commander. The Seraphim bombers would have easily penetrated my defenses. All that remains now is to defeat the two Seraphim commanders.', vid = 'X03_Princess_M02_03320.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03320', faction = 'Aeon'},
 }
 
-# Princess Killed / Actor: Rhiza, Kael / Update: 07/05/2007 / VO Ready
+-- Princess Killed / Actor: Rhiza, Kael / Update: 07/05/2007 / VO Ready
 X03_M02_115 = {
   {text = '<LOC X03_M02_115_010>[{i Rhiza}]: NOOOOOOOOOOOOO!', vid = 'X03_Rhiza_M02_03319.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M02_03319', faction = 'Aeon'},
   {text = '<LOC X03_M02_115_020>[{i Kael}]: Ha-ha-ha!', vid = 'X03_Kael_M02_04368.sfd', bank = 'X03_VO', cue = 'X03_Kael_M02_04368', faction = 'Aeon'},
 }
 
-# Subplot Support - UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Subplot Support - UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X03_M02_116 = {
   {text = '<LOC X03_M02_116_010>[{i Fletcher}]: I\'m hearing all kinds of crazy stuff on this end, Colonel, and none of it is good. An Aeon civil war? Who do they think they\'re kidding? Those freaks will kill all of us if given the chance. This is all going to get really ugly. You just watch. Fletcher out.', vid = 'X03_Fletcher_M02_03323.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M02_03323', faction = 'UEF'},
 }
 
-# Subplot Support - Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
+-- Subplot Support - Cybran / Actor: Dostya / Update: 07/05/2007 / VO Ready
 X03_M02_117 = {
   {text = '<LOC X03_M02_117_010>[{i Dostya}]: Commander, the tracking bug has detected a signal being sent to QAI, and it is definitely coming from Coalition space. I am investigating the source. Dostya out.', vid = 'X03_Dostya_M02_04369.sfd', bank = 'X03_VO', cue = 'X03_Dostya_M02_04369', faction = 'Cybran'},
 }
 
-# Aeon Secondary Escort Priests to Safety / Actor: Princess / Update: 07/30/2007 / VO Ready
+-- Aeon Secondary Escort Priests to Safety / Actor: Princess / Update: 07/30/2007 / VO Ready
 X03_M02_120 = {
   {text = '<LOC X03_M02_120_010>[{i Princess}]: My Champion, I do not wish to distract you from the fight at hand, but I must ask a favor. My most loyal and trusted servants have taken refuge in a small temple east of my complex. Please escort them to Rhiza\'s position for immediate evacuation. A boat has been prepared; it will ferry them to safety.', vid = 'X03_Princess_M02_03325.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03325', faction = 'Aeon'},
   {text = '<LOC X03_M02_120_020>[{i HQ}]: Command Signal is set for the boat, Commander. I\'ll refresh as needed. HQ out.', vid = 'X03_HQ_M02_04703.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04703', faction = 'NONE'},
 }
 
-# Boat under player\'s control Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Boat under player\'s control Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_130 = {
   {text = '<LOC X03_M02_130_010>[{i Princess}]: The boat is yours to command, Champion.', vid = 'X03_Princess_M02_03330.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03330', faction = 'Aeon'},
 }
 
-# Boat under attack #01 Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Boat under attack #01 Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_140 = {
   {text = '<LOC X03_M02_140_010>[{i Princess}]: Protect them, Champion!', vid = 'X03_Princess_M02_03331.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03331', faction = 'Aeon'},
 }
 
-# Boat under attack #02 Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Boat under attack #02 Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_150 = {
   {text = '<LOC X03_M02_150_010>[{i Princess}]: The boat is under attack!', vid = 'X03_Princess_M02_03332.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03332', faction = 'Aeon'},
 }
 
-# Boat Completed Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Boat Completed Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_160 = {
   {text = '<LOC X03_M02_160_010>[{i Princess}]: Thank you, Champion. It is good to see that kindness prevails even in the midst of war.', vid = 'X03_Princess_M02_03333.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03333', faction = 'Aeon'},
 }
 
-# Boat Destroyed Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Boat Destroyed Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_170 = {
   {text = '<LOC X03_M02_170_010>[{i Princess}]: They\'re ... they\'re dead ... I shall forever mourn their loss.', vid = 'X03_Princess_M02_03334.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03334', faction = 'Aeon'},
 }
 
-# Objective Reminder for PO2, #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for PO2, #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_180 = {
   {text = '<LOC X03_M02_180_010>[{i Princess}]: Please rescue my servants, Champion.', vid = 'X03_Princess_M02_03328.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03328', faction = 'Aeon'},
 }
 
-# Objective Reminder for PO2, #2 / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for PO2, #2 / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M02_190 = {
   {text = '<LOC X03_M02_190_010>[{i Princess}]: The servants are ready and await your arrival, Champion.', vid = 'X03_Princess_M02_03329.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_03329', faction = 'Aeon'},
 }
 
-# M2 Failure NIS / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 Failure NIS / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M02_200 = {
   {text = '<LOC X03_M02_200_010>[{i HQ}]: Ah hell! They made it to the Princess\' base. There\'s no way she\'s going to survive.', vid = 'X03_HQ_M02_04869.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04869', faction = 'NONE'},
 }
 
-# Aeon Secondary Reward / Actor: Princess / Update: 07/12/2007 / VO Ready
+-- Aeon Secondary Reward / Actor: Princess / Update: 07/12/2007 / VO Ready
 X03_M02_210 = {
   {text = '<LOC X03_M02_210_010>[{i Princess}]: Champion, my servants will temporarily suppress the defenses in the area.', vid = 'X03_Princess_M02_04917.sfd', bank = 'X03_VO', cue = 'X03_Princess_M02_04917', faction = 'Aeon'},
 }
 
-# Tech Reveal UEF Battlecruiser / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Tech Reveal UEF Battlecruiser / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_220 = {
   {text = '<LOC X03_M02_220_010>[{i HQ}]: We\'re sending over the schematic for the Neptune. It\'s a battlecruiser designed for ship-to-ship combat. It packs a lot of firepower, so put it to good use. HQ out.', vid = 'X03_HQ_M02_04923.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04923', faction = 'NONE'},
 }
 
-# Tech Reveal Aeon Missileship / Actor: Rhiza / Update: 07/17/2007 / VO Ready
+-- Tech Reveal Aeon Missileship / Actor: Rhiza / Update: 07/17/2007 / VO Ready
 X03_M02_230 = {
   {text = '<LOC X03_M02_230_010>[{i Rhiza}]: Champion, you are receiving the schematic for the missile ship. It offers long-range support against defensive positions. Rhiza out.', vid = 'X03_Rhiza_M02_04924.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M02_04924', faction = 'Aeon'},
 }
 
-# Bomber+Engineer Destruction #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_240 = {
   {text = '<LOC X03_M02_240_010>[{i HQ}]: That\'s one bomber down. HQ out.', vid = 'X03_HQ_M02_04925.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04925', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #2 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #2 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_250 = {
   {text = '<LOC X03_M02_250_010>[{i HQ}]: Looks like the Seraphim won\'t be finishing that bomber. HQ out.', vid = 'X03_HQ_M02_04926.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04926', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #3 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #3 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_260 = {
   {text = '<LOC X03_M02_260_010>[{i HQ}]: Scratch another bomber. HQ out.', vid = 'X03_HQ_M02_04927.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04927', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #4 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #4 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_270 = {
   {text = '<LOC X03_M02_270_010>[{i HQ}]: The Seraphim won\'t be able to finish that bomber. HQ out.', vid = 'X03_HQ_M02_04928.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04928', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #5 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #5 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_280 = {
   {text = '<LOC X03_M02_280_010>[{i HQ}]: Such a pretty explosion. HQ out.', vid = 'X03_HQ_M02_04929.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04929', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #6 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #6 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_290 = {
   {text = '<LOC X03_M02_290_010>[{i HQ}]: There goes another bomber. HQ out.', vid = 'X03_HQ_M02_04930.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04930', faction = 'NONE'},
 }
 
-# Bomber+Engineer Destruction #7 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer Destruction #7 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_300 = {
   {text = '<LOC X03_M02_300_010>[{i HQ}]: That\'s the last of the Seraphim bombers. HQ out.', vid = 'X03_HQ_M02_04931.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04931', faction = 'NONE'},
 }
 
-# Alternate Objective Target VO (Engineer) #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Alternate Objective Target VO (Engineer) #1 / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_310 = {
   {text = '<LOC X03_M02_310_010>[{i HQ}]: Instead of destroying the actual bombers, just destroy the Engineers constructing them. Might make your life a little easier. HQ out.', vid = 'X03_HQ_M02_04932.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04932', faction = 'NONE'},
 }
 
-# OBJ Reminder, Kill Engineer / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- OBJ Reminder, Kill Engineer / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_320 = {
   {text = '<LOC X03_M02_320_010>[{i HQ}]: Destroy the Engineers, Commander. We can\'t let those bombers get airborne. HQ out.', vid = 'X03_HQ_M02_04933.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04933', faction = 'NONE'},
 }
 
-# Bomber+Engineer OBJ / Actor: HQ / Update: 07/17/2007 / VO Ready
+-- Bomber+Engineer OBJ / Actor: HQ / Update: 07/17/2007 / VO Ready
 X03_M02_330 = {
   {text = '<LOC X03_M02_330_010>[{i HQ}]: I got confirmation on Burke\'s intel. The Seraphim is building several experimental-class bombers, the same kind that blew the hell out of the Earth. If they take off, Princess Burke is in big trouble. Either destroy the bombers or the Engineers constructing them. No matter what, they can\'t be allowed to get in the air. HQ out.', vid = 'X03_HQ_M02_04934.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04934', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M02_OBJ
-# Destroy Stuff Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02_OBJ
+-- Destroy Stuff Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X03_M02_OBJ_010_010 = '<LOC X03_M02_OBJ_010_010>Destroy the Experimental Bombers'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M02_OBJ_010_020 = '<LOC X03_M02_OBJ_010_020>Eliminate all six of the Seraphim experimental bombers before they can launch.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X03_M02_OBJ_020_010 = '<LOC X03_M02_OBJ_020_010>Escort the Loyalists to Safety'
 
-# Secondary Objectives
+-- Secondary Objectives
 X03_M02_OBJ_020_020 = '<LOC X03_M02_OBJ_020_020>If the opportunity arises, use the Command Signal to move the Loyalists to the marked area near Rhiza\'s base.'
 
 
 
-# ------------------------------
-# Opnode ID: M03
-# Mission 3: Rescuing the Princess
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03
+-- Mission 3: Rescuing the Princess
+-- ------------------------------
 
 
 
-# Intro to M3 / Actor: HQ / Update: 06/28/2007 / VO Needed
+-- Intro to M3 / Actor: HQ / Update: 06/28/2007 / VO Needed
 X03_M03_010 = {
   {text = '<LOC X03_M03_010_010>[{i HQ}]: The Seraphim have two bases in the area, one to the north of Princess Burke\'s palace complex, and one to the west. Both of them are hitting her with everything they\'ve got, so she\'s up against the wall. Protect Burke and destroy the Seraphim commanders. HQ out.', vid = 'X03_HQ_M03_03335.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_03335', faction = 'NONE'},
 }
 
-# Subplot Support - Cybran / Actor: Brackman / Update: 07/024/2007 / VO Needed
+-- Subplot Support - Cybran / Actor: Brackman / Update: 07/024/2007 / VO Needed
 X03_M03_015 = {
   {text = '<LOC X03_M03_015_010>[{i Brackman}]: The translator is nearly finished. Oh yes. It will be available to you in the next operation. Well done, my child, well done. The captured Seraphim ACU was the final piece of the puzzle.', vid = 'X03_Brackman_M03_03336.sfd', bank = 'X03_VO', cue = 'X03_Brackman_M03_03336', faction = 'Cybran'},
 }
 
-# PO3 Protect the Princess Cybran/UEF / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- PO3 Protect the Princess Cybran/UEF / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M03_020 = {
   {text = '<LOC X03_M03_020_010>[{i Princess}]: Commander, several of my generators have been destroyed and I need to conserve my remaining Energy for my shields. I apologize, but you must find some other way to counter the crystal jamming.', vid = 'X03_Princess_M03_04374.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04374', faction = 'Aeon'},
 }
 
-# PO3 Protect the Princess Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- PO3 Protect the Princess Aeon / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M03_025 = {
   {text = '<LOC X03_M03_025_010>[{i Princess}]: Commander, several of my generators have been destroyed and I need to conserve my remaining Energy for my shields. However, my technicians have prepared the Optical Device for upload; it is being sent to you as we speak.', vid = 'X03_Princess_M03_04375.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04375', faction = 'Aeon'},
 }
 
-# Large attack incoming #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
+-- Large attack incoming #1 / Actor: Princess / Update: 07/05/2007 / VO Ready
 X03_M03_050 = {
   {text = '<LOC X03_M03_050_010>[{i Princess}]: The Seraphim have launched an attack! I fear that my defenses will not hold!', vid = 'X03_Princess_M03_04013.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04013', faction = 'Aeon'},
 }
 
-# Large attack incoming #2 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Large attack incoming #2 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_060 = {
   {text = '<LOC X03_M03_060_010>[{i Princess}]: The Seraphim are hitting me from all directions! I fear that my defenses will not hold!', vid = 'X03_Princess_M03_03339.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03339', faction = 'Aeon'},
 }
 
-# Large attack incoming #1 / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Large attack incoming #1 / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M03_070 = {
   {text = '<LOC X03_M03_070_010>[{i HQ}]: The gloves are really coming off, Commander. The Seraphim are attacking Burke with everything they\'ve got. Protect her. HQ out.', vid = 'X03_HQ_M03_03340.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_03340', faction = 'NONE'},
 }
 
-# Large attack incoming #2 / Actor: HQ / Update: 06/28/2007 / VO Ready
+-- Large attack incoming #2 / Actor: HQ / Update: 06/28/2007 / VO Ready
 X03_M03_080 = {
   {text = '<LOC X03_M03_080_010>[{i HQ}]: Those attacks aren\'t going to stop until you\'ve destroyed the Seraphim commanders. Erase them from the planet. HQ out.', vid = 'X03_HQ_M03_03341.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_03341', faction = 'NONE'},
 }
 
-# Plead for Help #1 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Plead for Help #1 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_090 = {
   {text = '<LOC X03_M03_090_010>[{i Princess}]: Please, Commander, you must assist me. I fear that I will not survive much longer.', vid = 'X03_Princess_M03_03342.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03342', faction = 'Aeon'},
 }
 
-# Plead for Help # 2 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Plead for Help # 2 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_100 = {
   {text = '<LOC X03_M03_100_010>[{i Princess}]: Commander! The Seraphim are attacking. Stop them!', vid = 'X03_Princess_M03_03343.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03343', faction = 'Aeon'},
 }
 
-# Large attack defeated # 1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Large attack defeated # 1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_110 = {
   {text = '<LOC X03_M03_110_010>[{i HQ}]: The Seraphim force has been defeated. HQ out.', vid = 'X03_HQ_M03_03344.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_03344', faction = 'NONE'},
 }
 
-# Large attack defeated # 2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Large attack defeated # 2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_120 = {
   {text = '<LOC X03_M03_120_010>[{i HQ}]: They ain\'t going to forget that butt-whipping. Good job, Commander. HQ out.', vid = 'X03_HQ_M03_03345.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_03345', faction = 'NONE'},
 }
 
-# M3 P03 Objective Reminders #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 P03 Objective Reminders #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_124 = {
   {text = '<LOC X03_M03_124_010>[{i HQ}]: Princess Burke is still in danger. You need to deal with the Seraphim.', vid = 'X03_HQ_M03_04376.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04376', faction = 'NONE'},
 }
 
-# M3 P03 Objective Reminders #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 P03 Objective Reminders #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_125 = {
   {text = '<LOC X03_M03_125_010>[{i HQ}]: We can\'t get Burke out of there until the Seraphim are no longer a threat. HQ out.', vid = 'X03_HQ_M03_04377.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04377', faction = 'NONE'},
 }
 
-# Zan-Aishahesh (Northern Commander) structures at 75% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Zan-Aishahesh (Northern Commander) structures at 75% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_130 = {
   {text = '<LOC X03_M03_130_010>[{i Princess}]: He is weakening, Commander!', vid = 'X03_Princess_M03_03346.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03346', faction = 'Aeon'},
 }
 
-# Zan-Aishahesh (Northern Commander) structures at 50% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Zan-Aishahesh (Northern Commander) structures at 50% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_140 = {
   {text = '<LOC X03_M03_140_010>[{i Princess}]: The northern Seraphim is suffering grave losses! Keep pressing!', vid = 'X03_Princess_M03_03347.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03347', faction = 'Aeon'},
 }
 
-# Zan-Aishahesh (Northern Commander) structures at 25% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Zan-Aishahesh (Northern Commander) structures at 25% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_150 = {
   {text = '<LOC X03_M03_150_010>[{i Princess}]: Hurry, Commander, the Seraphim to the north is almost defeated!', vid = 'X03_Princess_M03_03348.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03348', faction = 'Aeon'},
 }
 
-# Zan-Aishahesh (Northern Commander)i defeated / Actor: Princess / Update 06/28/2007 / VO Ready
+-- Zan-Aishahesh (Northern Commander)i defeated / Actor: Princess / Update 06/28/2007 / VO Ready
 X03_M03_160 = {
   {text = '<LOC X03_M03_160_010>[{i Princess}]: The Seraphim to the north has been defeated. Well done, Commander.', vid = 'X03_Princess_M03_03349.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03349', faction = 'Aeon'},
 }
 
-# Thel-Uuthow (Western Commander) structures at 75% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Thel-Uuthow (Western Commander) structures at 75% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_170 = {
   {text = '<LOC X03_M03_170_010>[{i Princess}]: The western Seraphim has lost much of his infrastructure. Do not give him time to recover!', vid = 'X03_Princess_M03_03350.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03350', faction = 'Aeon'},
 }
 
-# Thel-Uuthow (Western Commander) structures at 50% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Thel-Uuthow (Western Commander) structures at 50% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_180 = {
   {text = '<LOC X03_M03_180_010>[{i Princess}]: The western Seraphim cannot sustain many more losses! Keep up your attacks!', vid = 'X03_Princess_M03_03351.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03351', faction = 'Aeon'},
 }
 
-# Thel-Uuthow (Western Commander) structures at 25% / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Thel-Uuthow (Western Commander) structures at 25% / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_190 = {
   {text = '<LOC X03_M03_190_010>[{i Princess}]: Hurry, the western Seraphim is on the verge of defeat!', vid = 'X03_Princess_M03_03352.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03352', faction = 'Aeon'},
 }
 
-# Thel-Uuthow (Western Commander) recalled / Actor: Princess, HQ / Update: 06/28/2007 / VO Ready
+-- Thel-Uuthow (Western Commander) recalled / Actor: Princess, HQ / Update: 06/28/2007 / VO Ready
 X03_M03_200 = {
   {text = '<LOC X03_M03_200_009>[{i HQ}]: Damn, that slippery bastard gated out of here.', vid = 'X03_HQ_M03_04846.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04846', faction = 'NONE'},
   {text = '<LOC X03_M03_200_010>[{i Princess}]: It is no matter, we shall defeat that Seraphim commander another day.', vid = 'X03_Princess_M03_03353.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_03353', faction = 'Aeon'},
   {text = '<LOC X03_M03_200_030>[{i HQ}]: Commander, the Seraphim commander to Burke\'s west pulled the plug and gated out. Looks like his base is shutting down, so you don\'t need to worry about it anymore. HQ out.', vid = 'X03_HQ_M03_04845.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04845', faction = 'NONE'},
 }
 
-# Princess - base taking damage #1 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Princess - base taking damage #1 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_201 = {
   {text = '<LOC X03_M03_201_010>[{i Princess}]: My palace is taking damage!', vid = 'X03_Princess_M03_04704.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04704', faction = 'Aeon'},
 }
 
-# Princess - base taking damage #2 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Princess - base taking damage #2 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_202 = {
   {text = '<LOC X03_M03_202_010>[{i Princess}]: My palace cannot withstand much more damage!', vid = 'X03_Princess_M03_04705.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04705', faction = 'Aeon'},
 }
 
-# Princess - base taking damage #3 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Princess - base taking damage #3 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_203 = {
   {text = '<LOC X03_M03_203_010>[{i Princess}]: Hurry, Commander, my defenses are weakening!', vid = 'X03_Princess_M03_04706.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04706', faction = 'Aeon'},
 }
 
-# Princess - base taking damage #4 / Actor: Princess / Update: 06/28/2007 / VO Ready
+-- Princess - base taking damage #4 / Actor: Princess / Update: 06/28/2007 / VO Ready
 X03_M03_204 = {
   {text = '<LOC X03_M03_204_010>[{i Princess}]: You must hurry, Commander! My defenses will soon fall!', vid = 'X03_Princess_M03_04707.sfd', bank = 'X03_VO', cue = 'X03_Princess_M03_04707', faction = 'Aeon'},
 }
 
-# UEF Secondary: Capture Seraphim Strategic Missile Launcher / Actor: Fletcher / Update: 06/28/2007 / VO Cut 
+-- UEF Secondary: Capture Seraphim Strategic Missile Launcher / Actor: Fletcher / Update: 06/28/2007 / VO Cut 
 X03_M03_210 = {
   {text = '<LOC X03_M03_210_010>[{i Fletcher}]: The Seraphim to your south has a nuke launcher. It\'s lightly defended, so you shouldn\'t have any problem capturing it. You never know when you\'re going to have to nuke an alien ... or one of our so-called allies.', vid = 'X03_Fletcher_M03_03354.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M03_03354', faction = 'UEF'},
 }
 
-# Objective Reminder PO4, #1 / Actor: Fletcher / Update: 06/28/2007 / VO Cut
+-- Objective Reminder PO4, #1 / Actor: Fletcher / Update: 06/28/2007 / VO Cut
 X03_M03_215 = {
   {text = '<LOC X03_M03_215_010>[{i Fletcher}]: Grab that launcher if you can, Colonel. Fletcher out.', vid = 'X03_Fletcher_M03_03356.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M03_03356', faction = 'UEF'},
 }
 
-# Nuke Captured / Actor: Fletcher / Update: 06/28/2007 / VO Cut
+-- Nuke Captured / Actor: Fletcher / Update: 06/28/2007 / VO Cut
 X03_M03_220 = {
   {text = '<LOC X03_M03_220_010>[{i Fletcher}]: The nuke launcher is yours. Put it to use. Fletcher out.', vid = 'X03_Fletcher_M03_03358.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M03_03358', faction = 'UEF'},
 }
 
-# Nuke Destroyed / Actor: Fletcher / Update: 06/28/2007 / VO Cut
+-- Nuke Destroyed / Actor: Fletcher / Update: 06/28/2007 / VO Cut
 X03_M03_230 = {
   {text = '<LOC X03_M03_230_010>[{i Fletcher}]: That was a hell of a missed opportunity, Colonel. Fletcher out.', vid = 'X03_Fletcher_M03_03359.sfd', bank = 'X03_VO', cue = 'X03_Fletcher_M03_03359', faction = 'UEF'},
 }
 
-# Rhiza Recall / Actor: Rhiza / Update: 06/28/2007 / VO Ready
+-- Rhiza Recall / Actor: Rhiza / Update: 06/28/2007 / VO Ready
 X03_M03_235 = {
   {text = '<LOC X03_M03_235_010>[{i Rhiza}]: I\'m taking too much damage -- I must recall. Commander, continue the fight without me!', vid = 'X03_Rhiza_M03_04708.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M03_04708', faction = 'Aeon'},
 }
 
-# M3 Opening VO #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 Opening VO #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_240 = {
   {text = '<LOC X03_M03_240_010>[{i HQ}]: To your east is the Princess\' base of operations. Her palace must survive, no matter the cost.', vid = 'X03_HQ_M03_04870.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04870', faction = 'NONE'},
 }
 
-# M3 Opening VO #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 Opening VO #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_250 = {
   {text = '<LOC X03_M03_250_010>[{i HQ}]: As you can see, her base has some decent defenses, but they won\'t survive long against a full-blown assault.', vid = 'X03_HQ_M03_04871.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04871', faction = 'NONE'},
 }
 
-# M3 Opening VO #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 Opening VO #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_260 = {
   {text = '<LOC X03_M03_260_010>[{i HQ}]: This defensive line is the only thing preventing those alien bastards from launching a ground attack. I\'d recommend reinforcing it.', vid = 'X03_HQ_M03_04872.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04872', faction = 'NONE'},
 }
 
-# M3 Opening VO #4 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 Opening VO #4 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_270 = {
   {text = '<LOC X03_M03_270_010>[{i HQ}]: Get to it, Commander. You got a Princess to rescue. HQ out.', vid = 'X03_HQ_M03_04873.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04873', faction = 'NONE'},
 }
 
-# M3 NIS Follow Up / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 NIS Follow Up / Actor: HQ / Update: 07/05/2007 / VO Ready
 X03_M03_280 = {
   {text = '<LOC X03_M03_280_010>[{i HQ}]: Locking in on the two Seraphim commanders in the area. One is to the west of the Princess and one is directly to her north. Destroy them. HQ out.', vid = 'X03_HQ_M03_04874.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04874', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M03_OBJ
-# Save the Princess Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03_OBJ
+-- Save the Princess Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_010 = '<LOC X03_M03_OBJ_010_010>Defeat the Seraphim Commanders'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_020 = '<LOC X03_M03_OBJ_010_020>The Seraphim are assaulting the Princess\' palace. Destroy the Seraphim ACUs to save the Princess.'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_030 = '<LOC X03_M03_OBJ_010_030>Do not use'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_040 = '<LOC X03_M03_OBJ_010_040>Merged with other objective'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_050 = '<LOC X03_M03_OBJ_010_050>Protect the Palace'
 
-# Primary Objectives
+-- Primary Objectives
 X03_M03_OBJ_010_060 = '<LOC X03_M03_OBJ_010_060>Defend the Princess\' palace at all costs.'
 
 
 
-# ------------------------------
-# Opnode ID: T01
-# Enemy Taunts
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: T01
+-- Enemy Taunts
+-- ------------------------------
 
 
 
-# Taunt01 On losing a large attack force / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing a large attack force / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT1 = {
   {text = '<LOC X03_T01_010_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04319.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04319', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing a large attack force / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing a large attack force / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT2 = {
   {text = '<LOC X03_T01_020_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04321.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04321', faction = 'Seraphim'},
 }
 
-# Taunt01 On losing a large attack force / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing a large attack force / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT3 = {
   {text = '<LOC X03_T01_030_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04320.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04320', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing a large attack force / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing a large attack force / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT4 = {
   {text = '<LOC X03_T01_040_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04322.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04322', faction = 'Seraphim'},
 }
 
-# Taunt01 On losing defensive structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing defensive structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT5 = {
   {text = '<LOC X03_T01_050_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04323.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04323', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing defensive structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing defensive structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT6 = {
   {text = '<LOC X03_T01_060_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04326.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04326', faction = 'Seraphim'},
 }
 
-# Taunt01 On losing defensive structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing defensive structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT7 = {
   {text = '<LOC X03_T01_070_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04324.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04324', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing defensive structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing defensive structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT8 = {
   {text = '<LOC X03_T01_080_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04325.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04325', faction = 'Seraphim'},
 }
 
-# Taunt01 On losing resource structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing resource structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT9 = {
   {text = '<LOC X03_T01_090_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04327.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04327', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing resource structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing resource structures / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT10 = {
   {text = '<LOC X03_T01_100_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04329.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04329', faction = 'Seraphim'},
 }
 
-# Taunt01 On losing resource structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On losing resource structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT11 = {
   {text = '<LOC X03_T01_110_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04328.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04328', faction = 'Seraphim'},
 }
 
-# Taunt02 On losing resource structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt02 On losing resource structures / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT12 = {
   {text = '<LOC X03_T01_120_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04330.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04330', faction = 'Seraphim'},
 }
 
-# Taunt01 On attacking / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On attacking / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT13 = {
   {text = '<LOC X03_T01_130_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04331.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04331', faction = 'Seraphim'},
 }
 
-# Taunt01 On attacking / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On attacking / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT14 = {
   {text = '<LOC X03_T01_140_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04332.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04332', faction = 'Seraphim'},
 }
 
-# Taunt01 On destroying defensive structure / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On destroying defensive structure / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT15 = {
   {text = '<LOC X03_T01_150_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04333.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04333', faction = 'Seraphim'},
 }
 
-# Taunt01 On destroying defensive structure / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On destroying defensive structure / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT16 = {
   {text = '<LOC X03_T01_260_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04334.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04334', faction = 'Seraphim'},
 }
 
-# Taunt01 On destroying resource structure / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On destroying resource structure / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT17 = {
   {text = '<LOC X03_T01_270_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04335.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04335', faction = 'Seraphim'},
 }
 
-# Taunt01 On destroying resource structure / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On destroying resource structure / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT18 = {
   {text = '<LOC X03_T01_280_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04336.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04336', faction = 'Seraphim'},
 }
 
-# Taunt01 On building an experimental / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On building an experimental / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT19 = {
   {text = '<LOC X03_T01_290_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04337.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04337', faction = 'Seraphim'},
 }
 
-# Taunt01 On building an experimental / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On building an experimental / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT20 = {
   {text = '<LOC X03_T01_300_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04338.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04338', faction = 'Seraphim'},
 }
 
-# Taunt01 On damaging player ACU 50% / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On damaging player ACU 50% / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT21 = {
   {text = '<LOC X03_T01_310_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04339.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04339', faction = 'Seraphim'},
 }
 
-# Taunt02 On damaging player ACU 50% / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt02 On damaging player ACU 50% / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT22 = {
   {text = '<LOC X03_T01_320_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04341.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04341', faction = 'Seraphim'},
 }
 
-# Taunt01 On damaging player ACU 50% / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On damaging player ACU 50% / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT23 = {
   {text = '<LOC X03_T01_330_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04340.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04340', faction = 'Seraphim'},
 }
 
-# Taunt02 On damaging player ACU 50% / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt02 On damaging player ACU 50% / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT24 = {
   {text = '<LOC X03_T01_340_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04342.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04342', faction = 'Seraphim'},
 }
 
-# Taunt01 UEF / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 UEF / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT25 = {
   {text = '<LOC X03_T01_350_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04343.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04343', faction = 'Seraphim'},
 }
 
-# Taunt01 UEF / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 UEF / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT26 = {
   {text = '<LOC X03_T01_360_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04344.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04344', faction = 'Seraphim'},
 }
 
-# Taunt01 Cybran / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 Cybran / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT27 = {
   {text = '<LOC X03_T01_370_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04345.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04345', faction = 'Seraphim'},
 }
 
-# Taunt01 Cybran / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 Cybran / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT28 = {
   {text = '<LOC X03_T01_410_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04346.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04346', faction = 'Seraphim'},
 }
 
-# Taunt01 Aeon / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 Aeon / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT29 = {
   {text = '<LOC X03_T01_430_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04347.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04347', faction = 'Seraphim'},
 }
 
-# Taunt01 Aeon / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 Aeon / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT30 = {
   {text = '<LOC X03_T01_450_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04348.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04348', faction = 'Seraphim'},
 }
 
-# Taunt01 At 50% health / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 At 50% health / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT31 = {
   {text = '<LOC X03_T01_470_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04349.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04349', faction = 'Seraphim'},
 }
 
-# Taunt01 At 50% health / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 At 50% health / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT32 = {
   {text = '<LOC X03_T01_480_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04350.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04350', faction = 'Seraphim'},
 }
 
-# Taunt01 On death / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
+-- Taunt01 On death / Actor: Zan-Aishahesh / Update: 06/28/2007 / VO Ready
 TAUNT33 = {
   {text = '<LOC X03_T01_490_010>[{i ZanAishahesh}]: [Language Not Recognized]', vid = 'X03_Zan-Aishahesh_T01_04351.sfd', bank = 'X03_VO', cue = 'X03_Zan-Aishahesh_T01_04351', faction = 'Seraphim'},
 }
 
-# Taunt01 On death / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
+-- Taunt01 On death / Actor: Thel-Uuthow / Update: 06/28/2007 / VO Ready
 TAUNT34 = {
   {text = '<LOC X03_T01_500_010>[{i ThelUuthow}]: [Language Not Recognized]', vid = 'X03_Thel-Uuthow_T01_04352.sfd', bank = 'X03_VO', cue = 'X03_Thel-Uuthow_T01_04352', faction = 'Seraphim'},
 }

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E04_v03/SCCA_Coop_E04_v03_playerplan.lua
-#**  Author(s):  Drew Staltman
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E04_v03/SCCA_Coop_E04_v03_playerplan.lua
+-- **  Author(s):  Drew Staltman
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
 function EvaluatePlan( brain )
     return 100

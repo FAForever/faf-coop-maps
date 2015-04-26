@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E04_v03/SCCA_Coop_E04_v03_cybranplan.lua
-#**  Author(s):  Matt Mahon
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E04_v03/SCCA_Coop_E04_v03_cybranplan.lua
+-- **  Author(s):  Matt Mahon
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 function EvaluatePlan( brain )
@@ -17,8 +17,8 @@ function ExecutePlan( brain )
 
 end
 
-#function BuildStructures( brain )
-#end
+-- function BuildStructures( brain )
+-- end
 
-#function BuildUnits( brain )
-#end
+-- function BuildUnits( brain )
+-- end

@@ -1,27 +1,27 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R03_v01/SCCA_Coop_R03_v01_brackmanconvoyplanlist.lua
-#**  Author(s):  Christopher Burns
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#########################################
-# AIBrain Strategic Plans Definitions   #
-#########################################
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R03_v01/SCCA_Coop_R03_v01_brackmanconvoyplanlist.lua
+-- **  Author(s):  Christopher Burns
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
+-- ########################################
+-- AIBrain Strategic Plans Definitions   #
+-- ########################################
 
 AIPlansList =
 {
-    # EARTH Faction Plans
+    -- EARTH Faction Plans
     {
     },
 
-    # ALIEN Faction Plans
+    -- ALIEN Faction Plans
     {
     },
 
-    # Brackman_Convoy Faction Plans
+    -- Brackman_Convoy Faction Plans
     {
         '/maps/SCCA_Coop_R03_v01/SCCA_Coop_R03_v01_brackmanconvoyplan.lua',
     },

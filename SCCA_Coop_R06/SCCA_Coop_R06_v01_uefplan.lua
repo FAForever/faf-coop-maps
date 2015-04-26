@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R06_v01/SCCA_Coop_R06_v01_uefplan.lua
-#**  Author(s):  Jessica St. Croix
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R06_v01/SCCA_Coop_R06_v01_uefplan.lua
+-- **  Author(s):  Jessica St. Croix
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 

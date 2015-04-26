@@ -1,26 +1,26 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_001_v07/X1CA_Coop_001_v07_m2uefai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : UEF army AI for Mission 2 - X1CA_Coop_001_v07
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_001_v07/X1CA_Coop_001_v07_m2uefai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : UEF army AI for Mission 2 - X1CA_Coop_001_v07
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local UEF = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-#########################
-# Custom Attack Chains: #
-#########################
+-- ########################
+-- Custom Attack Chains: #
+-- ########################
 
 local M2_UEF_AttackChain = {
     'M2_UEF_WestTown_Patrol_5',
@@ -35,18 +35,18 @@ local M2_UEF_AttackChain = {
 }
 
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local UEFM2WesternTown = BaseManager.CreateBaseManager()
 
 function UEFM2WesternTownAI()
 
-    # ----------------
-    # UEF Western Town
-    # ----------------
+    -- ----------------
+    -- UEF Western Town
+    -- ----------------
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Init_Eng_D' .. Difficulty)
-#   ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Turrets_D' .. Difficulty)
+-- ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Turrets_D' .. Difficulty)
     UEFM2WesternTown:Initialize(ArmyBrains[UEF], 'M2_Town_Defenses', 'UEF_M2_Base_Marker', 70,
 	{
 	    M2_Town_Defenses = 100,
@@ -55,9 +55,9 @@ function UEFM2WesternTownAI()
     )
     UEFM2WesternTown:StartNonZeroBase({13, 10})
     UEFM2WesternTown:SetMaximumConstructionEngineers(3)
-#   UEFM2WesternTown:SetBuild('Engineers', false)
+-- UEFM2WesternTown:SetBuild('Engineers', false)
 
-#   UEFM2WesternTown:AddBuildGroupDifficulty('M2_Town_Turrets', 90)
+-- UEFM2WesternTown:AddBuildGroupDifficulty('M2_Town_Turrets', 90)
 
     UEFM2WesternTownLandAttacks()
     UEFM2WesternTownAirAttacks()
@@ -66,11 +66,11 @@ end
 function UEFM2WesternTownLandAttacks()
     local opai = nil
 
-    # ---------------------------------------
-    # UEF M2 Western Town Op AI, Land Attacks
-    # ---------------------------------------
+    -- ---------------------------------------
+    -- UEF M2 Western Town Op AI, Land Attacks
+    -- ---------------------------------------
 
-    # sends [mobile missiles]
+    -- sends [mobile missiles]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -81,7 +81,7 @@ function UEFM2WesternTownLandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', 6)
 
-    # sends [heavy tanks]
+    -- sends [heavy tanks]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -92,7 +92,7 @@ function UEFM2WesternTownLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', 6)
 
-    # sends [light bots]
+    -- sends [light bots]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -103,7 +103,7 @@ function UEFM2WesternTownLandAttacks()
     )
     opai:SetChildQuantity('LightBots', 6)
 
-    # sends [light artillery]
+    -- sends [light artillery]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -114,7 +114,7 @@ function UEFM2WesternTownLandAttacks()
     )
     opai:SetChildQuantity('LightArtillery', 6)
 
-    # sends [siege bots]
+    -- sends [siege bots]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack5',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -129,11 +129,11 @@ end
 function UEFM2WesternTownAirAttacks()
     local opai = nil
 
-    # ----------------------------------------
-    #  UEF M2 Western Town Op AI, Air Attacks
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- UEF M2 Western Town Op AI, Air Attacks
+    -- ----------------------------------------
 
-    # air defense
+    -- air defense
     for i = 1, 6 do
         opai = UEFM2WesternTown:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
             {

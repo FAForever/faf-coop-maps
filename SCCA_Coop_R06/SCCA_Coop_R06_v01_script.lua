@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/SCCA_Coop_R06_v01/SCCA_Coop_R06_v01_script.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/SCCA_Coop_R06_v01/SCCA_Coop_R06_v01_script.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/SCCA_Coop_R06_v01/SCCA_Coop_R06_v01_strings.lua')
@@ -15,9 +15,9 @@ local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Weather = import('/lua/weather.lua')
 
-# -------
-# Globals
-# -------
+-- -------
+-- Globals
+-- -------
 ScenarioInfo.Player = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.UEF = 3
@@ -41,9 +41,9 @@ local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, Sc
 local aikoTaunt = 1
 local arnoldTaunt = 9
 
-# ------------------------
-# Objective Reminder Times
-# ------------------------
+-- ------------------------
+-- Objective Reminder Times
+-- ------------------------
 local M1P1Time = 600
 local M2P1Time = 300
 local M2P2Time = 300
@@ -52,12 +52,12 @@ local M3P1Time = 300
 local M3P2Time = 300
 local SubsequentTime = 600
 
-# -------
-# Startup
-# -------
+-- -------
+-- Startup
+-- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    #Weather.CreateWeather()
+    -- Weather.CreateWeather()
 
     SpawnPlayer()
     SpawnUEF()
@@ -65,10 +65,10 @@ function OnPopulate(scenario)
 end
 
 function SpawnPlayer()
-    # Player Base
+    -- Player Base
     ScenarioUtils.CreateArmyGroup('Player', 'Base_D' .. ScenarioInfo.Options.Difficulty)
 
-    # Jericho
+    -- Jericho
     ScenarioInfo.Jericho = ScenarioUtils.CreateArmyUnit('Player', 'Jericho')
     ScenarioInfo.Jericho:SetCustomName(LOC '{i sCDR_Jericho}')
     ScenarioInfo.Jericho:CreateEnhancement('FocusConvertor')
@@ -76,7 +76,7 @@ function SpawnPlayer()
     ScenarioInfo.Jericho:CreateEnhancement('Switchback')
     ScenarioFramework.CreateUnitDeathTrigger(JerichoKilled, ScenarioInfo.Jericho)
 
-    # Player Engineers
+    -- Player Engineers
     local engineers = ScenarioUtils.CreateArmyGroup('Player', 'Engineers')
     for k, v in engineers do
         for i = 1, 3 do
@@ -84,7 +84,7 @@ function SpawnPlayer()
         end
     end
 
-    # Player Mobile Defense
+    -- Player Mobile Defense
     local subs = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Subs', 'AttackFormation')
     subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
     subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
@@ -110,7 +110,7 @@ function SpawnPlayer()
 end
 
 function SpawnUEF()
-    # Control Center
+    -- Control Center
     ScenarioInfo.ControlCenter = ScenarioUtils.CreateArmyUnit('BlackSun', 'ControlCenter')
     ScenarioInfo.ControlCenter:SetReclaimable(false)
     ScenarioInfo.ControlCenter:SetCapturable(false)
@@ -124,7 +124,7 @@ function SpawnUEF()
         patrol:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
     end
 
-    # Naval
+    -- Naval
     local naval = ScenarioUtils.CreateArmyGroup('UEF', 'InitialNaval')
     for k, v in naval do
         local platoon = ArmyBrains[uef]:MakePlatoon('', '')
@@ -135,10 +135,10 @@ function SpawnUEF()
     end
     ScenarioFramework.CreateGroupDeathTrigger(SpawnUEFNaval, naval)
 
-    # Atlantis Assault
+    -- Atlantis Assault
     ScenarioInfo.AtlantisBoats = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3NavyFleet_D' .. ScenarioInfo.Options.Difficulty, 'GrowthFormation')
 
-    # Base
+    -- Base
     ScenarioUtils.CreateArmyGroup('UEF', 'BaseStructuresPreBuilt_D' .. ScenarioInfo.Options.Difficulty)
     ScenarioInfo.Aiko = ScenarioUtils.CreateArmyUnit('UEF', 'Aiko')
     ScenarioInfo.Aiko:SetCustomName(LOC '{i CDR_Aiko}')
@@ -189,7 +189,7 @@ function SpawnUEFNaval()
 end
 
 function SpawnAeon()
-    # Aeon Base
+    -- Aeon Base
     ScenarioInfo.Arnold = ScenarioUtils.CreateArmyUnit('Aeon', 'Arnold')
     ScenarioInfo.Arnold:SetCustomName(LOC '{i CDR_Arnold}')
     ScenarioInfo.Arnold:CreateEnhancement('Shield')
@@ -213,7 +213,7 @@ function SpawnAeon()
     ScenarioUtils.CreateArmyGroup('Aeon', 'MainBaseStructuresPreBuilt_D' .. ScenarioInfo.Options.Difficulty)
     ScenarioUtils.CreateArmyGroup('Aeon', 'StationaryNaval')
 
-    # Aeon Mobile Defense
+    -- Aeon Mobile Defense
     local subPatrolSouth = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SubPatrolSouth', 'AttackFormation')
     subPatrolSouth.PlatoonData = {}
     subPatrolSouth.PlatoonData.PatrolChain = 'AeonNaval_Chain'
@@ -272,67 +272,67 @@ function ArnoldAI(platoon)
 end
 
 function OnStart(self)
-    # Adjust buildable categories for Player
+    -- Adjust buildable categories for Player
 	local tblArmy = ListArmies()
 	for _, player in Players do
 		for iArmy, strArmy in pairs(tblArmy) do
 			if iArmy == player then
 				ScenarioFramework.AddRestriction(player, 
-					categories.urb2305 +   # Strategic Missile Launcher
-                    categories.urb4302 +   # Strategic Missile Defense
-                    categories.url0402 +   # Spider Bot
-                    categories.urs0304 +   # Strategic Missile Submarine
-                    categories.xrl0302 +   # Cybran Mobile Bomb
-                    categories.xra0105 +   # Cybran Light Gunship
-                    categories.xrs0204 +   # Cybran Sub Killer
-                    categories.xrs0205 +   # Cybran Counter-Intelligence Boat
-                    categories.xrb2308 +   # Cybran Torpedo Ambushing System
-                    categories.xrb0104 +   # Cybran Engineering Station 1
-                    categories.xrb0204 +   # Cybran Engineering Station 2
-                    categories.xrb0304 +   # Cybran Engineering Station 3
-                    categories.xrb3301 +   # Cybran Perimeter Monitoring System
-                    categories.xra0305 +   # Cybran Heavy Gunship
-                    categories.xrl0305 +   # Cybran Brick
-                    categories.dra0202 +   # Cybran FIghter Bomber
-                    categories.drl0204 +   # Cybran Rocket Bot
-                    categories.xrl0403)    # Cybran Amphibious Mega Bot
+					categories.urb2305 +   -- Strategic Missile Launcher
+                    categories.urb4302 +   -- Strategic Missile Defense
+                    categories.url0402 +   -- Spider Bot
+                    categories.urs0304 +   -- Strategic Missile Submarine
+                    categories.xrl0302 +   -- Cybran Mobile Bomb
+                    categories.xra0105 +   -- Cybran Light Gunship
+                    categories.xrs0204 +   -- Cybran Sub Killer
+                    categories.xrs0205 +   -- Cybran Counter-Intelligence Boat
+                    categories.xrb2308 +   -- Cybran Torpedo Ambushing System
+                    categories.xrb0104 +   -- Cybran Engineering Station 1
+                    categories.xrb0204 +   -- Cybran Engineering Station 2
+                    categories.xrb0304 +   -- Cybran Engineering Station 3
+                    categories.xrb3301 +   -- Cybran Perimeter Monitoring System
+                    categories.xra0305 +   -- Cybran Heavy Gunship
+                    categories.xrl0305 +   -- Cybran Brick
+                    categories.dra0202 +   -- Cybran FIghter Bomber
+                    categories.drl0204 +   -- Cybran Rocket Bot
+                    categories.xrl0403)    -- Cybran Amphibious Mega Bot
 
-    # Adjust buildable categories for UEF in case Player captures them
+    -- Adjust buildable categories for UEF in case Player captures them
 				ScenarioFramework.AddRestriction(uef, 
-					categories.ueb2302 +  # Long Range Heavy Artillery
-					categories.ueb4301 +  # T3 Heavy Shield Generator
-                    categories.uel0401 +  # Experimental Mobile Factory
-                    categories.dea0202 +  # UEF Fighter Bomber
-                    categories.del0204 +  # UEF Gatling Bot
-                    categories.xeb2306 +  # UEF Heavy Point Defense
-                    categories.xel0305 +  # UEF Percival
-                    categories.xel0306 +  # UEF Mobile Missile Platform
-                    categories.xes0102 +  # UEF Torpedo Boat
-                    categories.xes0205 +  # UEF Shield Boat
-                    categories.xes0307 +  # UEF Battlecruiser
-                    categories.xeb0104 +  # UEF Engineering Station 1
-                    categories.xeb0204 +  # UEF Engineering Station 2
-                    categories.xea0306 +  # UEF Heavy Air Transport
-                    categories.xeb2402 +  # UEF Sub-Orbital Defense System
-                    categories.ues0304)   # Strategic Missile Submarine
+					categories.ueb2302 +  -- Long Range Heavy Artillery
+					categories.ueb4301 +  -- T3 Heavy Shield Generator
+                    categories.uel0401 +  -- Experimental Mobile Factory
+                    categories.dea0202 +  -- UEF Fighter Bomber
+                    categories.del0204 +  -- UEF Gatling Bot
+                    categories.xeb2306 +  -- UEF Heavy Point Defense
+                    categories.xel0305 +  -- UEF Percival
+                    categories.xel0306 +  -- UEF Mobile Missile Platform
+                    categories.xes0102 +  -- UEF Torpedo Boat
+                    categories.xes0205 +  -- UEF Shield Boat
+                    categories.xes0307 +  -- UEF Battlecruiser
+                    categories.xeb0104 +  -- UEF Engineering Station 1
+                    categories.xeb0204 +  -- UEF Engineering Station 2
+                    categories.xea0306 +  -- UEF Heavy Air Transport
+                    categories.xeb2402 +  -- UEF Sub-Orbital Defense System
+                    categories.ues0304)   -- Strategic Missile Submarine
 
-    # Adjust buildable categories for Aeon in case Player captures them
+    -- Adjust buildable categories for Aeon in case Player captures them
 				ScenarioFramework.AddRestriction(aeon, 
-					categories.uab0304 + # Quantum Gate
-                    categories.ual0301 + # Sub Commander
-                    categories.xal0305 + # Aeon Sniper Bot
-                    categories.xaa0202 + # Aeon Mid Range fighter (Swift Wind)
-                    categories.daa0206 + # Aeon Mercy
-                    categories.dal0310 + # Aeon Shield Disruptor
-                    categories.xal0203 + # Aeon Assault Tank (Blaze)
-                    categories.xab1401 + # Aeon Quantum Resource Generator
-                    categories.xas0204 + # Aeon Submarine Hunter
-                    categories.xaa0306 + # Aeon Torpedo Bomber
-                    categories.xas0306 + # Aeon Missile Ship
-                    categories.xab3301 + # Aeon Quantum Optics Device
-                    categories.xab2307 + # Aeon Rapid Fire Artillery
-                    categories.xaa0305 + # Aeon AA Gunship
-                    categories.uas0304)  # Strategic Missile Submarine
+					categories.uab0304 + -- Quantum Gate
+                    categories.ual0301 + -- Sub Commander
+                    categories.xal0305 + -- Aeon Sniper Bot
+                    categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+                    categories.daa0206 + -- Aeon Mercy
+                    categories.dal0310 + -- Aeon Shield Disruptor
+                    categories.xal0203 + -- Aeon Assault Tank (Blaze)
+                    categories.xab1401 + -- Aeon Quantum Resource Generator
+                    categories.xas0204 + -- Aeon Submarine Hunter
+                    categories.xaa0306 + -- Aeon Torpedo Bomber
+                    categories.xas0306 + -- Aeon Missile Ship
+                    categories.xab3301 + -- Aeon Quantum Optics Device
+                    categories.xab2307 + -- Aeon Rapid Fire Artillery
+                    categories.xaa0305 + -- Aeon AA Gunship
+                    categories.uas0304)  -- Strategic Missile Submarine
 			end
 		end
 	end	
@@ -350,7 +350,7 @@ function OnStart(self)
     SetArmyUnitCap(aeon, 600)
     SetArmyUnitCap(uef, 800)
 
-    # Army colors
+    -- Army colors
     ScenarioFramework.SetCybranColor(player)
     ScenarioFramework.SetAeonColor(aeon)
     ScenarioFramework.SetUEFColor(uef)
@@ -364,12 +364,12 @@ function JerichoKilled()
     ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Jericho, 7 )
 end
 
-# --------
-# End Game
-# --------
-#rolled into BlackSunFired()
-#function PlayerWin()
-#end
+-- --------
+-- End Game
+-- --------
+-- rolled into BlackSunFired()
+-- function PlayerWin()
+-- end
 
 function ControlCenterDestroyed()
     if(not ScenarioInfo.OpEnded) then
@@ -377,8 +377,8 @@ function ControlCenterDestroyed()
         ScenarioInfo.OpComplete = false
         ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('ControlCenter'), 0, ArmyBrains[player])
 
-        # Control center destroyed cam
-#        ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
+        -- Control center destroyed cam
+--    ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
         local camInfo = {
             blendTime = 2.5,
             holdTime = nil,
@@ -400,8 +400,8 @@ function PlayerLose()
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
 
-        # Control Center destroyed cam
-#        ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
+        -- Control Center destroyed cam
+--    ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
         local camInfo = {
             blendTime = 2.5,
             holdTime = nil,
@@ -421,7 +421,7 @@ function PlayerKilled()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
-#        ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR)
+--    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR)
         ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.PlayerCDR )
 
         ScenarioFramework.Dialogue(OpStrings.C06_D01_010, StartKillGame, true)
@@ -440,13 +440,13 @@ function KillGame()
         ScenarioInfo.OpComplete, true)
 end
 
-# ---------
-# Mission 1
-# ---------
+-- ---------
+-- Mission 1
+-- ---------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
-    # Queue up units at player factories
+    -- Queue up units at player factories
     local land = {'url0202', 'url0205', 'url0303'}
     local air = {'ura0204', 'ura0303', 'ura0304'}
     local sea = {'urs0201', 'urs0202','urs0203'}
@@ -472,7 +472,7 @@ function IntroMission1()
     ArmyBrains[player]:BuildPlatoon(airPlatoon, airFactories, 1)
     ArmyBrains[player]:BuildPlatoon(seaPlatoon, seaFactories, 1)
 
-    # Player CDR
+    -- Player CDR
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player')
 	ScenarioInfo.CoopCDR = {}
 	local tblArmy = ListArmies()
@@ -494,9 +494,9 @@ function IntroMission1()
     ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, ScenarioInfo.PlayerCDR)	
 	
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
---    ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')	
+-- ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')	
 	
-    # Jericho strut
+    -- Jericho strut
     local cmd = IssueMove({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('JerichoDestination'))
     while(not IsCommandDone(cmd)) do
         WaitSeconds(.5)
@@ -509,40 +509,40 @@ function IntroMission1()
         end
     end
 
-    # After 2 minutes: Jericho VO trigger
+    -- After 2 minutes: Jericho VO trigger
     ScenarioFramework.CreateTimerTrigger(M1JerichoVO, 120)
 
-    # Cybran in Aeon LOS VO trigger
+    -- Cybran in Aeon LOS VO trigger
     ScenarioFramework.CreateArmyIntelTrigger(CybranSpotted, ArmyBrains[aeon], 'LOSNow',
         false, true, categories.ALLUNITS, true, ArmyBrains[player])
 
-    # UEF vs Aeon air attacks
+    -- UEF vs Aeon air attacks
     SpawnUEFAir()
 end
 
 function StartMission1()
     ScenarioFramework.CreateTimerTrigger(Taunt, Random(600, 900))
 
-    # Primary Objective 1
+    -- Primary Objective 1
     ScenarioFramework.CreateArmyStatTrigger(CzarFullyBuilt, ArmyBrains[aeon], 'CzarFullyBuilt1',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uaa0310}})
     ScenarioFramework.CreateArmyStatTrigger(CzarDefeated, ArmyBrains[aeon], 'CzarDefeated1',
         {{StatType = 'Units_Killed', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uaa0310}})
     ScenarioFramework.CreateUnitDeathTrigger(CzarEngineerDefeated, ScenarioInfo.CzarEngineer)
     ScenarioInfo.M1P1 = Objectives.Basic(
-        'primary',                          # type
-        'incomplete',                       # complete
-        OpStrings.OpC06_M1P1_Title,         # title
-        OpStrings.OpC06_M1P1_Desc,          # description
-        Objectives.GetActionIcon('kill'),   # action
-        {                                   # target
-            #Category = categories.uaa0310,
+        'primary',                          -- type
+        'incomplete',                       -- complete
+        OpStrings.OpC06_M1P1_Title,         -- title
+        OpStrings.OpC06_M1P1_Desc,          -- description
+        Objectives.GetActionIcon('kill'),   -- action
+        {                                   -- target
+            -- Category = categories.uaa0310,
         }
     )
 
     ForkThread(UpdateCzarObjective)
 
-    # M1P1 Objective Reminder
+    -- M1P1 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, M1P1Time)
 end
 
@@ -628,13 +628,13 @@ function CzarDefeated()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioInfo.M1P1:ManualResult(true)
 
-        # Make Control Center invulnerable
+        -- Make Control Center invulnerable
         ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
         ScenarioInfo.ControlCenter:SetCanBeKilled(false)
         ScenarioInfo.ControlCenter:SetDoNotTarget(true)
 
         if ScenarioInfo.Czar then
-            # Show the Czar dying, if the Czar was completely built when the player killed it
+            -- Show the Czar dying, if the Czar was completely built when the player killed it
             local camInfo = {
                 blendTime = 1.0,
                 holdTime = 8,
@@ -700,9 +700,9 @@ function M1P1Reminder3()
     end
 end
 
-# ---------
-# Mission 2
-# ---------
+-- ---------
+-- Mission 2
+-- ---------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
 
@@ -710,12 +710,12 @@ function IntroMission2()
 
     ForkThread(M2MobileFactoriesThread)
 
-    # UEF Naval Attack
+    -- UEF Naval Attack
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2NavalPatrol', 'AttackFormation')
     platoon:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
     platoon:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
 
-    # UEF Land Attack
+    -- UEF Land Attack
     for i = 1, 3 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2LandPatrol_D1_' .. i, 'AttackFormation')
         platoon.PlatoonData = {}
@@ -739,7 +739,7 @@ function IntroMission2()
         end
     end
 
-    # UEF Air Attack
+    -- UEF Air Attack
     for i = 1, 2 do
         local group = ScenarioUtils.CreateArmyGroup('UEF', 'M2AirPatrol_D1_' .. i)
         for k, v in group do
@@ -773,17 +773,17 @@ function IntroMission2()
         end
     end
 
-    # UEF Engineers
+    -- UEF Engineers
     local engs = ScenarioUtils.CreateArmyGroup('UEF', 'M2Engineers')
     local shields = ScenarioUtils.CreateArmyGroup('UEF', 'M2Shields')
     for i = 1, 12 do
         IssueGuard({shields[i]}, engs[i])
     end
 
-    # Aeon Air Attack
+    -- Aeon Air Attack
     M2AeonAirAttack()
 
-    # Colossus Attack
+    -- Colossus Attack
     if(ScenarioInfo.Colossus and not ScenarioInfo.Colossus:IsDead()) then
         IssueClearCommands({ScenarioInfo.Colossus})
         IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol2'))
@@ -791,33 +791,33 @@ function IntroMission2()
         IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol1'))
     end
 
-    # Adjust buildable categories
+    -- Adjust buildable categories
     ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction(player, categories.urb4302 +    # T3 Strategic Missile Defense
-                                   categories.url0402)     # Spider Bot
+    ScenarioFramework.RemoveRestriction(player, categories.urb4302 +    -- T3 Strategic Missile Defense
+                                   categories.url0402)     -- Spider Bot
 
-    ScenarioFramework.RemoveRestriction(uef, categories.ueb2302 +  # Long Range Heavy Artillery
-                                categories.ueb4301 +  # T3 Heavy Shield Generator
-                                categories.uel0401 +  # Experimental Mobile Factory
-                                categories.ues0304)   # Strategic Missile Submarine
+    ScenarioFramework.RemoveRestriction(uef, categories.ueb2302 +  -- Long Range Heavy Artillery
+                                categories.ueb4301 +  -- T3 Heavy Shield Generator
+                                categories.uel0401 +  -- Experimental Mobile Factory
+                                categories.ues0304)   -- Strategic Missile Submarine
 
-    ScenarioFramework.RemoveRestriction(aeon, categories.uab0304 + # Quantum Gate
-                                 categories.ual0301 + # Sub Commander
-                                 categories.uas0304)  # Strategic Missile Submarine
+    ScenarioFramework.RemoveRestriction(aeon, categories.uab0304 + -- Quantum Gate
+                                 categories.ual0301 + -- Sub Commander
+                                 categories.uas0304)  -- Strategic Missile Submarine
 
 	local tblArmy = ListArmies()
 	for iArmy, strArmy in pairs(tblArmy) do
 		if iArmy >= ScenarioInfo.Coop1 then
 			ScenarioFramework.RemoveRestriction(iArmy,
-				categories.urb4302 +    # T3 Strategic Missile Defense
-				categories.url0402 + 	# Spider Bot
-				categories.ueb2302 +  	# Long Range Heavy Artillery
-                categories.ueb4301 +  	# T3 Heavy Shield Generator
-                categories.uel0401 + 	# Experimental Mobile Factory
-                categories.ues0304 +   	# Strategic Missile Submarine	
-				categories.uab0304 + 	# Quantum Gate
-				categories.ual0301 + 	# Sub Commander
-				categories.uas0304)  	# Strategic Missile Submarine
+				categories.urb4302 +    -- T3 Strategic Missile Defense
+				categories.url0402 + 	-- Spider Bot
+				categories.ueb2302 +  	-- Long Range Heavy Artillery
+                categories.ueb4301 +  	-- T3 Heavy Shield Generator
+                categories.uel0401 + 	-- Experimental Mobile Factory
+                categories.ues0304 +   	-- Strategic Missile Submarine	
+				categories.uab0304 + 	-- Quantum Gate
+				categories.ual0301 + 	-- Sub Commander
+				categories.uas0304)  	-- Strategic Missile Submarine
 		end
 	end	
 								 
@@ -827,20 +827,20 @@ end
 function StartMission2()
     ScenarioFramework.SetPlayableArea('M2Area')
 
-    # After 3 minutes: Jericho VO trigger
+    -- After 3 minutes: Jericho VO trigger
     ScenarioFramework.CreateTimerTrigger(M2JerichoVO, 180)
 
-    # After 4 minutes: Ops VO trigger
+    -- After 4 minutes: Ops VO trigger
     ScenarioFramework.CreateTimerTrigger(M2OpsVO, 240)
 
-    # Primary Objective 1
+    -- Primary Objective 1
     ScenarioInfo.M2P1 = Objectives.ArmyStatCompare(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.OpC06_M2P1_Title,     # title
-        OpStrings.OpC06_M2P1_Desc,      # description
-        'build',                        # action
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.OpC06_M2P1_Title,     -- title
+        OpStrings.OpC06_M2P1_Desc,      -- description
+        'build',                        -- action
+        {                               -- target
             Army = player,
             StatName = 'Units_Active',
             CompareOp = '>=',
@@ -854,12 +854,12 @@ function StartMission2()
         end
     )
 
-    # M2P1 Objective Reminder
+    -- M2P1 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, M2P1Time)
 end
 
 function M2MobileFactoriesThread()
-    # Mobile Factories
+    -- Mobile Factories
     local factory1 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory1')
     local factory2 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory2')
     local cm1 = IssueMove({factory1}, ScenarioUtils.MarkerToPosition('MobileFactory1'))
@@ -924,17 +924,17 @@ function M2OpsVO()
 end
 
 function Taunt()
-    # Choose Aiko or Arnold
+    -- Choose Aiko or Arnold
     local choice = Random(0, 1)
     if(choice == 0) then
-        # Play Aiko taunt
+        -- Play Aiko taunt
         if(not ScenarioInfo.Aiko:IsDead() and aikoTaunt <= 8) then
             PlayAikoTaunt()
         elseif(not ScenarioInfo.Arnold:IsDead() and arnoldTaunt <= 16) then
             PlayArnoldTaunt()
         end
     else
-        # Play Arnold taunt
+        -- Play Arnold taunt
         if(not ScenarioInfo.Arnold:IsDead() and arnoldTaunt <= 16) then
             PlayArnoldTaunt()
         elseif(not ScenarioInfo.Aiko:IsDead() and aikoTaunt <= 8) then
@@ -956,28 +956,28 @@ function PlayArnoldTaunt()
 end
 
 function GateBuilt()
-    # Primary Objective 2
+    -- Primary Objective 2
     local gates = ArmyBrains[player]:GetListOfUnits(categories.urb0304, false)
     ScenarioInfo.M2P2 = Objectives.Basic(
-        'primary',                          # type
-        'incomplete',                       # complete
-        OpStrings.OpC06_M2P2_Title,         # title
-        OpStrings.OpC06_M2P2_Desc,          # description
-        Objectives.GetActionIcon('timer'),  # action
-        {                                   # target
+        'primary',                          -- type
+        'incomplete',                       -- complete
+        OpStrings.OpC06_M2P2_Title,         -- title
+        OpStrings.OpC06_M2P2_Desc,          -- description
+        Objectives.GetActionIcon('timer'),  -- action
+        {                                   -- target
             Units = gates,
         }
     )
 
-    # Trigger will fire if all of the players gates are destroyed
+    -- Trigger will fire if all of the players gates are destroyed
     ScenarioFramework.CreateArmyStatTrigger(GateDestroyed, ArmyBrains[player], 'GateDestroyed',
         {{StatType = 'Units_Active', CompareType = 'LessThan', Value = 1, Category = categories.urb0304}})
 
-    # Trigger will fire when CDR is near the gate
+    -- Trigger will fire when CDR is near the gate
     ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[player],
         categories.urb0304, 10)
 
-    # M2P2 Objective Reminder
+    -- M2P2 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, M2P2Time)
 end
 
@@ -1003,7 +1003,7 @@ function CDRNearGate()
     ScenarioInfo.DownloadTimer = ScenarioFramework.CreateTimerTrigger(DownloadFinished, 120, true)
     ScenarioFramework.Dialogue(OpStrings.C06_M02_060)
 
-    # Send in UEF attack on CDR
+    -- Send in UEF attack on CDR
     if(not ScenarioInfo.CDRGateAttack) then
         ScenarioInfo.CDRGateAttack = true
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2CDRAttack_D' .. ScenarioInfo.Options.Difficulty, 'StaggeredChevronFormation')
@@ -1017,7 +1017,7 @@ function LeftGate()
         ScenarioFramework.ResetUITimer()
         ScenarioInfo.DownloadTimer:Destroy()
 
-        # Trigger will fire when CDR is near the gate
+        -- Trigger will fire when CDR is near the gate
         ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[player],
             categories.urb0304, 10)
     end
@@ -1029,13 +1029,13 @@ function DownloadFinished()
 
     ScenarioInfo.ControlCenter:SetCapturable(true)
 
-    # Primary Objective 3
+    -- Primary Objective 3
     ScenarioInfo.M2P3 = Objectives.Capture(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.OpC06_M2P3_Title,     # title
-        OpStrings.OpC06_M2P3_Desc,      # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.OpC06_M2P3_Title,     -- title
+        OpStrings.OpC06_M2P3_Desc,      -- description
+        {                               -- target
             Units = {ScenarioInfo.ControlCenter},
             NumRequired = 1,
         }
@@ -1045,14 +1045,14 @@ function DownloadFinished()
             if(result) then
                 ScenarioFramework.Dialogue(OpStrings.C06_M02_130)
 
-                # Make the control center not targetable, if killed by splash damage op fails
+                -- Make the control center not targetable, if killed by splash damage op fails
                 local unit = ArmyBrains[player]:GetListOfUnits(categories.uec1902, false)
                 ScenarioInfo.ControlCenter = unit[1]
                 ScenarioInfo.ControlCenter:SetDoNotTarget(true)
                 ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
                 ScenarioFramework.CreateUnitDestroyedTrigger(ControlCenterLost, ScenarioInfo.ControlCenter)
 
-                # control center captured cam
+                -- control center captured cam
                 local camInfo = {
                     blendTime = 1.0,
                     holdTime = 4,
@@ -1067,7 +1067,7 @@ function DownloadFinished()
         end
     )
 
-    # M2P3 Objective Reminder
+    -- M2P3 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M2P3Reminder1, M2P3Time)
 end
 
@@ -1131,9 +1131,9 @@ function M2P3Reminder2()
     end
 end
 
-# ---------
-# Mission 3
-# ---------
+-- ---------
+-- Mission 3
+-- ---------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
@@ -1142,17 +1142,17 @@ function IntroMission3()
         ScenarioUtils.CreateArmyGroup('UEF', 'HLRA_D3')
     end
 
-    # Adjust buildable categories
+    -- Adjust buildable categories
     ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction(player, categories.urb2305 +    # Strategic Missile Launcher
-                                   categories.urs0304)     # Strategic Missile Submarine
+    ScenarioFramework.RemoveRestriction(player, categories.urb2305 +    -- Strategic Missile Launcher
+                                   categories.urs0304)     -- Strategic Missile Submarine
 								   
 	local tblArmy = ListArmies()
 	for iArmy, strArmy in pairs(tblArmy) do
 		if iArmy >= ScenarioInfo.Coop1 then   			
 			ScenarioFramework.RemoveRestriction(iArmy,
-				categories.urb2305 +    # Strategic Missile Launcher
-				categories.urs0304)     # Strategic Missile Submarine
+				categories.urb2305 +    -- Strategic Missile Launcher
+				categories.urs0304)     -- Strategic Missile Submarine
 		end
 	end	
 
@@ -1162,14 +1162,14 @@ end
 function StartMission3()
     ScenarioFramework.SetPlayableArea('M3Area')
 
-    # Nuke Aeon once Player breaks into UEF base
+    -- Nuke Aeon once Player breaks into UEF base
     for k, v in ArmyBrains[uef]:GetListOfUnits(categories.ueb2305, false) do
         v:GiveNukeSiloAmmo(5)
     end
     ScenarioFramework.CreateAreaTrigger(StartNukeAeon, ScenarioUtils.AreaToRect('UEFBaseArea'), categories.ALLUNITS,
         true, false, ArmyBrains[player], 1, false)
 
-    # Atlantis Assault
+    -- Atlantis Assault
     ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. ScenarioInfo.Options.Difficulty, 'StaggeredChevronFormation')
     ScenarioInfo.Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'Atlantis')
     IssueTransportLoad(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits(), ScenarioInfo.Atlantis)
@@ -1180,16 +1180,16 @@ function StartMission3()
     end
     ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[player], categories.ALLUNITS, 80)
 
-    # After 4 minutes: Aiko VO
+    -- After 4 minutes: Aiko VO
     ScenarioFramework.CreateTimerTrigger(M3AikoVO, 240)
 
-    # Primary Objective 1
+    -- Primary Objective 1
     ScenarioInfo.M3P1 = Objectives.Capture(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.OpC06_M3P1_Title,     # title
-        OpStrings.OpC06_M3P1_Desc,      # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.OpC06_M3P1_Title,     -- title
+        OpStrings.OpC06_M3P1_Desc,      -- description
+        {                               -- target
             Units = {ScenarioInfo.BlackSunWeapon},
             NumRequired = 1,
         }
@@ -1199,14 +1199,14 @@ function StartMission3()
             if(result) then
                 local unit = ArmyBrains[player]:GetListOfUnits(categories.uec1901, false)
 
-                # Primary Objective 2
+                -- Primary Objective 2
                 ScenarioInfo.M3P2 = Objectives.Basic(
-                    'primary',                          # type
-                    'incomplete',                       # complete
-                    OpStrings.OpC06_M3P2_Title,         # title
-                    OpStrings.OpC06_M3P2_Desc,          # description
-                    Objectives.GetActionIcon('kill'),   # action
-                    {                                   # target
+                    'primary',                          -- type
+                    'incomplete',                       -- complete
+                    OpStrings.OpC06_M3P2_Title,         -- title
+                    OpStrings.OpC06_M3P2_Desc,          -- description
+                    Objectives.GetActionIcon('kill'),   -- action
+                    {                                   -- target
                         Units = unit,
                     }
                 )
@@ -1219,7 +1219,7 @@ function StartMission3()
 
                 ScenarioFramework.Dialogue(OpStrings.C06_M03_060)
 
-                # Show the captured Black Sun
+                -- Show the captured Black Sun
                 local camInfo = {
                     blendTime = 1.0,
                     holdTime = 4,
@@ -1229,13 +1229,13 @@ function StartMission3()
                 }
                 ScenarioFramework.OperationNISCamera( unit[1], camInfo )
 
-                # M3P2 Objective Reminder
+                -- M3P2 Objective Reminder
                 ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, M3P2Time)
             end
         end
     )
 
-    # M3P1 Objective Reminder
+    -- M3P1 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, M3P1Time)
 end
 
@@ -1287,7 +1287,7 @@ function NukeAeon()
             end
         end
         WaitSeconds(30)
-        # TODO: place trigger for when last nuke has detonated
+        -- TODO: place trigger for when last nuke has detonated
         for i = 1, 5 do
             local units = GetUnitsInRect(ScenarioUtils.AreaToRect('Death' .. i))
             local aeonUnits = {}
@@ -1317,7 +1317,7 @@ function BlackSunFired()
             ScenarioInfo.M3P2:ManualResult(true)
         end
         ScenarioFramework.EndOperation('SCCA_Coop_R06_v01', ScenarioInfo.OpComplete, ScenarioInfo.Options.Difficulty,
-            ScenarioInfo.OpComplete, true, true, 3) # 3 == faction movie
+            ScenarioInfo.OpComplete, true, true, 3) -- 3 == faction movie
     end
 end
 
@@ -1379,31 +1379,31 @@ function M3P2Reminder3()
     end
 end
 
-# ---------------
-# Debug Functions
-# ---------------
-#function OnF3()
-#    LOG('*DEBUG: Player Unit Cap: ', repr(GetArmyUnitCostTotal(player)))
-#    LOG('*DEBUG: Aeon Unit Cap: ', repr(GetArmyUnitCostTotal(aeon)))
-#    LOG('*DEBUG: UEF Unit Cap: ', repr(GetArmyUnitCostTotal(uef)))
-#end
-#
-#function OnShiftF3()
-#    BlackSunFired()
-#end
-#
-#function OnShiftF4()
-#    IntroMission3()
-#end
-#
-#function OnShiftF5()
-#    ControlCenterDestroyed()
-#end
-#
-#function OnF4()
-#    M3AikoVO()
-#end
-#
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_R06_v01', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- ---------------
+-- Debug Functions
+-- ---------------
+-- function OnF3()
+-- LOG('*DEBUG: Player Unit Cap: ', repr(GetArmyUnitCostTotal(player)))
+-- LOG('*DEBUG: Aeon Unit Cap: ', repr(GetArmyUnitCostTotal(aeon)))
+-- LOG('*DEBUG: UEF Unit Cap: ', repr(GetArmyUnitCostTotal(uef)))
+-- end
+--
+-- function OnShiftF3()
+-- BlackSunFired()
+-- end
+--
+-- function OnShiftF4()
+-- IntroMission3()
+-- end
+--
+-- function OnShiftF5()
+-- ControlCenterDestroyed()
+-- end
+--
+-- function OnF4()
+-- M3AikoVO()
+-- end
+--
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_R06_v01', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end

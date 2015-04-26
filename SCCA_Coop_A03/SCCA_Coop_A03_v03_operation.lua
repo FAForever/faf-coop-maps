@@ -1,19 +1,19 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_A03_v03/SCCA_Coop_A03_v03_operation.lua
-#**  Author(s):  Evan Pongress
-#**
-#**  Summary  :  Operation data for OpA3
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_A03_v03/SCCA_Coop_A03_v03_operation.lua
+-- **  Author(s):  Evan Pongress
+-- **
+-- **  Summary  :  Operation data for OpA3
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
-# ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_A03_v03'						# should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opLoc = {x = 106, y = 345}			# location of op 'planet' on op select screen
-opDesc = ''							# used in op select screen
+-- ONLY EDIT THESE VARS 
+opID = 'SCCA_Coop_A03_v03'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opLoc = {x = 106, y = 345}			-- location of op 'planet' on op select screen
+opDesc = ''							-- used in op select screen
 
-# DO NOT EDIT
+-- DO NOT EDIT
 local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'aeon', 3)
 
 operationData = 

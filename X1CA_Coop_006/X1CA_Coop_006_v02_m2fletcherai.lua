@@ -1,33 +1,33 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2fletcherai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_006_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2fletcherai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_006_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Fletcher = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local FletcherM2Base = BaseManager.CreateBaseManager()
 local FletcherM2ExpBase = BaseManager.CreateBaseManager()
 
 function FletcherM2BaseAI()
 
-    # ----------------
-    # Fletcher M2 Base
-    # ----------------
+    -- ----------------
+    -- Fletcher M2 Base
+    -- ----------------
     FletcherM2Base:Initialize(
         ArmyBrains[Fletcher],
         'M2_Fletcher_Base',
@@ -49,16 +49,16 @@ end
 function FletcherM2BaseNavalAttacks()
     local opai = nil
 
-    # -------------------------------------
-    # Fletcher M2 Base Op AI, Naval Attacks
-    # -------------------------------------
+    -- -------------------------------------
+    -- Fletcher M2 Base Op AI, Naval Attacks
+    -- -------------------------------------
 
     local Temp = {
         'NavalAttackTemp',
         'NoPlan',
-        { 'ues0201', 1, 4, 'Attack', 'GrowthFormation' },	# Destroyers
-        { 'ues0202', 1, 3, 'Attack', 'GrowthFormation' },	# Cruisers
-        { 'xes0102', 1, 4, 'Attack', 'GrowthFormation' },	# Torpedo Boat
+        { 'ues0201', 1, 4, 'Attack', 'GrowthFormation' },	-- Destroyers
+        { 'ues0202', 1, 3, 'Attack', 'GrowthFormation' },	-- Cruisers
+        { 'xes0102', 1, 4, 'Attack', 'GrowthFormation' },	-- Torpedo Boat
     }
     local Builder = {
         BuilderName = 'NavyAttackBuilder',
@@ -74,12 +74,12 @@ function FletcherM2BaseNavalAttacks()
         },
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( Builder )
-# =========================================================================================
+-- =========================================================================================
 	Temp = {
         'NavalDefenseTemp',
         'NoPlan',
-        { 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },	# Destroyers
-        { 'ues0202', 1, 1, 'Attack', 'GrowthFormation' },	# Cruisers
+        { 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },	-- Destroyers
+        { 'ues0202', 1, 1, 'Attack', 'GrowthFormation' },	-- Cruisers
     }
     Builder = {
         BuilderName = 'NavyDefenseBuilder',
@@ -102,17 +102,17 @@ function FletcherM2BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    # -----------------------------------
-    # Fletcher M2 Base Op AI, Air Attacks
-    # -----------------------------------
+    -- -----------------------------------
+    -- Fletcher M2 Base Op AI, Air Attacks
+    -- -----------------------------------
 	
     local template = {
         'HeavyAir1',
         'NoPlan',
-        { 'uea0303', 1, 9, 'Attack', 'GrowthFormation' },	# Air Superiority
-        { 'uea0204', 1, 18, 'Attack', 'GrowthFormation' },	# Gunships
-        { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' },	# Heavy Gunships
-        { 'uea0102', 1, 18, 'Attack', 'GrowthFormation' },	# Interceptors
+        { 'uea0303', 1, 9, 'Attack', 'GrowthFormation' },	-- Air Superiority
+        { 'uea0204', 1, 18, 'Attack', 'GrowthFormation' },	-- Gunships
+        { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' },	-- Heavy Gunships
+        { 'uea0102', 1, 18, 'Attack', 'GrowthFormation' },	-- Interceptors
     }
     local builder = {
         BuilderName = 'HeavyAir1',
@@ -129,7 +129,7 @@ function FletcherM2BaseAirAttacks()
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( builder )
 
-    # sends 9, 18, 27 [air superiority, heavy gunships, bombers] all over the map
+    -- sends 9, 18, 27 [air superiority, heavy gunships, bombers] all over the map
     quantity = {9, 18, 27}
     for i = 1, 3 do
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks_MAIN_1' .. i,
@@ -144,7 +144,7 @@ function FletcherM2BaseAirAttacks()
     opai:SetChildQuantity({'AirSuperiority', 'HeavyGunships', 'Bombers'}, quantity[Difficulty])
     end
 
-    # sends 9, 18, 27 [bombers], ([gunships] on hard)
+    -- sends 9, 18, 27 [bombers], ([gunships] on hard)
     quantity = {9, 18, 27}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks1',
         {
@@ -162,7 +162,7 @@ function FletcherM2BaseAirAttacks()
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
     end
 
-    # sends 9, 18, 27 [gunships], ([heavy gunships] on hard)
+    -- sends 9, 18, 27 [gunships], ([heavy gunships] on hard)
     quantity = {9, 18, 27}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks2',
         {
@@ -181,7 +181,7 @@ function FletcherM2BaseAirAttacks()
     end
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 18 [gunships, combat fighters]
+    -- sends 4, 8, 18 [gunships, combat fighters]
     quantity = {4, 8, 18}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks3',
         {
@@ -195,7 +195,7 @@ function FletcherM2BaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 9, 18, 27 [gunships] if player has >= 100, 80, 60 mobile land
+    -- sends 9, 18, 27 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {9, 18, 27}
     trigger = {100, 80, 60}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks4',
@@ -211,7 +211,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 9, 18, 27 [air superiority] if player has >= 80, 60, 60 mobile air
+    -- sends 9, 18, 27 [air superiority] if player has >= 80, 60, 60 mobile air
     quantity = {9, 18, 27}
     trigger = {80, 60, 60}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks5',
@@ -227,7 +227,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 9, 18, 27 [air superiority] if player has >= 60, 40, 40 gunships
+    -- sends 9, 18, 27 [air superiority] if player has >= 60, 40, 40 gunships
     quantity = {9, 18, 27}
     trigger = {60, 40, 40}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks6',
@@ -243,7 +243,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {6, 12, 18}
     trigger = {60, 40, 20}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks7',
@@ -259,7 +259,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 9, 18, 27 [air superiority] if player has >= 1 strat bomber
+    -- sends 9, 18, 27 [air superiority] if player has >= 1 strat bomber
     quantity = {9, 18, 27}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks8',
         {
@@ -274,7 +274,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 8, 16, 26 [bombers, gunships] if player has >= 450, 400, 300 units
+    -- sends 8, 16, 26 [bombers, gunships] if player has >= 450, 400, 300 units
     quantity = {8, 16, 26}
     trigger = {450, 400, 300}
     opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirAttacks9',
@@ -290,7 +290,7 @@ function FletcherM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # Air Defense
+    -- Air Defense
     quantity = {3, 6, 9}
     for i = 1, 3 do
         opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirDefense1_' .. i,
@@ -338,9 +338,9 @@ function FletcherM2BaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    # ----------------------
-    # Fletcher M2 Base Op AI
-    # ----------------------
+    -- ----------------------
+    -- Fletcher M2 Base Op AI
+    -- ----------------------
 
     quantity = {1, 3, 5}
     opai = FletcherM2Base:AddOpAI('M2_Fletcher_Main_Fatboy',
@@ -356,7 +356,7 @@ function FletcherM2BaseLandAttacks()
         }
     )
 
-    # Land Defense
+    -- Land Defense
     quantity = {5, 10, 15}
     for i = 1, quantity[Difficulty] do
         opai = FletcherM2Base:AddOpAI('BasicLandAttack', 'M2_FletcherLandDefense1_' .. i,
@@ -401,7 +401,7 @@ function FletcherM2BaseLandAttacks()
 end
 
 function FletcherCaptureControlCenter()
-    # Transport Builder
+    -- Transport Builder
 	local opai = FletcherM2Base:AddOpAI('EngineerAttack', 'M2_Fletcher_TransportBuilder',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -417,7 +417,7 @@ function FletcherCaptureControlCenter()
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uea0104})
 		
-    # sends engineers
+    -- sends engineers
     opai = FletcherM2Base:AddOpAI('EngineerAttack', 'M2_FletcherEngAttack1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -450,9 +450,9 @@ end
 
 function FletcherM2ExpBaseAI()
 
-    # --------------------
-    # Fletcher M2 Exp Base
-    # --------------------
+    -- --------------------
+    -- Fletcher M2 Exp Base
+    -- --------------------
     FletcherM2ExpBase:InitializeDifficultyTables(ArmyBrains[Fletcher], 'M2_Fletcher_EastExp_Group', 'M2_Fletcher_Exp_Base', 30, {M2_Fletcher_EastExp_Group = 100})
     FletcherM2ExpBase:StartNonZeroBase({0, 1, 2})
 
@@ -462,9 +462,9 @@ end
 function FletcherM2ExpBaseLandAttacks()
     local opai = nil
 
-    # ----------------------------------------
-    # Fletcher M2 Exp Base Op AI, Land Attacks
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- Fletcher M2 Exp Base Op AI, Land Attacks
+    -- ----------------------------------------
 
     opai = FletcherM2ExpBase:AddOpAI('M2_Fletcher_East_Fatboy',
         {

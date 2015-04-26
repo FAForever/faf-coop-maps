@@ -1,13 +1,13 @@
-#****************************************************************************
-#**
-#**  File     : '/maps/X1CA_Coop_004_v04/X1CA_Coop_004_v04_m2dostyaai.lua'
-#**  Author(s): Greg Van Houdt
-#**
-#**  Summary  : Dostya army AI for Mission 2 - X1CA_Coop_004_v04
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#**
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : '/maps/X1CA_Coop_004_v04/X1CA_Coop_004_v04_m2dostyaai.lua'
+-- **  Author(s): Greg Van Houdt
+-- **
+-- **  Summary  : Dostya army AI for Mission 2 - X1CA_Coop_004_v04
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- **
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
@@ -17,21 +17,21 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Dostya = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local DostyaBase = BaseManager.CreateBaseManager()
 local DostyaAirbase = BaseManager.CreateBaseManager()
 
 function DostyaBaseAI()
 
-#   ScenarioUtils.CreateArmyGroup('Dostya', 'M2_Dostya_Base_Defenders')
+-- ScenarioUtils.CreateArmyGroup('Dostya', 'M2_Dostya_Base_Defenders')
 
     DostyaBase:Initialize(ArmyBrains[Dostya], 'Dostya_Base', 'DostyaAttack', 65,
 	{
@@ -41,7 +41,7 @@ function DostyaBaseAI()
     )
     DostyaBase:StartNonZeroBase({22, 18})
 
-    #DostyaExperimentals()
+    -- DostyaExperimentals()
     DostyaAirAttacks()
     DostyaLandAttacks()
 
@@ -98,11 +98,11 @@ function DostyaAirAttacks()
     local opai = nil
     local quantity = {}
 
-    # -------------------------
-    # Dostya Op AI, Air Attacks
-    # -------------------------
+    -- -------------------------
+    -- Dostya Op AI, Air Attacks
+    -- -------------------------
 
-    # sends 24, 18, 12 [gunships, bombers]
+    -- sends 24, 18, 12 [gunships, bombers]
     quantity = {24, 18, 12}
     opai = DostyaBase:AddOpAI('AirAttacks', 'Dostya_AirAttack1',
         {
@@ -113,7 +113,7 @@ function DostyaAirAttacks()
     opai:SetChildQuantity({'Gunships', 'Bombers'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 12, 8, 6 [heavy gunships]
+    -- sends 12, 8, 6 [heavy gunships]
     quantity = {12, 8, 6}
     opai = DostyaBase:AddOpAI('AirAttacks', 'Dostya_AirAttack2',
         {
@@ -124,7 +124,7 @@ function DostyaAirAttacks()
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:SetLockingStyle('BuildTimer', {LockTimer = 90})
 
-    # sends 12 [air superiority]
+    -- sends 12 [air superiority]
     opai = DostyaBase:AddOpAI('AirAttacks', 'Dostya_AirAttack3',
         {
             MasterPlatoonFunction = {FileName, 'DostyaAI'},
@@ -133,7 +133,7 @@ function DostyaAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', 12)
 
-    # Air defense
+    -- Air defense
     for i = 1, 3 do
         opai = DostyaBase:AddOpAI('AirAttacks', 'Dostya_Airdefense_' .. i,
             {
@@ -180,12 +180,12 @@ function DostyaLandAttacks()
     local quantity = {}
     local count = {}
 
-    # --------------------------
-    # Dostya Op AI, Land Attacks
-    # --------------------------
+    -- --------------------------
+    -- Dostya Op AI, Land Attacks
+    -- --------------------------
 
     count = {2, 2, 1}
-    # sends [random - Heavy Bots - mobile heavy artillery]
+    -- sends [random - Heavy Bots - mobile heavy artillery]
     opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandAttack1',
         {
             MasterPlatoonFunction = {FileName, 'DostyaAI'},
@@ -197,7 +197,7 @@ function DostyaLandAttacks()
     opai:SetChildCount(count[Difficulty])
     opai:SetLockingStyle('BuildTimer', {LockTimer = 71})
 
-    # sends [random - T3]
+    -- sends [random - T3]
     opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandAttack2',
         {
             MasterPlatoonFunction = {FileName, 'DostyaAI'},
@@ -210,7 +210,7 @@ function DostyaLandAttacks()
     opai:SetChildCount(count[Difficulty])
     opai:SetLockingStyle('BuildTimer', {LockTimer = 62})
 
-    # sends 8, 6, 4 [heavy bots]
+    -- sends 8, 6, 4 [heavy bots]
     quantity = {8, 6, 4}
     opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandAttack3',
         {
@@ -220,7 +220,7 @@ function DostyaLandAttacks()
     )
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
 
-    #Land Defenses
+    -- Land Defenses
 
     for i = 1, 3 do
 
@@ -258,7 +258,7 @@ function DostyaLandAttacks()
             }
         )
         opai:SetChildQuantity('MobileStealth', 1)
-#       = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
+--   = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NW_1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -303,7 +303,7 @@ function DostyaAI(platoon)
     local aiBrain = platoon:GetBrain()
     local moveNum = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
 
         if(ScenarioInfo.MissionNumber == 2) then
@@ -332,7 +332,7 @@ function Dostya_HeavyGunships_AI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
 

@@ -1,17 +1,17 @@
-#****************************************************************************
-#**
-#**  File     : /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_EditorFunctions.lua
-#**  Author(s): David Tomandl
-#**
-#**  Summary  : Editor functions for platoons in Op E2
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#local ScenarioFramework = import('/lua/scenarioframework.lua')
-#local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_EditorFunctions.lua
+-- **  Author(s): David Tomandl
+-- **
+-- **  Summary  : Editor functions for platoons in Op E2
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
+-- local ScenarioFramework = import('/lua/scenarioframework.lua')
+-- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
-# function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
-# parameter 0: string	platoon		= "default_platoon"
+-- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
+-- parameter 0: string	platoon		= "default_platoon"
 function ResetAMVariables(platoon)
     ScenarioInfo.VarTable['AttackStartLocation'] = false
     ScenarioInfo.VarTable['AttackResearchFacility'] = false

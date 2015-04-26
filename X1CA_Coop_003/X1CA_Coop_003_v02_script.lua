@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_script.lua
-#**  Author(s):  Jessica St. Croix
-#**
-#**  Summary  : Main mission flow script for X1CA_Coop_003_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_script.lua
+-- **  Author(s):  Jessica St. Croix
+-- **
+-- **  Summary  : Main mission flow script for X1CA_Coop_003_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local M1SeraphimAI = import('/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_m1seraphimai.lua')
@@ -26,9 +26,9 @@ local TauntManager = import('/lua/TauntManager.lua')
 local ScriptFile = '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_script.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# -------
-# Globals
-# -------
+-- -------
+-- Globals
+-- -------
 ScenarioInfo.Player = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Rhiza = 3
@@ -40,9 +40,9 @@ ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 ScenarioInfo.NumBombersDestroyed = 0
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -57,30 +57,30 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 
 local NumBombers = 0
 
-# How long should we wait at the beginning of the NIS to allow slower machines to catch up?
+-- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 1
 
-# -----------
-# Debug only!
-# -----------
+-- -----------
+-- Debug only!
+-- -----------
 local SkipNIS1 = false
-local SkipNIS2 = false	#if true, bombers objective will not function!
+local SkipNIS2 = false	-- if true, bombers objective will not function!
 
 
-# --------------
-# Taunt Managers
-# --------------
+-- --------------
+-- Taunt Managers
+-- --------------
 local ZanNorthTM = TauntManager.CreateTauntManager('ZanNorthTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')
 local ThelWestTM = TauntManager.CreateTauntManager('ThelWestTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')
 local PrincTM = TauntManager.CreateTauntManager('PrincTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')
-local PrincNorthTM = TauntManager.CreateTauntManager('PrincNorthTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')  #for taunts related to north seraph from princess
-local PrincWestTM = TauntManager.CreateTauntManager('PrincWestTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')   #for taunts related to west seraph from princess
+local PrincNorthTM = TauntManager.CreateTauntManager('PrincNorthTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')  -- for taunts related to north seraph from princess
+local PrincWestTM = TauntManager.CreateTauntManager('PrincWestTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')   -- for taunts related to west seraph from princess
 local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')
 local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_Strings.lua')
 
-# -------
-# Startup
-# -------
+-- -------
+-- Startup
+-- -------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
@@ -94,7 +94,7 @@ function OnPopulate()
         Faction = "cybran"
     end
 
-    # Army Colors
+    -- Army Colors
     if(Faction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
     elseif(Faction == 'uef') then
@@ -107,23 +107,23 @@ function OnPopulate()
     ScenarioFramework.SetAeonAlly2Color(Princess)
     ScenarioFramework.SetNeutralColor(Crystals)
 
-    # Unit Cap
+    -- Unit Cap
     SetArmyUnitCap(Seraphim, 750)
     SetArmyUnitCap(Rhiza, 280)
     SetArmyUnitCap(Princess, 250)
 
-    # Crystals
+    -- Crystals
     ScenarioUtils.CreateArmyGroup('Crystals', 'M1_Crystals')
 
-    # --------------
-    # Seraphim M1 AI
-    # --------------
+    -- --------------
+    -- Seraphim M1 AI
+    -- --------------
     M1SeraphimAI.SeraphimM1NorthBaseAI()
     M1SeraphimAI.SeraphimM1MiddleBaseAI()
 
-    # ------------------------
-    # Seraphim Initial Patrols
-    # ------------------------
+    -- ------------------------
+    -- Seraphim Initial Patrols
+    -- ------------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_Init_AirDef1_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_Main_AirDef_Chain')))
@@ -156,9 +156,9 @@ function OnPopulate()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_MidAir_Def_Chain')))
     end
 
-    # ------------------------
-    # Seraphim Initial Attacks
-    # ------------------------
+    -- ------------------------
+    -- Seraphim Initial Attacks
+    -- ------------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Air_1', 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_InitAir_Attack_Chain')))
@@ -177,11 +177,11 @@ function OnPopulate()
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_InitAttack_Naval_3', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Naval_Attack2_Chain')
 
-    # ------------------------
-    # Seraphim Special Attacks
-    # ------------------------
+    -- ------------------------
+    -- Seraphim Special Attacks
+    -- ------------------------
 
-    # East Carrier
+    -- East Carrier
     ScenarioInfo.M1EastCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M1_Seraph_East_AC')
     ScenarioInfo.M1EastCarrierPassengers = {}
     for i = 1, 5 do
@@ -195,7 +195,7 @@ function OnPopulate()
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1EastCarrier}, 'M1_Seraph_MidPatrol_East' .. Random(1,2) .. '_Chain')
     ScenarioFramework.CreateAreaTrigger(M1EastCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_East'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
 
-    # West Carrier
+    -- West Carrier
     ScenarioInfo.M1WestCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M1_Seraph_West_AC')
     ScenarioInfo.M1WestCarrierPassengers = {}
     for i = 1, 5 do
@@ -209,7 +209,7 @@ function OnPopulate()
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1WestCarrier}, 'M1_Seraph_MidPatrol_West' .. Random(1,2) .. '_Chain')
     ScenarioFramework.CreateAreaTrigger(M1WestCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_West'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
 
-    # Middle Battleship
+    -- Middle Battleship
     ScenarioInfo.M1MiddleBattleship = ScenarioUtils.CreateArmyGroup('Seraphim', 'M1_Seraph_Battleship_Mid_D' .. Difficulty)
     for k, v in ScenarioInfo.M1MiddleBattleship do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_2_Patrol_Chain')
@@ -217,7 +217,7 @@ function OnPopulate()
     ScenarioFramework.CreateArmyStatTrigger(M1MiddleBattleshipAttack, ArmyBrains[Player], 'M1MiddleBattleshipAttack',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 15, Category = categories.TECH3 - categories.ENGINEER}})
 
-    # North Battleship
+    -- North Battleship
     ScenarioInfo.M1NorthBattleship = ScenarioUtils.CreateArmyGroup('Seraphim', 'M1_Seraph_Battleship_Main_D' .. Difficulty)
     for k, v in ScenarioInfo.M1NorthBattleship do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_1_Patrol_Chain')
@@ -225,16 +225,16 @@ function OnPopulate()
     ScenarioFramework.CreateArmyStatTrigger(M1NorthBattleshipAttack, ArmyBrains[Player], 'M1NorthBattleshipAttack',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 30, Category = categories.TECH3 - categories.ENGINEER}})
 
-    # -----------
-    # Rhiza M1 AI
-    # -----------
+    -- -----------
+    -- Rhiza M1 AI
+    -- -----------
     M1RhizaAI.M1RhizaBaseAI()
 	
 	ForkThread(CheatEcoRhiza)
 
-    # ---------------------
-    # Rhiza Initial Patrols
-    # ---------------------
+    -- ---------------------
+    -- Rhiza Initial Patrols
+    -- ---------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M1_Rhiza_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Rhiza_AirDef_Chain')))
@@ -245,7 +245,7 @@ function OnPopulate()
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Rhiza_NavalDef_Chain')
     end
 
-    # Rhiza
+    -- Rhiza
     ScenarioInfo.RhizaACU = ScenarioUtils.CreateArmyUnit('Rhiza', 'Rhiza')
     ScenarioInfo.RhizaACU:SetCustomName(LOC '{i Rhiza}')
     if(true) then
@@ -271,42 +271,42 @@ function CheatEcoRhiza()
 end
 
 function OnStart()
-    # ------------------
-    # Build Restrictions
-    # ------------------
+    -- ------------------
+    -- Build Restrictions
+    -- ------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xas0204) # Aeon Submarine Hunter
-        ScenarioFramework.AddRestriction(player, categories.xaa0306) # Aeon Torpedo Bomber
-        ScenarioFramework.AddRestriction(player, categories.xas0306) # Aeon Missile Ship
-        ScenarioFramework.AddRestriction(player, categories.xab3301) # Aeon Quantum Optics Device
-        ScenarioFramework.AddRestriction(player, categories.xab2307) # Aeon Rapid Fire Artillery
-        ScenarioFramework.AddRestriction(player, categories.xaa0305) # Aeon AA Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrs0204) # Cybran Sub Killer
-        ScenarioFramework.AddRestriction(player, categories.xrs0205) # Cybran Counter-Intelligence Boat
-        ScenarioFramework.AddRestriction(player, categories.xrb2308) # Cybran Torpedo Ambushing System
-        ScenarioFramework.AddRestriction(player, categories.xrb0104) # Cybran Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xrb0204) # Cybran Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xrb0304) # Cybran Engineering Station 3
-        ScenarioFramework.AddRestriction(player, categories.xrb3301) # Cybran Perimeter Monitoring System
-        ScenarioFramework.AddRestriction(player, categories.xra0305) # Cybran Heavy Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) # Cybran Amphibious Mega Bot
-        ScenarioFramework.AddRestriction(player, categories.xes0102) # UEF Torpedo Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0205) # UEF Shield Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0307) # UEF Battlecruiser
-        ScenarioFramework.AddRestriction(player, categories.xeb0104) # UEF Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xeb0204) # UEF Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xea0306) # UEF Heavy Air Transport
-        ScenarioFramework.AddRestriction(player, categories.xeb2402) # UEF Sub-Orbital Defense System
-        ScenarioFramework.AddRestriction(player, categories.xsa0402) # Seraph Exp Bomb
-        ScenarioFramework.AddRestriction(player, categories.xss0304) # Seraph Sub Hunter
-        ScenarioFramework.AddRestriction(player, categories.xsb0304) # Seraph Gate
-        ScenarioFramework.AddRestriction(player, categories.xsl0301) # Seraph sACU
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) # Seraph exp Nuke
+        ScenarioFramework.AddRestriction(player, categories.xas0204) -- Aeon Submarine Hunter
+        ScenarioFramework.AddRestriction(player, categories.xaa0306) -- Aeon Torpedo Bomber
+        ScenarioFramework.AddRestriction(player, categories.xas0306) -- Aeon Missile Ship
+        ScenarioFramework.AddRestriction(player, categories.xab3301) -- Aeon Quantum Optics Device
+        ScenarioFramework.AddRestriction(player, categories.xab2307) -- Aeon Rapid Fire Artillery
+        ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship
+        ScenarioFramework.AddRestriction(player, categories.xrs0204) -- Cybran Sub Killer
+        ScenarioFramework.AddRestriction(player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
+        ScenarioFramework.AddRestriction(player, categories.xrb2308) -- Cybran Torpedo Ambushing System
+        ScenarioFramework.AddRestriction(player, categories.xrb0104) -- Cybran Engineering Station 1
+        ScenarioFramework.AddRestriction(player, categories.xrb0204) -- Cybran Engineering Station 2
+        ScenarioFramework.AddRestriction(player, categories.xrb0304) -- Cybran Engineering Station 3
+        ScenarioFramework.AddRestriction(player, categories.xrb3301) -- Cybran Perimeter Monitoring System
+        ScenarioFramework.AddRestriction(player, categories.xra0305) -- Cybran Heavy Gunship
+        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
+        ScenarioFramework.AddRestriction(player, categories.xes0102) -- UEF Torpedo Boat
+        ScenarioFramework.AddRestriction(player, categories.xes0205) -- UEF Shield Boat
+        ScenarioFramework.AddRestriction(player, categories.xes0307) -- UEF Battlecruiser
+        ScenarioFramework.AddRestriction(player, categories.xeb0104) -- UEF Engineering Station 1
+        ScenarioFramework.AddRestriction(player, categories.xeb0204) -- UEF Engineering Station 2
+        ScenarioFramework.AddRestriction(player, categories.xea0306) -- UEF Heavy Air Transport
+        ScenarioFramework.AddRestriction(player, categories.xeb2402) -- UEF Sub-Orbital Defense System
+        ScenarioFramework.AddRestriction(player, categories.xsa0402) -- Seraph Exp Bomb
+        ScenarioFramework.AddRestriction(player, categories.xss0304) -- Seraph Sub Hunter
+        ScenarioFramework.AddRestriction(player, categories.xsb0304) -- Seraph Gate
+        ScenarioFramework.AddRestriction(player, categories.xsl0301) -- Seraph sACU
+        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraph exp Nuke
     end
 
-    ScenarioFramework.AddRestriction(Rhiza, categories.uas0302) # Aeon Battleship
+    ScenarioFramework.AddRestriction(Rhiza, categories.uas0302) -- Aeon Battleship
 
-    # Hide all but the player army score
+    -- Hide all but the player army score
     for i = 2, table.getn(ArmyBrains) do
         if i < ScenarioInfo.Coop1 then
             SetArmyShowScore(i, false)
@@ -331,9 +331,9 @@ function RhizaWarp()
     M1RhizaAI.DisableBase()
 end
 
-# --------
-# End Game
-# --------
+-- --------
+-- End Game
+-- --------
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
@@ -395,42 +395,42 @@ end
 function KillGame()
     ForkThread(
         function()
-            local secondaries = true #Objectives.IsComplete(ScenarioInfo.M2S1Aeon) and Objectives.IsComplete(ScenarioInfo.M4S1Cybran)
+            local secondaries = true -- Objectives.IsComplete(ScenarioInfo.M2S1Aeon) and Objectives.IsComplete(ScenarioInfo.M4S1Cybran)
             ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
         end
     )
 end
 
-# ---------
-# Intro NIS
-# ---------
+-- ---------
+-- Intro NIS
+-- ---------
 function IntroNIS()
 
-    # Show all of the naval factories to the north
-    #for num,unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Naval_Base_Area')) do
-    #    if EntityCategoryContains( categories.FACTORY * categories.NAVAL, unit ) then
-    #        ScenarioFramework.CreateVisibleAreaLocation( 1, unit:GetPosition(), 1, ArmyBrains[Player] )
-    #    end
-    #end
+    -- Show all of the naval factories to the north
+    -- for num,unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Naval_Base_Area')) do
+    -- if EntityCategoryContains( categories.FACTORY * categories.NAVAL, unit ) then
+    --    ScenarioFramework.CreateVisibleAreaLocation( 1, unit:GetPosition(), 1, ArmyBrains[Player] )
+    -- end
+    -- end
 
-    # Show the north base buildings
+    -- Show the north base buildings
     local NorthVisMarker = ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'M1_North_Vis_Marker' ), 0, ArmyBrains[Player] )
 
     if not SkipNIS1 then
         Cinematics.EnterNISMode()
 
-        # I'm not sure that the player can really see these ships much with the current pan speed we're using
-        # So, commenting out for now
-        #local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player])
+        -- I'm not sure that the player can really see these ships much with the current pan speed we're using
+        -- So, commenting out for now
+        -- local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player])
 
-        # Turn off her shields for more visibility during the NIS
+        -- Turn off her shields for more visibility during the NIS
         local AllShieldUnits = ArmyBrains[Rhiza]:GetListOfUnits(categories.SHIELD, false)
         ForkThread( ShieldToggle, AllShieldUnits, false, false )
 
 
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
-        # Let slower machines catch up before we get going
+        -- Let slower machines catch up before we get going
         WaitSeconds(NIS1InitialDelay)
 
         ScenarioFramework.Dialogue(OpStrings.X03_M01_010, nil, true)
@@ -470,8 +470,8 @@ function IntroNIS()
         end
         WaitSeconds(1)
 
-        #Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1_2'), 0)
-        #Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 20, 0 )
+        -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1_2'), 0)
+        -- Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 20, 0 )
         Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 30, 4 )
         WaitSeconds(1.5)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
@@ -537,7 +537,7 @@ function IntroNIS()
             end
         end
 
-        # Turn her shields back on
+        -- Turn her shields back on
         ForkThread( ShieldToggle, AllShieldUnits, true, false )
 
         Cinematics.ExitNISMode()
@@ -599,15 +599,15 @@ end
 function StartMission1()
     local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.FACTORY * categories.STRUCTURE, false)
 
-    # ------------------------------------------------
-    # Primary Objective 1 - Defeat Seraphim Naval Base
-    # ------------------------------------------------
+    -- ------------------------------------------------
+    -- Primary Objective 1 - Defeat Seraphim Naval Base
+    -- ------------------------------------------------
     ScenarioInfo.M1P1 = Objectives.KillOrCapture(
-        'primary',                      # type
-        'incomplete',                   # status
-        OpStrings.X03_M01_OBJ_010_010,  # title
-        OpStrings.X03_M01_OBJ_010_020,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- status
+        OpStrings.X03_M01_OBJ_010_010,  -- title
+        OpStrings.X03_M01_OBJ_010_020,  -- description
+        {                               -- target
             Units = units,
         }
     )
@@ -626,7 +626,7 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1Subplot1, 300)
     ScenarioFramework.CreateTimerTrigger(M1Subplot2, 600)
 
-    #taunts for the 2 Seraphim commanders (not in-map until M3)
+    -- taunts for the 2 Seraphim commanders (not in-map until M3)
     SetupNorthM1Taunts()
     SetupWestM1Taunts()
 end
@@ -729,16 +729,16 @@ end
 
 function M1TechReveal()
     if (Faction == 'uef') then
-        #unlock shield boats for UEF player
+        -- unlock shield boats for UEF player
         ScenarioFramework.Dialogue(OpStrings.X03_M01_067)
-        ScenarioFramework.RemoveRestriction(Player, categories.xes0205) # UEF Shield Boat
+        ScenarioFramework.RemoveRestriction(Player, categories.xes0205) -- UEF Shield Boat
     elseif (Faction == 'cybran') then
-        #unlock HARMS for cybran player
+        -- unlock HARMS for cybran player
         ScenarioFramework.Dialogue(OpStrings.X03_M01_066)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrb2308) # Cybran Torpedo Ambushing System
+        ScenarioFramework.RemoveRestriction(Player, categories.xrb2308) -- Cybran Torpedo Ambushing System
     end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0205) # UEF Shield Boat
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb2308) # Cybran Torpedo Ambushing System
+    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0205) -- UEF Shield Boat
+    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb2308) -- Cybran Torpedo Ambushing System
 end
 
 function M1Subplot1()
@@ -755,9 +755,9 @@ function M1Subplot2()
     ScenarioFramework.Dialogue(OpStrings.X03_M01_100)
 end
 
-# ---------
-# Mission 2
-# ---------
+-- ---------
+-- Mission 2
+-- ---------
 function IntroMission2()
     ForkThread(
         function()
@@ -769,24 +769,24 @@ function IntroMission2()
             ScenarioInfo.MissionNumber = 2
             local units = nil
 
-            # Crystals
+            -- Crystals
             ScenarioUtils.CreateArmyGroup('Crystals', 'M2_Crystals')
 
-            # --------------
-            # Seraphim M2 AI
-            # --------------
+            -- --------------
+            -- Seraphim M2 AI
+            -- --------------
             M2SeraphimAI.SeraphimM2NorthBaseAI()
             M2SeraphimAI.SeraphimM2SouthBaseAI()
 
-            # ------------------------
-            # Seraphim Static Defenses
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Static Defenses
+            -- ------------------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_NorthIsland_Defense_D' .. Difficulty)
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_SouthIsland_Defense_D' .. Difficulty)
 
-            # ------------------------
-            # Seraphim Initial Patrols
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Initial Patrols
+            -- ------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_North_Base_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -825,20 +825,20 @@ function IntroMission2()
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_Exper_NavalDef' .. Random(1,2) .. '_Chain')))
             end
 
-            # ------------------------
-            # Seraphim Initial Attacks
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Initial Attacks
+            -- ------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitAir_Attack_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_North_AirMain_1_Chain')
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_InitNaval_Attack_D' .. Difficulty, 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_South_NavalMain_1_Chain')
 
-            # ------------------------
-            # Seraphim Special Attacks
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Special Attacks
+            -- ------------------------
 
-            # North Carrier
+            -- North Carrier
             ScenarioInfo.M2NorthCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_North_Carrier')
             ScenarioInfo.M2NorthCarrierPassengers = {}
             for i = 1, 5 do
@@ -852,7 +852,7 @@ function IntroMission2()
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2NorthCarrier}, 'M2_Seraph_Carrier_North_Chain')
             ScenarioFramework.CreateAreaTrigger(M2NorthCarrierRelease, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
 
-            # South Carrier
+            -- South Carrier
             ScenarioInfo.M2SouthCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_South_Carrier')
             ScenarioInfo.M2SouthCarrierPassengers = {}
             for i = 1, 5 do
@@ -866,9 +866,9 @@ function IntroMission2()
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2SouthCarrier}, 'M2_Seraph_Carrier_South_Chain')
             ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
 
-            # -----------------
-            # Experimental Base
-            # -----------------
+            -- -----------------
+            -- Experimental Base
+            -- -----------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_North_Experimental_Base_D' .. Difficulty)
             units = ArmyBrains[Seraphim]:GetListOfUnits(categories.xsb4302, false)
             if(table.getn(units) > 0) then
@@ -877,21 +877,21 @@ function IntroMission2()
                 end
             end
 			
-			# -----------------
-			# Rhiza's Colossus
-			# -----------------
+			-- -----------------
+			-- Rhiza's Colossus
+			-- -----------------
 			M1RhizaAI.M1RhizaBaseExperimentalAttacks()
 
-            # --------------
-            # Aeon Secondary
-            # --------------
+            -- --------------
+            -- Aeon Secondary
+            -- --------------
             if(Faction == 'aeon') then
                 units = ScenarioUtils.CreateArmyGroup('Princess', 'M2_Priest_Base')
                 for k, v in units do
                     v:SetDoNotTarget(true)
                 end
 
-                # Give Princess energy to support the omni
+                -- Give Princess energy to support the omni
                 ForkThread(CheatPrincessEconomy)
 
                 ScenarioInfo.SPriestPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_AeonOnly_Defense_D' .. Difficulty, 'GrowthFormation')
@@ -1013,7 +1013,7 @@ function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
 
     if not SkipNIS2 then
-        # Get those engineers building the bombers, guaranteed
+        -- Get those engineers building the bombers, guaranteed
         ArmyBrains[Seraphim]:PBMSetCheckInterval(2)
 
         local AllShieldUnits = ArmyBrains[Seraphim]:GetListOfUnits(categories.SHIELD, false)
@@ -1036,17 +1036,17 @@ function IntroMission2NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 7)
         WaitSeconds(1)
 
-        # Set it back to the default
+        -- Set it back to the default
         ArmyBrains[Seraphim]:PBMSetCheckInterval(13)
 
-        # Look north
+        -- Look north
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.X03_M02_018, nil, true)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 5)
         WaitSeconds(2)
-        #Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+        -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
         Cinematics.CameraTrackEntity( ScenarioInfo.PlayerCDR, 40, 4 )
         VisMarker:Destroy()
 
@@ -1063,7 +1063,7 @@ function IntroMission2NIS()
         }
         Cinematics.CameraMoveToMarker( fakeMarker1, 1.5)
 
-        #WaitSeconds(1)
+        -- WaitSeconds(1)
 
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 80 )
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 80 )
@@ -1104,17 +1104,17 @@ function StartMission2()
         end
     end
 
-    # --------------------------------------------------
-    # Primary Objective 1 - Destroy Experimental Bombers
-    # --------------------------------------------------
+    -- --------------------------------------------------
+    -- Primary Objective 1 - Destroy Experimental Bombers
+    -- --------------------------------------------------
     ScenarioInfo.M2P1 = Objectives.KillOrCapture(
-        'primary',                      # type
-        'incomplete',                   # status
-        OpStrings.X03_M02_OBJ_010_010,  # title
-        OpStrings.X03_M02_OBJ_010_020,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- status
+        OpStrings.X03_M02_OBJ_010_010,  -- title
+        OpStrings.X03_M02_OBJ_010_020,  -- description
+        {                               -- target
             FlashVisible = true,
-            #Units = ScenarioInfo.ExperimentalEngineers,
+            -- Units = ScenarioInfo.ExperimentalEngineers,
             Units = bombers,
         }
     )
@@ -1148,16 +1148,16 @@ function StartMission2()
     end
     if(Faction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_011)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrs0205) # Cybran Counter-Intelligence Boat
+        ScenarioFramework.RemoveRestriction(Player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
     end
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0205) # Cybran Counter-Intelligence Boat
+    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0205) -- Cybran Counter-Intelligence Boat
     SetupNorthM2Taunts()
     SetupWestM2Taunts()
 
     ScenarioFramework.CreateTimerTrigger(M2SeraphimUnitCap, 300)
     ScenarioFramework.CreateTimerTrigger(M2RhizaCleanupDialogue, 15)
 
-    #Warnings for the Bombers
+    -- Warnings for the Bombers
     ScenarioFramework.CreateTimerTrigger(M2BomberWarning1, 300)
     ScenarioFramework.CreateTimerTrigger(M2BomberWarning2, 600)
     ScenarioFramework.CreateTimerTrigger(M2BomberWarning3, 900)
@@ -1180,16 +1180,16 @@ function M2ExperimentalEngineerDeath(unit)
 end
 
 function M2ExperimentalBomberStarted(unit)
-    # Passed in unit is the experimental bomber; Only called once
-    # Update the objective with the unit here
+    -- Passed in unit is the experimental bomber; Only called once
+    -- Update the objective with the unit here
 end
 
 function M2ExperimentalBuildPercentUpdate(percent)
-    #LOG('*DEBUG: Updated Percent = ' .. percent)
+    -- LOG('*DEBUG: Updated Percent = ' .. percent)
 end
 
 function M2ExperimentalFinishBuild(unit)
-    #LOG('*DEBUG: Bomber Finished')
+    -- LOG('*DEBUG: Bomber Finished')
     NumBombers = NumBombers + 1
     if(NumBombers + ScenarioInfo.NumBombersDestroyed == 6) then
         ScenarioInfo.M2P1:ManualResult(false)
@@ -1202,7 +1202,7 @@ function M2PrincessBombedNIS()
 
     ScenarioInfo.M2Ending = true
 
-    # Create these groups:
+    -- Create these groups:
 
     ScenarioUtils.CreateArmyGroup('Princess', 'M3_Princess_Base_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Princess', 'Palace_Buildings')
@@ -1213,7 +1213,7 @@ function M2PrincessBombedNIS()
     Cinematics.SetInvincible( 'M2_Playable_Area' )
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Lose_1'), 0)
-    # Chastise the player
+    -- Chastise the player
     ScenarioFramework.Dialogue(OpStrings.X03_M02_100, nil, true)
     if (not NumBombers) or NumBombers < 1 or NumBombers > 6 then NumBombers = 6 end
     for i = 1, NumBombers do
@@ -1242,7 +1242,7 @@ function M2PrincessBombedNIS()
             IssueAttack({Bomber}, ScenarioInfo.UnitNames[Princess]['Princess_Death_Target_' .. i])
             IssueAttack({Bomber}, ScenarioInfo.UnitNames[Princess]['M3_Princess_Palace'])
         end
-        # Move them out of the way afterwards
+        -- Move them out of the way afterwards
         IssueMove({Bomber}, ScenarioUtils.MarkerToPosition('M3_Seraph_AirDef_5'))
         WaitSeconds(0.5)
     end
@@ -1256,32 +1256,32 @@ function M2PrincessBombedNIS()
 end
 
 function M2ResourceBase()
-    #ScenarioFramework.Dialogue(OpStrings.X03_M02_013)
+    -- ScenarioFramework.Dialogue(OpStrings.X03_M02_013)
 end
 
 function M2PreTechReveal()
-    #tech dialogue, dramatic slight pause before a bit more VO and the reveal
+    -- tech dialogue, dramatic slight pause before a bit more VO and the reveal
     ScenarioFramework.CreateTimerTrigger(M2TechReveal, 3)
     ScenarioFramework.Dialogue(OpStrings.X03_M02_021)
 end
 
 function M2TechReveal()
-    #antisub stuff for player
+    -- antisub stuff for player
     if (Faction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_022)
-        ScenarioFramework.RemoveRestriction(Player, categories.xes0102) # UEF Torpedo Boat
+        ScenarioFramework.RemoveRestriction(Player, categories.xes0102) -- UEF Torpedo Boat
     elseif (Faction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_023)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrs0204) # Cybran Sub Killer
+        ScenarioFramework.RemoveRestriction(Player, categories.xrs0204) -- Cybran Sub Killer
     elseif (Faction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_024)
-        ScenarioFramework.RemoveRestriction(Player, categories.xas0204) # Aeon Submarine Hunter
+        ScenarioFramework.RemoveRestriction(Player, categories.xas0204) -- Aeon Submarine Hunter
     end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0102) # UEF Torpedo Boat
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0204) # Cybran Sub Killer
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xas0204) # Aeon Submarine Hunter
+    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0102) -- UEF Torpedo Boat
+    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0204) -- Cybran Sub Killer
+    ScenarioFramework.RemoveRestrictionCoop(2, categories.xas0204) -- Aeon Submarine Hunter
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xss0304) # Seraph Sub Hunter
+        ScenarioFramework.AddRestriction(player, categories.xss0304) -- Seraph Sub Hunter
     end
 end
 
@@ -1316,16 +1316,16 @@ function M2AssignAeonSecondary()
     ScenarioInfo.Priests:SetDoNotTarget(true)
     ScenarioFramework.CreateUnitDeathTrigger(PriestsKilled, ScenarioInfo.Priests)
 
-    # -----------------------------------------------
-    # Aeon Secondary Objective 1 - Rescue the Priests
-    # -----------------------------------------------
+    -- -----------------------------------------------
+    -- Aeon Secondary Objective 1 - Rescue the Priests
+    -- -----------------------------------------------
     ScenarioInfo.M2S1Aeon = Objectives.Basic(
-        'secondary',                    # type
-        'incomplete',                   # status
-        OpStrings.X03_M02_OBJ_020_010,  # title
-        OpStrings.X03_M02_OBJ_020_020,  # description
+        'secondary',                    -- type
+        'incomplete',                   -- status
+        OpStrings.X03_M02_OBJ_020_010,  -- title
+        OpStrings.X03_M02_OBJ_020_020,  -- description
         'move',
-        {                               # target
+        {                               -- target
             Area = 'M2_Priest_Destination_Area',
             MarkArea = true,
             Units = {ScenarioInfo.Priests},
@@ -1339,7 +1339,7 @@ function M2AssignAeonSecondary()
 
     SetupPrincM2Taunts()
 
-    # Setup ping
+    -- Setup ping
     ScenarioInfo.M2PriestPing = PingGroups.AddPingGroup(OpStrings.X03_M01_OBJ_010_040, 'xac0101', 'move', OpStrings.X03_M01_OBJ_010_045)
     ScenarioInfo.M2PriestPing:AddCallback(MovePriests)
 end
@@ -1495,9 +1495,9 @@ function M2SeraphimUnitCap()
     SetArmyUnitCap(Seraphim, 550)
 end
 
-# ---------
-# Mission 3
-# ---------
+-- ---------
+-- Mission 3
+-- ---------
 function IntroMission3()
     ForkThread(
         function()
@@ -1508,30 +1508,30 @@ function IntroMission3()
 
             ScenarioInfo.MissionNumber = 3
 
-            #Experimental taunts from m2 turned off, incase some engineers were left
+            -- Experimental taunts from m2 turned off, incase some engineers were left
             ExperimentalTM:Activate(false)
 
-            # Remove optical ping
+            -- Remove optical ping
             if(ScenarioInfo.M2OpticalPing) then
                 ScenarioInfo.M2OpticalPing:Destroy()
             end
 
-            # Crystals
+            -- Crystals
             ScenarioUtils.CreateArmyGroup('Crystals', 'M3_Crystals')
 
-            # Wreckage
+            -- Wreckage
             ScenarioUtils.CreateArmyGroup('Princess', 'M3_Wreckage', true)
 
-            # --------------
-            # Seraphim M3 AI
-            # --------------
+            -- --------------
+            -- Seraphim M3 AI
+            -- --------------
             M3SeraphimAI.SeraphimM3MiniBasesAI()
             M3SeraphimAI.SeraphimM3SouthBaseAI()
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_North_D' .. Difficulty)
 
-            # ------------------------
-            # Seraphim Initial Patrols
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Initial Patrols
+            -- ------------------------
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
@@ -1573,9 +1573,9 @@ function IntroMission3()
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSW_Chain')))
             end
 
-            # ------------------------
-            # Seraphim Initial Attacks
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Initial Attacks
+            -- ------------------------
             for i = 1, 3 do
                 units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_SeraphNorth_Init_Stream' .. i, 'AttackFormation')
                 for k, v in units:GetPlatoonUnits() do
@@ -1591,9 +1591,9 @@ function IntroMission3()
                 ScenarioFramework.GroupMoveChain({v}, 'M3_Seraph_InitAir_Chain')
             end
 
-            # -------------
-            # Seraphim ACUs
-            # -------------
+            -- -------------
+            -- Seraphim ACUs
+            -- -------------
             ScenarioInfo.NorthACU = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraphim_ACU_North')
             ScenarioInfo.NorthACU:SetCustomName(LOC '{i ZanAishahesh}')
             ScenarioInfo.NorthACU:CreateEnhancement('BlastAttack')
@@ -1620,22 +1620,22 @@ function IntroMission3()
             ThelWestTM:AddTauntingCharacter(ScenarioInfo.WestACU)
             PrincWestTM:AddTauntingCharacter(ScenarioInfo.WestACU)
 
-            # --------------
-            # Princess M3 AI
-            # --------------
+            -- --------------
+            -- Princess M3 AI
+            -- --------------
             M3PrincessAI.PrincessBaseAI()
 
-            # ------------------------
-            # Princess Initial Patrols
-            # ------------------------
+            -- ------------------------
+            -- Princess Initial Patrols
+            -- ------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Princess', 'M3_Princess_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Princess_AirDef_Chain')))
             end
 
-            # ---------------
-            # Princess Palace
-            # ---------------
+            -- ---------------
+            -- Princess Palace
+            -- ---------------
             ScenarioUtils.CreateArmyGroup('Princess', 'Palace_Buildings')
             for i = 1, 4 do
                 ScenarioUtils.CreateArmyGroup('Princess', 'M3_Princess_Line_' .. i .. '_D' .. Difficulty)
@@ -1653,7 +1653,7 @@ function IntroMission3NIS()
     Cinematics.EnterNISMode()
     Cinematics.SetInvincible( 'M2_Playable_Area' )
 
-    # Turn off her shields for more visibility during the NIS
+    -- Turn off her shields for more visibility during the NIS
     local AllShieldUnits = ArmyBrains[Princess]:GetListOfUnits(categories.SHIELD, false)
     ForkThread( ShieldToggle, AllShieldUnits, false, false )
 
@@ -1692,15 +1692,15 @@ end
 
 function StartMission3()
 
-    # -------------------------------------
-    # Primary Objective 1 - Defeat the ACUs
-    # -------------------------------------
+    -- -------------------------------------
+    -- Primary Objective 1 - Defeat the ACUs
+    -- -------------------------------------
     ScenarioInfo.M3P1 = Objectives.KillOrCapture(
-        'primary',                      # type
-        'incomplete',                   # status
-        OpStrings.X03_M03_OBJ_010_010,  # title
-        OpStrings.X03_M03_OBJ_010_020,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- status
+        OpStrings.X03_M03_OBJ_010_010,  -- title
+        OpStrings.X03_M03_OBJ_010_020,  -- description
+        {                               -- target
             Units = {ScenarioInfo.NorthACU, ScenarioInfo.WestACU},
         }
     )
@@ -1719,15 +1719,15 @@ function StartMission3()
     ScenarioInfo.PrincessPalace:SetCapturable(false)
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PrincessPalace)
 
-    # ----------------------------------------
-    # Primary Objective 3 - Protect the Palace
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- Primary Objective 3 - Protect the Palace
+    -- ----------------------------------------
     ScenarioInfo.M3P3 = Objectives.Protect(
-        'primary',                      # type
-        'incomplete',                   # status
-        OpStrings.X03_M03_OBJ_010_050,  # title
-        OpStrings.X03_M03_OBJ_010_060,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- status
+        OpStrings.X03_M03_OBJ_010_050,  -- title
+        OpStrings.X03_M03_OBJ_010_060,  -- description
+        {                               -- target
             Units = {ScenarioInfo.PrincessPalace},
         }
     )
@@ -1748,7 +1748,7 @@ function StartMission3()
 
     ScenarioFramework.CreateTimerTrigger(M3RhizaCleanupDialogue, 15)
 
-    #Taunts, warnings, tech reveal:
+    -- Taunts, warnings, tech reveal:
     ScenarioInfo.M3_Taunt1_Unit = ScenarioInfo.UnitNames[Princess]['M3_Taunt1_Unit']
     ScenarioInfo.M3_Taunt2_Unit = ScenarioInfo.UnitNames[Princess]['M3_Taunt2_Unit']
     ScenarioInfo.M3_Taunt3_Unit = ScenarioInfo.UnitNames[Princess]['M3_Taunt3_Unit']
@@ -1756,7 +1756,7 @@ function StartMission3()
     ScenarioInfo.M3_Taunt5_Unit = ScenarioInfo.UnitNames[Princess]['M3_Taunt5_Unit']
 
     ScenarioFramework.CreateUnitDamagedTrigger(M3PrincessWarning5, ScenarioInfo.PrincessPalace, .01)
-    ScenarioFramework.CreateUnitDeathTrigger(M3PrincessWarning3, ScenarioInfo.M3_Taunt3_Unit) #warning 3 and 4 should play no matter what, instead of using taunt system
+    ScenarioFramework.CreateUnitDeathTrigger(M3PrincessWarning3, ScenarioInfo.M3_Taunt3_Unit) -- warning 3 and 4 should play no matter what, instead of using taunt system
     ScenarioFramework.CreateUnitDeathTrigger(M3PrincessWarning4, ScenarioInfo.M3_Taunt4_Unit)
     ScenarioFramework.CreateUnitDeathTrigger(M3PrincessWarning6, ScenarioInfo.M3_Taunt5_Unit)
 
@@ -1786,16 +1786,16 @@ end
 
 function M3TechReveal()
     if (Faction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_220)           # UEF Battlecruiser
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_220)           -- UEF Battlecruiser
         ScenarioFramework.RemoveRestriction(Player, categories.xes0307)
     elseif (Faction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_230)           # Aeon Missile Ship
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_230)           -- Aeon Missile Ship
         ScenarioFramework.RemoveRestriction(Player, categories.xas0306)
     end
     ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0307)
     ScenarioFramework.RemoveRestrictionCoop(2, categories.xas0306)
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xsa0402)    # Seraph Exp Bomb
+        ScenarioFramework.AddRestriction(player, categories.xsa0402)    -- Seraph Exp Bomb
     end
 end
 
@@ -1844,18 +1844,18 @@ function M3Crystals()
         ScenarioFramework.Dialogue(OpStrings.X03_M03_020)
     elseif(Faction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M03_025)
-        ScenarioFramework.RemoveRestriction(Player, categories.xab3301) # Aeon Quantum Optics Device
+        ScenarioFramework.RemoveRestriction(Player, categories.xab3301) -- Aeon Quantum Optics Device
     end
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xab3301) # Aeon Quantum Optics Device
+    ScenarioFramework.RemoveRestrictionCoop(2, categories.xab3301) -- Aeon Quantum Optics Device
 end
 
 function M3Subplot()
     ScenarioFramework.Dialogue(OpStrings.X03_M03_015)
 end
 
-# -------------------
-# Objective Reminders
-# -------------------
+-- -------------------
+-- Objective Reminders
+-- -------------------
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_200)
@@ -1895,42 +1895,42 @@ function M3Reminder2()
     end
 end
 
- #bomber updates
+ -- bomber updates
 function M2BomberWarning1()
     if (ScenarioInfo.M2P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_060)   #If they get in the air...
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_060)   -- If they get in the air...
     end
 end
 
 function M2BomberWarning2()
     if (ScenarioInfo.M2P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_019)   #We must destroy
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_019)   -- We must destroy
     end
 end
 
 function M2BomberWarning3()
     if (ScenarioInfo.M2P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_070)   #halfway
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_070)   -- halfway
     end
 end
 
 function M2BomberWarning4()
     if (ScenarioInfo.M2P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_080)   #nearly finished
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_080)   -- nearly finished
     end
 end
 
 function M2BomberWarning5()
     if (ScenarioInfo.M2P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_081)   #last chance
+        ScenarioFramework.Dialogue(OpStrings.X03_M02_081)   -- last chance
     end
 end
 
-# -----
-# Taunts
-# -----
+-- -----
+-- Taunts
+-- -----
 
-#M1
+-- M1
 function SetupNorthM1Taunts()
     ZanNorthTM:AddUnitKilledTaunt('TAUNT22', ScenarioInfo.UnitNames[Seraphim]['M1_Seraph_West_AC'])
     ZanNorthTM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[Seraphim], categories.FACTORY * categories.AIR, 2)
@@ -1946,10 +1946,10 @@ function SetupWestM1Taunts()
     ThelWestTM:AddDamageTaunt('TAUNT11', ScenarioInfo.PlayerCDR, .02)
 end
 
-#M2
+-- M2
 function SetupPrincM2Taunts()
-    PrincTM:AddDamageTaunt('X03_M02_140', ScenarioInfo.Priests, .03)     #Priest boat is damaged by 3 %
-    PrincTM:AddDamageTaunt('X03_M02_150', ScenarioInfo.Priests, .65)     #Priest boat is damaged by 65%
+    PrincTM:AddDamageTaunt('X03_M02_140', ScenarioInfo.Priests, .03)     -- Priest boat is damaged by 3 %
+    PrincTM:AddDamageTaunt('X03_M02_150', ScenarioInfo.Priests, .65)     -- Priest boat is damaged by 65%
 end
 
 function SetupNorthM2Taunts()
@@ -1970,8 +1970,8 @@ function SetupWestM2Taunts()
 end
 
 function M2FirstBomberKilled()
-    #Play feedback VO that is specific the first bomber killed, and begin normal taunt-feedbacks
-    #(starting them here, so we know the first one to play is the one we want)
+    -- Play feedback VO that is specific the first bomber killed, and begin normal taunt-feedbacks
+    -- (starting them here, so we know the first one to play is the one we want)
     if not ScenarioInfo.M2BomberFirstVOPlayed then
         ScenarioInfo.M2BomberFirstVOPlayed = true
         if (ScenarioInfo.M2P1.Active) then
@@ -1999,24 +1999,24 @@ function SetupExperM2Taunts()
     end
 end
 
-#M3
+-- M3
 function SetupPrincM3Taunts()
     local northStruct = ArmyBrains[Seraphim]:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL,
                                   ScenarioUtils.MarkerToPosition('M3_Seraph_Mini_3_BaseMarker'), 70, 'Ally' )
     local westStruct  = ArmyBrains[Seraphim]:GetUnitsAroundPoint( categories.STRUCTURE - categories.WALL,
                                   ScenarioUtils.MarkerToPosition('M3_Seraph_South'), 70, 'Ally' )
 
-    #North Seraph, base getting damaged encouragement
+    -- North Seraph, base getting damaged encouragement
     PrincNorthTM:AddUnitGroupDeathPercentTaunt('X03_M03_130', northStruct, .25)
     PrincNorthTM:AddUnitGroupDeathPercentTaunt('X03_M03_140', northStruct, .50)
     PrincNorthTM:AddUnitGroupDeathPercentTaunt('X03_M03_150', northStruct, .75)
 
-    #West Seraph, base getting damaged encouragement
+    -- West Seraph, base getting damaged encouragement
     PrincWestTM:AddUnitGroupDeathPercentTaunt('X03_M03_170', westStruct, .25)
     PrincWestTM:AddUnitGroupDeathPercentTaunt('X03_M03_180', westStruct, .50)
     PrincWestTM:AddUnitGroupDeathPercentTaunt('X03_M03_190', westStruct, .75)
 
-    #warnings from princess. 2 more are set up without taunt system elsewhere, to guarantee they play.
+    -- warnings from princess. 2 more are set up without taunt system elsewhere, to guarantee they play.
     PrincTM:AddUnitDestroyedTaunt('X03_M03_060', ScenarioInfo.M3_Taunt1_Unit)
     PrincTM:AddUnitDestroyedTaunt('X03_M03_070', ScenarioInfo.M3_Taunt2_Unit)
 end
@@ -2047,9 +2047,9 @@ function SetupWestM3Taunts()
     ThelWestTM:AddDamageTaunt('TAUNT32', ScenarioInfo.WestACU, .12)
 end
 
-# -----
-# Debug
-# -----
+-- -----
+-- Debug
+-- -----
 function OnShiftF3()
     ScenarioFramework.EndOperation(true, true, true)
 end
@@ -2067,7 +2067,7 @@ function OnF4()
     ForkThread( M2PrincessBombedNIS )
 end
 
-# Ctrl-shift-f5
+-- Ctrl-shift-f5
 function OnF5()
     RhizaWarp()
 end

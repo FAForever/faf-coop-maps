@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_A03/SCCA_A03_aeonplan_one.lua
-#**  Author(s):  Jessica St. Croix
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_A03/SCCA_A03_aeonplan_one.lua
+-- **  Author(s):  Jessica St. Croix
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 

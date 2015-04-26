@@ -15029,7 +15029,7 @@ Scenario = {
                                         platoon = '',
                                         Units = {
                                             ['UNIT_1720'] = {
-                                                type = 'ueb0302',	# = AF3
+                                                type = 'ueb0302',	-- = AF3
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 789.500000, 23.000000, 511.500000 },
@@ -15091,7 +15091,7 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_1719'] = {
-                                                type = 'ueb0302',	# originally Land Factory (ueb0301) = Af4
+                                                type = 'ueb0302',	-- originally Land Factory (ueb0301) = Af4
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 781.500000, 23.000000, 519.500000 },

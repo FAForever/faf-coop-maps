@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X01>Operation: Black Day'
 
 
 
-# ------------------------------
-# Opnode ID: B01
-# Operation Briefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: B01
+-- Operation Briefing
+-- ------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X01_B01_000_010>29-July-3847'},
@@ -35,978 +35,978 @@ BriefingData = {
   {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X01_B01_003_010>Failure is not an option, Commander.'},
 }
 
-# ------------------------------
-# Opnode ID: DB01
-# Operation Debriefing
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+-- ------------------------------
 
 
 
-# Victory / Actor: Hall / Update: 07/10/2007 / VO Ready
+-- Victory / Actor: Hall / Update: 07/10/2007 / VO Ready
 X01_DB01_010 = {
   {text = '<LOC X01_DB01_010_010>[{i Hall}]: Our backs were against the wall, but you did it, Commander. Fort Clarke is safe, and we achieved an important victory against those damn aliens and their allies. From this day forward, we\'re through running from them. If we\'re going to survive this, we have to be able to take the fight directly to our enemies. And that\'s what we\'re going to do.', vid = 'X01_Hall_DB01_04018.sfd', bank = 'Briefings', cue = 'X01_Hall_DB01_04018', faction = 'UEF'},
 }
 
-# Defeat / Actor: Kael / Update: 07/10/2007 / VO Ready
+-- Defeat / Actor: Kael / Update: 07/10/2007 / VO Ready
 X01_DB01_020 = {
   {text = '<LOC X01_DB01_020_010>[{i Kael}]: Attention all Order commanders: Fort Clarke has fallen, the remnants of the UEF command structure have been destroyed and the Coalition is no more. This is a glorious day for the Order of the Illuminate! We are triumphant!', vid = 'X01_Kael_DB01_04259.sfd', bank = 'Briefings', cue = 'X01_Kael_DB01_04259', faction = 'Aeon'},
 }
 
-# ------------------------------
-# Opnode ID: M01
-# Mission 1: Destroy Order Bases
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01
+-- Mission 1: Destroy Order Bases
+-- ------------------------------
 
 
 
-# Opening NIS #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Opening NIS #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M01_010 = {
   {text = '<LOC X01_M01_010_010>[{i HQ}]: This is one of the two enemy bases in the area. Blow them both back to the Stone Age and then synch up with Fletcher.', vid = 'X01_HQ_M01_04229.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04229', faction = 'NONE'},
 }
 
-# Opening NIS #2 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Opening NIS #2 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M01_011 = {
   {text = '<LOC X01_M01_011_010>[{i HQ}]: There\'s a line of enemy artillery protecting the bases. They are targets of opportunity, but if you destroy them it\'ll make your life a hell of lot easier.', vid = 'X01_HQ_M01_04847.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04847', faction = 'NONE'},
 }
 
-# Opening NIS #3 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Opening NIS #3 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M01_012 = {
   {text = '<LOC X01_M01_012_010>[{i HQ}]: Once you deal with the primary base, we\'ll update -- ah hell, enemy gunships are inbound. It\'s time to get you down there while we still can.', vid = 'X01_HQ_M01_04848.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04848', faction = 'NONE'},
 }
 
-# Opening NIS #4 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Opening NIS #4 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M01_013 = {
   {text = '<LOC X01_M01_013_010>[{i HQ}]: Dammit, they\'re attacking the Gate. Get on-planet while you still can!', vid = 'X01_HQ_M01_04849.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04849', faction = 'NONE'},
 }
 
-# Opening NIS #5 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Opening NIS #5 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M01_014 = {
   {text = '<LOC X01_M01_014_010>[{i HQ}]: That was a little too close for comfort. Get it done, Commander.', vid = 'X01_HQ_M01_04850.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04850', faction = 'NONE'},
 }
 
-# M1 PO1 Destroy Order Bases / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Destroy Order Bases / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_020 = {
   {text = '<LOC X01_M01_020_010>[{i HQ}]: Like Hall said, your first objective is to assault and destroy the two Order bases located to your north. HQ out.', vid = 'X01_HQ_M01_02881.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_02881', faction = 'NONE'},
 }
 
-# Artillery Targets / Actor: HQ / Update: 07/06/2007 / VO Cut
+-- Artillery Targets / Actor: HQ / Update: 07/06/2007 / VO Cut
 X01_M01_021 = {
   {text = '<LOC X01_M01_021_010>[{i HQ}]: I\'m also picking up several enemy artillery positions. They are targets of opportunity, but if you take them out it\'ll make your life a hell of lot easier.', vid = 'X01_HQ_M01_04880.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04880', faction = 'NONE'},
 }
 
-# M1 PO1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M1 PO1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_030 = {
   {text = '<LOC X01_M01_030_010>[{i Fletcher}]: You just gated into a hell of a mess, Colonel, but I\'m glad you\'re here.', vid = 'X01_Fletcher_M01_03419.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_03419', faction = 'UEF'},
 }
 
-# Tech Reveal Swiftwind (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
+-- Tech Reveal Swiftwind (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
 X01_M01_031 = {
   {text = '<LOC X01_M01_031_010>[{i Rhiza}]: We\'re giving you the Swift Wind, a mid-range fighter jet. Rhiza out.', vid = 'X01_Rhiza_M01_04881.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M01_04881', faction = 'Aeon'},
 }
 
-# Tech Reveal Blaze (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
+-- Tech Reveal Blaze (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
 X01_M01_032 = {
   {text = '<LOC X01_M01_032_010>[{i Rhiza}]: Commander, you have received the schematic for the Blaze. It\'s lightly armored, but it packs some impressive firepower. Rhiza out.', vid = 'X01_Rhiza_M01_04882.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M01_04882', faction = 'Aeon'},
 }
 
-# M1 PO1 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
 X01_M01_040 = {
   {text = '<LOC X01_M01_040_010>[{i Fletcher}]: A Cybran, huh? I thought you guys would be busy changing the water in Brackman\'s brain tank.', vid = 'X01_Fletcher_M01_02877.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_02877', faction = 'UEF'},
   {text = '<LOC X01_M01_040_020>[{i Dostya}]: Ignore him, Commander. Concentrate on the battle ahead. Dostya out.', vid = 'X01_Dostya_M01_02878.sfd', bank = 'X01_VO', cue = 'X01_Dostya_M01_02878', faction = 'Cybran'},
 }
 
-# M1 PO1 Aeon / Actor: Fletcher,Rhiza / Update: 07/05/2007 / VO Ready
+-- M1 PO1 Aeon / Actor: Fletcher,Rhiza / Update: 07/05/2007 / VO Ready
 X01_M01_050 = {
   {text = '<LOC X01_M01_050_010>[{i Fletcher}]: I got my eyes on you, Aeon. I haven\'t forgotten what you people did during the War.', vid = 'X01_Fletcher_M01_02879.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_02879', faction = 'UEF'},
   {text = '<LOC X01_M01_050_020>[{i Rhiza}]: Pay him no mind, Champion. Bring glory to the Princess.', vid = 'X01_Rhiza_M01_02880.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M01_02880', faction = 'Aeon'},
 }
 
-# M1 Gari Taunt / Actor: Gari / Update: 07/05/2007 / VO Ready
+-- M1 Gari Taunt / Actor: Gari / Update: 07/05/2007 / VO Ready
 X01_M01_060 = {
   {text = '<LOC X01_M01_060_010>[{i Gari}]: On this day, the Coalition will fall. No one will escape our wrath.', vid = 'X01_Gari_M01_04005.sfd', bank = 'X01_VO', cue = 'X01_Gari_M01_04005', faction = 'Aeon'},
 }
 
-# Tech Reveal Pervical Armored Assault Bot UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Tech Reveal Pervical Armored Assault Bot UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_070 = {
   {text = '<LOC X01_M01_070_010>[{i HQ}]: We\'re uploading the Percival schematic to your ACU; it\'s a siege assault bot that\'s been modified so that it can cross water. HQ out.', vid = 'X01_HQ_M01_04230.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04230', faction = 'NONE'},
 }
 
-# Tech Reveal The Brick Armored Assault Bot Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Tech Reveal The Brick Armored Assault Bot Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_080 = {
   {text = '<LOC X01_M01_080_010>[{i HQ}]: We\'re uploading the Brick schematic to your ACU. The Brick is a siege assault bot that has been modified so it can cross water. Another Brackman special. HQ out.', vid = 'X01_HQ_M01_04231.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_04231', faction = 'NONE'},
 }
 
-# Objective Reminders for PO1 #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_090 = {
   {text = '<LOC X01_M01_090_010>[{i Fletcher}]: I could really use your help up here, Colonel. Destroy those bases as soon as you can.', vid = 'X01_Fletcher_M01_03621.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_03621', faction = 'UEF'},
 }
 
-# Objective Reminders for PO1 #2 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #2 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_100 = {
   {text = '<LOC X01_M01_100_010>[{i Fletcher}]: We can\'t rendezvous until you eliminate those bases.', vid = 'X01_Fletcher_M01_04232.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_04232', faction = 'UEF'},
 }
 
-# Objective Reminders for PO1 #1 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #1 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_105 = {
   {text = '<LOC X01_M01_105_010>[{i Fletcher}]: Quit messin\' around and destroy those bases!', vid = 'X01_Fletcher_M01_04816.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_04816', faction = 'UEF'},
 }
 
-# Objective Reminders for PO1 #2 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #2 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_106 = {
   {text = '<LOC X01_M01_106_010>[{i Fletcher}]: Make yourself useful and destroy those bases.', vid = 'X01_Fletcher_M01_04817.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_04817', faction = 'UEF'},
 }
 
-# Objective Reminders for PO1 #1 Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #1 Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_110 = {
   {text = '<LOC X01_M01_110_010>[{i Fletcher}]: I\'m starting to think that you don\'t have the stomach to fight your own kind. Are you going to destroy those bases or what?', vid = 'X01_Fletcher_M01_04813.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_04813', faction = 'UEF'},
 }
 
-# Objective Reminders for PO1 #2 Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- Objective Reminders for PO1 #2 Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M01_116 = {
   {text = '<LOC X01_M01_116_010>[{i Fletcher}]: We\'re going to lose Fort Clarke unless you get on with it. Destroy those bases!', vid = 'X01_Fletcher_M01_04235.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M01_04235', faction = 'UEF'},
 }
 
-# Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M01_117 = {
   {text = '<LOC X01_M01_117_010>[{i Hall}]: Commander, it is imperative that you move inland as quickly as possible. Countless lives hang in the balance.', vid = 'X01_Hall_M01_03618.sfd', bank = 'X01_VO', cue = 'X01_Hall_M01_03618', faction = 'UEF'},
 }
 
-# Subplot Support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Subplot Support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X01_M01_118 = {
   {text = '<LOC X01_M01_118_010>[{i Rhiza}]: An Order commander named Gari awaits you, Champion. She is one of Evaluator Kael\'s most beloved disciples; eliminate her in the name of the Princess. Rhiza out.', vid = 'X01_Rhiza_M01_03620.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M01_03620', faction = 'Aeon'},
 }
 
-# PO1 Factory East Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1 Factory East Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_120 = {
   {text = '<LOC X01_M01_120_010>[{i HQ}]: That\'s both of them. HQ out.', vid = 'X01_HQ_M01_03623.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03623', faction = 'NONE'},
 }
 
-# PO1 Factory West Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1 Factory West Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_130 = {
   {text = '<LOC X01_M01_130_010>[{i HQ}]: Scratch one of the bases. HQ out.', vid = 'X01_HQ_M01_03624.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03624', faction = 'NONE'},
 }
 
-# PO1 Factory Both Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- PO1 Factory Both Destroyed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_140 = {
   {text = '<LOC X01_M01_140_010>[{i HQ}]: That\'s both of them. Proceed inland. HQ out.', vid = 'X01_HQ_M01_03625.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03625', faction = 'NONE'},
 }
 
-# Secondary Objective Artillery #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Artillery #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_160 = {
   {text = '<LOC X01_M01_160_010>[{i HQ}]: The first artillery position is destroyed. HQ out.', vid = 'X01_HQ_M01_03627.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03627', faction = 'NONE'},
 }
 
-# Secondary Objective Artillery #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Artillery #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_170 = {
   {text = '<LOC X01_M01_170_010>[{i HQ}]: Confirming that the second artillery position has been destroyed. HQ out.', vid = 'X01_HQ_M01_03628.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03628', faction = 'NONE'},
 }
 
-# Secondary Objective Artillery #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Artillery #3 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_180 = {
   {text = '<LOC X01_M01_180_010>[{i HQ}]: Another artillery battery is toast. Just one more to go. HQ out.', vid = 'X01_HQ_M01_03629.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03629', faction = 'NONE'},
 }
 
-# Secondary Objective Artillery #4 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Artillery #4 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_190 = {
   {text = '<LOC X01_M01_190_010>[{i HQ}]: Good work, that\'s the fourth one. HQ out.', vid = 'X01_HQ_M01_03630.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03630', faction = 'NONE'},
 }
 
-# Secondary Objective Artillery Complete / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Artillery Complete / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_200 = {
   {text = '<LOC X01_M01_200_010>[{i HQ}]: That\'s the last of them -- all the artillery positions are down. HQ out.', vid = 'X01_HQ_M01_03631.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03631', faction = 'NONE'},
 }
 
-# Objective Reminder for Secondary Objective Artillery #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for Secondary Objective Artillery #1 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_210 = {
   {text = '<LOC X01_M01_210_010>[{i HQ}]: Some of those artillery positions are still operational. HQ out.', vid = 'X01_HQ_M01_03632.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03632', faction = 'NONE'},
 }
 
-# Objective Reminder for Secondary Objective Artillery #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Objective Reminder for Secondary Objective Artillery #2 / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_220 = {
   {text = '<LOC X01_M01_220_010>[{i HQ}]: The Order artillery is still active. HQ out.', vid = 'X01_HQ_M01_03633.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03633', faction = 'NONE'},
 }
 
-# NIS Optional Reminder / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- NIS Optional Reminder / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M01_230 = {
   {text = '<LOC X01_M01_230_010>[{i HQ}]: That crazy wretch is attacking the towns. Stop her. HQ out.', vid = 'X01_HQ_M01_03634.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03634', faction = 'NONE'},
 }
 
-# Secondary OBJ - Destroy Subs / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Secondary OBJ - Destroy Subs / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_240 = {
   {text = '<LOC X01_M01_240_010>[{i HQ}]: Enemy subs are operating in the channel north of your LZ, Commander. Destroy them. HQ out.', vid = 'X01_HQ_M01_05100.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05100', faction = 'NONE'},
 }
 
-# Secondary OBJ - Destroy Subs Success / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Secondary OBJ - Destroy Subs Success / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_250 = {
   {text = '<LOC X01_M01_250_010>[{i HQ}]: Good job. With those subs out of the way, you can prepare your assault against the Order\'s positons on the mainland. HQ out.', vid = 'X01_HQ_M01_05101.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05101', faction = 'NONE'},
 }
 
-# Secondary OBJ - Repair Shield / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Secondary OBJ - Repair Shield / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_260 = {
   {text = '<LOC X01_M01_260_010>[{i HQ}]: The damaged shield generator will help protect you from hostile fire. Repair it. HQ out.', vid = 'X01_HQ_M01_05102.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05102', faction = 'NONE'},
 }
 
-# Secondary OBJ - Repair Shield Success / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Secondary OBJ - Repair Shield Success / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_270 = {
   {text = '<LOC X01_M01_270_010>[{i HQ}]: Excellent. The shield is fully repaired and operating at full capacity. HQ out.', vid = 'X01_HQ_M01_05103.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05103', faction = 'NONE'},
 }
 
-# Select your ACU /w Attitude / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Select your ACU /w Attitude / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_280 = {
   {text = '<LOC X01_M01_280_010>[{i HQ}]: What the hell are you waiting for? Select your ACU now.', vid = 'X01_HQ_M01_05104.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05104', faction = 'NONE'},
 }
 
-# Select ACU / Actor: HQ / Update: 07/19/2007 / VO Ready
+-- Select ACU / Actor: HQ / Update: 07/19/2007 / VO Ready
 X01_M01_290 = {
   {text = '<LOC X01_M01_290_010>[{i HQ}]: Commander, select your ACU.', vid = 'X01_HQ_M01_05105.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05105', faction = 'NONE'},
 }
 
-# ------------------------------
-# Opnode ID: M01_OBJ
-# Mission 1: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M01_OBJ
+-- Mission 1: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_010 = '<LOC X01_M01_OBJ_010_010>Destroy the Order Bases'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_020 = '<LOC X01_M01_OBJ_010_020>Move north across the channel and eliminate the designated Order bases.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_030 = '<LOC X01_M01_OBJ_010_030>Advance the Convoy'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_035 = '<LOC X01_M01_OBJ_010_035>Signal the civilian convoy to move to the targeted location.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_040 = '<LOC X01_M01_OBJ_010_040>Artillery Barrage'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M01_OBJ_010_045 = '<LOC X01_M01_OBJ_010_045>Request an artillery barrage from Fletcher\'s Mavors.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_010 = '<LOC X01_M01_OBJ_020_010>Clear the Artillery Positions'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_020 = '<LOC X01_M01_OBJ_020_020>Order artillery positions are covering your approach across the channel. Destroy them.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_030 = '<LOC X01_M01_OBJ_020_030>Repair the Shield Generator'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_040 = '<LOC X01_M01_OBJ_020_040>Repair the nearby shield generator. Once repaired, it will offer maximum protection from enemy fire.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_050 = '<LOC X01_M01_OBJ_020_050>Secure the Channel'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M01_OBJ_020_060 = '<LOC X01_M01_OBJ_020_060>Destroy the enemy\'s submarine patrols operating in the channel.'
 
 
 
-# ------------------------------
-# Opnode ID: M02
-# Mission 2: Save the Town
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02
+-- Mission 2: Save the Town
+-- ------------------------------
 
 
 
-# M2 Opening NIS #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- M2 Opening NIS #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M02_010 = {
   {text = '<LOC X01_M02_010_010>[{i HQ}]: Constable Graham is on the horn. I\'m patching him through.', vid = 'X01_HQ_M02_02893.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_02893', faction = 'NONE'},
 }
 
-# M2 Opening NIS #2 / Actor: Graham / Update: 07/03/2007 / VO Ready
+-- M2 Opening NIS #2 / Actor: Graham / Update: 07/03/2007 / VO Ready
 X01_M02_011 = {
   {text = '<LOC X01_M02_011_010>[{i Graham}]: Commander, Order units have overwhelmed most of our defenses. We\'ve been cut off from Fort Clarke, and General Fletcher is unable to get reinforcements to us. We need your help.', vid = 'X01_Graham_M02_04003.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04003', faction = 'UEF'},
 }
 
-# M2 Opening NIS #3 / Actor: Hall / Update: 07/03/2007 / VO Ready
+-- M2 Opening NIS #3 / Actor: Hall / Update: 07/03/2007 / VO Ready
 X01_M02_012 = {
   {text = '<LOC X01_M02_012_010>[{i Hall}]: Change in plans, Commander. Fletcher\'s going to have to hold Fort Clarke a bit longer on his own -- you will defend the civilians and eradicate any enemy forces in the area.', vid = 'X01_Hall_M02_04004.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_04004', faction = 'UEF'},
 }
 
-# M2 Opening NIS #4 / Actor: Gari / Update: 07/03/2007 / VO Ready
+-- M2 Opening NIS #4 / Actor: Gari / Update: 07/03/2007 / VO Ready
 X01_M02_013 = {
   {text = '<LOC X01_M02_013_010>[{i Gari}]: I shall cleanse everyone on this planet! You are fools to stand against our might!', vid = 'X01_Gari_M02_02896.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_02896', faction = 'Aeon'},
 }
 
-# M2 Objective Reminders PO1 #1 / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- M2 Objective Reminders PO1 #1 / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M02_020 = {
   {text = '<LOC X01_M02_020_010>[{i Hall}]: That psychopath is getting awfully close to the civilians, Commander. Stop her.', vid = 'X01_Hall_M02_03635.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03635', faction = 'UEF'},
 }
 
-# M2 Objective Reminders PO1 #2 / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- M2 Objective Reminders PO1 #2 / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M02_030 = {
   {text = '<LOC X01_M02_030_010>[{i Hall}]: Defend the civilians!', vid = 'X01_Hall_M02_03636.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03636', faction = 'UEF'},
 }
 
-# M2 Objective Reminders PO1 #3 / Actor: Graham, Hall, Gari / Update: 07/05/2007 / VO Ready 
+-- M2 Objective Reminders PO1 #3 / Actor: Graham, Hall, Gari / Update: 07/05/2007 / VO Ready 
 X01_M02_035 = {
   {text = '<LOC X01_M02_035_010>[{i Graham}]: The enemy is shelling us, Commander. We won\'t last much longer. Please do something!', vid = 'X01_Graham_M02_04239.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04239', faction = 'UEF'},
   {text = '<LOC X01_M02_035_020>[{i Hall}]: Protect those buildings, Commander!', vid = 'X01_Hall_M02_04240.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_04240', faction = 'UEF'},
   {text = '<LOC X01_M02_035_030>[{i Gari}]: Those people will make a fine sacrifice to our gods.', vid = 'X01_Gari_M02_04241.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_04241', faction = 'Aeon'},
 }
 
-# M2 Objectie Reminders PO1 #4 / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- M2 Objectie Reminders PO1 #4 / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M02_036 = {
   {text = '<LOC X01_M02_036_010>[{i Hall}]: We can\'t lose the shelters, Commander.', vid = 'X01_Hall_M02_04242.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_04242', faction = 'UEF'},
 }
 
-# M2 Objective Reminders PO1 #5 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Objective Reminders PO1 #5 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_037 = {
   {text = '<LOC X01_M02_037_010>[{i Graham}]: We\'re getting hit from all directions! Oh god, please help us...', vid = 'X01_Graham_M02_04244.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04244', faction = 'UEF'},
 }
 
-# M2 Objective Reminders PO1 #6 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Objective Reminders PO1 #6 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_038 = {
   {text = '<LOC X01_M02_038_010>[{i Graham}]: We need help, Commander!', vid = 'X01_Graham_M02_04243.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04243', faction = 'UEF'},
 }
 
-# PO1 Complete Aeon, Cybran / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- PO1 Complete Aeon, Cybran / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_039 = {
   {text = '<LOC X01_M02_039_010>[{i Graham}]: The civilians are safe. I am forever in your in debt, Commander.', vid = 'X01_Graham_M02_04236.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04236', faction = 'UEF'},
 }
 
-# Secondary Objective Part 1 Failed / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Part 1 Failed / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_040 = {
   {text = '<LOC X01_M02_040_010>[{i Graham}]: Oh no ... they\'ve wiped out the entire town. All those civilians ... dead.', vid = 'X01_Graham_M02_03643.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03643', faction = 'UEF'},
 }
 
-# M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #1 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #1 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_041 = {
   {text = '<LOC X01_M02_041_020>[{i Graham}]: Another problem, Colonel. There\'s a second town east of your position. The Order commander hasn\'t attacked them yet, but it can only be a matter of time. Please protect it.', vid = 'X01_Graham_M02_03638.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03638', faction = 'UEF'},
 }
 
-# M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #2 / Actor: Graham, Hall, Gari / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #2 / Actor: Graham, Hall, Gari / Update: 07/05/2007 / VO Ready
 X01_M02_042 = {
   {text = '<LOC X01_M02_042_010>[{i Hall}]: I want those civilians out of there, Colonel. Constable Graham is making a group of trucks available to you; use them to evacuate the civilians to the city center.', vid = 'X01_Hall_M02_04690.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_04690', faction = 'UEF'},
   {text = '<LOC X01_M02_042_020>[{i HQ}]: You need to tell those trucks where you want them to move. Click on the Command Signal button on your HUD, below the Objective Reminder, then click the ground where the trucks should go. HQ out.', vid = 'X01_HQ_M02_04237.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04237', faction = 'NONE'},
 }
 
-# The shelters are safe... (moved from 41) / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- The shelters are safe... (moved from 41) / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_043 = {
   {text = '<LOC X01_M02_043_010>[{i Graham}]: The shelters are safe for now, Colonel, but I don\'t think they can survive another attack. If the Order commander was to come at us again...', vid = 'X01_Graham_M02_03637.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03637', faction = 'UEF'},
 }
 
-# M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #2 (moved from 42) / Actor: Gari / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective Intro- Protect Civilian Buildings Part 1 UEF #2 (moved from 42) / Actor: Gari / Update: 07/05/2007 / VO Ready
 X01_M02_044 = {
   {text = '<LOC X01_M02_044_010>[{i Gari}]: My scans show a group of trucks coming online. Full of civilians, no doubt. I shall take great pleasure in hunting them.', vid = 'X01_Gari_M02_03639.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_03639', faction = 'Aeon'},
 }
 
-# M2 Secondary Objective: Attack on building incoming UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective: Attack on building incoming UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_045 = {
   {text = '<LOC X01_M02_045_010>[{i HQ}]: Enemy naval units coming into range, Colonel. Sink them before they can bombard the city. HQ out.', vid = 'X01_HQ_M02_04238.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04238', faction = 'NONE'},
 }
 
-# Town Destruction / Actor: Graham / Update: 07/06/2007 / VO Ready
+-- Town Destruction / Actor: Graham / Update: 07/06/2007 / VO Ready
 X01_M02_046 = {
   {text = '<LOC X01_M02_046_010>[{i Graham}]: I don\'t believe it ... the entire town has been lost.', vid = 'X01_Graham_M02_04883.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04883', faction = 'UEF'},
 }
 
-# M2: Secondary Objective: Initial Attack on the Trucks UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2: Secondary Objective: Initial Attack on the Trucks UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_047 = {
   {text = '<LOC X01_M02_047_010>[{i HQ}]: Enemy naval units coming into range, Colonel. Sink them before they can attack. HQ out.', vid = 'X01_HQ_M02_04691.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04691', faction = 'NONE'},
 }
 
-# Secondary Objective Reminder PART1 #1 UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Reminder PART1 #1 UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M02_050 = {
   {text = '<LOC X01_M02_050_010>[{i Hall}]: There\'s a truck in the open, Colonel. Get it moving.', vid = 'X01_Hall_M02_03640.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03640', faction = 'UEF'},
 }
 
-# Secondary Objective Reminder PART1 #1 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Reminder PART1 #1 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_060 = {
   {text = '<LOC X01_M02_060_010>[{i Graham}]: Commander, we need to get those trucks to safety!', vid = 'X01_Graham_M02_03641.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03641', faction = 'UEF'},
 }
 
-# Secondary Objective Reminder PART1 #2 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Reminder PART1 #2 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_070 = {
   {text = '<LOC X01_M02_070_010>[{i Graham}]: The trucks are exposed, Colonel!', vid = 'X01_Graham_M02_03642.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03642', faction = 'UEF'},
 }
 
-# Secondary Objective Subsequent truck attacks #1 UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Subsequent truck attacks #1 UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_075 = {
   {text = '<LOC X01_M02_075_010>[{i HQ}]: The trucks are taking damage.', vid = 'X01_HQ_M02_04693.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04693', faction = 'NONE'},
 }
 
-# Secondary Objective Subsequent truck attacks #2 UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Subsequent truck attacks #2 UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_077 = {
   {text = '<LOC X01_M02_077_010>[{i HQ}]: The Order commander is attacking the trucks.', vid = 'X01_HQ_M02_04692.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04692', faction = 'NONE'},
 }
 
-# Secondary Objective Truck Lost #1 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Truck Lost #1 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_080 = {
   {text = '<LOC X01_M02_080_010>[{i Graham}]: We lost a truck!', vid = 'X01_Graham_M02_04250.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04250', faction = 'UEF'},
 }
 
-# Secondary Objective Truck Lost #2 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Truck Lost #2 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_090 = {
   {text = '<LOC X01_M02_090_010>[{i Graham}]: They\'ve destroyed another truck ... please, Colonel, protect the civilians!', vid = 'X01_Graham_M02_04251.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04251', faction = 'UEF'},
 }
 
-# Secondary Objective Truck Lost #3 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Truck Lost #3 UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_100 = {
   {text = '<LOC X01_M02_100_010>[{i Graham}]: Oh, no ... another truck has been destroyed. We can\'t lose any more!', vid = 'X01_Graham_M02_04252.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04252', faction = 'UEF'},
 }
 
-# Secondary Objective Part 1 Failed UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Part 1 Failed UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_160 = {
   {text = '<LOC X01_M02_160_010>[{i Graham}]: The civilians are dead ... there is no one left...', vid = 'X01_Graham_M02_03653.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03653', faction = 'UEF'},
 }
 
-# Secondary Objective Part 1 Failed UEF / Actor: Gari / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Part 1 Failed UEF / Actor: Gari / Update: 07/05/2007 / VO Ready
 X01_M02_161 = {
   {text = '<LOC X01_M02_161_010>[{i Gari}]: Ha-ha-ha!', vid = 'X01_Gari_M02_04245.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_04245', faction = 'Aeon'},
 }
 
-# M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #1 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #1 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_170 = {
   {text = '<LOC X01_M02_170_010>[{i Graham}]: A truck has reached the city center, sir.', vid = 'X01_Graham_M02_03654.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03654', faction = 'UEF'},
 }
 
-# M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #2 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #2 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_180 = {
   {text = '<LOC X01_M02_180_010>[{i Graham}]: A second truck is safe.', vid = 'X01_Graham_M02_03655.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03655', faction = 'UEF'},
 }
 
-# M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #3 / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- M2 Secondary Objective -  Protect Civilian Buildings Part 2 UEF #3 / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_190 = {
   {text = '<LOC X01_M02_190_010>[{i Graham}]: All the trucks have arrived, and we\'re getting the civilians to safety. I can never thank you enough, Colonel.', vid = 'X01_Graham_M02_03656.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03656', faction = 'UEF'},
 }
 
-# Secondary Objective Part 2 Failed UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Part 2 Failed UEF / Actor: Graham / Update: 07/05/2007 / VO Ready
 X01_M02_200 = {
   {text = '<LOC X01_M02_200_010>[{i Graham}]: Too many trucks were destroyed ... it\'s over...', vid = 'X01_Graham_M02_03657.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_03657', faction = 'UEF'},
 }
 
-# Secondary Objective Part 2 Complete UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- Secondary Objective Part 2 Complete UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M02_210 = {
   {text = '<LOC X01_M02_210_010>[{i Hall}]: Good work, Colonel. I\'m damn proud to have you in the UEF.', vid = 'X01_Hall_M02_03658.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03658', faction = 'UEF'},
 }
 
-# M2 PO2 Counterattack Intro / Actor: HQ / Update: 07/03/2007 / VO Cut
+-- M2 PO2 Counterattack Intro / Actor: HQ / Update: 07/03/2007 / VO Cut
 X01_M02_240 = {
   {text = '<LOC X01_M02_240_010>[{i HQ}]: Your backside ain\'t out of the fire yet, Commander. Scans show Order units massing for a counter-attack from the northeast. HQ out.', vid = 'CUT', bank = 'X01_VO', cue = 'CUT', faction = 'NONE'},
   {text = '<LOC X01_M02_240_020>[{i HQ}]: The Order commander has launched her attack. It\'s going to be ugly. HQ out', vid = 'CUT', bank = 'X01_VO', cue = 'CUT', faction = 'NONE'},
 }
 
-# M2 PO2 Tech Reveal / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 PO2 Tech Reveal / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_245 = {
   {text = '<LOC X01_M02_245_010>[{i HQ}]: The Order commander is moving sniper bots into position. They\'re quick and pack a punch, but their armor isn\'t worth a damn. HQ out.', vid = 'X01_HQ_M02_04246.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04246', faction = 'NONE'},
 }
 
-# M2 PO2 Counterattack UEF / Actor: Gari, Hall / Update: 07/05/2007 / VO Ready
+-- M2 PO2 Counterattack UEF / Actor: Gari, Hall / Update: 07/05/2007 / VO Ready
 X01_M02_250 = {
   {text = '<LOC X01_M02_250_010>[{i Gari}]: At long last, the end of the UEF is within my sights. This day has been a long time coming.', vid = 'X01_Gari_M02_03664.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_03664', faction = 'Aeon'},
   {text = '<LOC X01_M02_250_020>[{i Hall}]: We\'ll fight you to the very end.', vid = 'X01_Hall_M02_03665.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03665', faction = 'UEF'},
 }
 
-# M2 PO2 Counterattack Cybran / Actor: Gari, Dostya / Update: 07/05/2007 / VO Ready
+-- M2 PO2 Counterattack Cybran / Actor: Gari, Dostya / Update: 07/05/2007 / VO Ready
 X01_M02_260 = {
   {text = '<LOC X01_M02_260_010>[{i Gari}]: When I am done here, I will seek out and destroy your beloved Dr. Brackman. And there will be no one left to stop me.', vid = 'X01_Gari_M02_03666.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_03666', faction = 'Aeon'},
   {text = '<LOC X01_M02_260_020>[{i Dostya}]: We\'ll fight you to our last breath.', vid = 'X01_Dostya_M02_03667.sfd', bank = 'X01_VO', cue = 'X01_Dostya_M02_03667', faction = 'Cybran'},
 }
 
-# M2 PO2 Counterattack Aeon / Actor: Gari, Rhiza / Update: 07/05/2007 / VO Ready
+-- M2 PO2 Counterattack Aeon / Actor: Gari, Rhiza / Update: 07/05/2007 / VO Ready
 X01_M02_270 = {
   {text = '<LOC X01_M02_270_010>[{i Gari}]: You have abandoned your people, your heritage and your gods. For that, you will be destroyed.', vid = 'X01_Gari_M02_03668.sfd', bank = 'X01_VO', cue = 'X01_Gari_M02_03668', faction = 'Aeon'},
   {text = '<LOC X01_M02_270_020>[{i Rhiza}]: You have perverted The Way with your fanaticism. For that, you will be destroyed.', vid = 'X01_Rhiza_M02_03669.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M02_03669', faction = 'Aeon'},
 }
 
-# M2 PO2 Counterattack Completed / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 PO2 Counterattack Completed / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_280 = {
   {text = '<LOC X01_M02_280_010>[{i HQ}]: The counter-attack has been routed. HQ out.', vid = 'X01_HQ_M02_03670.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_03670', faction = 'NONE'},
 }
 
-# Colossus Warning / Actor: HQ / Update: 07/06/2007 / VO Ready
+-- Colossus Warning / Actor: HQ / Update: 07/06/2007 / VO Ready
 X01_M02_281 = {
   {text = '<LOC X01_M02_281_010>[{i HQ}]: Got a Galactic Colossus heading your way. Deal with it. HQ out.', vid = 'X01_HQ_M02_04889.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04889', faction = 'NONE'},
 }
 
-# M2 PO3 Defeat the Order Commander Intro / Actor: HQ, Hall / Update: 07/03/2007 / VO Cut
+-- M2 PO3 Defeat the Order Commander Intro / Actor: HQ, Hall / Update: 07/03/2007 / VO Cut
 X01_M02_290 = {
   {text = '<LOC X01_M02_290_010>[{i Hall}]: That Order commander has caused us enough grief -- assault her position and take her out.', vid = 'X01_Hall_M02_04248.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_04248', faction = 'UEF'},
   {text = '<LOC X01_M02_290_020>[{i HQ}]: You heard the man, Commander. Move inland and engage Gari.', vid = 'X01_HQ_M02_03672.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_03672', faction = 'NONE'},
   {text = '<LOC X01_M02_290_030>[{i HQ}]: One other thing: I\'m receiving distress alerts from several small towns that fall in your path. Help them if you\'re able, but eradicating Gari is your top priority.', vid = 'X01_HQ_M02_04249.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04249', faction = 'NONE'},
 }
 
-# M2 PO3 Defeat Order Commander Completed UEF/Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M2 PO3 Defeat Order Commander Completed UEF/Cybran / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M02_320 = {
   {text = '<LOC X01_M02_320_010>[{i HQ}]: That sure was a pretty sight. Maybe the next Order commander won\'t be so eager to flap her jaw. HQ out.', vid = 'X01_HQ_M02_03675.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_03675', faction = 'NONE'},
 }
 
-# M2 PO3 Defeat Order Commander Completed Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- M2 PO3 Defeat Order Commander Completed Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X01_M02_330 = {
   {text = '<LOC X01_M02_330_010>[{i Rhiza}]: Kael will rage when she learns of this! Glory to the Princess! Rhiza out.', vid = 'X01_Rhiza_M02_03676.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M02_03676', faction = 'Aeon'},
 }
 
-# Gari\'s Revenge/Demise #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Gari\'s Revenge/Demise #1 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M02_340 = {
   {text = '<LOC X01_M02_340_010>[{i HQ}]: Looks like Gari is sending out the welcome wagon.   ', vid = 'X01_HQ_M02_04851.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04851', faction = 'NONE'},
 }
 
-# Gari\'s Revenge/Demise #2 / Actor: HQ / Update: 07/03/2007 / VO Ready
+-- Gari\'s Revenge/Demise #2 / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M02_350 = {
   {text = '<LOC X01_M02_350_010>[{i HQ}]: Assuming you live through this, head up there and destroy Gari once and for all. HQ out.', vid = 'X01_HQ_M02_04852.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04852', faction = 'NONE'},
 }
 
-# OBJ Reminder \"Save the Town\" (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
+-- OBJ Reminder \"Save the Town\" (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
 X01_M02_360 = {
   {text = '<LOC X01_M02_360_010>[{i HQ}]: Protect that town, Commander! HQ out.', vid = 'X01_HQ_M02_04884.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04884', faction = 'NONE'},
 }
 
-# OBJ Reminder \"Escort the Trucks\" (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
+-- OBJ Reminder \"Escort the Trucks\" (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
 X01_M02_370 = {
   {text = '<LOC X01_M02_370_010>[{i HQ}]: You need to get those trucks to safety, Commander. HQ out.', vid = 'X01_HQ_M02_04885.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04885', faction = 'NONE'},
 }
 
-# OBJ Reminder Kill Gari (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
+-- OBJ Reminder Kill Gari (UEF) / Actor: HQ / Update: 07/06/2007 / VO Ready
 X01_M02_380 = {
   {text = '<LOC X01_M02_380_010>[{i HQ}]: You waiting for an invitation or something? Get in there and destroy that Order commander. HQ out.', vid = 'X01_HQ_M02_04886.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04886', faction = 'NONE'},
 }
 
-# OBJ Reminder Kill Gari (Cybran) / Actor: Dostya / Update: 07/06/2007 / VO Ready
+-- OBJ Reminder Kill Gari (Cybran) / Actor: Dostya / Update: 07/06/2007 / VO Ready
 X01_M02_390 = {
   {text = '<LOC X01_M02_390_010>[{i Dostya}]: Time is of the essence, Commander. You must destroy the Order commander. Dostya out.', vid = 'X01_Dostya_M02_04887.sfd', bank = 'X01_VO', cue = 'X01_Dostya_M02_04887', faction = 'Cybran'},
 }
 
-# OBJ Reminder Kill Gari (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
+-- OBJ Reminder Kill Gari (Aeon) / Actor: Rhiza / Update: 07/06/2007 / VO Ready
 X01_M02_400 = {
   {text = '<LOC X01_M02_400_010>[{i Rhiza}]: Gari has shamed us all. Destroy her. Rhiza out.', vid = 'X01_Rhiza_M02_04888.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M02_04888', faction = 'Aeon'},
 }
 
-# East Town Being Nuked #1 / Actor: HQ / Update: 07/06/2007 / VO Ready
+-- East Town Being Nuked #1 / Actor: HQ / Update: 07/06/2007 / VO Ready
 X01_M02_410 = {
   {text = '<LOC X01_M02_410_010>[{i HQ}]: Looks like that alien is launching a nuke. Flight trajectory indicates it\'s heading toward the town to the east. HQ out.', vid = 'X01_HQ_M02_04890.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_04890', faction = 'NONE'},
 }
 
-# East Town Being Nuked #2 / Actor: Graham / Update: 07/06/2007 / VO Ready
+-- East Town Being Nuked #2 / Actor: Graham / Update: 07/06/2007 / VO Ready
 X01_M02_420 = {
   {text = '<LOC X01_M02_420_010>[{i Graham}]: They\'ve launched a nuke! If it hits the town to the east, millions of lives will be lost! ', vid = 'X01_Graham_M02_04891.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04891', faction = 'UEF'},
 }
 
-# ------------------------------
-# Opnode ID: M02_OBJ
-# Mission 2: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M02_OBJ
+-- Mission 2: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_010 = '<LOC X01_M02_OBJ_010_010>Defend the Civilians at Seabring'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_020 = '<LOC X01_M02_OBJ_010_020>At least 50% of the civilian structures must survive.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_050 = '<LOC X01_M02_OBJ_010_050>Defeat Order Commander Gari'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_060 = '<LOC X01_M02_OBJ_010_060>Gari must be defeated if Fort Clarke is to be saved.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_070 = '<LOC X01_M02_OBJ_010_070>Destroy the Order Assault Bases'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M02_OBJ_010_080 = '<LOC X01_M02_OBJ_010_080>Destroy the designated Order bases to break the siege against the town of Seabring.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M02_OBJ_020_010 = '<LOC X01_M02_OBJ_020_010>Save the Civilian Outpost'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M02_OBJ_020_020 = '<LOC X01_M02_OBJ_020_020>Protect at least 50% of the civilian structures in the outpost to the east.'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M02_OBJ_020_030 = '<LOC X01_M02_OBJ_020_030>Evacuate the Outpost'
 
-# Secondary Objectives
+-- Secondary Objectives
 X01_M02_OBJ_020_040 = '<LOC X01_M02_OBJ_020_040>Use the Command Signal to move the evacuees to the town of Seabring. At least six of the 10 civilian vehicles must survive. '
 
 
 
-# ------------------------------
-# Opnode ID: M03
-# Mission 3: Relieve Ft. Clarke and Defeat the Seraphim
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03
+-- Mission 3: Relieve Ft. Clarke and Defeat the Seraphim
+-- ------------------------------
 
 
 
-# M3 NIS Intro / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- M3 NIS Intro / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M03_010 = {
   {text = '<LOC X01_M03_010_010>[{i HQ}]: Fort Clarke is located to the northwest, and the Seraphim commander is to the northeast. That alien is probably pretty ticked off that you killed his little sweetheart, so be ready for anything. Fort Clarke must survive. HQ out.', vid = 'X01_HQ_M03_03683.sfd', bank = 'X01_VO', cue = 'X01_HQ_M03_03683', faction = 'NONE'},
 }
 
-# M3 PO1- Admin Builiding taking damage #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_020 = {
   {text = '<LOC X01_M03_020_010>[{i Fletcher}]: Seraphim forces have punched through my defenses, Colonel, and they\'re attacking strategic assets.', vid = 'X01_Fletcher_M03_03684.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03684', faction = 'UEF'},
 }
 
-# M3 PO1- Admin Builiding taking damage #2 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage #2 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_030 = {
   {text = '<LOC X01_M03_030_010>[{i Fletcher}]: The Seraphim is pressing the attack! I need help!', vid = 'X01_Fletcher_M03_03685.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03685', faction = 'UEF'},
 }
 
-# M3 PO1- Admin Builiding taking damage #1 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage #1 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_040 = {
   {text = '<LOC X01_M03_040_010>[{i Fletcher}]: Get your wired ass up here and help defend the Fort!', vid = 'X01_Fletcher_M03_03686.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03686', faction = 'UEF'},
 }
 
-# M3 PO1- Admin Builiding taking damage #2 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage #2 Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_050 = {
   {text = '<LOC X01_M03_050_010>[{i Fletcher}]: Help me defend the Fort, Cybran!', vid = 'X01_Fletcher_M03_03687.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03687', faction = 'UEF'},
 }
 
-# M3 PO1- Admin Builiding taking damage Aeon #1 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage Aeon #1 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_060 = {
   {text = '<LOC X01_M03_060_010>[{i Fletcher}]: Quit messin\' around and get some reinforcements up here! The Fort is taking serious damage!', vid = 'X01_Fletcher_M03_03688.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03688', faction = 'UEF'},
 }
 
-# M3 PO1- Admin Builiding taking damage Aeon #2 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Admin Builiding taking damage Aeon #2 / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_070 = {
   {text = '<LOC X01_M03_070_010>[{i Fletcher}]: Fort Clarke is under heavy attack! I need units up here pronto!', vid = 'X01_Fletcher_M03_03689.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03689', faction = 'UEF'},
 }
 
-# M3 PO1- Fletcher taking hits #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Fletcher taking hits #1 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_080 = {
   {text = '<LOC X01_M03_080_010>[{i Fletcher}]: I\'m gettin\' shot to hell up here, Colonel. I could really use a hand!', vid = 'X01_Fletcher_M03_03690.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03690', faction = 'UEF'},
 }
 
-# M3 PO1- Fletcher taking hits #2 UEF, Aeon, Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Fletcher taking hits #2 UEF, Aeon, Cybran / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_090 = {
   {text = '<LOC X01_M03_090_010>[{i Fletcher}]: This is Brigadier Fletcher requesting assistance! Seraphim forces are pounding me pretty hard!', vid = 'X01_Fletcher_M03_03691.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03691', faction = 'UEF'},
 }
 
-# M3 PO1- Fletcher taking hits #4 Cybran, Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO1- Fletcher taking hits #4 Cybran, Aeon / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_100 = {
   {text = '<LOC X01_M03_100_010>[{i Fletcher}]: Where are my reinforcements?', vid = 'X01_Fletcher_M03_03695.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03695', faction = 'UEF'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#1.0 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#1.0 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_120 = {
   {text = '<LOC X01_M03_120_010>[{i Fletcher}]: That alien freak is due east of my location. Assault its position from the south, and I\'ll push in from the west. It won\'t be able to defend two fronts at once.', vid = 'X01_Fletcher_M03_03696.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03696', faction = 'UEF'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#2.0 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#2.0 UEF / Actor: Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_122 = {
   {text = '<LOC X01_M03_122_010>[{i Fletcher}]: That alien freak is due east of my location. Its got some experimental units stomping around, and we\'ll need to destroy those, too. Assault its position from the south, and I\'ll push in from the west. It won\'t be able to defend two fronts at once.', vid = 'X01_Fletcher_M03_04694.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_04694', faction = 'UEF'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#1.0 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#1.0 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
 X01_M03_130 = {
   {text = '<LOC X01_M03_130_010>[{i Fletcher}]: You gonna sit around or are you gonna get your hands dirty? The Seraphim\'s to my east. Attack it.', vid = 'X01_Fletcher_M03_03697.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03697', faction = 'UEF'},
   {text = '<LOC X01_M03_130_020>[{i Dostya}]: Defeat the Seraphim, Commander. Show this fool how Cybrans fight. Dostya out.', vid = 'X01_Dostya_M03_03698.sfd', bank = 'X01_VO', cue = 'X01_Dostya_M03_03698', faction = 'Cybran'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#2.0 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#2.0 Cybran / Actor: Fletcher, Dostya / Update: 07/05/2007 / VO Ready
 X01_M03_133 = {
   {text = '<LOC X01_M03_133_010>[{i Fletcher}]: You gonna sit around or are you gonna get your hands dirty? The Seraphim\'s to the east, and it\'s got a bunch of experimental units. Take them out.', vid = 'X01_Fletcher_M03_04695.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_04695', faction = 'UEF'},
   {text = '<LOC X01_M03_133_020>[{i Dostya}]: Defeat the Seraphim and its experimentals, Commander. Show this fool how Cybrans fight. Dostya out.', vid = 'X01_Dostya_M03_04696.sfd', bank = 'X01_VO', cue = 'X01_Dostya_M03_04696', faction = 'Cybran'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#1.0 Aeon / Actor: Fletcher, Rhiza / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#1.0 Aeon / Actor: Fletcher, Rhiza / Update: 07/05/2007 / VO Ready
 X01_M03_140 = {
   {text = '<LOC X01_M03_140_010>[{i Fletcher}]: It\'s about time! The Seraphim is east of Fort Clarke. Make yourself useful and try to distract it.', vid = 'X01_Fletcher_M03_03699.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03699', faction = 'UEF'},
   {text = '<LOC X01_M03_140_020>[{i Rhiza}]: He does not know your worth, Champion. Show him our might by defeating the Seraphim yourself. Rhiza out.', vid = 'X01_Rhiza_M03_03700.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M03_03700', faction = 'Aeon'},
 }
 
-# M3 PO2 Defeat Seraphim Commander VER#2.0 Aeon / Actor: Fletcher, Rhiza / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Defeat Seraphim Commander VER#2.0 Aeon / Actor: Fletcher, Rhiza / Update: 07/05/2007 / VO Ready
 X01_M03_142 = {
   {text = '<LOC X01_M03_142_010>[{i Fletcher}]: It\'s about time! The Seraphim is east of Fort Clarke, and it\'s got a bunch of experimentals. Make yourself useful and try to distract them.', vid = 'X01_Fletcher_M03_04697.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_04697', faction = 'UEF'},
   {text = '<LOC X01_M03_142_020>[{i Rhiza}]: He does not know your worth, Champion. Show him our might by defeating the Seraphim and its units yourself. Rhiza out.', vid = 'X01_Rhiza_M03_04698.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M03_04698', faction = 'Aeon'},
 }
 
-# Ping Novax Center UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Ping Novax Center UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M03_150 = {
   {text = '<LOC X01_M03_150_010>[{i HQ}]: The techs have just brought a new experimental satellite-based beam weapon online. Click Command Signal on the left-side of your HUD and then click on your target. We\'ll take it from there.', vid = 'X01_HQ_M03_04253.sfd', bank = 'X01_VO', cue = 'X01_HQ_M03_04253', faction = 'NONE'},
 }
 
-# Ping Novax Center: after firing is done UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
+-- Ping Novax Center: after firing is done UEF / Actor: HQ / Update: 07/05/2007 / VO Ready
 X01_M03_160 = {
   {text = '<LOC X01_M03_160_010>[{i HQ}]: Dammit, the cooling system failed. We won\'t get another shot. HQ out.', vid = 'X01_HQ_M03_04254.sfd', bank = 'X01_VO', cue = 'X01_HQ_M03_04254', faction = 'NONE'},
 }
 
-# M3 PO2 When specific building is destroyed UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 When specific building is destroyed UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_170 = {
   {text = '<LOC X01_M03_170_010>[{i Fletcher}]: That\'s what I love to see. Burn, baby, burn!', vid = 'X01_Fletcher_M03_03701.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03701', faction = 'UEF'},
 }
 
-# M3 PO2 When specific building is destroyed Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 When specific building is destroyed Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_180 = {
   {text = '<LOC X01_M03_180_010>[{i Fletcher}]: You looking for a medal or something? This fight ain\'t over yet.', vid = 'X01_Fletcher_M03_03702.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03702', faction = 'UEF'},
 }
 
-# M3 PO2 When specific building is destroyed Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 When specific building is destroyed Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_190 = {
   {text = '<LOC X01_M03_190_010>[{i Fletcher}]: Maybe you freaks are willing to fight.', vid = 'X01_Fletcher_M03_03704.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03704', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #1 UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #1 UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_200 = {
   {text = '<LOC X01_M03_200_010>[{i Fletcher}]: The Seraphim is still kicking, Colonel. Let\'s remedy that.', vid = 'X01_Fletcher_M03_03706.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03706', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #2 UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #2 UEF / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_210 = {
   {text = '<LOC X01_M03_210_010>[{i Fletcher}]: We need to eliminate that Seraphim, Colonel.', vid = 'X01_Fletcher_M03_03707.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03707', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #1 Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #1 Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_220 = {
   {text = '<LOC X01_M03_220_010>[{i Fletcher}]: Pick up the pace, Cybran! We gotta get rid of that Seraphim!', vid = 'X01_Fletcher_M03_03708.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03708', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #2 Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #2 Cybran / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_230 = {
   {text = '<LOC X01_M03_230_010>[{i Fletcher}]: Are you waiting for that alien to die of old age?', vid = 'X01_Fletcher_M03_03709.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03709', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #1 Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #1 Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_240 = {
   {text = '<LOC X01_M03_240_010>[{i Fletcher}]: Get up here and help me deal with the Seraphim.', vid = 'X01_Fletcher_M03_03710.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03710', faction = 'UEF'},
 }
 
-# Objective Reminders PO2 #2 Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- Objective Reminders PO2 #2 Aeon / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_250 = {
   {text = '<LOC X01_M03_250_010>[{i Fletcher}]: Are you waiting for the Seraphim to die of old age?', vid = 'X01_Fletcher_M03_03711.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03711', faction = 'UEF'},
 }
 
-# M3 PO2 Seraphime Forces at 75% / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 Seraphime Forces at 75% / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_260 = {
   {text = '<LOC X01_M03_260_010>[{i Fletcher}]: That alien freak is starting to soften. Hit it again!', vid = 'X01_Fletcher_M03_03712.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03712', faction = 'UEF'},
 }
 
-# M3 PO2 Seraphime Forces at 50% / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 Seraphime Forces at 50% / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_270 = {
   {text = '<LOC X01_M03_270_010>[{i Fletcher}]: We got it on the run.', vid = 'X01_Fletcher_M03_03713.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03713', faction = 'UEF'},
 }
 
-# M3 PO2 Seraphime Forces at 25% / Actor: Fletcher / Update: 07/05/227 / VO Ready
+-- M3 PO2 Seraphime Forces at 25% / Actor: Fletcher / Update: 07/05/227 / VO Ready
 X01_M03_280 = {
   {text = '<LOC X01_M03_280_010>[{i Fletcher}]: It won\'t last much longer now. Make it pay for what they did to Earth.', vid = 'X01_Fletcher_M03_03714.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_03714', faction = 'UEF'},
 }
 
-# M3 PO2 Big Seraphim Experimental Attack / Actor: HQ, Fletcher / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Big Seraphim Experimental Attack / Actor: HQ, Fletcher / Update: 07/05/2007 / VO Ready
 X01_M03_290 = {
   {text = '<LOC X01_M03_290_010>[{i HQ}]: Fletcher, there\'s a large experimental unit approaching Fort Clarke. That alien isn\'t done yet. HQ out.', vid = 'X01_HQ_M03_03715.sfd', bank = 'X01_VO', cue = 'X01_HQ_M03_03715', faction = 'NONE'},
   {text = '<LOC X01_M03_290_020>[{i Fletcher}]: I see it! Commander, hit that thing with whatever you\'ve got!', vid = 'X01_Fletcher_M03_04256.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_M03_04256', faction = 'UEF'},
 }
 
-# M3 PO2 Experimental Destroyed / Actor: HQ / Update: 07/05/2007 / VO Needed
+-- M3 PO2 Experimental Destroyed / Actor: HQ / Update: 07/05/2007 / VO Needed
 X01_M03_292 = {
   {text = '<LOC X01_M03_292_010>[{i HQ}]: Maybe they\'ll think twice before attacking like that again. HQ out.', vid = 'X01_HQ_M03_04255.sfd', bank = 'X01_VO', cue = 'X01_HQ_M03_04255', faction = 'NONE'},
 }
 
-# M3 PO2 Seraphim Commander Death / Actor: Shun-Ullevash / Update: 06/28/2007 / VO Ready
+-- M3 PO2 Seraphim Commander Death / Actor: Shun-Ullevash / Update: 06/28/2007 / VO Ready
 X01_M03_295 = {
   {text = '<LOC X01_M03_295_010>[{i ShunUllevash}]: [Language Not Recognized]', vid = 'X01_Shun-Ullevash_M03_04257.sfd', bank = 'X01_VO', cue = 'X01_Shun-Ullevash-M03-4257', faction = 'Seraphim'},
 }
 
-# M3 PO2 Seraphim Commander Destroyed / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- M3 PO2 Seraphim Commander Destroyed / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M03_297 = {
   {text = '<LOC X01_M03_297_010>[{i Hall}]: All enemy forces have been defeated and Fort Clarke is safe. Well done, Commander. This is an important victory for us.', vid = 'X01_Hall_M03_04258.sfd', bank = 'X01_VO', cue = 'X01_Hall_M03_04258', faction = 'UEF'},
 }
 
-# Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
+-- Subplot Support UEF / Actor: Hall / Update: 07/05/2007 / VO Ready
 X01_M03_300 = {
   {text = '<LOC X01_M03_300_010>[{i Hall}]: Hold the line, Colonel! We must protect the civilians. Hall out.', vid = 'X01_Hall_M03_03717.sfd', bank = 'X01_VO', cue = 'X01_Hall_M03_03717', faction = 'UEF'},
 }
 
-# Subplot Support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
+-- Subplot Support Aeon / Actor: Rhiza / Update: 07/05/2007 / VO Ready
 X01_M03_310 = {
   {text = '<LOC X01_M03_310_010>[{i Rhiza}]: Gari proved more bark than bite. Lay your sights upon the Seraphim and destroy him. Losing both in one day will enrage Kael and give heart to the Loyalists. Rhiza out.', vid = 'X01_Rhiza_M03_03718.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M03_03718', faction = 'Aeon'},
 }
 
-# ------------------------------
-# Opnode ID: M03_OBJ
-# Mission 3: Objectives
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: M03_OBJ
+-- Mission 3: Objectives
+-- ------------------------------
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_010 = '<LOC X01_M03_OBJ_010_010>Protect Fort Clarke'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_020 = '<LOC X01_M03_OBJ_010_020>The Coalition leaders must survive. Protect the Coalition Capital Building at all costs.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_030 = '<LOC X01_M03_OBJ_010_030>Defeat the Seraphim Commander'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_040 = '<LOC X01_M03_OBJ_010_040>Stop the invasion of Griffin IV by destroying the Seraphim ACU.'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_050 = '<LOC X01_M03_OBJ_010_050>Destroy Enemy Experimental Forces'
 
-# Primary Objectives
+-- Primary Objectives
 X01_M03_OBJ_010_060 = '<LOC X01_M03_OBJ_010_060>Hostile experimentals pose a significant threat to Fort Clarke. Destroy them at all costs.'
 
 
 
-# ------------------------------
-# Opnode ID: T01
-# Enemy Taunts
-# ------------------------------
+-- ------------------------------
+-- Opnode ID: T01
+-- Enemy Taunts
+-- ------------------------------
 
 
 
-# Gari On Attacking Experimental 01 / Actor: Gari / Update: 07/10/2007/ VO Cut
+-- Gari On Attacking Experimental 01 / Actor: Gari / Update: 07/10/2007/ VO Cut
 TAUNT1 = {
   {text = '<LOC X01_T01_001_010>[{i Gari}]: I will not allow you to build that experimental.', vid = 'X01_Gari_T01_04779.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04779', faction = 'Aeon'},
 }
 
-# Gari On Attacking Experimental 02 / Actor: Gari / Update: 07/10/2007/ VO Cut
+-- Gari On Attacking Experimental 02 / Actor: Gari / Update: 07/10/2007/ VO Cut
 TAUNT2 = {
   {text = '<LOC X01_T01_002_010>[{i Gari}]: No, you will not complete that experimental.', vid = 'X01_Gari_T01_04780.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04780', faction = 'Aeon'},
 }
 
-# Gari On Attacking Experimental 03 / Actor: Gari / Update: 07/10/2007/ VO Cut
+-- Gari On Attacking Experimental 03 / Actor: Gari / Update: 07/10/2007/ VO Cut
 TAUNT3 = {
   {text = '<LOC X01_T01_003_010>[{i Gari}]: An experimental? I am not so foolish as to let you finish that.', vid = 'X01_Gari_T01_04781.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04781', faction = 'Aeon'},
 }
 
-# Gari On losing the factories near player\'s LZ (M1) / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari On losing the factories near player\'s LZ (M1) / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT4 = {
   {text = '<LOC X01_T01_010_010>[{i Gari}]: You will never reach Fort Clarke.', vid = 'X01_Gari_T01_04511.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04511', faction = 'Aeon'},
 }
 
-# Gari On losing the artillery (M1) / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari On losing the artillery (M1) / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT5 = {
   {text = '<LOC X01_T01_020_010>[{i Gari}]: I continue to press closer to your beloved Fort Clarke. Soon it will burn.', vid = 'X01_Gari_T01_04512.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04512', faction = 'Aeon'},
 }
 
-# Gari Player successfully defends town (M2) / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Player successfully defends town (M2) / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT6 = {
   {text = '<LOC X01_T01_030_010>[{i Gari}]: You are simply prolonging the inevitable. I will cleanse the civilian population.', vid = 'X01_Gari_T01_04513.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04513', faction = 'Aeon'},
 }
 
-# Gari Player successfully evacuates town (M2: UEF Only) / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Player successfully evacuates town (M2: UEF Only) / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT7 = {
   {text = '<LOC X01_T01_040_010>[{i Gari}]: Your tenacity is admirable, but the outcome of this battle was determined long ago.', vid = 'X01_Gari_T01_04514.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04514', faction = 'Aeon'},
 }
 
-# Gari Player defeats Order counter-attack (M2) / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Player defeats Order counter-attack (M2) / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT8 = {
   {text = '<LOC X01_T01_050_010>[{i Gari}]: You may have stopped me, but you have no hope of defeating the Seraphim.', vid = 'X01_Gari_T01_04515.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04515', faction = 'Aeon'},
 }
 
-# Gari General taunts 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari General taunts 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT9 = {
   {text = '<LOC X01_T01_060_010>[{i Gari}]: Now you will taste the fury of the Order of the Illuminate.', vid = 'X01_Gari_T01_04516.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04516', faction = 'Aeon'},
 }
 
-# Gari General taunts 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari General taunts 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT10 = {
   {text = '<LOC X01_T01_070_010>[{i Gari}]: You have nowhere to hide, nowhere to run.', vid = 'X01_Gari_T01_04517.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04517', faction = 'Aeon'},
 }
 
-# Gari General taunts 03 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari General taunts 03 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT11 = {
   {text = '<LOC X01_T01_080_010>[{i Gari}]: This planet shall share the same fate as Earth.', vid = 'X01_Gari_T01_04518.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04518', faction = 'Aeon'},
 }
 
-# Gari General taunts 04  / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari General taunts 04  / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT12 = {
   {text = '<LOC X01_T01_090_010>[{i Gari}]: Your Princess is dead. Only the Order of the Illuminate remains.', vid = 'X01_Gari_T01_04519.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04519', faction = 'Aeon'},
 }
 
-# Gari On destroying experimental / Actor: Gari / Update: 07/10/2007/ VO Cut
+-- Gari On destroying experimental / Actor: Gari / Update: 07/10/2007/ VO Cut
 TAUNT13 = {
   {text = '<LOC X01_T01_100_010>[{i Gari}]: Not even your most powerful weapon can stand before me.', vid = 'X01_Gari_T01_04520.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04520', faction = 'Aeon'},
 }
 
-# Gari On damaging player ACU 50% / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari On damaging player ACU 50% / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT14 = {
   {text = '<LOC X01_T01_110_010>[{i Gari}]: Beg for mercy and perhaps I shall grant you an honorable death.', vid = 'X01_Gari_T01_04521.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04521', faction = 'Aeon'},
 }
 
-# Gari UEF 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari UEF 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT15 = {
   {text = '<LOC X01_T01_120_010>[{i Gari}]: The UEF is finished. There will be no escaping us this time.', vid = 'X01_Gari_T01_04522.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04522', faction = 'Aeon'},
 }
 
-# Gari UEF 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari UEF 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT16 = {
   {text = '<LOC X01_T01_130_010>[{i Gari}]: Once Fort Clarke falls, I will cleanse every person on this planet.', vid = 'X01_Gari_T01_04523.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04523', faction = 'Aeon'},
 }
 
-# Gari Cybran 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Cybran 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT17 = {
   {text = '<LOC X01_T01_140_010>[{i Gari}]: Brackman is a doddering old fool.', vid = 'X01_Gari_T01_04524.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04524', faction = 'Aeon'},
 }
 
-# Gari Cybran 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Cybran 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT18 = {
   {text = '<LOC X01_T01_150_010>[{i Gari}]: You are an abomination. I will take great pleasure in exterminating you.', vid = 'X01_Gari_T01_04525.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04525', faction = 'Aeon'},
 }
 
-# Gari Aeon 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Aeon 01 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT19 = {
   {text = '<LOC X01_T01_160_010>[{i Gari}]: You are a fool for rejecting the Seraphim.', vid = 'X01_Gari_T01_04526.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04526', faction = 'Aeon'},
 }
 
-# Gari Aeon 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Aeon 02 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT20 = {
   {text = '<LOC X01_T01_170_010>[{i Gari}]: The Order leads us now. Your Princess is nothing more than a faded memory.', vid = 'X01_Gari_T01_04527.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04527', faction = 'Aeon'},
 }
 
-# Gari Aeon 03 / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari Aeon 03 / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT21 = {
   {text = '<LOC X01_T01_175_010>[{i Gari}]: The Princess is dead.', vid = 'X01_Gari_T01_04528.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04528', faction = 'Aeon'},
 }
 
-# Gari At 50% health / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari At 50% health / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT22 = {
   {text = '<LOC X01_T01_180_010>[{i Gari}]: The Order is eternal. There is no stopping us.', vid = 'X01_Gari_T01_04529.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04529', faction = 'Aeon'},
 }
 
-# Gari On death / Actor: Gari / Update: 07/10/2007/ VO Ready
+-- Gari On death / Actor: Gari / Update: 07/10/2007/ VO Ready
 TAUNT23 = {
   {text = '<LOC X01_T01_190_010>[{i Gari}]: The Seraphim will never be defeated!', vid = 'X01_Gari_T01_04530.sfd', bank = 'X01_VO', cue = 'X01_Gari_T01_04530', faction = 'Aeon'},
 }
 
-# Fletcher On attacking / Actor: Fletcher / Update: 07/10/2007 / VO Cut
+-- Fletcher On attacking / Actor: Fletcher / Update: 07/10/2007 / VO Cut
 TAUNT24 = {
   {text = '<LOC X01_T01_200_010>[{i Fletcher}]: It\'s time for this to get serious.', vid = 'X01_Fletcher_T01_04531.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_T01_04531', faction = 'UEF'},
 }
 
-# Fletcher To Seraphim / Actor: Fletcher / Update: 07/10/2007 / VO Ready
+-- Fletcher To Seraphim / Actor: Fletcher / Update: 07/10/2007 / VO Ready
 TAUNT25 = {
   {text = '<LOC X01_T01_210_010>[{i Fletcher}]: You freaks are going to pay for what you did to Earth.', vid = 'X01_Fletcher_T01_04532.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_T01_04532', faction = 'UEF'},
 }
 
-# Fletcher At 50% health / Actor: Fletcher / Update: 07/10/2007 / VO Ready
+-- Fletcher At 50% health / Actor: Fletcher / Update: 07/10/2007 / VO Ready
 TAUNT26 = {
   {text = '<LOC X01_T01_220_010>[{i Fletcher}]: Commander, I could use a hand over here. I\'m getting hit pretty hard.', vid = 'X01_Fletcher_T01_04533.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_T01_04533', faction = 'UEF'},
 }
 
-# At 25% health / Actor: Fletcher / Update: 07/10/2007 / VO Ready
+-- At 25% health / Actor: Fletcher / Update: 07/10/2007 / VO Ready
 TAUNT27 = {
   {text = '<LOC X01_T01_230_010>[{i Fletcher}]: I\'m in a lot of trouble!', vid = 'X01_Fletcher_T01_04534.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_T01_04534', faction = 'UEF'},
 }
 
-# Fletcher On Death / Actor: Fletcher / Update: 07/10/2007 / VO Ready
+-- Fletcher On Death / Actor: Fletcher / Update: 07/10/2007 / VO Ready
 TAUNT28 = {
   {text = '<LOC X01_T01_240_010>[{i Fletcher}]: You\'ve got to be kidding!', vid = 'X01_Fletcher_T01_04535.sfd', bank = 'X01_VO', cue = 'X01_Fletcher_T01_04535', faction = 'UEF'},
 }
 
-# Seraphim Laughter / Actor: / Update: 07/06/2007 / VO Ready
+-- Seraphim Laughter / Actor: / Update: 07/06/2007 / VO Ready
 TAUNT29 = {
   {text = '<LOC X01_T01_250_010>[{i ShunUllevash}]: (Laughter)', vid = 'X01_Seraphim_T01_05123.sfd', bank = 'X01_VO', cue = 'X01_seraphim_T01_05123', faction = 'Seraphim'},
 }
 
-# Seraphim Taunt 1 (Created from X03_T01_490) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
+-- Seraphim Taunt 1 (Created from X03_T01_490) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
 TAUNT30 = {
   {text = '<LOC X01_T01_260_010>[{i ShunUllevash}]: [Language Not Recognized]', vid = 'X01_Shun-Ullevash_T01_04351.sfd', bank = 'X01_VO', cue = 'X01_Shun-Ullevash_T01_04351', faction = 'Seraphim'},
 }
 
-# Seraphim Taunt 2 (Created From X03_T01_300) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
+-- Seraphim Taunt 2 (Created From X03_T01_300) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
 TAUNT31 = {
   {text = '<LOC X01_T01_270_010>[{i ShunUllevash}]: [Language Not Recognized]', vid = 'X01_Shun-Ullevash_T01_04338.sfd', bank = 'X01_VO', cue = 'X01_Shun-Ullevash_T01_04338', faction = 'Seraphim'},
 }
 
-# Seraphim Taunt 3 (Created From X03_T01_260) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
+-- Seraphim Taunt 3 (Created From X03_T01_260) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
 TAUNT32 = {
   {text = '<LOC X01_T01_280_010>[{i ShunUllevash}]: [Language Not Recognized]', vid = 'X01_Shun-Ullevash_T01_04334.sfd', bank = 'X01_VO', cue = 'X01_Shun-Ullevash_T01_04334', faction = 'Seraphim'},
 }
 
-# Seraphim Taunt 4 (Created From X03_T01_340) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
+-- Seraphim Taunt 4 (Created From X03_T01_340) / Actor: Shun-Ullevash / Update: 08/23/2007 / VO Ready
 TAUNT33 = {
   {text = '<LOC X01_T01_290_010>[{i ShunUllevash}]: [Language Not Recognized]', vid = 'X01_Shun-Ullevash_T01_04342.sfd', bank = 'X01_VO', cue = 'X01_Shun-Ullevash_T01_04342', faction = 'Seraphim'},
 }

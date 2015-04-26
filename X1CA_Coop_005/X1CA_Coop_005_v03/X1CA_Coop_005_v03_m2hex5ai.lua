@@ -1,32 +1,32 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_005_v03/X1CA_Coop_005_v03_m2hex5ai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Hex5 army AI for Mission 2 - X1CA_Coop_005_v03
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_005_v03/X1CA_Coop_005_v03_m2hex5ai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Hex5 army AI for Mission 2 - X1CA_Coop_005_v03
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Hex5 = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local Hex5M2Base = BaseManager.CreateBaseManager()
 
 function Hex5M2BaseAI()
 
-    # ------------
-    # Hex5 M2 Base
-    # ------------
+    -- ------------
+    -- Hex5 M2 Base
+    -- ------------
     Hex5M2Base:InitializeDifficultyTables(ArmyBrains[Hex5], 'M2_Hex5_Main_Base', 'M2_Hex5_Base_Marker', 150, {M2_Hex5_Main_Base = 100})
     Hex5M2Base:StartNonZeroBase({{5, 10, 21}, {5, 8, 18}})
     Hex5M2Base:SetActive('AirScouting', true)
@@ -43,11 +43,11 @@ function Hex5M2BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    # -------------------------------
-    # Hex5 M2 Base Op AI, Air Attacks
-    # -------------------------------
+    -- -------------------------------
+    -- Hex5 M2 Base Op AI, Air Attacks
+    -- -------------------------------
 
-    # sends 4, 8, 12 [bombers], ([gunships] on hard)
+    -- sends 4, 8, 12 [bombers], ([gunships] on hard)
     quantity = {4, 8, 12}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks1',
         {
@@ -65,7 +65,7 @@ function Hex5M2BaseAirAttacks()
     end
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 12 [interceptors], ([interceptors, air superiority] on hard)
+    -- sends 4, 8, 12 [interceptors], ([interceptors, air superiority] on hard)
     quantity = {4, 8, 12}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks2',
         {
@@ -83,7 +83,7 @@ function Hex5M2BaseAirAttacks()
     end
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 12 [gunships, combat fighters]
+    -- sends 4, 8, 12 [gunships, combat fighters]
     quantity = {4, 8, 12}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks3',
         {
@@ -97,7 +97,7 @@ function Hex5M2BaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 12 [gunships] if player has >= 100, 80, 60 mobile land, ([heavy gunships] on hard)
+    -- sends 4, 8, 12 [gunships] if player has >= 100, 80, 60 mobile land, ([heavy gunships] on hard)
     quantity = {4, 8, 12}
     trigger = {100, 80, 60}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks4',
@@ -117,7 +117,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 4, 8, 12 [air superiority] if player has >= 60, 40, 40 mobile air
+    -- sends 4, 8, 12 [air superiority] if player has >= 60, 40, 40 mobile air
     quantity = {4, 8, 12}
     trigger = {60, 40, 40}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks5',
@@ -133,7 +133,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 8, 12 [air superiority] if player has >= 50, 30, 30 gunships
+    -- sends 4, 8, 12 [air superiority] if player has >= 50, 30, 30 gunships
     quantity = {4, 8, 12}
     trigger = {50, 30, 30}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks6',
@@ -149,7 +149,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 4, 12, 16 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
+    -- sends 4, 12, 16 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {4, 12, 16}
     trigger = {60, 40, 20}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks7',
@@ -165,7 +165,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 4, 8, 12 [air superiority] if player has >= 1 strat bomber
+    -- sends 4, 8, 12 [air superiority] if player has >= 1 strat bomber
     quantity = {4, 8, 12}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks8',
         {
@@ -180,7 +180,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units, ([heavy gunships] on hard)
+    -- sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units, ([heavy gunships] on hard)
     quantity = {8, 16, 24}
     trigger = {450, 400, 300}
     opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks9',
@@ -200,7 +200,7 @@ function Hex5M2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # To attack Fletcher
+    -- To attack Fletcher
     for i = 1, 2 do
         opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks_Fletcher_1' .. i,
             {
@@ -229,7 +229,7 @@ function Hex5M2BaseAirAttacks()
             'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.AIR})
     end
 
-    # Air Defense
+    -- Air Defense
     for i = 1, Difficulty + 1 do
         opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
             {
@@ -249,11 +249,11 @@ function Hex5M2BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    # --------------------------------
-    # Hex5 M2 Base Op AI, Land Attacks
-    # --------------------------------
+    -- --------------------------------
+    -- Hex5 M2 Base Op AI, Land Attacks
+    -- --------------------------------
 
-    # sends 6, 10, 20 [amphibious tanks]
+    -- sends 6, 10, 20 [amphibious tanks]
     quantity = {6, 10, 20}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack1',
         {
@@ -269,7 +269,7 @@ function Hex5M2BaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 10, 20 [light artillery, mobile missiles]
+    -- sends 6, 10, 20 [light artillery, mobile missiles]
     quantity = {6, 10, 20}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack2',
         {
@@ -285,7 +285,7 @@ function Hex5M2BaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 10, 20 [mobile bombs, mobile stealth]
+    -- sends 6, 10, 20 [mobile bombs, mobile stealth]
     quantity = {6, 10, 20}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack3',
         {
@@ -298,7 +298,7 @@ function Hex5M2BaseLandAttacks()
     )
     opai:SetChildQuantity({'MobileBombs', 'MobileStealth'}, quantity[Difficulty])
 
-    # sends 4, 6, 10 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
+    -- sends 4, 6, 10 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
     quantity = {4, 6, 10}
     trigger = {60, 40, 40}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack4',
@@ -314,7 +314,7 @@ function Hex5M2BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 6, 10 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
+    -- sends 4, 6, 10 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
     quantity = {4, 6, 10}
     trigger = {50, 30, 30}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack5',
@@ -330,7 +330,7 @@ function Hex5M2BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 10, 20 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 10, 20 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
     quantity = {6, 10, 20}
     trigger = {60, 40, 20}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack6',
@@ -346,7 +346,7 @@ function Hex5M2BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 6, 8, 10 [mobile flak] if player has >= 1 strat bomber
+    -- sends 6, 8, 10 [mobile flak] if player has >= 1 strat bomber
     quantity = {6, 8, 10}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack7',
         {
@@ -361,7 +361,7 @@ function Hex5M2BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 6, 9, 15 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
+    -- sends 6, 9, 15 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
     quantity = {6, 9, 15}
     trigger = {450, 400, 350}
     opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack8',
@@ -377,7 +377,7 @@ function Hex5M2BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # To attack Fletcher
+    -- To attack Fletcher
     for i = 1, 2 do
         opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack_Fletcher1_' .. i,
             {
@@ -406,8 +406,8 @@ function Hex5M2BaseLandAttacks()
             'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.LAND})
     end
 
-    # Land Defense
-    # Maintains 4, 8, 12 Heavy Tanks
+    -- Land Defense
+    -- Maintains 4, 8, 12 Heavy Tanks
     quantity = {2, 4, 6}
     for i = 1, 2 do
         opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandDefense1_' .. i,
@@ -422,7 +422,7 @@ function Hex5M2BaseLandAttacks()
         opai:SetChildQuantity({'HeavyTanks'}, quantity[Difficulty])
     end
 
-    # Maintains 4, 8, 12 Mobile Missiles
+    -- Maintains 4, 8, 12 Mobile Missiles
     quantity = {2, 4, 6}
     for i = 1, 2 do
         opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandDefense2_' .. i,

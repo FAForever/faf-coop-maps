@@ -1,28 +1,28 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_A05_v03/SCCA_Coop_A05_v03_playerplanlist.lua
-#**  Author(s): Drew Staltman
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#########################################
-# AIBrain Strategic Plans Definitions   #
-#########################################
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_A05_v03/SCCA_Coop_A05_v03_playerplanlist.lua
+-- **  Author(s): Drew Staltman
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
+-- ########################################
+-- AIBrain Strategic Plans Definitions   #
+-- ########################################
 
 AIPlansList = 
 {
-    # EARTH Faction Plans
+    -- EARTH Faction Plans
     {   
     },
 
-    # ALIEN Faction Plans
+    -- ALIEN Faction Plans
     {   
         '/maps/SCCA_Coop_A05_v03/SCCA_Coop_A05_v03_playerplan.lua',
     },
 
-    # RECYCLER Faction Plans
+    -- RECYCLER Faction Plans
     {   
     },
 }

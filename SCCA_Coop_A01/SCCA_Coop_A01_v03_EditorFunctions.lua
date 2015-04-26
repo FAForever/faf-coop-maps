@@ -1,20 +1,20 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_R04/SCCA_Coop_A01_v03_EditorFunctions.lua
-#**  Author(s): Greg
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_R04/SCCA_Coop_A01_v03_EditorFunctions.lua
+-- **  Author(s): Greg
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
-##############################################################################################################
-# function: LeftoverCleanupBC = BuildCondition   doc = "Please work function docs."
-#
-# parameter 0: string	aiBrain		= "default_brain"
-# parameter 1: string   locationType = "default_location_type"
-#
-##############################################################################################################
+-- #############################################################################################################
+-- function: LeftoverCleanupBC = BuildCondition   doc = "Please work function docs."
+--
+-- parameter 0: string	aiBrain		= "default_brain"
+-- parameter 1: string   locationType = "default_location_type"
+--
+-- #############################################################################################################
 
 function LeftoverCleanupBC(aiBrain, locationType)
     local pool = aiBrain:GetPlatoonUniquelyNamed(locationType..'_LeftoverUnits')

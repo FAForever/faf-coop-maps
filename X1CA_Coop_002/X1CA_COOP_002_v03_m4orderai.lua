@@ -1,24 +1,24 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m4orderai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Order army AI for Mission 4 - X1CA_Coop_002_v03
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m4orderai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Order army AI for Mission 4 - X1CA_Coop_002_v03
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Order = 2
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local OrderM2SupportBase = BaseManager.CreateBaseManager()
 local OrderM4MainBase = BaseManager.CreateBaseManager()
 local OrderM4NorthBase = BaseManager.CreateBaseManager()
@@ -27,17 +27,17 @@ local OrderM4SouthBase = BaseManager.CreateBaseManager()
 
 function OrderM4MainBaseAI()
 
-    # ------------------
-    # Order M4 Main Base
-    # ------------------
+    -- ------------------
+    -- Order M4 Main Base
+    -- ------------------
     OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 120, {M4_Order_Main_Base = 100})
     OrderM4MainBase:StartNonZeroBase({{12, 8, 4}, {9, 6, 3}})
 
-#   OrderM4MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM4MainBase_ExperimentalLand')
-#   OrderM4MainBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'OrderM4MainBase_ExperimentalAir')
-#   OrderM4MainBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'OrderM4MainBase_ExperimentalNaval')
-#   OrderM4MainBase:AddReactiveAI('Nuke', 'AirRetaliation', 'OrderM4MainBase_Nuke')
-#   OrderM4MainBase:AddReactiveAI('HLRA', 'AirRetaliation', 'OrderM4MainBase_HLRA')
+-- OrderM4MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM4MainBase_ExperimentalLand')
+-- OrderM4MainBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'OrderM4MainBase_ExperimentalAir')
+-- OrderM4MainBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'OrderM4MainBase_ExperimentalNaval')
+-- OrderM4MainBase:AddReactiveAI('Nuke', 'AirRetaliation', 'OrderM4MainBase_Nuke')
+-- OrderM4MainBase:AddReactiveAI('HLRA', 'AirRetaliation', 'OrderM4MainBase_HLRA')
 
     OrderM4MainBaseAirAttacks()
     OrderM4MainBaseLandAttacks()
@@ -46,11 +46,11 @@ end
 function OrderM4MainBaseAirAttacks()
     local opai = nil
 
-    # -------------------------------------
-    # Order M4 Main Base Op AI, Air Attacks
-    # -------------------------------------
+    -- -------------------------------------
+    -- Order M4 Main Base Op AI, Air Attacks
+    -- -------------------------------------
 
-    # sends [bombers]
+    -- sends [bombers]
     opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -62,7 +62,7 @@ function OrderM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', 8)
 
-    # sends [interceptors]
+    -- sends [interceptors]
     opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -74,7 +74,7 @@ function OrderM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', 8)
 
-    # sends [gunships, combat fighters]
+    -- sends [gunships, combat fighters]
     opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -86,7 +86,7 @@ function OrderM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, 8)
 
-    # sends [combat fighters]
+    -- sends [combat fighters]
     opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -98,7 +98,7 @@ function OrderM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('CombatFighters', 6)
 
-    # sends [gunships, bombers]
+    -- sends [gunships, bombers]
     opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks5',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -113,7 +113,7 @@ function OrderM4MainBaseAirAttacks()
 
 
 
-    # Air Defense
+    -- Air Defense
     for i = 1, 6 do
         opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirDefense' .. i,
             {
@@ -131,11 +131,11 @@ end
 function OrderM4MainBaseLandAttacks()
     local opai = nil
 
-    # --------------------------------------
-    # Order M4 Main Base Op AI, Land Attacks
-    # --------------------------------------
+    -- --------------------------------------
+    -- Order M4 Main Base Op AI, Land Attacks
+    -- --------------------------------------
 
-    # sends collosus
+    -- sends collosus
     opai = OrderM4MainBase:AddOpAI('M4_Order_Colos',
         {
             Amount = 1,
@@ -149,7 +149,7 @@ function OrderM4MainBaseLandAttacks()
         }
     )
 
-    # sends [light artillery]
+    -- sends [light artillery]
     opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -161,7 +161,7 @@ function OrderM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity('LightArtillery', 4)
 
-    # sends [light bots]
+    -- sends [light bots]
     opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -173,7 +173,7 @@ function OrderM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity('LightBots', 4)
 
-    # sends [light tanks]
+    -- sends [light tanks]
     opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -185,7 +185,7 @@ function OrderM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity('LightTanks', 6)
 
-    # sends [heavy tanks]
+    -- sends [heavy tanks]
     opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -198,7 +198,7 @@ function OrderM4MainBaseLandAttacks()
     opai:SetChildQuantity('HeavyTanks', 4)
     opai:SetLockingStyle('None')
 
-    # sends [light artillery, mobile missiles]
+    -- sends [light artillery, mobile missiles]
     opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack5',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -214,9 +214,9 @@ end
 
 function OrderM4NorthBaseAI()
 
-    # -------------------
-    # Order M4 North Base
-    # -------------------
+    -- -------------------
+    -- Order M4 North Base
+    -- -------------------
     OrderM4NorthBase:Initialize(ArmyBrains[Order], 'M4_Order_NorthBase', 'Order_M4_North_Base', 60, {M4_Order_North_Base = 100})
     OrderM4NorthBase:StartNonZeroBase({10, 7})
 
@@ -228,11 +228,11 @@ function OrderM4NorthBaseLandAttacks()
 	local units = {}
 	local quantity = {}
 
-    # ---------------------------------------
-    # Order M4 North Base Op AI, Land Attacks
-    # ---------------------------------------
+    -- ---------------------------------------
+    -- Order M4 North Base Op AI, Land Attacks
+    -- ---------------------------------------
 
-    # Land Attacks
+    -- Land Attacks
 	for i = 1, 3 do
 	units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
 	quantity = {6, 8, 6}
@@ -252,9 +252,9 @@ end
 
 function OrderM4CenterBaseAI()
 
-    # --------------------
-    # Order M4 Center Base
-    # --------------------
+    -- --------------------
+    -- Order M4 Center Base
+    -- --------------------
     OrderM4CenterBase:Initialize(ArmyBrains[Order], 'M4_Order_MiddleBase', 'Order_M4_Middle_Base', 60, {M4_Order_Middle_Base = 100})
     OrderM4CenterBase:StartNonZeroBase({15, 7})
 	
@@ -269,11 +269,11 @@ end
 function OrderM4CenterBaseAirAttacks()
     local opai = nil
 
-    # ---------------------------------------
-    # Order M4 Center Base Op AI, Air Attacks
-    # ---------------------------------------
+    -- ---------------------------------------
+    -- Order M4 Center Base Op AI, Air Attacks
+    -- ---------------------------------------
 
-    # Air Attack
+    -- Air Attack
     opai = OrderM4CenterBase:AddOpAI('AirAttacks', 'M4_Order_AirAttack_Center_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -301,11 +301,11 @@ end
 function OrderM4CenterBaseLandAttacks()
     local opai = nil
 
-    # ----------------------------------------
-    # Order M4 Center Base Op AI, Land Attacks
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- Order M4 Center Base Op AI, Land Attacks
+    -- ----------------------------------------
 
-    -- # Land Attack
+    -- -- Land Attack
     -- opai = OrderM4CenterBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_Center',
         -- {
             -- MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -339,9 +339,9 @@ end
 
 function OrderM4SouthBaseAI()
 
-    # -------------------
-    # Order M4 South Base
-    # -------------------
+    -- -------------------
+    -- Order M4 South Base
+    -- -------------------
     OrderM4SouthBase:Initialize(ArmyBrains[Order], 'M4_Order_SouthBase', 'Order_M4_South_Base', 60, {M4_Order_South_Base = 100})
     OrderM4SouthBase:StartNonZeroBase({8, 4})
 
@@ -352,11 +352,11 @@ end
 function OrderM4SouthBaseAirAttacks()
     local opai = nil
 
-    # --------------------------------------
-    # Order M4 South Base Op AI, Air Attacks
-    # --------------------------------------
+    -- --------------------------------------
+    -- Order M4 South Base Op AI, Air Attacks
+    -- --------------------------------------
 
-    # Air Attack
+    -- Air Attack
     opai = OrderM4SouthBase:AddOpAI('AirAttacks', 'M4_Order_AirAttack_South',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -374,11 +374,11 @@ end
 function OrderM4SouthBaseLandAttacks()
     local opai = nil
 
-    # ---------------------------------------
-    # Order M4 South Base Op AI, Land Attacks
-    # ---------------------------------------
+    -- ---------------------------------------
+    -- Order M4 South Base Op AI, Land Attacks
+    -- ---------------------------------------
 
-    -- # Land Attack
+    -- -- Land Attack
     -- opai = OrderM4SouthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_South',
         -- {
             -- MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},

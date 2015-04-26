@@ -1,16 +1,16 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R02_v01/SCCA_Coop_R02_v01_script.lua
-#**  Author(s):  Grant Roberts
-#**
-#**  Summary  :  Cybran Campaign, Operation 2
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R02_v01/SCCA_Coop_R02_v01_script.lua
+-- **  Author(s):  Grant Roberts
+-- **
+-- **  Summary  :  Cybran Campaign, Operation 2
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
-# --------------------------------------------------------------------------- #
-# === GLOBAL VARIABLES ====================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === GLOBAL VARIABLES ====================================================== #
+-- --------------------------------------------------------------------------- #
 ScenarioInfo.MissionNumber  = 1
 
 ScenarioInfo.Player         = 1
@@ -59,9 +59,9 @@ ScenarioInfo.M3AeonAttacksIncreaseAfter     = 3
 ScenarioInfo.VarTable                       = {}
 
 ScenarioInfo.OperationEnding                = false
-# --------------------------------------------------------------------------- #
-# === LOCAL VARIABLES ======================================================= #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === LOCAL VARIABLES ======================================================= #
+-- --------------------------------------------------------------------------- #
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
@@ -90,9 +90,9 @@ local M1SETechPickupRequirements    = 0
 
 
 
-# --------------------------------------------------------------------------- #
-# === TUNING VARIABLES ====================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === TUNING VARIABLES ====================================================== #
+-- --------------------------------------------------------------------------- #
 local EasyV         = 0
 local MediumV       = 1
 local HardV         = 0
@@ -152,20 +152,20 @@ ScenarioInfo.VarTable['M3AeonT2EngineersAllowed']               = (2 * EasyV) + 
 ScenarioInfo.VarTable['M3JanusT1EngineersAllowed']              = (2 * EasyV) + (4 * MediumV) + (6 * HardV)
 ScenarioInfo.VarTable['M3JanusT2EngineersAllowed']              = (2 * EasyV) + (4 * MediumV) + (6 * HardV)
 
-# --------------------------------------------------------------------------- #
-# === TUNING AND TIMING VARIABLES FOR DESIGN ================================ #
-# --------------------------------------------------------------------------- #
-# Counts
+-- --------------------------------------------------------------------------- #
+-- === TUNING AND TIMING VARIABLES FOR DESIGN ================================ #
+-- --------------------------------------------------------------------------- #
+-- Counts
 local M1AeonAirAttackCount = 3
 local M1AeonNavalAttackCount = 3
 
-local M2AeonAttacksBecomeLarge = 20     #divide by 2 for actuall number of waves
-local M2AeonAttacksBecomeMedium = 14     #divide by 2 for actuall number of waves
+local M2AeonAttacksBecomeLarge = 20     -- divide by 2 for actuall number of waves
+local M2AeonAttacksBecomeMedium = 14     -- divide by 2 for actuall number of waves
 local M2MaximumOffscreenPlatoonsAlive = 2
 
 local M3NorthDefensesPercentage = 0.5
 
-# Times
+-- Times
 local M1AeonAirAttackDelay = (280 * EasyV) + (210 * MediumV) + (170 * HardV)
 local M1AeonAirAttackTime = (340 * EasyV) + (300 * MediumV) + (220 * HardV)
 local M1AeonNavalAttackDelay = (900 * EasyV) + (630 * MediumV) + (470 * HardV)
@@ -179,21 +179,21 @@ local M1FinalAssaultSafetyTime = 300
 local M1SecondTechDefenseSafetyTime = 300
 local M1CompleteDelayTime = 1.5
 
-local M1P1Reminder1Delay = 900 # 15 minutes
-local M1P1Reminder2Delay = 600 # 25 minutes
-local M1P2Reminder1Delay = 900 # 15 minutes
-local M1P2Reminder2Delay = 600 # 25 minutes
-local M1P3Reminder1Delay = 900 # 15 minutes
-local M1P3Reminder2Delay = 600 # 25 minutes
-local M1P4Reminder1Delay = 900 # 15 minutes
-local M1P4Reminder2Delay = 600 # 25 minutes
+local M1P1Reminder1Delay = 900 -- 15 minutes
+local M1P1Reminder2Delay = 600 -- 25 minutes
+local M1P2Reminder1Delay = 900 -- 15 minutes
+local M1P2Reminder2Delay = 600 -- 25 minutes
+local M1P3Reminder1Delay = 900 -- 15 minutes
+local M1P3Reminder2Delay = 600 -- 25 minutes
+local M1P4Reminder1Delay = 900 -- 15 minutes
+local M1P4Reminder2Delay = 600 -- 25 minutes
 
 local M1ToM2Delay = 5
 
 local M2AeonScoutDelay = 30
 local M2AeonOffscreenAttackDelay = (580 * EasyV) + (340 * MediumV) + (230 * HardV)
 local M2AeonOffscreenAttackRepeatDelay = (530 * EasyV) + (340 * MediumV) + (240 * HardV)
-local M2AeonOffscreenNavalAssaultDelay = 900 # not tweaking this based on difficulty because the force is a different size
+local M2AeonOffscreenNavalAssaultDelay = 900 -- not tweaking this based on difficulty because the force is a different size
 local M2LandAssaultAttackTime = (60 * EasyV) + (45 * MediumV) + (30 * HardV)
 local M2NavalAssaultAttackTime = (60 * EasyV) + (45 * MediumV) + (30 * HardV)
 local M2JanusPickupDelayTime = 1
@@ -202,8 +202,8 @@ local M2AeonFirstVODelay = 240
 local M2AeonSecondVODelay = 480
 local M2AeonThirdVODelay = 960
 
-local M2P1Reminder1Delay = 900 # 15 minutes
-local M2P1Reminder2Delay = 600 # 25 minutes
+local M2P1Reminder1Delay = 900 -- 15 minutes
+local M2P1Reminder2Delay = 600 -- 25 minutes
 
 local M2ToM3Delay = 5
 
@@ -218,26 +218,26 @@ local M3AeonThirdTauntDelay = 900
 
 local M3ScoutDelayTime = 60
 
-local M3P1Reminder1Delay = 900 # 15 minutes
-local M3P1Reminder2Delay = 600 # 25 minutes
-local M3P2Reminder1Delay = 900 # 15 minutes
-local M3P2Reminder2Delay = 600 # 25 minutes
+local M3P1Reminder1Delay = 900 -- 15 minutes
+local M3P1Reminder2Delay = 600 -- 25 minutes
+local M3P2Reminder1Delay = 900 -- 15 minutes
+local M3P2Reminder2Delay = 600 -- 25 minutes
 
 local M3FinishedDelay = 1
 
-# Distances
+-- Distances
 local M1JanusSafeRadius = 20
 
-# Mission 1 Land Tech Allowance: Heavy Tank, Mobile Flak
-# Mission 1 Building Tech Allowance: T2 Land Factory
+-- Mission 1 Land Tech Allowance: Heavy Tank, Mobile Flak
+-- Mission 1 Building Tech Allowance: T2 Land Factory
 local M1CybranLandTechAllowance = categories.url0202 + categories.url0205
 local M1CybranBuildingTechAllowance = categories.urb0201
 
 local M1AeonLandTechAllowance = categories.ual0202 + categories.ual0205 + categories.ual0208
 local M1AeonBuildingTechAllowance = categories.uab0201
 
-# Mission 2 Building Tech Allowance: T2 Heavy Gun Tower + T2 Anti-Air Flak Cannon
-# Mission 2 Land Tech Allowance: T2 Engineer
+-- Mission 2 Building Tech Allowance: T2 Heavy Gun Tower + T2 Anti-Air Flak Cannon
+-- Mission 2 Land Tech Allowance: T2 Engineer
 local M2CybranBuildingTechAllowance = categories.urb2204 + categories.urb2301
 local M2CybranLandTechAllowance = categories.url0208
 
@@ -246,11 +246,11 @@ local M2AeonLandTechAllowance = categories.ual0208
 
 local M2JanusDoesntNeedTheseGone = categories.WALL + categories.ECONOMIC + categories.INTELLIGENCE
 
-# Mission 3 Land Tech Allowance: Mobile Missile Launcher
+-- Mission 3 Land Tech Allowance: Mobile Missile Launcher
 local M3CybranLandTechAllowance = categories.url0111
 local M3AeonLandTechAllowance = categories.ual0111
 
-#Taunt related
+-- Taunt related
 local PlayerUnitsLost = 50
 local UnitsLostGrowth = 5
 local AeonTauntNumber = 0
@@ -277,9 +277,9 @@ function CheatEconomy()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === STARTER FUNCTIONS ===================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === STARTER FUNCTIONS ===================================================== #
+-- --------------------------------------------------------------------------- #
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
@@ -291,10 +291,10 @@ function OnPopulate(scenario)
     ScenarioFramework.SetAeonColor(FakeAeon)
     ScenarioFramework.SetAeonColor(Civilian)
 
-    # ScenarioFramework.SetCybranAllyColor(CybranJanus)
-    # ScenarioFramework.SetCybranAllyColor(FakeJanus)
+    -- ScenarioFramework.SetCybranAllyColor(CybranJanus)
+    -- ScenarioFramework.SetCybranAllyColor(FakeJanus)
 
-    # Civilian stuff (temples, etc)
+    -- Civilian stuff (temples, etc)
     ScenarioInfo.CivilianTemple1 = ScenarioUtils.CreateArmyUnit('Civilian', 'Village_1_Temple')
     ScenarioInfo.CivilianTemple2 = ScenarioUtils.CreateArmyUnit('Civilian', 'Village_2_Temple')
     ScenarioInfo.CivilianTemple3 = ScenarioUtils.CreateArmyUnit('Civilian', 'Village_3_Temple')
@@ -347,9 +347,9 @@ function IntroNIS()
     ScenarioFramework.StartOperationJessZoom('CDRZoom', StartMission1)
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 1 ============================================================= #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 1 ============================================================= #
+-- --------------------------------------------------------------------------- #
 function StartMission1()
 	for _, player in ScenarioInfo.HumanPlayers do
 		SetArmyUnitCap(player, 300)
@@ -357,7 +357,7 @@ function StartMission1()
     SetArmyUnitCap(2, 400)
     SetArmyUnitCap(3, 500)
 
-    # Player stuff
+    -- Player stuff
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
 
@@ -381,7 +381,7 @@ function StartMission1()
         ScenarioFramework.CreateUnitDeathTrigger(PlayerCDRKilled, coopACU)
     end
 
-    # Player death trigger
+    -- Player death trigger
     ScenarioFramework.CreateUnitDeathTrigger(PlayerCDRKilled, ScenarioInfo.PlayerCDR)
 
     M1CreateUnits()
@@ -393,9 +393,9 @@ function StartMission1()
 
     ForkThread(M1JanusLeaves)
 
-    #Seed our aeon taunt playing cycle: 50 units will kick it off
+    -- Seed our aeon taunt playing cycle: 50 units will kick it off
     ScenarioFramework.CreateArmyStatTrigger(PlayAeonTaunt, ArmyBrains[Aeon], 'AeonTauntStartTrigger',
-        {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = PlayerUnitsLost, Category = categories.CYBRAN, },}) #Player units killed by Aeon
+        {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = PlayerUnitsLost, Category = categories.CYBRAN, },}) -- Player units killed by Aeon
 		
 	ForkThread(CheatEconomy)
 end
@@ -439,59 +439,59 @@ function MakeGroupsIntoPlatoon(brain, ...)
 end
 
 function M1CreateUnits()
-    # Defeat all the units defending the NE temple
+    -- Defeat all the units defending the NE temple
     ScenarioInfo.NeTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_NE_Village_Defenders'), 'TravellingFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1NEDefendersKilled, ScenarioInfo.NeTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.NeTempleDefenders, ScenarioUtils.ChainToPositions('TempleNE_Route'))
 
-    # Defeat all the units defending the SE temple
+    -- Defeat all the units defending the SE temple
     local seTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', AdjustForDifficulty('M1_SE_Village_Defenders'), 'TravellingFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1SEDefendersKilled, seTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(seTempleDefenders, ScenarioUtils.ChainToPositions('TempleSE_Route'))
 
-    # Cheat for Janus so he can capture things
+    -- Cheat for Janus so he can capture things
     ScenarioInfo.JanusEnergyCheat = ScenarioUtils.CreateArmyUnit('CybranJanus', 'Janus_Energy_Cheat')
 end
 
 function PlayAeonTaunt()
-    #Make new value for next taunt
+    -- Make new value for next taunt
     PlayerUnitsLost = ArmyBrains[Aeon]:GetArmyStat('Enemies_Killed',0).Value + 50 + UnitsLostGrowth
 
-    #create a new stats trigger again, if we arent at the end of our taunts.
-    #Concatenate using taunt number, so each new instance of this trigger is uniquely named
+    -- create a new stats trigger again, if we arent at the end of our taunts.
+    -- Concatenate using taunt number, so each new instance of this trigger is uniquely named
     TauntTriggerCount = TauntTriggerCount + 1
     if AeonTauntNumber < 7 then
         ScenarioFramework.CreateArmyStatTrigger(PlayAeonTaunt, ArmyBrains[Aeon], 'AeonTauntTrigger'..TauntTriggerCount,
-            {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = PlayerUnitsLost, Category = categories.CYBRAN, },}) #Player units killed by Aeon
+            {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = PlayerUnitsLost, Category = categories.CYBRAN, },}) -- Player units killed by Aeon
     end
 
-    #Have we waited at least three minutes since our last taunt? Aeon CDR still around? We run out of our 8 taunts yet?
+    -- Have we waited at least three minutes since our last taunt? Aeon CDR still around? We run out of our 8 taunts yet?
     if ScenarioInfo.TauntsAllowed == true and ScenarioInfo.M3AeonCDRDead == false and AeonTauntNumber < 8 then
-        #Increment to next taunt
-        AeonTauntNumber = AeonTauntNumber + 1 #starts at zero, so keep this before the actual dialogue call below
+        -- Increment to next taunt
+        AeonTauntNumber = AeonTauntNumber + 1 -- starts at zero, so keep this before the actual dialogue call below
 
-        #Increase the length of time between taunts just a tad over time
+        -- Increase the length of time between taunts just a tad over time
         UnitsLostGrowth = UnitsLostGrowth + 5
 
-        #Play an incremented taunt
+        -- Play an incremented taunt
         ScenarioFramework.Dialogue(OpStrings['TAUNT' .. AeonTauntNumber])
 
-        #no taunts for a little bit, and start a timer trigger to re-allow after a wait
-        #(so we dont get back-to-back taunts if the player is losing a lot of units)
+        -- no taunts for a little bit, and start a timer trigger to re-allow after a wait
+        -- (so we dont get back-to-back taunts if the player is losing a lot of units)
         ScenarioInfo.TauntsAllowed = false
         ScenarioFramework.CreateTimerTrigger(ReAllowTaunts, 180)
     end
 end
 
 function ReAllowTaunts()
-    #Allow taunts to be played, now that a few minutes have passed since the last one.
+    -- Allow taunts to be played, now that a few minutes have passed since the last one.
     ScenarioInfo.TauntsAllowed = true
 end
 
-# ====================================== #
-# Copied from Brian's E03:
-# SpawnM1AirAttack: spawn [M1AirAttackCount] to attack the player base until killed every [M1AirAttackTime] seconds
-# ====================================== #
+-- ====================================== #
+-- Copied from Brian's E03:
+-- SpawnM1AirAttack: spawn [M1AirAttackCount] to attack the player base until killed every [M1AirAttackTime] seconds
+-- ====================================== #
 function M1SpawnAeonAirAttack()
     WaitSeconds(M1AeonAirAttackDelay)
     if ScenarioInfo.MissionNumber == 1 then
@@ -531,10 +531,10 @@ function M1AeonAirAttack()
     end
 end
 
-# ====================================== #
-# Copied from Brian's E03:
-# SpawnM1NavalAttack: spawn [M1NavalAttackCount] to attack the player base until killed every [M1NavalAttackTime] seconds
-# ====================================== #
+-- ====================================== #
+-- Copied from Brian's E03:
+-- SpawnM1NavalAttack: spawn [M1NavalAttackCount] to attack the player base until killed every [M1NavalAttackTime] seconds
+-- ====================================== #
 function M1SpawnAeonNavalAttack()
     WaitSeconds(M1AeonNavalAttackDelay)
     if ScenarioInfo.MissionNumber == 1 then
@@ -583,22 +583,22 @@ function M1SetupTriggers()
     local platoon = nil
     local counter = 0
 
-    # Blow up the "first" temple at NE that contains tech
+    -- Blow up the "first" temple at NE that contains tech
     ScenarioFramework.CreateUnitDeathTrigger(M1P2Complete, ScenarioInfo.CivilianTempleNE)
-    # Blow up the "second" temple at SE that contains tech
+    -- Blow up the "second" temple at SE that contains tech
     ScenarioFramework.CreateUnitDeathTrigger(M1P3Complete, ScenarioInfo.CivilianTempleSE)
 
-    # Spot the temple in the northeast
+    -- Spot the temple in the northeast
     ScenarioFramework.CreateArmyIntelTrigger(M1P2Activate, ArmyBrains[Player], 'LOSNow', ScenarioInfo.CivilianTempleNE, true, categories.ALLUNITS, true, ArmyBrains[Civilian])
 
-    # Reminders
+    -- Reminders
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, M1P1Reminder1Delay)
 end
 
 function M1JanusLeaves()
     WaitSeconds(1.5)
 
-    # === M1P1. Clear Village of Aeon Units ================================ #
+    -- === M1P1. Clear Village of Aeon Units ================================ #
     local m1JanusCDR = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M1_Janus', 'TravellingFormation')
     local m1JanusCDRUnit = ScenarioInfo.UnitNames[CybranJanus]['M1_Janus_Commander']
     m1JanusCDRUnit:SetCustomName(LOC '{i CDR_Mach}')
@@ -679,27 +679,27 @@ function TrackIntialJanusThread(unit)
 end
 
 function M1GiveTech()
-    # No one should be able to build any T3 units
+    -- No one should be able to build any T3 units
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH3)
     end
     ScenarioFramework.AddRestriction(CybranJanus, categories.TECH3)
     ScenarioFramework.AddRestriction(Aeon, categories.TECH3)
 
-    # Most T2 units are not buildable at the start of this mission
+    -- Most T2 units are not buildable at the start of this mission
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH2)
     end
     ScenarioFramework.AddRestriction(CybranJanus, categories.TECH2)
     ScenarioFramework.AddRestriction(Aeon, categories.TECH2)
 
-    # Aeon shouldn't be able to build the Attack submarine
+    -- Aeon shouldn't be able to build the Attack submarine
     ScenarioFramework.AddRestriction(Aeon, categories.uas0203)
 
-    # Now, let's add some stuff back in that everyone CAN build
-    # Heavy Tank and Mobile Flak
-    # T2 Land Factory
-    # T2 Land Defense and T2 Anti-Air Defense
+    -- Now, let's add some stuff back in that everyone CAN build
+    -- Heavy Tank and Mobile Flak
+    -- T2 Land Factory
+    -- T2 Land Defense and T2 Anti-Air Defense
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, M1CybranLandTechAllowance +
                                          M1CybranBuildingTechAllowance )
@@ -711,8 +711,8 @@ function M1GiveTech()
     ScenarioFramework.RemoveRestriction(Aeon, M1AeonLandTechAllowance +
                                    M1AeonBuildingTechAllowance)
 
-    #Commander enhancements
-    ScenarioFramework.RestrictEnhancements({'AdvancedEngineering', #1
+    -- Commander enhancements
+    ScenarioFramework.RestrictEnhancements({'AdvancedEngineering', -- 1
                                             'CloakingGenerator',
                                             'T3Engineering',
                                             'NaniteTorpedoTube',
@@ -728,14 +728,14 @@ function M1P6Assign(tech)
     		Objectives.GetActionIcon('protect'),
     		{
     			Units = {tech},
-    			#MarkUnits = true,
+    			-- MarkUnits = true,
     		}
     	)
     end
 end
 
 function M1P2Complete()
-    # The player has blown up the northeast temple
+    -- The player has blown up the northeast temple
 
     ScenarioInfo.M1P2Complete = true
 
@@ -747,13 +747,13 @@ function M1P2Complete()
     ScenarioInfo.CivilianTempleNETech = ScenarioUtils.CreateArmyUnit('Civilian', 'NE_Tech')
     ScenarioInfo.CivilianTempleNETech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
-    # Make the tech impervious to everything
+    -- Make the tech impervious to everything
     ScenarioInfo.CivilianTempleNETech:SetCanTakeDamage(false)
     ScenarioInfo.CivilianTempleNETech:SetCanBeKilled(false)
     ScenarioInfo.CivilianTempleNETech:SetReclaimable(false)
     ScenarioInfo.CivilianTempleNETech:SetCapturable(false)
 
-    # reveal NE tech cam
+    -- reveal NE tech cam
     ForkThread(TechRevealedNISCamera, ScenarioInfo.CivilianTempleNETech)
 
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M1TechTranslation, ScenarioInfo.CivilianTempleNETech)
@@ -766,11 +766,11 @@ function M1P2Complete()
 
     M1NETechPickupRequirements = M1NETechPickupRequirements + 1
 
-    # Check to see what order the player is doing things in.  Did he already find the tech to the SE?
+    -- Check to see what order the player is doing things in.  Did he already find the tech to the SE?
     if M1NETechPickupRequirements > 1 then
-    # If the defenders were already taken out, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
+    -- If the defenders were already taken out, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1SETechFound == false then
-            # This is the first piece of tech
+            -- This is the first piece of tech
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToNE, ScenarioUtils.AreaToRect('NE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
 			M1P6Assign(ScenarioInfo.CivilianTempleNETech)
         else
@@ -781,9 +781,9 @@ function M1P2Complete()
 end
 
 function M1P2Activate()
-    # Theoretically, this is only supposed to happen when you see the T1 units guarding the NORTHEAST temple, specifically.
+    -- Theoretically, this is only supposed to happen when you see the T1 units guarding the NORTHEAST temple, specifically.
 
-    # === M1P2. Destroy Temple to Find Tech ========================================= #
+    -- === M1P2. Destroy Temple to Find Tech ========================================= #
 	ScenarioInfo.M1P2 = Objectives.Basic(
 		'primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description,
 		Objectives.GetActionIcon('kill'),
@@ -809,7 +809,7 @@ end
 
 
 function M1NEDefendersKilled()
-    # Player has killed the defenders to the NE.  This one could also be called "M1P1Complete".
+    -- Player has killed the defenders to the NE.  This one could also be called "M1P1Complete".
     ScenarioInfo.M1P1Complete = true
 
     local destination = ScenarioUtils.MarkerToPosition('M1_NE_Village_LZ')
@@ -821,7 +821,7 @@ function M1NEDefendersKilled()
     M1NETechPickupRequirements = M1NETechPickupRequirements + 1
 
     if M1NETechPickupRequirements > 1 then
-    # If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
+    -- If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1TechsPickedUp == 0 then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToNE, ScenarioUtils.AreaToRect('NE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
 			M1P6Assign(ScenarioInfo.CivilianTempleNETech)
@@ -841,15 +841,15 @@ function M1SEDefendersDeathCheck(deadPlatoon)
 end
 
 function M1SEDefendersKilled()
-    # Player has taken out the defenders at the southeast temple.  Note that these defenders are not mentioned in the doc -- I put them
-    # in here because it would be weird for the player to just march in to the SE temple area and take it over with no resistance.
+    -- Player has taken out the defenders at the southeast temple.  Note that these defenders are not mentioned in the doc -- I put them
+    -- in here because it would be weird for the player to just march in to the SE temple area and take it over with no resistance.
     local destination = ScenarioUtils.MarkerToPosition('M1_SE_Village_LZ')
     local techSpot = ScenarioUtils.MarkerToPosition('M1_SE_Village_Tech_Spot')
 
     M1SETechPickupRequirements = M1SETechPickupRequirements + 1
 
     if M1SETechPickupRequirements > 1 then
-    # If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
+    -- If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1TechsPickedUp == 0 then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToSE, ScenarioUtils.AreaToRect('SE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
 			M1P6Assign(ScenarioInfo.CivilianTempleSETech)
@@ -877,13 +877,13 @@ function M1P4Assign(objArea)
 		{
 			Area = objArea,
 			ShowFaction = 'Aeon',
-			#MarkUnits = true,
+			-- MarkUnits = true,
 		}
 	)
 end
 function M1P3Complete()
-    # Player has blown up the temple to the SE.  This one is a little tricky, because P1 (Investigate Village for Tech) is specifically called out
-    # as being in the northeast by VO.  But what happens if the player goes to the southeast temple first?  See below.
+    -- Player has blown up the temple to the SE.  This one is a little tricky, because P1 (Investigate Village for Tech) is specifically called out
+    -- as being in the northeast by VO.  But what happens if the player goes to the southeast temple first?  See below.
     ScenarioInfo.M1P3Complete = true
 
     local southeastPickupPoint = ScenarioUtils.MarkerToPosition('M1_SE_Village_LZ')
@@ -895,13 +895,13 @@ function M1P3Complete()
     ScenarioInfo.CivilianTempleSETech = ScenarioUtils.CreateArmyUnit('Civilian', 'SE_Tech')
     ScenarioInfo.CivilianTempleSETech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
-    # Make the tech impervious to everything
+    -- Make the tech impervious to everything
     ScenarioInfo.CivilianTempleSETech:SetCanTakeDamage(false)
     ScenarioInfo.CivilianTempleSETech:SetCanBeKilled(false)
     ScenarioInfo.CivilianTempleSETech:SetReclaimable(false)
     ScenarioInfo.CivilianTempleSETech:SetCapturable(false)
 
-    # reveal SE tech cam
+    -- reveal SE tech cam
     ForkThread(TechRevealedNISCamera, ScenarioInfo.CivilianTempleSETech)
 
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M1TechTranslation, ScenarioInfo.CivilianTempleSETech)
@@ -916,15 +916,15 @@ function M1P3Complete()
 
     M1SETechPickupRequirements = M1SETechPickupRequirements + 1
 
-    # Check to see what order the player is doing things in.  Did he already find the tech to the NE?
+    -- Check to see what order the player is doing things in.  Did he already find the tech to the NE?
     if M1SETechPickupRequirements > 1 then
-    # If the defenders were already taken out, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
+    -- If the defenders were already taken out, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1NETechFound == false then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToSE, ScenarioUtils.AreaToRect('SE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
 
 			M1P6Assign(ScenarioInfo.CivilianTempleSETech)
         else
-        # === M1P4. Defeat Aeon Defense Force ===================================== #
+        -- === M1P4. Defeat Aeon Defense Force ===================================== #
 			M1P4Assign('SE_Temple_Reinforce')
 
             ScenarioFramework.Dialogue(OpStrings.C02_M01_080)
@@ -940,7 +940,7 @@ function M1P3Complete()
 end
 
 function M1JanusClearedForTakeoffToNE()
-    # It's time for Janus to pick up a piece of tech.  This only fires if there are no Aeon within 20 units of the tech, to make sure it's a safe LZ.
+    -- It's time for Janus to pick up a piece of tech.  This only fires if there are no Aeon within 20 units of the tech, to make sure it's a safe LZ.
 
     if ScenarioInfo.M1TechsPickedUp == 2 then
         return
@@ -967,10 +967,10 @@ function M1JanusClearedForTakeoffToNE()
 end
 
 function M1JanusClearedForTakeoffToSE()
-    # It's time for Janus to pick up a piece of tech.  This only fires if there are no Aeon within 20 units of the tech, to make sure it's a safe LZ.
+    -- It's time for Janus to pick up a piece of tech.  This only fires if there are no Aeon within 20 units of the tech, to make sure it's a safe LZ.
 
     if ScenarioInfo.M1TechsPickedUp == 2 then
-    # A little safety to make sure Janus doesn't come out when he's not supposed to
+    -- A little safety to make sure Janus doesn't come out when he's not supposed to
         return
     end
 
@@ -992,9 +992,9 @@ function M1JanusClearedForTakeoffToSE()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === JANUS COMES IN FROM OFFSCREEN TO PICK UP A PIECE OF TECH ============== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === JANUS COMES IN FROM OFFSCREEN TO PICK UP A PIECE OF TECH ============== #
+-- --------------------------------------------------------------------------- #
 function M1TechTranslation(unit)
     ScenarioInfo.CapturedTech = unit
 
@@ -1005,7 +1005,7 @@ function M1TechTranslation(unit)
 end
 
 function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
-    # Player has taken out the defenders at a temple and blown that temple up.  He's also cleared out any other extraneous Aeon defenders.
+    -- Player has taken out the defenders at a temple and blown that temple up.  He's also cleared out any other extraneous Aeon defenders.
     ScenarioInfo.JanusCrewIsActive = true
 
     if ScenarioInfo.M1TechsPickedUp == 1 then
@@ -1034,16 +1034,16 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
         unit:SetReclaimable(false)
     end
 
-    # Instant attach units to transports
+    -- Instant attach units to transports
     ScenarioFramework.AttachUnitsToTransports({engineer}, {transport})
 
-    # Janus drops off the engineer, who then moves to the tech location
+    -- Janus drops off the engineer, who then moves to the tech location
     local unloadCommand = pickupPlatoon:UnloadAllAtLocation(PickupPoint)
     while pickupPlatoon:IsCommandsActive(unloadCommand) == true do
         WaitSeconds(1)
     end
 
-    # Move engineer to tech after been dropped off
+    -- Move engineer to tech after been dropped off
     IssueMove({engineer}, TechSpot)
     WaitTicks(1)
     local autoFlip = false
@@ -1060,7 +1060,7 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     end
 
     if not autoFlip then
-        # Bool so we know if there is or isn't a tech at this point
+        -- Bool so we know if there is or isn't a tech at this point
         ScenarioInfo.CapturedTech = false
         Tech:SetCapturable(true)
         IssueCapture({engineer}, Tech)
@@ -1085,15 +1085,15 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     elseif ScenarioInfo.M1TechsPickedUp == 1 then
 		ScenarioInfo.M1P7:ManualResult(true)
     else
-        #Mission 2 tech
+        -- Mission 2 tech
 		ScenarioInfo.M2P3:ManualResult(true)
     end
 
     IssueClearCommands({transport})
-    #IssuePatrol({Transport}, TechSpot)
+    -- IssuePatrol({Transport}, TechSpot)
     pickupPlatoon = ArmyBrains[CybranJanus]:MakePlatoon('', '')
 
-    # Wait till we have a captured tech unit thing
+    -- Wait till we have a captured tech unit thing
     while not ScenarioInfo.CapturedTech do
         WaitSeconds(1)
     end
@@ -1111,7 +1111,7 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
         IssueMove({ScenarioInfo.CapturedTech}, { techPos[1] + .1, techPos[2], techPos[3] })
         local cmd = pickupPlatoon:LoadUnits(categories.ALLUNITS)
 
-        # Pickup tech cam
+        -- Pickup tech cam
         WaitSeconds(1)
         if not loadCam then
             local camInfo = {
@@ -1145,7 +1145,7 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
         end
     until allLoaded
 
-    #local pickupLoad = PickupPlatoon:LoadUnits(categories.ALLUNITS)
+    -- local pickupLoad = PickupPlatoon:LoadUnits(categories.ALLUNITS)
     local pickupUnload = pickupPlatoon:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Tech_Pickup_Offscreen'))
     while ArmyBrains[CybranJanus]:PlatoonExists(pickupPlatoon) and pickupPlatoon:IsCommandsActive(pickupUnload) do
         WaitSeconds(1)
@@ -1168,8 +1168,8 @@ function M1JanusFirstTechReturnHome(PickupPoint)
     ScenarioFramework.Dialogue(OpStrings.C02_M01_070)
 
     if ScenarioInfo.M1SETechFound == false then
-    # If the player's already found the temple to the SE, then these objectives are obsolete
-    # === M1P3. Search Surrounding Temples for More Tech ================== #
+    -- If the player's already found the temple to the SE, then these objectives are obsolete
+    -- === M1P3. Search Surrounding Temples for More Tech ================== #
         if not ScenarioInfo.M1P3Given then
             ScenarioInfo.M1P3Given = true
 
@@ -1189,7 +1189,7 @@ function M1JanusFirstTechReturnHome(PickupPoint)
     local airPlatoon = nil
     local counter = 0
 
-    # Spawn the large air force to come attack the player
+    -- Spawn the large air force to come attack the player
     counter = ScenarioInfo.VarTable['M1AeonTech1ResponseGroups']
     while counter > 0 do
         airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_Tech1_Response_Bombers', 'AttackChevron')
@@ -1218,11 +1218,11 @@ function M1JanusSecondTechReturnHome()
 end
 
 function M1SpawnFirstTechResponse(DestinationIsNE)
-    # "[Units] swoop in from the east and attack the units in and around the village and temples",
-    # as well as the "large Aeon forces of air and land units (Transported in) which will begin coming in from the east and
-    # west to protect the temples."
+    -- "[Units] swoop in from the east and attack the units in and around the village and temples",
+    -- as well as the "large Aeon forces of air and land units (Transported in) which will begin coming in from the east and
+    -- west to protect the temples."
 
-    # This happens when Janus has picked up the first piece of tech.
+    -- This happens when Janus has picked up the first piece of tech.
     if DestinationIsNE then
         ForkThread(M1SpawnTempleDefense, true)
     else
@@ -1231,15 +1231,15 @@ function M1SpawnFirstTechResponse(DestinationIsNE)
 end
 
 function M1SpawnTempleDefense(DestinationIsNE)
-    # "Large Aeon forces of air and land units (Transported in) which will begin coming in from the east and west to protect the temples."
-    # This happens when Janus is finished picking up the first piece of tech.
+    -- "Large Aeon forces of air and land units (Transported in) which will begin coming in from the east and west to protect the temples."
+    -- This happens when Janus is finished picking up the first piece of tech.
 
     ScenarioInfo.M1Temple1DefensePlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Temple_Land_Defense'))
     ScenarioInfo.M1Temple2DefensePlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Temple_Land_Defense'))
     ScenarioInfo.M1Temple3DefensePlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Temple_Land_Defense'))
 
     if not ScenarioInfo.M1NETechFound then
-    # If the player has found tech at a temple, then don't send a force there
+    -- If the player has found tech at a temple, then don't send a force there
         ScenarioInfo.M1TempleNEDefensePlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Temple_Land_Defense'))
         ForkThread(M1TempleDefense, ScenarioInfo.M1TempleNEDefensePlatoon, ScenarioUtils.MarkerToPosition('M1_NE_Village_LZ'), ScenarioUtils.MarkerToPosition('Temple3_TakeoffSpot'), ScenarioUtils.ChainToPositions('TempleNE_Route'))
     else
@@ -1247,7 +1247,7 @@ function M1SpawnTempleDefense(DestinationIsNE)
     end
 
     if not ScenarioInfo.M1SETechFound then
-    # If the player has found tech at a temple, then don't send a force there
+    -- If the player has found tech at a temple, then don't send a force there
         ScenarioInfo.M1TempleSEDefensePlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Temple_Land_Defense'))
         ForkThread(M1TempleDefense, ScenarioInfo.M1TempleSEDefensePlatoon, ScenarioUtils.MarkerToPosition('M1_SE_Village_LZ'), ScenarioUtils.MarkerToPosition('Temple3_TakeoffSpot'), ScenarioUtils.ChainToPositions('TempleSE_Route'))
     else
@@ -1258,12 +1258,12 @@ function M1SpawnTempleDefense(DestinationIsNE)
     ForkThread(M1TempleDefense, ScenarioInfo.M1Temple2DefensePlatoon, ScenarioUtils.MarkerToPosition('M1_NoTech_Village_2'), ScenarioUtils.MarkerToPosition('Temple2_TakeoffSpot'), ScenarioUtils.ChainToPositions('Temple2_Route'))
     ForkThread(M1TempleDefense, ScenarioInfo.M1Temple3DefensePlatoon, ScenarioUtils.MarkerToPosition('M1_NoTech_Village_3'), ScenarioUtils.MarkerToPosition('Temple3_TakeoffSpot'), ScenarioUtils.ChainToPositions('Temple3_Route'))
 
-    #Send a small air attack to the player base area, to warn them of attacks to come.
+    -- Send a small air attack to the player base area, to warn them of attacks to come.
     ForkThread(M1_AdditionalAirResponseThread)
 end
 
 function M1_AdditionalAirResponseThread()
-    #Send some air to the player base area. 1 group, + 1 more per difficulty
+    -- Send some air to the player base area. 1 group, + 1 more per difficulty
     local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(airPlatoon, 'PlayerBase_Area_PatrolChain')
     WaitSeconds(1)
@@ -1299,7 +1299,7 @@ function M1TempleDefense(DefPlatoon, UnloadSpot, OffScreenSpot, PatrolRoute)
     ScenarioFramework.PlatoonPatrolRoute(DefPlatoon, PatrolRoute)
     ScenarioFramework.PlatoonPatrolRoute(airPlatoon, PatrolRoute)
 
-    # Now move the transports off-map and kill 'em
+    -- Now move the transports off-map and kill 'em
     DefPlatoon:MoveToLocation(OffScreenSpot, false, 'Support')
     DefPlatoon:Destroy('Support')
 end
@@ -1307,14 +1307,14 @@ end
 function M1SpawnSecondTechDefense()
     if not ScenarioInfo.M1_SecondTechDef_Spawned then
         ScenarioInfo.M1_SecondTechDef_Spawned = true
-        # Units should be spawned in that consist of "transported land units and accompanying air units, will arrive in two
-        # wings: one from the south and one from the east, converging on the tech location. These units will advance towards the
-        # player to attack and must be defeated before Janus will show up to get the tech.
-        # This happens when the player blows up the second temple.
+        -- Units should be spawned in that consist of "transported land units and accompanying air units, will arrive in two
+        -- wings: one from the south and one from the east, converging on the tech location. These units will advance towards the
+        -- player to attack and must be defeated before Janus will show up to get the tech.
+        -- This happens when the player blows up the second temple.
 
         WaitSeconds(M1SecondTechDefenseDelayTime)
 
-        #Send a small transport force to the players base, as an indication of attacks to come.
+        -- Send a small transport force to the players base, as an indication of attacks to come.
         for i = 1, ScenarioInfo.Difficulty do
             local xportAttackers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M1_FirstTempResponse_Land', 'AttackFormation')
             local xportTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon' ,'M1_FirstTempResponse_Trans', 'ChevronFormation')
@@ -1322,7 +1322,7 @@ function M1SpawnSecondTechDefense()
         end
 
         if ScenarioInfo.M1P4Given == false then
-        # === M1P4. Defeat Aeon Defense Force ===================================== #
+        -- === M1P4. Defeat Aeon Defense Force ===================================== #
             if ScenarioInfo.M1DestinationIsNE then
                 M1P4Assign('NE_Temple_Reinforce')
             else
@@ -1370,7 +1370,7 @@ function M1SpawnSecondTechDefense()
                 Warp(unit, {loc[1] + (Random(-50,50) / 10), loc[2], loc[3] - (Random(-50,50) / 10)})
                 ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Scout', 'ChevronFormation')
 
-                # Sticking this IssueGuard here so the air units will stick by the rest of their platoon
+                -- Sticking this IssueGuard here so the air units will stick by the rest of their platoon
                 IssueGuard({unit}, landGroup[1])
             end
 
@@ -1393,7 +1393,7 @@ function M1SpawnSecondTechDefense()
         secondTechDefensePlatoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Aeon_Offscreen_South'), false, 'Support')
         secondTechDefensePlatoon:Destroy('Support')
 
-        #Fork thread that will watch for when the unload command is complete, and then send the air onto a patrol
+        -- Fork thread that will watch for when the unload command is complete, and then send the air onto a patrol
         ForkThread(SecondTechUnloadCheckThread, secondTechDefensePlatoon, techUnloadCommand)
     end
 end
@@ -1445,7 +1445,7 @@ function M1SecondTechDefenseDeathCounter()
     ScenarioInfo.M1SecondTechDefenseCount = ScenarioInfo.M1SecondTechDefenseCount - 1
 
     if ScenarioInfo.M1SecondTechDefenseCount < 1 then
-        #LOG("debug: all t3 defense destroyed")
+        -- LOG("debug: all t3 defense destroyed")
 
         ScenarioInfo.SecondTechDefenseGroupDestroyed = true
 
@@ -1458,10 +1458,10 @@ function M1SecondTechDefenseDeathCounter()
 end
 
 function M1JanusPicksUpSecondTechAtNE()
-    # Now that the player has taken out the "Aeon Defense Force" that defends the second piece of tech, let's bring in our special guest.
+    -- Now that the player has taken out the "Aeon Defense Force" that defends the second piece of tech, let's bring in our special guest.
 
-    #MAtt 12/01/06
-    #crappy bandaid, more risky to unwind
+    -- MAtt 12/01/06
+    -- crappy bandaid, more risky to unwind
     if ScenarioInfo.M1SecondTechPickupStarted then
         return
     else
@@ -1469,15 +1469,15 @@ function M1JanusPicksUpSecondTechAtNE()
     end
 
     if ScenarioInfo.M1P4Given == false then
-        # If not, then we should "silently" activate and complete the objective.
-    # === M1P4. Defeat Aeon Defense Force ===================================== #
+        -- If not, then we should "silently" activate and complete the objective.
+    -- === M1P4. Defeat Aeon Defense Force ===================================== #
 		ScenarioInfo.M1P4 = Objectives.Basic(
 			'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
 			Objectives.GetActionIcon('kill'),
 			{
 			    ShowFaction = 'Aeon',
-				#Units = {},
-				#MarkUnits = true,
+				-- Units = {},
+				-- MarkUnits = true,
 			}
 		)
         ScenarioInfo.M1P4Given = true
@@ -1496,15 +1496,15 @@ function M1JanusPicksUpSecondTechAtNE()
 end
 
 function M1JanusPicksUpSecondTechAtSE()
-    #MAtt 12/01/06
-    #crappy bandaid, more risky to unwind
+    -- MAtt 12/01/06
+    -- crappy bandaid, more risky to unwind
     if ScenarioInfo.M1SecondTechPickupStarted then
         return
     else
         ScenarioInfo.M1SecondTechPickupStarted = true
     end
 
-    # Now that the player has taken out the "Aeon Defense Force" that defends the second piece of tech, let's bring in our special guest.
+    -- Now that the player has taken out the "Aeon Defense Force" that defends the second piece of tech, let's bring in our special guest.
     ScenarioInfo.M1P4Complete = true
 
 	ScenarioInfo.M1P4:ManualResult(true)
@@ -1514,19 +1514,19 @@ function M1JanusPicksUpSecondTechAtSE()
 end
 
 function M1SpawnSecondTechResponse()
-    # The doc says that this should be "a [Aeon] large naval force with air cover at the player. A good-sized naval force will come from the south
-    # (from the naval base down there) along with Interceptor cover and some Bombers." M1 ends when these guys are defeated.
+    -- The doc says that this should be "a [Aeon] large naval force with air cover at the player. A good-sized naval force will come from the south
+    -- (from the naval base down there) along with Interceptor cover and some Bombers." M1 ends when these guys are defeated.
 
-    # This happens when Janus picks up the second piece of tech.
+    -- This happens when Janus picks up the second piece of tech.
 
-    # === M1P5. Defeat Aeon Assault =========================================== #
+    -- === M1P5. Defeat Aeon Assault =========================================== #
 	ScenarioInfo.M1P5 = Objectives.Basic(
 		'primary', 'incomplete', OpStrings.M1P5Title, OpStrings.M1P5Description,
 		Objectives.GetActionIcon('protect'),
 		{
 			Area = 'M1_Defend_Area',
 			ShowFaction = 'Aeon',
-			#MarkUnits = true,
+			-- MarkUnits = true,
 		}
 	)
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
@@ -1556,7 +1556,7 @@ function M1SpawnSecondTechResponse()
 
         for teleportCounter, unit in navalPlatoon:GetPlatoonUnits() do
             position = unit:GetPosition()
-            # Move these guys apart a little bit
+            -- Move these guys apart a little bit
             Warp(unit, {position[1] + (navalCounter * 2), position[2], position[3]})
         end
 
@@ -1613,9 +1613,9 @@ function M1FinalAssaultAirDeathCounter(deadPlatoon)
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === M1 REMINDERS ========================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === M1 REMINDERS ========================================================== #
+-- --------------------------------------------------------------------------- #
 function M1P1Reminder1()
     if not ScenarioInfo.M1P1Complete and ScenarioInfo.MissionNumber == 1 then
         ScenarioFramework.Dialogue(OpStrings.C02_M01_210)
@@ -1637,7 +1637,7 @@ function M1P1Reminder3()
     end
 end
 
-    #-
+    -- -
 
 function M1P2Reminder1()
     if not ScenarioInfo.M1P2Complete and ScenarioInfo.MissionNumber == 1 then
@@ -1660,7 +1660,7 @@ function M1P2Reminder3()
     end
 end
 
-    #-
+    -- -
 
 function M1P3Reminder1()
     if not ScenarioInfo.M1P3Complete and ScenarioInfo.MissionNumber == 1 then
@@ -1683,7 +1683,7 @@ function M1P3Reminder2()
     end
 end
 
-    #-
+    -- -
 
 function M1P4Reminder1()
     if not ScenarioInfo.M1P4Complete and ScenarioInfo.MissionNumber == 1 then
@@ -1706,14 +1706,14 @@ function M1P4Reminder2()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 1 COMPLETE ==================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 1 COMPLETE ==================================================== #
+-- --------------------------------------------------------------------------- #
 function M1Complete()
 
 
     if not ScenarioInfo.M1CompleteTriggerFired then
-    # Adding safety in case we run into the "unit gets stuck off-map" issue again  -GKR 7/30
+    -- Adding safety in case we run into the "unit gets stuck off-map" issue again  -GKR 7/30
 
         ScenarioInfo.M1CompleteTriggerFired = true
         WaitSeconds(M1CompleteDelayTime)
@@ -1728,9 +1728,9 @@ function M1Complete()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 2 ============================================================= #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 2 ============================================================= #
+-- --------------------------------------------------------------------------- #
 function StartMission2()
     ScenarioFramework.Dialogue(OpStrings.C02_M02_010)
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
@@ -1756,27 +1756,27 @@ function StartMission2()
     M2SetupTriggers()
     M2GiveTech()
 
-    # === M2P1. Defeat Eastern Aeon Base and Recover Its Tech ================================ #
-    #ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, Objectives.GetActionIcon('kill'))
+    -- === M2P1. Defeat Eastern Aeon Base and Recover Its Tech ================================ #
+    -- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, Objectives.GetActionIcon('kill'))
 	ScenarioInfo.M2P1 = Objectives.Basic(
 		'primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description,
 		Objectives.GetActionIcon('kill'),
 		{
 		    ShowFaction = 'Aeon',
 			Area = 'M2_Aeon_Land_Base_Area',
-			#MarkUnits = true,
+			-- MarkUnits = true,
 		}
 	)
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
-    # === M2P2. Defeat Southern Aeon Base  =================================================== #
+    -- === M2P2. Defeat Southern Aeon Base  =================================================== #
 	ScenarioInfo.M2P2 = Objectives.Basic(
 		'primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description,
 		Objectives.GetActionIcon('kill'),
 		{
 		    ShowFaction = 'Aeon',
 			Area = 'M2_Aeon_Naval_Base_Area',
-			#MarkUnits = true,
+			-- MarkUnits = true,
 		}
 	)
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
@@ -1795,23 +1795,23 @@ function M2CreateUnits()
 end
 
 function M2SetupTriggers()
-    # Blow up the temple at the eastern base that contains tech
+    -- Blow up the temple at the eastern base that contains tech
     ScenarioFramework.CreateUnitDeathTrigger(M2TempleDestroyed, ScenarioInfo.M2Temple)
 
-    # Aeon commander says things after 4 minutes, 8 minutes, and 16 minutes
+    -- Aeon commander says things after 4 minutes, 8 minutes, and 16 minutes
     ScenarioFramework.CreateTimerTrigger(M2AeonFirstVO, M2AeonFirstVODelay)
     ScenarioFramework.CreateTimerTrigger(M2AeonSecondVO, M2AeonSecondVODelay)
     ScenarioFramework.CreateTimerTrigger(M2AeonThirdVO, M2AeonThirdVODelay)
 
-    # Aeon send in a naval force from the top right corner of the map every once in a while
-    # Start it after a certain time...
+    -- Aeon send in a naval force from the top right corner of the map every once in a while
+    -- Start it after a certain time...
     ScenarioFramework.CreateTimerTrigger(M2AeonOffscreenNavalAssaultPrepare, M2AeonOffscreenNavalAssaultDelay)
-    # ...or start it when the player has two frigates near the Aeon Naval base.
+    -- ...or start it when the player has two frigates near the Aeon Naval base.
     ScenarioFramework.CreateAreaTrigger(M2AeonOffscreenNavalAssaultPrepare, ScenarioUtils.AreaToRect('M2_Aeon_Naval_Base_Rear_Area'), categories.urs0103, true, false, ArmyBrains[Player], 2, false)
 
     ScenarioFramework.CreateAreaTrigger(M2AeonNavalBaseDestroyed, ScenarioUtils.AreaToRect('M2_Aeon_Naval_Base_Area'), categories.ALLUNITS - M2JanusDoesntNeedTheseGone, true, true, ArmyBrains[Aeon], 1, false)
 
-    # Reminders
+    -- Reminders
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, M2P1Reminder1Delay)
 end
 
@@ -1819,7 +1819,7 @@ function M2AeonFirstVO()
     if not ScenarioInfo.M3AeonCDRDead then
         ScenarioFramework.Dialogue(OpStrings.C02_M02_050)
 
-        #Dont allow taunts for a few minutes
+        -- Dont allow taunts for a few minutes
         ScenarioInfo.TauntsAllowed = false
         ScenarioFramework.CreateTimerTrigger(ReAllowTaunts, 180)
     end
@@ -1829,7 +1829,7 @@ function M2AeonSecondVO()
     if not ScenarioInfo.M3AeonCDRDead then
         ScenarioFramework.Dialogue(OpStrings.C02_M02_060)
 
-        #Dont allow taunts for a few minutes
+        -- Dont allow taunts for a few minutes
         ScenarioInfo.TauntsAllowed = false
         ScenarioFramework.CreateTimerTrigger(ReAllowTaunts, 180)
     end
@@ -1839,7 +1839,7 @@ function M2AeonThirdVO()
     if not ScenarioInfo.M3AeonCDRDead then
         ScenarioFramework.Dialogue(OpStrings.C02_M02_070)
 
-        #Dont allow taunts for a few minutes
+        -- Dont allow taunts for a few minutes
         ScenarioInfo.TauntsAllowed = false
         ScenarioFramework.CreateTimerTrigger(ReAllowTaunts, 180)
     end
@@ -1853,7 +1853,7 @@ function M2AeonOffscreenNavalAssaultPrepare()
 end
 
 function M2AeonOffscreenNavalAssault()
-    #As these appear from within a later playable area, make sure this only runs during mission 2
+    -- As these appear from within a later playable area, make sure this only runs during mission 2
     if ScenarioInfo.MissionNumber == 2 then
         local navalPlatoon = nil
         local navalPlatoonCounter = ScenarioInfo.VarTable['M2AeonOffscreenNavalPlatoonsAllowed']
@@ -1869,8 +1869,8 @@ function M2AeonOffscreenNavalAssault()
 end
 
 function M2GiveTech()
-    # T2 Engineer
-    # T2 Anti-Air and Point Defense
+    -- T2 Engineer
+    -- T2 Anti-Air and Point Defense
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, M2CybranLandTechAllowance + M2CybranBuildingTechAllowance)
     end
@@ -1906,10 +1906,10 @@ function M2OffscreenPlatoonDeathCounter()
 end
 
 function M2OffscreenPrepareForAttack()
-    # Only do this if Janus hasn't been called in to pick up the second tech
+    -- Only do this if Janus hasn't been called in to pick up the second tech
     if not ScenarioInfo.M2OffscreenAttacksPaused then
-        # Make this not as fancy for safety's sake
-        # if ScenarioInfo.M2OffscreenPlatoonsAlive < M2MaximumOffscreenPlatoonsAlive then
+        -- Make this not as fancy for safety's sake
+        -- if ScenarioInfo.M2OffscreenPlatoonsAlive < M2MaximumOffscreenPlatoonsAlive then
         if ScenarioInfo.M2OffscreenPlatoonsAlive == 0 then
             if ScenarioInfo.M2OffscreenPlatoonsKilled > M2AeonAttacksBecomeLarge then
                 ScenarioInfo.M2AeonAttackSize = 3
@@ -1962,7 +1962,7 @@ function M2OffscreenLaunchAttack()
     local loc = ScenarioInfo.M2OffscreenTakeoffSpot
 
     for counter, unit in ScenarioInfo.M2OffscreenAirPlatoon:GetPlatoonUnits() do
-        # Throwing in a little randomness here so these guys don't stack on top of each other
+        -- Throwing in a little randomness here so these guys don't stack on top of each other
         Warp(unit, {loc[1] + (Random(-50,50) / 10), loc[2], loc[3] - (Random(-50,50) / 10)})
     end
 
@@ -1971,7 +1971,7 @@ function M2OffscreenLaunchAttack()
     end
 
     for counter, unit in ScenarioInfo.M2OffscreenTransports:GetPlatoonUnits() do
-        # Throwing in a little randomness here so these guys don't stack on top of each other
+        -- Throwing in a little randomness here so these guys don't stack on top of each other
         Warp(unit, {loc[1] + (Random(-50,50) / 10), loc[2], loc[3] - (Random(-50,50) / 10)})
     end
 
@@ -1988,7 +1988,7 @@ function M2OffscreenLaunchAttack()
     ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation(ArmyBrains[Aeon], ArmyBrains[Player], 'enemy', attackGrid, 64)
     ScenarioInfo.M2OffscreenAirPlatoon.PlatoonData.Location = ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location
 
-    # ScenarioFramework.CreateTimerTrigger(M2OffscreenPrepareForAttack, M2AeonOffscreenAttackRepeatDelay) #Doesnt actually do anything
+    -- ScenarioFramework.CreateTimerTrigger(M2OffscreenPrepareForAttack, M2AeonOffscreenAttackRepeatDelay) #Doesnt actually do anything
     ScenarioFramework.CreatePlatoonDeathTrigger(M2OffscreenPlatoonDeathCounter, ScenarioInfo.M2OffscreenLandPlatoon)
     ScenarioFramework.CreatePlatoonDeathTrigger(M2OffscreenPlatoonDeathCounter, ScenarioInfo.M2OffscreenAirPlatoon)
 
@@ -2027,13 +2027,13 @@ function M2TempleDestroyed()
     ScenarioInfo.M2Tech = ScenarioUtils.CreateArmyUnit('Civilian', 'E_Tech')
     ScenarioInfo.M2Tech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
-    # Make the tech impervious to everything
+    -- Make the tech impervious to everything
     ScenarioInfo.M2Tech:SetCanTakeDamage(false)
     ScenarioInfo.M2Tech:SetCanBeKilled(false)
     ScenarioInfo.M2Tech:SetReclaimable(false)
     ScenarioInfo.M2Tech:SetCapturable(false)
 
-    # reveal M2 tech cam
+    -- reveal M2 tech cam
     ForkThread(TechRevealedNISCamera, ScenarioInfo.M2Tech)
 
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2TechTranslation, ScenarioInfo.M2Tech)
@@ -2057,7 +2057,7 @@ function M2AeonNavalBaseDestroyed()
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
     ScenarioFramework.Dialogue(OpStrings.C02_M02_040)
 
-#NIS for destruction of naval base
+-- NIS for destruction of naval base
     local camInfo = {
     	blendTime = 1.0,
     	holdTime = 4,
@@ -2086,9 +2086,9 @@ function M2JanusReturnHome()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === M2 REMINDERS ========================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === M2 REMINDERS ========================================================== #
+-- --------------------------------------------------------------------------- #
 function M2P1Reminder1()
     if not ScenarioInfo.M2P1Complete and ScenarioInfo.MissionNumber == 2 then
         ScenarioFramework.Dialogue(OpStrings.C02_M02_150)
@@ -2110,9 +2110,9 @@ function M2P1Reminder3()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 2 COMPLETE ==================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 2 COMPLETE ==================================================== #
+-- --------------------------------------------------------------------------- #
 function M2Complete()
     if not Mission3Begun then
         Mission3Begun = true
@@ -2122,9 +2122,9 @@ function M2Complete()
     end
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 3 ============================================================= #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 3 ============================================================= #
+-- --------------------------------------------------------------------------- #
 function StartMission3()
 	for _, player in ScenarioInfo.HumanPlayers do
 		SetArmyUnitCap(player, 500)
@@ -2146,7 +2146,7 @@ function StartMission3()
     SetAlliance(Aeon, CybranJanus, 'Enemy')
     SetAlliance(CybranJanus, Aeon, 'Enemy')
 
-    # Re-enable the Aeon offscreen attacks from M2 that were paused when Janus came to pick up the tech
+    -- Re-enable the Aeon offscreen attacks from M2 that were paused when Janus came to pick up the tech
     ScenarioInfo.M2OffscreenAttacksPaused = false
 
     M3CreateUnits()
@@ -2162,11 +2162,11 @@ function M3CreateUnits()
 
     ScenarioInfo.M3JanusCDR = ScenarioUtils.CreateArmyUnit('CybranJanus', 'M3_Janus_Commander')
     ScenarioInfo.M3JanusCDR:SetCustomName(LOC '{i CDR_Mach}')
-    ScenarioFramework.CreateUnitDeathTrigger(M3_CybranCDRDestroyed, ScenarioInfo.M3JanusCDR) #For death nis
+    ScenarioFramework.CreateUnitDeathTrigger(M3_CybranCDRDestroyed, ScenarioInfo.M3JanusCDR) -- For death nis
 
     ScenarioInfo.AeonCDR = ScenarioUtils.CreateArmyUnit('Aeon', 'M3_Aeon_Commander')
     ScenarioInfo.AeonCDR:SetCustomName(LOC '{i CDR_Ariel}')
-    ScenarioFramework.CreateUnitDeathTrigger(M3_AeonCDRDestroyed, ScenarioInfo.AeonCDR) #For death nis
+    ScenarioFramework.CreateUnitDeathTrigger(M3_AeonCDRDestroyed, ScenarioInfo.AeonCDR) -- For death nis
 
     ScenarioInfo.M3Gate = ScenarioUtils.CreateArmyUnit('FakeAeon', 'M3_Gate')
     ScenarioInfo.M3Gate:SetCanTakeDamage(false)
@@ -2282,7 +2282,7 @@ function M3AeonScouting()
 end
 
 function M3SetupTriggers()
-    # === M3P1. Defeat Janus ================================================================= #
+    -- === M3P1. Defeat Janus ================================================================= #
     ScenarioInfo.M3P1 = Objectives.Kill(
         'primary',
         'incomplete',
@@ -2292,7 +2292,7 @@ function M3SetupTriggers()
    )
     ScenarioInfo.M3P1:AddResultCallback(M3P1Complete)
 
-    # === M3S1. Defeat the Aeon Commander  =================================================== #
+    -- === M3S1. Defeat the Aeon Commander  =================================================== #
     ScenarioInfo.M3S1 = Objectives.Kill(
         'secondary',
         'incomplete',
@@ -2302,30 +2302,30 @@ function M3SetupTriggers()
    )
     ScenarioInfo.M3S1:AddResultCallback(M3S1Complete)
 
-    # Reminders
+    -- Reminders
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, M3P1Reminder1Delay)
 end
 
 function M3GiveTech()
-    # T2 Land Factory can build the Mobile Missile Launcher
+    -- T2 Land Factory can build the Mobile Missile Launcher
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, M3CybranLandTechAllowance)
     end
     ScenarioFramework.RemoveRestriction(CybranJanus, M3CybranLandTechAllowance)
     ScenarioFramework.RemoveRestriction(Aeon, M3AeonLandTechAllowance)
 
-    #print('Factories can now build the Mobile Missile Launcher!')
+    -- print('Factories can now build the Mobile Missile Launcher!')
 end
 
 function M3JanusNorthDefensesCheck()
-    # When a certain percentage of Janus's northern defenses has been killed, send in the Aeon Commander
+    -- When a certain percentage of Janus's northern defenses has been killed, send in the Aeon Commander
     if not ScenarioInfo.M3AeonCDRDead then
         if not ScenarioInfo.M3AeonCommanderAssaultTime then
             ScenarioInfo.M3JanusNorthDefensesKilled = ScenarioInfo.M3JanusNorthDefensesKilled + 1
-            #LOG('GKR DEBUG: ' .. ScenarioInfo.M3JanusNorthDefensesKilled .. ' out of ' .. ScenarioInfo.M3JanusNorthDefensesCount .. ' defenses killed!')
+            -- LOG('GKR DEBUG: ' .. ScenarioInfo.M3JanusNorthDefensesKilled .. ' out of ' .. ScenarioInfo.M3JanusNorthDefensesCount .. ' defenses killed!')
 
             if ScenarioInfo.M3JanusNorthDefensesKilled >=(M3NorthDefensesPercentage * ScenarioInfo.M3JanusNorthDefensesCount) then
-                # Get 'em, boys... er... girl!
+                -- Get 'em, boys... er... girl!
                 ScenarioInfo.M3AeonCommanderAssaultTime = true
                 ForkThread(M3AeonCDRAttacksJanus)
             end
@@ -2357,7 +2357,7 @@ function M3P1Complete()
     ScenarioFramework.KillBaseInArea(ArmyBrains[CybranJanus], 'Mach_BaseDestroy_Area')
     ScenarioInfo.JanusDead = true
 
-    # === M3P2. Move Your Commander to the Gate ============================================== #
+    -- === M3P2. Move Your Commander to the Gate ============================================== #
 	ScenarioInfo.M3P2 = Objectives.Basic(
 		'primary', 'incomplete', OpStrings.M3P2Title, OpStrings.M3P2Description,
 		Objectives.GetActionIcon('move'),
@@ -2381,12 +2381,12 @@ function M3S1Complete()
 end
 
 function M3_AeonCDRDestroyed(unit)
-    #Aeon Commander destroyed, NIS (secondary)
+    -- Aeon Commander destroyed, NIS (secondary)
     ScenarioFramework.CDRDeathNISCamera(unit, 7)
 end
 
 function M3_CybranCDRDestroyed(unit)
-    #Cybran Commander destroyed, NIS (primary)
+    -- Cybran Commander destroyed, NIS (primary)
     ScenarioFramework.CDRDeathNISCamera(unit, 7)
 end
 
@@ -2394,8 +2394,8 @@ function M3PlayerReachedGate()
 	ScenarioInfo.M3P2:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
-    # Reached Qgate cam
-#    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, false)
+    -- Reached Qgate cam
+-- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, false)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
 
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.PlayerCDR,true)
@@ -2421,8 +2421,8 @@ function M3AeonCDRAttacksJanus()
     ScenarioInfo.M3AeonCDRPlatoon = ArmyBrains[Aeon]:MakePlatoon('', '')
 
     IssueClearCommands({ScenarioInfo.AeonCDR})
-#    IssuePatrol({ScenarioInfo.AeonCDR}, janusCDRPosition)
-#    ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {ScenarioInfo.AeonCDR}, 'Attack', 'TravellingFormation')
+-- IssuePatrol({ScenarioInfo.AeonCDR}, janusCDRPosition)
+-- ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {ScenarioInfo.AeonCDR}, 'Attack', 'TravellingFormation')
 
     local aeonCDRMoves = IssueMove({ScenarioInfo.AeonCDR}, ScenarioUtils.MarkerToPosition('M3_Aeon_CDR_Destination'))
     ForkThread(M3AeonCDRArrivesAtBase, aeonCDRMoves, janusCDRPosition)
@@ -2455,9 +2455,9 @@ function M3AeonCDRArrivesAtBase(MoveCommand, JanusPosition)
     IssuePatrol({ScenarioInfo.AeonCDR}, JanusPosition)
 end
 
-# --------------------------------------------------------------------------- #
-# === M3 REMINDERS ========================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === M3 REMINDERS ========================================================== #
+-- --------------------------------------------------------------------------- #
 function M3P1Reminder1()
     if not ScenarioInfo.JanusDead then
         ScenarioFramework.Dialogue(OpStrings.C02_M03_050)
@@ -2479,7 +2479,7 @@ function M3P1Reminder3()
     end
 end
 
-    #-
+    -- -
 
 function M3P2Reminder1()
     ScenarioFramework.Dialogue(OpStrings.C02_M03_060)
@@ -2496,9 +2496,9 @@ function M3P2Reminder3()
     ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, M3P2Reminder2Delay)
 end
 
-# --------------------------------------------------------------------------- #
-# === MISSION 3 COMPLETE ==================================================== #
-# --------------------------------------------------------------------------- #
+-- --------------------------------------------------------------------------- #
+-- === MISSION 3 COMPLETE ==================================================== #
+-- --------------------------------------------------------------------------- #
 function M3Complete()
     if not ScenarioInfo.OperationEnding then
         ScenarioInfo.OperationEnding = true
@@ -2512,7 +2512,7 @@ function PlayerCDRKilled(unit)
     if not ScenarioInfo.OperationEnding then
         ScenarioInfo.OperationEnding = true
         PlayerLose(OpStrings.C02_D02_010)
-#        ScenarioFramework.EndOperationCamera(unit, false)
+--    ScenarioFramework.EndOperationCamera(unit, false)
         ScenarioFramework.CDRDeathNISCamera(unit)
     end
 end
@@ -2563,29 +2563,29 @@ function AdjustForDifficulty(string_in)
     return string_out
 end
 
-# ---------------
-# Debug Functions
-# ---------------
-#function OnF4()
-#    StartMission2()
-#end
-#
-#function OnCtrlF4()
-#    StartMission3()
-#end
-#
-#function OnShiftF5()
-#    # local civTemp = ScenarioUtils.CreateArmyUnit('Civilian', 'Civ_Placeholder')
-#    #local playerTestGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_GROUP')
-#    M1SpawnSecondTechResponse()
-#end
-#
-#function OnCtrlF5()
-#    ScenarioFramework.Dialogue(ScenarioStrings.CybranGenericReminder)
-#    #local playerSuperGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_SUPERGROUP')
-#end
-#
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_R02_v01', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- ---------------
+-- Debug Functions
+-- ---------------
+-- function OnF4()
+-- StartMission2()
+-- end
+--
+-- function OnCtrlF4()
+-- StartMission3()
+-- end
+--
+-- function OnShiftF5()
+-- # local civTemp = ScenarioUtils.CreateArmyUnit('Civilian', 'Civ_Placeholder')
+-- #local playerTestGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_GROUP')
+-- M1SpawnSecondTechResponse()
+-- end
+--
+-- function OnCtrlF5()
+-- ScenarioFramework.Dialogue(ScenarioStrings.CybranGenericReminder)
+-- #local playerSuperGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_SUPERGROUP')
+-- end
+--
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_R02_v01', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end
 

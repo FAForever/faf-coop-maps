@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R02_v01/SCCA_Coop_R02_v01_cybranplan.lua
-#**  Author(s):  Grant Roberts
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R02_v01/SCCA_Coop_R02_v01_cybranplan.lua
+-- **  Author(s):  Grant Roberts
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 

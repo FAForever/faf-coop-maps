@@ -1,32 +1,32 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Seraphim army AI for Mission 2 - X1CA_Coop_006_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Seraphim army AI for Mission 2 - X1CA_Coop_006_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Seraphim = 5
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local SeraphimM2Base = BaseManager.CreateBaseManager()
 
 function SeraphimM2BaseAI()
 
-    # ----------------
-    # Seraphim M2 Base
-    # ----------------
+    -- ----------------
+    -- Seraphim M2 Base
+    -- ----------------
     SeraphimM2Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_Base', 'M2_Seraphim_Base_Marker', 130, {M2_Seraph_Base = 100})
     SeraphimM2Base:StartNonZeroBase({{4, 12, 18}, {4, 8, 14}})
 	SeraphimM2Base:SetMaximumConstructionEngineers(3)
@@ -41,11 +41,11 @@ end
 function SeraphimM2BaseAirAttacks()
     local opai = nil
 
-    # ------------------------------------
-    # Seraphim M2 Base Op AI - Air Attacks
-    # ------------------------------------
+    -- ------------------------------------
+    -- Seraphim M2 Base Op AI - Air Attacks
+    -- ------------------------------------
 
-    # sends [gunships]
+    -- sends [gunships]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks1',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
@@ -55,7 +55,7 @@ function SeraphimM2BaseAirAttacks()
     opai:SetChildQuantity('Gunships', 18)
     opai:SetLockingStyle('None')
 
-    # sends [gunships, combat fighters]
+    -- sends [gunships, combat fighters]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks2',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
@@ -65,7 +65,7 @@ function SeraphimM2BaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, 12)
     opai:SetLockingStyle('None')
 
-    # sends [bombers]
+    -- sends [bombers]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks3',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
@@ -74,7 +74,7 @@ function SeraphimM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', 30)
 
-    # sends [strat bombers]
+    -- sends [strat bombers]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks4',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
@@ -83,7 +83,7 @@ function SeraphimM2BaseAirAttacks()
     )
     opai:SetChildQuantity('StratBombers', 12)
 
-    # sends [air sups]
+    -- sends [air sups]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks5',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
@@ -92,7 +92,7 @@ function SeraphimM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', 12)
 
-    # Air Defense
+    -- Air Defense
 	for i = 1, 3 do
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirDefense1' .. i,
         {
@@ -122,11 +122,11 @@ function SeraphimM2BaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    # -------------------------------------
-    # Seraphim M2 Base Op AI - Land Attacks
-    # -------------------------------------
+    -- -------------------------------------
+    -- Seraphim M2 Base Op AI - Land Attacks
+    -- -------------------------------------
 
-    # sends engineers
+    -- sends engineers
     opai = SeraphimM2Base:AddOpAI('EngineerAttack', 'M2_SeraphimEngAttack1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -140,7 +140,7 @@ function SeraphimM2BaseLandAttacks()
     })
     opai:SetChildActive('T1Transports', false)
 
-    # Land Defense
+    -- Land Defense
     quantity = {2, 4, 6}
     opai = SeraphimM2Base:AddOpAI('BasicLandAttack', 'M2_SeraphimLandDefense1',
         {
@@ -180,11 +180,11 @@ end
 
 function SeraphimM2BaseNavalAttacks()
 
-    # --------------------------------------
-    # Seraphim M2 Base Op AI - Naval Attacks
-    # --------------------------------------
+    -- --------------------------------------
+    -- Seraphim M2 Base Op AI - Naval Attacks
+    -- --------------------------------------
 
-    # sends 20 frigate power to Fletcher
+    -- sends 20 frigate power to Fletcher
     local opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack_Fletcher',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -198,7 +198,7 @@ function SeraphimM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 	
-    # sends 20 frigate power
+    -- sends 20 frigate power
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack1',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
@@ -209,7 +209,7 @@ function SeraphimM2BaseNavalAttacks()
     )
 	opai:SetLockingStyle('None')
 
-    # sends 10 frigate power of [all but T3]
+    -- sends 10 frigate power of [all but T3]
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack2',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
@@ -220,7 +220,7 @@ function SeraphimM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    # sends 15 frigate power of [all but T3]
+    -- sends 15 frigate power of [all but T3]
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack3',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
@@ -231,7 +231,7 @@ function SeraphimM2BaseNavalAttacks()
     )
 	opai:SetLockingStyle('None')
 
-    # Naval Defense
+    -- Naval Defense
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalDefense1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

@@ -1,28 +1,28 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_aeonplanlist.lua
-#**  Author(s):
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
-#########################################
-# AIBrain Strategic Plans Definitions   #
-#########################################
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_aeonplanlist.lua
+-- **  Author(s):
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
+-- ########################################
+-- AIBrain Strategic Plans Definitions   #
+-- ########################################
 
 AIPlansList =
 {
-    # UEF Faction Plans
+    -- UEF Faction Plans
     {
     },
 
-    # AEON Faction Plans
+    -- AEON Faction Plans
     {
         '/maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_aeonaiplan.lua',
     },
 
-    # CYBRAN Faction Plans
+    -- CYBRAN Faction Plans
     {
     },
 }

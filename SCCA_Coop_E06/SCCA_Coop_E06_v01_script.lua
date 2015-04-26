@@ -1,12 +1,12 @@
-﻿#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E06_v01/SCCA_Coop_E06_v01_script.lua
-#**  Author(s):  Drew Staltman
-#**
-#**  Summary  : Main mission flow script for SCCA_Coop_E06_v01
-#**
-#**  Copyright ÃÂ© 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+﻿-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E06_v01/SCCA_Coop_E06_v01_script.lua
+-- **  Author(s):  Drew Staltman
+-- **
+-- **  Summary  : Main mission flow script for SCCA_Coop_E06_v01
+-- **
+-- **  Copyright ÃÂ© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
@@ -16,11 +16,11 @@ local OpStrings = import('/maps/SCCA_Coop_E06_v01/SCCA_Coop_E06_v01_Strings.lua'
 local ScenarioStrings = import('/lua/scenariostrings.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-#local BaseManager = import('/lua/ai/opai/basemanager.lua')
+-- local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 
 
-# === GLOBAL VARIABLES === #
+-- === GLOBAL VARIABLES === #
 ScenarioInfo.Player = 1
 ScenarioInfo.BlackSun = 2
 ScenarioInfo.Aeon = 3
@@ -30,7 +30,7 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
-# === LOCAL VARIABLES === #
+-- === LOCAL VARIABLES === #
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -44,76 +44,76 @@ local Component = ScenarioInfo.Component
 local M1B1EnemiesKilled = 500
 local M1B2ExperimentalNeeded = 5
 
-# === TUNING VARIABLES === #
+-- === TUNING VARIABLES === #
 
-#! MISSION ONE VARIABLES
-# Delay before mentioning the transports to the player
+-- ! MISSION ONE VARIABLES
+-- Delay before mentioning the transports to the player
 local M1FirstTransportPrepTimer = 10
 
-# Delay before giving the player the component
+-- Delay before giving the player the component
 local M1ComponentSightedTimer = 15
 
-# Delay after all transports have landed that mission completes
+-- Delay after all transports have landed that mission completes
 local M1EndMission1Delay = 15
 
-# M1 Objective reminder
+-- M1 Objective reminder
 local M1ObjectiveReminderTimer = 300
 
-# Number of Cybran Transports to build
+-- Number of Cybran Transports to build
 ScenarioInfo.VarTable['CybranT2TransportCount_D1'] = 12
 ScenarioInfo.VarTable['CybranT2TransportCount_D2'] = 18
 ScenarioInfo.VarTable['CybranT2TransportCount_D3'] = 18
 
 
-#! MISSION TWO VARIABLES
+-- ! MISSION TWO VARIABLES
 
-# Delay after mission completes that 2nd mission starts
+-- Delay after mission completes that 2nd mission starts
 local M2StartMission2Delay = 10
 
-# Delay after M2 has begun that the player is informed of the Aeon Base
+-- Delay after M2 has begun that the player is informed of the Aeon Base
 local M2AeonBaseDialogueTimer = 15
 
-# Time after Spider Bots are sent that the capture transports will be sent
+-- Time after Spider Bots are sent that the capture transports will be sent
 local M2CybranCaptureTimer = 600
 
-# Timer after M2 Starts that a nuke is launched at the player base
+-- Timer after M2 Starts that a nuke is launched at the player base
 local M2AeonNukeTimer = 120
 
-# Timer after M2 starts that the Aeon build artillery
+-- Timer after M2 starts that the Aeon build artillery
 local M2AeonArtilleryTimer = 720
 
-# Timer to repeat sending out the capture groups as long as spider are around
+-- Timer to repeat sending out the capture groups as long as spider are around
 local M2CybranCaptureRepeatTimer = 300
 
-# Timer to send more air units with the spider bots attack
+-- Timer to send more air units with the spider bots attack
 local M2CybranSpiderAirTimer = 180
 
-# Timer to nuke again in M2
+-- Timer to nuke again in M2
 local M2AeonNukeClumpTimer = 300
 
-# Timer to play objective reminders
+-- Timer to play objective reminders
 local M2ObjectiveReminderTimer = 300
 
-# Timer to delay giving units to player
+-- Timer to delay giving units to player
 local M2TransferUnitDelay = 10
 
 
 
-#! MISSION THREE VARIABLES
+-- ! MISSION THREE VARIABLES
 
-# Timer for each segment of the final duration countdown: There are 20 segments
+-- Timer for each segment of the final duration countdown: There are 20 segments
 local M3ChargeTimerSegmentDuration = 90
 
-# Delay after 10 minutes to begin wave 2
+-- Delay after 10 minutes to begin wave 2
 local M3AttackTwoDelay = 67
 
-# Delay after 20 minutes to begin wave 3
+-- Delay after 20 minutes to begin wave 3
 local M3AttackThreeDelay = 43
 
-# Delay for M3 Reminders
+-- Delay for M3 Reminders
 local M3ObjectiveReminderTimer = 300
 
-# Timers for spacing between clump nuking for le fun
+-- Timers for spacing between clump nuking for le fun
 ScenarioInfo.VarTable['M3NukeClumpTimer_D1'] = 480
 ScenarioInfo.VarTable['M3NukeClumpTimer_D2'] = 300
 ScenarioInfo.VarTable['M3NukeClumpTimer_D3'] = 150
@@ -163,7 +163,7 @@ function OnPopulate(scen)
     for i=2,table.getn(ArmyBrains) do
     end
 
-    # Player Army
+    -- Player Army
     ScenarioUtils.CreateArmyGroup('Player', 'Naval_Base')
     ScenarioUtils.CreateArmyGroup('Player', 'Black_Sun_Defenses')
     ScenarioUtils.CreateArmyGroup('Player', 'West_Factory_Group')
@@ -187,13 +187,13 @@ function OnPopulate(scen)
     local group = ScenarioUtils.CreateArmyGroup('Player', 'Starting_Air_North')
     ScenarioFramework.GroupPatrolChain(group, 'Player_North_Patrol_Chain')
 
-    # Give Player Anti-Nukes
+    -- Give Player Anti-Nukes
     for num,unit in ArmyBrains[Player]:GetListOfUnits(categories.ueb4302, false) do
         unit:GiveTacticalSiloAmmo(2)
     end
 
 
-    # Base markers
+    -- Base markers
     ArmyBrains[Aeon]:PBMRemoveBuildLocation(nil, 'MAIN')
     ArmyBrains[Aeon]:PBMAddBuildLocation('Aeon_M2_Base', 120, 'AeonM2Base')
     ArmyBrains[Aeon]:PBMAddBuildLocation('Aeon_Arnold_Base', 120, 'AeonArnoldBase')
@@ -203,7 +203,7 @@ function OnPopulate(scen)
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_Base'), 75, 'CybranBase')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_Naval_Base'), 75, 'CybranNaval')
 
-    # Base Templates
+    -- Base Templates
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'M3_Arnold_Base')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'M3_Arnold_Base_D'..ScenarioInfo.Options.Difficulty, 'M3_Arnold_Base')
 
@@ -222,7 +222,7 @@ function OnPopulate(scen)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Forward_Base')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Forward_Base_D'..ScenarioInfo.Options.Difficulty, 'M3_Forward_Base')
 
-    # Black_Sun
+    -- Black_Sun
     ScenarioInfo.BlackSunControlCenter = ScenarioUtils.CreateArmyUnit('Black_Sun', 'Black_Sun_Control_Center')
     ScenarioInfo.BlackSunControlCenter:SetCanBeKilled(false)
     ScenarioInfo.BlackSunControlCenter:SetCanTakeDamage(false)
@@ -246,7 +246,7 @@ function OnPopulate(scen)
         v:SetCanBeKilled(false)
     end
 
-    # Aeon
+    -- Aeon
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Base_D' .. ScenarioInfo.Options.Difficulty)
     local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'M2_Base'
@@ -254,7 +254,7 @@ function OnPopulate(scen)
     plat.PlatoonData.LocationType = 'AeonM2Base'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    # Cybran
+    -- Cybran
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Base_D' .. ScenarioInfo.Options.Difficulty)
     local engPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Engineer_Platoon_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
     engPlatoon.PlatoonData.AssistFactories = true
@@ -267,38 +267,38 @@ function OnPopulate(scen)
     ScenarioInfo.VarTable['CybranT2TransportCount'] = ScenarioInfo.VarTable['CybranT2TransportCount_D'..ScenarioInfo.Options.Difficulty]
 
 
-    # Fill Cybran Nuke Launchers
+    -- Fill Cybran Nuke Launchers
     for num,unit in ArmyBrains[Cybran]:GetListOfUnits(categories.urb2305, false) do
         unit:GiveNukeSiloAmmo(5)
     end
 
 
 
-    # Bonus Objectives
-#    ScenarioFramework.CreateArmyStatTrigger(BPlayerBuiltExperimentals, ArmyBrains[Player], 'BonusExperimentalCounter', {
-#                                                { StatType = 'Units_History', CompareType = 'GreaterThanOrEqual', Value = M1B2ExperimentalNeeded, Category = categories.EXPERIMENTAL, },
-#                                            }
-#                                       )
-#    ScenarioFramework.CreateArmyStatTrigger(BPlayerKill500Enemy, ArmyBrains[Player], 'BonusPlayerKillCount', {
-#                                                { StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = M1B1EnemiesKilled, Category = categories.ALLUNITS - categories.WALL, },
-#                                            }
-#                                       )
+    -- Bonus Objectives
+-- ScenarioFramework.CreateArmyStatTrigger(BPlayerBuiltExperimentals, ArmyBrains[Player], 'BonusExperimentalCounter', {
+--                                            { StatType = 'Units_History', CompareType = 'GreaterThanOrEqual', Value = M1B2ExperimentalNeeded, Category = categories.EXPERIMENTAL, },
+--                                        }
+--                                   )
+-- ScenarioFramework.CreateArmyStatTrigger(BPlayerKill500Enemy, ArmyBrains[Player], 'BonusPlayerKillCount', {
+--                                            { StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = M1B1EnemiesKilled, Category = categories.ALLUNITS - categories.WALL, },
+--                                        }
+--                                   )
 
-    # Buildable Categories
-        # Restrictions
+    -- Buildable Categories
+        -- Restrictions
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.EXPERIMENTAL +
                                       categories.ueb2302 +
                                       categories.ueb4301 +
                                       categories.ues0304 )
     end
-        # Allowed
+        -- Allowed
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ues0401)
     end
 
-    # NIS Units
-        # Components
+    -- NIS Units
+        -- Components
     ScenarioInfo.DeathTransport = ScenarioUtils.CreateArmyUnit('Black_Sun', 'Death_Transport_Unit')
     ScenarioInfo.DeathTransport:SetCanBeKilled(false)
     ScenarioInfo.InvincibleTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'Invincible_Transports', 'ChevronFormation')
@@ -318,7 +318,7 @@ function OnPopulate(scen)
     ScenarioInfo.BlackSunEscorts = ScenarioUtils.CreateArmyGroup('Black_Sun', 'Escorts')
 
     ScenarioInfo.BlackSunComponent = ScenarioUtils.CreateArmyUnit('Component', 'Black_Sun_Component_Unit')
-        # Aeon
+        -- Aeon
     ScenarioInfo.AeonIntroAirPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Air_Group_Intro', 'ChevronFormation')
     ScenarioInfo.AeonIntroNavalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Naval_Group_Intro', 'AttackFormation')
 end
@@ -334,8 +334,8 @@ function IntroCameras()
     ForkThread(CreatePlayer)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Start_Camera_Area'), 4)
     WaitSeconds(5)
-    Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('M1_Playable_PreArea'), 1.3) #1.3
-    #Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('M1_Playable_Area'), .55)
+    Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('M1_Playable_PreArea'), 1.3) -- 1.3
+    -- Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('M1_Playable_Area'), .55)
     Cinematics.ExitNISMode()
 end
 
@@ -367,7 +367,7 @@ function CreatePlayer()
     WaitSeconds(1.5)
     IntroNIS()
     WaitSeconds(3)
-    # Opening dialogue
+    -- Opening dialogue
     ScenarioFramework.Dialogue(OpStrings.E06_M01_005)
 end
 
@@ -387,12 +387,12 @@ end
 
 
 
-# === INTRO NIS === #
+-- === INTRO NIS === #
 function IntroNIS()
-    # Attach units to transports
+    -- Attach units to transports
     ScenarioFramework.AttachUnitsToTransports({ScenarioInfo.BlackSunComponent}, {ScenarioInfo.DeathTransport})
 
-    # Move Transports to Blacksun
+    -- Move Transports to Blacksun
     for num,unit in ScenarioInfo.InvincibleTransports:GetPlatoonUnits() do
         ScenarioFramework.AttachUnitsToTransports({ScenarioInfo.InvincibleComponents[num]}, {unit})
     end
@@ -404,13 +404,13 @@ function IntroNIS()
         table.insert(newGroup, ScenarioFramework.GiveUnitToArmy(v, Player))
     end
     ForkThread(MoveEscorts, newGroup)
-    #ScenarioInfo.BlackSunEscorts:Patrol(ScenarioUtils.MarkerToPosition('INTRO_West_Island_Marker'))
-    #ScenarioInfo.BlackSunEscorts:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
+    -- ScenarioInfo.BlackSunEscorts:Patrol(ScenarioUtils.MarkerToPosition('INTRO_West_Island_Marker'))
+    -- ScenarioInfo.BlackSunEscorts:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 
     ScenarioInfo.AeonIntroAirPlatoon:Patrol(ScenarioUtils.MarkerToPosition('INTRO_West_Island_Marker'))
     ScenarioInfo.AeonIntroAirPlatoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 
-    # Check if the transport is in range to die
+    -- Check if the transport is in range to die
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(IntroKillTransport, ScenarioInfo.DeathTransport, 'INTRO_Island_Death_Marker', 12)
     ForkThread(MoveComponents, unloadCmd)
 	
@@ -445,7 +445,7 @@ end
 function IntroKillTransport(unit)
     unit:SetCanBeKilled(true)
 
-    # Transport dying camera
+    -- Transport dying camera
     local camInfo = {
         blendTime = 1.0,
         holdTime = 7,
@@ -459,7 +459,7 @@ function IntroKillTransport(unit)
 
     unit:Kill()
     ScenarioInfo.BlackSunComponent:Destroy()
-    #ForkThread(IntroMoveFallenComponent)
+    -- ForkThread(IntroMoveFallenComponent)
     StartMission1()
 end
 
@@ -468,10 +468,10 @@ end
 
 
 
-# === MISSION ONE FUNCTIONS === #
+-- === MISSION ONE FUNCTIONS === #
 function StartMission1()
 
-    # Begin scenario Scripting
+    -- Begin scenario Scripting
     ScenarioFramework.Dialogue(OpStrings.E06_M01_010)
     ScenarioFramework.Dialogue(OpStrings.E06_M01_020)
     ScenarioInfo.MissionNumber = 1
@@ -496,15 +496,15 @@ end
 
 function ComponentSightedThread()
     ScenarioInfo.ComponentAreaTrigger = ScenarioFramework.CreateAreaTrigger(CheckComponent, 'Black_Sun_Component_Area', categories.ope6003, false, false, ArmyBrains[Player])
-#    ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player)
-#    #WaitTicks(1)
-#    ScenarioInfo.BlackSunComponent:SetCanTakeDamage(false)
-#    ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
-#    ScenarioInfo.BlackSunComponent:SetReclaimable(false)
-#    ScenarioInfo.BlackSunComponent:SetCapturable(false)
+-- ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player)
+-- #WaitTicks(1)
+-- ScenarioInfo.BlackSunComponent:SetCanTakeDamage(false)
+-- ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
+-- ScenarioInfo.BlackSunComponent:SetReclaimable(false)
+-- ScenarioInfo.BlackSunComponent:SetCapturable(false)
 
-    #if ScenarioInfo.BlackSunComponent:IsDead() then
-    #    LOG('*DEBUG: Component was dead')
+    -- if ScenarioInfo.BlackSunComponent:IsDead() then
+    -- LOG('*DEBUG: Component was dead')
     ScenarioInfo.BlackSunComponent = ScenarioUtils.CreateArmyUnit('Component', 'Black_Sun_Component_Unit')
     ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player)
     Warp(ScenarioInfo.BlackSunComponent, ScenarioUtils.MarkerToPosition('INTRO_Component_Move'))
@@ -512,7 +512,7 @@ function ComponentSightedThread()
     ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
     ScenarioInfo.BlackSunComponent:SetReclaimable(false)
     ScenarioInfo.BlackSunComponent:SetCapturable(false)
-    #end
+    -- end
 
     ScenarioInfo.M1P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description,
         Objectives.GetActionIcon('move'),
@@ -552,7 +552,7 @@ function CheckComponent(unit)
     if unit == ScenarioInfo.BlackSunComponent and not unit:IsUnitState('Attached') then
         ForkThread(ComponentAtBlackSun)
         local newUnit = ScenarioFramework.GiveUnitToArmy(unit, BlackSun)
-# component reaches blacksun cam
+-- component reaches blacksun cam
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -564,8 +564,8 @@ function CheckComponent(unit)
 
         WaitTicks(1)
         IssueMove({newUnit}, ScenarioUtils.MarkerToPosition('Component_Move_Marker_1'))
-#        local moveDelay = ((camInfo.blendTime + camInfo.holdTime) * 10) + 1
-#        WaitTicks(moveDelay)
+--    local moveDelay = ((camInfo.blendTime + camInfo.holdTime) * 10) + 1
+--    WaitTicks(moveDelay)
 
         ScenarioInfo.ComponentAreaTrigger:Destroy()
     end
@@ -577,17 +577,17 @@ function ComponentAtBlackSun()
     EndMission1()
 end
 
-#function BPlayerBuiltExperimentals()
-#    ScenarioInfo.ExperimentalBonus = Objectives.Basic('bonus', 'complete', OpStrings.M1B2Title, LOCF(OpStrings.M1B2Description,M1B2ExperimentalNeeded))
-#    ScenarioInfo.ExperimentalBonus:ManualResult(true)
-#    ScenarioFramework.Dialogue(ScenarioStrings.BObjComp)
-#end
+-- function BPlayerBuiltExperimentals()
+-- ScenarioInfo.ExperimentalBonus = Objectives.Basic('bonus', 'complete', OpStrings.M1B2Title, LOCF(OpStrings.M1B2Description,M1B2ExperimentalNeeded))
+-- ScenarioInfo.ExperimentalBonus:ManualResult(true)
+-- ScenarioFramework.Dialogue(ScenarioStrings.BObjComp)
+-- end
 
-#function BPlayerKill500Enemy()
-#    ScenarioInfo.KillBonus = Objectives.Basic('bonus', 'complete', OpStrings.M1B1Title, LOCF(OpStrings.M1B1Description,M1B1EnemiesKilled))
-#    ScenarioInfo.KillBonus:ManualResult(true)
-#    ScenarioFramework.Dialogue(ScenarioStrings.BObjComp)
-#end
+-- function BPlayerKill500Enemy()
+-- ScenarioInfo.KillBonus = Objectives.Basic('bonus', 'complete', OpStrings.M1B1Title, LOCF(OpStrings.M1B1Description,M1B1EnemiesKilled))
+-- ScenarioInfo.KillBonus:ManualResult(true)
+-- ScenarioFramework.Dialogue(ScenarioStrings.BObjComp)
+-- end
 
 function M1ObjectiveReminder()
     if ScenarioInfo.MissionNumber == 1 then
@@ -617,9 +617,9 @@ end
 
 
 
-# === MISSION 2 FUNCTIONS === #
+-- === MISSION 2 FUNCTIONS === #
 function StartMission2()
-    # Set MissionNumber, Set Objectives, Play Dialogue, Set Area
+    -- Set MissionNumber, Set Objectives, Play Dialogue, Set Area
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.SetPlayableArea('M2_Playable_Area_1')
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
@@ -630,7 +630,7 @@ function StartMission2()
     end
     ScenarioFramework.Dialogue(OpStrings.E06_M02_020)
 
-    # Allowed restrictions
+    -- Allowed restrictions
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb2302 +
                                          categories.ueb4301 +
@@ -639,7 +639,7 @@ function StartMission2()
     end
 
 
-    # Create Aeon base and death trigger for the base
+    -- Create Aeon base and death trigger for the base
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Base_Defenses_D'..ScenarioInfo.Options.Difficulty)
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Base_Tactical_Missiles_D'..ScenarioInfo.Options.Difficulty)
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'M3_SW_Base_Defenses_D'..ScenarioInfo.Options.Difficulty, 'M2_Base')
@@ -651,10 +651,10 @@ function StartMission2()
     aeonCDR[1]:CreateEnhancement('Shield')
     aeonCDR[1]:CreateEnhancement('CrysalisBeam')
 
-    # Timers for further Dialogue
+    -- Timers for further Dialogue
     ScenarioFramework.CreateTimerTrigger(M2AeonBaseDialogue, M2AeonBaseDialogueTimer)
 
-    # Fill Aeon anti-nukes
+    -- Fill Aeon anti-nukes
     for num,unit in ArmyBrains[Aeon]:GetListOfUnits(categories.uab4302, false) do
         unit:GiveTacticalSiloAmmo(3)
     end
@@ -663,12 +663,12 @@ function StartMission2()
     end
     ScenarioFramework.CreateTimerTrigger(M2NukeAttackStart, M2AeonNukeTimer)
 
-    # Unlock a var table entry to allow Aeon to begin building some freaking artillery
+    -- Unlock a var table entry to allow Aeon to begin building some freaking artillery
     if ScenarioInfo.Options.Difficulty == 3 then
         ScenarioFramework.CreateTimerTrigger(M2AeonArtilleryUnlock, M2AeonArtilleryTimer)
     end
 
-    # Spawn in defensive naval units and send them out to their destinations
+    -- Spawn in defensive naval units and send them out to their destinations
     for i=1,ScenarioInfo.Options.Difficulty do
         local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M2_Start_Navy_'..i, 'AttackFormation')
         plat.PlatoonData.PatrolChain = 'Aeon_M2_Defensive_Fleets_Chain_' .. i
@@ -676,12 +676,12 @@ function StartMission2()
         plat:ForkAIThread(M2AeonNavalGroupThread)
     end
 
-    # Objective Reminder Timer
+    -- Objective Reminder Timer
     ScenarioFramework.CreateTimerTrigger(M2ObjectiveReminder, M2ObjectiveReminderTimer)
     Objectives.UpdateBasicObjective(ScenarioInfo.M1P1Obj, 'description', OpStrings.M2P1Description)
 end
 
-# Do stuff when player kills the Aeon CDR in M2
+-- Do stuff when player kills the Aeon CDR in M2
 function M2AeonCDRDestroyed(unit)
     ScenarioFramework.CDRDeathNISCamera(unit, 7)
 end
@@ -697,7 +697,7 @@ function M2ObjectiveReminder()
     end
 end
 
-# Warn player about Aeon base to the south east; create LOS intel trigger of new island
+-- Warn player about Aeon base to the south east; create LOS intel trigger of new island
 function M2AeonBaseDialogue()
     ScenarioFramework.CreateArmyIntelTrigger(M2AeonBaseSighted, ArmyBrains[Player], 'LOSNow', false, true,
                                              categories.STRUCTURE, true, ArmyBrains[Aeon])
@@ -709,7 +709,7 @@ function M2AeonBaseDialogue()
    )
 end
 
-# Confirm dialogue when Aeon Base sighted
+-- Confirm dialogue when Aeon Base sighted
 function M2AeonBaseSighted()
     if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5 then
         ScenarioFramework.Dialogue(OpStrings.E06_M02_030)
@@ -718,19 +718,19 @@ function M2AeonBaseSighted()
     end
 end
 
-# Unlocks engineers to build Artillery in Aeon Base
+-- Unlocks engineers to build Artillery in Aeon Base
 function M2AeonArtilleryUnlock()
-    #LOG('*DEBUG: Unlocking Artillery')
+    -- LOG('*DEBUG: Unlocking Artillery')
     ScenarioInfo.VarTable['AeonM2ArtilleryUnlocked'] = true
 end
 
-# Attack player with a nuke from Aeon Base
+-- Attack player with a nuke from Aeon Base
 function M2NukeAttackStart()
     local nukeLaunchers = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
     for num, unit in nukeLaunchers do
         if not unit:IsDead() then
             IssueNuke({unit}, ScenarioUtils.MarkerToPosition('Aeon_M2_Nuke_Target'))
-            #LOG('*DEBUG: NUKE LAUNCH M2 AEON')
+            -- LOG('*DEBUG: NUKE LAUNCH M2 AEON')
             break
         end
     end
@@ -739,7 +739,7 @@ function M2NukeAttackStart()
     end
 end
 
-# Nuke a clump in M2
+-- Nuke a clump in M2
 function M2AeonNukeClump()
     local clumpNum = GetLowestNonNegativeClumpThread(Aeon)
     if clumpNum > 0 then
@@ -747,14 +747,14 @@ function M2AeonNukeClump()
         for num, unit in nukeLaunchers do
             if not unit:IsDead() and unit:GetNukeSiloAmmoCount() > 0 then
                 IssueNuke({unit}, ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_'..clumpNum))
-                #LOG('*DEBUG: NUKE LAUNCH M2 AEON')
+                -- LOG('*DEBUG: NUKE LAUNCH M2 AEON')
                 break
             end
         end
     end
 end
 
-# Platoon AI that sends naval groups off to fight as needed
+-- Platoon AI that sends naval groups off to fight as needed
 function M2AeonNavalGroupThread(platoon)
     ScenarioFramework.PlatoonPatrolChain(platoon, platoon.PlatoonData.PatrolChain)
     local aiBrain = platoon:GetBrain()
@@ -768,7 +768,7 @@ function M2AeonNavalGroupThread(platoon)
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition(platoon.PlatoonData.BaseReturnMarker), false)
 end
 
-# When the Aeon base is destroyed begin the cybran assault
+-- When the Aeon base is destroyed begin the cybran assault
 function M2AeonBaseDefeated()
     ScenarioInfo.M2AeonBaseDefeatedBool = true
     if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
@@ -782,7 +782,7 @@ function M2AeonBaseDefeated()
     ForkThread(M2TransferUnitsToPlayer)
 end
 
-# Wait a number of seconds then fly in units and transfer them to the player.
+-- Wait a number of seconds then fly in units and transfer them to the player.
 function M2TransferUnitsToPlayer()
     WaitSeconds(M2TransferUnitDelay)
     while GetArmyUnitCostTotal(Player) > 425 do
@@ -803,11 +803,11 @@ function M2TransferUnitsToPlayer()
             return
         end
     end
-#    if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
-#        ScenarioFramework.Dialogue(OpStrings.E06_M02_050)
-#    else
-#        ScenarioFramework.Dialogue(OpStrings.E06_M02_055)
-#    end
+-- if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
+--    ScenarioFramework.Dialogue(OpStrings.E06_M02_050)
+-- else
+--    ScenarioFramework.Dialogue(OpStrings.E06_M02_055)
+-- end
     for k,v in units do
         if not v:IsDead() then
             ScenarioFramework.GiveUnitToArmy(v,Player)
@@ -820,21 +820,21 @@ function M2TransferUnitsToPlayer()
     end
 end
 
-# Send Spider bot attack and start timer for capturing the control center
+-- Send Spider bot attack and start timer for capturing the control center
 function M2CybranAttackBegin()
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.SetPlayableArea('M2_Playable_Area_2')
 
     local lastSpiderBot
 
-    # Create and move Spider bots
+    -- Create and move Spider bots
     local spiderBots = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
     for num, unit in spiderBots:GetPlatoonUnits() do
         IssueMove({ScenarioInfo.UnitNames[Cybran]['Spider_'..num]}, ScenarioUtils.MarkerToPosition('Cybran_Spider_Move_'..num))
         lastSpiderBot = unit
     end
 
-    # Create and move light assault bots
+    -- Create and move light assault bots
     local allBots = {}
     for i=1,ScenarioInfo.Options.Difficulty*2 do
         local bots = ScenarioUtils.CreateArmySubGroup('Cybran', 'M2_Spider_Light_Bots', 'Bot_'..i)
@@ -846,11 +846,11 @@ function M2CybranAttackBegin()
         ScenarioFramework.CreateGroupDeathTrigger(LightBotsKilled, bots)
     end
 
-    # Create and move Air units
+    -- Create and move Air units
     local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_Spider_Air_Chain')
 
-    # Nuke Clump 4
+    -- Nuke Clump 4
     if ScenarioInfo.Options.Difficulty > 1 then
         local nukeLaunchers = ArmyBrains[Cybran]:GetListOfUnits(categories.urb2305, false)
         for num, unit in nukeLaunchers do
@@ -860,7 +860,7 @@ function M2CybranAttackBegin()
         end
     end
 
-    # Set triggers for Cybran attack events
+    -- Set triggers for Cybran attack events
     ScenarioFramework.CreatePlatoonDeathTrigger(M2SpiderBotsDestroyed, spiderBots)
     ScenarioFramework.CreateAreaTrigger(M2CybranCaptureBegin, 'Control_Center_Area', categories.url0402, true, false, ArmyBrains[Cybran])
     ScenarioFramework.CreateTimerTrigger(M2CybranCaptureBegin, M2CybranCaptureTimer)
@@ -880,7 +880,7 @@ function M2CybranAttackBegin()
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 
-# Spiderbot introduction
+-- Spiderbot introduction
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -893,9 +893,9 @@ function M2CybranAttackBegin()
 
 end
 
-# If Diff > 1 then attack with more air to be cruel and hilarious
+-- If Diff > 1 then attack with more air to be cruel and hilarious
 function M2CybranRepeatSpiderAir()
-    #LOG('*DEBUG: REPEAT SPIDER AIR ATTACK')
+    -- LOG('*DEBUG: REPEAT SPIDER AIR ATTACK')
     if ScenarioInfo.MissionNumber == 2 then
         local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Spider_Air_Attack_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
         ScenarioFramework.PlatoonPatrolChain(plat, 'Cybran_M2_Spider_Air_Chain')
@@ -917,14 +917,14 @@ function LightBotsKilled()
     end
 end
 
-# Set bool when the spiders have been killed
+-- Set bool when the spiders have been killed
 function M2SpiderBotsDestroyed()
     ScenarioInfo.M2SpiderBotAttackPlatoonDestroyed = true
     ForkThread(M2CybranCaptureBegin)
     M2CheckCybranGroups()
 end
 
-# Send out the transports with engineers the first time
+-- Send out the transports with engineers the first time
 function M2CybranCaptureBegin()
     if not ScenarioInfo.M2CybranCaptureBlackSunGroupSent then
         if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
@@ -937,10 +937,10 @@ function M2CybranCaptureBegin()
     end
 end
 
-# Send the capture group and repeat if needed
+-- Send the capture group and repeat if needed
 function M2CybranCaptureSend(forceSend)
     if not ScenarioInfo.M2SpiderBotAttackPlatoonDestroyed or forceSend then
-        #LOG('*DEBUG: SENDING CYBRAN CAPTURE ATTACK')
+        -- LOG('*DEBUG: SENDING CYBRAN CAPTURE ATTACK')
         if not ScenarioInfo.M2CaptureGroups then
             ScenarioInfo.M2CaptureGroups = 1
         else
@@ -954,7 +954,7 @@ function M2CybranCaptureSend(forceSend)
         ScenarioFramework.CreatePlatoonDeathTrigger(M2CybranEscortsKilled, escorts)
         ScenarioFramework.PlatoonPatrolChain(escorts, 'Control_Center_Patrol_Chain')
 
-        # repeat as needed
+        -- repeat as needed
         ScenarioFramework.CreateTimerTrigger(M2CybranCaptureSend, M2CybranCaptureRepeatTimer)
         WaitSeconds(10)
         local loadCmd = transports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Black_Sun_Control_Center_Marker'))
@@ -963,7 +963,7 @@ function M2CybranCaptureSend(forceSend)
         end
         transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_Transport_Pool_Marker'), false)
         ArmyBrains[Cybran]:AssignUnitsToPlatoon('TransportPool', transports, 'Scout', 'ChevronFormation')
-        if ArmyBrains[Cybran]:PlatoonExists(passengers) and ScenarioInfo.BlackSunControlCenter:GetAIBrain() != ArmyBrains[Cybran]then
+        if ArmyBrains[Cybran]:PlatoonExists(passengers) and ScenarioInfo.BlackSunControlCenter:GetAIBrain() ~= ArmyBrains[Cybran]then
             for num, unit in passengers:GetPlatoonUnits() do
                 if EntityCategoryContains(categories.ENGINEER, unit) then
                     IssueCapture({unit}, ScenarioInfo.BlackSunControlCenter)
@@ -973,7 +973,7 @@ function M2CybranCaptureSend(forceSend)
     end
 end
 
-# Dialogue and reset unit when control center captured and update global unit
+-- Dialogue and reset unit when control center captured and update global unit
 function M2BlackSunControlCenterCaptured(newUnit, captor)
     ForkThread(M2BlackSunControlCenterCapturedThread, newUnit, captor)
 end
@@ -998,7 +998,7 @@ function M2BlackSunControlCenterCapturedThread(newUnit, captor)
             }
        )
 
-# Control Center captured by bad guys camera
+-- Control Center captured by bad guys camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -1011,7 +1011,7 @@ function M2BlackSunControlCenterCapturedThread(newUnit, captor)
     end
 end
 
-# When Player recaptures black sun, dialogue, set up triggers, other awesomeness
+-- When Player recaptures black sun, dialogue, set up triggers, other awesomeness
 function M2PlayerRecaptureControlCenter(newUnit, captor)
     ForkThread(M2PlayerRecaptureControlCenterThread, newUnit, captor)
 end
@@ -1037,7 +1037,7 @@ function M2PlayerRecaptureControlCenterThread(newUnit, captor)
         ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
         M2CheckCybranGroups()
 
-# Control Center captured by player camera
+-- Control Center captured by player camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -1049,7 +1049,7 @@ function M2PlayerRecaptureControlCenterThread(newUnit, captor)
     end
 end
 
-# When Passengers killed
+-- When Passengers killed
 function M2CybranPassengersKilled()
     if not ScenarioInfo.M2CybranPassengersKilledCounter then
         ScenarioInfo.M2CybranPassengersKilledCounter = 1
@@ -1059,7 +1059,7 @@ function M2CybranPassengersKilled()
     M2CheckCybranGroups()
 end
 
-# When Escorts killed
+-- When Escorts killed
 function M2CybranEscortsKilled()
     if not ScenarioInfo.M2CybranEscortsKilledCounter then
         ScenarioInfo.M2CybranEscortsKilledCounter = 1
@@ -1069,7 +1069,7 @@ function M2CybranEscortsKilled()
     M2CheckCybranGroups()
 end
 
-# Check if all Cybran Attack group units are killed
+-- Check if all Cybran Attack group units are killed
 function M2CheckCybranGroups()
     if ScenarioInfo.M2SpiderBotAttackPlatoonDestroyed and
         ScenarioInfo.M2CybranEscortsKilledCounter == ScenarioInfo.M2CaptureGroups and
@@ -1080,7 +1080,7 @@ function M2CheckCybranGroups()
     end
 end
 
-# Cleanup for mission 2
+-- Cleanup for mission 2
 function EndMission2()
     if not ScenarioInfo.M2Ended then
         ScenarioInfo.M2Ended = true
@@ -1105,7 +1105,7 @@ end
 
 
 
-# === MISSION 3 FUNCTIONS === #
+-- === MISSION 3 FUNCTIONS === #
 function StartMission3()
     if ScenarioInfo.MissionNumber ~= 3 then
         for k,v in ScenarioInfo.BlackSunCannon do
@@ -1117,7 +1117,7 @@ function StartMission3()
         ScenarioInfo.MissionNumber = 3
         ScenarioFramework.Dialogue(ScenarioStrings.PObjUpdate)
 
-        # Give the Player ability to make le Mavor
+        -- Give the Player ability to make le Mavor
         for _, player in ScenarioInfo.HumanPlayers do
                  ScenarioFramework.RemoveRestriction(player, categories.ueb2401)
         end
@@ -1128,7 +1128,7 @@ function StartMission3()
             ScenarioFramework.Dialogue(OpStrings.E06_M03_015)
         end
 
-        # Create Aeon Stuff
+        -- Create Aeon Stuff
         ScenarioInfo.ArnoldPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3_Arnold_Unit', 'AttackFormation')
         ScenarioFramework.CreateUnitDestroyedTrigger(M3ArnoldDefeated, ScenarioInfo.ArnoldPlatoon:GetPlatoonUnits()[1])
         ScenarioInfo.ArnoldPlatoon:ForkAIThread(M3ArnoldAIThread)
@@ -1155,7 +1155,7 @@ function StartMission3()
         plat.PlatoonData.LocationType = 'AeonM3Base'
         plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-        # Set Globals for this mission
+        -- Set Globals for this mission
         ScenarioInfo.VarTable['M3AllowAttacks'] = true
         ScenarioInfo.OSPlatoonCounter['Aeon_LandAssaultTransportCount_D1'] = 20
         ScenarioInfo.OSPlatoonCounter['Aeon_LandAssaultTransportCount_D2'] = 20
@@ -1163,23 +1163,23 @@ function StartMission3()
 
         ScenarioInfo.FinalAttackPlatoonCounter = 0
 
-        # Create 20 timer with updates
+        -- Create 20 timer with updates
         ScenarioFramework.CreateTimerTrigger(M3ChargeTimer, M3ChargeTimerSegmentDuration)
 
-        # Objective Reminders timer
-        # ScenarioFramework.CreateTimerTrigger(M3ObjectiveReminder, M3ObjectiveReminderTimer)
+        -- Objective Reminders timer
+        -- ScenarioFramework.CreateTimerTrigger(M3ObjectiveReminder, M3ObjectiveReminderTimer)
 
-        # Start the first attack wave - Naval
+        -- Start the first attack wave - Naval
         M3AttackWaveOne()
 
         Objectives.UpdateBasicObjective(ScenarioInfo.M1P1Obj, 'description', OpStrings.M3P1Description)
-        # ==== DEBUG ==== #
-        #     OnF4()
+        -- ==== DEBUG ==== #
+        -- OnF4()
 
-        #     ScenarioUtils.CreateArmyGroup('Cybran', 'M3_Forward_Base_D3')
-        #     M3BeforeFinalAttackNavy()
-        #     WaitSeconds(120)
-        #     M3FinalAttack()
+        -- ScenarioUtils.CreateArmyGroup('Cybran', 'M3_Forward_Base_D3')
+        -- M3BeforeFinalAttackNavy()
+        -- WaitSeconds(120)
+        -- M3FinalAttack()
     end
 end
 
@@ -1193,7 +1193,7 @@ function M3ObjectiveReminder()
     end
 end
 
-# Callback for timer; Creates self and handles proper number
+-- Callback for timer; Creates self and handles proper number
 function M3ChargeTimer()
     if not ScenarioInfo.M3ChargeCounter then
         ScenarioInfo.M3ChargeCounter = 1
@@ -1202,21 +1202,21 @@ function M3ChargeTimer()
     elseif not ScenarioInfo.M3ChargeComplete then
         ScenarioInfo.M3ChargeCounter = ScenarioInfo.M3ChargeCounter + 1
         if ScenarioInfo.M3ChargeCounter == 20 then
-#            ScenarioInfo.M3ChargeComplete = true
-#            for k,v in ScenarioInfo.BlackSunCannon do
-#                v:SetWorkProgress(1)
-#            end
-#            ForkThread(M3CheckArnoldAssaultGroups)
-#            if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
-#                ScenarioFramework.Dialogue(OpStrings.E06_M03_066)
-#            else
-#                ScenarioFramework.Dialogue(OpStrings.E06_M03_067)
-#            end
-            #LOG('*DEBUG: FINAL CHARGE FINISHED')
+--        ScenarioInfo.M3ChargeComplete = true
+--        for k,v in ScenarioInfo.BlackSunCannon do
+--            v:SetWorkProgress(1)
+--        end
+--        ForkThread(M3CheckArnoldAssaultGroups)
+--        if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
+--            ScenarioFramework.Dialogue(OpStrings.E06_M03_066)
+--        else
+--            ScenarioFramework.Dialogue(OpStrings.E06_M03_067)
+--        end
+            -- LOG('*DEBUG: FINAL CHARGE FINISHED')
         else
             Objectives.UpdateBasicObjective(ScenarioInfo.M1P1Obj, 'progress', OpStrings['M3P1Progress'..ScenarioInfo.M3ChargeCounter])
             ScenarioFramework.CreateTimerTrigger(M3ChargeTimer, M3ChargeTimerSegmentDuration)
-            # Dialogue
+            -- Dialogue
             if ScenarioInfo.M3ChargeCounter == 4 then
                 if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
                     ScenarioFramework.Dialogue(OpStrings.E06_M03_020)
@@ -1242,7 +1242,7 @@ function M3ChargeTimer()
                     ScenarioFramework.Dialogue(OpStrings.E06_M03_065)
                 end
             end
-            # Attacks
+            -- Attacks
             if ScenarioInfo.M3ChargeCounter == 4 then
                 M3AttackWaveZero()
                 PlayTaunt()
@@ -1265,15 +1265,15 @@ function M3ChargeTimer()
             v:SetWorkProgress(ScenarioInfo.M3ChargeCounter/20)
         end
     end
-    #LOG('*DEBUG: M3 CHARGE TIMER CALLED - '..ScenarioInfo.M3ChargeCounter)
+    -- LOG('*DEBUG: M3 CHARGE TIMER CALLED - '..ScenarioInfo.M3ChargeCounter)
 end
 
-# First scripted attack of M3 - Naval Cybran and Aeon
+-- First scripted attack of M3 - Naval Cybran and Aeon
 function M3AttackWaveOne()
     local aeonNavy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A1_Naval_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(aeonNavy, 'Aeon_M3_Attack_One_Chain')
 
-    # 6 minutes for destroyers to hit land
+    -- 6 minutes for destroyers to hit land
     local cybNavyGroup = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A1_Naval_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybNavyGroup,'Cybran_M3_Attack_One_Group_Chain')
 
@@ -1284,14 +1284,14 @@ function M3AttackWaveOne()
     ScenarioFramework.PlatoonAttackChain(cybNavyWest, 'Cybran_M3_Attack_One_West_Chain')
 end
 
-# Aeon Nukes followed by Cybran nukes on top of Aeon air ... then cybran air
+-- Aeon Nukes followed by Cybran nukes on top of Aeon air ... then cybran air
 function M3AttackWaveZero()
     local clumpNum = GetLowestNonNegativeClumpThread(Cybran)
     ForkThread(M3AttackWaveZeroAeon, clumpNum)
     ForkThread(M3AttackWaveZeroCybran, clumpNum)
 end
 
-# Returns the clump number of the highest threat clumpity clump clump
+-- Returns the clump number of the highest threat clumpity clump clump
 function GetLowestNonNegativeClumpThread(brainNum)
     local aiBrain = ArmyBrains[brainNum]
     local clumpNum = 0
@@ -1307,7 +1307,7 @@ function GetLowestNonNegativeClumpThread(brainNum)
     return clumpNum
 end
 
-# Aeon nukes and moves in
+-- Aeon nukes and moves in
 function M3AttackWaveZeroAeon(clumpNum)
     local nukeLaunchers = {}
     for i=1,5 do
@@ -1320,9 +1320,9 @@ function M3AttackWaveZeroAeon(clumpNum)
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 end
 
-# Cybran moves in then nukes
+-- Cybran moves in then nukes
 function M3AttackWaveZeroCybran(clumpNum)
-    # nuke 3 or 9
+    -- nuke 3 or 9
     local nukeNum = 3
     if ArmyBrains[Cybran]:GetThreatAtPosition(ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_3'),2,false) <
         ArmyBrains[Cybran]:GetThreatAtPosition(ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_9'),2,false) then
@@ -1337,11 +1337,11 @@ function M3AttackWaveZeroCybran(clumpNum)
     airPlat1:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'))
 end
 
-# Second scripted attack of M3 - Cybran Land attacks - Aeon Nukes with Air and building of Aeon encampments
+-- Second scripted attack of M3 - Cybran Land attacks - Aeon Nukes with Air and building of Aeon encampments
 function M3AttackWaveTwo()
     WaitSeconds(M3AttackTwoDelay)
 
-    # Move the Cybran Units out
+    -- Move the Cybran Units out
     local cybSpiders = ScenarioUtils.CreateArmyGroup('Cybran', 'M3A2_Land_Spiders')
     for k,v in cybSpiders do
         if v.UnitName == 'AttackTwo_Spider_1' then
@@ -1369,10 +1369,10 @@ function M3AttackWaveTwo()
     local cybAir = ScenarioUtils.CreateArmyGroup('Cybran', 'M3A2_Air_Attack_D'..ScenarioInfo.Options.Difficulty)
     ScenarioFramework.GroupPatrolChain(cybAir, 'Cybran_M3_Attack_Two_Air_Chain')
 
-    # Aeon Nukes
-    # 1.5 minutes for units to be in range
+    -- Aeon Nukes
+    -- 1.5 minutes for units to be in range
     WaitSeconds(120)
-    #LOG('*DEBUG: AEON M3 WAVE TWO NUKES')
+    -- LOG('*DEBUG: AEON M3 WAVE TWO NUKES')
     local nukeLaunchers = {}
     for i=1,5 do
         table.insert(nukeLaunchers, ScenarioInfo.UnitNames[Aeon]['Arnold_Nuke_'..i])
@@ -1395,7 +1395,7 @@ function M3AttackWaveTwo()
         clumpCounter = clumpCounter + 1
     end
 
-    # Aeon Clearing Attacks
+    -- Aeon Clearing Attacks
     WaitSeconds(40)
     local aeonAirGroup1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Attack_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.GroupPatrolChain(aeonAirGroup1:GetPlatoonUnits(), 'Aeon_M3_Attack_Two_Air_G1_Chain')
@@ -1403,7 +1403,7 @@ function M3AttackWaveTwo()
     local aeonAirGroup2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.GroupPatrolChain(aeonAirGroup2:GetPlatoonUnits(), 'Aeon_M3_Attack_Two_Air_G2_Chain')
 
-    # Aeon Forward Base Building
+    -- Aeon Forward Base Building
     WaitSeconds(40)
     local aeonDefenseG1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A2_Air_Defense_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     ScenarioFramework.PlatoonPatrolChain(aeonDefenseG1, 'Aeon_M3_Attack_Two_Air_Defense_Chain')
@@ -1415,7 +1415,7 @@ function M3AttackWaveTwo()
     end
 end
 
-# Move and start building forward bases with transports
+-- Move and start building forward bases with transports
 function M3MoveStartAeonEngineers(engs,transports)
     local aiBrain = engs:GetBrain()
     local cmd = transports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Aeon_M3_Engineer_Landing_Marker'))
@@ -1454,11 +1454,11 @@ function M3MoveStartAeonEngineers(engs,transports)
     engs:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 end
 
-# Cybran take out aeon base with their own - Aeon send in a navy attack
+-- Cybran take out aeon base with their own - Aeon send in a navy attack
 function M3AttackWaveThree()
     WaitSeconds(M3AttackThreeDelay)
 
-    # Cybran Attacks
+    -- Cybran Attacks
     local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Transports_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Land_Assault_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.AttachUnitsToTransports(units:GetPlatoonUnits(), transports:GetPlatoonUnits())
@@ -1473,7 +1473,7 @@ function M3AttackWaveThree()
     local cybAir2 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Air_Attack_G2_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonAttackChain(cybAir1, 'Cybran_M3_Attack_Three_Air_G2_Chain')
 
-    # Send in Aeon Navy
+    -- Send in Aeon Navy
     local aeonNavyPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3A3_Navy_Attack_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     for k,v in aeonNavyPlat:GetPlatoonUnits() do
         if not v:IsDead() and EntityCategoryContains(categories.uas0401, v) then
@@ -1482,7 +1482,7 @@ function M3AttackWaveThree()
     end
     ScenarioFramework.PlatoonAttackChain(aeonNavyPlat, 'Aeon_M3_Attack_Three_Navy_G1_Chain')
 
-    # Send in the Cybran Engineers
+    -- Send in the Cybran Engineers
     WaitSeconds(30)
     local engTrans = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Forward_Base_Transports_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     local engs = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M3A3_Forward_Base_Engineers_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
@@ -1490,7 +1490,7 @@ function M3AttackWaveThree()
     ForkThread(M3MoveStartCybranEngineers, engs, engTrans)
 end
 
-# Land assault with the cybran
+-- Land assault with the cybran
 function M3CybranLandAssault(units, transports)
     local aiBrain = units:GetBrain()
     local cmd = transports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Cybran_M3_Land_Assault_Landing_Marker'))
@@ -1505,7 +1505,7 @@ function M3CybranLandAssault(units, transports)
     ScenarioFramework.PlatoonAttackChain(units, 'Cybran_M3_Attack_Three_Land_Assault_Chain')
 end
 
-# Begin building with cybran engineers
+-- Begin building with cybran engineers
 function M3MoveStartCybranEngineers(engs,transports)
     local aiBrain = engs:GetBrain()
     local cmd = transports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('Cybran_M3_Forward_Base_Landing_Marker'))
@@ -1542,21 +1542,21 @@ function M3MoveStartCybranEngineers(engs,transports)
     engs:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 end
 
-# Navy sent 2 minutes before last Aeon attack occurs
+-- Navy sent 2 minutes before last Aeon attack occurs
 function M3BeforeFinalAttackNavy()
-    # Aeon Navy
+    -- Aeon Navy
     local navyPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Naval_Group_D'..ScenarioInfo.Options.Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonMoveChain(navyPlat, 'Aeon_M3_Attack_Final_Naval_Chain')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, navyPlat)
 end
 
-# when blacksun alsmost full, begin the arnold assault.
+-- when blacksun alsmost full, begin the arnold assault.
 function M3FinalAttack()
-    # Turn off AMs
+    -- Turn off AMs
     ArmyBrains[Cybran]:AMPauseAttackManager()
     ArmyBrains[Aeon]:AMPauseAttackManager()
 
-    # Nuke the cybran outpost location
+    -- Nuke the cybran outpost location
     local nukeLaunchers = {}
     for i=1,5 do
         table.insert(nukeLaunchers, ScenarioInfo.UnitNames[Aeon]['Arnold_Nuke_'..i])
@@ -1566,14 +1566,14 @@ function M3FinalAttack()
         IssueNuke({nukeLaunchers[1]}, ScenarioUtils.MarkerToPosition('Aeon_M3_Attack_Final_Nuke_Marker'))
     end
 
-    # Aeon escorts and t-bombers
-    local escorts = ScenarioUtils.CreateArmyGroup('Aeon', 'M3AF_Air_Escort_D'..ScenarioInfo.Options.Difficulty)#, 'AttackFormation')
+    -- Aeon escorts and t-bombers
+    local escorts = ScenarioUtils.CreateArmyGroup('Aeon', 'M3AF_Air_Escort_D'..ScenarioInfo.Options.Difficulty)-- , 'AttackFormation')
     ScenarioFramework.GroupAttackChain(escorts, 'Aeon_M3_Attack_Final_Czar_Escorts_Chain')
 
-    local tBombers = ScenarioUtils.CreateArmyGroup('Aeon', 'M3AF_Air_Torp_Bombers_D'..ScenarioInfo.Options.Difficulty)#, 'AttackFormation')
+    local tBombers = ScenarioUtils.CreateArmyGroup('Aeon', 'M3AF_Air_Torp_Bombers_D'..ScenarioInfo.Options.Difficulty)-- , 'AttackFormation')
     ScenarioFramework.GroupAttackChain(tBombers, 'Aeon_M3_Attack_Final_Torpedo_Chain')
 
-    # Czar and its stored units
+    -- Czar and its stored units
     local czarPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Czar_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     local czarUnit = czarPlat:GetPlatoonUnits()[1]
     ScenarioFramework.CreatePlatoonDeathTrigger(M3CzarDestroyed, czarPlat)
@@ -1605,7 +1605,7 @@ function M3FinalAttack()
     local objectiveUnits = {}
     table.insert(objectiveUnits, czarPlat:GetPlatoonUnits()[1])
     table.insert(objectiveUnits, ScenarioInfo.ArnoldPlatoon:GetPlatoonUnits()[1])
-    # Objectives
+    -- Objectives
     ScenarioInfo.M3P2Obj = Objectives.Kill('primary', 'incomplete', OpStrings.M3P2Title, OpStrings.M3P2Description,
         {
             Units = objectiveUnits,
@@ -1614,7 +1614,7 @@ function M3FinalAttack()
 
     WaitSeconds(90)
 
-    # Land Transports
+    -- Land Transports
     local trans1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Transports_G1_D'..ScenarioInfo.Options.Difficulty, 'ChevronFormation')
     local land1 = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M3AF_Land_G1_D'..ScenarioInfo.Options.Difficulty, 'AttackFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M3ArnoldAssaultGroupDefeated, land1)
@@ -1636,7 +1636,7 @@ function M3FinalAttack()
     ScenarioInfo.NumPlatoonsInPosition = 0
 end
 
-# Thread for arnold and his assault. Teleports when aeon units land
+-- Thread for arnold and his assault. Teleports when aeon units land
 function M3ArnoldAIThread(platoon)
     local aiBrain = platoon:GetBrain()
     local unit = platoon:GetPlatoonUnits()[1]
@@ -1646,7 +1646,7 @@ function M3ArnoldAIThread(platoon)
     while not ScenarioInfo.NumPlatoonsInPosition or ScenarioInfo.NumPlatoonsInPosition < 3 do
         WaitSeconds(1)
     end
-    #IssueTeleport({unit}, ScenarioUtils.MarkerToPosition('Aeon_Arnold_Assault_Landing_Marker'))
+    -- IssueTeleport({unit}, ScenarioUtils.MarkerToPosition('Aeon_Arnold_Assault_Landing_Marker'))
     Warp(unit, ScenarioUtils.MarkerToPosition('Aeon_M3_Attack_Final_Arnold_Teleport_Marker'))
     unit:PlayCommanderWarpInEffect()
     WaitSeconds(1)
@@ -1656,7 +1656,7 @@ function M3ArnoldAIThread(platoon)
         if not cannon:IsDead() and not unit:IsDead() and (Utilities.XZDistanceTwoVectors(unit:GetPosition(), cannon:GetPosition()) < 20) then
             IssueClearCommands({unit})
             IssueOverCharge({unit}, cannon)
-            #IssueAttack({unit}, cannon)
+            -- IssueAttack({unit}, cannon)
             WaitSeconds(10)
             break
         end
@@ -1668,12 +1668,12 @@ function M3FinalAttackCzarAI(platoon, storedPlats)
     local czar = platoon:GetPlatoonUnits()[1]
     local cmd
     local released = false
-    # move through locations
+    -- move through locations
     local posChain = ScenarioUtils.ChainToPositions('Aeon_M3_Attack_Final_Czar_Chain')
     local i = 1
     while i <= table.getn(posChain) do
         cmd = platoon:MoveToLocation(posChain[i], false)
-        # while the command is active and we haven't relased the units
+        -- while the command is active and we haven't relased the units
         while platoon:IsCommandsActive(cmd) and not released do
             local czarPos = platoon:GetPlatoonPosition()
             local target = platoon:FindClosestUnit('attack', 'Enemy', false, categories.ALLUNITS - categories.WALL)
@@ -1683,9 +1683,9 @@ function M3FinalAttackCzarAI(platoon, storedPlats)
             end
             if targetPos ~= false then
                 czarPos = platoon:GetPlatoonPosition()
-                # if closest non-wall is less than 100 away then release the bombers
+                -- if closest non-wall is less than 100 away then release the bombers
                 if VDist2(czarPos[1], czarPos[3], targetPos[1], targetPos[3]) < 100 then
-                    #LOG('*DEBUG: UNLOAD CZAR M3')
+                    -- LOG('*DEBUG: UNLOAD CZAR M3')
                     released = true
                     platoon:Stop()
                     IssueStop({czar})
@@ -1743,7 +1743,7 @@ function M3ArnoldAssaultGroupDefeated()
     else
         ScenarioInfo.M3ArnoldPlatoonsDefeated = ScenarioInfo.M3ArnoldPlatoonsDefeated + 1
     end
-    #M3CheckArnoldAssaultGroups()
+    -- M3CheckArnoldAssaultGroups()
 end
 
 function M3CzarDestroyed()
@@ -1753,21 +1753,21 @@ function M3CzarDestroyed()
     else
         ScenarioFramework.Dialogue(OpStrings.E06_M03_085)
     end
-#    local camInfo = {
-#        blendTime = 1,
-#        holdTime = 4,
-#        orientationOffset = { 0, 0.5, 0 },
-#        positionOffset = { 0, 0, 0 },
-#        zoomVal = 120,
-#    }
-#    ScenarioFramework.OperationNISCamera(?, camInfo)
+-- local camInfo = {
+--    blendTime = 1,
+--    holdTime = 4,
+--    orientationOffset = { 0, 0.5, 0 },
+--    positionOffset = { 0, 0, 0 },
+--    zoomVal = 120,
+-- }
+-- ScenarioFramework.OperationNISCamera(?, camInfo)
     M3CheckArnoldAssaultGroups()
 end
 
 function M3ArnoldDefeated(unit)
     ScenarioInfo.M3ArnoldUnitDestroyed = true
     ScenarioFramework.Dialogue(OpStrings.E06_M03_070)
-#    ScenarioFramework.CDRDeathNISCamera(unit, 7)
+-- ScenarioFramework.CDRDeathNISCamera(unit, 7)
     M3CheckArnoldAssaultGroups()
 end
 
@@ -1808,7 +1808,7 @@ function M3TransferCannon()
             unit:AddSpecialToggleEnable(M3BlackSunFired)
             unit:AddSpecialToggleDisable(M3BlackSunFired)
         end
-        # Blacksun Ready to Fire cam
+        -- Blacksun Ready to Fire cam
         local camInfo = {
             blendTime = 1,
             holdTime = 4,
@@ -1828,7 +1828,7 @@ function M3BlackSunFired(unit)
     end
 end
 
-# Player winz
+-- Player winz
 function EndMission3()
     ScenarioFramework.EndOperationSafety()
     if ScenarioInfo.M1P1Obj then
@@ -1837,18 +1837,18 @@ function EndMission3()
     if ScenarioInfo.M3P3Obj then
         ScenarioInfo.M3P3Obj:ManualResult(true)
     end
-    #ScenarioFramework.PlayEndGameMovie(1 , WinGame)
+    -- ScenarioFramework.PlayEndGameMovie(1 , WinGame)
     WinGame()
 end
 
 
 
 
-# === WIN LOSS FUNCTIONS === #
+-- === WIN LOSS FUNCTIONS === #
 function WinGame()
     ScenarioInfo.OpComplete = true
     local secondaries = true
-    #local bonus = Objectives.IsComplete(ScenarioInfo.KillBonus) and Objectives.IsComplete(ScenarioInfo.ExperimentalBonus)
+    -- local bonus = Objectives.IsComplete(ScenarioInfo.KillBonus) and Objectives.IsComplete(ScenarioInfo.ExperimentalBonus)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
@@ -1859,7 +1859,7 @@ function LoseGame()
 end
 
 function PlayerCommanderDestroyed(unit)
-#    ScenarioFramework.EndOperationCamera(unit)
+-- ScenarioFramework.EndOperationCamera(unit)
     ScenarioFramework.CDRDeathNISCamera(unit)
     ScenarioInfo.CDRDeath = true
     if not ScenarioInfo.BlackSunDestroyed then
@@ -1877,7 +1877,7 @@ function AikoDestroyed()
 end
 
 function BlackSunCannonDestroyed(unit)
-#    ScenarioFramework.EndOperationCamera(unit)
+-- ScenarioFramework.EndOperationCamera(unit)
     local camInfo = {
         blendTime = 2.5,
         holdTime = nil,
@@ -1900,69 +1900,69 @@ end
 
 
 
-# === DEBUG FUNCTIONS === #
-# function OnF3()
-#     #LOG('*SCENARIO DEBUG: Player Unit Cap: ', repr(GetArmyUnitCostTotal(Player)))
-#     #LOG('*SCENARIO DEBUG: Aeon Unit Cap: ', repr(GetArmyUnitCostTotal(Aeon)))
-#     #LOG('*SCENARIO DEBUG: Cybran Unit Cap: ', repr(GetArmyUnitCostTotal(Cybran)))
-#     #LOG('*SCENARIO DEBUG: BlackSun Unit Cap: ', repr(GetArmyUnitCostTotal(BlackSun)))
-#     #LOG('*SCENARIO DEBUG: Component Unit Cap: ', repr(GetArmyUnitCostTotal(Component)))
-#     ScenarioUtils.CreateArmyGroup('Player', 'NavalWestDEBUG')
-# end
+-- === DEBUG FUNCTIONS === #
+-- function OnF3()
+-- #LOG('*SCENARIO DEBUG: Player Unit Cap: ', repr(GetArmyUnitCostTotal(Player)))
+-- #LOG('*SCENARIO DEBUG: Aeon Unit Cap: ', repr(GetArmyUnitCostTotal(Aeon)))
+-- #LOG('*SCENARIO DEBUG: Cybran Unit Cap: ', repr(GetArmyUnitCostTotal(Cybran)))
+-- #LOG('*SCENARIO DEBUG: BlackSun Unit Cap: ', repr(GetArmyUnitCostTotal(BlackSun)))
+-- #LOG('*SCENARIO DEBUG: Component Unit Cap: ', repr(GetArmyUnitCostTotal(Component)))
+-- ScenarioUtils.CreateArmyGroup('Player', 'NavalWestDEBUG')
+-- end
 
-# function OnShiftF3()
-#     #ScenarioUtils.CreateArmyGroup('Player', 'NavalEastDEBUG')
-#     BPlayerBuiltExperimentals()
-#     BPlayerKill500Enemy()
-# end
+-- function OnShiftF3()
+-- #ScenarioUtils.CreateArmyGroup('Player', 'NavalEastDEBUG')
+-- BPlayerBuiltExperimentals()
+-- BPlayerKill500Enemy()
+-- end
 
-# function OnCtrlF3()
-#     ScenarioUtils.CreateArmyGroup('Player', 'AirDEBUG')
-# end
+-- function OnCtrlF3()
+-- ScenarioUtils.CreateArmyGroup('Player', 'AirDEBUG')
+-- end
 
-#function OnF4()
-#    for k,v in ScenarioInfo.BlackSunEscortsPlatoon:GetPlatoonUnits() do
-#        if not v:IsDead() then
-#            v:Destroy()
-#        end
-#    end
-#    for k,v in ScenarioInfo.AeonIntroAirPlatoon:GetPlatoonUnits() do
-#        if not v:IsDead() then
-#            v:Destroy()
-#        end
-#    end
-#    for k,v in ScenarioInfo.AeonIntroNavalPlatoon:GetPlatoonUnits() do
-#        if not v:IsDead() then
-#            v:Destroy()
-#        end
-#    end
-#    StartMission2()
-#    M2NukeAttackStart()
-#end
+-- function OnF4()
+-- for k,v in ScenarioInfo.BlackSunEscortsPlatoon:GetPlatoonUnits() do
+--    if not v:IsDead() then
+--        v:Destroy()
+--    end
+-- end
+-- for k,v in ScenarioInfo.AeonIntroAirPlatoon:GetPlatoonUnits() do
+--    if not v:IsDead() then
+--        v:Destroy()
+--    end
+-- end
+-- for k,v in ScenarioInfo.AeonIntroNavalPlatoon:GetPlatoonUnits() do
+--    if not v:IsDead() then
+--        v:Destroy()
+--    end
+-- end
+-- StartMission2()
+-- M2NukeAttackStart()
+-- end
 
 function OnShiftF3()
-#    for num,unit in ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false) do
-#        unit:GiveNukeSiloAmmo(3)
-#    end
-#    for num,unit in ArmyBrains[Player]:GetListOfUnits(categories.ueb4302, false) do
-#        if unit:GetTacticalSiloAmmoCount() < 5 then
-#            unit:GiveTacticalSiloAmmo(1)
-#        end
-#    end
-#    M2NukeAttackStart()
-#    M2AeonNukeClump()
-#    EndMission2()
+-- for num,unit in ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false) do
+--    unit:GiveNukeSiloAmmo(3)
+-- end
+-- for num,unit in ArmyBrains[Player]:GetListOfUnits(categories.ueb4302, false) do
+--    if unit:GetTacticalSiloAmmoCount() < 5 then
+--        unit:GiveTacticalSiloAmmo(1)
+--    end
+-- end
+-- M2NukeAttackStart()
+-- M2AeonNukeClump()
+-- EndMission2()
     M3BlackSunFired()
 end
 
-#     # Allowed restrictions
+-- # Allowed restrictions
       for _, player in ScenarioInfo.HumanPlayers do
-       #     ScenarioFramework.RemoveRestriction(ArmyBrains[player], categories.ueb2302 +
-       #                                                categories.ueb4301 +
-       #                                                categories.uel0401 +
-       #                                                categories.ues0304 )
+       -- ScenarioFramework.RemoveRestriction(ArmyBrains[player], categories.ueb2302 +
+       --                                            categories.ueb4301 +
+       --                                            categories.uel0401 +
+       --                                            categories.ues0304 )
       end
-# end
+-- end
 
 function OnCtrlF4()
     ForkThread(M3FinalAttack)
@@ -1972,67 +1972,67 @@ function OnF5()
     ScenarioInfo.M3ChargeCounter = 15
     ForkThread(StartMission3)
 end
-#
-#function OnF5Thread()
-#    local newUnits = {}
-#    for num, unit in ScenarioInfo.BlackSunCannon do
-#        table.insert(newUnits, ScenarioFramework.GiveUnitToArmy(unit, Player))
-#    end
-#    ScenarioInfo.BlackSunCannon = newUnits
-#    WaitTicks(1)
-#    for num, unit in ScenarioInfo.BlackSunCannon do
-#        if not unit:IsDead() then
-#            unit:AddSpecialToggleEnable(M3BlackSunFired)
-#        end
-#    end
-#end
+--
+-- function OnF5Thread()
+-- local newUnits = {}
+-- for num, unit in ScenarioInfo.BlackSunCannon do
+--    table.insert(newUnits, ScenarioFramework.GiveUnitToArmy(unit, Player))
+-- end
+-- ScenarioInfo.BlackSunCannon = newUnits
+-- WaitTicks(1)
+-- for num, unit in ScenarioInfo.BlackSunCannon do
+--    if not unit:IsDead() then
+--        unit:AddSpecialToggleEnable(M3BlackSunFired)
+--    end
+-- end
+-- end
 
-# function OnShiftF5()
-#     for i=1,10 do
-#         CreateUnitHPR('uel0303', 'Player', 512,30,512+i, 0,0,0)
-#     end
-#     for i=1,10 do
-#         CreateUnitHPR('uel0303', 'Player', 514,30,512+i, 0,0,0)
-#     end
-# end
+-- function OnShiftF5()
+-- for i=1,10 do
+--     CreateUnitHPR('uel0303', 'Player', 512,30,512+i, 0,0,0)
+-- end
+-- for i=1,10 do
+--     CreateUnitHPR('uel0303', 'Player', 514,30,512+i, 0,0,0)
+-- end
+-- end
 
-# function MoveTimer()
-#     local recTable = {}
-#     table.insert(recTable,ScenarioUtils.AreaToRect('TimingRect'))
-#     local tickCounter = 0
-#     local category = categories.NAVAL * categories.MOBILE
-#     local aiBrain = ArmyBrains[Cybran]
-#     while true do
-#         local amount = 0
-#         local totalEntities = {}
-#         for k, v in recTable do
-#             local entities = GetUnitsInRect(v)
-#             if entities then
-#                 for ke, ve in entities do
-#                     totalEntities[table.getn(totalEntities) + 1] = ve
-#                 end
-#             end
-#         end
-#         local triggered = false
-#         local triggeringEntity
-#         local numEntities = table.getn(totalEntities)
-#         if numEntities > 0 then
-#             for k, v in totalEntities do
-#                 local contains = EntityCategoryContains(category, v)
-#                 if contains and (aiBrain and v:GetAIBrain() == aiBrain) then
-#                     triggered = true
-#                     break
-#                 end
-#             end
-#         end
-#         if triggered then
-#             break
-#         end
-#         tickCounter = tickCounter + 1
-#         WaitTicks(1)
-#     end
-#     #LOG('*DEBUG: UNITS AT TEST AREA IN '..tickCounter..' TICKS')
-# end
+-- function MoveTimer()
+-- local recTable = {}
+-- table.insert(recTable,ScenarioUtils.AreaToRect('TimingRect'))
+-- local tickCounter = 0
+-- local category = categories.NAVAL * categories.MOBILE
+-- local aiBrain = ArmyBrains[Cybran]
+-- while true do
+--     local amount = 0
+--     local totalEntities = {}
+--     for k, v in recTable do
+--         local entities = GetUnitsInRect(v)
+--         if entities then
+--             for ke, ve in entities do
+--                 totalEntities[table.getn(totalEntities) + 1] = ve
+--             end
+--         end
+--     end
+--     local triggered = false
+--     local triggeringEntity
+--     local numEntities = table.getn(totalEntities)
+--     if numEntities > 0 then
+--         for k, v in totalEntities do
+--             local contains = EntityCategoryContains(category, v)
+--             if contains and (aiBrain and v:GetAIBrain() == aiBrain) then
+--                 triggered = true
+--                 break
+--             end
+--         end
+--     end
+--     if triggered then
+--         break
+--     end
+--     tickCounter = tickCounter + 1
+--     WaitTicks(1)
+-- end
+-- #LOG('*DEBUG: UNITS AT TEST AREA IN '..tickCounter..' TICKS')
+-- end
 
 function OnCtrlAltF5()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)

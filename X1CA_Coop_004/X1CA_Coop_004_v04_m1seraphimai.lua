@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_004_v04/X1CA_Coop_004_v04_m1seraphimai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Seraphim army AI for Mission 1 - X1CA_Coop_004_v04
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_004_v04/X1CA_Coop_004_v04_m1seraphimai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Seraphim army AI for Mission 1 - X1CA_Coop_004_v04
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
@@ -15,24 +15,24 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Seraphim = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local SeraphimM1West = BaseManager.CreateBaseManager()
 local ForwardNorthBase = BaseManager.CreateBaseManager()
 local ForwardSouthBase = BaseManager.CreateBaseManager()
 
 function SeraphimM1WestAI()
 
-    # ----------------
-    # Seraphim M1 West
-    # ----------------
+    -- ----------------
+    -- Seraphim M1 West
+    -- ----------------
     SeraphimM1West:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M1_Seraph_West', 'Seraphim_M1_West', 50, {M1_Seraph_West = 100,})
     SeraphimM1West:StartNonZeroBase({{3, 5, 10}, {2, 3, 6}})
     SeraphimM1West:SetActive('AirScouting', true)
@@ -66,11 +66,11 @@ function SeraphimM1WestAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    # -----------------------------------
-    # Seraphim M1 West Op AI, Air Attacks
-    # -----------------------------------
+    -- -----------------------------------
+    -- Seraphim M1 West Op AI, Air Attacks
+    -- -----------------------------------
 
-    # sends 3, 6, 6 [bombers] if player has >= 12, 8, 5 AA
+    -- sends 3, 6, 6 [bombers] if player has >= 12, 8, 5 AA
     quantity = {3, 6, 6}
     trigger = {12, 8, 5}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack1',
@@ -86,7 +86,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR})
 
-    # sends 4, 6, 6 [gunships, combat fighter] if player has >= 7, 5, 3 T2/T3 AA
+    -- sends 4, 6, 6 [gunships, combat fighter] if player has >= 7, 5, 3 T2/T3 AA
     quantity = {4, 6, 6}
     trigger = {7, 5, 3}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack2',
@@ -102,7 +102,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR - categories.TECH1})
 
-    # sends 4, 6, 6 [interceptors] if player has >= 15, 10, 10 mobile air
+    -- sends 4, 6, 6 [interceptors] if player has >= 15, 10, 10 mobile air
     quantity = {4, 6, 6}
     trigger = {15, 10, 10}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack3',
@@ -118,7 +118,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 6, 6 [bombers] if player has >= 50, 40, 30 structures
+    -- sends 4, 6, 6 [bombers] if player has >= 50, 40, 30 structures
     quantity = {4, 6, 6}
     trigger = {50, 40, 30}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack4',
@@ -134,7 +134,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.STRUCTURE - categories.WALL})
 
-    # sends 4, 6, 6 [gunships] if player has >= 30, 20, 10 T2/T3 structures
+    -- sends 4, 6, 6 [gunships] if player has >= 30, 20, 10 T2/T3 structures
     quantity = {4, 6, 6}
     trigger = {30, 20, 10}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack5',
@@ -150,7 +150,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.STRUCTURE - categories.TECH1})
 
-    # sends 4, 6, 6 [gunships] if player has >= 75, 60, 40 mobile land units
+    -- sends 4, 6, 6 [gunships] if player has >= 75, 60, 40 mobile land units
     quantity = {4, 6, 6}
     trigger = {75, 60, 40}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack6',
@@ -166,7 +166,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 6, 9, 9 [combat fighter] if player has >= 75, 60, 40 mobile air units
+    -- sends 6, 9, 9 [combat fighter] if player has >= 75, 60, 40 mobile air units
     quantity = {6, 9, 9}
     trigger = {75, 60, 40}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack7',
@@ -182,7 +182,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 6, 6 [combat fighter, gunships] if player has >= 40, 30, 20 gunships
+    -- sends 4, 6, 6 [combat fighter, gunships] if player has >= 40, 30, 20 gunships
     quantity = {4, 6, 6}
     trigger = {40, 30, 20}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack8',
@@ -198,7 +198,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 9, 9 [gunships] if player has >= 50, 40, 30 T3 units
+    -- sends 6, 9, 9 [gunships] if player has >= 50, 40, 30 T3 units
     quantity = {6, 9, 9}
     trigger = {50, 40, 30}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack9',
@@ -214,7 +214,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 6, 9, 9 [combat fighter] if player has >= 1 strat bomber
+    -- sends 6, 9, 9 [combat fighter] if player has >= 1 strat bomber
     quantity = {6, 9, 9}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack10',
         {
@@ -229,7 +229,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 6, 9, 9 [gunships] if player has >= 300, 250, 200 units
+    -- sends 6, 9, 9 [gunships] if player has >= 300, 250, 200 units
     quantity = {6, 9, 9}
     trigger = {300, 250, 200}
     opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirAttack11',
@@ -246,7 +246,7 @@ function SeraphimM1WestAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # Air Defense
+    -- Air Defense
     for i = 1, 2 do
         opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirDefense' .. i,
             {
@@ -276,11 +276,11 @@ function SeraphimM1WestLandAttacks()
     local opai = nil
     local trigger = {}
 	
-	-- #Build Engineers
+	-- -- Build Engineers
 	-- local Template = {
         -- 'T2Engineers',
         -- 'NoPlan',
-        -- { 'xsl0208', 1, 2, 'Support', 'GrowthFormation' },	# T2 Engineers
+        -- { 'xsl0208', 1, 2, 'Support', 'GrowthFormation' },	-- T2 Engineers
     -- }
 	-- local Limit = {3, 5, 10}
     -- local Builder = {
@@ -298,11 +298,11 @@ function SeraphimM1WestLandAttacks()
     -- }
     -- ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
-    # ------------------------------------
-    # Seraphim M1 West Op AI, Land Attacks
-    # ------------------------------------
+    -- ------------------------------------
+    -- Seraphim M1 West Op AI, Land Attacks
+    -- ------------------------------------
 
-    # sends engineers
+    -- sends engineers
     if(Difficulty > 1) then
         trigger = {0, 9, 14}
         opai = SeraphimM1West:AddOpAI('EngineerAttack', 'M1_EngAttack1',
@@ -327,7 +327,7 @@ function SeraphimM1WestLandAttacks()
             {'default_brain', 'Player', 4, categories.DEFENSE * categories.STRUCTURE})
     end
 
-    # sends 3, 5, 5 [light bots] if player has >= 8, 5, 3 DF/IF
+    -- sends 3, 5, 5 [light bots] if player has >= 8, 5, 3 DF/IF
     quantity = {3, 5, 5}
     trigger = {8, 5, 3}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack1',
@@ -343,7 +343,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
 
-    # sends 3, 5, 5 [light tanks] if player has >= 10, 8, 6 DF/IF
+    -- sends 3, 5, 5 [light tanks] if player has >= 10, 8, 6 DF/IF
     quantity = {3, 5, 5}
     trigger = {10, 8, 6}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack2',
@@ -359,7 +359,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
 
-    # sends 3, 5, 5 [light artillery] if player has >= 40, 30, 20 units
+    -- sends 3, 5, 5 [light artillery] if player has >= 40, 30, 20 units
     quantity = {3, 5, 5}
     trigger = {40, 30, 20}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack3',
@@ -375,7 +375,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends 3, 5, 5 [mobile aa] if player has >= 10, 8, 6 planes
+    -- sends 3, 5, 5 [mobile aa] if player has >= 10, 8, 6 planes
     quantity = {3, 5, 5}
     trigger = {10, 8, 6}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack4',
@@ -391,7 +391,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4 [light tanks, heavy tanks] if player has >= 8, 6, 4 T2/T3 DF/IF
+    -- sends 4 [light tanks, heavy tanks] if player has >= 8, 6, 4 T2/T3 DF/IF
     trigger = {8, 6, 4}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack5',
         {
@@ -406,7 +406,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1})
 
-    # sends 4, 6, 6 [light artillery, mobile missiles] if player has >= 12, 10, 8 T2/T3 DF/IF
+    -- sends 4, 6, 6 [light artillery, mobile missiles] if player has >= 12, 10, 8 T2/T3 DF/IF
     quantity = {4, 6, 6}
     trigger = {12, 10, 8}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack6',
@@ -422,7 +422,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1})
 
-    # sends 4 [light tanks, heavy tanks] if player has >= 80, 60, 50 units
+    -- sends 4 [light tanks, heavy tanks] if player has >= 80, 60, 50 units
     trigger = {80, 60, 50}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack7',
         {
@@ -437,7 +437,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends 4, 6, 6 [light artillery, mobile missiles] if player has >= 100, 80, 70 units
+    -- sends 4, 6, 6 [light artillery, mobile missiles] if player has >= 100, 80, 70 units
     quantity = {4, 6, 6}
     trigger = {100, 80, 70}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack8',
@@ -453,7 +453,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends 8, 12, 12 [mobile aa, mobile shields] if player has >= 40, 30, 20 mobile air units
+    -- sends 8, 12, 12 [mobile aa, mobile shields] if player has >= 40, 30, 20 mobile air units
     quantity = {8, 12, 12}
     trigger = {40, 30, 20}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack9',
@@ -469,7 +469,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 8, 12, 12 [mobile flak, mobile shields] if player has >= 60, 50, 40 mobile air units
+    -- sends 8, 12, 12 [mobile flak, mobile shields] if player has >= 60, 50, 40 mobile air units
     quantity = {8, 12, 12}
     trigger = {60, 50, 40}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack10',
@@ -485,7 +485,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 6, 8, 8 [amphibious tanks, light tanks] if player has >= 10, 8, 6 T3 units
+    -- sends 6, 8, 8 [amphibious tanks, light tanks] if player has >= 10, 8, 6 T3 units
     quantity = {6, 8, 8}
     trigger = {10, 8, 6}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack11',
@@ -501,7 +501,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 8, 12, 12 [mobile flak, mobile shields] if player has >= 1 strat bomber
+    -- sends 8, 12, 12 [mobile flak, mobile shields] if player has >= 1 strat bomber
     quantity = {8, 12, 12}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack12',
         {
@@ -516,7 +516,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 8, 12, 12 [mobile missiles, light artillery] if player has >= 300, 250, 200 units
+    -- sends 8, 12, 12 [mobile missiles, light artillery] if player has >= 300, 250, 200 units
     quantity = {8, 12, 12}
     trigger = {300, 250, 200}
     opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandAttack13',
@@ -532,7 +532,7 @@ function SeraphimM1WestLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # Land Defense
+    -- Land Defense
     for i = 1, 4 do
         opai = SeraphimM1West:AddOpAI('BasicLandAttack', 'M1_LandDefense' .. i,
             {

@@ -1,18 +1,18 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_script.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :  This is the main file in control of the events during
-#**              operation E2.
-#**
-#**              My apologies for the confusing naming schemes used throughout;
-#**              this was the first operation completed and as a result it
-#**              was rather heavily revised after it was first complete.
-#**              This included adding a new mission between missions 1 and 2.
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_script.lua
+-- **  Author(s):  David Tomandl
+-- **
+-- **  Summary  :  This is the main file in control of the events during
+-- **              operation E2.
+-- **
+-- **              My apologies for the confusing naming schemes used throughout;
+-- **              this was the first operation completed and as a result it
+-- **              was rather heavily revised after it was first complete.
+-- **              This included adding a new mission between missions 1 and 2.
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
@@ -24,22 +24,22 @@ local OpStrings = import ('/maps/SCCA_Coop_E02_v02/SCCA_Coop_E02_v02_strings.lua
 local Weather = import('/lua/weather.lua')
 
 
-# ---------------
-# Debug Variables
-# ---------------
-# Difficulty values are
-# easy = 1
-# medium = 2
-# hard = 3
-# ScenarioInfo.Options.Difficulty is the difficulty passed in from the front end
+-- ---------------
+-- Debug Variables
+-- ---------------
+-- Difficulty values are
+-- easy = 1
+-- medium = 2
+-- hard = 3
+-- ScenarioInfo.Options.Difficulty is the difficulty passed in from the front end
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
 
-# ----------------------
-# Local Tuning Variables
-# ----------------------
+-- ----------------------
+-- Local Tuning Variables
+-- ----------------------
 
-# Multi-mission variables:
-# How often the player should be attacked, broken out by difficulty
+-- Multi-mission variables:
+-- How often the player should be attacked, broken out by difficulty
 local M1PeriodicAttackPlayerDelay = { 180, 150, 120 }
 local M2PeriodicAttackPlayerDelay = { 180, 150, 150 }
 local M3PeriodicAttackPlayerDelay = { 180, 150, 120 }
@@ -48,148 +48,148 @@ local M1PeriodicAttackPlayerInitialDelay = { 600, 300, 120 }
 local M2PeriodicAttackPlayerInitialDelay = { 600, 300, 120 }
 local M3PeriodicAttackPlayerInitialDelay = { 600, 300, 120 }
 
-# How often should we spawn a group to attack the trucks in M2
+-- How often should we spawn a group to attack the trucks in M2
 local M2PeriodicAttackDelayTruck = 60
 
-# How many attacks on the player before the attacking
-# wave gets more units?
+-- How many attacks on the player before the attacking
+-- wave gets more units?
 local M1AttacksBecomeMediumSizedAfter = 2
 local M1AttacksBecomeLargeSizedAfter = 5
 
 local M2AttacksBecomeMediumSizedAfter = 2
 local M2AttacksBecomeLargeSizedAfter = 5
 
-local M3AttacksBecomeMediumSizedAfter = 2 # currently unused
-local M3AttacksBecomeLargeSizedAfter = 5 # currently unused
+local M3AttacksBecomeMediumSizedAfter = 2 -- currently unused
+local M3AttacksBecomeLargeSizedAfter = 5 -- currently unused
 
-# What should the player's army unit cap be in each mission?
+-- What should the player's army unit cap be in each mission?
 local M1ArmyCap = 300
 local M2ArmyCap = 400
 local M3ArmyCap = 500
 
-# This is a bit complicated:
-# Route 1 is the west-most route to the player
-# Route 2 is the northwest route (most direct) to the player
-# Route 3 is the north-most route to the player
-# Research: attack the research base location instead of
-# the original base location
-# These are the relative chances that a periodic attack will
-# use that specific route.  The numbers only matter relative to
-# each other.
-# (THEY DO NOT HAVE TO ADD UP TO 100)
+-- This is a bit complicated:
+-- Route 1 is the west-most route to the player
+-- Route 2 is the northwest route (most direct) to the player
+-- Route 3 is the north-most route to the player
+-- Research: attack the research base location instead of
+-- the original base location
+-- These are the relative chances that a periodic attack will
+-- use that specific route.  The numbers only matter relative to
+-- each other.
+-- (THEY DO NOT HAVE TO ADD UP TO 100)
 local AttackPlayerRoute1Chance = 20
 local AttackPlayerRoute2Chance = 40
 local AttackPlayerRoute3Chance = 20
 local AttackResearchChance = 20
 
-# The relative chances of just a land attack, just an air attack,
-# or both.
-# (THEY DO NOT HAVE TO ADD UP TO 100)
+-- The relative chances of just a land attack, just an air attack,
+-- or both.
+-- (THEY DO NOT HAVE TO ADD UP TO 100)
 local SendLandSquadChance = 80
 local SendAirSquadChance = 5
 local SendLandAndAirSquadChance = 15
 
-# Bonus objective details
-#local BonusEnergyAmount = 10000
-#local BonusVeterancyLevelNeeded = 2 # this is 100 kills
+-- Bonus objective details
+-- local BonusEnergyAmount = 10000
+-- local BonusVeterancyLevelNeeded = 2 # this is 100 kills
 
-# Mission 1
+-- Mission 1
 
-# How often should the token attacks against the facility take place?
-#local M1PeriodicAttackDelayResearch = 60
+-- How often should the token attacks against the facility take place?
+-- local M1PeriodicAttackDelayResearch = 60
 
-# The initial health percentage of the research facility
+-- The initial health percentage of the research facility
 local M1ResearchFacilityInitialHealthPercentage = 46
 
-# How long does the player have until the research facility dies (in minutes)
+-- How long does the player have until the research facility dies (in minutes)
 local M1ResearchFacilityMinutesUntilDead = { 45, 33.5, 24 }
 
-# How often should the research facility lose health? (in seconds)
+-- How often should the research facility lose health? (in seconds)
 local M1ResearchFacilityHealthDrainInterval = 5
 
-# At which values of health will the research facility give warnings to the player?
-local ResearchFacilityHealthThreshold1 = 30 # 30%
-local ResearchFacilityHealthThreshold2 = 20 # 30%
-local ResearchFacilityHealthThreshold3 = 10 # 10%
+-- At which values of health will the research facility give warnings to the player?
+local ResearchFacilityHealthThreshold1 = 30 -- 30%
+local ResearchFacilityHealthThreshold2 = 20 -- 30%
+local ResearchFacilityHealthThreshold3 = 10 -- 10%
 
-# How long to delay the dialog, in seconds
+-- How long to delay the dialog, in seconds
 local M1_Dialogue_Delay_1 = 120
 local M1_Dialogue_Delay_2 = 300
 
-# How long to delay between reminders
+-- How long to delay between reminders
 local M1P1InitialReminderDelay = 600
 local M1P1ReoccuringReminderDelay = 600
 
 local M1P3InitialReminderDelay = 180
 local M1P3ReoccuringReminderDelay = 120
 
-# Mission 1.5
+-- Mission 1.5
 
-# How long after this mission starts before
-# we give another warning about the big attack?
+-- How long after this mission starts before
+-- we give another warning about the big attack?
 local M15TimeUntilWarningBeforeWave1 = 300
 
-# How long after the warning before
-# the big attack is launched?
+-- How long after the warning before
+-- the big attack is launched?
 local M15TimeUntilAttackOnResearchFacilityWave1 = 300
 
-# How long after the first wave is defeated before the second wave starts?
+-- How long after the first wave is defeated before the second wave starts?
 local M15TimeUntilAttackOnResearchFacilityWave2 = 30
 
-# How long after the first wave is defeated before the third wave starts?
+-- How long after the first wave is defeated before the third wave starts?
 local M15TimeUntilAttackOnResearchFacilityWave3 = 30
 
-# Mission 2
+-- Mission 2
 
-# How many seconds between trucks
+-- How many seconds between trucks
 local TruckInterval = 3
 
-# How long to wait before acknowledging another truck verbally
+-- How long to wait before acknowledging another truck verbally
 local TruckArrivalDialogDelay = 20
 local TruckRespawnDialogDelay = 45
 
-# How many trucks to send { difficulty 1, 2, 3 }
+-- How many trucks to send { difficulty 1, 2, 3 }
 local TotalNumberOfTrucks = { 8, 15, 9 }
 
-# Number of Aeon Light Radar stations that the player should capture
+-- Number of Aeon Light Radar stations that the player should capture
 local TotalAeonRadar = 3
 
-# This many trucks can be killed and the player will still succeed
-# (Difficulty 1: this doesn't apply.)
+-- This many trucks can be killed and the player will still succeed
+-- (Difficulty 1: this doesn't apply.)
 local TrucksAllowedToDie = { -1, 6, 3 }
 
-# How many land need to arrive at the civilian facility for it
-# to be considered "reinforced"
-# Gunships
+-- How many land need to arrive at the civilian facility for it
+-- to be considered "reinforced"
+-- Gunships
 local CivilianReinforcementsNeededGunships = 12
-# Tanks
+-- Tanks
 local CivilianReinforcementsNeededTanks = 20
-# Anti-air units
+-- Anti-air units
 local CivilianReinforcementsNeededAntiAir = 14
 
-# How long to delay between reminders
+-- How long to delay between reminders
 local M2P1InitialReminderDelay = 900
 local M2P1ReoccuringReminderDelay = 600
 
 local M2P2InitialReminderDelay = 300
 local M2P2ReoccuringReminderDelay = 600
 
-# Mission 3
+-- Mission 3
 
-# How long to delay the dialog, in seconds
+-- How long to delay the dialog, in seconds
 local M3_Aeon_Comment_Dialogue_Delay = 120
 local M3_Base_Hint_Dialogue_Delay = 300
 
-# How long after the player attacks the Aeon base to taunt him
-# a second and third time?
+-- How long after the player attacks the Aeon base to taunt him
+-- a second and third time?
 local M3Taunt2Delay = 480
 local M3Taunt3Delay = 420
 
-# How long to delay between reminders
+-- How long to delay between reminders
 local M3P2InitialReminderDelay = 1200
 local M3P2ReoccuringReminderDelay = 900
 
-#### Global variables
+-- ### Global variables
 ScenarioInfo.MissionNumber = 1
 
 ScenarioInfo.Player = 1
@@ -228,7 +228,7 @@ ScenarioInfo.NumberOfAeonRadarDestroyed = 0
 ScenarioInfo.M2AttackFinalOrdersGiven = false
 
 
-##### LOCALS #####
+-- #### LOCALS #####
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 
 local Difficulty1_Suffix = '_D1'
@@ -246,8 +246,8 @@ local TauntTable = {
     OpStrings.TAUNT8,
 }
 
-# It looks like we're cutting all NIS's from this op, so these will be permanent now.
-# Leaving this in for the mod community to play with. (Hi everyone! :)
+-- It looks like we're cutting all NIS's from this op, so these will be permanent now.
+-- Leaving this in for the mod community to play with. (Hi everyone! :)
 local SkipM1IntroNIS = true
 local SkipM2IntroNIS = true
 local SkipM3IntroNIS = true
@@ -261,20 +261,20 @@ local AllyResearch = ScenarioInfo.AllyResearch
 local AllyCivilian = ScenarioInfo.AllyCivilian
 local AeonNeutral = ScenarioInfo.AeonNeutral
 
-# How many units can the Aeon army have at maximum?
+-- How many units can the Aeon army have at maximum?
 local AeonUnitCap = 900
 
-# How often should we check the health of the research building to
-# see if we should give warnings about its health level
+-- How often should we check the health of the research building to
+-- see if we should give warnings about its health level
 local CheckResearchFacilityHealthInterval = 10
 
-# How many times we will try to give movement orders to a truck before giving up
-#local TruckOrderRepeatThreshold = 3
-# How long to wait after giving up before trying again
-# (The player will be notified each time we give up)
-#local SendTruckAgainDelay = 30
+-- How many times we will try to give movement orders to a truck before giving up
+-- local TruckOrderRepeatThreshold = 3
+-- How long to wait after giving up before trying again
+-- (The player will be notified each time we give up)
+-- local SendTruckAgainDelay = 30
 
-# This will control whether or not to alert the player that a truck has arrived safely
+-- This will control whether or not to alert the player that a truck has arrived safely
 local ReadyForTruckArrivedDialog = true
 local ReadyForTruckRespawnDialog = true
 
@@ -282,7 +282,7 @@ local M1Attacks = 0
 local M2Attacks = 0
 local M3Attacks = 0
 
-#### Routes and other tables of goodies
+-- ### Routes and other tables of goodies
 local AeonM1AirPatrol01Route = {
     ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point01'),
     ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point02'),
@@ -426,9 +426,9 @@ local AeonM2TruckAttackRoute2 = {
     ScenarioUtils.MarkerToPosition('Research_Attack_Point_3'),
 }
 
-#
-# Starter functions
-#
+--
+-- Starter functions
+--
 
 function CheatEconomy()
 	
@@ -446,17 +446,17 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
 
-    #Weather.CreateWeather()
+    -- Weather.CreateWeather()
 end
 
 function OnStart(self)
-    # This override will make sure that the Aeon army doesn't run into the unit cap
+    -- This override will make sure that the Aeon army doesn't run into the unit cap
     SetArmyUnitCap(Aeon, AeonUnitCap)
 
-    # Restrict the map
+    -- Restrict the map
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 
-    # Hide scores for non-player armies
+    -- Hide scores for non-player armies
     for i = 2, table.getn(ArmyBrains) do
         if i < ScenarioInfo.Coop1 then
             SetArmyShowScore(i, false)
@@ -491,7 +491,7 @@ function OnStart(self)
     ScenarioFramework.SetUEFAllyColor(AllyResearch)
     ScenarioFramework.SetUEFAllyColor(AllyCivilian)
 
-    # Take away units that the player shouldn't have access to
+    -- Take away units that the player shouldn't have access to
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.NAVAL)
     end
@@ -504,11 +504,11 @@ function OnStart(self)
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.EXPERIMENTAL)
     end
-    # Sonar buoy
+    -- Sonar buoy
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.ueb3102)
     end
-    # Torpedo Launcher
+    -- Torpedo Launcher
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.ueb2109)
     end
@@ -527,13 +527,13 @@ end
 
 function PreIntroNIS()
 
-    # Set up a lot of the initial units
+    -- Set up a lot of the initial units
 
-    # Create the groups for the research ally that will be destroyed in subsequent attacks
-    # (These are no longer destroyed, and are even given to the player when the player arrives)
+    -- Create the groups for the research ally that will be destroyed in subsequent attacks
+    -- (These are no longer destroyed, and are even given to the player when the player arrives)
     ScenarioInfo.ResearchGroup = ScenarioUtils.CreateArmyGroup('AllyResearch', AdjustForDifficulty('Base'))
 
-    # Create some of the key units and save handles to them
+    -- Create some of the key units and save handles to them
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
 
@@ -553,9 +553,9 @@ function PreIntroNIS()
     ScenarioInfo.ResearchFacility = ScenarioUtils.CreateArmyUnit('AllyResearch', 'Research_Facility')
     ScenarioInfo.ResearchFacility:SetReclaimable(false)
 
-    # Set up a trigger to go off if the commander dies
+    -- Set up a trigger to go off if the commander dies
     ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
-    # Delay the explosion so that we can catch it on camera
+    -- Delay the explosion so that we can catch it on camera
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
 
     for index, coopACU in ScenarioInfo.CoopCDR do
@@ -563,7 +563,7 @@ function PreIntroNIS()
         ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, coopACU)
     end
 
-    # Set up a trigger to go off if the Research Facility dies
+    -- Set up a trigger to go off if the Research Facility dies
     ScenarioFramework.CreateUnitDeathTrigger(ResearchFacilityDied, ScenarioInfo.ResearchFacility)
 
     ScenarioInfo.M1AirPatrol01 = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Air_Patrol01'))
@@ -598,9 +598,9 @@ function PreIntroNIS()
     ScenarioInfo.M1GroundPatrol07 = ScenarioUtils.CreateArmyGroup('Aeon', 'M1_Patrol07')
     ScenarioInfo.M1GroundPatrol08 = ScenarioUtils.CreateArmyGroup('Aeon', 'M1_Patrol08')
 
-    # I'm setting these patrols to go between markers; these markers
-    # were originally placed for other purposes, so have names that may look odd when
-    # used for this purpose
+    -- I'm setting these patrols to go between markers; these markers
+    -- were originally placed for other purposes, so have names that may look odd when
+    -- used for this purpose
     IssuePatrol(ScenarioInfo.M1GroundPatrol01, ScenarioUtils.MarkerToPosition('Aeon_Path_NW_6'))
     IssuePatrol(ScenarioInfo.M1GroundPatrol01, ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point02'))
 
@@ -736,10 +736,10 @@ function PreIntroNIS()
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.M1AirPatrol01, AeonM1AirPatrol01Route)
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.M1AirPatrol02, AeonM1AirPatrol02Route)
 
-    # Set up the patrolling repair unit at the research base
-    # Removed to force the player to get over there in order to repair the facility
-    #local PatrollingEngineer = ScenarioUtils.SpawnPlatoon('AllyResearch', 'Repair_Patrol01')
-    #ScenarioFramework.PlatoonPatrolRoute(PatrollingEngineer, AllyResearchRepairPatrolRoute)
+    -- Set up the patrolling repair unit at the research base
+    -- Removed to force the player to get over there in order to repair the facility
+    -- local PatrollingEngineer = ScenarioUtils.SpawnPlatoon('AllyResearch', 'Repair_Patrol01')
+    -- ScenarioFramework.PlatoonPatrolRoute(PatrollingEngineer, AllyResearchRepairPatrolRoute)
 
     TriggerHandle = {
         Active = true,
@@ -827,57 +827,57 @@ function PreIntroNIS()
     }
     ScenarioInfo.TriggerManager:AddAction(ActionHandle)
 
-    # Make the research facility get damaged
+    -- Make the research facility get damaged
     CauseInitialResearchFacilityDamage()
 
-    # It looks like we're cutting all NIS's in this op, so this will probably be permanent...
+    -- It looks like we're cutting all NIS's in this op, so this will probably be permanent...
     if not SkipM1IntroNIS then
         IntroNIS()
     else
         ScenarioFramework.CreateTimerTrigger(BeginMission1, 4.8)
-        #!BeginMission1()
+        -- !BeginMission1()
     end
 end
 
 function IntroNIS()
 
-    # This is a marker that happens to be located centrally, so I'm using it to expose the map during the NIS
+    -- This is a marker that happens to be located centrally, so I'm using it to expose the map during the NIS
     ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point04'), 27, ArmyBrains[Player])
 
-    # Now for the real NIS stuff: camera movements!
+    -- Now for the real NIS stuff: camera movements!
 
-    # Start things off
+    -- Start things off
     Cinematics.EnterNISMode()
 
-    # Play the video after a brief delay
+    -- Play the video after a brief delay
     ForkThread(PlayNIS1Video)
 
-    # Snap the camera to the view of the research base instantly
+    -- Snap the camera to the view of the research base instantly
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_01'))
 
-    # Move the camera around the base a bit
+    -- Move the camera around the base a bit
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_02'), 10)
 
-    # Let the player absorb what they're seeing
+    -- Let the player absorb what they're seeing
     WaitSeconds(3)
 
-    # Whisk the camera across the map to see where the UEF commander is in relation to this base
+    -- Whisk the camera across the map to see where the UEF commander is in relation to this base
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_03'), 10)
 
-    # Let the player absorb what they're seeing
+    -- Let the player absorb what they're seeing
     WaitSeconds(3)
 
-    # Bring the camera all the way back out to the highest zoom-out level
+    -- Bring the camera all the way back out to the highest zoom-out level
     Cinematics.CameraReset()
 
-    # Let the player absorb what they're seeing
+    -- Let the player absorb what they're seeing
     WaitSeconds(3)
 
-    # And we're done
+    -- And we're done
     Cinematics.ExitNISMode()
 
     ScenarioFramework.CreateTimerTrigger(BeginMission1,  4.8)
-    #!BeginMission1()
+    -- !BeginMission1()
 	
 end
 
@@ -886,7 +886,7 @@ function CauseInitialResearchFacilityDamage()
     ScenarioInfo.ResearchFacility:SetHealth(ScenarioInfo.ResearchFacility, newHealth)
     ScenarioInfo.ResearchFacilityCurrentHealth = newHealth
     ScenarioFramework.CreateTimerTrigger(HurtResearchFacility, M1ResearchFacilityHealthDrainInterval)
-    # Show the player how long they have to repair the building with an onscreen timer
+    -- Show the player how long they have to repair the building with an onscreen timer
     ScenarioInfo.CountdownTimer = ScenarioFramework.CreateTimerTrigger(KillResearchFacility, M1ResearchFacilityMinutesUntilDead[ Difficulty ] * 60, true)
 end
 
@@ -902,17 +902,17 @@ function BeginMission1()
     ScenarioInfo.VarTable['Mission1'] = true
 
 
-    # Bonus Objective 1
-    #ScenarioFramework.CreateArmyUnitCategoryVeterancyTrigger(KilledBonus, ArmyBrains[ Player ], categories.uea0203, BonusVeterancyLevelNeeded)
+    -- Bonus Objective 1
+    -- ScenarioFramework.CreateArmyUnitCategoryVeterancyTrigger(KilledBonus, ArmyBrains[ Player ], categories.uea0203, BonusVeterancyLevelNeeded)
 
-    # Bonus Objective 2
-    #ScenarioFramework.CreateArmyStatTrigger(EnergyBonus, ArmyBrains[ Player ], 'Generator',
-    #    {{ StatType = 'Economy_TotalProduced_Energy', CompareType = 'GreaterThan', Value = BonusEnergyAmount }})
+    -- Bonus Objective 2
+    -- ScenarioFramework.CreateArmyStatTrigger(EnergyBonus, ArmyBrains[ Player ], 'Generator',
+    -- {{ StatType = 'Economy_TotalProduced_Energy', CompareType = 'GreaterThan', Value = BonusEnergyAmount }})
 
-    # Look at the commander
-    #Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Starting_Camera_Area'))
+    -- Look at the commander
+    -- Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Starting_Camera_Area'))
 
-    # The research base allies with the player
+    -- The research base allies with the player
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, AllyResearch, 'Ally')
     end
@@ -927,7 +927,7 @@ function BeginMission1()
         {
             Area = 'Starting_Camera_Area',
             Category = categories.ueb0102,
-            #MarkArea = true,
+            -- MarkArea = true,
         }
    )
     ScenarioInfo.M1P3 = Objectives.Basic(
@@ -943,13 +943,13 @@ function BeginMission1()
    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder, M1P1InitialReminderDelay)
 
-# removed    ScenarioFramework.CreateTimerTrigger(M1AttackResearchFacilityLight, 1)
+-- removed    ScenarioFramework.CreateTimerTrigger(M1AttackResearchFacilityLight, 1)
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM1, M1PeriodicAttackPlayerInitialDelay[ Difficulty ])
 
-    # Dialog that will appear after a certain amount of time
+    -- Dialog that will appear after a certain amount of time
     ScenarioFramework.CreateTimerTrigger(Dialogue_M1_1, M1_Dialogue_Delay_1)
     ScenarioFramework.CreateTimerTrigger(Dialogue_M1_2, M1_Dialogue_Delay_2)
     ScenarioFramework.CreateTimerTrigger(CheckResearchFacilityHealth, CheckResearchFacilityHealthInterval)
@@ -971,95 +971,95 @@ function AttackPlayerM1()
     local newPlatoon
 
     if ScenarioInfo.MissionNumber == 1 then
-        # See how many times we have attacked already
-        # Spawn the appropriate force
+        -- See how many times we have attacked already
+        -- Spawn the appropriate force
         if M1Attacks < M1AttacksBecomeMediumSizedAfter then
-            # Small
+            -- Small
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Attack_Small'))
         elseif M1Attacks < M1AttacksBecomeLargeSizedAfter then
-            # Medium
+            -- Medium
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Attack_Medium'))
         else
-            # Large
+            -- Large
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M1_Attack_Large'))
         end
 
-        # Send them at the player
+        -- Send them at the player
         ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM1PeriodicAttackRoute)
 
-        # We have attacked one more time now
+        -- We have attacked one more time now
         M1Attacks = M1Attacks + 1
 
-        # Call this function again after the appropriate delay
+        -- Call this function again after the appropriate delay
         ScenarioFramework.CreateTimerTrigger(AttackPlayerM1, M1PeriodicAttackPlayerDelay[ Difficulty ])
     end
 end
 
 function AttackPlayerM2()
     if ScenarioInfo.MissionNumber == 2 then
-        # See how many times we have attacked already
-        # Spawn the appropriate force
+        -- See how many times we have attacked already
+        -- Spawn the appropriate force
         if M2Attacks < M2AttacksBecomeMediumSizedAfter then
-            # Small
+            -- Small
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Small'))
         elseif M2Attacks < M2AttacksBecomeLargeSizedAfter then
-            # Medium
+            -- Medium
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Medium'))
         else
-            # Large
+            -- Large
             newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Large'))
         end
 
-        # Send them at the player
+        -- Send them at the player
         if ScenarioFramework.UnitsInAreaCheck(categories.UEF, ScenarioUtils.AreaToRect('Player_Base_Area')) then
             local AttackPlayerBase = true
-            # See which route the platoon should follow
+            -- See which route the platoon should follow
             local randomNumber = Random(0, AttackPlayerRoute1Chance + AttackPlayerRoute2Chance + AttackPlayerRoute3Chance + AttackResearchChance)
             if randomNumber < AttackPlayerRoute1Chance then
-                #LOG('Attacking Player on Route 1')
+                -- LOG('Attacking Player on Route 1')
                 ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackPlayerRoute1)
             elseif randomNumber < (AttackPlayerRoute1Chance + AttackPlayerRoute2Chance) then
-                #LOG('Attacking Player on Route 2')
+                -- LOG('Attacking Player on Route 2')
                 ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackPlayerRoute2)
             elseif randomNumber < (AttackPlayerRoute1Chance + AttackPlayerRoute2Chance + AttackPlayerRoute3Chance) then
-                #LOG('Attacking Player on Route 3')
+                -- LOG('Attacking Player on Route 3')
                 ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackPlayerRoute3)
             else
-                #LOG('Attacking Research')
+                -- LOG('Attacking Research')
                 ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackResearchRoute1)
                 AttackPlayerBase = false
             end
-            # See if we should also send the air units over the mountains
+            -- See if we should also send the air units over the mountains
             randomNumber = Random(0, SendLandSquadChance + SendAirSquadChance + SendLandAndAirSquadChance)
             if randomNumber < SendLandAndAirSquadChance then
                 newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Air'))
                 if AttackPlayerBase then
-                    #LOG('Attacking Player with Extra Air Patrol')
+                    -- LOG('Attacking Player with Extra Air Patrol')
                     ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackPlayerRouteAirOnly)
                 else
-                    #LOG('Attacking Research with Extra Air Patrol')
+                    -- LOG('Attacking Research with Extra Air Patrol')
                     ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackResearchRouteAirOnly)
                 end
             end
         else
-            # Player has moved out of the starting location,
-            # so we send attacks to the research base location
-            #LOG('Attacking Research')
+            -- Player has moved out of the starting location,
+            -- so we send attacks to the research base location
+            -- LOG('Attacking Research')
             ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackResearchRoute1)
 
-            # See if we should also send the air units over the mountains
+            -- See if we should also send the air units over the mountains
             randomNumber = Random(0, SendLandSquadChance + SendAirSquadChance + SendLandAndAirSquadChance)
             if randomNumber < SendLandAndAirSquadChance then
-                #LOG('Attacking Research with Extra Air Patrol')
+                -- LOG('Attacking Research with Extra Air Patrol')
                 newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Air'))
                 ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackResearchRouteAirOnly)
             end
         end
 
-        # We have attacked one more time now
+        -- We have attacked one more time now
         M2Attacks = M2Attacks + 1
 
-        # Call this function again after the appropriate delay
+        -- Call this function again after the appropriate delay
         ScenarioFramework.CreateTimerTrigger(AttackPlayerM2, M2PeriodicAttackPlayerDelay[ Difficulty ])
     end
 end
@@ -1081,7 +1081,7 @@ function AttackPlayerM3()
 
         if ScenarioFramework.UnitsInAreaCheck(categories.UEF, ScenarioUtils.AreaToRect('Player_Base_Area')) then
             local AttackPlayerBase = true
-            # See which route the platoon should follow
+            -- See which route the platoon should follow
             local randomNumber = Random(0, AttackPlayerRoute1Chance + AttackPlayerRoute2Chance + AttackPlayerRoute3Chance + AttackResearchChance)
             if randomNumber < AttackPlayerRoute1Chance then
                 ScenarioInfo.VarTable['UseLandRoute1'] = true
@@ -1093,32 +1093,32 @@ function AttackPlayerM3()
                 ScenarioInfo.VarTable['AttackResearchFacility'] = true
             end
         else
-            # Player has moved out of the starting location,
-            # so we send attacks to the research base location
+            -- Player has moved out of the starting location,
+            -- so we send attacks to the research base location
             ScenarioInfo.VarTable['AttackResearchFacility'] = true
         end
 
-        # Call this function again after the appropriate delay
+        -- Call this function again after the appropriate delay
         ScenarioFramework.CreateTimerTrigger(AttackPlayerM3, M3PeriodicAttackPlayerDelay[ Difficulty ])
     end
 end
 
-#function M1AttackResearchFacilityLight()
-#    if not ScenarioInfo.StopPeriodicAttacks then
-#        # Make it happen again
-#        ScenarioFramework.CreateTimerTrigger(M1AttackResearchFacilityLight, M1PeriodicAttackDelayResearch)
-#
-#        # Generate the attack squad and send them off
-#        local AttackPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', 'Research_Airstrike_Small')
-#        ScenarioFramework.PlatoonPatrolRoute(AttackPlatoon, {'M1_Research_Attack_Patrol_1',
-#                                                                'M1_Research_Attack_Patrol_2',
-#                                                                'M1_Research_Attack_Patrol_3',})
-#    end
-#end
+-- function M1AttackResearchFacilityLight()
+-- if not ScenarioInfo.StopPeriodicAttacks then
+--    # Make it happen again
+--    ScenarioFramework.CreateTimerTrigger(M1AttackResearchFacilityLight, M1PeriodicAttackDelayResearch)
+--
+--    # Generate the attack squad and send them off
+--    local AttackPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', 'Research_Airstrike_Small')
+--    ScenarioFramework.PlatoonPatrolRoute(AttackPlatoon, {'M1_Research_Attack_Patrol_1',
+--                                                            'M1_Research_Attack_Patrol_2',
+--                                                            'M1_Research_Attack_Patrol_3',})
+-- end
+-- end
 
 function HurtResearchFacility()
 
-    # If it's dead, the player has lost already, and we don't need to go through all of this
+    -- If it's dead, the player has lost already, and we don't need to go through all of this
     if ScenarioInfo.ResearchFacility:IsDead() then
         return
     end
@@ -1134,37 +1134,37 @@ function HurtResearchFacility()
             ScenarioInfo.ResearchDamageTicks = ScenarioInfo.ResearchDamageTicks + 1
         else
             ScenarioInfo.ResearchDamageTicks = 1
-            ### Matt 12/20/06 used below to base the calcuation off the more dependable gametime
+            -- ## Matt 12/20/06 used below to base the calcuation off the more dependable gametime
             ScenarioInfo.StartDamagerTimerTarget = math.floor(GetGameTimeSeconds()) + (M1ResearchFacilityMinutesUntilDead[ Difficulty ] * 60)
         end
 
         local maxHealth =(M1ResearchFacilityInitialHealthPercentage / 100) * ScenarioInfo.ResearchFacility:GetMaxHealth()
-        local TimeTotal = M1ResearchFacilityMinutesUntilDead[ Difficulty ] * 60 # convert to seconds
-        # why 0.81 at the end of this next line?  well...0.5 for the WaitSeconds(0.5) just above this,
-        # and after much experimenting, the time it takes to go through this script loop
-        # necessitates a bit more time per loop.  It's not exact and feels dirty, but another 0.31 gets it close.
-        # Since the building dies as the timer hits 0, it doesn't need to be *too* close.
+        local TimeTotal = M1ResearchFacilityMinutesUntilDead[ Difficulty ] * 60 -- convert to seconds
+        -- why 0.81 at the end of this next line?  well...0.5 for the WaitSeconds(0.5) just above this,
+        -- and after much experimenting, the time it takes to go through this script loop
+        -- necessitates a bit more time per loop.  It's not exact and feels dirty, but another 0.31 gets it close.
+        -- Since the building dies as the timer hits 0, it doesn't need to be *too* close.
 
-        ###local TimeLeft = TimeTotal -(ScenarioInfo.ResearchDamageTicks *(M1ResearchFacilityHealthDrainInterval + 0.81))
+        -- ##local TimeLeft = TimeTotal -(ScenarioInfo.ResearchDamageTicks *(M1ResearchFacilityHealthDrainInterval + 0.81))
 
-        ### Matt 12/20/06 converting this to base the calcuation off the more dependable gametime
+        -- ## Matt 12/20/06 converting this to base the calcuation off the more dependable gametime
         local TimeLeft = ScenarioInfo.StartDamagerTimerTarget - math.floor(GetGameTimeSeconds())
         local newHealth = maxHealth *(TimeLeft / TimeTotal)
         if newHealth > 1 then
             ScenarioInfo.ResearchFacility:SetHealth(ScenarioInfo.ResearchFacility, newHealth)
             ScenarioInfo.ResearchFacilityCurrentHealth = newHealth
         end
-        # we dont want 2 things killing the facility. Now only the visible timer will actually kill it  Matt 12/20
-        #else
-        #    ScenarioInfo.ResearchFacility:Kill()
-        #end
+        -- we dont want 2 things killing the facility. Now only the visible timer will actually kill it  Matt 12/20
+        -- else
+        -- ScenarioInfo.ResearchFacility:Kill()
+        -- end
         ScenarioFramework.CreateTimerTrigger(HurtResearchFacility, M1ResearchFacilityHealthDrainInterval)
     end
 end
 
 function CheckResearchFacilityHealth()
 
-    # If it's dead, the player has lost already, and we don't need to go through all of these checks
+    -- If it's dead, the player has lost already, and we don't need to go through all of these checks
     if ScenarioInfo.ResearchFacility:IsDead() then
         return
     end
@@ -1195,7 +1195,7 @@ function CheckResearchFacilityHealth()
             end
         end
 
-        # Check again as long as we haven't given all of the warnings yet
+        -- Check again as long as we haven't given all of the warnings yet
         if not ScenarioInfo.ResearchFacilityThreshold3Reached then
             ScenarioFramework.CreateTimerTrigger(CheckResearchFacilityHealth, CheckResearchFacilityHealthInterval)
         end
@@ -1206,7 +1206,7 @@ function AirFactoryBuilt()
     ScenarioFramework.Dialogue(OpStrings.E02_M01_020)
     ScenarioInfo.M1P1:ManualResult(true)
 
-    # Add the next objective
+    -- Add the next objective
     ScenarioInfo.M1P15 = Objectives.Basic(
         'primary',
         'incomplete',
@@ -1215,12 +1215,12 @@ function AirFactoryBuilt()
         Objectives.GetActionIcon('build'),
         {
             Category = categories.uea0107,
-            #Area = 'Research_Area',
-            #MarkArea = true,
+            -- Area = 'Research_Area',
+            -- MarkArea = true,
         }
    )
 
-    # Add the secondary objective of killing all patrols if they're not already dead
+    -- Add the secondary objective of killing all patrols if they're not already dead
     if not ScenarioInfo.AeonPatrolsDefeatedM1 then
         ScenarioInfo.M1S1 = Objectives.Basic(
             'secondary',
@@ -1230,8 +1230,8 @@ function AirFactoryBuilt()
             Objectives.GetActionIcon('kill'),
             {
                 ShowFaction = 'Aeon',
-                #Units = {ScenarioInfo.ResearchFacility},
-                #MarkUnits = true,
+                -- Units = {ScenarioInfo.ResearchFacility},
+                -- MarkUnits = true,
             }
        )
         ScenarioInfo.M1S1Assigned = true
@@ -1240,13 +1240,13 @@ function AirFactoryBuilt()
 end
 
 function TransportBuilt()
-    # Now that the transport is built, give the objective of transporting the commander to the research facility
+    -- Now that the transport is built, give the objective of transporting the commander to the research facility
     ScenarioInfo.M1P15:ManualResult(true)
 
-    # Stop the reminder text from playing
+    -- Stop the reminder text from playing
     ScenarioInfo.M1P1Complete = true
 
-    # Add the next objective
+    -- Add the next objective
     ScenarioInfo.M1P2 = Objectives.Basic(
         'primary',
         'incomplete',
@@ -1263,10 +1263,10 @@ function TransportBuilt()
     ScenarioFramework.Dialogue(OpStrings.E02_M01_030)
 end
 
-# This was changed to allow the commander *or* an engineer to fulfill this goal
+-- This was changed to allow the commander *or* an engineer to fulfill this goal
 function CommanderArrived()
 
-    # Give ally base buildings to the player
+    -- Give ally base buildings to the player
     for k, unit in ScenarioInfo.ResearchGroup do
         if not unit:IsDead() then
             ScenarioFramework.GiveUnitToArmy(unit, Player)
@@ -1277,17 +1277,17 @@ function CommanderArrived()
     ScenarioInfo.ResearchFacility = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.ResearchFacility, Player)
     ScenarioInfo.ResearchFacility:SetReclaimable(false)
     ScenarioInfo.ResearchFacility:SetHealth(ScenarioInfo.ResearchFacility, health)
-    # Set up a trigger to go off if the (new) Research Facility dies
+    -- Set up a trigger to go off if the (new) Research Facility dies
     ScenarioFramework.CreateUnitDeathTrigger(ResearchFacilityDied, ScenarioInfo.ResearchFacility)
 
-    # complete the relevant objective
+    -- complete the relevant objective
     ScenarioInfo.M1P2:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M1P3Reminder, M1P3InitialReminderDelay)
 
-    # "Thanks for arriving..."
+    -- "Thanks for arriving..."
     ScenarioFramework.Dialogue(OpStrings.E02_M01_090)
 end
 
@@ -1313,7 +1313,7 @@ end
 function ResearchFacilityRepaired()
     ScenarioInfo.ResearchFacilityRepaired = true
 
-    # complete the relevant objective
+    -- complete the relevant objective
     ScenarioInfo.M1P3:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
@@ -1321,10 +1321,10 @@ function ResearchFacilityRepaired()
 
     ScenarioFramework.Dialogue(OpStrings.E02_M01_160)
 
-    # stop the periodic small attacks
+    -- stop the periodic small attacks
     ScenarioInfo.StopPeriodicAttacks = true
 
-# Research Facility Repaired
+-- Research Facility Repaired
     local unit = ScenarioInfo.ResearchFacility
     local camInfo = {
         blendTime = 1.0,
@@ -1345,7 +1345,7 @@ function EndMission1()
 end
 
 function BeginMission1Point5()
-    # Tell the player that they need to defend the facility
+    -- Tell the player that they need to defend the facility
     ScenarioFramework.Dialogue(OpStrings.E02_M02_010)
     ScenarioInfo.M15P1 = Objectives.Basic(
         'primary',
@@ -1362,54 +1362,54 @@ function BeginMission1Point5()
     AddTechMission15()
     ScenarioInfo.MissionNumber = 1.5
 
-    # This is for the next warning that they're coming soon
+    -- This is for the next warning that they're coming soon
     ScenarioFramework.CreateTimerTrigger(M15WarningBeforeWave1, M15TimeUntilWarningBeforeWave1)
 end
 
 function M15WarningBeforeWave1()
-    # another warning
+    -- another warning
     ScenarioFramework.Dialogue(OpStrings.E02_M02_020)
 
-    # Launch the first wave that the player is supposed to help defend against
+    -- Launch the first wave that the player is supposed to help defend against
     ScenarioFramework.CreateTimerTrigger(M15Wave1Attack, M15TimeUntilAttackOnResearchFacilityWave1)
 end
 
 function M15Wave1Attack()
-    # Warn the player that the attack is coming
+    -- Warn the player that the attack is coming
     ScenarioFramework.Dialogue(OpStrings.E02_M02_030)
 
-    # Spawn them
+    -- Spawn them
     local AttackGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave1_Attackers'))
 
-    # Send them
-    # On easy, they will patrol outside of the base
-#    if Difficulty == 1 then
-#        IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
-#        IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
-#    else
+    -- Send them
+    -- On easy, they will patrol outside of the base
+-- if Difficulty == 1 then
+--    IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
+--    IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
+-- else
         IssueAggressiveMove(AttackGroup, ScenarioUtils.MarkerToPosition('Research_Facility'))
         IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_1'))
         IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_2'))
         IssuePatrol(AttackGroup, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_3'))
-#    end
+-- end
 
-    # Watch for when they die
+    -- Watch for when they die
     ScenarioFramework.CreateGroupDeathTrigger(M15Wave2AttackDelay, AttackGroup)
 end
 
 function M15Wave2AttackDelay()
-    # Launch it
+    -- Launch it
     ScenarioFramework.CreateTimerTrigger(M15Wave2Attack, M15TimeUntilAttackOnResearchFacilityWave2)
 end
 
 function M15Wave2Attack()
-    # Play a random taunt
+    -- Play a random taunt
     PlayRandomTaunt()
 
-    # Warn the player that the attack is coming
+    -- Warn the player that the attack is coming
     ScenarioFramework.Dialogue(OpStrings.E02_M02_035)
 
-    # Spawn them
+    -- Spawn them
     local AttackGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave2_Attackers'))
     local Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M15_Transports', 'ChevronFormation')
 
@@ -1433,21 +1433,21 @@ function WaitForUnload(Group1, Group2, Group3)
     end
 
     if AllUnloaded then
-        #LOG('All units are unloaded')
-        # On easy, they will patrol outside of the base
-        # Changing it back; all difficulties will attack the base itself
-        #if Difficulty == 1 then
-        #    IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
-        #    IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
-        #
-        #    Group2:Patrol(ScenarioUtils.MarkerToPosition('Landing_Point_1'))
-        #    Group2:Patrol(ScenarioUtils.MarkerToPosition('Landing_Point_3'))
-        #
-        #    if Group3 then
-        #        IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
-        #        IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
-        #    end
-        #else
+        -- LOG('All units are unloaded')
+        -- On easy, they will patrol outside of the base
+        -- Changing it back; all difficulties will attack the base itself
+        -- if Difficulty == 1 then
+        -- IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
+        -- IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
+        --
+        -- Group2:Patrol(ScenarioUtils.MarkerToPosition('Landing_Point_1'))
+        -- Group2:Patrol(ScenarioUtils.MarkerToPosition('Landing_Point_3'))
+        --
+        -- if Group3 then
+        --    IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('Landing_Point_1'))
+        --    IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('Landing_Point_3'))
+        -- end
+        -- else
             IssueAggressiveMove(Group1, ScenarioUtils.MarkerToPosition('Research_Facility'))
             IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_1'))
             IssuePatrol(Group1, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_2'))
@@ -1466,28 +1466,28 @@ function WaitForUnload(Group1, Group2, Group3)
                 IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_2'))
                 IssuePatrol(Group3, ScenarioUtils.MarkerToPosition('M1_Research_Attack_Patrol_3'))
             end
-        #end
+        -- end
 
     else
-        #LOG('Still loaded, checking again...')
+        -- LOG('Still loaded, checking again...')
         WaitSeconds(2)
         WaitForUnload(Group1, Group2, Group3)
     end
 end
 
 function M15Wave3AttackDelay()
-    # Launch it
+    -- Launch it
     ScenarioFramework.CreateTimerTrigger(M15Wave3Attack, M15TimeUntilAttackOnResearchFacilityWave3)
 end
 
 function M15Wave3Attack()
-    # Play a random taunt
+    -- Play a random taunt
     PlayRandomTaunt()
 
-    # Warn the player that the attack is coming
+    -- Warn the player that the attack is coming
     ScenarioFramework.Dialogue(OpStrings.E02_M02_037)
 
-    # Spawn them
+    -- Spawn them
     local AttackGroupLand = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Land'))
     local AttackGroupAir = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Air'))
     local Transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Aeon', 'M15_Transports', 'ChevronFormation')
@@ -1510,10 +1510,10 @@ function Mission15TransportsDead()
 end
 
 function Mission15PlatoonDefeated()
-    #LOG('Attacking Platoon is dead')
+    -- LOG('Attacking Platoon is dead')
     ScenarioInfo.AttackPlatoonsAlive = ScenarioInfo.AttackPlatoonsAlive - 1
 
-    #LOG('Platoons left: ', ScenarioInfo.AttackPlatoonsAlive)
+    -- LOG('Platoons left: ', ScenarioInfo.AttackPlatoonsAlive)
 
     if ScenarioInfo.AttackPlatoonsAlive == 0 then
         EndMission15()
@@ -1525,46 +1525,46 @@ function EndMission15()
     ScenarioFramework.Dialogue(ScenarioStrings.MissionSuccessDialogue)
     ScenarioInfo.M15P1:ManualResult(true)
 
-    # The enemy congratulates the player on defeating the attack
+    -- The enemy congratulates the player on defeating the attack
     ScenarioFramework.Dialogue(OpStrings.E02_M02_040)
 
     BeginMission2()
 end
 
 function BeginMission2()
-    # Update the playable area
+    -- Update the playable area
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 
 
-    # Unlock the T2 land factory
+    -- Unlock the T2 land factory
     AddTechMission2()
 
-    # Create the Civilian Base
+    -- Create the Civilian Base
     ScenarioInfo.CivilianFacility = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Civilian_Facility')
-    # This building is now invulnerable
+    -- This building is now invulnerable
     ScenarioInfo.CivilianFacility:SetCanTakeDamage(false)
     ScenarioInfo.CivilianFacility:SetCanBeKilled(false)
     ScenarioInfo.CivilianFacility:SetReclaimable(false)
     ScenarioInfo.CivilianFacility:SetCapturable(false)
     ScenarioInfo.CivilianFacility:SetCustomName(LOCF('<LOC planet_info_0040>Luthien'))
 
-    # Now they ally with the player (this used to happen later)
+    -- Now they ally with the player (this used to happen later)
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, AllyCivilian, 'Ally')
     end
 
-    # the rest of the buildings/defenses
+    -- the rest of the buildings/defenses
     ScenarioInfo.CivilianBase = ScenarioUtils.CreateArmyGroup('AllyCivilian', 'Structures')
 
-    # The colony asks for help
+    -- The colony asks for help
     ScenarioFramework.Dialogue(OpStrings.E02_M03_025)
-    # The player is told what to build
+    -- The player is told what to build
     ScenarioFramework.Dialogue(OpStrings.E02_M03_030)
 
     ScenarioInfo.MissionNumber = 2
 
-    # Add initial objectives
+    -- Add initial objectives
     ScenarioInfo.M2P1 = Objectives.Basic(
         'primary',
         'incomplete',
@@ -1592,38 +1592,38 @@ function BeginMission2()
 
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder, M2P1InitialReminderDelay)
 
-    # Detect when the player has helped the civilian base by getting land units there
-    #ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
-    #ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
-    #ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+    -- Detect when the player has helped the civilian base by getting land units there
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
     ForkThread(M2ReinforcementWatch)
 
-    # Set up a trigger for when the player first sees an Aeon radar
+    -- Set up a trigger for when the player first sees an Aeon radar
     ScenarioFramework.CreateArmyIntelTrigger(AeonRadarSpotted, ArmyBrains[Player], 'LOSNow', false, true, categories.RADAR, true, ArmyBrains[Aeon])
 
 
-    # These are the Aeon radar units
+    -- These are the Aeon radar units
     ScenarioInfo.RadarStations = ScenarioUtils.CreateArmyGroup('Aeon', 'Radar')
 
 
-    # Matt reomved. KillOrCapture objective handles this
-    # Set up triggers to record when each one is captured
-    #for k, radar in ScenarioInfo.RadarStations do
-    #    ScenarioFramework.CreateUnitCapturedTrigger(AeonRadarDestroyed, nil, radar)
-    #    ScenarioFramework.CreateUnitDeathTrigger(AeonRadarDestroyed, radar)
-    #end
+    -- Matt reomved. KillOrCapture objective handles this
+    -- Set up triggers to record when each one is captured
+    -- for k, radar in ScenarioInfo.RadarStations do
+    -- ScenarioFramework.CreateUnitCapturedTrigger(AeonRadarDestroyed, nil, radar)
+    -- ScenarioFramework.CreateUnitDeathTrigger(AeonRadarDestroyed, radar)
+    -- end
 
 
-    # Start up the attacks against the player again
+    -- Start up the attacks against the player again
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM2, M2PeriodicAttackPlayerInitialDelay[ Difficulty ])
 end
 
-#    ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
-#    ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
-#    ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
 function M2ReinforcementWatch()
     local tanks = 0
     local aa    = 0
@@ -1671,13 +1671,13 @@ function M2ReinforcementWatch()
 
     ScenarioInfo.M2P1Complete = true
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder, M2P2InitialReminderDelay)
 
-    # Spawn the trucks
+    -- Spawn the trucks
     M2TrucksGettingSentNow()
 
-# trucks spawned
+-- trucks spawned
     local unit = ScenarioInfo.CivilianFacility
     local camInfo = {
         blendTime = 1.0,
@@ -1690,54 +1690,54 @@ function M2ReinforcementWatch()
 
 end
 
-#function CivilianFacilityReinforced()
-#    if not ScenarioInfo.CivilianFacilityReinforcedObjectiveComplete then
-#        # Wait for this to get called 3 times; once for each type of unit trigger
-#        ScenarioInfo.ReinforceTriggerCalled = ScenarioInfo.ReinforceTriggerCalled + 1
-#        if ScenarioInfo.ReinforceTriggerCalled < 3 then
-#            return
-#        end
+-- function CivilianFacilityReinforced()
+-- if not ScenarioInfo.CivilianFacilityReinforcedObjectiveComplete then
+--    # Wait for this to get called 3 times; once for each type of unit trigger
+--    ScenarioInfo.ReinforceTriggerCalled = ScenarioInfo.ReinforceTriggerCalled + 1
+--    if ScenarioInfo.ReinforceTriggerCalled < 3 then
+--        return
+--    end
 
-        # Check to see if all units are here right now (since the different triggers could go off at different times)
-#        local Tanks = ScenarioFramework.NumCatUnitsInArea(categories.DIRECTFIRE, 'Civilian_Area', ArmyBrains[ Player ])
-#        local Gunships = ScenarioFramework.NumCatUnitsInArea(categories.uea0203, 'Civilian_Area', ArmyBrains[ Player ])
-#        local AntiAir = ScenarioFramework.NumCatUnitsInArea(categories.ANTIAIR, 'Civilian_Area', ArmyBrains[ Player ])
+        -- Check to see if all units are here right now (since the different triggers could go off at different times)
+--    local Tanks = ScenarioFramework.NumCatUnitsInArea(categories.DIRECTFIRE, 'Civilian_Area', ArmyBrains[ Player ])
+--    local Gunships = ScenarioFramework.NumCatUnitsInArea(categories.uea0203, 'Civilian_Area', ArmyBrains[ Player ])
+--    local AntiAir = ScenarioFramework.NumCatUnitsInArea(categories.ANTIAIR, 'Civilian_Area', ArmyBrains[ Player ])
 
-#        if  Gunships >= CivilianReinforcementsNeededGunships and
-#               Tanks >= CivilianReinforcementsNeededTanks and
-#             AntiAir >= CivilianReinforcementsNeededAntiAir
-#        then
+--    if  Gunships >= CivilianReinforcementsNeededGunships and
+--           Tanks >= CivilianReinforcementsNeededTanks and
+--         AntiAir >= CivilianReinforcementsNeededAntiAir
+--    then
 
-#            ScenarioInfo.CivilianFacilityReinforcedObjectiveComplete = true
-#            ScenarioInfo.M2P1:ManualResult(true)
-#            ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
+--        ScenarioInfo.CivilianFacilityReinforcedObjectiveComplete = true
+--        ScenarioInfo.M2P1:ManualResult(true)
+--        ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
-            #ScenarioInfo.M2P1Complete = true
+            -- ScenarioInfo.M2P1Complete = true
 
-            # If the player doesn't complete the objective soon, remind him that it's important
-#            ScenarioFramework.CreateTimerTrigger(M2P2Reminder, M2P2InitialReminderDelay)
+            -- If the player doesn't complete the objective soon, remind him that it's important
+--        ScenarioFramework.CreateTimerTrigger(M2P2Reminder, M2P2InitialReminderDelay)
 
-            # Spawn the trucks
-#            M2TrucksGettingSentNow()
-#        else
-            # Reset the triggers
-#            ScenarioInfo.ReinforceTriggerCalled = 0
-#            ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
-#            ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
-#            ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
-#        end
-#    end
-#end
+            -- Spawn the trucks
+--        M2TrucksGettingSentNow()
+--    else
+            -- Reset the triggers
+--        ScenarioInfo.ReinforceTriggerCalled = 0
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+--    end
+-- end
+-- end
 
 function AeonRadarSpotted()
-    # The player is given some story dialogue about the radar installations
+    -- The player is given some story dialogue about the radar installations
 
-    # the one-shot intel trigger isnt behaving as one-shot.
+    -- the one-shot intel trigger isnt behaving as one-shot.
 
     if not (ScenarioInfo.M2S1) then
 
         ScenarioFramework.Dialogue(OpStrings.E02_M03_010)
-        # Reveal where they are
+        -- Reveal where they are
         for k, radar in ScenarioInfo.RadarStations do
             if not radar:IsDead() then
                 ScenarioFramework.CreateVisibleAreaLocation(5, radar:GetPosition(), 10, ArmyBrains[Player])
@@ -1764,33 +1764,33 @@ end
 
 function AeonRadarDestroyed()
 
-    #Matt : removed the progress stuff, as its handled in the Kill objective
+    -- Matt : removed the progress stuff, as its handled in the Kill objective
 
-    # Congratulate the player
+    -- Congratulate the player
     ScenarioFramework.Dialogue(ScenarioStrings.SObjComp)
     ScenarioFramework.Dialogue(OpStrings.E02_M03_020)
 end
 
 function M2TrucksGettingSentNow()
-    # Start sending the trucks
+    -- Start sending the trucks
     SendTruck()
 
-    # Also start sending the Aeon anti-truck patrols
+    -- Also start sending the Aeon anti-truck patrols
     SendAntiTruck()
 
-    # Start watching for them arriving
+    -- Start watching for them arriving
     ScenarioInfo.M2TruckAreaTrigger = ScenarioFramework.CreateAreaTrigger(TruckNearBase, 'Research_Area', categories.uec0001, false, false, ArmyBrains[Player])
 
-    # Spawn the scouts and send them to their scouting positions
-    # Commented out per chrisT -Matt 11/29/06
-    #local Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout01')
-    #IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point01'))
-    #Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout02')
-    #IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point02'))
-    #Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout03')
-    #IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point03'))
+    -- Spawn the scouts and send them to their scouting positions
+    -- Commented out per chrisT -Matt 11/29/06
+    -- local Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout01')
+    -- IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point01'))
+    -- Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout02')
+    -- IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point02'))
+    -- Scout = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Scout03')
+    -- IssueMove({ Scout }, ScenarioUtils.MarkerToPosition('Civilian_Scout_Point03'))
 
-    # Tell the player that the trucks are getting sent
+    -- Tell the player that the trucks are getting sent
     ScenarioFramework.Dialogue(OpStrings.E02_M03_050)
 end
 
@@ -1802,38 +1802,38 @@ function SendTruck()
 
         ScenarioInfo.CurrentTruckNumber = ScenarioInfo.CurrentTruckNumber + 1
 
-        # Spawn a truck
+        -- Spawn a truck
         local Truck = ScenarioUtils.CreateArmyUnit('Player', 'Truck_' .. ScenarioInfo.CurrentTruckNumber)
-        #ScenarioFramework.GiveUnitToArmy(Truck, Player)
+        -- ScenarioFramework.GiveUnitToArmy(Truck, Player)
         table.insert(ScenarioInfo.TruckList, Truck)
 
-        #add obj highlight to truck icon
+        -- add obj highlight to truck icon
         ScenarioInfo.M2P2:AddBasicUnitTarget (Truck)
 
-        # Record that another truck has been sent
+        -- Record that another truck has been sent
         ScenarioInfo.TrucksSent = ScenarioInfo.TrucksSent + 1
         ScenarioInfo.TrucksActive = ScenarioInfo.TrucksActive + 1
 
 
-        # Set up a trigger to see if it gets hurt, if we haven't yet alerted the player
-        # that the trucks are under attack
+        -- Set up a trigger to see if it gets hurt, if we haven't yet alerted the player
+        -- that the trucks are under attack
         if not ScenarioInfo.TruckAttacked then
             ScenarioFramework.CreateUnitDamagedTrigger(TruckDamaged, Truck)
         end
 
-        # Set up a trigger to see if it dies
+        -- Set up a trigger to see if it dies
         ScenarioFramework.CreateUnitDestroyedTrigger(TruckDied, Truck)
 
-        # Launch another truck after the appropriate delay has passed
+        -- Launch another truck after the appropriate delay has passed
         if ScenarioInfo.TrucksSent < TotalNumberOfTrucks[Difficulty] then
             SendTruck()
-            #ScenarioFramework.CreateTimerTrigger(SendTruck, TruckInterval)
+            -- ScenarioFramework.CreateTimerTrigger(SendTruck, TruckInterval)
         end
     end
 end
 
 function DestroyTruckAfterDelay(Truck)
-    # make it invincible, etc. so that it doesn't die to splash damage or anything
+    -- make it invincible, etc. so that it doesn't die to splash damage or anything
     Truck:SetCanTakeDamage(false)
     Truck:SetCanBeKilled(false)
     Truck:SetReclaimable(false)
@@ -1850,7 +1850,7 @@ end
 function TruckNearBase(unit)
     for j, Truck in(ScenarioInfo.TruckList) do
         if unit == Truck then
-            # Clean up the truck
+            -- Clean up the truck
             table.remove(ScenarioInfo.TruckList, j)
 
             Truck = ScenarioFramework.GiveUnitToArmy(Truck, AllyCivilian)
@@ -1887,7 +1887,7 @@ function TruckNearBase(unit)
 end
 
 function M2TrucksAllAccountedFor()
-    # See if we're done, if so start mission 3
+    -- See if we're done, if so start mission 3
     if(ScenarioInfo.TrucksSafe == TotalNumberOfTrucks[Difficulty] and ScenarioInfo.Options.Difficulty == 1)
         or(ScenarioInfo.TrucksDone == TotalNumberOfTrucks[Difficulty] and ScenarioInfo.Options.Difficulty > 1) then
         ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
@@ -1898,24 +1898,24 @@ function M2TrucksAllAccountedFor()
         ScenarioFramework.Dialogue(ScenarioStrings.MissionSuccessDialogue)
 
         if ScenarioInfo.TrucksKilled == 0 then
-            #ScenarioInfo.M2H1 = Objectives.Basic(
-            #    'bonus',
-            #    'complete',
-            #    OpStrings.M2H1Text,
-            #    OpStrings.M2H1Detail,
-            #    Objectives.GetActionIcon('protect'),
-            #    {
-            #        #Units = {ScenarioInfo.RadarStations},
-            #        #MarkUnits = true,
-            #    }
-            #)
+            -- ScenarioInfo.M2H1 = Objectives.Basic(
+            -- 'bonus',
+            -- 'complete',
+            -- OpStrings.M2H1Text,
+            -- OpStrings.M2H1Detail,
+            -- Objectives.GetActionIcon('protect'),
+            -- {
+            --    #Units = {ScenarioInfo.RadarStations},
+            --    #MarkUnits = true,
+            -- }
+            -- )
             ScenarioFramework.Dialogue(OpStrings.E02_M03_150)
         else
-            # Mission complete text
+            -- Mission complete text
             ScenarioFramework.Dialogue(OpStrings.E02_M03_140)
         end
 
-#trucks returned to base
+-- trucks returned to base
         local unit = ScenarioInfo.ResearchFacility
         local camInfo = {
             blendTime = 1.0,
@@ -1946,7 +1946,7 @@ end
 
 function SendAntiTruck()
     if ScenarioInfo.TrucksDone < TotalNumberOfTrucks[Difficulty] then
-        # 50-50 chance
+        -- 50-50 chance
         if Random(0, 1) == 0 then
             local newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Truck_Attackers_1'))
             ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2TruckAttackRoute1)
@@ -1955,7 +1955,7 @@ function SendAntiTruck()
             ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2TruckAttackRoute2)
         end
 
-        # Call this function again after the appropriate delay
+        -- Call this function again after the appropriate delay
         ScenarioFramework.CreateTimerTrigger(SendAntiTruck, M2PeriodicAttackDelayTruck)
     end
 end
@@ -1964,7 +1964,7 @@ function TruckDamaged()
     if not ScenarioInfo.TruckAttacked then
         ScenarioInfo.TruckAttacked = true
 
-        # Tell the player that the convoy is under attack
+        -- Tell the player that the convoy is under attack
         ScenarioFramework.Dialogue(OpStrings.E02_M03_070)
     end
 end
@@ -1979,20 +1979,20 @@ function TruckDied()
     ScenarioInfo.TrucksKilled = ScenarioInfo.TrucksKilled + 1
     ScenarioInfo.TrucksDone = ScenarioInfo.TrucksDone + 1
     if Difficulty == 1 then
-        # Tell the player that we are spawning another truck
+        -- Tell the player that we are spawning another truck
         if (ReadyForTruckRespawnDialog) then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_175)
             ReadyForTruckRespawnDialog = false
             ForkThread(ResetTruckRespawnDialog)
         end
 
-        # launch another truck
+        -- launch another truck
         ScenarioInfo.CurrentTruckNumber = 0
         ScenarioInfo.TrucksSent = ScenarioInfo.TrucksSent - 1
         SendTruck()
     elseif ScenarioInfo.TrucksKilled > TrucksAllowedToDie[Difficulty] then
-        # Let the player know that too many trucks died
-        # And end the game
+        -- Let the player know that too many trucks died
+        -- And end the game
         if not ScenarioInfo.OpEnded then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_170, false, true)
             ScenarioInfo.M2P2:ManualResult(false)
@@ -2000,11 +2000,11 @@ function TruckDied()
         end
     else
 
-        # check to see if this is the last truck Matt 12/11/06
+        -- check to see if this is the last truck Matt 12/11/06
         if M2TrucksAllAccountedFor() then
             BeginMission3()
-        # skip truck death dialog if we're done
-        # $ This would be cleaner with the values at the top of the script...
+        -- skip truck death dialog if we're done
+        -- $ This would be cleaner with the values at the top of the script...
         elseif (Difficulty == 2 and ScenarioInfo.TrucksKilled == 2) or
            (Difficulty == 3 and ScenarioInfo.TrucksKilled == 1) then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_080)
@@ -2022,7 +2022,7 @@ end
 
 function BeginMission3()
 
-    # Set the playable area
+    -- Set the playable area
     ScenarioFramework.SetPlayableArea(Rect(0, 0, 512, 512))
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 
@@ -2033,28 +2033,28 @@ function BeginMission3()
     EnemyCommanderPlatoon:ForkThread(import('/lua/ai/OpAI/OpBehaviors.lua').CDROverchargeBehavior)
     EnemyCommanderPlatoon:ForkAIThread(M3AeonCommanderAIThread)
 
-    # Track when the commander dies for the primary objective
+    -- Track when the commander dies for the primary objective
     for k, unit in EnemyCommanderPlatoon:GetPlatoonUnits() do
         ScenarioFramework.CreateUnitDeathTrigger(EnemyCommanderDied, unit)
-        # Delay the explosion so that we can catch it on camera
+        -- Delay the explosion so that we can catch it on camera
         ScenarioFramework.PauseUnitDeath(unit)
     end
 
-    # Create the Aeon base
+    -- Create the Aeon base
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Base_Economy')
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Base_External_Economy')
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Base_Misc')
     ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Defenses_Guns'))
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Base_Defenses_Shields')
     ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Defenses_Walls'))
-    # This group has a different name since it will not really be considered part of the base
-    # It's just economy/defenses that happen to be in the same area...they will not be rebuilt if they are destroyed
+    -- This group has a different name since it will not really be considered part of the base
+    -- It's just economy/defenses that happen to be in the same area...they will not be rebuilt if they are destroyed
     ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_No_Rebuild'))
 
-    # Now to create some gunships that will patrol the Aeon base
+    -- Now to create some gunships that will patrol the Aeon base
     local Gunships = ''
 
-    # This group is guaranteed to be created, even at the easiest difficulty
+    -- This group is guaranteed to be created, even at the easiest difficulty
     Gunships = ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Gunships_1')
     IssuePatrol(Gunships, ScenarioUtils.MarkerToPosition('Aeon_Base_Patrol_1'))
     IssuePatrol(Gunships, ScenarioUtils.MarkerToPosition('Aeon_Base_Patrol_2'))
@@ -2078,14 +2078,14 @@ function BeginMission3()
     end
 
     local Factories = ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Base_Factories')
-    # Track when the factories are dead for the secondary objective
+    -- Track when the factories are dead for the secondary objective
     ScenarioFramework.CreateGroupDeathTrigger(EnemyFactoriesDestroyed, Factories)
 
     AddTechMission3()
 
     ScenarioInfo.MissionNumber = 3
 
-    # Briefing
+    -- Briefing
     ScenarioFramework.Dialogue(OpStrings.E02_M04_010)
 
     ScenarioInfo.M3P1 = Objectives.Basic(
@@ -2123,17 +2123,17 @@ function BeginMission3()
    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M3P2Reminder, M3P2InitialReminderDelay)
 
-    # Dialog that will appear after a certain amount of time
+    -- Dialog that will appear after a certain amount of time
     ScenarioFramework.CreateTimerTrigger(Dialogue_M3_1, M3_Aeon_Comment_Dialogue_Delay)
     ScenarioFramework.CreateTimerTrigger(Dialogue_M3_2, M3_Base_Hint_Dialogue_Delay)
 
-    # Taunt the player when the player first attacks the Aeon base
+    -- Taunt the player when the player first attacks the Aeon base
     ScenarioFramework.CreateAreaTrigger(M3Taunt1, 'Aeon_Base_Area', categories.ALLUNITS, true, false, ArmyBrains[Player], 1, false)
 
-    # Start up the attacks against the player again
+    -- Start up the attacks against the player again
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM3, M3PeriodicAttackPlayerInitialDelay[ Difficulty ])
 	
 	ForkThread(CheatEconomy)
@@ -2165,12 +2165,12 @@ function M3Taunt3()
 end
 
 function Dialogue_M3_1()
-    # Enemy commander dialogue
+    -- Enemy commander dialogue
     ScenarioFramework.Dialogue(OpStrings.E02_M04_040)
 end
 
 function Dialogue_M3_2()
-    # Advice on how to beat the enemy
+    -- Advice on how to beat the enemy
     ScenarioFramework.Dialogue(OpStrings.E02_M04_050)
 end
 
@@ -2178,16 +2178,16 @@ function EnemyFactoriesDestroyed()
     ScenarioInfo.M3S1:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.SObjComp)
 
-    # Congratulate player
+    -- Congratulate player
     ScenarioFramework.Dialogue(OpStrings.E02_M04_070)
 end
 
 function EnemyCommanderDied(unit)
-# enemy aeon cdr destroyed
-#    ScenarioFramework.EndOperationCamera(unit, true)
+-- enemy aeon cdr destroyed
+-- ScenarioFramework.EndOperationCamera(unit, true)
     ScenarioFramework.CDRDeathNISCamera(unit)
 
-    # Aeon commander's death cry
+    -- Aeon commander's death cry
     ScenarioFramework.Dialogue(OpStrings.E02_M04_130, false, true)
 
     ScenarioInfo.M3P1:ManualResult(true)
@@ -2199,69 +2199,69 @@ end
 
 function AddTechMission15()
     ScenarioFramework.PlayUnlockDialogue()
-    # T2 Anti-Air Flak Cannon
+    -- T2 Anti-Air Flak Cannon
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb2204)
     end
-    # T2 Heavy Gun Tower
+    -- T2 Heavy Gun Tower
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb2301)
     end
-    # T2 Engineer
+    -- T2 Engineer
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uel0208)
     end
-    # T2 Mass Extractor
+    -- T2 Mass Extractor
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb1202)
     end
 
-    # T2 Air Factory
+    -- T2 Air Factory
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb0202)
     end
-    # Gunship
+    -- Gunship
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uea0203)
     end
 
-    # T2 Land Factory
+    -- T2 Land Factory
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.ueb0201)
     end
-    # Mobile AA Flak
+    -- Mobile AA Flak
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uel0205)
     end
 end
 
 function AddTechMission2()
-    #ScenarioFramework.PlayUnlockDialogue()
+    -- ScenarioFramework.PlayUnlockDialogue()
 end
 
 function AddTechMission3()
     ScenarioFramework.PlayUnlockDialogue()
-    # Heavy Tank
+    -- Heavy Tank
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uel0202)
     end
-    # Mobile Missile Launcher
+    -- Mobile Missile Launcher
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uel0111)
     end
-    # Mobile Shield Generator
+    -- Mobile Shield Generator
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uel0307)
     end
 end
 
 function PlayerCommanderDied()
-# player destroyed
-#    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
+-- player destroyed
+-- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
 
-    # Let the player know what happened
-    # And end the game
+    -- Let the player know what happened
+    -- And end the game
     if not ScenarioInfo.OpEnded then
         ScenarioFramework.Dialogue(OpStrings.E02_D01_010, false, true)
         PlayerLose()
@@ -2269,8 +2269,8 @@ function PlayerCommanderDied()
 end
 
 function ResearchFacilityDied()
-    # Let the player know what happened
-    # And end the game
+    -- Let the player know what happened
+    -- And end the game
     if not ScenarioInfo.OpEnded then
         ScenarioFramework.Dialogue(OpStrings.E02_M01_150, false, true)
         if ScenarioInfo.MissionNumber == 3 and ScenarioInfo.M3P1 then
@@ -2368,77 +2368,77 @@ function M3P2Reminder()
     end
 end
 
-#function KilledBonus()
-#    ScenarioInfo.M1H1 = Objectives.Basic(
-#        'bonus',
-#        'incomplete',
-#        OpStrings.M1H1Text,
-#        OpStrings.M1H1Detail,
-#        Objectives.GetActionIcon('kill'),
-#        {
-#            #Area = 'Research_Area',
-#            #MarkArea = true,
-#        }
-#   )
-#    ScenarioInfo.M1H1:ManualResult(true)
-#end
-#
-#function EnergyBonus()
-#    ScenarioInfo.M1H2 = Objectives.Basic(
-#        'bonus',
-#        'incomplete',
-#        OpStrings.M1H2Text,
-#        LOCF(OpStrings.M1H2Detail, BonusEnergyAmount),
-#        Objectives.GetActionIcon('build'),
-#        {
-#            #Area = 'Research_Area',
-#            #MarkArea = true,
-#        }
-#   )
-#    ScenarioInfo.M1H2:ManualResult(true)
-#end
+-- function KilledBonus()
+-- ScenarioInfo.M1H1 = Objectives.Basic(
+--    'bonus',
+--    'incomplete',
+--    OpStrings.M1H1Text,
+--    OpStrings.M1H1Detail,
+--    Objectives.GetActionIcon('kill'),
+--    {
+--        #Area = 'Research_Area',
+--        #MarkArea = true,
+--    }
+-- )
+-- ScenarioInfo.M1H1:ManualResult(true)
+-- end
+--
+-- function EnergyBonus()
+-- ScenarioInfo.M1H2 = Objectives.Basic(
+--    'bonus',
+--    'incomplete',
+--    OpStrings.M1H2Text,
+--    LOCF(OpStrings.M1H2Detail, BonusEnergyAmount),
+--    Objectives.GetActionIcon('build'),
+--    {
+--        #Area = 'Research_Area',
+--        #MarkArea = true,
+--    }
+-- )
+-- ScenarioInfo.M1H2:ManualResult(true)
+-- end
 
-# --------
-# End Game
-# --------
+-- --------
+-- End Game
+-- --------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
-        # Turn everything neutral
+        -- Turn everything neutral
         ScenarioFramework.EndOperationSafety({ ScenarioInfo.ResearchFacility })
 
-        # Celebration dialogue
-        # And end the game
+        -- Celebration dialogue
+        -- And end the game
         ScenarioFramework.Dialogue(OpStrings.E02_M04_150, WinGame, true)
     end
 end
 
-#function Final_NIS()
-#    # Show the entire Aeon base area
-#    ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('Aeon_Base'), 20, ArmyBrains[Player])
-#
-#    # Play the video after a brief delay
-#    ForkThread(PlayNIS4Video)
-#
-#    # Start things off
-#    Cinematics.EnterNISMode()
-#
-#    # Show the base from a nice angle
-#    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_1'))
-#
-#    # Move the camera around the base
-#    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_2'), 9)
-#
-#    # Let the player absorb what they're seeing
-#    WaitSeconds(5)
-#
-#    # And we're done
-#    Cinematics.ExitNISMode()
-#    ScenarioFramework.EndOperation('SCCA_Coop_E02_v02', true, ScenarioInfo.Options.Difficulty, false, false, false)
-#end
+-- function Final_NIS()
+-- # Show the entire Aeon base area
+-- ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('Aeon_Base'), 20, ArmyBrains[Player])
+--
+-- # Play the video after a brief delay
+-- ForkThread(PlayNIS4Video)
+--
+-- # Start things off
+-- Cinematics.EnterNISMode()
+--
+-- # Show the base from a nice angle
+-- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_1'))
+--
+-- # Move the camera around the base
+-- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_2'), 9)
+--
+-- # Let the player absorb what they're seeing
+-- WaitSeconds(5)
+--
+-- # And we're done
+-- Cinematics.ExitNISMode()
+-- ScenarioFramework.EndOperation('SCCA_Coop_E02_v02', true, ScenarioInfo.Options.Difficulty, false, false, false)
+-- end
 
 function PlayerLose()
     if not ScenarioInfo.OpEnded then
-        # Turn everything neutral
+        -- Turn everything neutral
         ScenarioFramework.EndOperationSafety()
 
         ScenarioFramework.Dialogue(ScenarioStrings.OpFail, LoseGame, true)
@@ -2454,102 +2454,102 @@ end
 function WinGame()
     ScenarioInfo.OpComplete = true
     WaitSeconds(5)
-    #local bonus = Objectives.IsComplete(ScenarioInfo.M1H1) and Objectives.IsComplete(ScenarioInfo.M1H2) and Objectives.IsComplete(ScenarioInfo.M2H1)
+    -- local bonus = Objectives.IsComplete(ScenarioInfo.M1H1) and Objectives.IsComplete(ScenarioInfo.M1H2) and Objectives.IsComplete(ScenarioInfo.M2H1)
     local secondary = Objectives.IsComplete(ScenarioInfo.M1S1) and Objectives.IsComplete(ScenarioInfo.M2S1) and Objectives.IsComplete(ScenarioInfo.M3S1)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondary)
 end
 
-#function OnCtrlF4()
-#    ScenarioInfo.OpComplete = true
-#    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
-#end
+-- function OnCtrlF4()
+-- ScenarioInfo.OpComplete = true
+-- ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
+-- end
 
-# --------------
-# Test functions
-# --------------
-#function OnCtrlF3()
-#    ScenarioInfo.StopPeriodicAttacks = true
-#    #BeginMission1Point5()
-#    BeginMission2()
-#    M2TrucksGettingSentNow()
-#end
-#
-#function OnF3()
-#    #M2TrucksGettingSentNow()
-#    #M15Wave2Attack()
-#
-#    local unit = ScenarioInfo.ResearchFacility
-#    local camInfo = {
-#        blendTime = 1.0,
-#        holdTime = 6.0,
-#        orientationOffset = { -0.9269, 0.2, 0 },
-#        positionOffset = { 0, 1, 0 },
-#        zoomVal = 20,
-#    }
-#    ScenarioFramework.OperationNISCamera(unit, camInfo)
-#
-#end
-#
-#function OnShiftF3()
-##    LOG('ScenarioInfo.AttackPlatoonsAlive = ', ScenarioInfo.AttackPlatoonsAlive)
-#    PlayRandomTaunt()
-#end
-#
-#function OnF4()
-#    ScenarioInfo.StopPeriodicAttacks = true
-#    for k, unit in ScenarioInfo.M1GroundPatrol01 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol02 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol03 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol04 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol05 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol06 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol07 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1GroundPatrol08 do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1AirPatrol01:GetPlatoonUnits() do
-#        unit:Kill()
-#    end
-#    for k, unit in ScenarioInfo.M1AirPatrol02:GetPlatoonUnits() do
-#        unit:Kill()
-#    end
-#
-#    BeginMission3()
-#end
-#
-#function OnShiftF4()
-#    Mission15PlatoonDefeated()
-#end
-#
-#function OnF5()
-#    BeginMission2()
-#end
-#
-#
-#function OnF5()
-#    local currentHealthPercentage = math.floor((ScenarioInfo.ResearchFacility:GetHealth() * 100) / ScenarioInfo.ResearchFacility:GetMaxHealth())
-#    LOG('*** CURRENT HEALTH PERCENTAGE IS ', currentHealthPercentage, ', ResearchFacilityHealthThreshold1 is ', ResearchFacilityHealthThreshold1, ' ***')
-#end
-#
-#function OnCtrlF5()
-#    LOG('Player army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Player) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Player))
-#    LOG('Aeon army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Aeon) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Aeon))
-#end
-#
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_E02_v02', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- --------------
+-- Test functions
+-- --------------
+-- function OnCtrlF3()
+-- ScenarioInfo.StopPeriodicAttacks = true
+-- #BeginMission1Point5()
+-- BeginMission2()
+-- M2TrucksGettingSentNow()
+-- end
+--
+-- function OnF3()
+-- #M2TrucksGettingSentNow()
+-- #M15Wave2Attack()
+--
+-- local unit = ScenarioInfo.ResearchFacility
+-- local camInfo = {
+--    blendTime = 1.0,
+--    holdTime = 6.0,
+--    orientationOffset = { -0.9269, 0.2, 0 },
+--    positionOffset = { 0, 1, 0 },
+--    zoomVal = 20,
+-- }
+-- ScenarioFramework.OperationNISCamera(unit, camInfo)
+--
+-- end
+--
+-- function OnShiftF3()
+-- #    LOG('ScenarioInfo.AttackPlatoonsAlive = ', ScenarioInfo.AttackPlatoonsAlive)
+-- PlayRandomTaunt()
+-- end
+--
+-- function OnF4()
+-- ScenarioInfo.StopPeriodicAttacks = true
+-- for k, unit in ScenarioInfo.M1GroundPatrol01 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol02 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol03 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol04 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol05 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol06 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol07 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1GroundPatrol08 do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1AirPatrol01:GetPlatoonUnits() do
+--    unit:Kill()
+-- end
+-- for k, unit in ScenarioInfo.M1AirPatrol02:GetPlatoonUnits() do
+--    unit:Kill()
+-- end
+--
+-- BeginMission3()
+-- end
+--
+-- function OnShiftF4()
+-- Mission15PlatoonDefeated()
+-- end
+--
+-- function OnF5()
+-- BeginMission2()
+-- end
+--
+--
+-- function OnF5()
+-- local currentHealthPercentage = math.floor((ScenarioInfo.ResearchFacility:GetHealth() * 100) / ScenarioInfo.ResearchFacility:GetMaxHealth())
+-- LOG('*** CURRENT HEALTH PERCENTAGE IS ', currentHealthPercentage, ', ResearchFacilityHealthThreshold1 is ', ResearchFacilityHealthThreshold1, ' ***')
+-- end
+--
+-- function OnCtrlF5()
+-- LOG('Player army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Player) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Player))
+-- LOG('Aeon army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Aeon) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Aeon))
+-- end
+--
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_E02_v02', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end

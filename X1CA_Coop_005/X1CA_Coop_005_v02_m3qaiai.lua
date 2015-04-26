@@ -1,20 +1,20 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m3qaiai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : QAI army AI for Mission 3 - X1CA_Coop_005_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m3qaiai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : QAI army AI for Mission 3 - X1CA_Coop_005_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local NavalOSB = import('/lua/ai/opai/GenerateNaval.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Player = 1
 local QAI = 4
 local AeonArmy = 5
@@ -22,9 +22,9 @@ local UEFArmy = 6
 local Brackman = 8
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local QAIMainBase = BaseManager.CreateBaseManager()
 local QAILandBase = BaseManager.CreateBaseManager()
 local QAIAirBase = BaseManager.CreateBaseManager()
@@ -35,9 +35,9 @@ local QAIUEFExpBase = BaseManager.CreateBaseManager()
 
 function QAIMainBaseAI()
 
-    # -------------
-    # QAI Main Base
-    # -------------
+    -- -------------
+    -- QAI Main Base
+    -- -------------
     QAIMainBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Main_Base', 'M3_QAI_Main_Base_Marker', 50, {M3_QAI_Main_Base = 100})
     QAIMainBase:StartNonZeroBase({{2, 6, 9}, {2, 5, 7}})
 
@@ -55,11 +55,11 @@ function QAIMainBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    # --------------------------------
-    # QAI Main Base Op AI, Air Attacks
-    # --------------------------------
+    -- --------------------------------
+    -- QAI Main Base Op AI, Air Attacks
+    -- --------------------------------
 
-    # sends 2, 4, 6 [bombers]
+    -- sends 2, 4, 6 [bombers]
     quantity = {2, 4, 6}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack1',
         {
@@ -73,7 +73,7 @@ function QAIMainBaseAirAttacks()
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 2, 4, 6 [interceptors]
+    -- sends 2, 4, 6 [interceptors]
     quantity = {2, 4, 6}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack2',
         {
@@ -87,7 +87,7 @@ function QAIMainBaseAirAttacks()
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 12 [gunships, combat fighters]
+    -- sends 4, 8, 12 [gunships, combat fighters]
     quantity = {4, 8, 12}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack3',
         {
@@ -101,7 +101,7 @@ function QAIMainBaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 2, 4, 6 [gunships] if player has >= 100, 80, 60 mobile land
+    -- sends 2, 4, 6 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {2, 4, 6}
     trigger = {100, 80, 60}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack4',
@@ -117,7 +117,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 2, 4, 6 [air superiority] if player has >= 60, 40, 40 mobile air
+    -- sends 2, 4, 6 [air superiority] if player has >= 60, 40, 40 mobile air
     quantity = {2, 4, 6}
     trigger = {60, 40, 40}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack5',
@@ -133,7 +133,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 2, 4, 6 [air superiority] if player has >= 50, 30, 30 gunships
+    -- sends 2, 4, 6 [air superiority] if player has >= 50, 30, 30 gunships
     quantity = {2, 4, 6}
     trigger = {50, 30, 30}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack6',
@@ -149,7 +149,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {6, 12, 18}
     trigger = {60, 40, 20}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack7',
@@ -165,7 +165,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 2, 4, 6 [air superiority] if player has >= 1 strat bomber
+    -- sends 2, 4, 6 [air superiority] if player has >= 1 strat bomber
     quantity = {2, 4, 6}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack8',
         {
@@ -180,7 +180,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units
+    -- sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units
     quantity = {8, 16, 24}
     trigger = {450, 400, 300}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack9',
@@ -196,7 +196,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends 2, 4, 6 [heavy gunships] if player has >= 250, 200, 100 structures
+    -- sends 2, 4, 6 [heavy gunships] if player has >= 250, 200, 100 structures
     quantity = {2, 4, 6}
     trigger = {250, 200, 100}
     opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirAttack10',
@@ -212,7 +212,7 @@ function QAIMainBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.STRUCTURE - categories.WALL})
 
-    # Air Defense
+    -- Air Defense
     quantity = {2, 4, 6}
     for i = 1, 2 do
         opai = QAIMainBase:AddOpAI('AirAttacks', 'M3_MainAirDefense' .. i,
@@ -247,11 +247,11 @@ function QAIMainBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    # ---------------------------------
-    # QAI Main Base Op AI, Land Attacks
-    # ---------------------------------
+    -- ---------------------------------
+    -- QAI Main Base Op AI, Land Attacks
+    -- ---------------------------------
 
-    # sends 6, 10, 14 [light tanks, heavy tanks]
+    -- sends 6, 10, 14 [light tanks, heavy tanks]
     quantity = {6, 10, 14}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack1',
         {
@@ -267,7 +267,7 @@ function QAIMainBaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 10, 14 [light artillery, mobile missiles]
+    -- sends 6, 10, 14 [light artillery, mobile missiles]
     quantity = {6, 10, 14}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack2',
         {
@@ -283,7 +283,7 @@ function QAIMainBaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 10, 14 [mobile bombs, mobile stealth]
+    -- sends 6, 10, 14 [mobile bombs, mobile stealth]
     quantity = {6, 10, 14}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack3',
         {
@@ -299,7 +299,7 @@ function QAIMainBaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 2, 6, 10 [siege bots]
+    -- sends 2, 6, 10 [siege bots]
     quantity = {2, 6, 10}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack4',
         {
@@ -315,7 +315,7 @@ function QAIMainBaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 2, 6, 12 [heavy bots]
+    -- sends 2, 6, 12 [heavy bots]
     quantity = {2, 6, 12}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack5',
         {
@@ -331,7 +331,7 @@ function QAIMainBaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 4, 6, 8 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
+    -- sends 4, 6, 8 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
     quantity = {4, 6, 8}
     trigger = {60, 40, 40}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack6',
@@ -347,7 +347,7 @@ function QAIMainBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 6, 8 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
+    -- sends 4, 6, 8 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
     quantity = {4, 6, 8}
     trigger = {50, 30, 30}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack7',
@@ -363,7 +363,7 @@ function QAIMainBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 10, 14 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 10, 14 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
     quantity = {6, 10, 14}
     trigger = {60, 40, 20}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack8',
@@ -379,7 +379,7 @@ function QAIMainBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 2, 4, 6 [mobile flak] if player has >= 1 strat bomber
+    -- sends 2, 4, 6 [mobile flak] if player has >= 1 strat bomber
     quantity = {2, 4, 6}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack9',
         {
@@ -394,7 +394,7 @@ function QAIMainBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 6, 9, 12 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
+    -- sends 6, 9, 12 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
     quantity = {6, 9, 12}
     trigger = {450, 400, 350}
     opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandAttack10',
@@ -410,8 +410,8 @@ function QAIMainBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # Land Defense
-    # Maintains 4, 8, 12 Mobile Flak
+    -- Land Defense
+    -- Maintains 4, 8, 12 Mobile Flak
     quantity = {2, 4, 6}
     for i = 1, 2 do
         opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandDefense1_' .. i,
@@ -426,7 +426,7 @@ function QAIMainBaseLandAttacks()
         opai:SetChildQuantity({'MobileFlak'}, quantity[Difficulty])
     end
 
-    # Maintains 4, 8, 12 Mobile Missiles
+    -- Maintains 4, 8, 12 Mobile Missiles
     quantity = {2, 4, 6}
     for i = 1, 2 do
         opai = QAIMainBase:AddOpAI('BasicLandAttack', 'M3_MainLandDefense2_' .. i,
@@ -444,9 +444,9 @@ end
 
 function QAILandBaseAI()
 
-    # -------------
-    # QAI Land Base
-    # -------------
+    -- -------------
+    -- QAI Land Base
+    -- -------------
     QAILandBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_LandBase', 'M3_QAI_LandBase_Marker', 40, {M3_QAI_LandBase = 100})
     QAILandBase:StartNonZeroBase({{3, 7, 11}, {3, 6, 9}})
 
@@ -458,11 +458,11 @@ function QAILandBaseAttacks()
     local quantity = {}
     local trigger = {}
 
-    # ---------------------------------
-    # QAI Land Base Op AI, Land Attacks
-    # ---------------------------------
+    -- ---------------------------------
+    -- QAI Land Base Op AI, Land Attacks
+    -- ---------------------------------
 
-    # sends 6, 12, 18 [light tanks, heavy tanks]
+    -- sends 6, 12, 18 [light tanks, heavy tanks]
     quantity = {6, 12, 18}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack1',
         {
@@ -478,7 +478,7 @@ function QAILandBaseAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 12, 18 [light artillery, mobile missiles]
+    -- sends 6, 12, 18 [light artillery, mobile missiles]
     quantity = {6, 12, 18}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack2',
         {
@@ -494,7 +494,7 @@ function QAILandBaseAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 6, 12, 18 [mobile bombs, mobile stealth]
+    -- sends 6, 12, 18 [mobile bombs, mobile stealth]
     quantity = {6, 12, 18}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack3',
         {
@@ -510,7 +510,7 @@ function QAILandBaseAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 2, 6, 12 [siege bots]
+    -- sends 2, 6, 12 [siege bots]
     quantity = {2, 6, 12}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack4',
         {
@@ -526,7 +526,7 @@ function QAILandBaseAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 2, 6, 12 [heavy bots]
+    -- sends 2, 6, 12 [heavy bots]
     quantity = {2, 6, 12}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack5',
         {
@@ -542,7 +542,7 @@ function QAILandBaseAttacks()
         opai:SetLockingStyle('None')
     end
 
-    # sends 4, 6, 12 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
+    -- sends 4, 6, 12 [mobile flak, mobile shields] if player has >= 60, 40, 40 mobile air
     quantity = {4, 6, 12}
     trigger = {60, 40, 40}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack6',
@@ -558,7 +558,7 @@ function QAILandBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 4, 6, 12 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
+    -- sends 4, 6, 12 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
     quantity = {4, 6, 12}
     trigger = {50, 30, 30}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack7',
@@ -574,7 +574,7 @@ function QAILandBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 12, 18 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 12, 18 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
     quantity = {6, 10, 14}
     trigger = {60, 40, 20}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack8',
@@ -590,7 +590,7 @@ function QAILandBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 6, 12, 12 [mobile flak] if player has >= 1 strat bomber
+    -- sends 6, 12, 12 [mobile flak] if player has >= 1 strat bomber
     quantity = {6, 12, 12}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack9',
         {
@@ -605,7 +605,7 @@ function QAILandBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 6, 9, 12 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
+    -- sends 6, 9, 12 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
     quantity = {6, 9, 12}
     trigger = {450, 400, 350}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack10',
@@ -621,7 +621,7 @@ function QAILandBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends amphibious at Fletcher
+    -- sends amphibious at Fletcher
     quantity = {6, 12, 18}
     opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandAttack11',
         {
@@ -634,8 +634,8 @@ function QAILandBaseAttacks()
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
 
-    # Land Defense
-    # Maintains 4, 6, 12 Heavy Tanks
+    -- Land Defense
+    -- Maintains 4, 6, 12 Heavy Tanks
     quantity = {2, 3, 6}
     for i = 1, 2 do
         opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandDefense1_' .. i,
@@ -650,7 +650,7 @@ function QAILandBaseAttacks()
         opai:SetChildQuantity({'HeavyTanks'}, quantity[Difficulty])
     end
 
-    # Maintains 4, 6, 12 Heavy Bots
+    -- Maintains 4, 6, 12 Heavy Bots
     quantity = {2, 3, 6}
     for i = 1, 2 do
         opai = QAILandBase:AddOpAI('BasicLandAttack', 'M3_LandLandDefense2_' .. i,
@@ -668,9 +668,9 @@ end
 
 function QAIAirBaseAI()
 
-    # ------------
-    # QAI Air Base
-    # ------------
+    -- ------------
+    -- QAI Air Base
+    -- ------------
     QAIAirBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_AirBase', 'M3_QAI_AirBase_Marker', 50, {M3_QAI_AirBase = 100})
     QAIAirBase:StartNonZeroBase({{2, 10, 14}, {2, 9, 12}})
 
@@ -687,11 +687,11 @@ function QAIAirBaseAttacks()
     local quantity = {}
     local trigger = {}
 
-    # -------------------------------
-    # QAI Air Base Op AI, Air Attacks
-    # -------------------------------
+    -- -------------------------------
+    -- QAI Air Base Op AI, Air Attacks
+    -- -------------------------------
 
-    # sends 6, 12, 18 [bombers]
+    -- sends 6, 12, 18 [bombers]
     quantity = {6, 12, 18}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack1',
         {
@@ -705,7 +705,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 6, 12, 18 [interceptors]
+    -- sends 6, 12, 18 [interceptors]
     quantity = {6, 12, 18}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack2',
         {
@@ -719,7 +719,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 4, 8, 12 [gunships, combat fighters]
+    -- sends 4, 8, 12 [gunships, combat fighters]
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack3',
         {
@@ -733,7 +733,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 6, 12, 18 [gunships] if player has >= 100, 80, 60 mobile land
+    -- sends 6, 12, 18 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {6, 12, 18}
     trigger = {100, 80, 60}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack4',
@@ -749,7 +749,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 6, 12, 18 [air superiority] if player has >= 60, 40, 40 mobile air
+    -- sends 6, 12, 18 [air superiority] if player has >= 60, 40, 40 mobile air
     quantity = {6, 12, 18}
     trigger = {60, 40, 40}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack5',
@@ -765,7 +765,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 6, 12, 18 [air superiority] if player has >= 50, 30, 30 gunships
+    -- sends 6, 12, 18 [air superiority] if player has >= 50, 30, 30 gunships
     quantity = {6, 12, 18}
     trigger = {50, 30, 30}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack6',
@@ -781,7 +781,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {6, 12, 18}
     trigger = {60, 40, 20}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack7',
@@ -797,7 +797,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 6, 12, 18 [air superiority] if player has >= 1 strat bomber
+    -- sends 6, 12, 18 [air superiority] if player has >= 1 strat bomber
     quantity = {6, 12, 18}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack8',
         {
@@ -812,7 +812,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units
+    -- sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units
     quantity = {8, 16, 24}
     trigger = {450, 400, 300}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack9',
@@ -828,7 +828,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # sends 6, 12, 18 [heavy gunships] if player has >= 250, 200, 100 structures
+    -- sends 6, 12, 18 [heavy gunships] if player has >= 250, 200, 100 structures
     quantity = {1, 2, 3}
     trigger = {250, 200, 100}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack10',
@@ -844,7 +844,7 @@ function QAIAirBaseAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.STRUCTURE - categories.WALL})
 
-    # sends 6, 12, 18 [bombers] at Fletcher
+    -- sends 6, 12, 18 [bombers] at Fletcher
     quantity = {6, 12, 18}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack11',
         {
@@ -857,7 +857,7 @@ function QAIAirBaseAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
 
-    # sends 4, 8, 12 [gunships] at Fletcher
+    -- sends 4, 8, 12 [gunships] at Fletcher
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack12',
         {
@@ -870,7 +870,7 @@ function QAIAirBaseAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
 
-    # sends 4, 8, 12 [torpedo bombers] at Megalith
+    -- sends 4, 8, 12 [torpedo bombers] at Megalith
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack13',
         {
@@ -881,7 +881,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m3qaiai.lua', 'MegalithOnWater', {})
 
-    # sends 4, 8, 12 [gunships] at Megalith
+    -- sends 4, 8, 12 [gunships] at Megalith
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack14',
         {
@@ -892,7 +892,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m3qaiai.lua', 'MegalithOnLand', {})
 
-    # sends 4, 8, 12 [torpedo bombers] at Player CDR
+    -- sends 4, 8, 12 [torpedo bombers] at Player CDR
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack15',
         {
@@ -903,7 +903,7 @@ function QAIAirBaseAttacks()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m3qaiai.lua', 'CDROnWater', {})
 
-    # sends 4, 8, 12 [gunships] at Player CDR
+    -- sends 4, 8, 12 [gunships] at Player CDR
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack16',
         {
@@ -928,7 +928,7 @@ function QAIAirBaseAttacks()
         }
     )
 
-    # Air Defense
+    -- Air Defense
     for i = 1, 2 do
         opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirDefense' .. i,
             {
@@ -958,9 +958,9 @@ end
 
 function QAINavalBaseAI()
 
-    # --------------
-    # QAI Naval Base
-    # --------------
+    -- --------------
+    -- QAI Naval Base
+    -- --------------
     QAINavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 50, {M3_QAI_Naval_Base = 100})
     QAINavalBase:StartNonZeroBase({{1, 4, 7}, {1, 3, 6}})
 
@@ -969,9 +969,9 @@ end
 
 function QAINavalBaseAttacks()
 
-    # -----------------------------------
-    # QAI Naval Base Op AI, Naval Attacks
-    # -----------------------------------
+    -- -----------------------------------
+    -- QAI Naval Base Op AI, Naval Attacks
+    -- -----------------------------------
     local quantity = {20, 30, 40}
     for i = 1, 2 do
         local navalOSB = NavalOSB.GenerateNavalOSB('QAINaval' .. i, 5, 1, quantity[Difficulty], 'C', 100, nil, nil)
@@ -991,9 +991,9 @@ end
 
 function QAICybranExpBaseAI()
 
-    # -------------------
-    # QAI Cybran Exp Base
-    # -------------------
+    -- -------------------
+    -- QAI Cybran Exp Base
+    -- -------------------
     QAICybranExpBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_ExpBase', 'M3_QAI_ExpBase_Marker', 50, {M3_QAI_ExpBase = 100})
     QAICybranExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1002,9 +1002,9 @@ end
 
 function QAICybranExpBaseAttacks()
 
-    # -------------------------
-    # QAI Cybran Exp Base Op AI
-    # -------------------------
+    -- -------------------------
+    -- QAI Cybran Exp Base Op AI
+    -- -------------------------
 
     local units = {'M3_QAI_Exp_Spider', 'M3_QAI_Exp_Gunship'}
     if(Difficulty == 3) then
@@ -1028,9 +1028,9 @@ end
 
 function QAIAeonExpBaseAI()
 
-    # -----------------
-    # QAI Aeon Exp Base
-    # -----------------
+    -- -----------------
+    -- QAI Aeon Exp Base
+    -- -----------------
     QAIAeonExpBase:InitializeDifficultyTables(ArmyBrains[AeonArmy], 'M3_Aeon_Factory', 'M3_QAI_ExpBase_Marker', 50, {M3_Aeon_Factory = 100})
     QAIAeonExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1039,9 +1039,9 @@ end
 
 function QAIAeonExpBaseAttacks()
 
-    # -----------------------
-    # QAI Aeon Exp Base Op AI
-    # -----------------------
+    -- -----------------------
+    -- QAI Aeon Exp Base Op AI
+    -- -----------------------
 
     local numEngineers = {1, 2, 3}
     local opai = QAIAeonExpBase:AddOpAI({'M3_Aeon_Exp_Czar', 'M3_Aeon_Exp_Col'},
@@ -1061,9 +1061,9 @@ end
 
 function QAIUEFExpBaseAI()
 
-    # ----------------
-    # QAI UEF Exp Base
-    # ----------------
+    -- ----------------
+    -- QAI UEF Exp Base
+    -- ----------------
     QAIUEFExpBase:InitializeDifficultyTables(ArmyBrains[UEFArmy], 'M3_UEF_Factory', 'M3_QAI_ExpBase_Marker', 50, {M3_UEF_Factory = 100})
     QAIUEFExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1072,9 +1072,9 @@ end
 
 function QAIUEFExpBaseAttacks()
 
-    # ----------------------
-    # QAI UEF Exp Base Op AI
-    # ----------------------
+    -- ----------------------
+    -- QAI UEF Exp Base Op AI
+    -- ----------------------
 
     local numEngineers = {1, 2, 3}
     local opai = QAIUEFExpBase:AddOpAI('M3_UEF_Exp_Fatboy',

@@ -1,43 +1,43 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_001_v07/X1CA_Coop_001_v07_m4uefai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : UEF army AI for Mission 4 - X1CA_Coop_001_v07
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_001_v07/X1CA_Coop_001_v07_m4uefai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : UEF army AI for Mission 4 - X1CA_Coop_001_v07
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local UEF = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local FortClarke = BaseManager.CreateBaseManager()
 local UEFM4ForwardOne = BaseManager.CreateBaseManager()
 local UEFM4ForwardTwo = BaseManager.CreateBaseManager()
 
 function FortClarkeAI()
 
-    # -----------
-    # Fort Clarke
-    # -----------
+    -- -----------
+    -- Fort Clarke
+    -- -----------
     ScenarioUtils.CreateArmyGroup('UEF', 'M4_UEF_Clarke_Init_Eng_D' .. Difficulty)
     FortClarke:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Fort_Clarke_Base', 'UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100,})
     FortClarke:StartNonZeroBase({40, 32})
     FortClarke:SetMaximumConstructionEngineers(4)
 	FortClarke:SetConstructionAlwaysAssist(true)
 	
-	ScenarioFramework.AddRestriction(UEF, categories.uel0105) # UEF T1 Engineer
+	ScenarioFramework.AddRestriction(UEF, categories.uel0105) -- UEF T1 Engineer
 	
 	-- Expansion setup
     -- FortClarke:AddExpansionBase('UEFM4ForwardOne', 4)
@@ -61,11 +61,11 @@ end
 function FortClarkeLandAttacks()
     local opai = nil
 
-    # -------------------------------
-    # Fort Clarke Op AI, Land Attacks
-    # -------------------------------
+    -- -------------------------------
+    -- Fort Clarke Op AI, Land Attacks
+    -- -------------------------------
 
-    # sends 1 fatboy
+    -- sends 1 fatboy
     opai = FortClarke:AddOpAI('UEF_Fatboy',
         {
             Amount = 1,
@@ -80,13 +80,13 @@ function FortClarkeLandAttacks()
         }
     )
 
-    # sends [siege bots, mobile shields, mobile missile platforms]
+    -- sends [siege bots, mobile shields, mobile missile platforms]
 	local template = {
         'HeavyLandAttack1',
         'NoPlan',
-        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	# Siege Bots
-        { 'xel0306', 1, 4, 'Attack', 'GrowthFormation' },	# Mobile Missile Platforms
-        { 'uel0307', 1, 4, 'Attack', 'GrowthFormation' },	# Mobile Shields
+        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	-- Siege Bots
+        { 'xel0306', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Missile Platforms
+        { 'uel0307', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Shields
     }
 	local builder = {
         BuilderName = 'HeavyLandAttack1',
@@ -106,8 +106,8 @@ function FortClarkeLandAttacks()
 	template = {
         'HeavyLandAttack2',
         'NoPlan',
-        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	# Siege Bots
-        { 'xel0305', 1, 4, 'Attack', 'GrowthFormation' },	# Mobile Missile Platforms
+        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	-- Siege Bots
+        { 'xel0305', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Missile Platforms
     }
 	builder = {
         BuilderName = 'HeavyLandAttack2',
@@ -127,8 +127,8 @@ function FortClarkeLandAttacks()
 	template = {
         'HeavyLandAttack3',
         'NoPlan',
-        { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' },	# Heavy Tanks
-        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },	# Mobile Flak
+        { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
+        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Flak
     }
 	builder = {
         BuilderName = 'HeavyLandAttack3',
@@ -148,8 +148,8 @@ function FortClarkeLandAttacks()
 	template = {
         'HeavyLandAttack4',
         'NoPlan',
-        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	# Siege Bots
-        { 'uel0111', 1, 8, 'Attack', 'GrowthFormation' },	# Mobile Missiles
+        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	-- Siege Bots
+        { 'uel0111', 1, 8, 'Attack', 'GrowthFormation' },	-- Mobile Missiles
     }
 	builder = {
         BuilderName = 'HeavyLandAttack4',
@@ -169,9 +169,9 @@ function FortClarkeLandAttacks()
 	template = {
         'HeavyLandAttack5',
         'NoPlan',
-        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	# Siege Bots
-        { 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },	# Heavy Tanks
-        { 'uel0103', 1, 4, 'Attack', 'GrowthFormation' },	# Mobile Light Artillery
+        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	-- Siege Bots
+        { 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
+        { 'uel0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Light Artillery
     }
 	builder = {
         BuilderName = 'HeavyLandAttack5',
@@ -188,7 +188,7 @@ function FortClarkeLandAttacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon( builder )
 
-    # [mobile flak, mobile aa] patrols
+    -- [mobile flak, mobile aa] patrols
     for i = 1, 2 do
 	for x = 1, 2 do
         opai = FortClarke:AddOpAI('BasicLandAttack', 'FortClarkeLandBasePatrol' .. i .. x,
@@ -204,7 +204,7 @@ function FortClarkeLandAttacks()
     end
 	end
 
-    # [siege bots] patrols
+    -- [siege bots] patrols
     for i = 1, 2 do
         opai = FortClarke:AddOpAI('BasicLandAttack', 'FortClarkeFrontLandBasePatrol' .. i,
             {
@@ -222,11 +222,11 @@ end
 function FortClarkeAirAttacks()
     local opai = nil
 
-    # ------------------------------
-    # Fort Clarke Op AI, Air Attacks
-    # ------------------------------
+    -- ------------------------------
+    -- Fort Clarke Op AI, Air Attacks
+    -- ------------------------------
 
-    # sends [heavy gunships, gunships, interceptors]
+    -- sends [heavy gunships, gunships, interceptors]
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -239,7 +239,7 @@ function FortClarkeAirAttacks()
     opai:SetChildQuantity({'HeavyGunships', 'Gunships', 'Interceptors'}, 24)
     opai:SetLockingStyle('None')
 
-    # sends [bombers]
+    -- sends [bombers]
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -251,7 +251,7 @@ function FortClarkeAirAttacks()
     )
     opai:SetChildQuantity('Bombers', 24)
 
-    # sends [air superiority]
+    -- sends [air superiority]
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'RandomPatrolThread'},
@@ -263,7 +263,7 @@ function FortClarkeAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', 16)
 
-    # Air Defense
+    -- Air Defense
     for i = 1, 2 do
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirDefense1' .. i,
         {
@@ -367,9 +367,9 @@ end
 
 function UEFM4ForwardOneAI()
 
-    # ------------------
-    # UEF Forward Base 1
-    # ------------------
+    -- ------------------
+    -- UEF Forward Base 1
+    -- ------------------
     UEFM4ForwardOne:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_One', 'UEF_M3_Forward_One_Base_Marker', 40, {M3_Forward_One = 100,})
     UEFM4ForwardOne:StartNonZeroBase({6, 4})
 
@@ -380,11 +380,11 @@ end
 function UEFM4ForwardOneLandAttacks()
     local opai = nil
 
-    # --------------------------------------
-    # UEF M4 Forward One Op AI, Land Attacks
-    # --------------------------------------
+    -- --------------------------------------
+    -- UEF M4 Forward One Op AI, Land Attacks
+    -- --------------------------------------
 
-    # sends [heavy tanks]
+    -- sends [heavy tanks]
     opai = UEFM4ForwardOne:AddOpAI('BasicLandAttack', 'UEF_ForwardOne_LandAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -397,7 +397,7 @@ function UEFM4ForwardOneLandAttacks()
     opai:SetChildQuantity('HeavyTanks', 4)
     opai:SetLockingStyle('None')
 
-    # sends [mobile missiles, light artillery]
+    -- sends [mobile missiles, light artillery]
     opai = UEFM4ForwardOne:AddOpAI('BasicLandAttack', 'UEF_ForwardOne_LandAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -410,7 +410,7 @@ function UEFM4ForwardOneLandAttacks()
     opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 4)
     opai:SetLockingStyle('None')
 
-    # sends [mobile flak]
+    -- sends [mobile flak]
     opai = UEFM4ForwardOne:AddOpAI('BasicLandAttack', 'UEF_ForwardOne_LandAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -427,11 +427,11 @@ end
 function UEFM4ForwardOneAirAttacks()
     local opai = nil
 
-    # -------------------------------------
-    # UEF M4 Forward One Op AI, Air Attacks
-    # -------------------------------------
+    -- -------------------------------------
+    -- UEF M4 Forward One Op AI, Air Attacks
+    -- -------------------------------------
 
-    # sends [gunships, interceptors]
+    -- sends [gunships, interceptors]
     opai = UEFM4ForwardOne:AddOpAI('AirAttacks', 'UEF_ForwardOne_AirAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -448,9 +448,9 @@ end
 
 function UEFM4ForwardTwoAI()
 
-    # ------------------
-    # UEF Forward Base 2
-    # ------------------
+    -- ------------------
+    -- UEF Forward Base 2
+    -- ------------------
     UEFM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_Two', 'UEF_M3_Forward_Two_Base_Marker', 60, {M3_Forward_Two = 100,})
     UEFM4ForwardTwo:StartNonZeroBase({6, 4})
 
@@ -460,11 +460,11 @@ end
 function UEFM4ForwardTwoLandAttacks()
     local opai = nil
 
-    # --------------------------------------
-    # UEF M4 Forward Two Op AI, Land Attacks
-    # --------------------------------------
+    -- --------------------------------------
+    -- UEF M4 Forward Two Op AI, Land Attacks
+    -- --------------------------------------
 
-    # sends [siege bots, mobile shields, heavy tanks, light bots]
+    -- sends [siege bots, mobile shields, heavy tanks, light bots]
     opai = UEFM4ForwardTwo:AddOpAI('BasicLandAttack', 'UEF_ForwardTwo_LandAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -477,7 +477,7 @@ function UEFM4ForwardTwoLandAttacks()
     opai:SetChildQuantity({'SiegeBots', 'MobileShields', 'HeavyTanks', 'LightBots'}, 8)
     opai:SetLockingStyle('None')
 
-    # sends [mobile missiles, light artillery]
+    -- sends [mobile missiles, light artillery]
     opai = UEFM4ForwardTwo:AddOpAI('BasicLandAttack', 'UEF_ForwardTwo_LandAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -490,7 +490,7 @@ function UEFM4ForwardTwoLandAttacks()
     opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 4)
     opai:SetLockingStyle('None')
 
-    # sends [mobile flak, mobile anti air]
+    -- sends [mobile flak, mobile anti air]
     opai = UEFM4ForwardTwo:AddOpAI('BasicLandAttack', 'UEF_ForwardTwo_LandAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

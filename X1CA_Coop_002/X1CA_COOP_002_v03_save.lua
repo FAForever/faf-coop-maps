@@ -18136,14 +18136,14 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_3261'] = {
-                                                type = 'uab0201',	# Land factory
+                                                type = 'uab0201',	-- Land factory
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 634.500000, 35.000000, 976.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_3959'] = {
-                                                type = 'uab0201',	# Land factory
+                                                type = 'uab0201',	-- Land factory
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 620.500000, 35.000000, 976.500000 },

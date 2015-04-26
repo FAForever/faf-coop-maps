@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m2loyalistai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Loyalist army AI for Mission 2 - X1CA_Coop_002_v03
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m2loyalistai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Loyalist army AI for Mission 2 - X1CA_Coop_002_v03
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -15,31 +15,31 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ThisFile = '/maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m2loyalistai.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Loyalist = 4
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local LoyalistM2EastBase = BaseManager.CreateBaseManager()
 local LoyalistM2WestBase = BaseManager.CreateBaseManager()
 local LoyalistM2ExpansionBase = BaseManager.CreateBaseManager()
 
 function LoyalistM2EastBaseAI()
 
-    # ---------------------
-    # Loyalist M2 East Base
-    # ---------------------
-    LoyalistM2EastBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_East', 'M2_Loyalist_Base_East_Marker', 40, {M2_Loyalist_Base_East = 100,}) # M4_Loyalist_PrisonBase = 90
+    -- ---------------------
+    -- Loyalist M2 East Base
+    -- ---------------------
+    LoyalistM2EastBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_East', 'M2_Loyalist_Base_East_Marker', 40, {M2_Loyalist_Base_East = 100,}) -- M4_Loyalist_PrisonBase = 90
     LoyalistM2EastBase:StartNonZeroBase({3, 3})
     LoyalistM2EastBase:SetActive('AirScouting', true)
     LoyalistM2EastBase:SetActive('LandScouting', true)
 	
 	-- LoyalistM2ExpansionBaseAI()
 
-    # disable omni
+    -- disable omni
     local omni = ScenarioFramework.GetCatUnitsInArea(categories.uab3104, ScenarioUtils.AreaToRect('M2_Playable_Area'), ArmyBrains[Loyalist])
     local num = table.getn(omni)
     if(num > 0) then
@@ -55,17 +55,17 @@ end
 function LoyalistM2EastBaseAirAttacks()
     local opai = nil
 
-    # ----------------------------------------
-    # Loyalist M2 East Base Op AI, Air Attacks
-    # ----------------------------------------
+    -- ----------------------------------------
+    -- Loyalist M2 East Base Op AI, Air Attacks
+    -- ----------------------------------------
 
 	local template = {
         'M2_AirAttacks',
         'NoPlan',
-        { 'uaa0303', 1, 1, 'Attack', 'GrowthFormation' },	# Air Superiority
-        { 'uaa0203', 1, 2, 'Attack', 'GrowthFormation' },	# Gunships
-        { 'uaa0103', 1, 3, 'Attack', 'GrowthFormation' },	# Bombers
-        { 'uaa0101', 1, 1, 'Attack', 'GrowthFormation' },	# Air Scout
+        { 'uaa0303', 1, 1, 'Attack', 'GrowthFormation' },	-- Air Superiority
+        { 'uaa0203', 1, 2, 'Attack', 'GrowthFormation' },	-- Gunships
+        { 'uaa0103', 1, 3, 'Attack', 'GrowthFormation' },	-- Bombers
+        { 'uaa0101', 1, 1, 'Attack', 'GrowthFormation' },	-- Air Scout
     }
 	local builder = {
         BuilderName = 'M2_AirAttacks',
@@ -79,7 +79,7 @@ function LoyalistM2EastBaseAirAttacks()
     }
     ArmyBrains[Loyalist]:PBMAddPlatoon( builder )
 	
-    # Air Attack
+    -- Air Attack
     -- opai = LoyalistM2EastBase:AddOpAI('AirAttacks', 'M2_AirAttacks',
         -- {
             -- MasterPlatoonFunction = {'/maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m2loyalistai.lua', 'LoyalistM2EastAirAttacksAI'},
@@ -111,7 +111,7 @@ function LoyalistM2EastAirAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then
@@ -127,11 +127,11 @@ end
 function LoyalistM2EastBaseLandAttacks()
     local opai = nil
 
-    # -----------------------------------------
-    # Loyalist M2 East Base Op AI, Land Attacks
-    # -----------------------------------------
+    -- -----------------------------------------
+    -- Loyalist M2 East Base Op AI, Land Attacks
+    -- -----------------------------------------
 
-    # Land Attack
+    -- Land Attack
     opai = LoyalistM2EastBase:AddOpAI('BasicLandAttack', 'M2_LandAttackEast',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_002_v03/X1CA_Coop_002_v03_m2loyalistai.lua', 'LoyalistM2EastLandAttacksAI'},
@@ -147,7 +147,7 @@ function LoyalistM2EastLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then
@@ -162,9 +162,9 @@ end
 
 function LoyalistM2WestBaseAI()
 
-    # ---------------------
-    # Loyalist M2 West Base
-    # ---------------------
+    -- ---------------------
+    -- Loyalist M2 West Base
+    -- ---------------------
     LoyalistM2WestBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_West', 'M2_Loyalist_Base_West_Marker', 35, {M2_Loyalist_Base_West = 100})
     LoyalistM2WestBase:StartNonZeroBase({2, 2})
     LoyalistM2WestBase:SetActive('LandScouting', true)
@@ -175,11 +175,11 @@ end
 function LoyalistM2WestBaseLandAttacks()
     local opai = nil
 
-    # -----------------------------------------
-    # Loyalist M2 West Base Op AI, Land Attacks
-    # -----------------------------------------
+    -- -----------------------------------------
+    -- Loyalist M2 West Base Op AI, Land Attacks
+    -- -----------------------------------------
 
-    # Land Attack
+    -- Land Attack
     for i = 1, 2 do
         opai = LoyalistM2WestBase:AddOpAI('BasicLandAttack', 'M2_LandAttackWest_' .. i,
             {
@@ -219,7 +219,7 @@ function LoyalistM2WestLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
     local cmd = false
 
-    # Switches attack chains based on mission number
+    -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
         if(not cmd or not platoon:IsCommandsActive(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E05_v01/SCCA_Coop_E05_v01_aeonplan1.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E05_v01/SCCA_Coop_E05_v01_aeonplan1.lua
+-- **  Author(s):  David Tomandl
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
 function EvaluatePlan( brain )
     return 100
@@ -25,13 +25,13 @@ local ScenarioFramework = import('/lua/modules/scenarioframework.lua')
 local ScenarioPlatoonAI = import('/lua/modules/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/ScenarioUtilities.lua')
 
-# ------------------------
-# Platoon Build Conditions
-# ------------------------
+-- ------------------------
+-- Platoon Build Conditions
+-- ------------------------
 
-# ----------
-# Platoon AI
-# ----------
+-- ----------
+-- Platoon AI
+-- ----------
 
 local PlayerBaseLocations = {
     ScenarioUtils.MarkerToPosition('Research_Facility_1'),
@@ -40,17 +40,17 @@ local PlayerBaseLocations = {
     ScenarioUtils.MarkerToPosition('Player'),
 }
 
-#### TARGETTING THINGS
-# These are prioritized lists of targets.  Platoons can be handed these lists so that
-# the units will target whatever is the highest on the list first.
-# This allows the AI programmer to have units attack things in order like power first for instance.
-# The first entries are the first targetted.
+-- ### TARGETTING THINGS
+-- These are prioritized lists of targets.  Platoons can be handed these lists so that
+-- the units will target whatever is the highest on the list first.
+-- This allows the AI programmer to have units attack things in order like power first for instance.
+-- The first entries are the first targetted.
 local LandGroupDefenseTarget = {
-#    categories.AIR * categories.ANTIAIR,
-#    categories.AIR,
-#    categories.ANTIAIR,
-#    categories.MOBILE - categories.COMMAND,
-#    categories.ENERGYPRODUCTION - categories.COMMAND,
+-- categories.AIR * categories.ANTIAIR,
+-- categories.AIR,
+-- categories.ANTIAIR,
+-- categories.MOBILE - categories.COMMAND,
+-- categories.ENERGYPRODUCTION - categories.COMMAND,
     categories.ALLUNITS,
 }
 
@@ -67,7 +67,7 @@ local AirGroupGroundTarget = {
     categories.ALLUNITS,
 }
 
-# I hand this to platoon AI threads so that I can give the target lists to multiple squads in a platoon
+-- I hand this to platoon AI threads so that I can give the target lists to multiple squads in a platoon
 local LandSquadsTarget = {
     { Squad='Attack', TargetList=LandGroupDefenseTarget, },
 }
@@ -78,10 +78,10 @@ local AirSquadsTarget = {
 }
 
 function AeonNukeThread(platoon)
-    #local aiBrain = platoon:GetBrain()
+    -- local aiBrain = platoon:GetBrain()
     local platoonUnits = platoon:GetPlatoonUnits()
-    #local data = platoon.PlatoonData
-    #local baseName = data.BaseName
+    -- local data = platoon.PlatoonData
+    -- local baseName = data.BaseName
     if not ( table.getn( platoonUnits ) == 1 ) then
         error ( 'Expected one unit in the Aeon Nuke platoon!  Found ', table.getn( platoonUnits ) )
     end
@@ -91,26 +91,26 @@ function AeonNukeThread(platoon)
 end
 
 function GenericAttack(platoon)
-#    LOG( '*********** EXECUTING NEW GROUP AI **************' )
+-- LOG( '*********** EXECUTING NEW GROUP AI **************' )
     platoon.PlatoonData.LocationList = PlayerBaseLocations
     platoon.PlatoonData.High = false
     platoon.PlatoonData.AttackTable = LandSquadsTarget
 
-    platoon:ForkThread( ScenarioPlatoonAI.PlatoonAttackLocationList ) #, PlayerBaseLocations, false, LandSquadsTarget )
+    platoon:ForkThread( ScenarioPlatoonAI.PlatoonAttackLocationList ) -- , PlayerBaseLocations, false, LandSquadsTarget )
 end
 
-# -----------------------
-# Platoon Build Callbacks
-# -----------------------
+-- -----------------------
+-- Platoon Build Callbacks
+-- -----------------------
 
-# ------------
-# Platoon List
-# ------------
+-- ------------
+-- Platoon List
+-- ------------
 local PlatoonList = {
 
-    # -------------
-    # Nuke Building
-    # -------------
+    -- -------------
+    -- Nuke Building
+    -- -------------
     {
         PlatoonTemplate = Scenario.Platoons['UEF_Nuke_Silo'],
         InstanceCount = 1,
@@ -125,9 +125,9 @@ local PlatoonList = {
         PlatoonAIFunction = AeonNukeThread,
     },
 
-    # -----------------
-    # M1 Aeon attackers
-    # -----------------
+    -- -----------------
+    -- M1 Aeon attackers
+    -- -----------------
     {
         PlatoonTemplate = Scenario.Platoons['UEF_LandAttack1'],
         InstanceCount = 2,
@@ -271,9 +271,9 @@ local PlatoonList = {
         RequiresConstruction = true,
         PlatoonAIFunction = GenericAttack,
     },
-    # ------------------------
-    # M1 Aeon base maintenance
-    # ------------------------
+    -- ------------------------
+    -- M1 Aeon base maintenance
+    -- ------------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -293,7 +293,7 @@ local PlatoonList = {
         BuildConditions = {
         },
         LocationType = 'Aeon_Nuke_Base_Location',
-        #BuildTimeOut = 600,
+        -- BuildTimeOut = 600,
         PlatoonType = 'Land',
         RequiresConstruction = false,
     },
@@ -316,7 +316,7 @@ local PlatoonList = {
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 1,
-#        InstanceCount = 2,
+--    InstanceCount = 2,
         Priority = 110,
         BuildConditions = {
             {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildUEFAttack1'}},
@@ -327,18 +327,18 @@ local PlatoonList = {
         PlatoonType = 'Land',
         RequiresConstruction = false,
         PlatoonData = {
-#            Construction = {
-#                BaseTemplate = 'Nuke_Base_Additions_Factories',
-#            },
+--        Construction = {
+--            BaseTemplate = 'Nuke_Base_Additions_Factories',
+--        },
             MaintainBaseTemplate = 'Nuke_Base_Additions_Factories',
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
 
 
-    # -----------------
-    # M2 Aeon Air Base
-    # -----------------
+    -- -----------------
+    -- M2 Aeon Air Base
+    -- -----------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -402,7 +402,7 @@ local PlatoonList = {
         PlatoonType = 'Land',
         RequiresConstruction = false,
     },
-    # Engineers go from more specialized to less specialized
+    -- Engineers go from more specialized to less specialized
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 2,
@@ -501,7 +501,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Maintenance engineers
+    -- Maintenance engineers
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 1,
@@ -532,7 +532,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Attack platoons
+    -- Attack platoons
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_AirAttack1'],
         InstanceCount = 1,
@@ -599,9 +599,9 @@ local PlatoonList = {
 
 
 
-    # -----------------------
-    # M2 Aeon Land Base South
-    # -----------------------
+    -- -----------------------
+    -- M2 Aeon Land Base South
+    -- -----------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -665,7 +665,7 @@ local PlatoonList = {
         PlatoonType = 'Land',
         RequiresConstruction = false,
     },
-    # Engineers go from more specialized to less specialized
+    -- Engineers go from more specialized to less specialized
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 2,
@@ -764,7 +764,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Maintenance engineers
+    -- Maintenance engineers
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 1,
@@ -795,7 +795,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Attack platoons
+    -- Attack platoons
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_LandAttack1'],
         InstanceCount = 1,
@@ -860,9 +860,9 @@ local PlatoonList = {
         PlatoonAIFunction = GenericAttack,
     },
 
-    # -----------------------
-    # M2 Aeon Land Base North
-    # -----------------------
+    -- -----------------------
+    -- M2 Aeon Land Base North
+    -- -----------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -926,7 +926,7 @@ local PlatoonList = {
         PlatoonType = 'Land',
         RequiresConstruction = false,
     },
-    # Engineers go from more specialized to less specialized
+    -- Engineers go from more specialized to less specialized
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 2,
@@ -1025,7 +1025,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Maintenance engineers
+    -- Maintenance engineers
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_T3_Engineer'],
         InstanceCount = 1,
@@ -1056,7 +1056,7 @@ local PlatoonList = {
         },
         PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
     },
-    # Attack platoons
+    -- Attack platoons
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_LandAttack1'],
         InstanceCount = 1,
@@ -1123,244 +1123,244 @@ local PlatoonList = {
 
 
 
-#    # --------
-#    # Air Base
-#    # --------
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Engineer,
-#        InstanceCount = 2,
-#        Priority = 100,
-#        BuildConditions = {},
-#        LocationType = 'M1_Airbase',
-#        BuildTimeOut = 600,
-#        PlatoonType = 'Air',
-#        RequiresConstruction = true,
-#        PlatoonData = {
-#            Construction = {
-#                BaseTemplate = 'M1_AIR_BASE',
-#                BuildingTemplate = BaseTemplates.BuildingTemplates[3],
-#                BuildClose = true,
-#                BuildRelative = false,
-#                BuildSpecificTemplates = true,
-#                BuildStructures = {
-#                    'T1MassCreation',
-#                    'T1MassCreation',
-#                    'MassStorage',
-#                    'MassStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                },
-#            },
-#            BaseName = 'M1_AIR_BASE',
-#            TechLevel = 2,
-#            Template = BaseTemplates.BuildingTemplates[3],
-#        },
-#        PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.AirAttack,
-#        Priority = 90,
-#        BuildConditions = {
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildAirAttack'}},
-#        },
-#        LocationType = 'M1_Airbase',
-#        BuildTimeOut = 1800,
-#        PlatoonType = 'Air',
-#        RequiresConstruction = true,
-#        PlatoonAIFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
-#    },
-#
-#    # ------------
-#    # Land Base #1
-#    # ------------
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Engineer,
-#        InstanceCount = 2,
-#        Priority = 100,
-#        BuildConditions = {},
-#        LocationType = 'M1_Landbase1',
-#        BuildTimeOut = 600,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonData = {
-#            Construction = {
-#                BaseTemplate = 'M1_LAND_BASE_1',
-#                BuildingTemplate = BaseTemplates.BuildingTemplates[3],
-#                BuildClose = true,
-#                BuildRelative = false,
-#                BuildSpecificTemplates = true,
-#                BuildStructures = {
-#                    'T2AirFactory',
-#                    'T1MassCreation',
-#                    'T1MassCreation',
-#                    'MassStorage',
-#                    'MassStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                },
-#            },
-#            BaseName = 'M1_LAND_BASE_1',
-#            TechLevel = 2,
-#            Template = BaseTemplates.BuildingTemplates[3],
-#        },
-#        PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Transport,
-#        Priority = 90,
-#        BuildConditions = {
-#            {AIBuildConditions.AIBCHaveLessThanUnitsWithCategory, {8, categories.TRANSPORTATION}},
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
-#        },
-#        LocationType = 'M1_Landbase1',
-#        BuildTimeOut = 600,
-#        PlatoonType = 'Air',
-#        RequiresConstruction = true,
-#        PlatoonAIFunction = ScenarioPlatoonAI.TransportPool,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.LandAttack,
-#        Priority = 90,
-#        BuildConditions = {
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
-#        },
-#        LocationType = 'M1_Landbase1',
-#        BuildTimeOut = 1800,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonData = {
-#            AttackPoints = {
-#                ScenarioUtils.MarkerToPosition('M1_LANDING1'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING2'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING3'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING4'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING5'),
-#                ScenarioUtils.MarkerToPosition('M1_ATTACK1'),
-#                ScenarioUtils.MarkerToPosition('M1_ATTACK2'),
-#            },
-#            LandingList = {
-#                ScenarioUtils.MarkerToPosition('M1_LANDING1'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING2'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING3'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING4'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING5'),
-#            },
-#            NumTransports = 3,
-#            TransportReturn = ScenarioUtils.MarkerToPosition('M1_LAND_BASE1')
-#        },
-#        PlatoonAIFunction = ScenarioPlatoonAI.LandAssaultWithTransports,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Amphibious,
-#        Priority = 85,
-#        BuildConditions = {
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
-#        },
-#        LocationType = 'M1_Landbase1',
-#        BuildTimeOut = 1800,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonAiFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
-#    },
-#
-#    # ------------
-#    # Land Base #2
-#    # ------------
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Engineer,
-#        InstanceCount = 2,
-#        Priority = 100,
-#        BuildConditions = {},
-#        LocationType = 'M1_Landbase2',
-#        BuildTimeOut = 600,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonData = {
-#            Construction = {
-#                BaseTemplate = 'M1_LAND_BASE_2',
-#                BuildingTemplate = BaseTemplates.BuildingTemplates[3],
-#                BuildClose = true,
-#                BuildRelative = false,
-#                BuildSpecificTemplates = true,
-#                BuildStructures = {
-#                    'T2AirFactory',
-#                    'T1MassCreation',
-#                    'T1MassCreation',
-#                    'MassStorage',
-#                    'MassStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                    'EnergyStorage',
-#                },
-#            },
-#            BaseName = 'M1_LAND_BASE_2',
-#            TechLevel = 2,
-#            Template = BaseTemplates.BuildingTemplates[3],
-#        },
-#        PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Transport,
-#        Priority = 90,
-#        BuildConditions = {
-#            {AIBuildConditions.AIBCHaveLessThanUnitsWithCategory, {8, categories.TRANSPORTATION}},
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
-#        },
-#        LocationType = 'M1_Landbase2',
-#        BuildTimeOut = 600,
-#        PlatoonType = 'Air',
-#        RequiresConstruction = true,
-#        PlatoonAIFunction = ScenarioPlatoonAI.TransportPool,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.LandAttack,
-#        Priority = 90,
-#        BuildConditions = {
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
-#        },
-#        LocationType = 'M1_Landbase2',
-#        BuildTimeOut = 1800,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonData = {
-#            AttackPoints = {
-#                ScenarioUtils.MarkerToPosition('M1_LANDING1'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING2'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING3'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING4'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING5'),
-#                ScenarioUtils.MarkerToPosition('M1_ATTACK1'),
-#                ScenarioUtils.MarkerToPosition('M1_ATTACK2'),
-#            },
-#            LandingList = {
-#                ScenarioUtils.MarkerToPosition('M1_LANDING1'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING2'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING3'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING4'),
-#                ScenarioUtils.MarkerToPosition('M1_LANDING5'),
-#            },
-#            NumTransports = 3,
-#            TransportReturn = ScenarioUtils.MarkerToPosition('M1_LAND_BASE2')
-#        },
-#        PlatoonAIFunction = ScenarioPlatoonAI.LandAssaultWithTransports,
-#    },
-#    {
-#        PlatoonTemplate = PlatoonTemplates.Amphibious,
-#        Priority = 85,
-#        BuildConditions = {
-#            {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
-#        },
-#        LocationType = 'M1_Landbase2',
-#        BuildTimeOut = 1800,
-#        PlatoonType = 'Land',
-#        RequiresConstruction = true,
-#        PlatoonAiFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
-#    },
+-- # --------
+-- # Air Base
+-- # --------
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Engineer,
+--    InstanceCount = 2,
+--    Priority = 100,
+--    BuildConditions = {},
+--    LocationType = 'M1_Airbase',
+--    BuildTimeOut = 600,
+--    PlatoonType = 'Air',
+--    RequiresConstruction = true,
+--    PlatoonData = {
+--        Construction = {
+--            BaseTemplate = 'M1_AIR_BASE',
+--            BuildingTemplate = BaseTemplates.BuildingTemplates[3],
+--            BuildClose = true,
+--            BuildRelative = false,
+--            BuildSpecificTemplates = true,
+--            BuildStructures = {
+--                'T1MassCreation',
+--                'T1MassCreation',
+--                'MassStorage',
+--                'MassStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--            },
+--        },
+--        BaseName = 'M1_AIR_BASE',
+--        TechLevel = 2,
+--        Template = BaseTemplates.BuildingTemplates[3],
+--    },
+--    PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.AirAttack,
+--    Priority = 90,
+--    BuildConditions = {
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildAirAttack'}},
+--    },
+--    LocationType = 'M1_Airbase',
+--    BuildTimeOut = 1800,
+--    PlatoonType = 'Air',
+--    RequiresConstruction = true,
+--    PlatoonAIFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
+-- },
+--
+-- # ------------
+-- # Land Base #1
+-- # ------------
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Engineer,
+--    InstanceCount = 2,
+--    Priority = 100,
+--    BuildConditions = {},
+--    LocationType = 'M1_Landbase1',
+--    BuildTimeOut = 600,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonData = {
+--        Construction = {
+--            BaseTemplate = 'M1_LAND_BASE_1',
+--            BuildingTemplate = BaseTemplates.BuildingTemplates[3],
+--            BuildClose = true,
+--            BuildRelative = false,
+--            BuildSpecificTemplates = true,
+--            BuildStructures = {
+--                'T2AirFactory',
+--                'T1MassCreation',
+--                'T1MassCreation',
+--                'MassStorage',
+--                'MassStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--            },
+--        },
+--        BaseName = 'M1_LAND_BASE_1',
+--        TechLevel = 2,
+--        Template = BaseTemplates.BuildingTemplates[3],
+--    },
+--    PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Transport,
+--    Priority = 90,
+--    BuildConditions = {
+--        {AIBuildConditions.AIBCHaveLessThanUnitsWithCategory, {8, categories.TRANSPORTATION}},
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
+--    },
+--    LocationType = 'M1_Landbase1',
+--    BuildTimeOut = 600,
+--    PlatoonType = 'Air',
+--    RequiresConstruction = true,
+--    PlatoonAIFunction = ScenarioPlatoonAI.TransportPool,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.LandAttack,
+--    Priority = 90,
+--    BuildConditions = {
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
+--    },
+--    LocationType = 'M1_Landbase1',
+--    BuildTimeOut = 1800,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonData = {
+--        AttackPoints = {
+--            ScenarioUtils.MarkerToPosition('M1_LANDING1'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING2'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING3'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING4'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING5'),
+--            ScenarioUtils.MarkerToPosition('M1_ATTACK1'),
+--            ScenarioUtils.MarkerToPosition('M1_ATTACK2'),
+--        },
+--        LandingList = {
+--            ScenarioUtils.MarkerToPosition('M1_LANDING1'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING2'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING3'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING4'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING5'),
+--        },
+--        NumTransports = 3,
+--        TransportReturn = ScenarioUtils.MarkerToPosition('M1_LAND_BASE1')
+--    },
+--    PlatoonAIFunction = ScenarioPlatoonAI.LandAssaultWithTransports,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Amphibious,
+--    Priority = 85,
+--    BuildConditions = {
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand1Attack'}},
+--    },
+--    LocationType = 'M1_Landbase1',
+--    BuildTimeOut = 1800,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonAiFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
+-- },
+--
+-- # ------------
+-- # Land Base #2
+-- # ------------
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Engineer,
+--    InstanceCount = 2,
+--    Priority = 100,
+--    BuildConditions = {},
+--    LocationType = 'M1_Landbase2',
+--    BuildTimeOut = 600,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonData = {
+--        Construction = {
+--            BaseTemplate = 'M1_LAND_BASE_2',
+--            BuildingTemplate = BaseTemplates.BuildingTemplates[3],
+--            BuildClose = true,
+--            BuildRelative = false,
+--            BuildSpecificTemplates = true,
+--            BuildStructures = {
+--                'T2AirFactory',
+--                'T1MassCreation',
+--                'T1MassCreation',
+--                'MassStorage',
+--                'MassStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--                'EnergyStorage',
+--            },
+--        },
+--        BaseName = 'M1_LAND_BASE_2',
+--        TechLevel = 2,
+--        Template = BaseTemplates.BuildingTemplates[3],
+--    },
+--    PlatoonAIFunction = ScenarioPlatoonAI.StartBaseEngineerThread,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Transport,
+--    Priority = 90,
+--    BuildConditions = {
+--        {AIBuildConditions.AIBCHaveLessThanUnitsWithCategory, {8, categories.TRANSPORTATION}},
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
+--    },
+--    LocationType = 'M1_Landbase2',
+--    BuildTimeOut = 600,
+--    PlatoonType = 'Air',
+--    RequiresConstruction = true,
+--    PlatoonAIFunction = ScenarioPlatoonAI.TransportPool,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.LandAttack,
+--    Priority = 90,
+--    BuildConditions = {
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
+--    },
+--    LocationType = 'M1_Landbase2',
+--    BuildTimeOut = 1800,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonData = {
+--        AttackPoints = {
+--            ScenarioUtils.MarkerToPosition('M1_LANDING1'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING2'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING3'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING4'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING5'),
+--            ScenarioUtils.MarkerToPosition('M1_ATTACK1'),
+--            ScenarioUtils.MarkerToPosition('M1_ATTACK2'),
+--        },
+--        LandingList = {
+--            ScenarioUtils.MarkerToPosition('M1_LANDING1'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING2'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING3'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING4'),
+--            ScenarioUtils.MarkerToPosition('M1_LANDING5'),
+--        },
+--        NumTransports = 3,
+--        TransportReturn = ScenarioUtils.MarkerToPosition('M1_LAND_BASE2')
+--    },
+--    PlatoonAIFunction = ScenarioPlatoonAI.LandAssaultWithTransports,
+-- },
+-- {
+--    PlatoonTemplate = PlatoonTemplates.Amphibious,
+--    Priority = 85,
+--    BuildConditions = {
+--        {ScenarioFramework.CheckScenarioInfoVarTable, {'M1_CanBuildLand2Attack'}},
+--    },
+--    LocationType = 'M1_Landbase2',
+--    BuildTimeOut = 1800,
+--    PlatoonType = 'Land',
+--    RequiresConstruction = true,
+--    PlatoonAiFunction = ScenarioPlatoonAI.PlatoonAttackHighestThreat,
+-- },
 }
 
 function EvaluatePlan(brain)
@@ -1373,7 +1373,7 @@ end
 
 function ExecutePlan(brain)
 	if(not brain:PBMHasPlatoonList()) then
-#	    brain:PBMSetCheckInterval(47)
+-- 	    brain:PBMSetCheckInterval(47)
 
         brain:PBMRemoveBuildLocation(nil, 'MAIN')
 
@@ -1422,31 +1422,31 @@ function ExecutePlan(brain)
         AIBuildUnits.AIExecutePlanUnitListTwo(brain, PlatoonList)
     end
 
-#    UpgradeStructures(brain)
+-- UpgradeStructures(brain)
 end
 
-#function LandPicker(platoon)
-#    ScenarioFramework.CreateTimerTrigger( LandUnpause, LandPauseTimer )
-#    if ScenarioInfo.SymbiotSuccess then
-#        platoon:Patrol( ScenarioUtils.MarkerToPosition('WestDefense') )
-#        LandFork(platoon)
-#    else
-#        LandFork(platoon)
-#        platoon:ForkThread( ScenarioPlatoonAI.AttackLocationList, PlayerBaseLocations, false, AirSquadsTarget )
-#    end
-#end
+-- function LandPicker(platoon)
+-- ScenarioFramework.CreateTimerTrigger( LandUnpause, LandPauseTimer )
+-- if ScenarioInfo.SymbiotSuccess then
+--    platoon:Patrol( ScenarioUtils.MarkerToPosition('WestDefense') )
+--    LandFork(platoon)
+-- else
+--    LandFork(platoon)
+--    platoon:ForkThread( ScenarioPlatoonAI.AttackLocationList, PlayerBaseLocations, false, AirSquadsTarget )
+-- end
+-- end
 
 
-#function UpgradeStructures(brain)
-#    local available = ScenarioFramework.GetFactories(brain)
-#    for k, v in available.T1Land do
-#        ScenarioFramework.UpgradeUnit(v)
-#    end
-#    for k, v in available.T1Air do
-#        ScenarioFramework.UpgradeUnit(v)
-#    end
-#    for k, v in available.T1Naval do
-#        ScenarioFramework.UpgradeUnit(v)
-#    end
-#end
+-- function UpgradeStructures(brain)
+-- local available = ScenarioFramework.GetFactories(brain)
+-- for k, v in available.T1Land do
+--    ScenarioFramework.UpgradeUnit(v)
+-- end
+-- for k, v in available.T1Air do
+--    ScenarioFramework.UpgradeUnit(v)
+-- end
+-- for k, v in available.T1Naval do
+--    ScenarioFramework.UpgradeUnit(v)
+-- end
+-- end
 ]]--

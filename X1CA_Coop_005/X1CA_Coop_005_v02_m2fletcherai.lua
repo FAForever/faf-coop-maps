@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_005_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_005_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -14,23 +14,23 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Fletcher = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local FletcherBase = BaseManager.CreateBaseManager()
 local FletcherM3Base = BaseManager.CreateBaseManager()
 
 function FletcherBaseAI()
 
-    # -------------
-    # Fletcher Base
-    # -------------
+    -- -------------
+    -- Fletcher Base
+    -- -------------
     FletcherBase:Initialize(ArmyBrains[Fletcher], 'M1_Fletcher_Base', 'M1_Fletcher_Base_Marker', 150,
         {
              M1_Fletcher_MEX1 = 1000,
@@ -69,7 +69,7 @@ function FletcherBaseAI()
              M1_Fletcher_MSTOR1 = 20,
              M1_Fletcher_MSTOR2 = 20,
              M1_Fletcher_MSTOR3 = 20,
-			 M1_Fletcher_FACT4 = 15,	# 4 factories - 2 air - 2 land	# Belonged to FACT3!
+			 M1_Fletcher_FACT4 = 15,	-- 4 factories - 2 air - 2 land	# Belonged to FACT3!
              M1_Fletcher_WALL1 = 10,
              M1_Fletcher_WALL2 = 10,
              M1_Fletcher_WALL3 = 10,
@@ -82,10 +82,10 @@ function FletcherBaseAI()
              M1_Fletcher_WALL10 = 10,
              M1_Fletcher_WALL11 = 10,
              M1_Fletcher_WALL12 = 10,
-             M1_Fletcher_FACT3 = 5,	# 675
+             M1_Fletcher_FACT3 = 5,	-- 675
          }
     )
-#   FletcherBase:StartEmptyBase({60, 48})
+-- FletcherBase:StartEmptyBase({60, 48})
     FletcherBase:StartEmptyBase(60)
     FletcherBase:SetConstructionAlwaysAssist(true)
     FletcherBase:SetMaximumConstructionEngineers(5)
@@ -104,9 +104,9 @@ function FletcherBaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    # ---------------------------------
-    # Fletcher Base Op AI, Land Attacks
-    # ---------------------------------
+    -- ---------------------------------
+    -- Fletcher Base Op AI, Land Attacks
+    -- ---------------------------------
 
     opai = FletcherBase:AddOpAI('Fatboy_1',
         {
@@ -121,10 +121,10 @@ function FletcherBaseLandAttacks()
         }
     )
 
-# ========================================================================
+-- ========================================================================
 
     for i = 1, 2 do
-    # sends [heavy tanks]
+    -- sends [heavy tanks]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack1' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -134,9 +134,9 @@ function FletcherBaseLandAttacks()
     opai:SetChildQuantity('HeavyTanks', 12)
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [mobile missiles]
+    -- sends [mobile missiles]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack2' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -146,9 +146,9 @@ function FletcherBaseLandAttacks()
     opai:SetChildQuantity('MobileMissiles', 12)
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [mobile flak]
+    -- sends [mobile flak]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack3' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -159,16 +159,16 @@ function FletcherBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
 	end
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [siege bots, mobile shields, heavy tanks, land scout]	
+    -- sends [siege bots, mobile shields, heavy tanks, land scout]	
 	local template = {
         'ShieldedLandTemp',
         'NoPlan',
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },	# Siege Bots
-        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },	# Mobile Shields
-        { 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },	# Heavy Tanks
-        { 'uel0101', 1, 2, 'Attack', 'GrowthFormation' },	# Land Scout
+        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },	-- Siege Bots
+        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },	-- Mobile Shields
+        { 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
+        { 'uel0101', 1, 2, 'Attack', 'GrowthFormation' },	-- Land Scout
     }
 	local builder = {
         BuilderName = 'ShieldedLand1',
@@ -182,9 +182,9 @@ function FletcherBaseLandAttacks()
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( builder )
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [heavy bots] (mission 3)
+    -- sends [heavy bots] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack4',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherBaseAmphibiousAttacks'},
@@ -194,9 +194,9 @@ function FletcherBaseLandAttacks()
     opai:SetChildQuantity('HeavyBots', 12)
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [siege bots] (mission 3)
+    -- sends [siege bots] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack5',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -207,9 +207,9 @@ function FletcherBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 48})
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [heavy tanks] (mission 3)
+    -- sends [heavy tanks] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack6',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -220,9 +220,9 @@ function FletcherBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 36})
 
-# ========================================================================
+-- ========================================================================
 
-    # sends [mobile flak] (mission 3)
+    -- sends [mobile flak] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack7',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_005_v02/X1CA_Coop_005_v02_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
@@ -233,11 +233,11 @@ function FletcherBaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 40})
 
-# ========================================================================
+-- ========================================================================
 
-    # Land Defense
+    -- Land Defense
 
-    # maintains 8, 6, 4 [heavy tanks]
+    -- maintains 8, 6, 4 [heavy tanks]
     quantity = {8, 6, 4}
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandDefense1',
         {
@@ -250,9 +250,9 @@ function FletcherBaseLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
 
-# ========================================================================
+-- ========================================================================
 
-    # maintains 6, 4, 2 [mobile missiles]
+    -- maintains 6, 4, 2 [mobile missiles]
     quantity = {6, 4, 2}
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandDefense2',
         {
@@ -265,9 +265,9 @@ function FletcherBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
 
-# ========================================================================
+-- ========================================================================
 
-    # maintains 8, 6, 4 [mobile flak]
+    -- maintains 8, 6, 4 [mobile flak]
     quantity = {8, 6, 4}
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandDefense3',
         {
@@ -280,9 +280,9 @@ function FletcherBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
 
-# ========================================================================
+-- ========================================================================
 
-    # maintains 6, 4, 2 [siege bots]
+    -- maintains 6, 4, 2 [siege bots]
     quantity = {6, 4, 2}
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandDefense4',
         {
@@ -295,7 +295,7 @@ function FletcherBaseLandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
 
-# ========================================================================
+-- ========================================================================
 
 end
 
@@ -357,11 +357,11 @@ function M2FletcherBaseAirAttacks()
     local opai = nil
     local quantity = {}
 
-    # --------------------------------
-    # Fletcher Base Op AI, Air Attacks
-    # --------------------------------
+    -- --------------------------------
+    -- Fletcher Base Op AI, Air Attacks
+    -- --------------------------------
 
-    # sends 12, 10, 8 [bombers]
+    -- sends 12, 10, 8 [bombers]
     for i = 1, 2 do
         quantity = {12, 10, 8}
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack1' .. i,
@@ -373,7 +373,7 @@ function M2FletcherBaseAirAttacks()
         opai:SetChildQuantity('Bombers', quantity[Difficulty])
     end
 
-    # sends 8, 6, 4 [gunships]
+    -- sends 8, 6, 4 [gunships]
     quantity = {12, 9, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack2',
         {
@@ -383,7 +383,7 @@ function M2FletcherBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
 
-    # sends 12, 8, 6 [air superiority]
+    -- sends 12, 8, 6 [air superiority]
     quantity = {12, 9, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack3',
         {
@@ -393,7 +393,7 @@ function M2FletcherBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
 
-    # sends 12, 8, 6 [heavy gunships] (mission 3) (Air Path)
+    -- sends 12, 8, 6 [heavy gunships] (mission 3) (Air Path)
     quantity = {12, 8, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack4',
         {
@@ -404,7 +404,7 @@ function M2FletcherBaseAirAttacks()
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
 
-    # sends 24, 18, 9 [heavy gunships, gunships, bombers] (mission 3) (Land Path)
+    -- sends 24, 18, 9 [heavy gunships, gunships, bombers] (mission 3) (Land Path)
     quantity = {24, 18, 9}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack5',
         {
@@ -417,9 +417,9 @@ function M2FletcherBaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
 
 
-    # Air Defense
+    -- Air Defense
 
-    # maintains 12, 10, 8 [interceptors]
+    -- maintains 12, 10, 8 [interceptors]
     quantity = {6, 5, 4}
     for i = 1, 2 do
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
@@ -434,7 +434,7 @@ function M2FletcherBaseAirAttacks()
         opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     end
 
-    # maintains 24, 16, 12 [air superiority]
+    -- maintains 24, 16, 12 [air superiority]
     quantity = {6, 4, 3}
     for i = 3, 6 do
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
@@ -449,7 +449,7 @@ function M2FletcherBaseAirAttacks()
         opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     end
 
-    # maintains 12 [heavy gunships]
+    -- maintains 12 [heavy gunships]
     for i = 7, 8 do
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
             {
@@ -463,7 +463,7 @@ function M2FletcherBaseAirAttacks()
         opai:SetChildQuantity('HeavyGunships', 6)
     end
 
-    # maintains 12 [torpedo bombers] (mission 3)
+    -- maintains 12 [torpedo bombers] (mission 3)
     for i = 9, 10 do
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirDefense' .. i,
             {
@@ -495,7 +495,7 @@ function FletcherAirPlatoonThread(platoon)
                 moveNum = 3
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
-#               ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Fletcher_Air_Attack_Chain')
+--           ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Fletcher_Air_Attack_Chain')
                 for k, v in platoon:GetPlatoonUnits() do
                     if(v and not v:IsDead()) then
        	                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Main_Base_AirDef_Chain')))
@@ -517,5 +517,5 @@ function DisableBase()
     end
 end
 
-# ========================================================================
-# ========================================================================
+-- ========================================================================
+-- ========================================================================

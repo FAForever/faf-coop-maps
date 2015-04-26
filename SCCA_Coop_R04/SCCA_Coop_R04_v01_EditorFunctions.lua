@@ -1,22 +1,22 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R04_v01/SCCA_Coop_R04_v01_EditorFunctions.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :  This is a set of functions for the platoon builder, used in
-#**              operation R4.
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R04_v01/SCCA_Coop_R04_v01_EditorFunctions.lua
+-- **  Author(s):  David Tomandl
+-- **
+-- **  Summary  :  This is a set of functions for the platoon builder, used in
+-- **              operation R4.
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
-#local OpScript = import ('/maps/SCCA_Coop_R04_v01/SCCA_Coop_R04_v01_script.lua')
+-- local OpScript = import ('/maps/SCCA_Coop_R04_v01/SCCA_Coop_R04_v01_script.lua')
 
-##############################################################################################################
-# function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
-#
-# parameter 0: string	platoon		= "default_platoon"
-#
-##############################################################################################################
+-- #############################################################################################################
+-- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
+--
+-- parameter 0: string	platoon		= "default_platoon"
+--
+-- #############################################################################################################
 function ResetAMVariables(platoon)
     ScenarioInfo.VarTable['AttackBase1'] = false
     ScenarioInfo.VarTable['AttackBase2'] = false

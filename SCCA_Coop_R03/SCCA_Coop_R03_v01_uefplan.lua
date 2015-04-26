@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_R03_v01/SCCA_Coop_R03_v01_uefplan.lua
-#**  Author(s):  Christopher Burns
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_R03_v01/SCCA_Coop_R03_v01_uefplan.lua
+-- **  Author(s):  Christopher Burns
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 ScenarioInfo.UEFPlanRunOnce = false

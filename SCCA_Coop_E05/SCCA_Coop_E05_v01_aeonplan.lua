@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_E05_v01/SCCA_Coop_E05_v01_aeonplan1.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_E05_v01/SCCA_Coop_E05_v01_aeonplan1.lua
+-- **  Author(s):  David Tomandl
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 function EvaluatePlan( brain )

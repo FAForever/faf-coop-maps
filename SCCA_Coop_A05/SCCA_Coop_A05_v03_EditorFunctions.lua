@@ -1,23 +1,23 @@
-#****************************************************************************
-#**
-#**  File     :  /data/maps/SCCA_E06/SCCA_E06_EditorFunctions.lua
-#**  Author(s): Dru Staltman
-#**
-#**  Summary  : PBM Editor functions for SCCA_E06
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /data/maps/SCCA_E06/SCCA_E06_EditorFunctions.lua
+-- **  Author(s): Dru Staltman
+-- **
+-- **  Summary  : PBM Editor functions for SCCA_E06
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 
-##############################################################################################################
-# function: Ariel_M1_Bombers = AddFunction   doc = "Please work function docs."
-# 
-# parameter 0: string	platoon		= "default_platoon"
-#
-##############################################################################################################
+-- #############################################################################################################
+-- function: Ariel_M1_Bombers = AddFunction   doc = "Please work function docs."
+--
+-- parameter 0: string	platoon		= "default_platoon"
+--
+-- #############################################################################################################
 function Ariel_M1_Bombers(platoon)
     local chain = {}
     local aiBrain = platoon:GetBrain()
@@ -36,12 +36,12 @@ function Ariel_M1_Bombers(platoon)
     ScenarioPlatoonAI.PlatoonAttackHighestThreat( platoon )
 end
 
-##############################################################################################################
-# function: UEF_M2_Bombers = AddFunction   doc = "Please work function docs."
-# 
-# parameter 0: string	platoon		= "default_platoon"
-#
-##############################################################################################################
+-- #############################################################################################################
+-- function: UEF_M2_Bombers = AddFunction   doc = "Please work function docs."
+--
+-- parameter 0: string	platoon		= "default_platoon"
+--
+-- #############################################################################################################
 function UEF_M2_Bombers(platoon)
     local chain = {}
     local aiBrain = platoon:GetBrain()

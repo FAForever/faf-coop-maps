@@ -1,32 +1,32 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2orderai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Order army AI for Mission 2 - X1CA_Coop_006_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2orderai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Order army AI for Mission 2 - X1CA_Coop_006_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Order = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local OrderM2Base = BaseManager.CreateBaseManager()
 
 function OrderM2BaseAI()
 
-    # -------------
-    # Order M2 Base
-    # -------------
+    -- -------------
+    -- Order M2 Base
+    -- -------------
     OrderM2Base:InitializeDifficultyTables(ArmyBrains[Order], 'M2_Order_MainBase', 'M2_Order_Base_Marker', 100, {M2_Order_MainBase = 100})
     OrderM2Base:StartNonZeroBase({{6, 11, 23}, {6, 10, 20}})
     OrderM2Base:SetActive('AirScouting', true)
@@ -45,16 +45,16 @@ function OrderM2BaseAirAttacks()
 	local template = {}
 	local builder = {}
 
-    # ---------------------------------
-    # Order M2 Base Op AI - Air Attacks
-    # ---------------------------------
+    -- ---------------------------------
+    -- Order M2 Base Op AI - Air Attacks
+    -- ---------------------------------
 	
 	template = {
         'OrderAirToFletcher1',
         'NoPlan',
-        { 'xaa0305', 1, 6, 'Attack', 'GrowthFormation' },	# Heavy Gunships
-        { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },	# Gunships		
-        { 'uaa0303', 1, 6, 'Attack', 'GrowthFormation' },	# Air Superiority
+        { 'xaa0305', 1, 6, 'Attack', 'GrowthFormation' },	-- Heavy Gunships
+        { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },	-- Gunships		
+        { 'uaa0303', 1, 6, 'Attack', 'GrowthFormation' },	-- Air Superiority
     }
 	builder = {
         BuilderName = 'OrderAirToFletcher1',
@@ -69,11 +69,11 @@ function OrderM2BaseAirAttacks()
             PatrolChain = 'M2_Rhiza_AirAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )				# SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
+    ArmyBrains[Order]:PBMAddPlatoon( builder )				-- SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
 	
-# ==============================================================================================================
+-- ==============================================================================================================
 
-    # sends 6, 18, 24 [gunships, combat fighters] (to Fletcher)
+    -- sends 6, 18, 24 [gunships, combat fighters] (to Fletcher)
     quantity = {12, 18, 24}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks_Fletcher_1',
         {
@@ -86,7 +86,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
 
-    # sends 6, 18, 24 [bombers], ([gunships] on hard)
+    -- sends 6, 18, 24 [bombers], ([gunships] on hard)
     quantity = {12, 18, 24}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks1',
         {
@@ -104,7 +104,7 @@ function OrderM2BaseAirAttacks()
     end
     opai:SetLockingStyle('None')
 
-    # sends 6, 18, 24 [gunships], ([heavy gunships] on hard)
+    -- sends 6, 18, 24 [gunships], ([heavy gunships] on hard)
     quantity = {6, 18, 18}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks2',
         {
@@ -122,7 +122,7 @@ function OrderM2BaseAirAttacks()
     end
     opai:SetLockingStyle('None')
 
-    # sends 6, 12, 18 [gunships, combat fighters]
+    -- sends 6, 12, 18 [gunships, combat fighters]
     quantity = {6, 12, 18}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks3',
         {
@@ -136,7 +136,7 @@ function OrderM2BaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
 
-    # sends 6, 18, 24 [gunships] if player has >= 100, 80, 60 mobile land
+    -- sends 6, 18, 24 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {6, 18, 24}
     trigger = {100, 80, 60}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks4',
@@ -152,7 +152,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
 
-    # sends 6, 18, 24 [air superiority] if player has >= 80, 60, 60 mobile air
+    -- sends 6, 18, 24 [air superiority] if player has >= 80, 60, 60 mobile air
     quantity = {6, 18, 24}
     trigger = {80, 60, 60}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks5',
@@ -168,7 +168,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
 
-    # sends 6, 18, 24 [air superiority] if player has >= 60, 40, 40 gunships
+    -- sends 6, 18, 24 [air superiority] if player has >= 60, 40, 40 gunships
     quantity = {6, 18, 24}
     trigger = {60, 40, 40}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks6',
@@ -184,7 +184,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
 
-    # sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
+    -- sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {6, 12, 18}
     trigger = {60, 40, 20}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks7',
@@ -200,7 +200,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
 
-    # sends 6, 18, 24 [air superiority] if player has >= 1 strat bomber
+    -- sends 6, 18, 24 [air superiority] if player has >= 1 strat bomber
     quantity = {6, 18, 24}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks8',
         {
@@ -215,7 +215,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
-    # sends 6, 18, 24 [bombers, gunships] if player has >= 450, 400, 300 units
+    -- sends 6, 18, 24 [bombers, gunships] if player has >= 450, 400, 300 units
     quantity = {6, 18, 24}
     trigger = {450, 400, 300}
     opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirAttacks9',
@@ -231,7 +231,7 @@ function OrderM2BaseAirAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    # Air Defense
+    -- Air Defense
     quantity = {4, 8, 12}
     for i = 1, Difficulty do
         opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_OrderAirDefense1_' .. i,
@@ -283,7 +283,7 @@ function OrderM2BaseAirAttacks()
                 Amount = 1,
                 KeepAlive = true,
                 PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-                #uses routes that don't go over player's base.
+                -- uses routes that don't go over player's base.
                 PlatoonData = {
                     PatrolChains = {'M2_Order_CzarAlt1_Chain', 'M2_Order_CzarAlt2_Chain'},
                 },
@@ -299,7 +299,7 @@ function OrderM2BaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    # Land Defense
+    -- Land Defense
     quantity = {4, 8, 12}
     opai = OrderM2Base:AddOpAI('BasicLandAttack', 'M2_OrderLandDefense1',
         {
@@ -347,17 +347,17 @@ function OrderM2BaseNavalAttacks()
 	local template = {}
 	local builder = {}
 
-	###################
-    # Custom Builders #
-	###################
+	-- ##################
+    -- Custom Builders #
+	-- ##################
 	
 	template = {
         'OrderNavyToFletcher1',
         'NoPlan',
-        { 'uas0201', 1, 4, 'Attack', 'GrowthFormation' },	# Destroyers
-        { 'uas0103', 1, 4, 'Attack', 'GrowthFormation' },	# Frigates
-        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	# Cruisers
-        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },	# Sub Hunters
+        { 'uas0201', 1, 4, 'Attack', 'GrowthFormation' },	-- Destroyers
+        { 'uas0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Frigates
+        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	-- Cruisers
+        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },	-- Sub Hunters
     }
 	builder = {
         BuilderName = 'OrderNavyToFletcher1',
@@ -372,11 +372,11 @@ function OrderM2BaseNavalAttacks()
             PatrolChain = 'M2_Rhiza_NavalAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )				# SENDS A SMALL FLEET TO FLETCHER'S BASE
+    ArmyBrains[Order]:PBMAddPlatoon( builder )				-- SENDS A SMALL FLEET TO FLETCHER'S BASE
 
-# =============================================================================	
+-- =============================================================================	
 
-    # sends 4 destroyers, 2 subs (to Rhiza)
+    -- sends 4 destroyers, 2 subs (to Rhiza)
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack_Rhiza_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -390,7 +390,7 @@ function OrderM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    # sends 4 destroyers, 2 submarines (to Rhiza)
+    -- sends 4 destroyers, 2 submarines (to Rhiza)
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack_Rhiza_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -403,7 +403,7 @@ function OrderM2BaseNavalAttacks()
         }
     )
 
-    # sends 4 frigates (to Rhiza)
+    -- sends 4 frigates (to Rhiza)
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack_Rhiza_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -417,7 +417,7 @@ function OrderM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    # sends 4 frigates (to Rhiza)
+    -- sends 4 frigates (to Rhiza)
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack_Rhiza_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -446,7 +446,7 @@ function OrderM2BaseNavalAttacks()
         }
     )
 
-    # sends 4, 6, 10 frigate power of [frigates, subs] if player has >= 8, 6, 4 boats
+    -- sends 4, 6, 10 frigate power of [frigates, subs] if player has >= 8, 6, 4 boats
     maxQuantity = {4, 6, 10}
     minQuantity = {4, 6, 10}
     trigger = {8, 6, 4}
@@ -465,7 +465,7 @@ function OrderM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE})
 
-    # sends 6, 9, 12 frigate power of [all but T3] if player has >= 4, 3, 2 T2/T3 boats
+    -- sends 6, 9, 12 frigate power of [all but T3] if player has >= 4, 3, 2 T2/T3 boats
     maxQuantity = {6, 9, 12}
     minQuantity = {6, 9, 12}
     trigger = {4, 3, 2}
@@ -484,7 +484,7 @@ function OrderM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    # sends 9, 12, 15 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
+    -- sends 9, 12, 15 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     maxQuantity = {9, 12, 15}
     minQuantity = {9, 12, 15}
     trigger = {6, 5, 4}
@@ -503,7 +503,7 @@ function OrderM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    # Naval Defense
+    -- Naval Defense
     maxQuantity = {6, 9, 12}
     minQuantity = {6, 9, 12}
     for i = 1, 2 do
@@ -524,7 +524,7 @@ end
 
 function OrderCaptureControlCenter()
 
-    # Transport Builder
+    -- Transport Builder
     local opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_Order_TransportBuilder',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -540,7 +540,7 @@ function OrderCaptureControlCenter()
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uaa0104})
 
-    # sends engineers
+    -- sends engineers
     opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_OrderEngAttack1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},

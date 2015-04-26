@@ -1,25 +1,25 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_m3princessai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Princess army AI for Mission 3 - X1CA_Coop_003_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_003_v02/X1CA_Coop_003_v02_m3princessai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Princess army AI for Mission 3 - X1CA_Coop_003_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Princess = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local PrincessBase = BaseManager.CreateBaseManager()
 local PrincessDefenseLine_1 = BaseManager.CreateBaseManager()
 local PrincessDefenseLine_2 = BaseManager.CreateBaseManager()
@@ -28,9 +28,9 @@ local PrincessDefenseLine_4 = BaseManager.CreateBaseManager()
 
 function PrincessBaseAI()
 
-    # -------------
-    # Princess Base
-    # -------------
+    -- -------------
+    -- Princess Base
+    -- -------------
     PrincessBase:InitializeDifficultyTables(ArmyBrains[Princess], 'M3_Princess_Base', 'Princess_Base', 150, {M3_Princess_Base = 100})
     PrincessBase:StartNonZeroBase({12, 4})
     PrincessBase:SetMaximumConstructionEngineers(8)
@@ -50,7 +50,7 @@ function PrincessBaseAirAttacks()
     local opai = nil
     local quantity = {}
 
-    # sends 8 gunships [north]
+    -- sends 8 gunships [north]
     opai = PrincessBase:AddOpAI('AirAttacks', 'PrincessBase_AirAttacks1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -62,7 +62,7 @@ function PrincessBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 8)
 
-    # sends 8 gunships [west]
+    -- sends 8 gunships [west]
     opai = PrincessBase:AddOpAI('AirAttacks', 'PrincessBase_AirAttacks2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -74,7 +74,7 @@ function PrincessBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 8)
 
-    # Air Defense
+    -- Air Defense
     quantity = {8, 6, 4}
     opai = PrincessBase:AddOpAI('AirAttacks', 'PrincessBase_AirDefense1',
         {

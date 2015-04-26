@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2rhizaai.lua
-#**  Author(s): Jessica St. Croix
-#**
-#**  Summary  : Rhiza army AI for Mission 2 - X1CA_Coop_006_v02
-#**
-#**  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     : /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2rhizaai.lua
+-- **  Author(s): Jessica St. Croix
+-- **
+-- **  Summary  : Rhiza army AI for Mission 2 - X1CA_Coop_006_v02
+-- **
+-- **  Copyright Â© 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
@@ -14,22 +14,22 @@ local ThisFile = '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2rhizaai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Rhiza = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-# -------------
-# Base Managers
-# -------------
+-- -------------
+-- Base Managers
+-- -------------
 local RhizaM2Base = BaseManager.CreateBaseManager()
 
 function RhizaM2BaseAI()
 
-    # -------------
-    # Rhiza M2 Base
-    # -------------
+    -- -------------
+    -- Rhiza M2 Base
+    -- -------------
     RhizaM2Base:Initialize(
         ArmyBrains[Rhiza],
         'M2_Rhiza_Base',
@@ -41,7 +41,7 @@ function RhizaM2BaseAI()
         }
     )
 
-    RhizaM2Base:StartNonZeroBase({30, 26})	#({30, 26}) ({13, 13})
+    RhizaM2Base:StartNonZeroBase({30, 26})	-- ({30, 26}) ({13, 13})
     RhizaM2Base:SetMaximumConstructionEngineers(3)
 
     RhizaM2Base:SetActive('LandScouting', true)
@@ -58,16 +58,16 @@ end
 
 function CustomBuilders()
 
-    #################
-	# LAND PLATOONS #
-	#################
+    -- ################
+	-- LAND PLATOONS #
+	-- ################
 	
 	local PrebuiltLandTemplate = {
         'PrebuiltLandTemplate',
         'NoPlan',
-        { 'ual0303', 1, 60, 'Attack', 'GrowthFormation' },	# Siege Bots
-		{ 'xal0203', 1, 60, 'Attack', 'GrowthFormation' },	# Hover Tanks
-		{ 'ual0304', 1, 60, 'Attack', 'GrowthFormation' },	# Heavy Arty
+        { 'ual0303', 1, 60, 'Attack', 'GrowthFormation' },	-- Siege Bots
+		{ 'xal0203', 1, 60, 'Attack', 'GrowthFormation' },	-- Hover Tanks
+		{ 'ual0304', 1, 60, 'Attack', 'GrowthFormation' },	-- Heavy Arty
     }
     local PrebuiltLandBuilder = {
         BuilderName = 'PrebuiltLandBuilder',
@@ -88,7 +88,7 @@ function CustomBuilders()
 	local EngineerLandTemp = {
         'EngineerLandTemp',
         'NoPlan',
-        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },	# Engineers
+        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },	-- Engineers
     }
     local EngineerLandBuilder = {
         BuilderName = 'EngineerLandBuilder',
@@ -105,14 +105,14 @@ function CustomBuilders()
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
 	
-	################
-	# AIR PLATOONS #
-	################
+	-- ###############
+	-- AIR PLATOONS #
+	-- ###############
 	
 	local EngineerAirTemp = {
         'EngineerAirTemp',
         'NoPlan',
-        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },	# Engineers
+        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },	-- Engineers
     }
     local EngineerAirBuilder = {
         BuilderName = 'EngineerAirBuilder',
@@ -168,14 +168,14 @@ function CustomBuilders()
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( Air1Builder )
 	
-	################
-	# SEA PLATOONS #
-	################
+	-- ###############
+	-- SEA PLATOONS #
+	-- ###############
 	
 	local EngineerSeaTemp = {
         'EngineerSeaTemp',
         'NoPlan',
-        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },	# Engineers
+        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },	-- Engineers
     }
     local EngineerSeaBuilder = {
         BuilderName = 'EngineerSeaBuilder',
@@ -195,9 +195,9 @@ function CustomBuilders()
     local NavalFleettemp1 = {
         'NavalFleettemp1',
         'NoPlan',
-        { 'uas0201', 1, 2, 'Attack', 'GrowthFormation' },	# Destroyers
-        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	# Cruisers
-        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },	# Sub Hunters
+        { 'uas0201', 1, 2, 'Attack', 'GrowthFormation' },	-- Destroyers
+        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	-- Cruisers
+        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },	-- Sub Hunters
     }
     local Navy1Builder = {
         BuilderName = 'Navy1Builder',
@@ -213,7 +213,7 @@ function CustomBuilders()
 	local NavalDefensetemp1 = {
         'NavalDefensetemp1',
         'NoPlan',
-        { 'uas0202', 1, 3, 'Attack', 'GrowthFormation' },	# Cruisers
+        { 'uas0202', 1, 3, 'Attack', 'GrowthFormation' },	-- Cruisers
     }
     local NavyDefenseCruisersBuilder = {
         BuilderName = 'NavyDefenseCruisersBuilder',
@@ -233,11 +233,11 @@ end
 
 function RhizaM2BaseAirAttacks()
     local opai = nil
-    # ---------------------------------
-    # Rhiza M2 Base Op AI - Air Attacks
-    # ---------------------------------
+    -- ---------------------------------
+    -- Rhiza M2 Base Op AI - Air Attacks
+    -- ---------------------------------
 
-    # sends [gunships]
+    -- sends [gunships]
     opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirAttacks1',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaAirPlatoonsAI'},
@@ -246,7 +246,7 @@ function RhizaM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 8)
 
-    # sends [Heavy Gunships, Gunships, Bombers]
+    -- sends [Heavy Gunships, Gunships, Bombers]
     opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirAttacks2',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaAirPlatoonsAI'},
@@ -256,7 +256,7 @@ function RhizaM2BaseAirAttacks()
     opai:SetChildQuantity({'HeavyGunships', 'Gunships', 'Bombers'}, 9)
     opai:SetLockingStyle('None')
 
-    # sends [air superiority, gunships, interceptors]
+    -- sends [air superiority, gunships, interceptors]
     opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirAttacks3',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaAirPlatoonsAI'},
@@ -266,7 +266,7 @@ function RhizaM2BaseAirAttacks()
     opai:SetChildQuantity({'AirSuperiority', 'Gunships', 'Interceptors'}, 12)
     opai:SetLockingStyle('None')
 
-    # sends [torpedo bombers]
+    -- sends [torpedo bombers]
     opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirAttacks4',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavalAI'},
@@ -275,7 +275,7 @@ function RhizaM2BaseAirAttacks()
     )
     opai:SetChildQuantity({'TorpedoBombers'}, 8)
 
-    # Air Defense
+    -- Air Defense
     for i = 1, 2 do
         opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirDefense1' .. i,
             {
@@ -331,7 +331,7 @@ function RhizaAirPlatoonsAI(platoon)
 
         if(ScenarioInfo.MissionNumber == 2) then
 
-            # First attack Seraphim and Order
+            -- First attack Seraphim and Order
             if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU:IsDead()) then
                 if(not moveNum) then
                     moveNum = 1
@@ -340,8 +340,8 @@ function RhizaAirPlatoonsAI(platoon)
                     ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_AirAttack_1_Chain')
                 end
                
-            #Now attack Fletcher
-            else #if(ScenarioInfo.OrderACU:IsDead()) then
+            -- Now attack Fletcher
+            else -- if(ScenarioInfo.OrderACU:IsDead()) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())
@@ -366,11 +366,11 @@ end
 function RhizaM2BaseLandAttacks()
     local opai = nil
 
-    # ----------------------------------
-    # Rhiza M2 Base Op AI - Land Attacks
-    # ----------------------------------
+    -- ----------------------------------
+    -- Rhiza M2 Base Op AI - Land Attacks
+    -- ----------------------------------
 
-    # Land Defense
+    -- Land Defense
     opai = RhizaM2Base:AddOpAI('BasicLandAttack', 'M2_RhizaLandDefense1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -410,15 +410,15 @@ end
 
 function RhizaM2BaseNavalAttacks()
     local ai = {}
-    # -----------------------------------
-    # Rhiza M2 Base Op AI - Naval Attacks
-    # -----------------------------------
+    -- -----------------------------------
+    -- Rhiza M2 Base Op AI - Naval Attacks
+    -- -----------------------------------
 
-    # sends 20 frigate power
+    -- sends 20 frigate power
     local opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack1',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavalAI'},
-            MaxFrigates = 20,		# No Cruiser
+            MaxFrigates = 20,		-- No Cruiser
             MinFrigates = 20,
             Priority = 110,
         }
@@ -426,7 +426,7 @@ function RhizaM2BaseNavalAttacks()
 
     for i = 1, 2 do
 	    ai = {'RhizaNavalAI', 'RhizaNavyToFletcherFirstAI'}
-        # sends 15 frigate power
+        -- sends 15 frigate power
         opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack2' .. i,
             {
                 MasterPlatoonFunction = {ThisFile, ai[i]},
@@ -437,7 +437,7 @@ function RhizaM2BaseNavalAttacks()
         )
     end
 
-    # sends 4 frigate power
+    -- sends 4 frigate power
     opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack3',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavalAI'},
@@ -447,7 +447,7 @@ function RhizaM2BaseNavalAttacks()
         }
     )
 
-    # sends 20 frigate power (To Fletcher first)
+    -- sends 20 frigate power (To Fletcher first)
     opai = RhizaM2Base:AddNavalAI('M2_RhizaNaval_ToFletcher_Attack1',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavyToFletcherFirstAI'},
@@ -459,7 +459,7 @@ function RhizaM2BaseNavalAttacks()
     opai:SetChildActive('T3', false)
 	opai:SetLockingStyle('DeathTimer', {LockTimer = 45})
 
-    # sends 22 frigate power (mission 3)
+    -- sends 22 frigate power (mission 3)
     opai = RhizaM2Base:AddNavalAI('M3_RhizaNavalAttack1',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavalAI'},
@@ -470,7 +470,7 @@ function RhizaM2BaseNavalAttacks()
     )
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
 
-    # Naval Defense
+    -- Naval Defense
     opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalDefense1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -516,7 +516,7 @@ function RhizaNavalAI(platoon)
 
         if(ScenarioInfo.MissionNumber == 2) then
 
-            # First attack Seraphim and Order
+            -- First attack Seraphim and Order
             if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU:IsDead()) then
                 if(not moveNum) then
                     moveNum = 1
@@ -525,8 +525,8 @@ function RhizaNavalAI(platoon)
                     ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_NavalAttack_Chain')
                 end
                
-            #Now attack Fletcher
-            else #if(ScenarioInfo.OrderACU:IsDead()) then
+            -- Now attack Fletcher
+            else -- if(ScenarioInfo.OrderACU:IsDead()) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())
@@ -555,7 +555,7 @@ function RhizaNavyToFletcherFirstAI(platoon)
 
         if(ScenarioInfo.MissionNumber == 2) then
 
-            # First attack Fletcher
+            -- First attack Fletcher
             if(ScenarioInfo.FletcherACU and not ScenarioInfo.FletcherACU:IsDead()) then
                 if(not moveNum) then
                     moveNum = 1
@@ -564,8 +564,8 @@ function RhizaNavyToFletcherFirstAI(platoon)
                     ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_NavalAttack_Fletcher_Chain')
                 end
                
-            #Now attack Seraphim/Order
-            else #if(ScenarioInfo.OrderACU:IsDead()) then
+            -- Now attack Seraphim/Order
+            else -- if(ScenarioInfo.OrderACU:IsDead()) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())
@@ -589,7 +589,7 @@ end
 
 function RhizaCaptureControlCenter()
 
-    # sends engineers
+    -- sends engineers
     local opai = RhizaM2Base:AddOpAI('EngineerAttack', 'M2_RhizaEngAttack1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -650,7 +650,7 @@ function RhizaTransportAttacks()
 	opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
 	opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.uaa0104})
 
-    #Mission 3
+    -- Mission 3
     for i = 1, 2 do
     opai = RhizaM2Base:AddOpAI('BasicLandAttack', 'M3_RhizaTransportAttack1' .. i,
         {

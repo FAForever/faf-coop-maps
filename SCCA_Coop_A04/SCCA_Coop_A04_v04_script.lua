@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_A04_v04/SCCA_Coop_A04_v04_script.lua
-#**  Author(s):  Drew Staltman
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_A04_v04/SCCA_Coop_A04_v04_script.lua
+-- **  Author(s):  Drew Staltman
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -18,7 +18,7 @@ local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 
 
-# === GLOBAL VARIABLES === #
+-- === GLOBAL VARIABLES === #
 ScenarioInfo.Player = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.Civilian = 3
@@ -28,7 +28,7 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
-# === LOCAL VARIABLES === #
+-- === LOCAL VARIABLES === #
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -43,70 +43,70 @@ local DiffLevel = ScenarioInfo.Options.Difficulty
 
 
 
-# === TUNING VARIABLES === #
+-- === TUNING VARIABLES === #
 
 local ObjectiveReminderTimer = 300
 local TauntTimer = 1800
 
 
-#! MISSION ONE VARIABLES
+-- ! MISSION ONE VARIABLES
 
-# Timer to reveal Nexus
+-- Timer to reveal Nexus
 local M1RevealNexusTimer = 120
 
-# Timer to reveal Naval base
+-- Timer to reveal Naval base
 local M1RevealNavalTimer = 240
 
-# Timer before building first offensive units
+-- Timer before building first offensive units
 local M1EnableBombersTimer = 1200
 
-# Timer to taunt player the first time
+-- Timer to taunt player the first time
 local M1GaugeTaunt1Timer = 1400
 
-# Timer to give the player shield thing
+-- Timer to give the player shield thing
 local M1ShieldRevealTimer = 600
 
-# Timer to taunt player the second time
+-- Timer to taunt player the second time
 local M1GaugeTaunt2Timer = 1700
 
-# Timer to unlock all initial attacks
+-- Timer to unlock all initial attacks
 local M1EnableAttacks = 1200
 
-# Timer to unlock land assault if not already unlocked
+-- Timer to unlock land assault if not already unlocked
 local M1EnableLandAssaultTimer = 1680
 
-# Timer to allow engs to build artillery at Nexus Base
+-- Timer to allow engs to build artillery at Nexus Base
 local M1EnableArtilleryTimer = 1800
 
-# Timer to allow naval fleet to attack
+-- Timer to allow naval fleet to attack
 local M1EnableNavalFleetTimer = 1900
 
 
-#! MISSION TWO VARIABLES
+-- ! MISSION TWO VARIABLES
 
-# Timer to taunt player in M2
+-- Timer to taunt player in M2
 local M2GaugeTaunt1Timer = 120
 
-# Timer to taunt player in M2
+-- Timer to taunt player in M2
 local M2GaugeTaunt2Timer = 300
 
-# Timer to taunt player in M2
+-- Timer to taunt player in M2
 local M2GaugeTaunt3Timer = 420
 
-# Timer to taunt player in M2
+-- Timer to taunt player in M2
 local M2GaugeTaunt4Timer = 660
 
-# Timer for each quarter of the download
+-- Timer for each quarter of the download
 local M2MainframeTimer = 225
 local M2FullTimer = 900
 
-# Timer for revealing node attacks
+-- Timer for revealing node attacks
 local M2RevealNodeAttacksTimer = 180
 
-# Timer for revealing nodes are mass
+-- Timer for revealing nodes are mass
 local M2RevealNodePurposeTimer = 300
 
-# Timer for each scripted attack in M2 after capture
+-- Timer for each scripted attack in M2 after capture
 local M2AttackOneTimer = 120
 local M2AttackTwoTimer = 280
 local M2AttackThreeTimer = 360
@@ -152,8 +152,8 @@ function OnPopulate(scenario)
 
     local plat
 
-    # === Lock off tech === #
-    # Aeon locking
+    -- === Lock off tech === #
+    -- Aeon locking
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH3 +
                                       categories.EXPERIMENTAL +
@@ -163,7 +163,7 @@ function OnPopulate(scenario)
                                       categories.uab4203 + categories.urb4203 +
                                       categories.uab2303 + categories.urb2303 )
     end
-    # Cybran Locking
+    -- Cybran Locking
     ScenarioFramework.AddRestriction(Cybran, categories.ura0203 +
                                  categories.ura0304 +
                                  categories.TECH3 +
@@ -173,51 +173,51 @@ function OnPopulate(scenario)
     ScenarioFramework.RestrictEnhancements({ 'Teleporter', 'T3Engineering', 'ShieldHeavy', })
 
 
-    # === Player stuff === #
+    -- === Player stuff === #
 
-  #! No starting base for now
-  #  ScenarioUtils.CreateArmyGroup('Player', 'Base')
-  #  ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
-  #  local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships', 'ChevronFormation')
-  #  ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
-  #  plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Interceptors', 'ChevronFormation')
-  #  ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
+  -- ! No starting base for now
+  -- ScenarioUtils.CreateArmyGroup('Player', 'Base')
+  -- ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
+  -- local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships', 'ChevronFormation')
+  -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
+  -- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Interceptors', 'ChevronFormation')
+  -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
 
-    # === Cybran Stuff === #
-    # Cybran Build Locations
+    -- === Cybran Stuff === #
+    -- Cybran Build Locations
     ArmyBrains[Cybran]:PBMRemoveBuildLocation(nil, 'MAIN')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Naval_Base'), 100, 'CybranM1Naval')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Node_Base'), 100, 'CybranM1Node')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_Mainframe_Base'), 100, 'CybranM2MainFrame')
 
-    # Cybran Build Templates
+    -- Cybran Build Templates
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M1_Naval')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M1_Naval_Base_D'..DiffLevel, 'M1_Naval')
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M1_Node')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M1_Node_Base_D'..DiffLevel, 'M1_Node')
 
-    # Cybran Starting Units
+    -- Cybran Starting Units
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Naval_Base_D'..DiffLevel)
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Artillery_Line')
 
-    #Give intel to the middle naval factory in SW.
+    -- Give intel to the middle naval factory in SW.
     local navFact = ScenarioInfo.UnitNames[Cybran]['M1_Cybran_Naval_Factory']
     ScenarioFramework.CreateVisibleAreaLocation(2, navFact:GetPosition(), .5, ArmyBrains[Player])
 
-    #ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Node_Walls')
+    -- ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Node_Walls')
     local nodeBaseUnits = ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Node_Base_D'..DiffLevel)
     for num, unit in nodeBaseUnits do
         ScenarioFramework.CreateUnitDamagedTrigger(M1NodeBaseDamaged, unit, .01)
     end
 
-    # Naval base Engineers
+    -- Naval base Engineers
     plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Naval_Engineers_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.MaintainBaseTemplate = 'M1_Naval'
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'CybranM1Naval'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
-    # Node base engineers
+    -- Node base engineers
     if DiffLevel > 1 then
         plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Node_Engineers_D'..DiffLevel, 'AttackFormation')
         plat.PlatoonData.MaintainBaseTemplate = 'M1_Node'
@@ -225,7 +225,7 @@ function OnPopulate(scenario)
         plat.PlatoonData.LocationType = 'CybranM1Node'
         plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
     end
-    # Tactical Missile Launchers
+    -- Tactical Missile Launchers
     for k,unit in ArmyBrains[Cybran]:GetListOfUnits(categories.urb2108, false) do
         plat = ArmyBrains[Cybran]:MakePlatoon('', '')
         ArmyBrains[Cybran]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
@@ -233,27 +233,27 @@ function OnPopulate(scenario)
     end
 
 
-    # === Civilian Stuff === #
-    # Build locaiton
+    -- === Civilian Stuff === #
+    -- Build locaiton
     ArmyBrains[NexusDefense]:PBMRemoveBuildLocation(nil, 'MAIN')
     ArmyBrains[NexusDefense]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Nexus_Defense_Base'), 100, 'NexusBase')
-    # Build Template
+    -- Build Template
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[NexusDefense], 'Nexus_Defense', 'Nexus_Base')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[NexusDefense], 'Nexus_Defense', 'Nexus_Base_D'..DiffLevel, 'Nexus_Base')
-    # Town and base
+    -- Town and base
     local units = ScenarioUtils.CreateArmyGroup('Civilian', 'Nexus_04')
     ForkThread(UnitsFlash, units)
     units = ScenarioUtils.CreateArmyGroup('Nexus_Defense', 'Nexus_Base_D'..DiffLevel)
     ForkThread(UnitsFlash, units)
     units = ScenarioUtils.CreateArmyGroup('Nexus_Defense', 'Nexus_Walls_D'..DiffLevel)
     ForkThread(UnitsFlash, units)
-    # Nexus04 base Engineers
+    -- Nexus04 base Engineers
     ScenarioInfo.CivilianEngineers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Nexus_Defense','M1_Nexus_Engineers_D'..DiffLevel,'AttackFormation')
     ScenarioInfo.CivilianEngineers.PlatoonData.MaintainBaseTemplate = 'Nexus_Base'
     ScenarioInfo.CivilianEngineers.PlatoonData.MaintainDiffLevel = 3
     ScenarioInfo.CivilianEngineers.PlatoonData.PatrolChain = 'Nexus_North_Patrol_Chain'
     ScenarioInfo.CivilianEngineers:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
-    # Tactical Missile Launchers
+    -- Tactical Missile Launchers
     for k,unit in ArmyBrains[NexusDefense]:GetListOfUnits(categories.urb2108, false) do
         plat = ArmyBrains[NexusDefense]:MakePlatoon('', '')
         ArmyBrains[NexusDefense]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
@@ -261,11 +261,11 @@ function OnPopulate(scenario)
     end
 
 
-    # === Node Stuff === #
+    -- === Node Stuff === #
     ScenarioInfo.SWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'SW_Node_Unit')
     ScenarioInfo.SWNode:SetCanTakeDamage(false)
     ScenarioInfo.SWNode:SetCanBeKilled(false)
-    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.SWNode:GetPosition(), .5, ArmyBrains[Player]) #give intel on radar
+    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.SWNode:GetPosition(), .5, ArmyBrains[Player]) -- give intel on radar
     ScenarioInfo.NWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'NW_Node_Unit')
     ScenarioInfo.NWNode:SetReclaimable(false)
     ScenarioInfo.SENode = ScenarioUtils.CreateArmyUnit('Nodes', 'SE_Node_Unit')
@@ -327,7 +327,7 @@ end
 
 
 
-# === INTRO NIS === #
+-- === INTRO NIS === #
 function IntroNIS()
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -353,21 +353,21 @@ function IntroNIS()
     end
     ScenarioFramework.CreateUnitDestroyedTrigger(PlayerCDRDestroyed, ScenarioInfo.PlayerCDR)
 
-    #Delay opening of mission till after player is warped in
+    -- Delay opening of mission till after player is warped in
     ScenarioFramework.CreateTimerTrigger(StartMission1, 4.8)
 end
 
 
 
 
-# === MISSION ONE FUNCTIONS === #
+-- === MISSION ONE FUNCTIONS === #
 function StartMission1()
-    # Set stuff up
+    -- Set stuff up
     ScenarioInfo.MissionNumber = 1
     ScenarioFramework.Dialogue(OpStrings.A04_M01_010, M1RevealNexusObjective)
     --SetArmyUnitCap('Player', 400)
 
-    # === Spawn units === #
+    -- === Spawn units === #
     local blockadeDestroyers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M1_Destroyer_Blockade_D'..DiffLevel,
                                 'GrowthFormation')
     blockadeDestroyers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Destroyer_Blockade_Marker'), false)
@@ -381,10 +381,10 @@ function StartMission1()
 		if marker > 3 then
 		end
     end
-    #blockadeCruisers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Cruiser_Blockade_Marker'), false)
+    -- blockadeCruisers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Cruiser_Blockade_Marker'), false)
 
-    # === Misc Triggers === #
-    # Triggers to enable builders
+    -- === Misc Triggers === #
+    -- Triggers to enable builders
     ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNexus, ArmyBrains[Player], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[NexusDefense])
     ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNavalBase, ArmyBrains[Player], 'LOSNow', false, true, categories.NAVAL, true, ArmyBrains[Cybran])
     ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNode, ArmyBrains[Player], 'LOSNow', ScenarioInfo.SWNode, true, categories.ALLUNITS, true, ArmyBrains[Nodes])
@@ -413,15 +413,15 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(PlayTaunt, TauntTimer)
 end
 
-# When player sees naval base ... reveal objective (if needed) and spit dialogue
+-- When player sees naval base ... reveal objective (if needed) and spit dialogue
 function M1PlayerSeesNavalBase()
     M1RevealNavalObjective()
     ScenarioFramework.Dialogue(OpStrings.A04_M01_090)
 end
 
-# M1 primary objectives.  Pacify town and capture node.
+-- M1 primary objectives.  Pacify town and capture node.
 function M1RevealNexusObjective()
-    # Nexus Trigger
+    -- Nexus Trigger
     ScenarioInfo.M1P1Obj = SimObjectives.CategoriesInArea('primary', 'incomplete', OpStrings.M1P1Title,
                                                           OpStrings.M1P1Description, 'kill',
                     {
@@ -433,14 +433,14 @@ function M1RevealNexusObjective()
                     }
                )
     ScenarioInfo.M1P1Obj:AddResultCallback(M1NexusPacified)
-    # Node Trigger
+    -- Node Trigger
     ScenarioInfo.M1P2Obj= SimObjectives.Capture('primary', 'incomplete', OpStrings.M1P2Title,
                                    OpStrings.M1P2Description, { Units = { ScenarioInfo.SWNode } }
                               )
     ScenarioInfo.M1P2Obj:AddResultCallback(M1SWNodeCaptured)
 end
 
-# If not set, give naval objective dialogue and reveal objective
+-- If not set, give naval objective dialogue and reveal objective
 function M1RevealNavalObjective()
     if not ScenarioInfo.RevealNaval then
         ScenarioInfo.RevealNaval = true
@@ -448,7 +448,7 @@ function M1RevealNavalObjective()
     end
 end
 
-# Naval objective to destroy base in an area
+-- Naval objective to destroy base in an area
 function M1NavalObjective()
     ScenarioInfo.M1S1Obj = SimObjectives.CategoriesInArea('secondary', 'incomplete', OpStrings.M1S1Title,
                                                           OpStrings.M1S1Description, 'kill',
@@ -463,12 +463,12 @@ function M1NavalObjective()
     ScenarioInfo.M1S1Obj:AddResultCallback(M1NavalBaseDestroyed)
 end
 
-# Naval base is destroyed.  Spit dialogue
+-- Naval base is destroyed.  Spit dialogue
 function M1NavalBaseDestroyed()
-    #LOG('*DEBUG: Naval base destroyed')
+    -- LOG('*DEBUG: Naval base destroyed')
     ScenarioFramework.Dialogue(OpStrings.A04_M01_040)
 
-# Naval base destroyed camera
+-- Naval base destroyed camera
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -480,96 +480,96 @@ function M1NavalBaseDestroyed()
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition("Cybran_M1_Naval_Base"), camInfo)
 end
 
-# Player sees the town for the first time, spit dialogue
+-- Player sees the town for the first time, spit dialogue
 function M1PlayerSeesNexus()
     if not ScenarioInfo.RevealNexus then
-        #LOG('*DEBUG: Reveal nexus dialogue')
+        -- LOG('*DEBUG: Reveal nexus dialogue')
         ScenarioFramework.Dialogue(OpStrings.A04_M01_020)
         ScenarioInfo.RevealNexus = true
     end
 end
 
-# When one of the buildings at the node base is damaged spit dialogue
+-- When one of the buildings at the node base is damaged spit dialogue
 function M1NodeBaseDamaged()
     if not ScenarioInfo.NodeBaseDamagedBool then
         ScenarioInfo.NodeBaseDamagedBool = true
-        #LOG('*DEBUG: NODE BASE ATTACKED')
+        -- LOG('*DEBUG: NODE BASE ATTACKED')
         ScenarioFramework.Dialogue(OpStrings.A04_M01_120)
     end
 end
 
-# When player sees the node spit dialogue.
+-- When player sees the node spit dialogue.
 function M1PlayerSeesNode()
-    #LOG('*DEBUG: NODE SEEN BY PLAYER')
+    -- LOG('*DEBUG: NODE SEEN BY PLAYER')
     ScenarioFramework.Dialogue(OpStrings.A04_M01_100)
 end
 
-# First taunt from enemy commander
+-- First taunt from enemy commander
 function M1GaugeTaunt1()
     if ScenarioInfo.MissionNumber == 1 then
-        #LOG('*DEBUG: GAUGE TAUNT 1')
+        -- LOG('*DEBUG: GAUGE TAUNT 1')
         ScenarioFramework.Dialogue(OpStrings.A04_M01_060)
     end
 end
 
-# Second taunt from enemy commander
+-- Second taunt from enemy commander
 function M1GaugeTaunt2()
     if ScenarioInfo.MissionNumber == 1 then
-        #LOG('*DEBUG: GAUGE TAUNT 2')
+        -- LOG('*DEBUG: GAUGE TAUNT 2')
         ScenarioFramework.Dialogue(OpStrings.A04_M01_080)
     end
 end
 
-# Unlock shields and tell the player about them
+-- Unlock shields and tell the player about them
 function M1ShieldReveal()
-    #LOG('*DEBUG: GIVE PLAYER SHIELDS')
+    -- LOG('*DEBUG: GIVE PLAYER SHIELDS')
     ScenarioFramework.Dialogue(OpStrings.A04_M01_070)
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uab4202 + categories.urb4202 + categories.ual0307)
     end
 end
 
-# Allow naval attacks to commence
+-- Allow naval attacks to commence
 function M1EnableNavalFleet()
-    #LOG('*DEBUG: M1EnableNavalFleet Called')
+    -- LOG('*DEBUG: M1EnableNavalFleet Called')
     ScenarioInfo.M1NavalBaseAttacked = true
     ScenarioInfo.VarTable['M1NavalFleetEnable'] = true
     ScenarioInfo.VarTable['M1BomberEscortNoTBombersEnable'] = true
 end
 
-# Allow air attacks
+-- Allow air attacks
 function M1EnableBomberEscort()
-    #LOG('*DEBUG: M1EnableBomberEscort Called')
+    -- LOG('*DEBUG: M1EnableBomberEscort Called')
     ScenarioInfo.VarTable['M1BomberEscortEnable'] = true
 end
 
-# Allow land attacks
+-- Allow land attacks
 function M1EnableLandAssault()
-    #LOG('*DEBUG: M1EnableLandAssault Called')
+    -- LOG('*DEBUG: M1EnableLandAssault Called')
     ScenarioInfo.VarTable['M1LandAssaultEnable'] = true
 end
 
-# When initial cruisers are destroyed allow reinforcements
+-- When initial cruisers are destroyed allow reinforcements
 function M1EnableCruiserBlockade()
-    #LOG('*DEBUG: M1EnableCruiserBlockade Called')
+    -- LOG('*DEBUG: M1EnableCruiserBlockade Called')
     ScenarioInfo.VarTable['M1CruiserBlockadeEnable'] = true
 end
 
-# When initial destroyers are destroyed allow reinforcements
+-- When initial destroyers are destroyed allow reinforcements
 function M1EnableDestroyerBlockade()
-    #LOG('*DEBUG: M1EnableDestroyerBlockade Called')
+    -- LOG('*DEBUG: M1EnableDestroyerBlockade Called')
     ScenarioInfo.VarTable['M1DestroyerBlockadeEnable'] = true
 end
 
-# Enable gunships to attack player
+-- Enable gunships to attack player
 function M1EnableBomberEscortT2()
-    #LOG('*DEBUG: Enable Gunships')
+    -- LOG('*DEBUG: Enable Gunships')
     ScenarioFramework.RemoveRestriction(Cybran, categories.ura0203)
 end
 
-# Enable artillery to be constructed at Nexus
+-- Enable artillery to be constructed at Nexus
 function M1EnableArtilleryConstruction()
-    #LOG('*DEBUG: Unlock artillery for enemy')
+    -- LOG('*DEBUG: Unlock artillery for enemy')
     if ArmyBrains[Civilian]:PlatoonExists(ScenarioInfo.CivilianEngineers) then
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[NexusDefense], 'Nexus_Defense', 'Nexus_Artillery_D'..DiffLevel, 'Nexus_Base')
         ScenarioInfo.CivilianEngineers.PlatoonData.MaintainBaseTemplate = 'Nexus_Base'
@@ -581,16 +581,16 @@ function M1EnableArtilleryConstruction()
     end
 end
 
-# Nexus beat up.  Spit dialogue and check objectives
+-- Nexus beat up.  Spit dialogue and check objectives
 function M1NexusPacified(result)
-    #LOG('*DEBUG: NEXUS PACIFIED')
+    -- LOG('*DEBUG: NEXUS PACIFIED')
     if result then
         M1EnableBomberEscortT2()
         ScenarioInfo.M1NexusDefeated = true
         ScenarioFramework.Dialogue(OpStrings.A04_M01_110)
         M1CheckPrimaryObjectives()
 
-# Civilian base "pacified" camera
+-- Civilian base "pacified" camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -607,17 +607,17 @@ function M1NexusPacified(result)
     end
 end
 
-# M1 Node captured. Spit dialogue adn check objectives
+-- M1 Node captured. Spit dialogue adn check objectives
 function M1SWNodeCaptured(result, returnedUnits)
     if result then
-        #LOG('*DEBUG: SW NODE CAPTURED')
+        -- LOG('*DEBUG: SW NODE CAPTURED')
         ScenarioInfo.SWNode = returnedUnits[1]
         ScenarioInfo.M1NodeCapture = true
 
         ScenarioInfo.SWNode:SetCanTakeDamage(false)
         ScenarioInfo.SWNode:SetCanBeKilled(false)
 
-# First Node captured camera
+-- First Node captured camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -629,20 +629,20 @@ function M1SWNodeCaptured(result, returnedUnits)
 
         M1CheckPrimaryObjectives()
 
-        # M1 Node - Triggers for M2
+        -- M1 Node - Triggers for M2
         ScenarioFramework.CreateUnitCapturedTrigger(nil, M2SWNodeCaptured, ScenarioInfo.SWNode)
         ScenarioFramework.CreateUnitDeathTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
         ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
         ScenarioInfo.SWNode:SetReclaimable(false)
     else
-        #LOG('*DEBUG: SW NODE DESTROYED')
+        -- LOG('*DEBUG: SW NODE DESTROYED')
         ScenarioFramework.FlushDialogueQueue()
         ScenarioFramework.EndOperationSafety()
         ForkThread(LoseGame)
     end
 end
 
-# Check M1 Objectives
+-- Check M1 Objectives
 function M1CheckPrimaryObjectives()
     if ScenarioInfo.M1NodeCapture and ScenarioInfo.M1NexusDefeated then
         ScenarioFramework.Dialogue(OpStrings.A04_M01_150, StartMission2)
@@ -677,9 +677,9 @@ end
 
 
 
-# === MISSION TWO FUNCTIONS === #
+-- === MISSION TWO FUNCTIONS === #
 function StartMission2()
-    #LOG('*DEBUG: START MISSION 2')
+    -- LOG('*DEBUG: START MISSION 2')
     SetArmyUnitCap(1, 500)
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
@@ -688,8 +688,8 @@ function StartMission2()
     ScenarioInfo.SWNode:SetCanTakeDamage(true)
     ScenarioInfo.SWNode:SetCanBeKilled(true)
 
-    # === Buildable Categories === #
-    # Player
+    -- === Buildable Categories === #
+    -- Player
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uab0302 +
                                          categories.uab4201 +
@@ -703,27 +703,27 @@ function StartMission2()
                                          categories.urb4202 )
     end
 
-    # Cybran
-    #ScenarioFramework.RemoveRestriction(Cybran, categories.ura0304)
+    -- Cybran
+    -- ScenarioFramework.RemoveRestriction(Cybran, categories.ura0304)
 
-    # === M2 Misc Triggers === #
+    -- === M2 Misc Triggers === #
     ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt1, M2GaugeTaunt1Timer)
     ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt2, M2GaugeTaunt2Timer)
     ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt3, M2GaugeTaunt3Timer)
     ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt4, M2GaugeTaunt4Timer)
 
-    # === M2 Objective Triggers === #
-    #NW Node
+    -- === M2 Objective Triggers === #
+    -- NW Node
     ScenarioFramework.CreateUnitDeathTrigger(M2NodeDestroyed, ScenarioInfo.NWNode)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.NWNode)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2NWNodeCaptured, ScenarioInfo.NWNode)
-    # SE Node
+    -- SE Node
     ScenarioFramework.CreateUnitDeathTrigger(M2NodeDestroyed, ScenarioInfo.SENode)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.SENode)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2SENodeCaptured, ScenarioInfo.SENode)
 
-    # === CREATE UNITS === #
-    # Cybran
+    -- === CREATE UNITS === #
+    -- Cybran
     ArmyBrains[Cybran]:PBMAddBuildLocation('Cybran_Mainframe_Base', 60, 'CybranMainframeBase')
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Mainframe_Factory_Base')
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Defenses_D'..DiffLevel)
@@ -734,7 +734,7 @@ function StartMission2()
     plat.PlatoonData.LocationType = 'CybranMainframeBase'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    # Defensive units
+    -- Defensive units
     plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_Mainframe_SW_Units_D'..DiffLevel, 'AttackFormation')
     plat.PlatoonData.OrderName = 'Cybran_M2_Mainframe_SW_Group'
     plat:ForkAIThread(ScenarioPlatoonAI.PlatoonAssignOrders)
@@ -770,7 +770,7 @@ function StartMission2()
         plat:ForkAIThread(plat.TacticalAI)
     end
 
-    # Node Defenses
+    -- Node Defenses
     ScenarioInfo.MainframeDefenses = ScenarioUtils.CreateArmyGroup('Nodes', 'Mainframe_Defenses')
     ScenarioInfo.NWDefenses = ScenarioUtils.CreateArmyGroup('Nodes', 'NW_Defenses')
     ScenarioInfo.SEDefenses = ScenarioUtils.CreateArmyGroup('Nodes', 'SE_Defenses')
@@ -783,20 +783,20 @@ function StartMission2()
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2MainframeCaptured, ScenarioInfo.Mainframe)
 end
 
-# Reveal that player must capture mainframe
+-- Reveal that player must capture mainframe
 function M2RevealCaptureMainframe()
     ScenarioInfo.M2P1Obj = SimObjectives.Basic('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, SimObjectives.GetActionIcon('capture'), { Units = { ScenarioInfo.Mainframe, } })
 end
 
-# Player loses because mainframe is destroyed
+-- Player loses because mainframe is destroyed
 function M2MainframeDestroyed(unit)
-    #LOG('*DEBUG: Mainframe destroyed')
+    -- LOG('*DEBUG: Mainframe destroyed')
     ScenarioInfo.MainframeDestroyed = true
     ScenarioFramework.FlushDialogueQueue()
     ScenarioFramework.EndOperationSafety()
     ScenarioFramework.Dialogue(OpStrings.TAUNT2, LoseGame, true)
-# Mainframe destroyed
-#    ScenarioFramework.EndOperationCamera(unit)
+-- Mainframe destroyed
+-- ScenarioFramework.EndOperationCamera(unit)
     local camInfo = {
         blendTime = 2.5,
         holdTime = nil,
@@ -810,9 +810,9 @@ function M2MainframeDestroyed(unit)
 
 end
 
-# Mainframe captures. Update unit, retrigger unit, spit dialogue if first time, begin scripted attacks
+-- Mainframe captures. Update unit, retrigger unit, spit dialogue if first time, begin scripted attacks
 function M2MainframeCaptured(unit, captor)
-    #LOG('*DEBUG: Mainframe Captured')
+    -- LOG('*DEBUG: Mainframe Captured')
     ScenarioInfo.Mainframe = unit
     ScenarioInfo.MainframeCaptured = true
     SetArmyUnitCap('Player', 500)
@@ -825,7 +825,7 @@ function M2MainframeCaptured(unit, captor)
                 ScenarioFramework.GiveUnitToArmy(unit, Player)
             end
         end
-        #ScenarioInfo.M2P1Obj:ManualResult(true)
+        -- ScenarioInfo.M2P1Obj:ManualResult(true)
         ScenarioInfo.PlayerCapturedMainframe = true
         ScenarioFramework.Dialogue(OpStrings.A04_M02_020, M2RevealCaptureNodes)
         ScenarioInfo.MainframeCountdownCounter = 0
@@ -834,7 +834,7 @@ function M2MainframeCaptured(unit, captor)
         SetAlliance(Nodes, Cybran, 'Enemy')
         M2BeginMainframeAttacks()
 
-# Mainframe captured camera
+-- Mainframe captured camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -853,10 +853,10 @@ function M2CountdownComplete()
     end
 end
 
-# Counter that plays dialogue depending on objective progress
+-- Counter that plays dialogue depending on objective progress
 function M2MainframeCountdown()
     ScenarioInfo.MainframeCountdownCounter = ScenarioInfo.MainframeCountdownCounter + 1
-    #LOG('*DEBUG: Countdown Counter = ', repr(ScenarioInfo.MainframeCountdownCounter))
+    -- LOG('*DEBUG: Countdown Counter = ', repr(ScenarioInfo.MainframeCountdownCounter))
     if ScenarioInfo.MainframeCountdownCounter == 1 then
         ScenarioFramework.Dialogue(OpStrings.A04_M02_080)
         ScenarioFramework.CreateTimerTrigger(M2MainframeCountdown, M2MainframeTimer)
@@ -867,18 +867,18 @@ function M2MainframeCountdown()
         ScenarioFramework.Dialogue(OpStrings.A04_M02_100)
         ScenarioFramework.CreateTimerTrigger(M2MainframeCountdown, M2MainframeTimer)
     elseif ScenarioInfo.MainframeCountdownCounter == 4 then
-        #ScenarioFramework.Dialogue(OpStrings.A04_M02_160, M2WinOperation)
+        -- ScenarioFramework.Dialogue(OpStrings.A04_M02_160, M2WinOperation)
     end
 end
 
-# Begin M2 Attacks against player
+-- Begin M2 Attacks against player
 function M2BeginMainframeAttacks()
-    #LOG('*DEBUG: BEGIN MAINFRAME ATTACKS')
-    # Build bases and crap
+    -- LOG('*DEBUG: BEGIN MAINFRAME ATTACKS')
+    -- Build bases and crap
     ArmyBrains[Cybran]:PBMAddBuildLocation('Cybran_M2_East_Base', 120, 'CybranEastBase')
     ArmyBrains[Cybran]:PBMAddBuildLocation('Cybran_M2_NW_Base', 120, 'CybranNWBase')
     ArmyBrains[Cybran]:PBMAddBuildLocation('Cybran_M2_SW_Base', 120, 'CybranSWBase')
-    # Off map bases
+    -- Off map bases
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_East_Base')
     if DiffLevel > 1 then
         plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_East_Engineers_D'..DiffLevel, 'NoFormation')
@@ -889,10 +889,10 @@ function M2BeginMainframeAttacks()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_NW_Base')
 
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_SW_Base')
-#    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_SW_Engineers_D'..DiffLevel, 'NoFormation')
-#    plat.PlatoonData.AssistFactories = true
-#    LocationType = 'CybranSWBase'
-#    plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
+-- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2_SW_Engineers_D'..DiffLevel, 'NoFormation')
+-- plat.PlatoonData.AssistFactories = true
+-- LocationType = 'CybranSWBase'
+-- plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
     ScenarioFramework.CreateTimerTrigger(M2AttackOne, M2AttackOneTimer)
     ScenarioFramework.CreateTimerTrigger(M2AttackTwo, M2AttackTwoTimer)
@@ -904,29 +904,29 @@ function M2BeginMainframeAttacks()
     ScenarioFramework.CreateTimerTrigger(M2AttackEight, M2AttackEightTimer)
     ScenarioFramework.CreateTimerTrigger(M2DestroyerAttack, M2DestroyerTimer)
 
-##    ScenarioFramework.CreateTimerTrigger(M2AttackOne, 1)
-#    ScenarioFramework.CreateTimerTrigger(M2AttackTwo, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackThree, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackFour, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackFive, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackSix, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackSeven, 1)
-##    ScenarioFramework.CreateTimerTrigger(M2AttackEight, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackOne, 1)
+-- ScenarioFramework.CreateTimerTrigger(M2AttackTwo, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackThree, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackFour, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackFive, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackSix, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackSeven, 1)
+-- #    ScenarioFramework.CreateTimerTrigger(M2AttackEight, 1)
 
 end
 
-# First attack - air sent from east to mainframe
+-- First attack - air sent from east to mainframe
 function M2AttackOne()
     ScenarioFramework.Dialogue(OpStrings.A04_M02_070)
-    #LOG('*DEBUG: M2 Attack One')
+    -- LOG('*DEBUG: M2 Attack One')
     local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A1_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(plat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
-    #LOG('*DEBUG: M2 Attack One Finished')
+    -- LOG('*DEBUG: M2 Attack One Finished')
 end
 
-# Second attack - transports and air sent to mainframe
+-- Second attack - transports and air sent to mainframe
 function M2AttackTwo()
-    #LOG('*DEBUG: M2 Attack Two')
+    -- LOG('*DEBUG: M2 Attack Two')
     local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Transports_D'..DiffLevel, 'ChevronFormation')
     local landUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Land_Assault_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.AttachUnitsToTransports(landUnits:GetPlatoonUnits(), transports:GetPlatoonUnits())
@@ -934,52 +934,52 @@ function M2AttackTwo()
     WaitSeconds(23)
     local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A2_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(airPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
-    #LOG('*DEBUG: M2 Attack Two Finish')
+    -- LOG('*DEBUG: M2 Attack Two Finish')
 end
 
-# Third attack - air sent from NW to mainframe over NW node; SW air sent to player initial base then mainframe
+-- Third attack - air sent from NW to mainframe over NW node; SW air sent to player initial base then mainframe
 function M2AttackThree()
-    #LOG('*DEBUG: M2 Attack Three')
+    -- LOG('*DEBUG: M2 Attack Three')
     local nwPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A3_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(nwPlat, 'Cybran_M2_West_NW_Mainframe_Chain')
     WaitSeconds(13)
     local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A3_Player_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
-    #LOG('*DEBUG: M2 Attack Three Finish')
+    -- LOG('*DEBUG: M2 Attack Three Finish')
 end
 
-# Fourth attack - Transports sent to attack mainframe; frigates and destroyers from east to SE node and player base
+-- Fourth attack - Transports sent to attack mainframe; frigates and destroyers from east to SE node and player base
 function M2AttackFour()
-    #LOG('*DEBUG: M2 Attack Four')
-    # Transports
+    -- LOG('*DEBUG: M2 Attack Four')
+    -- Transports
     local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Transports_D'..DiffLevel, 'NoFormation')
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Land_Units_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.AttachUnitsToTransports(units:GetPlatoonUnits(), transports:GetPlatoonUnits())
     ForkThread(M2EastLandAssault, units, transports)
 
-    # Naval attacks
+    -- Naval attacks
     WaitSeconds(19)
     local frigates = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Frigates_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(frigates, 'Cybran_M2_East_Naval_Chain')
     WaitSeconds(29)
     local destroyers = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A4_Destroyers_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(destroyers, 'Cybran_M2_East_Destroyers_Player_Chain')
-    #LOG('*DEBUG: M2 Attack Four Finish')
+    -- LOG('*DEBUG: M2 Attack Four Finish')
 end
 
-# Fifth attack - Navy from NW to mainframe; SW air to player; NW air to mainframe
+-- Fifth attack - Navy from NW to mainframe; SW air to player; NW air to mainframe
 function M2AttackFive()
-    #LOG('*DEBUG: M2 Attack Five')
-    # Navy
+    -- LOG('*DEBUG: M2 Attack Five')
+    -- Navy
     local navy = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_NW_Naval_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonAttackChain(navy, 'Cybran_M2_NW_Naval_Chain')
 
-    # Player Air Attack
+    -- Player Air Attack
     WaitSeconds(29)
     local airPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_SW_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(airPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
 
-    # Air Attack NW
+    -- Air Attack NW
     WaitSeconds(37)
     local areaUnits = GetUnitsInRect(ScenarioUtils.AreaToRect('West_Lake_Area'))
     local navyCounter = 0
@@ -995,35 +995,35 @@ function M2AttackFive()
         local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A5_NW_Air_No_Naval_D'..DiffLevel, 'ChevronFormation')
         ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Chain')
     end
-    #LOG('*DEBUG: M2 Attack Five Finish')
+    -- LOG('*DEBUG: M2 Attack Five Finish')
 end
 
-# Sixth attack - NW air to mainframe; East air attack against player base
+-- Sixth attack - NW air to mainframe; East air attack against player base
 function M2AttackSix()
-    #LOG('*DEBUG: M2 Attack Six')
+    -- LOG('*DEBUG: M2 Attack Six')
     local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A6_NW_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Naval_Chain')
 
     WaitSeconds(17)
     local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A6_East_Player_Attack_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_Player_Chain')
-    #LOG('*DEBUG: M2 Attack Six Finish')
+    -- LOG('*DEBUG: M2 Attack Six Finish')
 end
 
-# Seventh attack - SW air to player; East air to mainframe; NW and East destroyers to mainframe
+-- Seventh attack - SW air to player; East air to mainframe; NW and East destroyers to mainframe
 function M2AttackSeven()
-    #LOG('*DEBUG: M2 Attack Seven')
-    # Air attacks
+    -- LOG('*DEBUG: M2 Attack Seven')
+    -- Air attacks
     local playerAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerAirPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
     local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_East_Mainframe_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
 
-    #LOG('*DEBUG: M2 Attack Seven Finish')
+    -- LOG('*DEBUG: M2 Attack Seven Finish')
 end
 
 function M2DestroyerAttack()
-    # Destroyers
+    -- Destroyers
     local eastDest = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A7_Destroyers_East_D'..DiffLevel, 'AttackFormation')
     ScenarioFramework.PlatoonMoveChain(eastDest, 'Cybran_M2_East_Naval_Mainframe_Chain')
     WaitSeconds(60)
@@ -1031,17 +1031,17 @@ function M2DestroyerAttack()
     ScenarioFramework.PlatoonMoveChain(westDest, 'Cybran_M2_NW_Naval_Chain')
 end
 
-# Eigth attack - East air to mainframe; SW air to player
+-- Eigth attack - East air to mainframe; SW air to player
 function M2AttackEight()
-    #LOG('*DEBUG: M2 Attack Eight')
+    -- LOG('*DEBUG: M2 Attack Eight')
     local eastAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A8_East_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(eastAirPlat, 'Cybran_M2_East_To_Mainframe_Air_Chain')
     local playerPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Cybran', 'M2A8_Player_Air_D'..DiffLevel, 'ChevronFormation')
     ScenarioFramework.PlatoonAttackChain(playerPlat, 'Cybran_M2_SouthWest_Player_Mainframe_Chain')
-    #LOG('*DEBUG: M2 Attack Eight Finish')
+    -- LOG('*DEBUG: M2 Attack Eight Finish')
 end
 
-# generic function to attack mainframe from the east
+-- generic function to attack mainframe from the east
 function M2EastLandAssault(units, transports)
     local aiBrain = units:GetBrain()
     local cmd = transports:UnloadAllAtLocation(ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(aiBrain, ScenarioUtils.ChainToPositions('Cybran_M2_Mainframe_Landing_Chain'), 2))
@@ -1060,33 +1060,33 @@ function M2EastLandAssault(units, transports)
     end
 end
 
-# Reveal objective to capture the nodes
+-- Reveal objective to capture the nodes
 function M2RevealCaptureNodes()
-    #LOG('*DEBUG: REVEAL CAPTURE NODES')
+    -- LOG('*DEBUG: REVEAL CAPTURE NODES')
     ScenarioInfo.M2P2Obj = SimObjectives.Basic('primary', 'incomplete', OpStrings.M2P2Title,
         OpStrings.M2P2Description, SimObjectives.GetActionIcon('capture'),
         { Units = { ScenarioInfo.NWNode, ScenarioInfo.SENode }, MarkUnits = true, AlwaysVisible = true, }
    )
     ScenarioFramework.CreateTimerTrigger(M2RevealNodeAttacks, M2RevealNodeAttacksTimer)
-    #ScenarioFramework.CreateTimerTrigger(M2RevealNodePurpose, M2RevealNodePurposeTimer)
+    -- ScenarioFramework.CreateTimerTrigger(M2RevealNodePurpose, M2RevealNodePurposeTimer)
 end
 
-# Reveal that attacks are coming against the nodes
+-- Reveal that attacks are coming against the nodes
 function M2RevealNodeAttacks()
-    #LOG('*DEBUG: REVEAL NODE ATTACKS')
+    -- LOG('*DEBUG: REVEAL NODE ATTACKS')
     ScenarioInfo.M2NodeAttacks = true
     ScenarioFramework.Dialogue(OpStrings.A04_M02_050)
 end
 
-# Reveal that the nodes are mass
+-- Reveal that the nodes are mass
 function M2RevealNodePurpose()
-    #LOG('*DEBUG: REVEAL NODE PURPOSE')
+    -- LOG('*DEBUG: REVEAL NODE PURPOSE')
     ScenarioFramework.Dialogue(OpStrings.A04_M02_060)
 end
 
-# When a node is destroyed play dialogue or end game if all destroyed
+-- When a node is destroyed play dialogue or end game if all destroyed
 function M2NodeDestroyed(unit)
-# Base node cam
+-- Base node cam
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -1096,19 +1096,19 @@ function M2NodeDestroyed(unit)
     }
 
     if ScenarioInfo.NWNode == unit then
-# NW node destroyed cam
+-- NW node destroyed cam
         ScenarioInfo.NWNodeHandled = true
         camInfo.orientationOffset[1] = 0.3927
     elseif ScenarioInfo.SENode == unit then
-# SE node destroyed cam
+-- SE node destroyed cam
         ScenarioInfo.SENodeHandled = true
         camInfo.orientationOffset[1] = -1.5708
     elseif ScenarioInfo.SWNode == unit then
-# First Node destroyed cam
+-- First Node destroyed cam
         camInfo.orientationOffset[1] = 2.9
     end
 
-    #LOG('*DEBUG: NODE DESTROYED')
+    -- LOG('*DEBUG: NODE DESTROYED')
     if not ScenarioInfo.FirstNodeDestroyed then
         ScenarioInfo.FirstNodeDestroyed = true
         ScenarioFramework.Dialogue(OpStrings.A04_M02_110)
@@ -1121,8 +1121,8 @@ function M2NodeDestroyed(unit)
         ScenarioFramework.FlushDialogueQueue()
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.Dialogue(OpStrings.A04_M02_150, LoseGame, true)
-# All nodes destroyed
-#        ScenarioFramework.EndOperationCamera(unit)
+-- All nodes destroyed
+--    ScenarioFramework.EndOperationCamera(unit)
         camInfo.blendTime = 2.5
         camInfo.holdTime = nil
         camInfo.spinSpeed = 0.03
@@ -1132,9 +1132,9 @@ function M2NodeDestroyed(unit)
     end
 end
 
-# When player captures the NW node
+-- When player captures the NW node
 function M2NWNodeCaptured(unit, captor)
-    #LOG('*DEBUG: NW NODE CAPTURED')
+    -- LOG('*DEBUG: NW NODE CAPTURED')
     ScenarioInfo.NWNode = unit
     if not ScenarioInfo.NWNodeCapturedBool then
         ScenarioInfo.NWNodeCapturedBool = true
@@ -1151,7 +1151,7 @@ function M2NWNodeCaptured(unit, captor)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2NWNodeCaptured, ScenarioInfo.NWNode)
     ScenarioInfo.NWNode:SetReclaimable(false)
 
-# NW Node captured camera
+-- NW Node captured camera
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -1162,9 +1162,9 @@ function M2NWNodeCaptured(unit, captor)
     ScenarioFramework.OperationNISCamera(ScenarioInfo.NWNode, camInfo)
 end
 
-# When player captures the SE node
+-- When player captures the SE node
 function M2SENodeCaptured(unit, captor)
-    #LOG('*DEBUG: SE NODE CAPTURED')
+    -- LOG('*DEBUG: SE NODE CAPTURED')
     ScenarioInfo.SENode = unit
     if not ScenarioInfo.SENodeCapturedBool then
         ScenarioInfo.SENodeCapturedBool = true
@@ -1181,7 +1181,7 @@ function M2SENodeCaptured(unit, captor)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2SENodeCaptured, ScenarioInfo.SENode)
     ScenarioInfo.SENode:SetReclaimable(false)
 
-# SE Node captured camera
+-- SE Node captured camera
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -1192,9 +1192,9 @@ function M2SENodeCaptured(unit, captor)
     ScenarioFramework.OperationNISCamera(ScenarioInfo.SENode, camInfo)
 end
 
-# If the player captures the SW Node again
+-- If the player captures the SW Node again
 function M2SWNodeCaptured(unit, captor)
-    #LOG('*DEBUG: SW NODE CAPTURED')
+    -- LOG('*DEBUG: SW NODE CAPTURED')
     ScenarioInfo.SWNode = unit
     ScenarioFramework.CreateUnitDeathTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
@@ -1202,9 +1202,9 @@ function M2SWNodeCaptured(unit, captor)
     ScenarioInfo.SWNode:SetReclaimable(false)
 end
 
-# Enemy taunts player
+-- Enemy taunts player
 function M2GaugeTaunt1()
-    #LOG('*DEBUG: GAUGE TAUNT')
+    -- LOG('*DEBUG: GAUGE TAUNT')
     local num = Random(2,8)
     if num == 2 then
         ScenarioFramework.Dialogue(OpStrings.TAUNT1)
@@ -1213,9 +1213,9 @@ function M2GaugeTaunt1()
     end
 end
 
-# Enemy taunts player
+-- Enemy taunts player
 function M2GaugeTaunt2()
-    #LOG('*DEBUG: GAUGE TAUNT')
+    -- LOG('*DEBUG: GAUGE TAUNT')
     local num = Random(2,8)
     if num == 2 then
         ScenarioFramework.Dialogue(OpStrings.TAUNT1)
@@ -1224,9 +1224,9 @@ function M2GaugeTaunt2()
     end
 end
 
-# Enemy taunts player
+-- Enemy taunts player
 function M2GaugeTaunt3()
-    #LOG('*DEBUG: GAUGE TAUNT')
+    -- LOG('*DEBUG: GAUGE TAUNT')
     local num = Random(2,8)
     if num == 2 then
         ScenarioFramework.Dialogue(OpStrings.TAUNT1)
@@ -1235,9 +1235,9 @@ function M2GaugeTaunt3()
     end
 end
 
-# Enemy taunts player
+-- Enemy taunts player
 function M2GaugeTaunt4()
-    #LOG('*DEBUG: GAUGE TAUNT')
+    -- LOG('*DEBUG: GAUGE TAUNT')
     local num = Random(2,8)
     if num == 2 then
         ScenarioFramework.Dialogue(OpStrings.TAUNT1)
@@ -1247,7 +1247,7 @@ function M2GaugeTaunt4()
 end
 
 function M2WinOperation()
-#    ScenarioFramework.EndOperationCamera(ScenarioInfo.Mainframe)
+-- ScenarioFramework.EndOperationCamera(ScenarioInfo.Mainframe)
     local camInfo = {
         blendTime = 2.5,
         holdTime = nil,
@@ -1259,7 +1259,7 @@ function M2WinOperation()
     }
     ScenarioFramework.OperationNISCamera(ScenarioInfo.Mainframe, camInfo)
 
-    #LOG('*DEBUG: WINz the gamez')
+    -- LOG('*DEBUG: WINz the gamez')
     ForkThread(WinGame)
     ScenarioInfo.M2P2Obj:ManualResult(true)
     ScenarioInfo.M2P1Obj:ManualResult(true)
@@ -1290,7 +1290,7 @@ end
 
 
 
-# === WIN LOSS FUNCTIONS === #
+-- === WIN LOSS FUNCTIONS === #
 function WinGame()
     ScenarioInfo.OpComplete = true
     WaitSeconds(5)
@@ -1305,7 +1305,7 @@ function LoseGame()
 end
 
 function PlayerCDRDestroyed(unit)
-#    ScenarioFramework.EndOperationCamera(unit)
+-- ScenarioFramework.EndOperationCamera(unit)
     ScenarioFramework.CDRDeathNISCamera(unit)
 
     ScenarioFramework.FlushDialogueQueue()
@@ -1313,28 +1313,28 @@ function PlayerCDRDestroyed(unit)
     ScenarioFramework.Dialogue(OpStrings.A04_D01_010, LoseGame, true)
 end
 
-# ---------------
-# Debug Functions
-# ---------------
+-- ---------------
+-- Debug Functions
+-- ---------------
 
-#function OnF3()
-#    ForkThread(StartMission2)
-#
-#end
-#
-#function OnF4()
-#    ScenarioUtils.CreateArmyGroup('Player', 'Base')
-#    ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
-#    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_BASE')
-#end
-#
-#function OnF5()
-#        StartMission2()
-##M2MainframeDestroyed()
-##    ForkThread(WinGame)
-##    M2CountdownComplete(false)
-#end
-#
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_A04_v04', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- function OnF3()
+-- ForkThread(StartMission2)
+--
+-- end
+--
+-- function OnF4()
+-- ScenarioUtils.CreateArmyGroup('Player', 'Base')
+-- ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
+-- ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_BASE')
+-- end
+--
+-- function OnF5()
+--    StartMission2()
+-- #M2MainframeDestroyed()
+-- #    ForkThread(WinGame)
+-- #    M2CountdownComplete(false)
+-- end
+--
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_A04_v04', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_script.lua
-#**  Author(s):  Jessica St. Croix
-#**
-#**  Summary  : Main mission flow script for X1CA_Coop_006_v02
-#**
-#**  Copyright 2007 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_script.lua
+-- **  Author(s):  Jessica St. Croix
+-- **
+-- **  Summary  : Main mission flow script for X1CA_Coop_006_v02
+-- **
+-- **  Copyright 2007 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
 local M1SeraphimAI = import('/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m1seraphimai.lua')
 local M2FletcherAI = import('/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_m2fletcherai.lua')
@@ -25,9 +25,9 @@ local TauntManager = import('/lua/TauntManager.lua')
 local Utilities = import('/lua/utilities.lua')
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
-# -------
-# Globals
-# -------
+-- -------
+-- Globals
+-- -------
 ScenarioInfo.Player = 1
 ScenarioInfo.Rhiza = 2
 ScenarioInfo.Fletcher = 3
@@ -43,9 +43,9 @@ ScenarioInfo.ControlCenterPossession = 0
 ScenarioInfo.NukesLaunched = 0
 ScenarioInfo.NukesAllowed = {1, 3, 4}
 
-# ------
-# Locals
-# ------
+-- ------
+-- Locals
+-- ------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -60,39 +60,39 @@ local OptionZero = ScenarioInfo.OptionZero
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-local WaveDuration          =   30      #number of units per wave
-local WaveDurationNIS       =   20      #duration of NIS rift "wave"
-local TimeBetweenWaves      =   {300, 240, 180}     #delay between end of wave and start of new one
-local RiftNormalSpeed       =   5    #time between rift unit spawns at normal speed
-local RiftFastSpeed         =   {1.25, 1, 0.75}    #time between rift unit spawns during a "wave"
-local RiftNISSpeed          =   0.75    #time between rift unit spawns during the initial NIS
+local WaveDuration          =   30      -- number of units per wave
+local WaveDurationNIS       =   20      -- duration of NIS rift "wave"
+local TimeBetweenWaves      =   {300, 240, 180}     -- delay between end of wave and start of new one
+local RiftNormalSpeed       =   5    -- time between rift unit spawns at normal speed
+local RiftFastSpeed         =   {1.25, 1, 0.75}    -- time between rift unit spawns during a "wave"
+local RiftNISSpeed          =   0.75    -- time between rift unit spawns during the initial NIS
 local RiftTickTime          =   5
 
-local FletcherTurned = false # to keep track during the second NIS
+local FletcherTurned = false -- to keep track during the second NIS
 
-# How long should we wait at the beginning of the NIS to allow slower machines to catch up?
+-- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
-# -----------
-# Debug only!
-# -----------
+-- -----------
+-- Debug only!
+-- -----------
 local SkipNIS1 = true
 local SkipPreMission2Dialog = true
 local SkipIntroMission2NIS = true
 
 
-# --------------
-# Taunt Managers
-# --------------
+-- --------------
+-- Taunt Managers
+-- --------------
 local VedettaTM = TauntManager.CreateTauntManager('VedettaTM', '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_Strings.lua')
 local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_Strings.lua')
 local TauTM = TauntManager.CreateTauntManager('TauTM', '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_Strings.lua')
 local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_Strings.lua')
 local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006_v02/X1CA_Coop_006_v02_Strings.lua')
 
-# -------
-# Startup
-# -------
+-- -------
+-- Startup
+-- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
@@ -106,7 +106,7 @@ function OnPopulate(scenario)
         Faction = "cybran"
     end
 
-    # Army Colors
+    -- Army Colors
     if(Faction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
     elseif(Faction == 'uef') then
@@ -121,24 +121,24 @@ function OnPopulate(scenario)
     ScenarioFramework.SetNeutralColor(ControlCenter)
     ScenarioFramework.SetNeutralColor(OptionZero)
 
-    # Unit cap
+    -- Unit cap
     SetArmyUnitCap(Seraphim, 1000)
 
-    # ----------------------------
-    # Rhiza's units for the player
-    # ----------------------------
+    -- ----------------------------
+    -- Rhiza's units for the player
+    -- ----------------------------
     ScenarioInfo.RhizaPlayerBase = ScenarioUtils.CreateArmyGroup('Rhiza', 'M1_Rhiza_PlayerBase')
     ForkThread(RhizaColossusAI)
 
-    # -------------------------------
-    # Fletcher's units for the player
-    # -------------------------------
+    -- -------------------------------
+    -- Fletcher's units for the player
+    -- -------------------------------
     ScenarioInfo.FletcherPlayerBase = ScenarioUtils.CreateArmyGroup('Fletcher', 'M1_Fletcher_PlayerBase')
     ForkThread(FletcherTransportAI)
 
-    # --------------
-    # M1 Seraphim AI
-    # --------------
+    -- --------------
+    -- M1 Seraphim AI
+    -- --------------
     M1SeraphimAI.SeraphimM1BaseAI()
 
     ScenarioInfo.UnitNames[Seraphim]['M1_Seraph_sACU_1']:SetCustomName(LOC '{i sCDR_ElEoshi}')
@@ -150,9 +150,9 @@ function OnPopulate(scenario)
     ScenarioFramework.CreateArmyStatTrigger(M1SeraphimAI.M1NavalFactoryBuilt, ArmyBrains[Player], 'M1NavalFactoryBuilt',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.NAVAL}})
 
-    # ------------------------
-    # Seraphim Initial Patrols
-    # ------------------------
+    -- ------------------------
+    -- Seraphim Initial Patrols
+    -- ------------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M1_Seraph_Air_InitDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_Base_AirDef_Chain')))
@@ -175,9 +175,9 @@ function OnPopulate(scenario)
     ArmyBrains[Seraphim]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.Incarna2}, 'Attack', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Seraph_Base_ExpDef_Patrol_Chain')
 
-    # ----------------------
-    # Seraphim Resource Base
-    # ----------------------
+    -- ----------------------
+    -- Seraphim Resource Base
+    -- ----------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M1_Seraph_ResourceBase_D' .. Difficulty)
 end
 
@@ -274,7 +274,7 @@ function FletcherTransportAI()
 end
 
 function OnStart(self)
-    # Hide all but the player army score
+    -- Hide all but the player army score
     for i = 2, table.getn(ArmyBrains) do
         if i < ScenarioInfo.Coop1 then
             SetArmyShowScore(i, false)
@@ -282,12 +282,12 @@ function OnStart(self)
         end
     end
 
-    # ------------------
-    # Build Restrictions
-    # ------------------
+    -- ------------------
+    -- Build Restrictions
+    -- ------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) # Seraphim Strategic Missile Launcher
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) # Cybran Amphibious Mega Bot
+        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraphim Strategic Missile Launcher
+        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
     end
 
 
@@ -295,9 +295,9 @@ function OnStart(self)
     IntroMission1NIS()
 end
 
-# --------
-# End Game
-# --------
+-- --------
+-- End Game
+-- --------
 function PlayerWin()
     ForkThread(
         function()
@@ -367,9 +367,9 @@ function KillGameWin()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete)
 end
 
-# ---------
-# Intro NIS
-# ---------
+-- ---------
+-- Intro NIS
+-- ---------
 function IntroMission1NIS()
     ForkThread(
         function()
@@ -383,10 +383,10 @@ function IntroMission1NIS()
 
     		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
-                # Let slower machines catch up before we get going
+                -- Let slower machines catch up before we get going
                 WaitSeconds(NIS1InitialDelay)
 
-                # Fletcher's reinforcements
+                -- Fletcher's reinforcements
                 if(Faction == 'uef') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_020, nil, true)
                 elseif(Faction == 'cybran') then
@@ -402,7 +402,7 @@ function IntroMission1NIS()
 
     		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
 
-                # Rhiza's reinforcements
+                -- Rhiza's reinforcements
                 if(Faction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_055, nil, true)
                 else
@@ -417,9 +417,9 @@ function IntroMission1NIS()
                 ForkThread(sACURhizaAI, SubCommanderRhiza)
                 WaitSeconds(1)
 
-    		    #Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 3)
-                #WaitSeconds(1)
-                # The plan of attack
+    		    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 3)
+                -- WaitSeconds(1)
+                -- The plan of attack
                 if(Faction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_065, nil, true)
                 else
@@ -470,7 +470,7 @@ function IntroMission1NIS()
     		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
                 WaitSeconds(1)
 
-                # Closing statement
+                -- Closing statement
                 ScenarioFramework.Dialogue(OpStrings.X06_M01_010, nil, true)
     		    Cinematics.ExitNISMode()
     		else
@@ -519,9 +519,9 @@ function IntroMission1NIS()
 end
 
 
-# ---------
-# Mission 1
-# ---------
+-- ---------
+-- Mission 1
+-- ---------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -531,20 +531,20 @@ end
 function StartMission1()
     local units = ScenarioFramework.GetCatUnitsInArea(categories.FACTORY + (categories.TECH3 * categories.ECONOMIC), 'M1_Seraphim_Base_Area', ArmyBrains[Seraphim])
 
-    # -------------------
-    # Primary Objective 1
-    # -------------------
+    -- -------------------
+    -- Primary Objective 1
+    -- -------------------
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.X06_M01_OBJ_010_010,  # title
-        OpStrings.X06_M01_OBJ_010_020,  # description
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.X06_M01_OBJ_010_010,  -- title
+        OpStrings.X06_M01_OBJ_010_020,  -- description
         'kill',
-        {                               # target
+        {                               -- target
             MarkUnits = true,
             Requirements = {
                 {Area = 'M1_Seraphim_Base_Area', Category = categories.FACTORY + (categories.TECH3 * categories.ECONOMIC), CompareOp = '<=', Value = 0, ArmyIndex = Seraphim},
-                # {Area = 'M1_Seraphim_Base_Area', Category = (categories.TECH3 * categories.ECONOMIC), CompareOp = '<=', Value = 0, ArmyIndex = Seraphim},
+                -- {Area = 'M1_Seraphim_Base_Area', Category = (categories.TECH3 * categories.ECONOMIC), CompareOp = '<=', Value = 0, ArmyIndex = Seraphim},
             },
             FlashVisible = true,
         }
@@ -582,11 +582,11 @@ end
 
 function M1CybranTechReveal()
     ScenarioFramework.Dialogue(OpStrings.X06_M01_110)
-    ScenarioFramework.RemoveRestriction(Player, categories.xrl0403) # Cybran Amphibious Mega Bot
+    ScenarioFramework.RemoveRestriction(Player, categories.xrl0403) -- Cybran Amphibious Mega Bot
 end
 
 function M1CybranTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0403) # Cybran Amphibious Mega Bot
+    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0403) -- Cybran Amphibious Mega Bot
 
 end
 
@@ -626,9 +626,9 @@ function M1ExperimentalBuilt()
     end
 end
 
-# ---------
-# Mission 2
-# ---------
+-- ---------
+-- Mission 2
+-- ---------
 function IntroMission2()
     ForkThread(
         function()
@@ -639,7 +639,7 @@ function IntroMission2()
 
             ScenarioInfo.MissionNumber = 2
 
-            # Unit caps
+            -- Unit caps
             SetArmyUnitCap(Rhiza, 520)
             SetArmyUnitCap(Fletcher, 575)
             SetArmyUnitCap(Order, 575)
@@ -650,9 +650,9 @@ function IntroMission2()
             M2Rhiza()
             M2Seraphim()
 
-            # --------------
-            # Control Center
-            # --------------
+            -- --------------
+            -- Control Center
+            -- --------------
             ScenarioInfo.ControlCenterBldg = ScenarioUtils.CreateArmyUnit('ControlCenter', 'M2_ControlCenter')
             ScenarioInfo.ControlCenterBldg:SetCustomName(LOC '{i Black_Sun_Control_Tower}')
             ScenarioInfo.ControlCenterBldg:SetDoNotTarget(true)
@@ -662,9 +662,9 @@ function IntroMission2()
             ScenarioUtils.CreateArmyGroup('ControlCenter', 'ControlCenter_Walls')
             ScenarioUtils.CreateArmyGroup('ControlCenter', 'M2_Wreckage', true)
 
-            # -----------
-            # Option Zero
-            # -----------
+            -- -----------
+            -- Option Zero
+            -- -----------
             ScenarioInfo.OptionZeroNuke = ScenarioUtils.CreateArmyUnit('OptionZero', 'M2_MZero_Nuke_1')
             ScenarioInfo.OptionZeroNuke:SetCanTakeDamage(false)
             ScenarioInfo.OptionZeroNuke:SetCanBeKilled(false)
@@ -675,25 +675,25 @@ function IntroMission2()
             ForkThread(CheatEconomy)
             ForkThread(IntroMission2NIS)
 
-            #TODO: move to m3 when non-smoking wreckage can be done.
-            # for now, to avoid smoking wreckage, spawn in Black Sun wreckage for m3.
+            -- TODO: move to m3 when non-smoking wreckage can be done.
+            -- for now, to avoid smoking wreckage, spawn in Black Sun wreckage for m3.
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Wreckage', true)
         end
    )
 end
 
 function M2Fletcher()
-    # --------------
-    # M2 Fletcher AI
-    # --------------
+    -- --------------
+    -- M2 Fletcher AI
+    -- --------------
     M2FletcherAI.FletcherM2BaseAI()
     if(Difficulty > 1) then
         M2FletcherAI.FletcherM2ExpBaseAI()
     end
 
-    # ------------
-    # Fletcher ACU
-    # ------------
+    -- ------------
+    -- Fletcher ACU
+    -- ------------
     ScenarioInfo.FletcherACU = ScenarioUtils.CreateArmyUnit('Fletcher', 'Fletcher')
     ScenarioInfo.FletcherACU:SetCustomName(LOC '{i Fletcher}')
     if(Difficulty > 1) then
@@ -704,9 +704,9 @@ function M2Fletcher()
     end
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.FletcherACU)
 
-    # ------------------------
-    # Fletcher Initial Patrols
-    # ------------------------
+    -- ------------------------
+    -- Fletcher Initial Patrols
+    -- ------------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Fletcher', 'M2_Fletcher_InitAir_Def_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Fletcher_AirDef_Chain')))
@@ -717,7 +717,7 @@ function M2Fletcher()
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Fletcher_LandDef_Chain')
     end
 
-    # TODO: make orbital attack player on hard
+    -- TODO: make orbital attack player on hard
     local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
     if(orbital[1] and not orbital[1]:IsDead()) then
         local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
@@ -725,21 +725,21 @@ function M2Fletcher()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
     end
 
-    # -------------------
-    # Fletcher Naval Base
-    # -------------------
-    # ScenarioUtils.CreateArmyGroup('Fletcher', 'M2_Fletcher_InitStructure')
+    -- -------------------
+    -- Fletcher Naval Base
+    -- -------------------
+    -- ScenarioUtils.CreateArmyGroup('Fletcher', 'M2_Fletcher_InitStructure')
 end
 
 function M2Order()
-    # -----------
-    # M2 Order AI
-    # -----------
+    -- -----------
+    -- M2 Order AI
+    -- -----------
     M2OrderAI.OrderM2BaseAI()
 
-    # ---------
-    # Order ACU
-    # ---------
+    -- ---------
+    -- Order ACU
+    -- ---------
     ScenarioInfo.OrderACU = ScenarioUtils.CreateArmyUnit('Order', 'M2_Order_Vedetta')
     ScenarioInfo.OrderACU:SetCustomName(LOC '{i Vendetta}')
     if(Difficulty > 1) then
@@ -750,9 +750,9 @@ function M2Order()
     end
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.OrderACU)
 
-    # ---------------------
-    # Order Initial Patrols
-    # ---------------------
+    -- ---------------------
+    -- Order Initial Patrols
+    -- ---------------------
     local colossus = ScenarioUtils.CreateArmyUnit('Order', 'M2_Order_Colossus')
     local platoon = ArmyBrains[Order]:MakePlatoon('', '')
     ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {colossus}, 'Attack', 'GrowthFormation')
@@ -779,14 +779,14 @@ function M2Order()
 end
 
 function M2Rhiza()
-    # -----------
-    # M2 Rhiza AI
-    # -----------
+    -- -----------
+    -- M2 Rhiza AI
+    -- -----------
     M2RhizaAI.RhizaM2BaseAI()
 
-    # ---------
-    # Rhiza ACU
-    # ---------
+    -- ---------
+    -- Rhiza ACU
+    -- ---------
     ScenarioInfo.RhizaACU = ScenarioUtils.CreateArmyUnit('Rhiza', 'M2_Rhiza')
     ScenarioInfo.RhizaACU:SetCustomName(LOC '{i Rhiza}')
     ScenarioInfo.RhizaACU:CreateEnhancement('Shield')
@@ -794,13 +794,13 @@ function M2Rhiza()
     ScenarioInfo.RhizaACU:CreateEnhancement('HeatSink')
     ScenarioInfo.RhizaACU:CreateEnhancement('AdvancedEngineering')
     ScenarioInfo.RhizaACU:CreateEnhancement('T3Engineering')
-#   ScenarioInfo.RhizaACU:CreateEnhancement('CrysalisBeam')
+-- ScenarioInfo.RhizaACU:CreateEnhancement('CrysalisBeam')
     ScenarioInfo.RhizaACU:SetCanBeKilled(false)
     ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
 
-    # ---------------------
-    # Rhiza Initial Patrols
-    # ---------------------
+    -- ---------------------
+    -- Rhiza Initial Patrols
+    -- ---------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M2_Rhiza_InitLand_Def_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Rhiza_LandDef_Chain')
@@ -816,8 +816,8 @@ function M2Rhiza()
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Rhiza_NavalDef_Chain')
     end
 
-    # Wreckage
-#   ScenarioUtils.CreateArmyGroup('Rhiza', 'M2_Wreckage', true)
+    -- Wreckage
+-- ScenarioUtils.CreateArmyGroup('Rhiza', 'M2_Wreckage', true)
 end
 
 function RhizaNavyPing(platoon)
@@ -852,14 +852,14 @@ function RhizaWarp()
 end
 
 function M2Seraphim()
-    # --------------
-    # M2 Seraphim AI
-    # --------------
+    -- --------------
+    -- M2 Seraphim AI
+    -- --------------
     M2SeraphimAI.SeraphimM2BaseAI()
 
-    # ------------------------
-    # Seraphim Initial Patrols
-    # ------------------------
+    -- ------------------------
+    -- Seraphim Initial Patrols
+    -- ------------------------
     for i = 1, 2 do
         local exp = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_Exp_' .. i)
         local platoon = ArmyBrains[Seraphim]:MakePlatoon('', '')
@@ -921,17 +921,17 @@ function IntroMission2NIS()
     Cinematics.EnterNISMode()
     Cinematics.SetInvincible('M1Area')
 
-    # Spawn Seraphim group "M2_NIS_Units", tell them to aggressive move to M2_NIS_Seraphim_Destination
+    -- Spawn Seraphim group "M2_NIS_Units", tell them to aggressive move to M2_NIS_Seraphim_Destination
     local SeraphimUnits = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_NIS_Units')
     IssueAggressiveMove(SeraphimUnits, ScenarioUtils.MarkerToPosition('M2_NIS_Seraphim_Destination'))
 
-    # Spawn Fletcher group "M2_NIS_Units", tell them to kill enemy units
+    -- Spawn Fletcher group "M2_NIS_Units", tell them to kill enemy units
     local FletcherUnits = ScenarioUtils.CreateArmyGroup('Fletcher', 'M2_NIS_Units')
     for k, target in SeraphimUnits do
         IssueAttack(FletcherUnits, target)
     end
 
-    # Spawn Rhiza group "M2_NIS_Units", tell them to kill enemy units
+    -- Spawn Rhiza group "M2_NIS_Units", tell them to kill enemy units
     local RhizaUnits = ScenarioUtils.CreateArmyGroup('Rhiza', 'M2_NIS_Units')
     for k, v in RhizaUnits do
         if(v:GetUnitId() == 'uas0201') then
@@ -946,7 +946,7 @@ function IntroMission2NIS()
 
     WaitSeconds(1)
 
-    # Sneak these intel flashes into the NIS; the player should have intel on the enemy bases afterwards
+    -- Sneak these intel flashes into the NIS; the player should have intel on the enemy bases afterwards
     ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player])
     ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player])
 
@@ -955,7 +955,7 @@ function IntroMission2NIS()
 
     ScenarioFramework.Dialogue(OpStrings.X06_M02_011, FletcherTurns, true)
 
-    # Make the Seraphim units fragile
+    -- Make the Seraphim units fragile
     for k, unit in SeraphimUnits do
         if unit and (not unit:IsDead()) then
             unit:AdjustHealth(unit, (unit:GetHealth() - 1) * -1)
@@ -976,21 +976,21 @@ function IntroMission2NIS()
     end
     SetAlliance(Fletcher, Rhiza, 'Enemy')
 
-    # Clear intel on the experimental base area
+    -- Clear intel on the experimental base area
     ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M2_Fletcher_Exp_Base'), 5)
 
     local unitAttacker = ScenarioInfo.UnitNames[Fletcher]['M2_NIS_Attacker']
     local unitTarget = ScenarioInfo.UnitNames[Rhiza]['M2_NIS_Target']
 
-    # This is intended to make the bad guys all attack one good guy.  The way that the missiles fly through
-    # the air to this particular target gives a particular camera a great shot.
-    # But for whatever reason, this doesn't seem to work.
+    -- This is intended to make the bad guys all attack one good guy.  The way that the missiles fly through
+    -- the air to this particular target gives a particular camera a great shot.
+    -- But for whatever reason, this doesn't seem to work.
     if unitAttacker and unitTarget and not unitAttacker:IsDead() and not unitTarget:IsDead() then
         IssueClearCommands({ unitAttacker })
         IssueAttack({ unitAttacker }, unitTarget)
     end
 
-    # Tell all of the units to attack their new enemies
+    -- Tell all of the units to attack their new enemies
     local RhizaNum = table.getn(RhizaUnits)
     for k, unit in FletcherUnits do
         if unit and not unit:IsDead() then
@@ -1007,7 +1007,7 @@ function IntroMission2NIS()
         end
     end
 
-    #WaitSeconds(3)
+    -- WaitSeconds(3)
 
     ScenarioFramework.Dialogue(OpStrings.X06_M02_012, RhizaRetaliates, true)
 
@@ -1026,9 +1026,9 @@ function IntroMission2NIS()
 
     ForkThread(
         function()
-            # If for some reason the ships haven't died by this amount of time, end this camera shot anyway
-            # The primary reason that this would happen is that someone is running the game with
-            # invincible units or damage turned off -- an unlikley event for a regular player.
+            -- If for some reason the ships haven't died by this amount of time, end this camera shot anyway
+            -- The primary reason that this would happen is that someone is running the game with
+            -- invincible units or damage turned off -- an unlikley event for a regular player.
             WaitSeconds(15)
             LoopDone = true
         end
@@ -1076,7 +1076,7 @@ function IntroMission2NIS()
     Cinematics.SetInvincible('M1Area', true)
     Cinematics.ExitNISMode()
 
-    # Send the NIS units north to Rhiza's base
+    -- Send the NIS units north to Rhiza's base
     for k, unit in FletcherUnits do
         if unit and (not unit:IsDead()) then
             IssueAggressiveMove({ unit }, ScenarioUtils.MarkerToPosition('M2_Seraph_Naval_East_15'))
@@ -1108,7 +1108,7 @@ function RhizaRetaliates()
 end
 
 function StartMission2()
-    # Taunts
+    -- Taunts
     SetupVedettaTauntTriggers()
     SetupFletcherTauntTriggers()
     SetupRhizaTauntTriggers()
@@ -1118,7 +1118,7 @@ function StartMission2()
     M2RhizaCounterattack()
     M2SeraphimCounterattack()
 
-    #Factional VO, and a sum-up by HQ
+    -- Factional VO, and a sum-up by HQ
     if(Faction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_020)
     elseif(Faction == 'cybran') then
@@ -1128,18 +1128,18 @@ function StartMission2()
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M02_050)
 
-    #Play Quantum Resource Generator VO when Order's is spotted
+    -- Play Quantum Resource Generator VO when Order's is spotted
     ScenarioFramework.CreateArmyIntelTrigger(M2ParagonSpotted , ArmyBrains[Player], 'LOSNow', false , true, categories.xab1401, true, ArmyBrains[Order])
 
-    # -----------------------------------
-    # Primary Objective 1 - Kill Fletcher
-    # -----------------------------------
+    -- -----------------------------------
+    -- Primary Objective 1 - Kill Fletcher
+    -- -----------------------------------
     ScenarioInfo.M2P1 = Objectives.KillOrCapture(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.X06_M02_OBJ_010_030,  # title
-        OpStrings.X06_M02_OBJ_010_040,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.X06_M02_OBJ_010_030,  -- title
+        OpStrings.X06_M02_OBJ_010_040,  -- description
+        {                               -- target
             Units = {ScenarioInfo.FletcherACU}
         }
    )
@@ -1150,13 +1150,13 @@ function StartMission2()
                 ScenarioFramework.Dialogue(OpStrings.TAUNT50)
                 ScenarioFramework.Dialogue(OpStrings.X06_M02_110)
 
-                # Blow up his base
+                -- Blow up his base
                 local units = ScenarioFramework.GetCatUnitsInArea(categories.ALLUNITS - categories.uec1902, Rect(0, 0, 1024, 1024), ArmyBrains[Fletcher])
                 for k, v in units do
                     v:Kill()
                 end
 
-                # Clear nuke timer if he had possession of the controlcenter
+                -- Clear nuke timer if he had possession of the controlcenter
                 if(ScenarioInfo.ControlCenterPossession and ScenarioInfo.ControlCenterPossession == Fletcher) then
                     if(ScenarioInfo.NukeTimer) then
                         KillThread(ScenarioInfo.NukeTimer)
@@ -1173,15 +1173,15 @@ function StartMission2()
     table.insert(AssignedObjectives, ScenarioInfo.M2P1)
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, 2000)
 
-    # ----------------------------------
-    # Primary Objective 2 - Kill Vedetta
-    # ----------------------------------
+    -- ----------------------------------
+    -- Primary Objective 2 - Kill Vedetta
+    -- ----------------------------------
     ScenarioInfo.M2P2 = Objectives.KillOrCapture(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.X06_M02_OBJ_010_010,  # title
-        OpStrings.X06_M02_OBJ_010_020,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.X06_M02_OBJ_010_010,  -- title
+        OpStrings.X06_M02_OBJ_010_020,  -- description
+        {                               -- target
             Units = {ScenarioInfo.OrderACU}
         }
    )
@@ -1191,13 +1191,13 @@ function StartMission2()
                 ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.OrderACU, 5)
                 ScenarioFramework.Dialogue(OpStrings.X06_M02_140)
 
-                # Blow up his base
+                -- Blow up his base
                 local units = ScenarioFramework.GetCatUnitsInArea(categories.ALLUNITS - categories.uec1902, Rect(0, 0, 1024, 1024), ArmyBrains[Order])
                 for k, v in units do
                     v:Kill()
                 end
 
-                # Clear nuke timer if he had possession of the controlcenter
+                -- Clear nuke timer if he had possession of the controlcenter
                 if(ScenarioInfo.ControlCenterPossession and ScenarioInfo.ControlCenterPossession == Order) then
                     if(ScenarioInfo.NukeTimer) then
                         KillThread(ScenarioInfo.NukeTimer)
@@ -1219,7 +1219,7 @@ function StartMission2()
     m2Objectives:AddObjective(ScenarioInfo.M2P2)
 
     ScenarioFramework.CreateTimerTrigger(StartFletcherCounter, 90)
-    ScenarioFramework.CreateTimerTrigger(RevealM2S1, 180) # changed from a 1 min to 3 min delay after conversation with Brad 6/15
+    ScenarioFramework.CreateTimerTrigger(RevealM2S1, 180) -- changed from a 1 min to 3 min delay after conversation with Brad 6/15
 
     local time = {900, 600, 180}
     local RhizaTime = {150, 250, 450}
@@ -1263,15 +1263,15 @@ function M2FletcherCounterattack()
     local trigger = {}
     local units = nil
 
-    # ----------------------
-    # Fletcher Counterattack
-    # ----------------------
+    -- ----------------------
+    -- Fletcher Counterattack
+    -- ----------------------
 
-    # Initial trickle
+    -- Initial trickle
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Fletcher', 'M2_Fletcher_InitAir_Attack_1', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Fletcher_AirAttack' .. Random(1, 2) .. '_Chain')
 
-    # Default main counter
+    -- Default main counter
     ScenarioInfo.FletcherCounterAttack = {}
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Fletcher', 'M2_Fletcher_InitAir_Attack_2', 'GrowthFormation')
     table.insert(ScenarioInfo.FletcherCounterAttack, units)
@@ -1279,7 +1279,7 @@ function M2FletcherCounterattack()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Fletcher_AirDef_Chain')))
     end
 
-    # Spawns Gunships for every 4, 3, 2 shields, max 6, 8, 10 groups
+    -- Spawns Gunships for every 4, 3, 2 shields, max 6, 8, 10 groups
     quantity = {6, 8, 10}
     trigger = {4, 3, 2}
     local num = 0
@@ -1301,7 +1301,7 @@ function M2FletcherCounterattack()
         end
     end
 
-    # Spawns Air Superiority for every 30, 20, 10 planes, max 3, 5, 7 groups
+    -- Spawns Air Superiority for every 30, 20, 10 planes, max 3, 5, 7 groups
     quantity = {3, 5, 7}
     trigger = {30, 20, 10}
     local num = 0
@@ -1330,23 +1330,23 @@ function M2OrderCounterattack()
     local trigger = {}
     local units = nil
 
-    # -------------------
-    # Order Counterattack
-    # -------------------
+    -- -------------------
+    -- Order Counterattack
+    -- -------------------
 
-    # Default Air Attack
+    -- Default Air Attack
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Order', 'M2_Order_Init_AirAttack_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Order_AirAttack_' .. Random(1, 3) .. '_Chain')))
     end
 
-    # Default Naval Attack
+    -- Default Naval Attack
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Order', 'M2_Order_Init_NavalAttack_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Order_NavalAttack_' .. Random(1, 2) .. '_Chain')
     end
 
-    # Spawns transport attacks for every 4, 3, 2 T2/T3 defensive structure, max 4, 6, 8 groups
+    -- Spawns transport attacks for every 4, 3, 2 T2/T3 defensive structure, max 4, 6, 8 groups
     quantity = {4, 6, 8}
     trigger = {4, 3, 2}
     local num = 0
@@ -1372,7 +1372,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Spawns gunships for every 30, 20, 10 land units, max 3, 5, 7 groups
+    -- Spawns gunships for every 30, 20, 10 land units, max 3, 5, 7 groups
     quantity = {3, 5, 7}
     trigger = {30, 20, 10}
     local num = 0
@@ -1391,7 +1391,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Spawns air superiority for every 40, 20, 10 air units, max 3, 5, 7 groups
+    -- Spawns air superiority for every 40, 20, 10 air units, max 3, 5, 7 groups
     quantity = {3, 5, 7}
     trigger = {40, 20, 10}
     local num = 0
@@ -1410,7 +1410,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Experimental Response, max 2, 5, 10
+    -- Experimental Response, max 2, 5, 10
     quantity = {2, 5, 10}
     for _, player in ScenarioInfo.HumanPlayers do
         local experimentals = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL, false)
@@ -1427,7 +1427,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Battleship Response, max 2, 5, 10
+    -- Battleship Response, max 2, 5, 10
     quantity = {2, 5, 10}
     for _, player in ScenarioInfo.HumanPlayers do
         local experimentals = ArmyBrains[player]:GetListOfUnits(categories.uas0302 + categories.ues0302 + categories.urs0302, false)
@@ -1444,7 +1444,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Spawns Cruisers if player has naval and > 60, 40, 20 T2/T3 air
+    -- Spawns Cruisers if player has naval and > 60, 40, 20 T2/T3 air
     trigger = {60, 40, 20}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -1465,7 +1465,7 @@ function M2OrderCounterattack()
         end
     end
 
-    # Spawns Destroyers if player has > 8, 5, 3 T2/T3 naval
+    -- Spawns Destroyers if player has > 8, 5, 3 T2/T3 naval
     trigger = {8, 5, 3}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -1483,9 +1483,9 @@ end
 function M2RhizaCounterattack()
     local units = nil
 
-    # -------------------
-    # Rhiza Counterattack
-    # -------------------
+    -- -------------------
+    -- Rhiza Counterattack
+    -- -------------------
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Rhiza', 'M2_Rhiza_Init_AirAttack_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Rhiza_Init_AirAttack_Chain')
@@ -1497,9 +1497,9 @@ end
 function M2SeraphimCounterattack()
     local units = nil
 
-    # ----------------------
-    # Seraphim Counterattack
-    # ----------------------
+    -- ----------------------
+    -- Seraphim Counterattack
+    -- ----------------------
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M2_Seraph_Init_AirAttack_1', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_Init_AirAttack_Chain')
@@ -1528,7 +1528,7 @@ function StartFletcherCounter()
 end
 
 function M2ParagonSpotted()
-    #Paragon comment from HQ
+    -- Paragon comment from HQ
     ScenarioFramework.Dialogue(OpStrings.X06_M02_060)
 end
 
@@ -1539,16 +1539,16 @@ function RevealM2S1()
 end
 
 function AssignM2S1()
-    # ----------------------------------------------
-    # Secondary Objective 1 - Capture Control Center
-    # ----------------------------------------------
+    -- ----------------------------------------------
+    -- Secondary Objective 1 - Capture Control Center
+    -- ----------------------------------------------
     ScenarioInfo.M2S1 = Objectives.Basic(
-        'secondary',                            # type
-        'incomplete',                           # status
-        OpStrings.X06_M02_OBJ_010_050,          # title
-        OpStrings.X06_M02_OBJ_010_060,          # description
+        'secondary',                            -- type
+        'incomplete',                           -- status
+        OpStrings.X06_M02_OBJ_010_050,          -- title
+        OpStrings.X06_M02_OBJ_010_060,          -- description
         Objectives.GetActionIcon('capture'),
-        {                                       # target
+        {                                       -- target
             FlashVisible = true,
             MarkUnits = true,
             Units = {ScenarioInfo.ControlCenterBldg},
@@ -1567,7 +1567,7 @@ function ControlCenterDestroyed()
         end
     end
 
-    # Remove any old timers and pings
+    -- Remove any old timers and pings
     if(ScenarioInfo.NukeTimer) then
         KillThread(ScenarioInfo.NukeTimer)
     end
@@ -1599,7 +1599,7 @@ function ControlCenterCaptured(newControlCenter, captor)
     if(army == Fletcher) then
         ScenarioInfo.ControlCenterPossession = Fletcher
 
-        # Remove any old timers and pings
+        -- Remove any old timers and pings
         if(ScenarioInfo.NukeTimer) then
             KillThread(ScenarioInfo.NukeTimer)
         end
@@ -1612,7 +1612,7 @@ function ControlCenterCaptured(newControlCenter, captor)
     elseif(army == Order) then
         ScenarioInfo.ControlCenterPossession = Order
 
-        # Remove any old timers and pings
+        -- Remove any old timers and pings
         if(ScenarioInfo.NukeTimer) then
             KillThread(ScenarioInfo.NukeTimer)
         end
@@ -1625,7 +1625,7 @@ function ControlCenterCaptured(newControlCenter, captor)
     elseif(army == Rhiza) then
         ScenarioInfo.ControlCenterPossession = Rhiza
 
-        # Remove any old timers and pings
+        -- Remove any old timers and pings
         if(ScenarioInfo.NukeTimer) then
             KillThread(ScenarioInfo.NukeTimer)
         end
@@ -1637,7 +1637,7 @@ function ControlCenterCaptured(newControlCenter, captor)
     elseif(army == Player) then
         ScenarioInfo.ControlCenterPossession = Player
 
-        # Remove any old timers
+        -- Remove any old timers
         if(ScenarioInfo.NukeTimer) then
             KillThread(ScenarioInfo.NukeTimer)
         end
@@ -1650,10 +1650,10 @@ function ControlCenterCaptured(newControlCenter, captor)
         end
         ScenarioInfo.NukePing = PingGroups.AddPingGroup(OpStrings.X06_M01_OBJ_010_030, nil, 'attack', OpStrings.X06_M01_OBJ_010_040)
         ScenarioInfo.NukePing:AddCallback(M2OptionZeroPlayerNuke)
-        #LOG('*DEBUG: controlcenter captured, added nuke ping')
+        -- LOG('*DEBUG: controlcenter captured, added nuke ping')
     end
 
-    # New trigger for Control Center to be recaptured/destroyed/reclaimed
+    -- New trigger for Control Center to be recaptured/destroyed/reclaimed
     ScenarioFramework.CreateUnitCapturedTrigger(nil, ControlCenterCaptured, ScenarioInfo.ControlCenterBldg)
     ScenarioFramework.CreateUnitDeathTrigger(ControlCenterDestroyed, ScenarioInfo.ControlCenterBldg)
     ScenarioFramework.CreateUnitReclaimedTrigger(ControlCenterDestroyed, ScenarioInfo.ControlCenterBldg)
@@ -1692,14 +1692,14 @@ function M2OptionZeroRhizaNuke()
 
         if(ScenarioInfo.MissionNumber == 2) then
 
-            #nuke Seraphim
+            -- nuke Seraphim
             if(numS >= 8) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeLocationsSeraphim[Random(1, 3)]))
 				LOG('*DEBUG: Rhiza launched nuke at Seraphim')
 
-            #nuke Order / Fletcher
+            -- nuke Order / Fletcher
             elseif(not ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
-			    if(numO >= numF) then	# Nuke Vendetta
+			    if(numO >= numF) then	-- Nuke Vendetta
                     IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
 				    LOG('*DEBUG: Rhiza launched nuke at Vendetta')
 				elseif(numO < numF) then
@@ -1707,12 +1707,12 @@ function M2OptionZeroRhizaNuke()
 				    LOG('*DEBUG: Rhiza launched nuke at Fletcher')
 				end
 
-            #nuke Fletcher
+            -- nuke Fletcher
             elseif(ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[1]))
 				LOG('*DEBUG: Rhiza launched nuke at Fletcher')
 
-            #nuke Order
+            -- nuke Order
             elseif(not ScenarioInfo.OrderACU:IsDead() and ScenarioInfo.FletcherACU:IsDead()) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
 				LOG('*DEBUG: Rhiza launched nuke at Vendetta')
@@ -1725,7 +1725,7 @@ function M2OptionZeroRhizaNuke()
         end
 
         ScenarioInfo.NukeTimer = ScenarioFramework.CreateTimerTrigger(NukeTimer, 300)
-        #LOG('*DEBUG: Rhiza launched nuke')
+        -- LOG('*DEBUG: Rhiza launched nuke')
     end
 end
 
@@ -1735,7 +1735,7 @@ function M2OptionZeroPlayerNuke(location)
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.OptionZeroNuke}, location)
         ScenarioInfo.NukeTimer = ScenarioFramework.CreateTimerTrigger(NukeTimer, 300)
-        #LOG('*DEBUG: player launched nuke')
+        -- LOG('*DEBUG: player launched nuke')
     end
 end
 
@@ -1757,19 +1757,19 @@ function NukeTimer()
 end
 
 function M2EndMission()
-    #ScenarioFramework.Dialogue(OpStrings.XXXXXXXXXXX, IntroMission3)
-    # Wait for the death spin around the enemy commander to finish
+    -- ScenarioFramework.Dialogue(OpStrings.XXXXXXXXXXX, IntroMission3)
+    -- Wait for the death spin around the enemy commander to finish
     ForkThread(
         function()
             WaitSeconds(6)
-            IntroMission3()     #TODO: remove this call, and use the dialogue above for it, when new dialogue is added
+            IntroMission3()     -- TODO: remove this call, and use the dialogue above for it, when new dialogue is added
         end
    )
 end
 
-# ---------
-# Mission 3
-# ---------
+-- ---------
+-- Mission 3
+-- ---------
 function IntroMission3()
     ForkThread(
         function()
@@ -1780,19 +1780,19 @@ function IntroMission3()
 
             ScenarioInfo.MissionNumber = 3
 
-            # Unit caps
+            -- Unit caps
             SetArmyUnitCap(Seraphim, 1000)
 
-            # --------------
-            # M3 Seraphim AI
-            # --------------
+            -- --------------
+            -- M3 Seraphim AI
+            -- --------------
             M3SeraphimAI.SeraphimM3BaseAI()
             M3SeraphimAI.SeraphimM3WestBaseAI()
             M3SeraphimAI.SeraphimM3EastBaseAI()
 
-            # --------------
-            # Seth-Iavow CDR
-            # --------------
+            -- --------------
+            -- Seth-Iavow CDR
+            -- --------------
             ScenarioInfo.Tau = ScenarioUtils.CreateArmyUnit('Seraphim', 'Tau')
             ScenarioInfo.Tau:SetCustomName(LOC '{i SethIavow}')
             if(Difficulty > 1) then
@@ -1802,9 +1802,9 @@ function IntroMission3()
             end
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.Tau)
 
-            # ------------------------
-            # Seraphim Initial Patrols
-            # ------------------------
+            -- ------------------------
+            -- Seraphim Initial Patrols
+            -- ------------------------
             local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Seraphim', 'M3_Seraph_AirNorth_Def_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_AirNorth_Def_Chain')))
@@ -1839,14 +1839,14 @@ function IntroMission3()
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_Seraph_NavalEast_Def_Chain')
             end
 
-            # -----------------------
-            # Seraphim Static Defense
-            # -----------------------
+            -- -----------------------
+            -- Seraphim Static Defense
+            -- -----------------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_ExternalDef_D' .. Difficulty)
 
-            # -------------
-            # Seraphim Rift
-            # -------------
+            -- -------------
+            -- Seraphim Rift
+            -- -------------
             ScenarioInfo.Rift1 = ScenarioUtils.CreateArmyUnit('Seraphim', 'Quantun_Rift_Support')
             ScenarioInfo.Rift2 = ScenarioUtils.CreateArmyUnit('Seraphim', 'Quantun_Rift_Support2')
             ScenarioInfo.Rift1:SetReclaimable(false)
@@ -1906,8 +1906,8 @@ function IntroMission3NIS()
             Cinematics.EnterNISMode()
             Cinematics.SetInvincible('M2Area')
 
-            #Begin rift spawn, and a timer to increase the rift spawn speed
-            #ScenarioFramework.CreateTimerTrigger(RiftStartWave, 15)
+            -- Begin rift spawn, and a timer to increase the rift spawn speed
+            -- ScenarioFramework.CreateTimerTrigger(RiftStartWave, 15)
             ForkThread(RiftNISWave)
             ForkThread(Rift)
 
@@ -1937,11 +1937,11 @@ end
 function StartMission3()
     M3SeraphimCounterattack()
 
-    # Taunts
+    -- Taunts
     SetupTauTauntTriggers()
     SetupHQTauntTriggers()
 
-    #Mixed VO exchange, general and faction-specific
+    -- Mixed VO exchange, general and faction-specific
     ScenarioFramework.Dialogue(OpStrings.X06_M03_010)
     if(Faction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X06_M03_020)
@@ -1952,15 +1952,15 @@ function StartMission3()
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M03_050, nil, nil, ScenarioInfo.RhizaACU)
 
-    # -----------------------------------------
-    # Primary Objective 1 - Destroy the Archway
-    # -----------------------------------------
+    -- -----------------------------------------
+    -- Primary Objective 1 - Destroy the Archway
+    -- -----------------------------------------
     ScenarioInfo.M3P1 = Objectives.Kill(
-        'primary',                      # type
-        'incomplete',                   # complete
-        OpStrings.X06_M03_OBJ_010_010,  # title
-        OpStrings.X06_M03_OBJ_010_020,  # description
-        {                               # target
+        'primary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.X06_M03_OBJ_010_010,  -- title
+        OpStrings.X06_M03_OBJ_010_020,  -- description
+        {                               -- target
             Units = {ScenarioInfo.Rift1, ScenarioInfo.Rift2},
         }
    )
@@ -2003,7 +2003,7 @@ function M3ExpBot()
 
         local num = table.getn(ArmyBrains[Seraphim]:GetListOfUnits(categories.xsl0401, false))
         if(num < limit) then
-            # spawn in exp bot
+            -- spawn in exp bot
             local unit = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Rift_ExpBot')
             if(Difficulty == 3) then
                 unit:SetVeterancy(5)
@@ -2032,7 +2032,7 @@ function M3ExpBomber()
     if(GetArmyUnitCostTotal(Seraphim) < 1000) then
         local num = table.getn(ArmyBrains[Seraphim]:GetListOfUnits(categories.xsa0402, false))
         if(num < 1) then
-            # spawn in exp bomber
+            -- spawn in exp bomber
             local unit = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Rift_ExpBomber')
             unit:SetVeterancy(5)
 
@@ -2052,10 +2052,10 @@ function M3SACU()
     if(GetArmyUnitCostTotal(Seraphim) < 1000) then
         local num = table.getn(ArmyBrains[Seraphim]:GetListOfUnits(categories.xsl0301, false))
         if(num < 1) then
-            # spawn in sACU
+            -- spawn in sACU
             local unit = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Rift_sACU')
             if(Difficulty > 1) then
-                # give shield
+                -- give shield
                 unit:CreateEnhancement('Shield')
                 if(Difficulty == 3) then
                     unit:SetVeterancy(5)
@@ -2212,11 +2212,11 @@ function M3SeraphimCounterattack()
     local trigger = {}
     local units = {}
 
-    # --------------
-    # Counter Attack
-    # --------------
+    -- --------------
+    -- Counter Attack
+    -- --------------
 
-    # Spawns naval attacks for every 15, 10, 5 T2/T3 naval boats, max 3, 4, 5 groups
+    -- Spawns naval attacks for every 15, 10, 5 T2/T3 naval boats, max 3, 4, 5 groups
     quantity = {3, 4, 5}
     trigger = {15, 10, 5}
     local num = 0
@@ -2240,7 +2240,7 @@ function M3SeraphimCounterattack()
         end
     end
 
-    # Spawns air superiority for every 25, 20, 15 planes, max 4, 5, 6 groups
+    -- Spawns air superiority for every 25, 20, 15 planes, max 4, 5, 6 groups
     quantity = {4, 5, 6}
     trigger = {25, 20, 15}
     local num = 0
@@ -2261,7 +2261,7 @@ function M3SeraphimCounterattack()
         end
     end
 
-    # Experimental & HLRA & Battleship Response, max 6, 12, 18 groups
+    -- Experimental & HLRA & Battleship Response, max 6, 12, 18 groups
     quantity = {6, 12, 18}
     for _, player in ScenarioInfo.HumanPlayers do
         local experimentals = ArmyBrains[player]:GetListOfUnits((categories.EXPERIMENTAL - categories.AIR) + (categories.TECH3 * categories.STRUCTURE * categories.ARTILLERY) + categories.BATTLESHIP, false)
@@ -2278,7 +2278,7 @@ function M3SeraphimCounterattack()
         end
     end
 
-    # Spawns gunships for every 4, 3, 2 shields, max 3, 5, 7 groups
+    -- Spawns gunships for every 4, 3, 2 shields, max 3, 5, 7 groups
     quantity = {3, 5, 7}
     trigger = {4, 3, 2}
     local num = 0
@@ -2297,7 +2297,7 @@ function M3SeraphimCounterattack()
         end
     end
 
-    # Spawns siege tanks if player has 475, 350, 1 units
+    -- Spawns siege tanks if player has 475, 350, 1 units
     trigger = {475, 350, 1}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -2309,7 +2309,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_LandAttack1_Chain')
     end
 
-    # Spawns siege tanks if player has 100, 60, 20 t3 land units
+    -- Spawns siege tanks if player has 100, 60, 20 t3 land units
     trigger = {100, 60, 20}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -2321,7 +2321,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_LandAttack2_Chain')
     end
 
-    # Spawns mobile artillery if player has 6, 3, 1 experimentals
+    -- Spawns mobile artillery if player has 6, 3, 1 experimentals
     trigger = {6, 3, 1}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -2333,7 +2333,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_LandAttack1_Chain')
     end
 
-    # Spawns experimental if player has 1 experimental or hlra on easy, spawns regardless on med/hard
+    -- Spawns experimental if player has 1 experimental or hlra on easy, spawns regardless on med/hard
     if(Difficulty == 1) then
         local num = 0
         for _, player in ScenarioInfo.HumanPlayers do
@@ -2353,7 +2353,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_LandAttack1_Chain')
     end
 
-    # Spawns experimental if player has 475, 350, 1 units
+    -- Spawns experimental if player has 475, 350, 1 units
     trigger = {475, 350, 1}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -2367,7 +2367,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_LandAttack1_Chain')
     end
 
-    # Spawns experimental if player has 5, 3, 1 experimental or hlra
+    -- Spawns experimental if player has 5, 3, 1 experimental or hlra
     trigger = {5, 3, 1}
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -2381,7 +2381,7 @@ function M3SeraphimCounterattack()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_LandAttack1_Chain')
     end
 
-    # Spawns transport attacks for every 3, 1, 1 shields, max 6, 8, 10 groups
+    -- Spawns transport attacks for every 3, 1, 1 shields, max 6, 8, 10 groups
     quantity = {6, 8, 10}
     trigger = {3, 1, 1}
     local num = 0
@@ -2402,14 +2402,14 @@ function M3SeraphimCounterattack()
 end
 
 function Rift()
-    #ScenarioInfo.Count = 0
+    -- ScenarioInfo.Count = 0
     ForkThread(
         function()
             while(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1:IsDead() and ScenarioInfo.Rift2 and not ScenarioInfo.Rift2:IsDead()) do
                 if(GetArmyUnitCostTotal(Seraphim) < 1000) then
                     local tier = Random(1, 5)
-                    #use one of three selections/tiers of units that exists at each of ten locations.
-                    #40% chance tier1, 40% chance tier2, 20% chance tier3
+                    -- use one of three selections/tiers of units that exists at each of ten locations.
+                    -- 40% chance tier1, 40% chance tier2, 20% chance tier3
 
                     if Difficulty == 1 then
                         tier = tier - 1
@@ -2417,9 +2417,9 @@ function Rift()
                         tier = tier + 1
                     end
 
-                    ##Tier 1, easier units
+                    -- #Tier 1, easier units
                     if(tier < 3) then
-                        #pick one of the 10 locations on the rift line, and one of the 5 units available there in tier 1
+                        -- pick one of the 10 locations on the rift line, and one of the 5 units available there in tier 1
                         local position = Random(1, 10)
                         local unitNum = Random(1, 2)
 
@@ -2429,13 +2429,13 @@ function Rift()
                         elseif(ScenarioInfo.Trickle and Difficulty == 2) then
                             unit:SetVeterancy(5)
                         end
-                        #ScenarioInfo.Count = ScenarioInfo.Count + 1
+                        -- ScenarioInfo.Count = ScenarioInfo.Count + 1
                         ForkThread(
                             function()
                                 EffectUtilities.SeraphimRiftIn(unit)
 
-                                #force the land units away from the rift, then on with normal behavior to the
-                                # start of the 3 main land attack chains
+                                -- force the land units away from the rift, then on with normal behavior to the
+                                -- start of the 3 main land attack chains
                                 IssueMove({unit}, ScenarioUtils.MarkerToPosition('Rift_InitialMove_' .. position))
                                 IssueAggressiveMove({unit}, ScenarioUtils.MarkerToPosition('Rift_InitialMoveb_' .. position))
                                 IssueAggressiveMove({unit}, ScenarioUtils.MarkerToPosition('Rift_SecondMove_' .. position))
@@ -2450,7 +2450,7 @@ function Rift()
                             end
                        )
 
-                    # Tier 2, medium-strength units
+                    -- Tier 2, medium-strength units
                     elseif(tier > 2 and tier < 5) then
                         local position = Random(1, 10)
                         local unitNum = Random(21, 26)
@@ -2461,9 +2461,9 @@ function Rift()
                         elseif(ScenarioInfo.Trickle and Difficulty == 2) then
                             unit:SetVeterancy(5)
                         end
-                        #ScenarioInfo.Count = ScenarioInfo.Count + 1
-                        #if we spawned a mobile shield (number 26 in the series), then disable the shield for a period so the warp
-                        #in effect can play
+                        -- ScenarioInfo.Count = ScenarioInfo.Count + 1
+                        -- if we spawned a mobile shield (number 26 in the series), then disable the shield for a period so the warp
+                        -- in effect can play
                         if unitNum == 26 then
                            ForkThread(TempShieldDisable, unit)
                         end
@@ -2485,7 +2485,7 @@ function Rift()
                             end
                        )
 
-                    # Tier 3, very tough units
+                    -- Tier 3, very tough units
                     elseif(tier >= 5) then
                         local position = Random(1, 10)
                         local unitNum = Random(41, 44)
@@ -2503,7 +2503,7 @@ function Rift()
                         elseif(ScenarioInfo.Trickle and Difficulty == 2) then
                             unit:SetVeterancy(5)
                         end
-                        #ScenarioInfo.Count = ScenarioInfo.Count + 1
+                        -- ScenarioInfo.Count = ScenarioInfo.Count + 1
                         ForkThread(
                             function()
                                 EffectUtilities.SeraphimRiftIn(unit)
@@ -2532,30 +2532,30 @@ function Rift()
 end
 
 function RiftEndWave()
-    #set the pause between unit spawns at rift to back down to normal slow speed
-    #Timer to start of new wave
+    -- set the pause between unit spawns at rift to back down to normal slow speed
+    -- Timer to start of new wave
     RiftTickTime = RiftNormalSpeed
-    #LOG('*DEBUG: end wave : ', GetGameTimeSeconds(), ' total units = ', ScenarioInfo.Count)
-    #ScenarioInfo.Count = 0
+    -- LOG('*DEBUG: end wave : ', GetGameTimeSeconds(), ' total units = ', ScenarioInfo.Count)
+    -- ScenarioInfo.Count = 0
     ScenarioInfo.Trickle = true
 
     ScenarioFramework.CreateTimerTrigger(RiftStartWave, TimeBetweenWaves[Difficulty])
 end
 
 function RiftStartWave()
-    #set the pause between unit spawns at rift up to to "wave" speed
-    #Timer to when we will end this wave
+    -- set the pause between unit spawns at rift up to to "wave" speed
+    -- Timer to when we will end this wave
     RiftTickTime = RiftFastSpeed[Difficulty]
-    #LOG('*DEBUG: start wave : ', GetGameTimeSeconds(), ' rift tick time should be ', RiftTickTime)
-    #ScenarioInfo.Count = 0
+    -- LOG('*DEBUG: start wave : ', GetGameTimeSeconds(), ' rift tick time should be ', RiftTickTime)
+    -- ScenarioInfo.Count = 0
     ScenarioInfo.Trickle = false
 
     ScenarioFramework.CreateTimerTrigger(RiftEndWave, WaveDuration)
 end
 
 function RiftNISWave()
-    #set the pause between unit spawns at rift up to to "wave" speed
-    #Timer to when we will end this wave
+    -- set the pause between unit spawns at rift up to to "wave" speed
+    -- Timer to when we will end this wave
     RiftTickTime = RiftNISSpeed
 
     ScenarioFramework.CreateTimerTrigger(RiftEndWave, WaveDurationNIS)
@@ -2586,7 +2586,7 @@ function NukeRhiza2()
 end
 
 function NukeRhiza3()
-    #TODO: new nuke point for this
+    -- TODO: new nuke point for this
     if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:IsDead() and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
         ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']}, ScenarioUtils.MarkerToPosition('Rhiza_Land_Nuke2_Point'))
@@ -2599,15 +2599,15 @@ function IntroM3S1()
 end
 
 function AssignM3S1()
-    # ----------------------------------
-    # Secondary Objective 1 - Defeat Tau
-    # ----------------------------------
+    -- ----------------------------------
+    -- Secondary Objective 1 - Defeat Tau
+    -- ----------------------------------
     ScenarioInfo.M3S1 = Objectives.KillOrCapture(
-        'secondary',                    # type
-        'incomplete',                   # complete
-        OpStrings.X06_M03_OBJ_010_030,  # title
-        OpStrings.X06_M03_OBJ_010_040,  # description
-        {                               # target
+        'secondary',                    -- type
+        'incomplete',                   -- complete
+        OpStrings.X06_M03_OBJ_010_030,  -- title
+        OpStrings.X06_M03_OBJ_010_040,  -- description
+        {                               -- target
             Units = {ScenarioInfo.Tau},
         }
    )
@@ -2627,14 +2627,14 @@ function M3Subplot()
     ScenarioFramework.Dialogue(OpStrings.X06_M03_060)
 end
 
-# ----------
-# Taunts
-# ----------
+-- ----------
+-- Taunts
+-- ----------
 
 function SetupVedettaTauntTriggers()
     VedettaTM:AddTauntingCharacter(ScenarioInfo.OrderACU)
 
-    # On losing defensive structures
+    -- On losing defensive structures
     VedettaTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 12)
 
     if(Faction == 'uef') then
@@ -2661,7 +2661,7 @@ function SetupFletcherTauntTriggers()
     FletcherTM:AddEnemiesKilledTaunt('TAUNT41', ArmyBrains[Fletcher], categories.STRUCTURE * categories.ECONOMIC, 13)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT39', ArmyBrains[Fletcher], categories.ALLUNITS, 50)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT48', ArmyBrains[Fletcher], categories.ALLUNITS, 100)
-#    FletcherTM:AddEnemiesKilledTaunt('TAUNT50', ArmyBrains[Fletcher], categories.TECH3, 35)
+-- FletcherTM:AddEnemiesKilledTaunt('TAUNT50', ArmyBrains[Fletcher], categories.TECH3, 35)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT48', ArmyBrains[Fletcher], categories.EXPERIMENTAL, 1)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Player], categories.UEF, 40)
 
@@ -2712,9 +2712,9 @@ function SetupHQTauntTriggers()
     HQTM:AddDamageTaunt('X06_M03_055', ScenarioInfo.Rift1, .75)
 end
 
-# -------------------
-# Objective Reminders
-# -------------------
+-- -------------------
+-- Objective Reminders
+-- -------------------
 function M2P1Reminder1()
     if(ScenarioInfo.M2P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_090)
@@ -2779,9 +2779,9 @@ function M3S1Reminder1()
     end
 end
 
-# ---------------
-# Debug Functions
-# ---------------
+-- ---------------
+-- Debug Functions
+-- ---------------
 function OnShiftF3()
     ScenarioFramework.EndOperation(true, true, true)
 end

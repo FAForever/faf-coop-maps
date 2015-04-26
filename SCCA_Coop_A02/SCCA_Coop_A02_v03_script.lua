@@ -1,13 +1,13 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_A02_v03/SCCA_Coop_A02_v03_script.lua
-#**  Author(s):  David Tomandl
-#**
-#**  Summary  :  This is the main file in control of the events during
-#**              operation A2.
-#**
-#**  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_A02_v03/SCCA_Coop_A02_v03_script.lua
+-- **  Author(s):  David Tomandl
+-- **
+-- **  Summary  :  This is the main file in control of the events during
+-- **              operation A2.
+-- **
+-- **  Copyright Â© 2006 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
@@ -18,9 +18,9 @@ local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_A02_v03/SCCA_Coop_A02_v03_strings.lua')
 local Weather = import('/lua/weather.lua')
 
-# -----------------------
-# Misc Global Definitions
-# -----------------------
+-- -----------------------
+-- Misc Global Definitions
+-- -----------------------
 ScenarioInfo.Player = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.NeutralCybran = 3
@@ -32,9 +32,9 @@ ScenarioInfo.VarTable = {}
 ScenarioInfo.M1P1Complete = false
 ScenarioInfo.M1P2Complete = false
 
-# ----------------------
-# Misc Local Definitions
-# ----------------------
+-- ----------------------
+-- Misc Local Definitions
+-- ----------------------
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
@@ -61,26 +61,26 @@ local TauntTable = {
     OpStrings.TAUNT8,
 }
 
-# ---------------
-# Debug Variables
-# ---------------
+-- ---------------
+-- Debug Variables
+-- ---------------
 
-# ----------------------
-# Local Tuning Variables
-# ----------------------
+-- ----------------------
+-- Local Tuning Variables
+-- ----------------------
 
-# What should the player's army unit cap be in each mission?
+-- What should the player's army unit cap be in each mission?
 local M1ArmyCap = 300
 local M2ArmyCap = 400
 local M3ArmyCap = 500
 
-# The computer's unit cap
+-- The computer's unit cap
 local CybranUnitCap = 1000
 
-# How many of these are on the map (for a bonus objective)
-#local NumberOfHydrocarbonSpots = 13
+-- How many of these are on the map (for a bonus objective)
+-- local NumberOfHydrocarbonSpots = 13
 
-# Various counts of patrols, etc.
+-- Various counts of patrols, etc.
 if Difficulty == 1 then
     ScenarioInfo.VarTable['M2NorthAirPatrolCount'] = 3
     ScenarioInfo.VarTable['M2SouthAirPatrolCount'] = 1
@@ -113,80 +113,80 @@ else
     ScenarioInfo.VarTable['M3EastAirPatrolCount'] = 6
 end
 
-# When 3 values are given for a variable, they
-# apply to Easy, Medium, Hard difficulty in that order
+-- When 3 values are given for a variable, they
+-- apply to Easy, Medium, Hard difficulty in that order
 
-# Mission 1
+-- Mission 1
 
-# How long before a scout is sent to fly over the player's base, encouragaing anti-air
+-- How long before a scout is sent to fly over the player's base, encouragaing anti-air
 local M1ScoutPlayerDelay = { 300, 300, 180 }
 
-# How long before the wimpy ground forces are sent in, encouraging anti-ground
+-- How long before the wimpy ground forces are sent in, encouraging anti-ground
 local M1EarlyAttack1Delay = { 420, 420, 280 }
 local M1EarlyAttack2Delay = { 660, 660, 440 }
 
-# How long after the mission begins before the 'retaliation' attack is sent at the player
+-- How long after the mission begins before the 'retaliation' attack is sent at the player
 local M1AttackPlayerDelay = { 900, 900, 600 }
 
-# How long to delay the reoccurring attacks against the player from off-map
-# The first attack is half-strength
+-- How long to delay the reoccurring attacks against the player from off-map
+-- The first attack is half-strength
 local M1ReoccurringAttackInitialDelay = { 1200, 1200, 840 }
 local M1ReoccurringAttackDelay = { 300, 300, 300 }
 
-# How long to delay the reminders initially and how much thereafter
+-- How long to delay the reminders initially and how much thereafter
 local M1P1InitialReminderDelay = 900
 local M1P1ReoccuringReminderDelay = 600
 
-# How much of the city needs to die
+-- How much of the city needs to die
 local M1DestroyCityGoalPercentage = 80
 
-# If the attackers are still around after this long, you've weathered the storm
+-- If the attackers are still around after this long, you've weathered the storm
 local M1AttackerTimeoutDelay = 600
 
-# Mission 2
+-- Mission 2
 
-# The various dialog delays
-local M2DialogDelay1 = 10 # second primary objective
-local M2DialogDelay2 = 480 # advice for how to beat the base
+-- The various dialog delays
+local M2DialogDelay1 = 10 -- second primary objective
+local M2DialogDelay2 = 480 -- advice for how to beat the base
 
-# These days are after Primary Objective #3 is revealed
-local M2DialogDelay3 = 60 # talk about getting the objective
-local M2DialogDelay4 = 120 # the cruiser will launch soon -- kill it
-local M2DialogDelay5 = 180 # a taunt from the Cybran
-local M2DialogDelay6 = 300 # another taunt
+-- These days are after Primary Objective #3 is revealed
+local M2DialogDelay3 = 60 -- talk about getting the objective
+local M2DialogDelay4 = 120 -- the cruiser will launch soon -- kill it
+local M2DialogDelay5 = 180 -- a taunt from the Cybran
+local M2DialogDelay6 = 300 -- another taunt
 
-# The attacks that are sent against the player
+-- The attacks that are sent against the player
 local M2ReoccuringNorthAttackInitialDelay = { 120, 120, 30 }
 local M2ReoccuringNorthAttackDelay = { 300, 180, 90 }
 
-# Note: the South initial delay is after the base is revealed, not after mission 2 begins
+-- Note: the South initial delay is after the base is revealed, not after mission 2 begins
 local M2ReoccuringSouthAttackInitialDelay = { 120, 120, 30 }
 local M2ReoccuringSouthAttackDelay = { 300, 180, 90 }
 
-# The secret base launches a special attack after it is found
+-- The secret base launches a special attack after it is found
 local M2RevealAttackDelay = 300
 
-# The player can lose this many buildings and not lose
+-- The player can lose this many buildings and not lose
 local M2CityBuildingsDestroyable = 3
-# This will display as this percentage must survive
+-- This will display as this percentage must survive
 local M2CityBuildingsPercentageMustSurvive = 80
 
-# How long to delay the reminders initially and how much thereafter
+-- How long to delay the reminders initially and how much thereafter
 local M2P1InitialReminderDelay = 900
 local M2P1ReoccuringReminderDelay = 600
 
-# When will the secret base reveal on its own
+-- When will the secret base reveal on its own
 local M2SecretBaseTimeoutReveal = 600
 
-# Mission 3
+-- Mission 3
 
-# How long to delay the reminders initially and how much thereafter
+-- How long to delay the reminders initially and how much thereafter
 local M3P2InitialReminderDelay = 300
 local M3P2ReoccuringReminderDelay = 600
 local M3P4InitialReminderDelay = 300
 local M3P4ReoccuringReminderDelay = 600
 
-# The attacks that are sent against the player
+-- The attacks that are sent against the player
 local M3ReoccuringEastAttackInitialDelay = { 600, 300, 90 }
 local M3ReoccuringEastAttackDelay = { 600, 300, 90 }
 local M3ReoccuringWestAttackInitialDelay = { 180, 180, 45 }
@@ -198,9 +198,9 @@ local M3DialogDelay3 = 480
 local M3DialogDelay4 = 960
 
 
-###### Starter Functions ######
+-- ##### Starter Functions ######
 function OnPopulate(scenario)
-    # Initial Unit Creation
+    -- Initial Unit Creation
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
 
@@ -212,18 +212,18 @@ function OnPopulate(scenario)
     else 
         Faction = "cybran"
     end
-    #Weather.CreateWeather()
+    -- Weather.CreateWeather()
 end
 
 function OnStart(self)
 
-    # Restrict access to most of the map
+    -- Restrict access to most of the map
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 
-    # Set the mission number
+    -- Set the mission number
     ScenarioInfo.MissionNumber = 1
 
-    # Hide scores for non-player armies
+    -- Hide scores for non-player armies
     for i = 2, table.getn(ArmyBrains) do
         if i < ScenarioInfo.Coop1 then
             SetArmyShowScore(i, false)
@@ -231,13 +231,13 @@ function OnStart(self)
         end
     end
 
-    # Add in the base locations for the PBM
+    -- Add in the base locations for the PBM
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M2_Base_North'), 80, 'M2_Base_North')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M2_Base_South'), 80, 'M2_Base_South')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M3_Base_West'), 80, 'M3_Base_West')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M3_Base_East'), 80, 'M3_Base_East')
 
-    # Define the bases for the different difficulties
+    -- Define the bases for the different difficulties
     if not ArmyBrains[Cybran].BaseTemplates then
         ArmyBrains[Cybran].BaseTemplates = {}
     end
@@ -252,9 +252,9 @@ function OnStart(self)
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M2_South_Base_D1', 'M2_South_Base')
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_West_Base_D1', 'M3_West_Base')
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_East_Base_D1', 'M3_East_Base')
-        #AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Defenses_D2', 'M2_North_Base')
-        #AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Factories_D2', 'M2_North_Base')
-        #AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Economy_D2', 'M2_North_Base')
+        -- AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Defenses_D2', 'M2_North_Base')
+        -- AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Factories_D2', 'M2_North_Base')
+        -- AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M3_Base_Economy_D2', 'M2_North_Base')
     elseif Difficulty == 2 then
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M2_North_Base_D2', 'M2_North_Base')
         AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M2_South_Base_D2', 'M2_South_Base')
@@ -270,7 +270,7 @@ function OnStart(self)
 
     ScenarioInfo.M1CityBuildingsAlive = 0
 
-    # Spawn the city that the player needs to destroy
+    -- Spawn the city that the player needs to destroy
     ScenarioInfo.M1City = ScenarioUtils.CreateArmyGroup('Cybran', 'M1_City')
     for k, unit in ScenarioInfo.M1City do
         ScenarioFramework.CreateUnitDestroyedTrigger(M1CityBuildingDestroyed, unit)
@@ -279,25 +279,25 @@ function OnStart(self)
 
     ScenarioInfo.M1CityBuildingsTotal = ScenarioInfo.M1CityBuildingsAlive
 
-    # And the defenders of the city
+    -- And the defenders of the city
     ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Forces'))
 
-    # Spawn the groups that will attack the player during M1
+    -- Spawn the groups that will attack the player during M1
     ScenarioInfo.M1Attackers = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Attackers'))
     ScenarioInfo.M1EarlyAttackers1 = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_First_Attack'))
     ScenarioInfo.M1EarlyAttackers2 = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Second_Attack'))
 
-    # Spawn the enemy bases
-#    ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Defenses'))
-#    ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Economy'))
-#    ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Factories'))
-#    ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Misc'))
+    -- Spawn the enemy bases
+-- ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Defenses'))
+-- ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Economy'))
+-- ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Factories'))
+-- ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Base_Naval_Misc'))
 
-    # These used to be capturable for a secondary objective; that was cut
+    -- These used to be capturable for a secondary objective; that was cut
     ScenarioInfo.Extractor1 = ScenarioUtils.CreateArmyUnit('Cybran', 'Extractor1')
     ScenarioInfo.Extractor2 = ScenarioUtils.CreateArmyUnit('Cybran', 'Extractor2')
 
-    # This override will make sure that the Cybran army doesn't run into the unit cap
+    -- This override will make sure that the Cybran army doesn't run into the unit cap
     SetArmyUnitCap(Cybran, CybranUnitCap)
 
     for _, player in ScenarioInfo.HumanPlayers do
@@ -319,15 +319,15 @@ function OnStart(self)
     SetIgnorePlayableRect(NeutralCybran, true)
 
     ScenarioFramework.SetCybranColor(Cybran)
-    #ScenarioFramework.SetCybranColor(NeutralCybran)
+    -- ScenarioFramework.SetCybranColor(NeutralCybran)
     ScenarioFramework.SetAeonColor(Player)
 
-    # Take away units that the player shouldn't have access to
+    -- Take away units that the player shouldn't have access to
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH2 +
                                       categories.TECH3 +
                                       categories.EXPERIMENTAL +
-                                      categories.uaa0107 ) # t1 transport
+                                      categories.uaa0107 ) -- t1 transport
     end
 
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',
@@ -338,21 +338,21 @@ function OnStart(self)
                                             'ShieldHeavy',
                                             'Teleporter',})
 
-    # Take away units that the computer shouldn't have access to
+    -- Take away units that the computer shouldn't have access to
     ScenarioFramework.AddRestriction(Cybran, categories.TECH3 + categories.EXPERIMENTAL)
-    # remove all tech 2 except for structures and engineers
+    -- remove all tech 2 except for structures and engineers
     ScenarioFramework.AddRestriction(Cybran, categories.TECH2 - categories.STRUCTURE - categories.ENGINEER)
 
-    # Allow T2 cruiser
+    -- Allow T2 cruiser
     ScenarioFramework.RemoveRestriction(Cybran, categories.urs0202)
 
     ScenarioInfo.VarTable['Mission1'] = true
 
-    # Set the maximum number of units that the player is allowed to have
+    -- Set the maximum number of units that the player is allowed to have
 
-    #ScenarioInfo.Mission1ObjectiveGroup = Objectives.CreateGroup('Mission 1 Objectives', EndMission1)
+    -- ScenarioInfo.Mission1ObjectiveGroup = Objectives.CreateGroup('Mission 1 Objectives', EndMission1)
 
-    # Add the objective to kill the city buildings
+    -- Add the objective to kill the city buildings
     ScenarioInfo.M1P1Objective = Objectives.Basic(
         'primary',
         'incomplete',
@@ -365,61 +365,61 @@ function OnStart(self)
         }
    )
 
-    #ScenarioInfo.M1B1Objective = Objectives.Basic(
-    #    'bonus',
-    #    'incomplete',
-    #    OpStrings.M1B1Text,
-    #    OpStrings.M1B1Detail,
-    #    Objectives.GetActionIcon('build'),
-    #    {
-    #    }
-    #)
+    -- ScenarioInfo.M1B1Objective = Objectives.Basic(
+    -- 'bonus',
+    -- 'incomplete',
+    -- OpStrings.M1B1Text,
+    -- OpStrings.M1B1Detail,
+    -- Objectives.GetActionIcon('build'),
+    -- {
+    -- }
+    -- )
 
-    #ScenarioInfo.Mission1ObjectiveGroup:AddObjective(ScenarioInfo.M1P1Objective)
+    -- ScenarioInfo.Mission1ObjectiveGroup:AddObjective(ScenarioInfo.M1P1Objective)
 
     ForkThread(InitialUpdateM1P1)
 
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder, M1P1InitialReminderDelay)
 
-    # Set a scout to fly over the player's base after a delay
+    -- Set a scout to fly over the player's base after a delay
     ScenarioFramework.CreateTimerTrigger(M1ScoutPlayer, M1ScoutPlayerDelay[ Difficulty ])
 
-    # The 'retaliation attack' is suprising players before they build ground defenses,
-    # so we're going to send these little attacks first in order to encourage the player
-    # to build ground defenses.  -DT 10/5/06
+    -- The 'retaliation attack' is suprising players before they build ground defenses,
+    -- so we're going to send these little attacks first in order to encourage the player
+    -- to build ground defenses.  -DT 10/5/06
     ScenarioFramework.CreateTimerTrigger(M1EarlyAttack1, M1EarlyAttack1Delay[ Difficulty ])
     ScenarioFramework.CreateTimerTrigger(M1EarlyAttack2, M1EarlyAttack2Delay[ Difficulty ])
 
-    # Set the 'retaliation attack' to launch after a delay
+    -- Set the 'retaliation attack' to launch after a delay
     ScenarioFramework.CreateTimerTrigger(M1AttackPlayer, M1AttackPlayerDelay[ Difficulty ])
 
-    # Kick off the reoccurring attacks
+    -- Kick off the reoccurring attacks
     ScenarioFramework.CreateTimerTrigger(M1ReoccurringAttack, M1ReoccurringAttackInitialDelay [ Difficulty ])
 
-    # Trigger the bonus objective when the player has built on all hydrocarbon spots
-    #ScenarioFramework.CreateArmyStatTrigger(AllHydrocarbonBuilt, ArmyBrains[Player], 'HydrocarbonTrigger',
-    #                                            {
-    #                                                {
-    #                                                    StatType = 'Units_Active',
-    #                                                    CompareType = 'GreaterThanOrEqual',
-    #                                                    Value = NumberOfHydrocarbonSpots,
-    #                                                    Category = categories.HYDROCARBON,
-    #                                                },
-    #                                            }
-    #                                       )
+    -- Trigger the bonus objective when the player has built on all hydrocarbon spots
+    -- ScenarioFramework.CreateArmyStatTrigger(AllHydrocarbonBuilt, ArmyBrains[Player], 'HydrocarbonTrigger',
+    --                                        {
+    --                                            {
+    --                                                StatType = 'Units_Active',
+    --                                                CompareType = 'GreaterThanOrEqual',
+    --                                                Value = NumberOfHydrocarbonSpots,
+    --                                                Category = categories.HYDROCARBON,
+    --                                            },
+    --                                        }
+    --                                   )
     ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', CreatePlayer)
-    #Delay opening dialogue a bit, so player is warped in first
+    -- Delay opening dialogue a bit, so player is warped in first
     ScenarioFramework.CreateTimerTrigger(OpeningDialogue, 7.6)
 
-    # These guys will patrol the area around the civilian buildings
+    -- These guys will patrol the area around the civilian buildings
     CreateM1Patrol()
 end
 
 function CreatePlayer()
-    # Create some of the key units and save handles to them
+    -- Create some of the key units and save handles to them
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
 
@@ -436,9 +436,9 @@ function CreatePlayer()
         end
     end
 
-    # Set up a trigger to go off if the commander dies
+    -- Set up a trigger to go off if the commander dies
     ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
-    # Delay the explosion so that we can catch it on camera
+    -- Delay the explosion so that we can catch it on camera
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
 
     for index, coopACU in ScenarioInfo.CoopCDR do
@@ -458,11 +458,11 @@ function CreateM1Patrol()
     IssuePatrol(patrollers, ScenarioUtils.MarkerToPosition('M1_Land_Patrol_03'))
 end
 
-# Delay this update just a bit so that there isn't a UI error
+-- Delay this update just a bit so that there isn't a UI error
 function InitialUpdateM1P1()
     WaitSeconds(0.5)
     Objectives.UpdateBasicObjective(ScenarioInfo.M1P1Objective, 'progress', LOCF(OpStrings.M1P1Progress,(ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsAlive) / ScenarioInfo.M1CityBuildingsTotal, M1DestroyCityGoalPercentage))
-    #LOG('progress for M1P1: ', LOCF(OpStrings.M1P1Progress,(ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsAlive) / ScenarioInfo.M1CityBuildingsTotal, M1DestroyCityGoalPercentage))
+    -- LOG('progress for M1P1: ', LOCF(OpStrings.M1P1Progress,(ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsAlive) / ScenarioInfo.M1CityBuildingsTotal, M1DestroyCityGoalPercentage))
 end
 
 function M1CityBuildingDestroyed(unit)
@@ -473,7 +473,7 @@ function M1CityBuildingDestroyed(unit)
 
         if(ScenarioInfo.M1CityBuildingsAlive <(ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsTotal *(M1DestroyCityGoalPercentage / 100))) then
 		LOG("city destroyed")
-# new catalon destroyed
+-- new catalon destroyed
             local citymarker = ScenarioUtils.MarkerToPosition("M1_New_Catalon")
             local camInfo = {
                 blendTime = 1.0,
@@ -483,12 +483,12 @@ function M1CityBuildingDestroyed(unit)
                 zoomVal = 25,
                 markerCam = true,
             }
-#            ScenarioFramework.OperationNISCamera(citymarker, camInfo)
+--        ScenarioFramework.OperationNISCamera(citymarker, camInfo)
 
             ScenarioInfo.M1P1Complete = true
-            # finish the objective
+            -- finish the objective
             ScenarioInfo.M1P1Objective:ManualResult(true)
-            # check to see if both objectives are complete
+            -- check to see if both objectives are complete
 			LOG("city destroyed")
 			LOG(ScenarioInfo.M1P2Complete)
             if ScenarioInfo.M1P2Complete then
@@ -497,19 +497,19 @@ function M1CityBuildingDestroyed(unit)
         end
     end
 
-    # Removed due to player confusion over the two civilian groups (kill one, protect the other)
-    #if ScenarioInfo.M1CityBuildingsAlive == 0 then
-    #    # The player has finished a bonus objective
-    #    Objectives.Kill(
-    #        'bonus',
-    #        'complete',
-    #        OpStrings.M1B2Text,
-    #        OpStrings.M1B2Detail,
-    #        {
-    #            Units = ScenarioInfo.M1City,
-    #        }
-    #   )
-    #end
+    -- Removed due to player confusion over the two civilian groups (kill one, protect the other)
+    -- if ScenarioInfo.M1CityBuildingsAlive == 0 then
+    -- # The player has finished a bonus objective
+    -- Objectives.Kill(
+    --    'bonus',
+    --    'complete',
+    --    OpStrings.M1B2Text,
+    --    OpStrings.M1B2Detail,
+    --    {
+    --        Units = ScenarioInfo.M1City,
+    --    }
+    -- )
+    -- end
 end
 
 function M1EarlyAttack1()
@@ -528,7 +528,7 @@ function M1AttackPlayer()
     for k, PatrolPoint in ScenarioUtils.ChainToPositions('Attack_Route1') do
         IssuePatrol(ScenarioInfo.M1Attackers, PatrolPoint)
     end
-    # Tell the player that it's coming
+    -- Tell the player that it's coming
     ScenarioFramework.Dialogue(OpStrings.A02_M01_030)
 
     ScenarioInfo.M1P2Objective = Objectives.KillOrCapture (
@@ -541,15 +541,15 @@ function M1AttackPlayer()
             MarkUnits = false,
         }
    )
-    # check for the odd case where they're dead already
+    -- check for the odd case where they're dead already
     if ScenarioFramework.GroupDeathCheck(ScenarioInfo.M1Attackers) then
         ForkThread(M1AttackersDestroyed)
-        #Objective will clean up itself now -Matt 8.31.06
+        -- Objective will clean up itself now -Matt 8.31.06
     else
         ScenarioInfo.M1P2Objective:AddResultCallback(M1AttackersDestroyed)
         ScenarioFramework.CreateTimerTrigger(M1AttackerTimeout, M1AttackerTimeoutDelay)
     end
-    #ScenarioInfo.Mission1ObjectiveGroup:AddObjective(ScenarioInfo.M1P2Objective)
+    -- ScenarioInfo.Mission1ObjectiveGroup:AddObjective(ScenarioInfo.M1P2Objective)
 end
 
 function M1ScoutPlayer()
@@ -559,13 +559,13 @@ function M1ScoutPlayer()
     end
 
     WaitSeconds(7)
-    # Send a second one, just to make more of an impact
+    -- Send a second one, just to make more of an impact
     scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
     for k, PatrolPoint in ScenarioUtils.ChainToPositions('Attack_Route1') do
         IssuePatrol({ scout }, PatrolPoint)
     end
 
-    # Adding land scouts so that the player is encouraged to build anti-ground defenses
+    -- Adding land scouts so that the player is encouraged to build anti-ground defenses
     WaitSeconds(30)
     scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1ScoutLand')
     for k, PatrolPoint in ScenarioUtils.ChainToPositions('Attack_Route1') do
@@ -581,7 +581,7 @@ end
 
 function M1AttackerTimeout()
     if ScenarioInfo.M1P2Objective.Active then
-        #Back to longhand , unit ManualResult is resolved -Matt 8.25.06
+        -- Back to longhand , unit ManualResult is resolved -Matt 8.25.06
         Objectives.UpdateObjective(ScenarioInfo.M1P2Objective.Title, 'complete', "complete", ScenarioInfo.M1P2Objective.Tag)
         ScenarioInfo.M1P2Objective.Active = false
         ScenarioInfo.M1P2Objective:OnResult(true)
@@ -589,7 +589,7 @@ function M1AttackerTimeout()
 end
 
 function M1AttackersDestroyed()
-    # Tell the player
+    -- Tell the player
     ScenarioFramework.Dialogue(OpStrings.A02_M01_040)
     ScenarioInfo.M1P2Complete = true
     if ScenarioInfo.M1P1Complete then
@@ -603,7 +603,7 @@ function M1ReoccurringAttack()
         local GroundUnits = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Reoccurring_Ground'))
         local AirUnits = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M1_Reoccurring_Air'))
 
-        # The first time the attack comes, make it half-strength
+        -- The first time the attack comes, make it half-strength
         if not ScenarioInfo.M1ReoccurringAttackFirstTimeFinished then
             ScenarioInfo.M1ReoccurringAttackFirstTimeFinished = true
             local x = 0
@@ -686,7 +686,7 @@ function WaitForUnload(GroundUnits, Transports, AirUnits)
             end
         end
     else
-        #LOG('Still loaded, checking again...')
+        -- LOG('Still loaded, checking again...')
         WaitSeconds(2)
         WaitForUnload(GroundUnits, Transports, AirUnits)
     end
@@ -701,7 +701,7 @@ function EndMission1()
 end
 
 function BeginMission2()
-    # Update the playable area
+    -- Update the playable area
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 
@@ -709,9 +709,9 @@ function BeginMission2()
 
     AddTechMission2()
 
-    # Set the maximum number of units that the player is allowed to have
+    -- Set the maximum number of units that the player is allowed to have
 
-    #ScenarioInfo.Mission2ObjectiveGroup = Objectives.CreateGroup('Mission 2 Objectives')
+    -- ScenarioInfo.Mission2ObjectiveGroup = Objectives.CreateGroup('Mission 2 Objectives')
 
     ScenarioInfo.NorthBase = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M2_North_Base'))
     ScenarioInfo.SouthBase = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M2_South_Base'))
@@ -719,7 +719,7 @@ function BeginMission2()
     ScenarioInfo.SouthNavalFactory:SetCapturable(false)
     ScenarioInfo.SouthNavalFactory:SetReclaimable(false)
 
-    # Tag every fifth unit; if the player sees that unit, they will have "spotted the secret base"
+    -- Tag every fifth unit; if the player sees that unit, they will have "spotted the secret base"
     local i = 0
     for k, unit in ScenarioInfo.SouthBase do
         i = i + 1
@@ -733,42 +733,42 @@ function BeginMission2()
     ScenarioInfo.TotalCityUnits = table.getn(ScenarioInfo.M2City)
     ScenarioInfo.CurrentCityUnits = ScenarioInfo.TotalCityUnits
 
-    # Add the bonus objective to capture the civilians
-    #ScenarioInfo.M2B2Objective = Objectives.Capture(
-    #    'bonus',
-    #    'incomplete',
-    #    OpStrings.M2B2Text,
-    #    OpStrings.M2B2Detail,
-    #    {
-    #        Units = ScenarioInfo.M2City,
-    #    }
-    #)
+    -- Add the bonus objective to capture the civilians
+    -- ScenarioInfo.M2B2Objective = Objectives.Capture(
+    -- 'bonus',
+    -- 'incomplete',
+    -- OpStrings.M2B2Text,
+    -- OpStrings.M2B2Detail,
+    -- {
+    --    Units = ScenarioInfo.M2City,
+    -- }
+    -- )
 
     for k, unit in ScenarioInfo.M2City do
         ScenarioFramework.CreateUnitCapturedTrigger(nil, M2CivilianBuildingCaptured, unit)
         ScenarioFramework.CreateUnitDeathTrigger(M2CivilianBuildingKilled, unit)
     end
 
-    #ScenarioInfo.M2B1Objective = Objectives.Protect(
-    #    'bonus',
-    #    'incomplete',
-    #    OpStrings.M2B1Text,
-    #    OpStrings.M2B1Detail,
-    #    {
-    #        Units = ScenarioInfo.M2City,
-    #        nil,       # if nil, requires a manual update for completion
-    #        NumRequired = ScenarioInfo.TotalCityUnits,    # How many must survive
-    #    }
-    #)
+    -- ScenarioInfo.M2B1Objective = Objectives.Protect(
+    -- 'bonus',
+    -- 'incomplete',
+    -- OpStrings.M2B1Text,
+    -- OpStrings.M2B1Detail,
+    -- {
+    --    Units = ScenarioInfo.M2City,
+    --    nil,       # if nil, requires a manual update for completion
+    --    NumRequired = ScenarioInfo.TotalCityUnits,    # How many must survive
+    -- }
+    -- )
 
-    # Test of whether specified categories are in an area
+    -- Test of whether specified categories are in an area
     ScenarioInfo.M2P1Objective = Objectives.CategoriesInArea(
         'primary',
         'incomplete',
         OpStrings.M2P1Text,
         OpStrings.M2P1Detail,
         'Kill',
-        { # Target
+        { -- Target
             MarkArea = false,
             ShowFaction = 'Cybran',
             Requirements = {
@@ -782,9 +782,9 @@ function BeginMission2()
             },
         }
    )
-#    obj:AddResultCallback(function(result) LOG('CategoriesInArea Result: ',result) end)
+-- obj:AddResultCallback(function(result) LOG('CategoriesInArea Result: ',result) end)
     ScenarioInfo.M2P1Objective:AddResultCallback(M2P1Done)
-    #ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P1Objective)
+    -- ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P1Objective)
 
     local PatrolUnits = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M2_Initial_North_Patrol'))
     ScenarioFramework.GroupPatrolChain(PatrolUnits, 'M2_North_Water_Patrol')
@@ -803,16 +803,16 @@ function BeginMission2()
     ScenarioInfo.VarTable['Mission1'] = false
     ScenarioInfo.VarTable['Mission2'] = true
 
-    # If the player doesn't see the SouthEast base, after a certain amount of time it is revealed anyway
+    -- If the player doesn't see the SouthEast base, after a certain amount of time it is revealed anyway
     ScenarioFramework.CreateTimerTrigger(M2SecretBaseTimeout, M2SecretBaseTimeoutReveal)
 
     ScenarioFramework.CreateTimerTrigger(M2LaunchNorthAttack, M2ReoccuringNorthAttackInitialDelay[ Difficulty ])
 
-    # Dialog that is delayed from the start of the mission
+    -- Dialog that is delayed from the start of the mission
     ScenarioFramework.CreateTimerTrigger(M2Dialog1, M2DialogDelay1)
     ScenarioFramework.CreateTimerTrigger(M2Dialog2, M2DialogDelay2)
 
-    # If the player doesn't complete the objective soon, remind him that it's important
+    -- If the player doesn't complete the objective soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder, M2P1InitialReminderDelay)
 end
 
@@ -832,12 +832,12 @@ function AddM2P2()
         {
             Units = ScenarioInfo.M2City,
             MarkUnits = true,
-            NumRequired = ScenarioInfo.TotalCityUnits - M2CityBuildingsDestroyable,    # How many must survive
+            NumRequired = ScenarioInfo.TotalCityUnits - M2CityBuildingsDestroyable,    -- How many must survive
         }
    )
     ScenarioInfo.M2P2Objective:AddResultCallback(M2P2Done)
-    #ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P2Objective)
-    UpdateM2P2() # this will update the progress field
+    -- ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P2Objective)
+    UpdateM2P2() -- this will update the progress field
 end
 
 function M2Dialog2()
@@ -856,7 +856,7 @@ function M2Dialog4()
     if ScenarioInfo.MissionNumber == 2 and not ScenarioInfo.SouthNavalFactory:IsDead() then
         ScenarioFramework.Dialogue(OpStrings.A02_M02_080)
 
-        # Create the cruiser
+        -- Create the cruiser
         ScenarioInfo.VarTable['LaunchCruiserAttack'] = true
         ScenarioInfo.M2S1Objective = Objectives.Basic(
             'secondary',
@@ -866,15 +866,15 @@ function M2Dialog4()
             Objectives.GetActionIcon('kill'),
             {
                 Units = {ScenarioInfo.SouthNavalFactory},
-            } # Target
+            } -- Target
        )
     end
 end
 
 function M2CruiserBuilt(CruiserPlatoon)
     if ScenarioInfo.M2S1Objective.Active then
-        #Objectives.UpdateBasicObjective(ScenarioInfo.M2S1Objective, 'complete', 'failed')
-        #ScenarioInfo.M2S1Objective.Active = false
+        -- Objectives.UpdateBasicObjective(ScenarioInfo.M2S1Objective, 'complete', 'failed')
+        -- ScenarioInfo.M2S1Objective.Active = false
         ScenarioInfo.M2S1Objective:ManualResult(false)
         Objectives.UpdateBasicObjective(ScenarioInfo.M2S1Objective, 'description', OpStrings.M2S1Fail)
 
@@ -896,7 +896,7 @@ function M2Dialog6()
 end
 
 function M2CivilianBuildingCaptured(unit)
-    # Create a trigger to watch for the new unit's death
+    -- Create a trigger to watch for the new unit's death
     ScenarioFramework.CreateUnitDeathTrigger(M2CivilianBuildingKilled, unit)
 end
 
@@ -930,7 +930,7 @@ function M2SecretBaseDialogAndObjective()
         OpStrings.M2P3Text,
         OpStrings.M2P3Detail,
         'Kill',
-        { # Target
+        { -- Target
             MarkArea = false,
             ShowFaction = 'Cybran',
             Requirements = {
@@ -945,9 +945,9 @@ function M2SecretBaseDialogAndObjective()
         }
    )
     ScenarioInfo.M2P3Objective:AddResultCallback(M2P3Done)
-    #ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P3Objective)
+    -- ScenarioInfo.Mission2ObjectiveGroup:AddObjective(ScenarioInfo.M2P3Objective)
 
-    #ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
+    -- ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
     ScenarioFramework.CreateTimerTrigger(M2Dialog3, M2DialogDelay3)
     ScenarioFramework.CreateTimerTrigger(M2Dialog4, M2DialogDelay4)
@@ -959,7 +959,7 @@ end
 function M2LaunchRevealAttack()
     if not ScenarioFramework.GroupDeathCheck(ScenarioInfo.M2_South_Attackers) then
         ScenarioFramework.Dialogue(OpStrings.A02_M02_060)
-        # send a bunch of stuff at the player from the SE
+        -- send a bunch of stuff at the player from the SE
         ScenarioFramework.GroupPatrolChain(ScenarioInfo.M2_South_Attackers, 'M2_South_Naval_Attack')
     end
 end
@@ -968,28 +968,28 @@ function UpdateM2P2()
     local Total = ScenarioInfo.TotalCityUnits
     local Current = ScenarioInfo.CurrentCityUnits
 
-    # debug:
-    #if not Total or Total == 0 then LOG('************* Total is ', Total) end
+    -- debug:
+    -- if not Total or Total == 0 then LOG('************* Total is ', Total) end
     local PercentageRequired = M2CityBuildingsPercentageMustSurvive
     local PercentageCurrent = 100
-    if Total and Total != 0 then
+    if Total and Total ~= 0 then
         PercentageCurrent = math.floor(Current * 100 / Total)
     end
 
     if ScenarioInfo.MissionNumber == 2 then
         Objectives.UpdateObjective(OpStrings.M2P2Text, 'progress', LOCF(OpStrings.M2P2Progress, PercentageCurrent, PercentageRequired), ScenarioInfo.M2P2Objective.Tag)
-        # See if the mission has been failed
+        -- See if the mission has been failed
         if(Total - Current) > M2CityBuildingsDestroyable then
             ScenarioInfo.M2P2Objective:ManualResult(false)
         end
     end
 end
 
-#function EndM2BonusObjective()
-#    if ScenarioInfo.M2B1Objective.Active then
-#        ScenarioInfo.M2B1Objective:ManualResult(true)
-#    end
-#end
+-- function EndM2BonusObjective()
+-- if ScenarioInfo.M2B1Objective.Active then
+--    ScenarioInfo.M2B1Objective:ManualResult(true)
+-- end
+-- end
 
 function M2P1Done(result)
     if ScenarioInfo.M2P3Objective and not ScenarioInfo.M2P3Objective.Active and
@@ -1001,7 +1001,7 @@ end
 
 function M2P2Done(result)
     if not result and ScenarioInfo.MissionNumber == 2 then
-        # Let the player know what happened (too many buildings lost) and end the game
+        -- Let the player know what happened (too many buildings lost) and end the game
         ScenarioFramework.Dialogue(OpStrings.A02_M02_150, false, true)
         PlayerLose()
     end
@@ -1038,12 +1038,12 @@ end
 
 function M2CruiserDeath()
     if not ScenarioInfo.CruiserFinished then
-        #IssueClearCommands({ ArmyBrains[Cybran].PBM.Locations['name_of_location'].PrimaryFactories.Sea })
+        -- IssueClearCommands({ ArmyBrains[Cybran].PBM.Locations['name_of_location'].PrimaryFactories.Sea })
         IssueClearCommands({ ScenarioInfo.SouthNavalFactory })
-        # Success!
+        -- Success!
         ScenarioInfo.M2S1Objective:ManualResult(true)
-        #Objectives.UpdateBasicObjective(ScenarioInfo.M2S1Objective, 'complete', 'complete')
-        #ScenarioInfo.M2S1Objective.Active = false
+        -- Objectives.UpdateBasicObjective(ScenarioInfo.M2S1Objective, 'complete', 'complete')
+        -- ScenarioInfo.M2S1Objective.Active = false
         ScenarioFramework.Dialogue(OpStrings.A02_M02_100)
         ScenarioInfo.VarTable['AllowSouthReinforce'] = true
     end
@@ -1058,9 +1058,9 @@ end
 
 function BeginMission3()
 
-    # Set the maximum number of units that the player is allowed to have
+    -- Set the maximum number of units that the player is allowed to have
 
-    # Spawn the bases
+    -- Spawn the bases
     ScenarioInfo.WestBase = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M3_West_Base'))
     ScenarioInfo.EastBase = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M3_East_Base'))
 
@@ -1089,18 +1089,18 @@ function BeginMission3()
         'incomplete',
         OpStrings.M3P1Text,
         OpStrings.M3P1Detail,
-        { Units = ScenarioInfo.M3Attackers } # Targets
+        { Units = ScenarioInfo.M3Attackers } -- Targets
    )
     ScenarioInfo.M3P1Objective:AddResultCallback(M3AttackersDestroyed)
     ScenarioInfo.Mission3ObjectiveGroup:AddObjective(ScenarioInfo.M3P1Objective)
 
-    # Spawn the M3 base adjusted for difficulty, and put all of those units into a single group handle
-#    ScenarioInfo.M3_Base = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Economy'))
-#
-#    tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Defenses'))
-#    tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Factories'))
-#    tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Misc'))
-#
+    -- Spawn the M3 base adjusted for difficulty, and put all of those units into a single group handle
+-- ScenarioInfo.M3_Base = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Economy'))
+--
+-- tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Defenses'))
+-- tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Factories'))
+-- tempUnitGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M3_Base_Misc'))
+--
 
     ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('Artillery_Defenses'))
     ScenarioInfo.Artillery = ScenarioUtils.CreateArmyGroup('NeutralCybran', 'Artillery')
@@ -1110,7 +1110,7 @@ function BeginMission3()
     ScenarioInfo.VarTable['Mission2'] = false
     ScenarioInfo.VarTable['Mission3'] = true
 
-    # Briefing
+    -- Briefing
     ScenarioFramework.Dialogue(OpStrings.A02_M03_010)
 
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
@@ -1118,7 +1118,7 @@ function BeginMission3()
     ScenarioFramework.CreateTimerTrigger(M3LaunchWestAttack, M3ReoccuringWestAttackInitialDelay[ Difficulty ])
     ScenarioFramework.CreateTimerTrigger(M3LaunchEastAttack, M3ReoccuringEastAttackInitialDelay[ Difficulty ])
 
-    # If the player doesn't complete the objectives soon, remind him that it's important
+    -- If the player doesn't complete the objectives soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M3P2Reminder, M3P2InitialReminderDelay)
     ScenarioFramework.CreateTimerTrigger(M3P4Reminder, M3P4InitialReminderDelay)
 
@@ -1155,7 +1155,7 @@ function M3AttackersDestroyed()
         'incomplete',
         OpStrings.M3P4Text,
         OpStrings.M3P4Detail,
-        { Units = { ScenarioInfo.CybranCommander }} # Target
+        { Units = { ScenarioInfo.CybranCommander }} -- Target
    )
     ScenarioInfo.M3P4Objective:AddResultCallback(M3CybranCommanderKilled)
     ScenarioInfo.Mission3ObjectiveGroup:AddObjective(ScenarioInfo.M3P4Objective)
@@ -1166,7 +1166,7 @@ function M3AttackersDestroyed()
         OpStrings.M3P3Text,
         OpStrings.M3P3Detail,
         'Kill',
-        { # Target
+        { -- Target
             MarkArea = false,
             ShowFaction = 'Cybran',
             Requirements = {
@@ -1188,7 +1188,7 @@ function M3AttackersDestroyed()
         OpStrings.M3P2Text,
         OpStrings.M3P2Detail,
         'Kill',
-        { # Target
+        { -- Target
             MarkArea = false,
             ShowFaction = 'Cybran',
             Requirements = {
@@ -1216,7 +1216,7 @@ function M3AttackersDestroyed()
    )
     ScenarioInfo.M3S1Objective:AddResultCallback(ArtilleryCapturedOrDestroyed)
 
-    # Set the playable area
+    -- Set the playable area
     ScenarioFramework.SetPlayableArea(Rect(0, 0, 512, 512))
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 end
@@ -1252,19 +1252,19 @@ function M3WestBaseKilled()
         markerCam = true,
     }
     if not ScenarioInfo.M3P2Objective.Active and not ScenarioInfo.M3P4Objective.Active then
-# west base killed and op is over
-#        ScenarioFramework.EndOperationCameraLocation(ScenarioUtils.MarkerToPosition("M3_Base_West"))
+-- west base killed and op is over
+--    ScenarioFramework.EndOperationCameraLocation(ScenarioUtils.MarkerToPosition("M3_Base_West"))
         camInfo.holdTime = nil
         camInfo.spinSpeed = 0.03
         camInfo.overrideCam = true
         ScenarioFramework.OperationNISCamera(unit, camInfo)
     else
-# west base killed and op not over
+-- west base killed and op not over
         camInfo.holdTime = 6
         ScenarioFramework.OperationNISCamera(unit, camInfo)
 
         if not ScenarioInfo.M3P2Objective.Active then
-            # The commander death is the last objective left; delay his death for the camera spin
+            -- The commander death is the last objective left; delay his death for the camera spin
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.CybranCommander)
         end
     end
@@ -1282,34 +1282,34 @@ function M3EastBaseKilled()
     }
 
     if not ScenarioInfo.M3P3Objective.Active and not ScenarioInfo.M3P4Objective.Active then
-# east base destroyed and the op is over
+-- east base destroyed and the op is over
         camInfo.holdTime = nil
         camInfo.spinSpeed = 0.03
         camInfo.overrideCam = true
         ScenarioFramework.OperationNISCamera(unit, camInfo)
     else
-# east base destroyed and the op isn't over
+-- east base destroyed and the op isn't over
         camInfo.holdTime = 3.5
         ScenarioFramework.OperationNISCamera(unit, camInfo)
 
         if not ScenarioInfo.M3P3Objective.Active then
-            # The commander death is the last objective left; delay his death for the camera spin
+            -- The commander death is the last objective left; delay his death for the camera spin
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.CybranCommander)
         end
     end
 end
 
 function M3CybranCommanderKilled()
-    # Commander's death cry
+    -- Commander's death cry
     ScenarioFramework.Dialogue(OpStrings.A02_M03_070, false, true)
     ScenarioInfo.CybranCommanderDead = true
     local unit = ScenarioInfo.CybranCommander
     if not ScenarioInfo.M3P2Objective.Active and not ScenarioInfo.M3P3Objective.Active then
-# cybran cdr death if this is the last objective
-#        ScenarioFramework.EndOperationCamera(unit, true)
+-- cybran cdr death if this is the last objective
+--    ScenarioFramework.EndOperationCamera(unit, true)
         ScenarioFramework.CDRDeathNISCamera(unit)
     else
-# cybran cdr death if this is not the last objective
+-- cybran cdr death if this is not the last objective
         ScenarioFramework.CDRDeathNISCamera(unit, 7)
     end
 end
@@ -1317,32 +1317,32 @@ end
 function AddTechMission2()
     ScenarioFramework.PlayUnlockDialogue()
     for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0202 + # T2 Air Factory
-                                         categories.uaa0107 + # T1 Transport
-                                         categories.uaa0204)  # Torpedo Bomber
+         ScenarioFramework.RemoveRestriction(player, categories.uab0202 + -- T2 Air Factory
+                                         categories.uaa0107 + -- T1 Transport
+                                         categories.uaa0204)  -- Torpedo Bomber
     end
 
-    # if needed, add tech that the Cybran get here as well
+    -- if needed, add tech that the Cybran get here as well
 end
 
 function AddTechMission3()
     ScenarioFramework.PlayUnlockDialogue()
     for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ual0208 + # T2 Engineer
-                                         categories.uab2301 + # T2 Heavy Gun Tower
-                                         categories.uab2204 + # T2 Anti-Air Gun Tower
-                                         categories.uab1201 + # T2 Power Generator
-                                         categories.uab1202)  # T2 Mass Extractor
+         ScenarioFramework.RemoveRestriction(player, categories.ual0208 + -- T2 Engineer
+                                         categories.uab2301 + -- T2 Heavy Gun Tower
+                                         categories.uab2204 + -- T2 Anti-Air Gun Tower
+                                         categories.uab1201 + -- T2 Power Generator
+                                         categories.uab1202)  -- T2 Mass Extractor
     end
 
-    # if needed, add tech that the Cybran get here as well
+    -- if needed, add tech that the Cybran get here as well
 end
 
 function PlayerCommanderDied()
-# player dead
-#    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
+-- player dead
+-- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-    # Let the player know what happened and end the game
+    -- Let the player know what happened and end the game
     ScenarioFramework.Dialogue(OpStrings.A02_D01_010, false, true)
     PlayerLose()
 end
@@ -1430,27 +1430,27 @@ function M3P4Reminder()
     end
 end
 
-# --------
-# End Game
-# --------
+-- --------
+-- End Game
+-- --------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
-        # Computer voice saying op complete
+        -- Computer voice saying op complete
         ScenarioFramework.Dialogue(ScenarioStrings.OpComp, false, true)
 
-        #ForkThread(EndM2BonusObjective)
+        -- ForkThread(EndM2BonusObjective)
 
-        # Turn everything neutral; protect the player commander
+        -- Turn everything neutral; protect the player commander
         ScenarioFramework.EndOperationSafety()
 
-        # Celebration dialogue
+        -- Celebration dialogue
         ScenarioFramework.Dialogue(OpStrings.A02_M03_100, WinGame, true)
     end
 end
 
 function PlayerLose()
     if not ScenarioInfo.OpEnded then
-        # Turn all units neutral
+        -- Turn all units neutral
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.Dialogue(ScenarioStrings.OpFail, LoseGame, true)
     end
@@ -1465,67 +1465,67 @@ end
 function WinGame()
     ScenarioInfo.OpComplete = true
     WaitSeconds(5)
-    #local bonus = Objectives.IsComplete(ScenarioInfo.M1B1Objective) and Objectives.IsComplete(ScenarioInfo.M2B1Objective) and Objectives.IsComplete(ScenarioInfo.M2B2Objective)
+    -- local bonus = Objectives.IsComplete(ScenarioInfo.M1B1Objective) and Objectives.IsComplete(ScenarioInfo.M2B1Objective) and Objectives.IsComplete(ScenarioInfo.M2B2Objective)
     local secondary = Objectives.IsComplete(ScenarioInfo.M2S1Objective) and Objectives.IsComplete(ScenarioInfo.M3S1Objective)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondary)
 end
 
 
 
-# --------------
-# Test functions
-# --------------
-#function OnF3()
-#    for k, unit in ArmyBrains[Cybran]:GetListOfUnits(categories.ALLUNITS, false) do
-#        unit:Destroy()
-#    end
-#    ScenarioInfo.M1P1Objective:ManualResult(true)
-#    BeginMission2()
-#end
-#
-#function OnCtrlF3()
-#    M1AttackPlayer()
-#end
-#
-#function OnShiftF3()
-#    #ScenarioInfo.VarTable['LaunchNorthAttack'] = true
-#    #ScenarioInfo.VarTable['LaunchSouthAttack'] = true
-#    M2Dialog4()
-#end
-#
-#function OnF4()
-#    for k, unit in ArmyBrains[Cybran]:GetListOfUnits(categories.ALLUNITS, false) do
-#        unit:Destroy()
-#    end
-#    #if ScenarioInfo.M2P1Objective then ScenarioInfo.M2P1Objective:ManualResult(true) end
-#    #Matt changed to OnExpired for now
-#    #if ScenarioInfo.M2P2Objective then ScenarioInfo.M2P2Objective:OnExpired() end
-#    #Matt comented out for now
-#    #if ScenarioInfo.M2P3Objective then ScenarioInfo.M2P3Objective:ManualResult(true) end
-#    EndMission2()
-#end
-#
-#function OnShiftF4()
-#    for k, unit in ScenarioInfo.M3Attackers do
-#        if not unit:IsDead() then
-#            unit:Kill()
-#        end
-#    end
-#end
-#
-#function OnF5()
-#end
-#
-#function OnShiftF5()
-#    ScenarioInfo.VarTable['LaunchWestAttack'] = true
-#    ScenarioInfo.VarTable['LaunchEastAttack'] = true
-#end
-#
-#function OnCtrlF5()
-#    LOG('Player army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Player) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Player))
-#    LOG('Cybran army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Cybran) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Cybran))
-#end
-#
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_A02_v03', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- --------------
+-- Test functions
+-- --------------
+-- function OnF3()
+-- for k, unit in ArmyBrains[Cybran]:GetListOfUnits(categories.ALLUNITS, false) do
+--    unit:Destroy()
+-- end
+-- ScenarioInfo.M1P1Objective:ManualResult(true)
+-- BeginMission2()
+-- end
+--
+-- function OnCtrlF3()
+-- M1AttackPlayer()
+-- end
+--
+-- function OnShiftF3()
+-- #ScenarioInfo.VarTable['LaunchNorthAttack'] = true
+-- #ScenarioInfo.VarTable['LaunchSouthAttack'] = true
+-- M2Dialog4()
+-- end
+--
+-- function OnF4()
+-- for k, unit in ArmyBrains[Cybran]:GetListOfUnits(categories.ALLUNITS, false) do
+--    unit:Destroy()
+-- end
+-- #if ScenarioInfo.M2P1Objective then ScenarioInfo.M2P1Objective:ManualResult(true) end
+-- #Matt changed to OnExpired for now
+-- #if ScenarioInfo.M2P2Objective then ScenarioInfo.M2P2Objective:OnExpired() end
+-- #Matt comented out for now
+-- #if ScenarioInfo.M2P3Objective then ScenarioInfo.M2P3Objective:ManualResult(true) end
+-- EndMission2()
+-- end
+--
+-- function OnShiftF4()
+-- for k, unit in ScenarioInfo.M3Attackers do
+--    if not unit:IsDead() then
+--        unit:Kill()
+--    end
+-- end
+-- end
+--
+-- function OnF5()
+-- end
+--
+-- function OnShiftF5()
+-- ScenarioInfo.VarTable['LaunchWestAttack'] = true
+-- ScenarioInfo.VarTable['LaunchEastAttack'] = true
+-- end
+--
+-- function OnCtrlF5()
+-- LOG('Player army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Player) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Player))
+-- LOG('Cybran army: ' .. GetArmyUnitCostTotal(ScenarioInfo.Cybran) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Cybran))
+-- end
+--
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_A02_v03', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end

@@ -1,12 +1,12 @@
-#****************************************************************************
-#**
-#**  File     :  /maps/SCCA_Coop_A05_v03/SCCA_Coop_A05_v03_script.lua
-#**  Author(s):  Drew Staltman
-#**
-#**  Summary  :
-#**
-#**  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
-#****************************************************************************
+-- ****************************************************************************
+-- **
+-- **  File     :  /maps/SCCA_Coop_A05_v03/SCCA_Coop_A05_v03_script.lua
+-- **  Author(s):  Drew Staltman
+-- **
+-- **  Summary  :
+-- **
+-- **  Copyright Â© 2005 Gas Powered Games, Inc.  All rights reserved.
+-- ****************************************************************************
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -18,7 +18,7 @@ local Behaviors = import('/lua/ai/OpAI/OpBehaviors.lua')
 
 
 
-# === GLOBAL VARIABLES === #
+-- === GLOBAL VARIABLES === #
 ScenarioInfo.Player = 1
 ScenarioInfo.AeonAriel = 2
 ScenarioInfo.UEF = 3
@@ -28,7 +28,7 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
-# === LOCAL VARIABLES === #
+-- === LOCAL VARIABLES === #
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -42,60 +42,60 @@ local DiffLevel = ScenarioInfo.Options.Difficulty
 
 
 
-# === TUNING VARIABLES === #
+-- === TUNING VARIABLES === #
 
 local TauntTimer = 900
 local ObjectiveReminderTimer = 600
 
-#! MISSION ONE VARIABLES
+-- ! MISSION ONE VARIABLES
 
-# Delay before revealing first objective
+-- Delay before revealing first objective
 local M1SecondDialogueDelayTime = 15
 
-# Delay before blake talks to player
+-- Delay before blake talks to player
 local M1BlakeIntroDelay = 300
 
-# Delay before Ariel attacks
+-- Delay before Ariel attacks
 local M1ArielAttackDelay = 180
 
-# Time before attacks against shields come whether they are up or not
+-- Time before attacks against shields come whether they are up or not
 local M1AttackShieldsTimer = 900
 
-# Timer before nuking colonies
+-- Timer before nuking colonies
 local M1NukeDefensesTimer = 900
 
-# Time after shields hold that nuke objective starts
+-- Time after shields hold that nuke objective starts
 local M1DelayNukeTime = 30
 
-# Time after nuke objective revealed that the next attacks start
+-- Time after nuke objective revealed that the next attacks start
 local M1AttackOneTimer = 200
 
-# Time after nukes are launched that we say they have been destroyed
+-- Time after nukes are launched that we say they have been destroyed
 local M1NukesShotDownTimer = 300
 
-# Time after first wave is announced that the wave is sent
+-- Time after first wave is announced that the wave is sent
 local M1FirstAttackDelay = 40
 
-# Time after Wave 1 is sent that Wave 2 begins
+-- Time after Wave 1 is sent that Wave 2 begins
 local M1AttackWaveTwoTimer = 150
 
-# Time after Wave 2 announced that it is sent
+-- Time after Wave 2 announced that it is sent
 local M1AttackTwoDelayTime = 15
 
-# Time after Wave 2 is send that Wave 3 is announced
+-- Time after Wave 2 is send that Wave 3 is announced
 local M1AttackThreeTimer = 200
 
-# Time after Wave 3 announced that it is sent in
+-- Time after Wave 3 announced that it is sent in
 local M1AttackThreeDelayTimer = 15
 
-# Time after Wave 3 sent that nukes are sent
-local M1AfterAttack3Time = 480 #240
+-- Time after Wave 3 sent that nukes are sent
+local M1AfterAttack3Time = 480 -- 240
 
-# Time after nuke shown down to start M2
+-- Time after nuke shown down to start M2
 local EndMissionOneTimer = 10
 
 
-#! MISSION TWO VARIABLES
+-- ! MISSION TWO VARIABLES
 
 local M2MiddleArtilleryUnlockTimer = 180
 
@@ -103,16 +103,16 @@ local M2NorthArtilleryUnlockTimer = 60
 
 local M2SouthArtilleryUnlockTimer = 300
 
-# Time to remind player about shields
+-- Time to remind player about shields
 local M2ShieldReminderTimer = 120
 
-# Tell player Ariel is playing with the other Mermaids for M2
+-- Tell player Ariel is playing with the other Mermaids for M2
 local M2ArielMessageTimer = 240
 
-# Time after something that somehing.
+-- Time after something that somehing.
 local M2WestBaseHelpTimer = 180
 
-#! MISSION THREE VARIABLES
+-- ! MISSION THREE VARIABLES
 
 local M3ArielTaunt1Timer = 360
 
@@ -123,7 +123,7 @@ local M3ColWaitD3 = 60
 
 
 
-###### Starter Functions ######
+-- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.fillCoop()
@@ -153,24 +153,24 @@ function OnPopulate(scenario)
 
     for i = 2, table.getn(ArmyBrains) do
     end
-    # === Create Units  === #
-    # Player
+    -- === Create Units  === #
+    -- Player
     ScenarioInfo.RhizaUnit = ScenarioUtils.CreateArmyUnit('Player', 'Rhiza_Unit')
     ScenarioInfo.RhizaUnit:SetCustomName(LOC '{i sCDR_Rhiza}')
     ScenarioFramework.CreateUnitDestroyedTrigger(RhizaDestroyed, ScenarioInfo.RhizaUnit)
     IssueMove({ ScenarioInfo.RhizaUnit }, ScenarioUtils.MarkerToPosition('Rhiza_MoveTo_Marker'))
     ScenarioUtils.CreateArmyGroup('Player', 'Player_Base')
-#    local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
-#    ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
-#    plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
-#    ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
+-- local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
+-- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
+-- plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Gunships')
+-- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
     local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Air_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(airPatrol, 'Player_Air_Patrol_Chain')
     local groundPatrol = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Player', 'Ground_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(groundPatrol, 'Player_Land_Patrol_Chain')
 
-    #Some activity in the player base
+    -- Some activity in the player base
     local trans1 = ScenarioUtils.CreateArmyUnit('Player', 'Start_Trans1')
     local trans2 = ScenarioUtils.CreateArmyUnit('Player', 'Start_Trans2')
     IssueMove({ trans1 }, ScenarioUtils.MarkerToPosition('Start_TransMove_1'))
@@ -180,7 +180,7 @@ function OnPopulate(scenario)
 
     ScenarioFramework.RestrictEnhancements({ 'Teleporter', })
 
-    # Colonies
+    -- Colonies
     ScenarioInfo.NumColonyBuildings = 0
     ScenarioInfo.ColonyBuildingsLost = 0
     ScenarioInfo.WestColony = ScenarioUtils.CreateArmyGroup('Colonies', 'West_Colony')
@@ -195,12 +195,12 @@ function OnPopulate(scenario)
     end
     ScenarioUtils.CreateArmyGroup('Colonies', 'Colony_Defenses')
 
-    # Ariel
+    -- Ariel
     ArmyBrains[AeonAriel]:PBMAddBuildLocation('Ariel_Main_Base', 60, 'MainBase')
     ArmyBrains[AeonAriel]:PBMAddBuildLocation('Ariel_M1_Air_Base', 60, 'ArielM1AirBase')
     ScenarioUtils.CreateArmyGroup('Ariel', 'M1_Air_Base')
 
-    # UEF
+    -- UEF
     ScenarioUtils.CreateArmyGroup('UEF', 'West_Base_D'..DiffLevel)
 end
 
@@ -230,7 +230,7 @@ end
 
 
 
-# === INTRO NIS === #
+-- === INTRO NIS === #
 function IntroNIS()
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR_Unit')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -257,7 +257,7 @@ function IntroNIS()
     end
     IssueMove({ ScenarioInfo.PlayerCDR }, ScenarioUtils.MarkerToPosition('Start_PlayerMove_1'))
 
-    #Delay opening of mission till after player is warped in
+    -- Delay opening of mission till after player is warped in
     ScenarioFramework.CreateTimerTrigger(StartMission1, 3.3)
 end
 
@@ -266,17 +266,17 @@ end
 
 
 
-# === MISSION ONE FUNCTIONS === #
+-- === MISSION ONE FUNCTIONS === #
 function StartMission1()
-    # Set up
+    -- Set up
     ScenarioInfo.MissionNumber = 1
     ScenarioFramework.Dialogue(OpStrings.A05_M01_010, M1SecondDialogueDelay)
 
-    # Timer triggers
+    -- Timer triggers
     ScenarioFramework.CreateTimerTrigger(M1BlakeIntro, M1BlakeIntroDelay)
-    #ScenarioFramework.CreateTimerTrigger(M1ArielAttackDialogue, M1ArielAttackDelay)
+    -- ScenarioFramework.CreateTimerTrigger(M1ArielAttackDialogue, M1ArielAttackDelay)
 
-    # Lock off buildable tech for player and his buddies the enemy
+    -- Lock off buildable tech for player and his buddies the enemy
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, (categories.NAVAL * categories.TECH3) +
                                       categories.EXPERIMENTAL +
@@ -295,12 +295,12 @@ function StartMission1()
                                       categories.ueb0304 )
     end
 
-    # Aeon Tech locking
+    -- Aeon Tech locking
     ScenarioFramework.AddRestriction(AeonAriel, categories.ual0303 +
                                     categories.ual0304 +
                                     categories.uaa0304)
 
-    # Assist engineers in M1
+    -- Assist engineers in M1
     local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_Air_Base_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'ArielM1AirBase'
@@ -309,17 +309,17 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(PlayTaunt, TauntTimer)
 end
 
-# Delay second dialogue at beginning of M1
+-- Delay second dialogue at beginning of M1
 function M1SecondDialogueDelay()
-    # Protect the colonies objective
-    # Protect objective
+    -- Protect the colonies objective
+    -- Protect objective
     local objUnits = ScenarioInfo.EastColony
     for num, unit in ScenarioInfo.WestColony do
         table.insert(objUnits, unit)
     end
-#    for num, unit in objUnits do
-#        ScenarioFramework.CreateUnitDestroyedTrigger(M1CivilianStructureDestroyed, unit)
-#    end
+-- for num, unit in objUnits do
+--    ScenarioFramework.CreateUnitDestroyedTrigger(M1CivilianStructureDestroyed, unit)
+-- end
     ScenarioInfo.M1NumberCivBuildings = table.getn(objUnits)
     ScenarioInfo.M1CivBuildingThreshold = math.ceil(ScenarioInfo.M1NumberCivBuildings / 2)
 
@@ -347,16 +347,16 @@ function M1CivilianStructureDestroyed()
     end
 end
 
-# Tell the player to be awesome and make stuff
+-- Tell the player to be awesome and make stuff
 function M1RevealShieldsObjective()
-    # Primary Objective 1
+    -- Primary Objective 1
     ScenarioInfo.M1P1Obj = Objectives.CategoriesInArea(
-        'secondary',                      # type
-        'incomplete',                   # complete
-        OpStrings.M1P1Title,     # title
-        OpStrings.M1P1Description,      # description
-        'build',                        # action
-        {                               # target
+        'secondary',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.M1P1Title,     -- title
+        OpStrings.M1P1Description,      -- description
+        'build',                        -- action
+        {                               -- target
             MarkArea = true,
             Requirements = {
                 {Area = 'M1P1_West_Area', Category = categories.uab4301, CompareOp='>=', Value = 1,},
@@ -369,7 +369,7 @@ function M1RevealShieldsObjective()
     ScenarioFramework.CreateTimerTrigger(M1ShieldTimerCall, M1AttackShieldsTimer)
 end
 
-# Shield timer thing of whatever
+-- Shield timer thing of whatever
 function M1ShieldTimerCall()
     if ScenarioInfo.MissionNumber == 1 then
         if not ScenarioInfo.M1ShieldAttackSent then
@@ -397,11 +397,11 @@ function M1ShieldsBuiltThread()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_050, M1AttackShields)
 end
 
-# ZE SHIELDS! Send in attacks
+-- ZE SHIELDS! Send in attacks
 function M1AttackShields()
     if not ScenarioInfo.M1ShieldAttackSent and ScenarioInfo.MissionNumber == 1 then
         ScenarioInfo.M1ShieldAttackSent = true
-        # Attack players shields
+        -- Attack players shields
         local westPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_West_Colony_Bombers_D'..DiffLevel, 'NoFormation')
         westPlat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('West_Colony_Marker'))
         local eastPlat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1_East_Colony_Bombers_D'..DiffLevel, 'NoFormation')
@@ -419,31 +419,31 @@ function M1AttackShields()
     end
 end
 
-# Shield has held, talk amongst yourselves then start the nuke delay
+-- Shield has held, talk amongst yourselves then start the nuke delay
 function M1ShieldsHeld()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_060, M1DelayNukes)
 end
 
-# Delay before nuke objective revealed
+-- Delay before nuke objective revealed
 function M1DelayNukes()
     WaitSeconds(M1DelayNukeTime)
     ScenarioFramework.Dialogue(OpStrings.A05_M01_070, M1RevealNukeObjective)
 end
 
-# Reveal that the player has work yet to be finished
+-- Reveal that the player has work yet to be finished
 function M1RevealNukeObjective()
     ScenarioFramework.PlayUnlockDialogue()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uab4302)
     end
-    # Primary Objective 2
+    -- Primary Objective 2
     ScenarioInfo.M1P2Obj = Objectives.Basic(
-        'secondary',                           # type
-        'incomplete',                          # complete
-        OpStrings.M1P2Title,                   # title
-        OpStrings.M1P2Description,             # description
-        Objectives.GetActionIcon('build'),  # action
-        {                                      # target
+        'secondary',                           -- type
+        'incomplete',                          -- complete
+        OpStrings.M1P2Title,                   -- title
+        OpStrings.M1P2Description,             -- description
+        Objectives.GetActionIcon('build'),  -- action
+        {                                      -- target
             MarkArea = true,
             Areas = { 'M1P2_West_Area', 'M1P2_East_Area', },
             Category = categories.uab4302,
@@ -484,7 +484,7 @@ function M1NukeDefensesTimerCall()
     end
 end
 
-# Player got them nukes up, give an anti-nuke and start nukes
+-- Player got them nukes up, give an anti-nuke and start nukes
 function M1NukeDefensesBuilt()
     ScenarioInfo.NukeDefensesCount = ScenarioInfo.NukeDefensesCount + 1
     if ScenarioInfo.NukeDefensesCount == 2 then
@@ -493,7 +493,7 @@ function M1NukeDefensesBuilt()
             ScenarioInfo.M1P2Obj:ManualResult(true)
             ScenarioFramework.Dialogue(OpStrings.A05_M01_080)
 
-            # Anti-nukes built camera
+            -- Anti-nukes built camera
             local camInfo = {
                 blendTime = 1.0,
                 holdTime = 4,
@@ -503,18 +503,18 @@ function M1NukeDefensesBuilt()
                 markerCam = true,
             }
             ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition("West_Colony_Marker"), camInfo)
-            ScenarioFramework.CreateTimerTrigger(M1ArielNukes, (M1AfterAttack3Time / 4)) #launch quick now, for show
+            ScenarioFramework.CreateTimerTrigger(M1ArielNukes, (M1AfterAttack3Time / 4)) -- launch quick now, for show
         end
     end
 end
 
-# Nuke the player and then talk smack, timer after nukes to start realz attacks
+-- Nuke the player and then talk smack, timer after nukes to start realz attacks
 function M1ArielNukes()
-    #LOG('debug:Nuke...')
+    -- LOG('debug:Nuke...')
     if not ScenarioInfo.M1ArielNukesSent then
         ScenarioInfo.M1ArielNukesSent = true
         if not ScenarioInfo.NukesBuilt then
-    # comment next line out to make it work with function key
+    -- comment next line out to make it work with function key
             ScenarioInfo.M1P2Obj:ManualResult(false)
         end
 
@@ -536,9 +536,9 @@ end
 
 function M1NukeNISCamera(unit)
 
-    # Nukes launch camera
+    -- Nukes launch camera
 
-    #need to give the nuke some time to pre-launch
+    -- need to give the nuke some time to pre-launch
     WaitSeconds(7)
 
     local camInfo = {
@@ -552,7 +552,7 @@ function M1NukeNISCamera(unit)
         playableAreaOut = 'M1_Playable_Area',
         vizRadius = 12,
     }
-#    ScenarioFramework.OperationNISCamera(unit, camInfo)
+-- ScenarioFramework.OperationNISCamera(unit, camInfo)
 end
 
 function M1NukeShotDown(projectile)
@@ -566,24 +566,24 @@ function M1NukeShotDown(projectile)
     end
 end
 
-# When Ariel's nukes are pwned send in the first attack
+-- When Ariel's nukes are pwned send in the first attack
 function M1NukesAllShotDown()
     ScenarioFramework.CreateTimerTrigger(EndMission1, EndMissionOneTimer)
-#    ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('protect'))
-    # Send first attack wave
+-- ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('protect'))
+    -- Send first attack wave
 end
 
-# Send first attack
+-- Send first attack
 function M1AttackWaveOne()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_100)
     WaitSeconds(M1FirstAttackDelay)
     local plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A1_Air_Group_D'..DiffLevel, 'ChevronFormation')
     plat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
-    #ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackWaveTwo, plat)
+    -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackWaveTwo, plat)
     ScenarioFramework.CreateTimerTrigger(M1AttackWaveTwo, M1AttackWaveTwoTimer)
 end
 
-# Function to play dialogue then begin Attack Two when dialogue over
+-- Function to play dialogue then begin Attack Two when dialogue over
 function M1AttackWaveTwo()
     if not ScenarioInfo.M1AttackTwoStarted then
         ScenarioInfo.M1AttackTwoStarted = true
@@ -591,19 +591,19 @@ function M1AttackWaveTwo()
     end
 end
 
-# Attack two which is a land attack via transports
+-- Attack two which is a land attack via transports
 function M1AttackTwoDelay()
     WaitSeconds(M1AttackTwoDelayTime)
     local escorts = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Escorts_D'..DiffLevel, 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(escorts, 'Ariel_M1_West_Air_Patrol_Chain')
     local units = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Unit_Group_D'..DiffLevel, 'AttackFormation')
     local transports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A2_Transport_Group_D'..DiffLevel, 'NoFormation')
-    #ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThree, units)
+    -- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThree, units)
     ScenarioFramework.CreateTimerTrigger(M1AttackThree, M1AttackThreeTimer)
     ForkThread(M1LandAttack, units, transports, 'West')
 end
 
-# Function to play attack three dialogue then start the attack after dialogue
+-- Function to play attack three dialogue then start the attack after dialogue
 function M1AttackThree()
     if not ScenarioInfo.M1AttackThreeStarted then
         ScenarioInfo.M1AttackThreeStarted = true
@@ -611,15 +611,15 @@ function M1AttackThree()
     end
 end
 
-# Attack Three which is combined attacks on both targets
+-- Attack Three which is combined attacks on both targets
 function M1AttackThreeDelay()
     WaitSeconds(M1AttackThreeDelayTimer)
     local westAir = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Air_Attack_D'..DiffLevel, 'ChevronFormation')
     westAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('West_Colony_Marker'))
     local westUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Ground_Units_D'..DiffLevel, 'AttackFormation')
     local westTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_West_Transports_D'..DiffLevel, 'NoFormation')
-#    ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westUnits)
-#    ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westAir)
+-- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westUnits)
+-- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, westAir)
     ForkThread(M1LandAttack, westUnits, westTransports, 'West')
 
 
@@ -627,14 +627,14 @@ function M1AttackThreeDelay()
     eastAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
     local eastUnits = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_East_Ground_Units_D'..DiffLevel, 'AttackFormation')
     local eastTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M1A3_East_Transports_D'..DiffLevel, 'NoFormation')
-#    ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastUnits)
-#    ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastAir)
+-- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastUnits)
+-- ScenarioFramework.CreatePlatoonDeathTrigger(M1AttackThreePlatDeath, eastAir)
     ForkThread(M1LandAttack, eastUnits, eastTransports, 'East')
 
     ScenarioFramework.CreateTimerTrigger(M1ArielNukes, M1AfterAttack3Time)
 end
 
-# When a freaking Attack three platoon dies horrifically
+-- When a freaking Attack three platoon dies horrifically
 function M1AttackThreePlatDeath(platoon)
     if not ScenarioInfo.M1A3PlatDeathCounter then
         ScenarioInfo.M1A3PlatDeathCounter = 1
@@ -646,7 +646,7 @@ function M1AttackThreePlatDeath(platoon)
     end
 end
 
-# Function to attack the colonies with transports
+-- Function to attack the colonies with transports
 function M1LandAttack(units, transports, direction)
     local chain
     local marker
@@ -682,17 +682,17 @@ function M1LandAttack(units, transports, direction)
     end
 end
 
-# Blake talky-talky scene
+-- Blake talky-talky scene
 function M1BlakeIntro()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_030)
 end
 
-# Ariel attacks with bombers and light attacks begin
-#function M1ArielAttackDialogue()
-#    ScenarioFramework.Dialogue(OpStrings.A05_M01_050, M1ArielFirstAttack)
-#end
+-- Ariel attacks with bombers and light attacks begin
+-- function M1ArielAttackDialogue()
+-- ScenarioFramework.Dialogue(OpStrings.A05_M01_050, M1ArielFirstAttack)
+-- end
 
-# Trigger ariel to attack and send in weak bombers
+-- Trigger ariel to attack and send in weak bombers
 function M1ArielFirstAttack()
     ScenarioInfo.VarTable['M1EnableArielAir'] = true
 end
@@ -703,7 +703,7 @@ function M1P3ResultCallback(result)
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.FlushDialogueQueue()
         ScenarioFramework.Dialogue(OpStrings.A05_M01_150, LoseGame, true)
-# colony not defended
+-- colony not defended
         local camInfo = {
             blendTime = 2.5,
             holdTime = nil,
@@ -718,7 +718,7 @@ function M1P3ResultCallback(result)
     end
 end
 
-# Hooray! Le Player winz ze first mission!
+-- Hooray! Le Player winz ze first mission!
 function EndMission1()
     if not ScenarioInfo.MissionOneOver then
         ScenarioInfo.M1P3Obj:ManualResult(true)
@@ -748,7 +748,7 @@ end
 
 
 
-# === MISSION TWO FUNCTIONS === #
+-- === MISSION TWO FUNCTIONS === #
 function StartMission2()
     local plat = {}
     SetArmyUnitCap(1, 400)
@@ -757,7 +757,7 @@ function StartMission2()
 
     ScenarioFramework.Dialogue(OpStrings.A05_M02_010)
 
-    # Disable Ariel air attacks
+    -- Disable Ariel air attacks
     ScenarioInfo.VarTable['M1EnableArielAir'] = false
 
     for num, unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_West_Area')) do
@@ -771,11 +771,11 @@ function StartMission2()
         end
     end
 
-    # Set Alliances
+    -- Set Alliances
     SetAlliance(UEF, Colonies, 'Neutral')
     SetAlliance(AeonAriel, Colonies, 'Neutral')
 
-    # Allow player to build awesomeness
+    -- Allow player to build awesomeness
     ScenarioFramework.PlayUnlockDialogue()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uab0301 + categories.ueb0301)
@@ -783,7 +783,7 @@ function StartMission2()
 
     ScenarioFramework.RemoveRestriction(UEF, categories.uel0303 + categories.uel0304)
 
-    # UEF Setup
+    -- UEF Setup
     ArmyBrains[UEF]:PBMAddBuildLocation('UEF_West_Base', 100, 'WestBase')
 
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[UEF], 'UEF', 'West_Base')
@@ -797,7 +797,7 @@ function StartMission2()
         ScenarioFramework.CreateArmyIntelTrigger(M2PlayerSeesWestArtillery, ArmyBrains[Player], 'LOSNow', unit, true, categories.ALLUNITS, true, ArmyBrains[UEF])
     end
 
-    ScenarioUtils.CreateArmyGroup('UEF' ,'Wreck_M2', true) #Storing all wreckage in UEF army
+    ScenarioUtils.CreateArmyGroup('UEF' ,'Wreck_M2', true) -- Storing all wreckage in UEF army
 
     plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('UEF', 'West_Base_Engineers_D'..DiffLevel, 'NoFormation')
     plat.PlatoonData.AssistFactories = true
@@ -811,9 +811,9 @@ function StartMission2()
     ScenarioInfo.BlakeUnit:CreateEnhancement('Shield')
     ScenarioInfo.BlakeUnit:CreateEnhancement('DamageStablization')
     ScenarioInfo.BlakeUnit:CreateEnhancement('ResourceAllocation')
-    M2RevealObjectives() # Cant assign this before blake exists
+    M2RevealObjectives() -- Cant assign this before blake exists
 
-    # delay his death
+    -- delay his death
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.BlakeUnit)
     ScenarioFramework.CreateUnitDestroyedTrigger(M2BlakeDestroyed, ScenarioInfo.BlakeUnit)
 
@@ -839,7 +839,7 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2ObjectiveReminder, ObjectiveReminderTimer)
 end
 
-# Setup the artillery positions and engineers and all that nonsens
+-- Setup the artillery positions and engineers and all that nonsens
 function M2SetupArtilleryPositions()
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[UEF], 'UEF', 'North_Artillery')
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[UEF], 'UEF', 'North_Artillery_D'..DiffLevel, 'North_Artillery')
@@ -898,14 +898,14 @@ function EnableUEFT3Land()
     ScenarioFramework.RemoveRestriction(UEF, categories.uel0303 + categories.uel0304)
 end
 
-# Switch North HLRA to UEF
+-- Switch North HLRA to UEF
 function M2OpenNorthArtillery()
     if not ScenarioInfo.NorthArtilleryPiece:IsDead() then
         ScenarioFramework.GiveUnitToArmy(ScenarioInfo.NorthArtilleryPiece, UEF)
     end
 end
 
-# Reveal to the player that artillyer and Blake needed a good thumpin
+-- Reveal to the player that artillyer and Blake needed a good thumpin
 function M2RevealObjectives()
     ScenarioInfo.M2P1Obj = Objectives.CategoriesInArea('primary', 'incomplete', OpStrings.M2P1Title,
                                                      OpStrings.M2P1Description, 'kill',
@@ -919,7 +919,7 @@ function M2RevealObjectives()
                           CompareOp = '==', Value = 0, ArmyIndex = UEF },
                     },
                     MarkArea = true,
-                    Category = categories.ueb2302,  #forces icon
+                    Category = categories.ueb2302,  -- forces icon
                 }
            )
     ScenarioInfo.M2P1Obj:AddResultCallback(M2ArtilleryDestroyed)
@@ -957,7 +957,7 @@ function M2OneArtilleryDefeated(artilleryArea)
         ScenarioFramework.Dialogue(OpStrings.A05_M02_060)
         ScenarioFramework.Dialogue(OpStrings.A05_M02_080, M2CheckObjectives)
     end
-# primary artillery objective
+-- primary artillery objective
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -994,18 +994,18 @@ function M2ArtilleryBuilt(builder, unit)
     end
 end
 
-# Blake go boom
+-- Blake go boom
 function M2BlakeDestroyed()
 
-# UEF commander destroyed camera
-#    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.BlakeUnit, 7)
+-- UEF commander destroyed camera
+-- ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.BlakeUnit, 7)
 
     ScenarioInfo.M2BlakeDestroyedBool = true
     ScenarioInfo.M2P2Obj:ManualResult(true)
     ScenarioFramework.Dialogue(OpStrings.A05_M02_110, M2CheckObjectives)
 end
 
-# Blake will do stuff to hinder things for the player, somehow
+-- Blake will do stuff to hinder things for the player, somehow
 function M2BlakeAIThread(platoon)
     platoon.PlatoonData.LocationType = 'WestBase'
     platoon:PatrolLocationFactoriesAI()
@@ -1086,16 +1086,16 @@ end
 
 
 
-# === MISSION THREE FUNCTIONS === #
+-- === MISSION THREE FUNCTIONS === #
 function StartMission3()
-    # Setup and stuff
+    -- Setup and stuff
     ScenarioInfo.MissionNumber = 3
     SetArmyUnitCap(1, 500)
     ScenarioFramework.SetPlayableArea('M3_Playable_Area')
     ScenarioFramework.Dialogue(OpStrings.A05_M03_010, M3P1ObjectiveDialogue)
     ScenarioInfo.VarTable['M1EnableArielAir'] = true
 
-    # Unlock le nukes
+    -- Unlock le nukes
     ScenarioFramework.PlayUnlockDialogue()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.RemoveRestriction(player, categories.uab2305 + categories.ueb2305)
@@ -1104,7 +1104,7 @@ function StartMission3()
 
     ScenarioFramework.CreateTimerTrigger(M3ArielTaunt1, M3ArielTaunt1Timer)
 
-    # Spawn le Ariel
+    -- Spawn le Ariel
     ScenarioUtils.CreateArmyGroup('Ariel', 'M3_Main_Base_D'..DiffLevel)
     ScenarioUtils.CreateArmyGroup('Ariel', 'M3_Extra_Mass')
     ScenarioUtils.CreateArmyGroup('Ariel', 'M3_Walls')
@@ -1118,7 +1118,7 @@ function StartMission3()
         unit:GiveTacticalSiloAmmo(3)
     end
 
-    # Base Air Patrols
+    -- Base Air Patrols
     local plat
     plat = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'M3_Eastern_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'Ariel_M3_East_Patrol_Chain')
@@ -1150,7 +1150,7 @@ function StartMission3()
     plat.PlatoonData.LocationType = 'MainBase'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    # Colossus Spawn in and stuff
+    -- Colossus Spawn in and stuff
     ScenarioInfo.ColTransports = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Transports_D'..DiffLevel, 'NoFormation')
     ScenarioInfo.ColLand = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Land_Units_D'..DiffLevel, 'AttackFormation')
     ScenarioInfo.ColHover = ScenarioUtils.CreateArmyGroupAsPlatoonCoopBalanced('Ariel', 'Colossus_Hover_Units_D'..DiffLevel, 'AttackFormation')
@@ -1173,7 +1173,7 @@ function StartMission3()
    )
     ScenarioInfo.M3P1Obj:AddResultCallback(M3ColossusDefeated)
 
-    #Create wrecked colony (storing all wreckage in UEF army)
+    -- Create wrecked colony (storing all wreckage in UEF army)
     ScenarioUtils.CreateArmyGroup('UEF' ,'Wreck_M3', true)
 end
 
@@ -1187,7 +1187,7 @@ function M3P1ObjectiveDialogue()
 end
 
 function M3RevealPrimaryOne()
-    # Start moving the Colossus attack at player
+    -- Start moving the Colossus attack at player
     for num, loc in ScenarioUtils.ChainToPositions('Ariel_M3_Colossus_Chain') do
         if num >= 3 then
             ScenarioInfo.ColHover:AggressiveMoveToLocation(loc)
@@ -1226,7 +1226,7 @@ function M3ColossusTransportsThread()
     while aiBrain:PlatoonExists(transports) and transports:IsCommandsActive(cmd) do
         WaitSeconds(2)
     end
-    # Patrol attack route by creating attack route
+    -- Patrol attack route by creating attack route
     local attackRoute = ScenarioPlatoonAI.PlatoonChooseHighestAttackRoute(aiBrain, ScenarioUtils.ChainToPositions('Ariel_M3_Attack_Chain'), 2)
     if aiBrain:PlatoonExists(transports) then
         transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Ariel_Transport_Return'), false)
@@ -1241,7 +1241,7 @@ end
 
 function M3ColossusDefeated(result)
     if result then
-# Colossus defeated camera
+-- Colossus defeated camera
         local camInfo = {
             blendTime = 1.0,
             holdTime = 8,
@@ -1270,8 +1270,8 @@ end
 function M3ArielDefeated(result, unit)
     if result then
         ScenarioFramework.EndOperationSafety()
-# Ariel killed and end of op
-#        ScenarioFramework.EndOperationCamera(unit)
+-- Ariel killed and end of op
+--    ScenarioFramework.EndOperationCamera(unit)
         ScenarioFramework.CDRDeathNISCamera(unit)
 
         ScenarioFramework.Dialogue(OpStrings.A05_M03_050, false, true)
@@ -1302,11 +1302,11 @@ end
 
 
 
-# === WIN LOSS FUNCTIONS === #
+-- === WIN LOSS FUNCTIONS === #
 function PlayerCDRDestroyed(unit)
     ScenarioFramework.EndOperationSafety()
     ScenarioFramework.FlushDialogueQueue()
-#    ScenarioFramework.EndOperationCamera(unit)
+-- ScenarioFramework.EndOperationCamera(unit)
     ScenarioFramework.CDRDeathNISCamera(unit)
 
     ScenarioFramework.Dialogue(OpStrings.A05_D01_010, LoseGame, true)
@@ -1326,49 +1326,49 @@ function LoseGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 
-# ---------------
-# Debug Functions
-# ---------------
-#function OnF3()
-##    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_SHIELDS')
-#    ForkThread(StartMission2)
-#end
-#
-#function OnShiftF3()
-##    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_SHIELDS')
-#    ForkThread(StartMission3)
-#end
-#
-#function OnF4()
-##    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_ANTI_NUKE')
-##    M1RevealNukeObjective()
-##    ForkThread(StartMission3)
-#end
-#
-#function OnF5()
-##    ForkThread(WinGame)
-##    M3ArielDefeated(true)
-##    M1P3ResultCallback(false)
-#
-#
-#    ScenarioInfo.M1P2Obj = Objectives.Basic(
-#        'secondary',                           # type
-#        'incomplete',                          # complete
-#        OpStrings.M1P2Title,                   # title
-#        OpStrings.M1P2Description,             # description
-#        Objectives.GetActionIcon('build'),  # action
-#        {                                      # target
-#            MarkArea = true,
-#            Areas = { 'M1P2_West_Area', 'M1P2_East_Area', },
-#            Category = categories.uab4302,
-#        }
-#   )
-#    M1AfterAttack3Time = 1
-#    ScenarioFramework.CreateTimerTrigger(M1ArielNukes, M1AfterAttack3Time)
-#
-#end
-#
-###### Miscellaneous Functions #####
-#function OnCtrlAltF5()
-#    ScenarioFramework.EndOperation('SCCA_Coop_A05_v03', true, ScenarioInfo.Options.Difficulty, true, true, true)
-#end
+-- ---------------
+-- Debug Functions
+-- ---------------
+-- function OnF3()
+-- #    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_SHIELDS')
+-- ForkThread(StartMission2)
+-- end
+--
+-- function OnShiftF3()
+-- #    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_SHIELDS')
+-- ForkThread(StartMission3)
+-- end
+--
+-- function OnF4()
+-- #    ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_ANTI_NUKE')
+-- #    M1RevealNukeObjective()
+-- #    ForkThread(StartMission3)
+-- end
+--
+-- function OnF5()
+-- #    ForkThread(WinGame)
+-- #    M3ArielDefeated(true)
+-- #    M1P3ResultCallback(false)
+--
+--
+-- ScenarioInfo.M1P2Obj = Objectives.Basic(
+--    'secondary',                           # type
+--    'incomplete',                          # complete
+--    OpStrings.M1P2Title,                   # title
+--    OpStrings.M1P2Description,             # description
+--    Objectives.GetActionIcon('build'),  # action
+--    {                                      # target
+--        MarkArea = true,
+--        Areas = { 'M1P2_West_Area', 'M1P2_East_Area', },
+--        Category = categories.uab4302,
+--    }
+-- )
+-- M1AfterAttack3Time = 1
+-- ScenarioFramework.CreateTimerTrigger(M1ArielNukes, M1AfterAttack3Time)
+--
+-- end
+--
+-- ##### Miscellaneous Functions #####
+-- function OnCtrlAltF5()
+-- ScenarioFramework.EndOperation('SCCA_Coop_A05_v03', true, ScenarioInfo.Options.Difficulty, true, true, true)
+-- end
