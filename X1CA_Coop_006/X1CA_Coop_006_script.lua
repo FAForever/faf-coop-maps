@@ -95,7 +95,6 @@ local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

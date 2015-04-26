@@ -126,7 +126,6 @@ local M3ColWaitD3 = 60
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

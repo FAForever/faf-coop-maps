@@ -86,7 +86,6 @@ local RequiredTrucks = {6, 6, 6}
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

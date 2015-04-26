@@ -83,7 +83,6 @@ local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/
 -- -------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

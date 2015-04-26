@@ -189,7 +189,6 @@ ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     -- Per Teh
     for i=2,table.getn(ArmyBrains) do

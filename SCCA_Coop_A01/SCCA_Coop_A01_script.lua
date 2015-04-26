@@ -93,7 +93,6 @@ local M3P1_BuildBoatValue     = 3  -- number Attack Boats to build for m3p1 obje
 
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

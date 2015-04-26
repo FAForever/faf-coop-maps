@@ -206,7 +206,6 @@ local M3PlayableArea = ScenarioUtils.AreaToRect('M3_PLAYABLE_AREA')
 -- ! Spawn armies: includes all player bases, research facilities, Aeon main base and little nuke bases, City buildings, gate
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

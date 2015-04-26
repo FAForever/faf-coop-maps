@@ -70,7 +70,6 @@ local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_004/X1
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

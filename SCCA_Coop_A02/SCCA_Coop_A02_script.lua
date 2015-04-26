@@ -202,7 +202,6 @@ local M3DialogDelay4 = 960
 function OnPopulate(scenario)
     -- Initial Unit Creation
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

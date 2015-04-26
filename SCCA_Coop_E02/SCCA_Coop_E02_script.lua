@@ -442,9 +442,7 @@ function CheatEconomy()
 end
 
 function OnPopulate(scenario)
-
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     -- Weather.CreateWeather()
 end

@@ -114,7 +114,6 @@ local M3P1_BomberBuildValue         = 5   -- number of bombers the player is to 
 
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     -- Player only gets score
     for i = 2, table.getn(ArmyBrains) do

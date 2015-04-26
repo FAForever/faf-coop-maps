@@ -269,7 +269,6 @@ local M3P1ReoccuringReminderDelay = 900
 function OnPopulate(scenario)
     -- Initial Unit Creation
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.fillCoop()
 
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then

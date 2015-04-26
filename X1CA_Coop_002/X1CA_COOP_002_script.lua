@@ -87,10 +87,6 @@ local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_002/X1CA
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
 
-
-    ScenarioFramework.fillCoop()
-    
-    
     factionIdx = GetArmyBrain('Player'):GetFactionIndex()
     if(factionIdx == 1) then
         Faction = "uef"
