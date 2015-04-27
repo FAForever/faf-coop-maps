@@ -1283,20 +1283,17 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(OrderSecondaryAttack4, 60)
 
     -- Tech unlock, Aeon t2 fighter
-    if(Faction == 'aeon') then
-        ScenarioFramework.CreateTimerTrigger(AeonM2TechReveal, 45)
-    end
-        ScenarioFramework.CreateTimerTriggerUnlockCoop(AeonM2TechRevealCoop, 2, 45)
+    ScenarioFramework.CreateTimerTrigger(AeonM2TechReveal, 45)
 end
 
 function AeonM2TechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X01_M01_031)           -- Aeon Mid Range fighter (Swift Wind)
-    ScenarioFramework.RemoveRestriction(Player, categories.xaa0202)
-end
+    -- Only play the voice-over if the player is Aeon.
+    if Faction == 'aeon' then
+        ScenarioFramework.Dialogue(OpStrings.X01_M01_031)
+    end
 
-function AeonM2TechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xaa0202)
-
+    -- Remove the restriction from everyone, however, in case they were given Aeon tech.
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xaa0202) -- Aeon Mid Range fighter (Swift Wind)
 end
 
 function M2P1Warnings()
