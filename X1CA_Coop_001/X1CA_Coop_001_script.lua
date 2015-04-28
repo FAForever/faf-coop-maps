@@ -51,6 +51,169 @@ local Order = ScenarioInfo.Order
 local UEF = ScenarioInfo.UEF
 local Civilians = ScenarioInfo.Civilians
 
+-- Maps readable IDs to faction-specific voice-overs. The "common" object holds voiceovers that lack
+-- a specific faction.
+local VoiceOvers = {
+    common = {
+        ColossusWarning = OpStrings.X01_M02_281,
+        SniperBotWarning = OpStrings.X01_M02_245,
+        NukeWarning = OpStrings.X01_M02_410,
+        EmotionalNukeWarning = OpStrings.X01_M02_420,
+        CollossusDestroyed = OpStrings.X01_M03_292,
+
+        -- If you're slow killing the artillery...
+        ArtilleryReminder1 = OpStrings.X01_M01_210,
+        ArtilleryReminder2 = OpStrings.X01_M01_220,
+
+        Victory = OpStrings.X01_M03_297,
+
+        -- The initial cutscene.
+        Introduction = OpStrings.X01_M01_010,
+        IntroductionArtillery = OpStrings.X01_M01_011,
+        IntroductionGunshipPanic = OpStrings.X01_M01_012,
+        IntroductionGatePanic = OpStrings.X01_M01_013,
+
+        -- Played immediately after you successfully gate in.
+        IntroductionLanded = OpStrings.X01_M01_014,
+
+        -- Suggestion to repair the shield.
+        RepairShield = OpStrings.X01_M01_260,
+        ShieldRepaired = OpStrings.X01_M01_270,
+
+        -- Suggestion to kill the submarines
+        KillSubmarines = OpStrings.X01_M01_240,
+        SubmarinesKilled = OpStrings.X01_M01_250,
+
+        -- The civilians want to talk...
+        CivvyTalk = OpStrings.X01_M02_010,
+        CivvyMessage = OpStrings.X01_M02_011,
+        CivvyDefense = OpStrings.X01_M02_012,
+        CivvyDefenseFailed = OpStrings.X01_M02_040,
+        CivvyDefenseSucceeded = OpStrings.X01_M02_039,
+
+        -- Defend the western town (the one that gets nuked)
+        OtherCivvyDefenseRequest = OpStrings.X01_M02_041,
+
+        -- "I'll kill everyone"
+        AeonThreats = OpStrings.X01_M02_013,
+
+        -- Played when the Aeon counterattack.
+        AeonRevenge1 = OpStrings.X01_M02_340,
+        AeonRevenge2 = OpStrings.X01_M02_350,
+
+        -- After you destroy the factories in the first base.
+        FactoriesDestroyed = OpStrings.X01_M01_140,
+
+        -- When you destroy the first base.
+        FirstBaseDestroyed = OpStrings.X01_M01_130,
+
+        -- As you destroy each artilley installation.
+        ArtyDestroyed1 = OpStrings.X01_M01_160,
+        ArtyDestroyed2 = OpStrings.X01_M01_170,
+        ArtyDestroyed3 = OpStrings.X01_M01_180,
+        ArtyDestroyed4 = OpStrings.X01_M01_190, -- Unused.
+
+        AllArtyDestroyed = OpStrings.X01_M01_200,
+
+        -- When you fail to defend the town.
+        SadCivvies = OpStrings.X01_M02_160,
+        ManiacialAeonCackling = OpStrings.X01_M02_161,
+
+        TownDefenseSuccess = OpStrings.X01_M02_043,
+        NavalAttackWarning = OpStrings.X01_M02_045,
+
+        -- When the truck-defense starts.
+        TruckNotification = OpStrings.X01_M02_042,
+        AeonTruckThreat = OpStrings.X01_M02_044,
+        TruckDamage1 = OpStrings.X01_M02_075,
+        TruckDamage2 = OpStrings.X01_M02_077,
+
+        TruckDefenseFailed = OpStrings.X01_M02_200,
+
+        -- Played when the corresponding number of trucks is lost. You lose if four die.
+        TruckLost1 = OpStrings.X01_M02_080,
+        TruckLost2 = OpStrings.X01_M02_090,
+        TruckLost3 = OpStrings.X01_M02_100,
+
+        TruckDefenseComplete1 = OpStrings.X01_M02_190,
+        TruckDefenseComplete2 = OpStrings.X01_M02_210,
+
+        -- Played when the corresponding number of trucks are rescued.
+        TrucksRescued1 = OpStrings.X01_M02_170,
+        TrucksRescued2 = OpStrings.X01_M02_180,
+
+        KillSeraphimIntroduction = OpStrings.X01_M03_010,
+        DyingSeraphim = OpStrings.X01_M03_295
+    },
+    uef = {
+        BeamIn = OpStrings.X01_M01_030,
+        SiegeBotReveal = OpStrings.X01_M01_070,
+        MoveInland = OpStrings.X01_M01_117,
+        LosingBuildingsWarning1 = OpStrings.X01_M02_030,
+        LosingBuildingsWarning2 = OpStrings.X01_M02_020,
+        AeonDefeated = OpStrings.X01_M02_320,
+        CounterattackWarning = OpStrings.X01_M02_250,
+        AttackSeraphimInstruction = OpStrings.X01_M03_122,
+        M4Subplot = OpStrings.X01_M03_300,
+
+        -- If you're slow about destroying the first base...
+        FirstBaseReminder1 = OpStrings.X01_M01_090,
+        FirstBaseReminder2 = OpStrings.X01_M01_100,
+
+        -- The UEF-specific secondary mission.
+        ProtectTownReminder1 = OpStrings.X01_M02_360,
+        ProtectTrucksReminder1 = OpStrings.X01_M02_050,
+        ProtectTrucksReminder2 = OpStrings.X01_M02_060,
+        ProtectTrucksReminder3 = OpStrings.X01_M02_070,
+
+        -- ... Or the Aeon
+        KillOrderReminder1 = OpStrings.X01_M02_380,
+
+        -- ... Or the Seraphim,
+        KillSeraphimReminder1 = OpStrings.X01_M03_200,
+        KillSeraphimReminder2 = OpStrings.X01_M03_210,
+
+        -- Customised rude things for Gari to say to you before you kill her.
+        AeonTaunt1 = OpStrings.TAUNT15,
+        AeonTaunt2 = OpStrings.TAUNT16,
+    },
+    cybran = {
+        BeamIn = OpStrings.X01_M01_040,
+        SiegeBotReveal = OpStrings.X01_M01_080,
+        LosingBuildingsWarning1 = OpStrings.X01_M02_035,
+        LosingBuildingsWarning2 = OpStrings.X01_M02_036,
+        AeonDefeated = OpStrings.X01_M02_320,
+        CounterattackWarning = OpStrings.X01_M02_260,
+        AttackSeraphimInstruction = OpStrings.X01_M03_133,
+        FirstBaseReminder1 = OpStrings.X01_M01_105,
+        FirstBaseReminder2 = OpStrings.X01_M01_106,
+        KillOrderReminder1 = OpStrings.X01_M02_390,
+        KillSeraphimReminder1 = OpStrings.X01_M03_220,
+        KillSeraphimReminder2 = OpStrings.X01_M03_230,
+        AeonTaunt1 = OpStrings.TAUNT17,
+        AeonTaunt2 = OpStrings.TAUNT18,
+    },
+    aeon = {
+        BeamIn = OpStrings.X01_M01_050,
+        SiegeBotReveal = OpStrings.X01_M01_032,
+        MoveInland = OpStrings.X01_M01_118,
+        LosingBuildingsWarning1 = OpStrings.X01_M02_037,
+        LosingBuildingsWarning2 = OpStrings.X01_M02_038,
+        T2FighterUnlocked = OpStrings.X01_M01_031,
+        AeonDefeated = OpStrings.X01_M02_330,
+        CounterattackWarning = OpStrings.X01_M02_270,
+        AttackSeraphimInstruction = OpStrings.X01_M03_142,
+        M4Subplot = OpStrings.X01_M03_300,
+        FirstBaseReminder1 = OpStrings.X01_M01_110,
+        FirstBaseReminder2 = OpStrings.X01_M01_116,
+        KillOrderReminder1 = OpStrings.X01_M02_400,
+        KillSeraphimReminder1 = OpStrings.X01_M03_240,
+        KillSeraphimReminder2 = OpStrings.X01_M03_250,
+        AeonTaunt1 = OpStrings.TAUNT19,
+        AeonTaunt2 = OpStrings.TAUNT20,
+    }
+}
+
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
 
@@ -94,7 +257,10 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
 
     local leaderFactionIndex = GetArmyBrain('Player'):GetFactionIndex()
-    LeaderFaction = FactoinData.Factions[leaderFactionIndex].Key
+    LeaderFaction = FactionData.Factions[leaderFactionIndex].Key
+
+    -- Build the faction-specific voiceover table.
+    VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
 
     -- Army Colors
     ScenarioFramework.SetUEFAlly1Color(Player)      -- starting base units are "originally" from the UEF, before being given to player
@@ -244,7 +410,7 @@ function PlayerWin()
             if(not ScenarioInfo.OpEnded) then
                 ScenarioFramework.EndOperationSafety()
                 ScenarioFramework.FlushDialogueQueue()
-                ScenarioFramework.Dialogue(OpStrings.X01_M03_297, KillGame, true )
+                ScenarioFramework.Dialogue(VoiceOvers.Victory, KillGame, true)
                 ScenarioInfo.OpComplete = true
             end
         end
@@ -354,7 +520,7 @@ function IntroNISPart1()
         WaitSeconds(NIS1InitialDelay)
 
         -- Start talking
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_010, nil, true)
+        ScenarioFramework.Dialogue(VoiceOvers.Introduction, nil, true)
 
         -- Look at the enemy base
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
@@ -363,13 +529,13 @@ function IntroNISPart1()
         WaitSeconds(1)
 
         -- Look at the artillery
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_011, nil, true)
+        ScenarioFramework.Dialogue(VoiceOvers.IntroductionArtillery, nil, true)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
 
         WaitSeconds(2)
 
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 4)
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_012, nil, true)
+        ScenarioFramework.Dialogue(VoiceOvers.IntroductionGunshipPanic, nil, true)
         WaitSeconds(2)
 
         ScenarioInfo.NISGunships = {}
@@ -413,7 +579,7 @@ function IntroNISPart1()
 
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
         WaitSeconds(1)
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_013, nil, true)
+        ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
     end
 
@@ -550,7 +716,7 @@ function IntroNISPart2()
         ForkThread( NIS1KillUnits2 )
 
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp3'), 3)
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_014, nil, true)
+        ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
 
         ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
         ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
@@ -686,7 +852,7 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ScenarioFramework.Dialogue(OpStrings.X01_M01_140, IntroMission2)
+                ScenarioFramework.Dialogue(VoiceOvers.FactoriesDestroyed, IntroMission2)
             end
         end
     )
@@ -742,18 +908,18 @@ function StartMission1()
     local m1ArtilleryDestroyed = 0
     ScenarioInfo.M1S1:AddProgressCallback(
         function()
-            if(ScenarioInfo.MissionNumber == 1) then
+            if ScenarioInfo.MissionNumber == 1 then
                 -- VO feedback confirming each artillery position as its destroyed
                 m1ArtilleryDestroyed = m1ArtilleryDestroyed + 1
-                if(m1ArtilleryDestroyed == 1) then
-                    ScenarioFramework.Dialogue(OpStrings.X01_M01_160)
-                elseif(m1ArtilleryDestroyed == 2) then
+                if m1ArtilleryDestroyed == 1 then
+                    ScenarioFramework.Dialogue(VoiceOvers.ArtyDestroyed1)
+                elseif m1ArtilleryDestroyed == 2 then
                     -- Play a "second art area destroyed" only if there are going to more areas to clear (ie, diff 3 only).
                     if Difficulty == 3 then
-                        ScenarioFramework.Dialogue(OpStrings.X01_M01_170)
+                        ScenarioFramework.Dialogue(VoiceOvers.ArtyDestroyed2)
                     end
-                elseif(m1ArtilleryDestroyed == 3) then
-                    ScenarioFramework.Dialogue(OpStrings.X01_M01_180)
+                elseif m1ArtilleryDestroyed == 3 then
+                    ScenarioFramework.Dialogue(VoiceOvers.ArtyDestroyed3)
                 end
             end
         end
@@ -761,7 +927,7 @@ function StartMission1()
     ScenarioInfo.M1S1:AddResultCallback(
         function(result)
             if(result) then
-                ScenarioFramework.Dialogue(OpStrings.X01_M01_200)
+                ScenarioFramework.Dialogue(VoiceOvers.AllArtyDestroyed)
             end
         end
     )
@@ -771,14 +937,7 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1TechReveal, 55)
     SetupGariM1M2TauntTriggers()
 
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_030)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_040)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_050)
-    end
-
+    ScenarioFramework.Dialogue(VoiceOvers.BeamIn)
     ScenarioFramework.CreateTimerTrigger(M1S2Reveal, 30)
 
     -- turn on air scouting
@@ -786,27 +945,22 @@ function StartMission1()
 end
 
 function M1SubPlot()
-    if(ScenarioInfo.MissionNumber == 1) then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_117)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_118)
-        end
+    if ScenarioInfo.MissionNumber == 1 then
+        ScenarioFramework.Dialogue(VoiceOvers.MoveInland)
     end
 end
 
 function M1TechReveal()
     -- tech reveal dialogue, siege bots
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_070)           -- xel0305 Percival
-        ScenarioFramework.RemoveRestriction(Player, categories.xel0305)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_080)           -- xrl0305 Bricks
-        ScenarioFramework.RemoveRestriction(Player, categories.xrl0305)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_032)           -- xal0203 Blaze assault tank
-        ScenarioFramework.RemoveRestriction(Player, categories.xal0203)
+    ScenarioFramework.Dialogue(VoiceOvers.SiegeBotReveal)
+    if LeaderFaction == 'uef' then
+        ScenarioFramework.RemoveRestriction(Player, categories.xel0305) -- xel0305 Percival
+    elseif LeaderFaction == 'cybran' then
+        ScenarioFramework.RemoveRestriction(Player, categories.xrl0305) -- xrl0305 Bricks
+    elseif LeaderFaction == 'aeon' then
+        ScenarioFramework.RemoveRestriction(Player, categories.xal0203) -- xal0203 Blaze assault tank
     end
+
     ScenarioFramework.RemoveRestrictionCoop(1, categories.xel0305)
     ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0305)
     ScenarioFramework.RemoveRestrictionCoop(2, categories.xal0203)
@@ -815,13 +969,13 @@ end
 function M1FirstBaseDestroyed()
     if ScenarioInfo.M1BaseDialoguePlayer == false and ScenarioInfo.M1P1.Active then
         ScenarioInfo.M1BaseDialoguePlayer = true
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_130)
+        ScenarioFramework.Dialogue(VoiceOvers.FirstBaseDestroyed)
     end
 end
 
 function M1S2Reveal()
-    if(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead()) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_260, M1S2Assign)
+    if ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead() then
+        ScenarioFramework.Dialogue(VoiceOvers.RepairShield, M1S2Assign)
     end
 end
 
@@ -841,8 +995,8 @@ function M1S2Assign()
     )
     ScenarioInfo.M1S2:AddResultCallback(
         function(result)
-            if(result) then
-                ScenarioFramework.Dialogue(OpStrings.X01_M01_270)
+            if result then
+                ScenarioFramework.Dialogue(VoiceOvers.ShieldRepaired)
             end
 
             -- Assign M1S3 whether or not the shield was repaired or destroyed
@@ -873,15 +1027,15 @@ function CheckShieldHealth()
 end
 
 function M1S3Reveal()
-    if(ScenarioInfo.MissionNumber == 1) then
+    if ScenarioInfo.MissionNumber == 1 then
         local subsAlive = 0
         for k, sub in ScenarioInfo.M1Subs do
-            if ( sub and not sub:IsDead() ) then
+            if sub and not sub:IsDead() then
                 subsAlive = subsAlive + 1
             end
         end
-        if((ScenarioInfo.M1Subs) and (subsAlive > 0) and not ScenarioInfo.M1S3.Active) then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_240, M1S3Assign )
+        if ScenarioInfo.M1Subs and subsAlive > 0 and not ScenarioInfo.M1S3.Active then
+            ScenarioFramework.Dialogue(VoiceOvers.KillSubmarines, M1S3Assign)
         end
     end
 end
@@ -902,7 +1056,7 @@ function M1S3Assign()
     ScenarioInfo.M1S3:AddResultCallback(
         function(result)
             if(result) then
-                ScenarioFramework.Dialogue(OpStrings.X01_M01_250)
+                ScenarioFramework.Dialogue(VoiceOvers.SubmarinesKilled)
             end
         end
     )
@@ -917,7 +1071,7 @@ function IntroMission2()
         function()
             ScenarioFramework.FlushDialogueQueue()
             -- "Grahm wants to talk to you"
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_010, nil, true) -- 3 sec
+            ScenarioFramework.Dialogue(VoiceOvers.CivvyTalk, nil, true) -- 3 sec
             while(ScenarioInfo.DialogueLock) do
                 WaitSeconds(0.2)
             end
@@ -1128,7 +1282,7 @@ function IntroMission2NIS()
     Cinematics.EnterNISMode()
     Cinematics.SetInvincible( 'M1_Playable_Area' )
     -- "Yeah, hi...we're totally getting attacked"
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_011, nil, true) -- 9 sec
+    ScenarioFramework.Dialogue(VoiceOvers.CivvyMessage, nil, true) -- 9 sec
 
     -- Give intel on the enemy bases briefly, so the buildings are visible under fog
     ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_1' ), 1, ArmyBrains[Player] )
@@ -1154,7 +1308,7 @@ function IntroMission2NIS()
     -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 3)
 
     -- "Go save them"
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_012, nil, true) -- 10 sec
+    ScenarioFramework.Dialogue(VoiceOvers.CivvyDefense, nil, true) -- 10 sec
     -- WaitSeconds(1)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
     WaitSeconds(1)
@@ -1175,7 +1329,7 @@ function IntroMission2NIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
     WaitSeconds(1)
     -- "I'll kill everyone"
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_013, nil, true) -- 5 sec
+    ScenarioFramework.Dialogue(VoiceOvers.AeonThreats, nil, true) -- 5 sec
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_8'), 3)
     WaitSeconds(1)
 
@@ -1203,7 +1357,7 @@ function StartMission2()
     ScenarioInfo.M2P1:AddResultCallback(
         function(result)
             if(result == false) then
-                ScenarioFramework.Dialogue(OpStrings.X01_M02_040, nil, true)
+                ScenarioFramework.Dialogue(VoiceOvers.CivvyDefenseFailed, nil, true)
                 PlayerLose()
             end
         end
@@ -1258,36 +1412,29 @@ end
 function AeonM2TechReveal()
     -- Only play the voice-over if the player is Aeon.
     if LeaderFaction == 'aeon' then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_031)
+        ScenarioFramework.Dialogue(VoiceOvers.T2FighterUnlocked)
     end
 
     -- Remove the restriction from everyone, however, in case they were given Aeon tech.
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xaa0202) -- Aeon Mid Range fighter (Swift Wind)
 end
 
+--- Called when one of the civilian buildings you must defend in the main settlement is destroyed.
 function M2P1Warnings()
     ScenarioInfo.M2CivBuildingCount = ScenarioInfo.M2CivBuildingCount - 1
 
+    if not ScenarioInfo.M2P1.Active then
+        return
+    end
+
     -- if we've only 3 buildings more than the min, play a warning
-    if ScenarioInfo.M2CivBuildingCount == (ScenarioInfo.M2BuildingFailLimit + 4) and ScenarioInfo.M2P1.Active then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_030)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_035)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_037)
-        end
+    if ScenarioInfo.M2CivBuildingCount == ScenarioInfo.M2BuildingFailLimit + 4 then
+        ScenarioFramework.Dialogue(VoiceOvers.LosingBuildingsWarning1)
     end
 
     -- if we've only 1 building more than the min, play another
-    if ScenarioInfo.M2CivBuildingCount == (ScenarioInfo.M2BuildingFailLimit + 1) and ScenarioInfo.M2P1.Active then
-       if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_020)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_036)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_038)
-        end
+    if ScenarioInfo.M2CivBuildingCount == ScenarioInfo.M2BuildingFailLimit + 1 then
+        ScenarioFramework.Dialogue(VoiceOvers.LosingBuildingsWarning2)
     end
 end
 
@@ -1911,7 +2058,7 @@ function M3CounterAttack()
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('Order_M1_West_Bluffs_Patrol_3'), false)
 
     -- "Good job beating mission 2"
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_039, Mission3NIS)
+    ScenarioFramework.Dialogue(VoiceOvers.CivvyDefenseSucceeded, Mission3NIS)
 end
 
 function StartMission3()
@@ -1943,11 +2090,7 @@ function StartMission3()
                 ScenarioFramework.Dialogue(OpStrings.TAUNT23)
                 ForkThread(OrderCDRDeathNIS)
                 ForkThread(KillOrder)
-                if(LeaderFaction == 'uef' or LeaderFaction == 'cybran') then
-                    ScenarioFramework.Dialogue(OpStrings.X01_M02_320, IntroMission4)
-                elseif(LeaderFaction == 'aeon') then
-                    ScenarioFramework.Dialogue(OpStrings.X01_M02_330, IntroMission4)
-                end
+                ScenarioFramework.Dialogue(VoiceOvers.AeonDefeated, IntroMission4)
             end
         end
     )
@@ -1955,7 +2098,7 @@ function StartMission3()
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 2700)
     ScenarioFramework.CreateTimerTrigger(CounterAttackWarning, 5)
 
-    if(LeaderFaction == 'uef') then
+    if LeaderFaction == 'uef' then
         -- For UEF, assign the Truck Town objective after a bit of a pause. We'll send in the
         -- attack where we assign, as it is dialogue-callback based (ie, in case dialogue gets stacked
         -- up, we don't have the attack sent before the late dialogue)
@@ -1967,12 +2110,12 @@ end
 
 function M3ColosWarningDialogue()
     -- Warn of impending incarna
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_281)
+    ScenarioFramework.Dialogue(VoiceOvers.ColossusWarning)
 end
 
 function M3SniperBotDialogue()
     -- Point out that enemy has sent in the new sniper bot unit.
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_245)
+    ScenarioFramework.Dialogue(VoiceOvers.SniperBotWarning)
 end
 
 function OrderCDRDeathNIS()
@@ -1988,13 +2131,13 @@ function Mission3NIS()
     -- One vis marker with a huge radius will work for this
     local M3VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M3_NIS_Vis_1' ), 0, ArmyBrains[Player] )
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_340, nil, true)
+    ScenarioFramework.Dialogue(VoiceOvers.AeonRevenge1, nil, true)
     WaitSeconds(1)
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 4)
     WaitSeconds(1)
 
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_350, nil, true)
+    ScenarioFramework.Dialogue(VoiceOvers.AeonRevenge2, nil, true)
     Cinematics.CameraTrackEntity( ScenarioInfo.OrderCDR, 20, 4 )
     WaitSeconds(3)
 
@@ -2011,17 +2154,11 @@ function Mission3NIS()
 end
 
 function CounterAttackWarning()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_250)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_260)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_270)
-    end
+    ScenarioFramework.Dialogue(VoiceOvers.CounterattackWarning)
 end
 
 function NavalTownAssign()
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_041, M3UEFSecondaryPart1)
+    ScenarioFramework.Dialogue(VoiceOvers.OtherCivvyDefenseRequest, M3UEFSecondaryPart1)
 end
 
 function M3UEFSecondaryPart1()
@@ -2051,10 +2188,10 @@ function M3UEFSecondaryPart1()
                 ScenarioInfo.TrucksEscorted = 0
                 ScenarioInfo.Trucks = {}
 
-                ScenarioFramework.Dialogue(OpStrings.X01_M02_043, TruckNIS)
+                ScenarioFramework.Dialogue(VoiceOvers.TownDefenseSuccess, TruckNIS)
             else
-                ScenarioFramework.Dialogue(OpStrings.X01_M02_160)
-                ScenarioFramework.Dialogue(OpStrings.X01_M02_161, nil, false, ScenarioInfo.OrderCDR)
+                ScenarioFramework.Dialogue(VoiceOvers.SadCivvies)
+                ScenarioFramework.Dialogue(VoiceOvers.ManiacialAeonCackling, nil, false, ScenarioInfo.OrderCDR)
             end
         end
     )
@@ -2067,7 +2204,7 @@ end
 
 function NavalTownAttack()
     -- Warn of the incoming naval attack, and spawn the attack in
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_045)
+    ScenarioFramework.Dialogue(VoiceOvers.NavalAttackWarning)
     for k,v in ScenarioInfo.NavalTownAttack do
         local platoon = ArmyBrains[Order]:MakePlatoon('','')
         ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'AttackFormation')
@@ -2084,8 +2221,8 @@ end
 
 function TruckNIS()
     local watchCommands = {}
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_042)
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_044, nil, false, ScenarioInfo.OrderCDR)
+    ScenarioFramework.Dialogue(VoiceOvers.TruckNotification)
+    ScenarioFramework.Dialogue(VoiceOvers.TruckThread, nil, false, ScenarioInfo.OrderCDR)
     ScenarioInfo.AllowTruckWarning = true
     ScenarioInfo.M2TruckWarningDialogue = 0
     for i = 1, MaxTrucks do
@@ -2143,15 +2280,13 @@ function M3TruckDamageWarning()
     if ScenarioInfo.AllowTruckWarning then
         ScenarioInfo.M2TruckWarningDialogue = ScenarioInfo.M2TruckWarningDialogue + 1
         if ScenarioInfo.M2TruckWarningDialogue == 1 then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_075)
-            ScenarioInfo.AllowTruckWarning = false
-            ScenarioFramework.CreateTimerTrigger(M2TruckWarningUnlock, 30)
+            ScenarioFramework.Dialogue(VoiceOvers.TruckDamage1)
         end
         if ScenarioInfo.M2TruckWarningDialogue == 2 then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_077)
-            ScenarioInfo.AllowTruckWarning = false
-            ScenarioFramework.CreateTimerTrigger(M2TruckWarningUnlock, 30)
+            ScenarioFramework.Dialogue(VoiceOvers.TruckDamage2)
         end
+        ScenarioInfo.AllowTruckWarning = false
+        ScenarioFramework.CreateTimerTrigger(M2TruckWarningUnlock, 30)
     end
 end
 
@@ -2161,18 +2296,14 @@ end
 
 function TruckDestroyed()
     ScenarioInfo.TrucksDestroyed = ScenarioInfo.TrucksDestroyed + 1
-    if(ScenarioInfo.TrucksDestroyed == 1) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_080)
-    elseif(ScenarioInfo.TrucksDestroyed == 2) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_090)
-    elseif(ScenarioInfo.TrucksDestroyed == 3) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_100)
-    end
-    if((MaxTrucks - ScenarioInfo.TrucksDestroyed) < RequiredTrucks[Difficulty] and ScenarioInfo.M3S2UEF.Active) then
+    if MaxTrucks - ScenarioInfo.TrucksDestroyed < RequiredTrucks[Difficulty] and ScenarioInfo.M3S2UEF.Active then
         ScenarioInfo.M3S2UEF:ManualResult(false)
         ScenarioInfo.TruckPing:Destroy()
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_200)
+        ScenarioFramework.Dialogue(VoiceOvers.TruckDefenseFailed)
+        return
     end
+
+    ScenarioFramework.Dialogue(VoiceOvers[TruckLost .. tostring(ScenarioInfo.TrucksDestroyed)])
 end
 
 function TruckRescued(unit)
@@ -2186,27 +2317,19 @@ function TruckRescued(unit)
     IssueMove({unit}, ScenarioUtils.MarkerToPosition('UEF_M2_Secondary_Escort_Marker'))
     ScenarioInfo.TrucksEscorted = ScenarioInfo.TrucksEscorted + 1
 
-    if(ScenarioInfo.TrucksEscorted == RequiredTrucks[Difficulty]) then
+    if ScenarioInfo.TrucksEscorted == RequiredTrucks[Difficulty] then
         ScenarioInfo.M3S2UEF:ManualResult(true)
         ScenarioInfo.TruckPing:Destroy()
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_190)
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_210)
+        ScenarioFramework.Dialogue(VoiceOvers.TruckDefenseComplete1)
+        ScenarioFramework.Dialogue(VoiceOvers.TruckDefenseComplete2)
         ScenarioFramework.Dialogue(OpStrings.TAUNT7, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-    elseif(not ScenarioInfo.TruckArriveLock) then
-        if(ScenarioInfo.TrucksEscorted == 1) then
+    elseif not ScenarioInfo.TruckArriveLock then
+        if ScenarioInfo.TrucksEscorted < 3 then
             ScenarioInfo.TruckArriveLock = true
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_170)
-            ScenarioFramework.CreateTimerTrigger(M2UnlockTruckArriveDialogue, 15)
-        elseif(ScenarioInfo.TrucksEscorted == 2) then
-            ScenarioInfo.TruckArriveLock = true
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_180)
-            ScenarioFramework.CreateTimerTrigger(M2UnlockTruckArriveDialogue, 15)
+            ScenarioFramework.Dialogue(VoiceOvers["TrucksRescued" .. ScenarioInfo.TrucksEscorted])
+            ScenarioFramework.CreateTimerTrigger(function() ScenarioInfo.TruckArriveLock = false end, 15)
         end
     end
-end
-
-function M2UnlockTruckArriveDialogue()
-    ScenarioInfo.TruckArriveLock = false
 end
 
 function TruckInBuilding(unit)
@@ -2384,8 +2507,7 @@ function IntroMission4()
                 IssuePatrol({ScenarioInfo.SeraphimCDR}, ScenarioUtils.MarkerToPosition( 'M4_Seraph_CDRPatrol_' .. i ) )
             end
 
-
-            ScenarioFramework.Dialogue(OpStrings.X01_M03_010)
+            ScenarioFramework.Dialogue(VoiceOvers.KillSeraphimIntroduction)
             ForkThread(IntroMission4NIS)
         end
     )
@@ -2606,14 +2728,7 @@ function StartMission4()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M4P1)
 
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_122, RevealM4P2)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_133, RevealM4P2)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_142, RevealM4P2)
-    end
-
+    ScenarioFramework.Dialogue(VoiceOvers.AttackSeraphimInstruction, RevealM4P2)
     ScenarioFramework.CreateTimerTrigger(M4Subplot, 300)
     ScenarioFramework.CreateTimerTrigger(IncarnaAttack, 800)
 
@@ -2712,18 +2827,13 @@ function RevealM4P2()
 end
 
 function M4NukeWarning()
-    -- non UEF players get a general warning of a nuke strike
-    if not (LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_410)
-
     -- UEF players whe havent completed the m3 town obj get an emphatic warning. Those who have get the general warning
-    elseif (LeaderFaction == 'uef') then
-        if(ScenarioInfo.M3S1UEF.Active) then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_420)
-        elseif not (ScenarioInfo.M3S1UEF.Active) then
-            ScenarioFramework.Dialogue(OpStrings.X01_M02_410)
-        end
+    if LeaderFaction == 'uef' and ScenarioInfo.M3S1UEF.Active then
+        ScenarioFramework.Dialogue(VoiceOvers.NukeWarning)
+        return
     end
+
+    ScenarioFramework.Dialogue(VoiceOvers.EmotionalNukeWarning)
 end
 
 function DeathNIS(unit)
@@ -2745,27 +2855,22 @@ function DeathNIS(unit)
 end
 
 function M4Subplot()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_300)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_310)
-    end
+    ScenarioFramework.Dialogue(VoiceOvers.M4Subplot)
 end
 
 function M4IncarnasDeadDialogue()
     -- play some dialogue when the 1 exp bot is killed (2, if in hard diff)
     -- ... as long as the enemy commander is still alive
     ScenarioInfo.M4IncarnasDead = ScenarioInfo.M4IncarnasDead + 1
-    if (Difficulty < 3) and (ScenarioInfo.M4IncarnasDead == 1) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_292, nil, ScenarioInfo.SeraphimCDR)
-    elseif (Difficulty == 3) and (ScenarioInfo.M4IncarnasDead == 2) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_292, nil, ScenarioInfo.SeraphimCDR)
+    if (Difficulty < 3 and ScenarioInfo.M4IncarnasDead == 1) or
+       (Difficulty == 3 and ScenarioInfo.M4IncarnasDead == 2) then
+        ScenarioFramework.Dialogue(VoiceOvers.CollossusDestroyed, nil, ScenarioInfo.SeraphimCDR)
     end
 end
 
 function M4SeraphCDRDeadDialogue()
     -- Enemy CDR says this on death
-    ScenarioFramework.Dialogue(OpStrings.X01_M03_295)
+    ScenarioFramework.Dialogue(VoiceOvers.DyingSeraphim)
 end
 
 function IncarnaAttack()
@@ -2808,111 +2913,81 @@ end
 
 -- M1
 function M1P1Reminder1()
-    if(ScenarioInfo.M1P1.Active) then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_090)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_105)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_110)
-        end
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder2, 2000)
+    if not ScenarioInfo.M1P1.Active then
+        return
     end
+
+    ScenarioFramework.Dialogue(VoiceOvers.FirstBaseReminder1)
+    ScenarioFramework.CreateTimerTrigger(M1P1Reminder2, 2000)
 end
 
 function M1P1Reminder2()
-    if(ScenarioInfo.M1P1.Active) then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_100)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_106)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X01_M01_116)
-        end
+    if not ScenarioInfo.M1P1.Active then
+        return
     end
-end
 
-function M1P1Reminder4()
-    if(ScenarioInfo.M1P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_110)
-    end
+    ScenarioFramework.Dialogue(VoiceOvers.FirstBaseReminder2)
 end
 
 function M1S1Reminder1()
-    if(ScenarioInfo.M1S1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_210)
-        ScenarioFramework.CreateTimerTrigger(M1S1Reminder2, 1800)
+    if not ScenarioInfo.M1S1.Active then
+        return
     end
+    ScenarioFramework.Dialogue(VoiceOvers.ArtilleryReminder)
+    ScenarioFramework.CreateTimerTrigger(M1S1Reminder2, 1800)
 end
 
 function M1S1Reminder2()
-    if(ScenarioInfo.M1S1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_220)
+    if not ScenarioInfo.M1S1.Active then
+        return
     end
+
+    ScenarioFramework.Dialogue(VoiceOvers.ArtilleryReminder2)
 end
 
 -- M2
 -- M3
 function M3P1Reminder1()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_380)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_390)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_400)
-    end
+    ScenarioFramework.Dialogue(VoiceOvers.KillOrderReminder1)
 end
 
 -- m3 uef secondary
     -- part1
 function M3S1UEFReminder1()
-    if(ScenarioInfo.M3S1UEF.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_360)
+    if ScenarioInfo.M3S1UEF.Active then
+        ScenarioFramework.Dialogue(VoiceOvers.ProtectTownReminder1)
     end
 end
 
     -- part2
 function M3S2UEFReminder1()
-    if(ScenarioInfo.M3S2UEF.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_050)
+    if ScenarioInfo.M3S2UEF.Active then
+        ScenarioFramework.Dialogue(VoiceOvers.ProtectTrucksReminder1)
         ScenarioFramework.CreateTimerTrigger(M3S2UEFReminder2, 1500)
     end
 end
 
 function M3S2UEFReminder2()
-    if(ScenarioInfo.M3S2UEF.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_060)
+    if ScenarioInfo.M3S2UEF.Active then
+        ScenarioFramework.Dialogue(VoiceOvers.ProtectTrucksReminder2)
         ScenarioFramework.CreateTimerTrigger(M3S2UEFReminder3, 1500)
     end
 end
 
 function M3S2UEFReminder3()
-    if(ScenarioInfo.M3S2UEF.Active) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M02_070)
+    if ScenarioInfo.M3S2UEF.Active then
+        ScenarioFramework.Dialogue(VoiceOvers.ProtectTrucksReminder3)
     end
 end
 
 -- M4
 function M4P2Reminder1()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_200)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_220)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_240)
-    end
-
+    ScenarioFramework.Dialogue(VoiceOvers.KillSeraphimReminder1)
     ScenarioFramework.CreateTimerTrigger(M4P2Reminder2, 1000)
 end
 
 function M4P2Reminder2()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_210)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_230)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X01_M03_250)
-    end
+    ScenarioFramework.Dialogue(VoiceOvers.KillSeraphimReminder2)
 end
 
 -- ------
@@ -2963,25 +3038,13 @@ end
 
 function M3GariTaunt1()
     if ScenarioInfo.M3P1.Active then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT15, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT17, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT19, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        end
+        ScenarioFramework.Dialogue(VoiceOvers.AeonTaunt1, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
     end
 end
 
 function M3GariTaunt2()
     if ScenarioInfo.M3P1.Active then
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT16, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT18, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.TAUNT20, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        end
+        ScenarioFramework.Dialogue(VoiceOvers.AeonTaunt2, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
     end
 end
 
