@@ -2360,9 +2360,6 @@ function IntroMission4()
 
             ScenarioInfo.MissionNumber = 4
 
-	    ForkThread(CheatEconomy, UEF)
-	    ForkThread(CheatEconomy, Seraphim)
-
             -- ---------
             -- Civilians
             -- ---------
