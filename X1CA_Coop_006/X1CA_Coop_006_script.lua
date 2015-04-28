@@ -90,27 +90,22 @@ local TauTM = TauntManager.CreateTauntManager('TauTM', '/maps/X1CA_Coop_006/X1CA
 local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
 local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
 
+local LeaderFaction
+local LocalFaction
+
 -- -------
 -- Startup
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Army Colors
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonAllyColor(Player)
     end
     ScenarioFramework.SetAeonAlly1Color(Rhiza)
@@ -386,11 +381,11 @@ function IntroMission1NIS()
                 WaitSeconds(NIS1InitialDelay)
 
                 -- Fletcher's reinforcements
-                if(Faction == 'uef') then
+                if(LeaderFaction == 'uef') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_020, nil, true)
-                elseif(Faction == 'cybran') then
+                elseif(LeaderFaction == 'cybran') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_030, nil, true)
-                elseif(Faction == 'aeon') then
+                elseif(LeaderFaction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_040, nil, true)
                 end
 
@@ -402,7 +397,7 @@ function IntroMission1NIS()
     		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
 
                 -- Rhiza's reinforcements
-                if(Faction == 'aeon') then
+                if(LeaderFaction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_055, nil, true)
                 else
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_050, nil, true)
@@ -419,7 +414,7 @@ function IntroMission1NIS()
     		    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 3)
                 -- WaitSeconds(1)
                 -- The plan of attack
-                if(Faction == 'aeon') then
+                if(LeaderFaction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_065, nil, true)
                 else
                     ScenarioFramework.Dialogue(OpStrings.X06_M01_060, nil, true)
@@ -428,11 +423,11 @@ function IntroMission1NIS()
                 ForkThread(
                     function()
                         WaitSeconds(1)
-                        if(Faction == 'aeon') then
+                        if(LeaderFaction == 'aeon') then
                             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-                        elseif(Faction == 'cybran') then
+                        elseif(LeaderFaction == 'cybran') then
                             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-                        elseif(Faction == 'uef') then
+                        elseif(LeaderFaction == 'uef') then
                             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
                         end
                         ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -475,11 +470,11 @@ function IntroMission1NIS()
     		else
                 ForkThread(sACUFletcherAI, SubCommanderFletcher)
                 ForkThread(sACURhizaAI, SubCommanderRhiza)
-                if(Faction == 'aeon') then
+                if(LeaderFaction == 'aeon') then
                     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-                elseif(Faction == 'cybran') then
+                elseif(LeaderFaction == 'cybran') then
                     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-                elseif(Faction == 'uef') then
+                elseif(LeaderFaction == 'uef') then
                     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
                 end
                 ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -565,7 +560,7 @@ function StartMission1()
         end
     end
 
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M1CybranTechReveal, 35)
     end
         ScenarioFramework.CreateTimerTriggerUnlockCoop(M1CybranTechRevealCoop, 3, 35)
@@ -604,11 +599,11 @@ end
 --------------------------------------------------------------------------------------
 
 function M1Subplot()
-    if(Faction == 'uef' and ScenarioInfo.MissionNumber == 1) then
+    if(LeaderFaction == 'uef' and ScenarioInfo.MissionNumber == 1) then
         ScenarioFramework.Dialogue(OpStrings.X06_M01_070)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X06_M01_080)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X06_M01_090)
     end
 end
@@ -1118,11 +1113,11 @@ function StartMission2()
     M2SeraphimCounterattack()
 
     -- Factional VO, and a sum-up by HQ
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_020)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_030)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_040)
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M02_050)
@@ -1942,11 +1937,11 @@ function StartMission3()
 
     -- Mixed VO exchange, general and faction-specific
     ScenarioFramework.Dialogue(OpStrings.X06_M03_010)
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X06_M03_020)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X06_M03_030)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X06_M03_040)
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M03_050, nil, nil, ScenarioInfo.RhizaACU)
@@ -2636,13 +2631,13 @@ function SetupVedettaTauntTriggers()
     -- On losing defensive structures
     VedettaTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 12)
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         VedettaTM:AddEnemiesKilledTaunt('TAUNT22', ArmyBrains[Order], categories.ALLUNITS, 25)
         VedettaTM:AddEnemiesKilledTaunt('TAUNT23', ArmyBrains[Order], categories.ALLUNITS, 55)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         VedettaTM:AddEnemiesKilledTaunt('TAUNT24', ArmyBrains[Order], categories.ALLUNITS, 25)
         VedettaTM:AddEnemiesKilledTaunt('TAUNT25', ArmyBrains[Order], categories.ALLUNITS, 55)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         VedettaTM:AddEnemiesKilledTaunt('TAUNT26', ArmyBrains[Order], categories.ALLUNITS, 25)
         VedettaTM:AddEnemiesKilledTaunt('TAUNT27', ArmyBrains[Order], categories.ALLUNITS, 55)
     end
@@ -2664,14 +2659,14 @@ function SetupFletcherTauntTriggers()
     FletcherTM:AddEnemiesKilledTaunt('TAUNT48', ArmyBrains[Fletcher], categories.EXPERIMENTAL, 1)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Player], categories.UEF, 40)
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         FletcherTM:AddUnitsKilledTaunt('TAUNT36', ArmyBrains[Fletcher], categories.STRUCTURE * categories.DEFENSE, 2)
         FletcherTM:AddEnemiesKilledTaunt('TAUNT42', ArmyBrains[Fletcher], categories.ALLUNITS, 25)
         FletcherTM:AddEnemiesKilledTaunt('TAUNT43', ArmyBrains[Fletcher], categories.ALLUNITS, 55)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         FletcherTM:AddEnemiesKilledTaunt('TAUNT44', ArmyBrains[Fletcher], categories.ALLUNITS, 25)
         FletcherTM:AddEnemiesKilledTaunt('TAUNT45', ArmyBrains[Fletcher], categories.ALLUNITS, 55)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         FletcherTM:AddEnemiesKilledTaunt('TAUNT46', ArmyBrains[Fletcher], categories.ALLUNITS, 25)
         FletcherTM:AddEnemiesKilledTaunt('TAUNT47', ArmyBrains[Fletcher], categories.ALLUNITS, 55)
     end
@@ -2685,13 +2680,13 @@ function SetupTauTauntTriggers()
     TauTM:AddUnitsKilledTaunt('TAUNT8', ArmyBrains[Seraphim], categories.STRUCTURE * categories.DEFENSE, 25)
     TauTM:AddEnemiesKilledTaunt('TAUNT9', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 20)
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         TauTM:AddEnemiesKilledTaunt('TAUNT10', ArmyBrains[Fletcher], categories.ALLUNITS, 50)
         TauTM:AddEnemiesKilledTaunt('TAUNT11', ArmyBrains[Fletcher], categories.ALLUNITS, 100)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         TauTM:AddEnemiesKilledTaunt('TAUNT12', ArmyBrains[Fletcher], categories.ALLUNITS, 50)
         TauTM:AddEnemiesKilledTaunt('TAUNT13', ArmyBrains[Fletcher], categories.ALLUNITS, 100)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         TauTM:AddEnemiesKilledTaunt('TAUNT14', ArmyBrains[Fletcher], categories.ALLUNITS, 50)
         TauTM:AddEnemiesKilledTaunt('TAUNT15', ArmyBrains[Fletcher], categories.ALLUNITS, 100)
     end
@@ -2723,7 +2718,7 @@ end
 
 function M2P1Reminder2()
     if(ScenarioInfo.M2P1.Active) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X06_M02_101)
         else
             ScenarioFramework.Dialogue(OpStrings.X06_M02_100)
@@ -2747,11 +2742,11 @@ end
 
 function M3P1Reminder1()
     if(ScenarioInfo.M3P1.Active) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_110)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_130)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_150)
         end
         ScenarioFramework.CreateTimerTrigger(M3P1Reminder2, 900)
@@ -2760,11 +2755,11 @@ end
 
 function M3P1Reminder2()
     if(ScenarioInfo.M3P1.Active) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_120)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_140)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X06_M03_160)
         end
         ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 900)

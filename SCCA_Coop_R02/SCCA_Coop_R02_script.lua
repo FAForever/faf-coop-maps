@@ -282,6 +282,7 @@ end
 -- --------------------------------------------------------------------------- #
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetCybranColor(Player)
     ScenarioFramework.SetAeonColor(Aeon)

@@ -65,28 +65,23 @@ local SkipNIS3 = false
 local OumEoshiTM = TauntManager.CreateTauntManager('OumEoshiTM', '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_Strings.lua')
 local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_Strings.lua')
 
+local LeaderFaction
+local LocalFaction
+
 -- -------
 -- Startup
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Army Colors
     ScenarioFramework.SetCoalitionColor(Player)
-	if(Faction == 'cybran') then
+	if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonAllyColor(Player)
     end
     ScenarioFramework.SetCybranAllyColor(Dostya)
@@ -267,11 +262,11 @@ end
 
 function SpawnPlayer()
     WaitSeconds(1.5)
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
     end
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -386,14 +381,14 @@ end
 
 function M1UnitReveal()
     -- tech revea dialogue, engineering station
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X04_M01_012)
         ScenarioFramework.RemoveRestriction(Player, categories.xeb0104) -- UEF Engineering Station 1
         ScenarioFramework.RemoveRestriction(Player, categories.xeb0204) -- UEF Engineering Station 2
     end
     ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb0104) -- UEF Engineering Station 1
     ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb0204) -- UEF Engineering Station 2
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X04_M01_013)
         ScenarioFramework.RemoveRestriction(Player, categories.xrb0104) -- Cybran Engineering Station 1
         ScenarioFramework.RemoveRestriction(Player, categories.xrb0204) -- Cybran Engineering Station 2
@@ -820,7 +815,7 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2OpeningMoreInfoDialogue, 6)
     ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 120)
 
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M2PingEvent, 600)
         ScenarioFramework.CreateTimerTrigger(M2CybranTechReveal, 90)
     end
@@ -1684,13 +1679,13 @@ function StartMission3()
     ScenarioFramework.Dialogue(OpStrings.X04_M03_020)
 
     -- Some faction-specific additional dialogue, with secondaries
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_040)
     end
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_050, M3CybranSecondary)
     end
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_030, M3AeonSecondary)
     end
 
@@ -1719,7 +1714,7 @@ function M3AeonTechRevealTriggerCoop()
 end
 
 function M3AeonTechReveal()
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.RemoveRestriction(Player, categories.xab2307) -- Aeon Rapid Fire Artillery
         ScenarioFramework.Dialogue(OpStrings.X04_M03_056)
     end
@@ -1746,13 +1741,13 @@ end
 
 function M3PreNukeDialogue()
     -- Some faction-specific smack talk just before the nukes are launched
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_090)
     end
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_100)
     end
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X04_M03_110)
     end
 end

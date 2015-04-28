@@ -200,28 +200,17 @@ local M1PlayableArea = ScenarioUtils.AreaToRect('M1_PLAYABLE_AREA')
 local M2PlayableArea = ScenarioUtils.AreaToRect('M2_PLAYABLE_AREA')
 local M3PlayableArea = ScenarioUtils.AreaToRect('M3_PLAYABLE_AREA')
 
-
 -- === STARTUP === #
 
 -- ! Spawn armies: includes all player bases, research facilities, Aeon main base and little nuke bases, City buildings, gate
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
-
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetNeutralColor(City)
-
 
     -- ! Player Bases
     ScenarioInfo.PlayerBase = ScenarioUtils.CreateArmyGroup('Player', 'Player_Main_Base_D'..ScenarioInfo.Difficulty)

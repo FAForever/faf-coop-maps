@@ -75,7 +75,7 @@ local leopardTaunt = 1
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    -- Weather.CreateWeather()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 end
 
 function OnStart(self)

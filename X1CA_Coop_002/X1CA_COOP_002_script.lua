@@ -81,27 +81,22 @@ local CeleneTM = TauntManager.CreateTauntManager('CeleneTM', '/maps/X1CA_Coop_00
 local CeleneM4TM = TauntManager.CreateTauntManager('CeleneM2TM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 
+local LeaderFaction
+local LocalFaction
+
 -- -------
 -- Startup
 -- -------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
     
     -- Army Colors
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player)
     end
     ScenarioFramework.SetAeonEvilColor(Order)
@@ -368,11 +363,11 @@ function IntroNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
     Cinematics.ExitNISMode()
 
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
     end
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
@@ -429,11 +424,11 @@ function IntroMission1()
     end
 
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_020)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_025)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_030)
     end
 
@@ -466,7 +461,7 @@ function StartMission1()
                         num = num + 1
                     end
                 end
-                if(Faction == 'aeon') then
+                if(LeaderFaction == 'aeon') then
                     if(num > 0) then
                         ScenarioFramework.Dialogue(OpStrings.X02_M01_046, M1OrderAttackDefeated)
                     else
@@ -485,10 +480,12 @@ function StartMission1()
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, 300)
     ScenarioFramework.CreateTimerTrigger(M1Subplot, 180)
-    if (Faction == 'aeon') then
-        ScenarioFramework.CreateTimerTrigger(M1AeonTechReveal, 240)
-    end
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M1AeonTechRevealCoop, 2, 240)
+
+    -- Light gunship
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xra0105, "cybran", 105, OpStrings.X02_M01_190)
+
+    -- Sniper bot
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xal0305, "aeon", 240, OpStrings.X02_M01_045)
     
     SetupCeleneM1Taunt()
 end
@@ -516,28 +513,14 @@ function M1OrderAttackDefeated()
     table.insert(AssignedObjectives, ScenarioInfo.M1P2)
 
     ScenarioFramework.CreateTimerTrigger(M1RevealSecondary, 60)
-    if(Faction == 'cybran') then
-        ScenarioFramework.CreateTimerTrigger(M1CybranTechReveal, 105)
-    end
-    
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M1CybranTechRevealCoop, 3, 105)
-    
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xra0105, "cybran", 105, OpStrings.X02_M01_190)
     ScenarioFramework.CreateTimerTrigger(M1P2Reminder1, 2700)
 end
 
-function M1CybranTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M01_190)
-    ScenarioFramework.RemoveRestriction(Player, categories.xra0105) -- Cybran Light Gunship
-end
-
-function M1CybranTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xra0105) -- Cybran Light Gunship
-end
-
 function M1Subplot()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_090, AssignBonus_ConstructShield)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_100)
     end
 end
@@ -573,16 +556,6 @@ function M1AssignSecondary()
     table.insert(AssignedObjectives, ScenarioInfo.M1S1)
     ScenarioFramework.Dialogue(OpStrings.X02_M01_151)
     ScenarioFramework.CreateTimerTrigger(M1S1Reminder1, 1200)
-end
-
-function M1AeonTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M01_045)
-    ScenarioFramework.RemoveRestriction(Player, categories.xal0305) -- Aeon Sniper Bot
-    
-end
-
-function M1AeonTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xal0305) -- Aeon Sniper Bot
 end
 
 function AssignBonus_ConstructShield()
@@ -808,7 +781,7 @@ function IntroMission2()
             ScenarioInfo.Prison:SetCustomName(LOC '{i Loyalist_Prison_Building}')
 
             -- Order Official
-            if(Faction == 'aeon') then
+            if(LeaderFaction == 'aeon') then
                 ScenarioInfo.OrderFacilities = ScenarioUtils.CreateArmyGroup('OrderNeutral', 'M2_Secondary_Facility')
                 for k, v in ScenarioInfo.OrderFacilities do
                     if(v and not v:IsDead()) then
@@ -916,10 +889,10 @@ function StartMission2()
 	
 	ScenarioFramework.Dialogue(OpStrings.X02_M02_190, SecondaryDefendLoyalists)
 
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M2RevealAeonSecondary, 60)
     end
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M2Subplot, 180)
     end
     ScenarioFramework.CreateTimerTrigger(M2NavalAttack, 300)
@@ -927,15 +900,9 @@ function StartMission2()
     SetupCeleneM2Taunt()
     SetupQAIM2Taunt()
 
-    -- tech reveal
-    if(Faction == 'uef') then
-         ScenarioFramework.CreateTimerTrigger(M2UEFTechReveal, 60)
-    elseif(Faction == 'cybran') then
-         ScenarioFramework.CreateTimerTrigger(M2CybranTechReveal, 90)
-    end
-    
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M2UEFTechRevealCoop, 1, 60)
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M2CybranTechRevealCoop, 3, 60)
+    -- Heavy point defense
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xeb2306, "uef", 60, OpStrings.X02_M01_210)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrl0302, "cybran", 90, OpStrings.X02_M01_200)
 end
 
 function SecondaryDefendLoyalists()
@@ -984,26 +951,6 @@ function M2S1Failed()
         ScenarioInfo.M2S1:ManualResult(false)
 		ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
     end
-end
-
-function M2UEFTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M01_210)
-    ScenarioFramework.RemoveRestriction(Player, categories.xeb2306) -- UEF Heavy Point Defense
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb2306) -- UEF Heavy Point Defense
-end
-
-function M2CybranTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M01_200)
-    ScenarioFramework.RemoveRestriction(Player, categories.xrl0302) -- Cybran Mobile Bomb
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0302) -- Cybran Mobile Bomb
-end
-
-function M2UEFTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb2306) -- UEF Heavy Point Defense
-end
-
-function M2CybranTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0302) -- Cybran Mobile Bomb
 end
 
 function M2RevealAeonSecondary()
@@ -1484,7 +1431,7 @@ function IntroMission4()
             -- ---------------
             -- Objective Units
             -- ---------------
-            if(Faction == 'cybran') then
+            if(LeaderFaction == 'cybran') then
                 local units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Sundry')
                 for k, v in units do
                     v:SetDoNotTarget(true)
@@ -1525,7 +1472,7 @@ function IntroMission4()
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.QAICommander)
 
             -- Czar
-            if(Faction == 'aeon') then
+            if(LeaderFaction == 'aeon') then
                 ScenarioInfo.M4Czar = ScenarioUtils.CreateArmyUnit('Order', 'M4_Order_Czar')
                 ScenarioInfo.M4CzarPassengers = {}
                 ScenarioFramework.CreateUnitDeathTrigger(M4CzarDeath, ScenarioInfo.M4Czar)
@@ -1635,24 +1582,18 @@ function StartMission4()
 -- ScenarioFramework.Dialogue(OpStrings.X02_M03_010)
 
     ScenarioFramework.CreateTimerTrigger(M4P1Reminder1, 900)
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(StartM4S2Cybran, 45)
     end
     ScenarioFramework.CreateTimerTrigger(M4Subplot, 180)
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M4PingEventNotification, 300)
     end
     ScenarioFramework.Dialogue(OpStrings.X02_M03_021)
-    -- Tech reveal
-    if (Faction == 'aeon') then
-         ScenarioFramework.CreateTimerTrigger(M3AeonTechReveal, 90)
-    elseif (Faction == 'uef') then
-         ScenarioFramework.CreateTimerTrigger(M4UEFTechReveal, 90)
-    end
-    
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M3AeonTechRevealCoop, 2, 90)
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M4UEFTechRevealCoop, 1, 90)
-    
+
+    -- Resource generator
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xab1401, "aeon", 90, OpStrings.X02_M03_130)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xel0306, "uef", 90, OpStrings.X02_M01_220)
 end
 
 function LaunchOrderNukes()
@@ -1770,31 +1711,10 @@ function M4S2CybranWarning()
     ScenarioFramework.Dialogue(OpStrings.X02_M03_280)
 end
 
-function M3AeonTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M03_130)
-    -- ScenarioFramework.Dialogue(OpStrings.XXXX) TODO: add in HQ version of reveal VO when it is avail.
-    ScenarioFramework.RemoveRestriction(Player, categories.xab1401) -- Aeon Quantum Resource Generator
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xab1401) -- Aeon Quantum Resource Generator
-end
-
-function M4UEFTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X02_M01_220)
-    ScenarioFramework.RemoveRestriction(Player, categories.xel0306) -- UEF Mobile Missile Platform
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xel0306) -- UEF Mobile Missile Platform
-end
-
-function M3AeonTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xab1401) -- Aeon Quantum Resource Generator
-end
-
-function M4UEFTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xel0306) -- UEF Mobile Missile Platform
-end
-
 function M4Subplot()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X02_M03_240)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X02_M03_250)
     end
 end
@@ -1860,7 +1780,7 @@ end
 function SetupCeleneM1Taunt()
     CeleneTM:AddEnemiesKilledTaunt('TAUNT8', ArmyBrains[Order], categories.MOBILE, 60)              -- Order destroys 60 mobile units
     CeleneTM:AddDamageTaunt('TAUNT13', ScenarioInfo.PlayerCDR, .15)                                 -- Player CDR is reduced to 90% health
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         CeleneTM:AddEnemiesKilledTaunt('X02_M01_060', ArmyBrains[Order], categories.STRUCTURE, 10)  -- Order destroyes 10 structures
     end
 end
@@ -1874,13 +1794,13 @@ function SetupCeleneM2Taunt()
     CeleneTM:AddUnitsKilledTaunt('TAUNT11', ArmyBrains[Order], categories.STRUCTURE, 18)            -- Order loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Loyalist], categories.STRUCTURE, 2)           -- Loyalist lose a structure, tuant relating to them
 
-    if(Faction == 'uef') then                                        -- factional taunt when bit of Order base is destroyed
+    if(LeaderFaction == 'uef') then                                        -- factional taunt when bit of Order base is destroyed
         CeleneTM:AddUnitKilledTaunt('TAUNT14', ScenarioInfo.UnitNames[Order]['M2_Order_TauntUnit'])
         CeleneTM:AddUnitsKilledTaunt('X02_M01_050', ArmyBrains[Order], categories.STRUCTURE * categories.TECH3, 2)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         CeleneTM:AddUnitKilledTaunt('TAUNT15', ScenarioInfo.UnitNames[Order]['M2_Order_TauntUnit'])
         CeleneTM:AddUnitsKilledTaunt('TAUNT16', ArmyBrains[Order], categories.STRUCTURE * categories.TECH3, 2)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         CeleneTM:AddUnitKilledTaunt('TAUNT17', ScenarioInfo.UnitNames[Order]['M2_Order_TauntUnit'])
         CeleneTM:AddUnitsKilledTaunt('TAUNT18', ArmyBrains[Order], categories.STRUCTURE * categories.TECH3, 2)
     end
@@ -1897,9 +1817,9 @@ end
 function SetupQAIM2Taunt()
     QAITM:AddUnitsKilledTaunt('TAUNT27', ArmyBrains[QAI], categories.STRUCTURE, 3)                  -- QAI loses some structures
 
-    if(Faction == 'cybran') then                                     -- faction specific taunts, player loses some good stuff
+    if(LeaderFaction == 'cybran') then                                     -- faction specific taunts, player loses some good stuff
         QAITM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[Player], categories.MOBILE * categories.TECH3, 15)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         QAITM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player], categories.MOBILE * categories.TECH3, 15)
     end
 end
@@ -1908,11 +1828,11 @@ function SetupQAIM4Taunt()
     QAITM:AddAreaTaunt('TAUNT28', 'M1_Playable_Area', categories.ALLUNITS, ArmyBrains[QAI], 10)     -- QAI gets substantively into M1 area
     QAITM:AddDamageTaunt('TAUNT29', ScenarioInfo.PlayerCDR, .02)                                    -- Player CDR is touched
 
-    if(Faction == 'uef') then                                        -- faction specific taunts, player gets hit a bit
+    if(LeaderFaction == 'uef') then                                        -- faction specific taunts, player gets hit a bit
         QAITM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player], categories.STRUCTURE, 4)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         QAITM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[Player], categories.STRUCTURE, 4)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         QAITM:AddUnitsKilledTaunt('TAUNT34', ArmyBrains[Player], categories.STRUCTURE, 4)
     end
     QAITM:AddDamageTaunt('TAUNT35', ScenarioInfo.QAICommander, .20)

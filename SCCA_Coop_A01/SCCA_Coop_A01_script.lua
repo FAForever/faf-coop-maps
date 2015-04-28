@@ -87,21 +87,17 @@ ScenarioInfo.VarTable['M7_BeginNavalBuild'] = false
 
 local M3P1_BuildBoatValue     = 3  -- number Attack Boats to build for m3p1 objective
 
+local LeaderFaction
+local LocalFaction
+
 -- --------------------
 -- Starter Functions
 -- --------------------
 
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
     M1_UnitsForStart()
 
     -- Player only gets score
@@ -111,7 +107,6 @@ function OnPopulate(scenario)
             SetIgnorePlayableRect(i, true)
         end
     end
-
 end
 
 function OnStart(self)

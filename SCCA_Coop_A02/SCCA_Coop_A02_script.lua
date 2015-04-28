@@ -197,21 +197,14 @@ local M3DialogDelay2 = 300
 local M3DialogDelay3 = 480
 local M3DialogDelay4 = 960
 
+local LeaderFaction
+local LocalFaction
 
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     -- Initial Unit Creation
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
-    -- Weather.CreateWeather()
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 end
 
 function OnStart(self)

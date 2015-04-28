@@ -74,27 +74,23 @@ local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_005/X1CA
 local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
 local BrackmanTM = TauntManager.CreateTauntManager('BrackmanTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
 local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
+
+local LeaderFaction
+local LocalFaction
+
 -- -------
 -- Startup
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Army Colors
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player)
     end
     ScenarioFramework.SetUEFAlly1Color(Fletcher)
@@ -310,11 +306,11 @@ function IntroMission1NIS()
        )
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 4)
 
-        if(Faction == 'aeon') then
+        if(LeaderFaction == 'aeon') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-        elseif(Faction == 'uef') then
+        elseif(LeaderFaction == 'uef') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
         end
 
@@ -355,11 +351,11 @@ function IntroMission1NIS()
     else
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 0)
 
-        if(Faction == 'aeon') then
+        if(LeaderFaction == 'aeon') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-        elseif(Faction == 'uef') then
+        elseif(LeaderFaction == 'uef') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
         end
 
@@ -541,11 +537,11 @@ function AssignM1S2()
     ScenarioInfo.M1S2:AddResultCallback(
         function(result)
             if(result) then
-                if(Faction == 'uef') then
+                if(LeaderFaction == 'uef') then
                     ScenarioFramework.Dialogue(OpStrings.X05_M01_180)
-                elseif(Faction == 'cybran') then
+                elseif(LeaderFaction == 'cybran') then
                     ScenarioFramework.Dialogue(OpStrings.X05_M01_180)
-                elseif(Faction == 'aeon') then
+                elseif(LeaderFaction == 'aeon') then
                     if(ScenarioInfo.MissionNumber == 3) then
                         ScenarioFramework.Dialogue(OpStrings.X05_M01_180)
                     else
@@ -557,7 +553,7 @@ function AssignM1S2()
                 -- Create Amalia, dialogue triggers for her getting damaged (12 percent), and killed
                 ScenarioInfo.Amalia = ScenarioUtils.CreateArmyUnit('Player', 'Rescued_sCDR')
                 ScenarioInfo.Amalia:SetCustomName(LOC '{i Amalia}')
-                if(Faction == 'aeon') then
+                if(LeaderFaction == 'aeon') then
                     -- to support the Aeon subplot, play some damage related dialogue from her.
                     ScenarioFramework.CreateUnitDamagedTrigger(AmaliaDamaged, ScenarioInfo.Amalia, .02)
                     ScenarioFramework.CreateUnitDamagedTrigger(AmaliaDamaged2, ScenarioInfo.Amalia, .90)
@@ -571,11 +567,11 @@ function AssignM1S2()
 end
 
 function M1SubPlotDialogue()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_110)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_120)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_130)
     end
 end
@@ -803,11 +799,11 @@ function IntroMission2NIS()
         WaitSeconds(1)
 
         -- Play faction appropriate dialogue from Fletcher
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X05_M01_040, nil, true)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X05_M01_050, nil, true)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X05_M01_060, nil, true)
         end
 
@@ -1295,9 +1291,9 @@ function M2FletcherSpyPlane()
 end
 
 function M2SubplotDialogue()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X05_M02_090)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X05_M02_100)
     end
 end
@@ -1324,13 +1320,13 @@ function KillOrder()
 end
 
 function M2TechReveal()
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_210)
         ScenarioFramework.RemoveRestriction(Player, categories.xaa0305, false)      -- T3 aa gunship
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_200)
         ScenarioFramework.RemoveRestriction(Player, categories.xea0306, false)      -- t3 xport
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_220)
         ScenarioFramework.RemoveRestriction(Player, categories.xra0305, false)      -- t3 gunship
     end
@@ -1478,7 +1474,7 @@ function IntroMission3()
             -- ------------------------------
             -- Aeon Secondary Objective Units
             -- ------------------------------
-            if(Faction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
+            if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
                 ScenarioUtils.CreateArmyGroup('Order', 'M3_Order_ResearchBase_D' .. Difficulty)
                 local units = ScenarioUtils.CreateArmyGroup('Order', 'M3_Order_NonObjective_Buildings')
                 for k,v in units do
@@ -1921,7 +1917,7 @@ function StartMission3()
    )
     table.insert(AssignedObjectives, ScenarioInfo.M3P2)
 
-    if(Faction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
+    if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
         -- -----------------------------------------------------
         -- Secondary Objective 1 Aeon - Capture Science Building
         -- -----------------------------------------------------
@@ -1963,7 +1959,7 @@ function StartMission3()
 end
 
 function M3UnlockOrbitalLaser()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X05_M02_012)
         ScenarioFramework.RemoveRestriction(Player, categories.xeb2402, false) -- Sub-orbital defense
     end
@@ -2014,7 +2010,7 @@ function M3QAIExperSpotted()
 end
 
 function M3Subplot()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X05_M03_270)
     end
 end
@@ -2287,11 +2283,11 @@ function SetupM2Taunts()
     Hex5TM:AddUnitGroupDeathPercentTaunt('X05_M02_130', structures, .50)
     Hex5TM:AddUnitGroupDeathPercentTaunt('X05_M02_140', structures, .75)
 
-    if (Faction == 'uef') then
+    if (LeaderFaction == 'uef') then
         FletcherTM:AddDamageTaunt('X05_M02_310', ScenarioInfo.FletcherCDR, .1) -- UEF
-    elseif (Faction == 'aeon') then
+    elseif (LeaderFaction == 'aeon') then
         FletcherTM:AddDamageTaunt('X05_M02_300', ScenarioInfo.FletcherCDR, .1) -- Aeon
-    elseif (Faction == 'cybran') then
+    elseif (LeaderFaction == 'cybran') then
         FletcherTM:AddDamageTaunt('X05_M02_320', ScenarioInfo.FletcherCDR, .1) -- Cybran
     end
     FletcherTM:AddUnitsKilledTaunt('X05_M02_340', ArmyBrains[Fletcher], categories.ueb1301, 1)

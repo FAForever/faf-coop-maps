@@ -57,7 +57,7 @@ local SubsequentTime = 600
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    -- Weather.CreateWeather()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     SpawnPlayer()
     SpawnUEF()

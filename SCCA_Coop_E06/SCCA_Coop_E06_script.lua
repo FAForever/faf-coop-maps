@@ -136,15 +136,7 @@ end
 
 function OnPopulate(scen)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetUEFAllyColor(BlackSun)
@@ -157,9 +149,6 @@ function OnPopulate(scen)
             SetArmyShowScore(i, false)
             SetIgnorePlayableRect(i, true)
         end
-    end
-
-    for i=2,table.getn(ArmyBrains) do
     end
 
     -- Player Army

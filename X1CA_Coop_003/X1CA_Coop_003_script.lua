@@ -78,27 +78,22 @@ local PrincWestTM = TauntManager.CreateTauntManager('PrincWestTM', '/maps/X1CA_C
 local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
 local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
 
+local LeaderFaction
+local LocalFaction
+
 -- -------
 -- Startup
 -- -------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Army Colors
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonAllyColor(Player)
     end
     ScenarioFramework.SetSeraphimColor(Seraphim)
@@ -445,13 +440,13 @@ function IntroNIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
         WaitSeconds(0.5)
 
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_020, nil, true)
             ScenarioFramework.Dialogue(OpStrings.X03_M01_021, nil, true)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_030, nil, true)
             ScenarioFramework.Dialogue(OpStrings.X03_M01_031, nil, true)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_040, nil, true)
             ScenarioFramework.Dialogue(OpStrings.X03_M01_041, nil, true)
         end
@@ -475,11 +470,11 @@ function IntroNIS()
         WaitSeconds(1.5)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
 
-        if(Faction == 'aeon') then
+        if(LeaderFaction == 'aeon') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(Faction == 'uef') then
+        elseif(LeaderFaction == 'uef') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
         end
 
@@ -514,11 +509,11 @@ function IntroNIS()
 
         WaitSeconds(2)
 
-        if(Faction == 'aeon') then
+        if(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_042, nil, true)
-        elseif(Faction == 'uef') then
+        elseif(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_022, nil, true)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X03_M01_032, nil, true)
         end
 
@@ -541,11 +536,11 @@ function IntroNIS()
 
         Cinematics.ExitNISMode()
     else
-        if(Faction == 'aeon') then
+        if(LeaderFaction == 'aeon') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(Faction == 'uef') then
+        elseif(LeaderFaction == 'uef') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
         end
 
@@ -586,11 +581,11 @@ end
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_050, StartMission1)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_050, StartMission1)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_060, StartMission1)
     end
 end
@@ -621,7 +616,8 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, 1080)
 
     ScenarioFramework.CreateTimerTrigger(M1Crystals, 120)
-    ScenarioFramework.CreateTimerTrigger(M1TechReveal, 140)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xes0205, "uef", 140, OpStrings.X03_M01_067)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrb2308, "cybran", 140, OpStrings.X03_M01_066)
     ScenarioFramework.CreateTimerTrigger(M1Subplot1, 300)
     ScenarioFramework.CreateTimerTrigger(M1Subplot2, 600)
 
@@ -726,26 +722,12 @@ function M1Crystals()
     ScenarioFramework.Dialogue(OpStrings.X03_M01_064)
 end
 
-function M1TechReveal()
-    if (Faction == 'uef') then
-        -- unlock shield boats for UEF player
-        ScenarioFramework.Dialogue(OpStrings.X03_M01_067)
-        ScenarioFramework.RemoveRestriction(Player, categories.xes0205) -- UEF Shield Boat
-    elseif (Faction == 'cybran') then
-        -- unlock HARMS for cybran player
-        ScenarioFramework.Dialogue(OpStrings.X03_M01_066)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrb2308) -- Cybran Torpedo Ambushing System
-    end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0205) -- UEF Shield Boat
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb2308) -- Cybran Torpedo Ambushing System
-end
-
 function M1Subplot1()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_070)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_080)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_090)
     end
 end
@@ -884,7 +866,7 @@ function IntroMission2()
             -- --------------
             -- Aeon Secondary
             -- --------------
-            if(Faction == 'aeon') then
+            if(LeaderFaction == 'aeon') then
                 units = ScenarioUtils.CreateArmyGroup('Princess', 'M2_Priest_Base')
                 for k, v in units do
                     v:SetDoNotTarget(true)
@@ -1142,10 +1124,10 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2OpticalPingNotification, 240)
     ScenarioFramework.CreateTimerTrigger(M2Subplot, 410)
 
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M2RevealAeonSecondary, 300)
     end
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_011)
         ScenarioFramework.RemoveRestriction(Player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
     end
@@ -1266,13 +1248,13 @@ end
 
 function M2TechReveal()
     -- antisub stuff for player
-    if (Faction == 'uef') then
+    if (LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_022)
         ScenarioFramework.RemoveRestriction(Player, categories.xes0102) -- UEF Torpedo Boat
-    elseif (Faction == 'cybran') then
+    elseif (LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_023)
         ScenarioFramework.RemoveRestriction(Player, categories.xrs0204) -- Cybran Sub Killer
-    elseif (Faction == 'aeon') then
+    elseif (LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_024)
         ScenarioFramework.RemoveRestriction(Player, categories.xas0204) -- Aeon Submarine Hunter
     end
@@ -1483,9 +1465,9 @@ function PriestReward(location)
 end
 
 function M2Subplot()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_116)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_117)
     end
 end
@@ -1741,7 +1723,7 @@ function StartMission3()
 
     ScenarioFramework.CreateTimerTrigger(M3Crystals, 50)
 
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M3Subplot, 300)
     end
 
@@ -1784,10 +1766,10 @@ function NorthACUDestroyed()
 end
 
 function M3TechReveal()
-    if (Faction == 'uef') then
+    if (LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_220)           -- UEF Battlecruiser
         ScenarioFramework.RemoveRestriction(Player, categories.xes0307)
-    elseif (Faction == 'aeon') then
+    elseif (LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M02_230)           -- Aeon Missile Ship
         ScenarioFramework.RemoveRestriction(Player, categories.xas0306)
     end
@@ -1839,9 +1821,9 @@ function M3PrincessWarning6()
 end
 
 function M3Crystals()
-    if(Faction == 'cybran' or Faction == 'uef') then
+    if(LeaderFaction == 'cybran' or LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X03_M03_020)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X03_M03_025)
         ScenarioFramework.RemoveRestriction(Player, categories.xab3301) -- Aeon Quantum Optics Device
     end
@@ -2023,22 +2005,22 @@ end
 function SetupNorthM3Taunts()
     ZanNorthTM:AddDamageTaunt('TAUNT22', ScenarioInfo.PlayerCDR, .02)
     ZanNorthTM:AddStartBuildTaunt('TAUNT31', ArmyBrains[Player], categories.EXPERIMENTAL, 1 )
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ZanNorthTM:AddUnitsKilledTaunt('TAUNT25', ArmyBrains[Player], categories.STRUCTURE, 7)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ZanNorthTM:AddUnitsKilledTaunt('TAUNT27', ArmyBrains[Player], categories.STRUCTURE, 7)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ZanNorthTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Player], categories.STRUCTURE, 7)
     end
 end
 
 function SetupWestM3Taunts()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ThelWestTM:AddUnitsKilledTaunt('TAUNT24', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
         ThelWestTM:AddUnitsKilledTaunt('TAUNT26', ArmyBrains[Player], categories.TECH3, 2)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ThelWestTM:AddUnitsKilledTaunt('TAUNT28', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ThelWestTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
     end
     ThelWestTM:AddUnitsKilledTaunt('TAUNT23', ArmyBrains[Seraphim], categories.FACTORY * categories.NAVAL, 3)

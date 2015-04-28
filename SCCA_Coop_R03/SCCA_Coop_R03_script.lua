@@ -203,6 +203,7 @@ end
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetCybranColor(Player)
     ScenarioFramework.SetUEFColor(UEF)

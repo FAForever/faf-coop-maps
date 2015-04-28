@@ -127,6 +127,7 @@ ScenarioInfo.OperationEnding        = false
 
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioFramework.GetLeaderAndLocalFactions()
     M1UnitsForStart()
 
     -- Player only gets score

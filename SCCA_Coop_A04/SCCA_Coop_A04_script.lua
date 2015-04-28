@@ -117,21 +117,12 @@ local M2DestroyerTimer = 380
 local M2AttackSevenTimer = 600
 local M2AttackEightTimer = 700
 
-
-
-
+local LeaderFaction
+local LocalFaction
 
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetAeonColor(Player)
     ScenarioFramework.SetCybranColor(Cybran)

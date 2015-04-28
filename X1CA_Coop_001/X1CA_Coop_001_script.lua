@@ -255,9 +255,7 @@ local RequiredTrucks = {6, 6, 6}
 -- -------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    local leaderFactionIndex = GetArmyBrain('Player'):GetFactionIndex()
-    LeaderFaction = FactionData.Factions[leaderFactionIndex].Key
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Build the faction-specific voiceover table.
     VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
@@ -961,9 +959,9 @@ function M1TechReveal()
         ScenarioFramework.RemoveRestriction(Player, categories.xal0203) -- xal0203 Blaze assault tank
     end
 
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xel0305)
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0305)
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xal0203)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xel0305)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrl0305)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xal0203)
 end
 
 function M1FirstBaseDestroyed()

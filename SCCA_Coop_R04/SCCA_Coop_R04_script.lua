@@ -266,7 +266,7 @@ local AeonM3NEPatrolNaval01Route = {
 function OnPopulate(scenario)
     -- Initial Unit Creation
     ScenarioUtils.InitializeScenarioArmies()
-    -- Weather.CreateWeather()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Add in the base locations for the PBM
     ArmyBrains[Aeon]:PBMAddBuildLocation( ScenarioUtils.MarkerToPosition( 'Aeon_Base_M1_Naval' ), 40, 'Aeon_Base_M1_Naval' )

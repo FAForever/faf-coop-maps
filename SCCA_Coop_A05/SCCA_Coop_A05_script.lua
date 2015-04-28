@@ -120,21 +120,13 @@ local M3ColWaitD1 = 600
 local M3ColWaitD2 = 420
 local M3ColWaitD3 = 60
 
-
-
+local LeaderFaction
+local LocalFaction
 
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
     ScenarioFramework.SetAeonColor(Player)

@@ -114,6 +114,7 @@ local M3P1_BomberBuildValue         = 5   -- number of bombers the player is to 
 
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Player only gets score
     for i = 2, table.getn(ArmyBrains) do
@@ -125,8 +126,6 @@ function OnPopulate(scenario)
 
     -- -- Add initial groups here
     M1UnitsForStart()
-    local Weather = import('/lua/weather.lua')
-    -- Weather.CreateWeather()
 end
 
 function M1UnitsForStart()

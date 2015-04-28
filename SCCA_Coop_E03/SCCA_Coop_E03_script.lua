@@ -57,6 +57,7 @@ end
 
 function OnPopulate(scenario)
  	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Player Base
     local units = ScenarioUtils.CreateArmyGroup('Player', 'StartingUnits')
