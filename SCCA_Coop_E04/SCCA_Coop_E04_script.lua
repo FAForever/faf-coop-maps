@@ -482,33 +482,18 @@ function M1Success()
     -- StartMission2()
 end
 
-
-
 -- === Mission 2 Functions === #
 function StartMission2()
-
     ScenarioInfo.MissionNumber = 2
-
-    -- print('Mission 2 Start')
-
-
     ScenarioFramework.Dialogue(OpStrings.E04_M02_010)
 
     -- Setting Playable area
     ScenarioFramework.SetPlayableArea(ScenarioUtils.AreaToRect('M2_Playable_Area'))
 
-    ScenarioFramework.PlayUnlockDialogue()
-    -- unlock Air superiority fighters
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uea0303 +
-                                                      categories.ura0303 )
-    end
-
-    -- unlock TML's
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2108 +
-                                                      categories.urb2108 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uea0303 + categories.ura0303 +  -- ASFs
+        categories.ueb2108 + categories.urb2108    -- TMLs
+    )
 
     ScenarioInfo.CybranCDR = ScenarioUtils.CreateArmyUnit('Cybran', 'Commander')
     ScenarioInfo.CybranCDR:SetCustomName(LOC '{i CDR_Gauge}')
@@ -720,34 +705,25 @@ end
 
 function M2OnLAITimer()
     -- unlock T2 artillary
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2303 + categories.urb2303)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb2303 + categories.urb2303)
     ScenarioFramework.Dialogue(OpStrings.E04_M02_040)
-    ScenarioFramework.PlayUnlockDialogue()
     M2RandomTaunt()
-
 end
 
 function M2OnSheildsTimer()
     -- unlock T2 shields
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb4202 + categories.urb4202)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb4202 + categories.urb4202)
     ScenarioFramework.Dialogue(OpStrings.E04_M02_020)
-    ScenarioFramework.PlayUnlockDialogue()
     M2RandomTaunt()
 
 end
 
 function M2OnAMDTimer()
     -- unlock T2 anti-missle defense
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb4201 + categories.urb4201)
-    end
-    if (not Objectives.IsComplete(ScenarioInfo.M2P3)) then
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb4201 + categories.urb4201)
+
+    if not Objectives.IsComplete(ScenarioInfo.M2P3) then
         ScenarioFramework.Dialogue(OpStrings.E04_M02_050)
-        ScenarioFramework.PlayUnlockDialogue()
         M2RandomTaunt()
     end
 end
@@ -902,35 +878,20 @@ end
 -- === Mission 3 Functions === #
 
 function StartMission3()
-
     ScenarioInfo.MissionNumber = 3
-
     SetArmyUnitCap ('Player', 500)
-    LOG('debugMatt:Mission 3 Start')
 
     -- Setting Playable area
     -- In this mission, we dont resize until the player builds 3 towers
 
     ScenarioFramework.Dialogue(OpStrings.E04_M03_010)
 
-    ScenarioFramework.PlayUnlockDialogue()
-
     -- unlock Strategic Bombers
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uea0304 + categories.ura0304)
-    end
-
-    -- unlock T2 transports
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uea0104 + categories.ura0104)
-    end
-
-    -- unlock Radar Jammer
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb4203 + categories.urb4203)
-    end
-
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uea0304 + categories.ura0304 +  -- Strategic bombers
+        categories.uea0104 + categories.ura0104 +  -- T2 transports
+        categories.ueb4203 + categories.urb4203    -- Radar jammer
+    )
 
     objGroup3 = Objectives.CreateGroup('Mission3',PlayerWin,3)
     objGroup3s = Objectives.CreateGroup('Mission3 Secondary',function() LOG('Seconday complete') end)

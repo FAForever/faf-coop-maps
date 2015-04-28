@@ -951,14 +951,8 @@ end
 function M1TechReveal()
     -- tech reveal dialogue, siege bots
     ScenarioFramework.Dialogue(VoiceOvers.SiegeBotReveal)
-    if LeaderFaction == 'uef' then
-        ScenarioFramework.RemoveRestriction(Player, categories.xel0305) -- xel0305 Percival
-    elseif LeaderFaction == 'cybran' then
-        ScenarioFramework.RemoveRestriction(Player, categories.xrl0305) -- xrl0305 Bricks
-    elseif LeaderFaction == 'aeon' then
-        ScenarioFramework.RemoveRestriction(Player, categories.xal0203) -- xal0203 Blaze assault tank
-    end
 
+    -- Unlock Percival, Bricks, and Blaze assault tank
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xel0305)
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrl0305)
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.xal0203)
@@ -1404,17 +1398,7 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(OrderSecondaryAttack4, 60)
 
     -- Tech unlock, Aeon t2 fighter
-    ScenarioFramework.CreateTimerTrigger(AeonM2TechReveal, 45)
-end
-
-function AeonM2TechReveal()
-    -- Only play the voice-over if the player is Aeon.
-    if LeaderFaction == 'aeon' then
-        ScenarioFramework.Dialogue(VoiceOvers.T2FighterUnlocked)
-    end
-
-    -- Remove the restriction from everyone, however, in case they were given Aeon tech.
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xaa0202) -- Aeon Mid Range fighter (Swift Wind)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xaa0202, "aeon", 45, VoiceOvers.T2FighterUnlocked)
 end
 
 --- Called when one of the civilian buildings you must defend in the main settlement is destroyed.

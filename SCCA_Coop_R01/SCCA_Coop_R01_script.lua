@@ -1546,9 +1546,8 @@ function BuildCategories1()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.ALLUNITS)
     end
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb1103) -- Mass
-    end
+
+    ScenarioFramework.RemoveRestrictionForAllHumans(player, categories.urb1103) -- Mass
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering', -- 1
                                             'CloakingGenerator',
                                             'CoolingUpgrade',
@@ -1561,79 +1560,68 @@ function BuildCategories1()
 end
 
 function BuildCategories1b()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb1101) -- Power Gen
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.urb1101) -- Power Gen
 end
 
 function BuildCategories2()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb0102 + -- Air factory
-                                         categories.urb5101 ) -- Wall Piece
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb0102 + -- Air factory
+        categories.urb5101   -- Wall Piece
+    )
 end
 
 function BuildCategories3()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ura0101 + -- Scout
-                                         categories.ura0103 + -- Bomber
-                                         categories.url0105 )  -- Engineer
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ura0101 + -- Scout
+        categories.ura0103 + -- Bomber
+        categories.url0105   -- Engineer
+    )
 end
 
 function BuildCategories4()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ura0102 + -- Interceptor
-                                         categories.urb3101 ) -- T1 Radar
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ura0102 + -- Interceptor
+        categories.urb3101   -- T1 Radar
+    )
 end
 
 function BuildCategories4b()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb2104) -- For Hard difficulty, unlock AA turrets earlier
-    end
+    -- For Hard difficulty, unlock AA turrets earlier
+    ScenarioFramework.RemoveRestrictionForAllHumans(player, categories.urb2104)
 end
 
 function BuildCategories5()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player,
-             categories.uea0101 + categories.uea0102 + categories.uea0103 + categories.uel0105 +
-             categories.ura0101 + categories.ura0102 + categories.ura0103 + categories.url0105 +
-             categories.uaa0101 + categories.uaa0102 + categories.uaa0103 + categories.ual0105 +
-     
-             categories.ueb2101 + categories.ueb1101 + categories.ueb1103 + categories.ueb3101 +
-             categories.urb2101 + categories.urb1101 + categories.urb1103 + categories.urb3101 +
-             categories.uab2101 + categories.uab1101 + categories.uab1103 + categories.uab3101 +
-     
-             categories.ueb5101 + categories.ueb2104 +
-             categories.urb5101 + categories.urb2104 +
-             categories.uab5101 + categories.uab2104 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uea0101 + categories.uea0102 + categories.uea0103 + categories.uel0105 +
+        categories.ura0101 + categories.ura0102 + categories.ura0103 + categories.url0105 +
+        categories.uaa0101 + categories.uaa0102 + categories.uaa0103 + categories.ual0105 +
+
+        categories.ueb2101 + categories.ueb1101 + categories.ueb1103 + categories.ueb3101 +
+        categories.urb2101 + categories.urb1101 + categories.urb1103 + categories.urb3101 +
+        categories.uab2101 + categories.uab1101 + categories.uab1103 + categories.uab3101 +
+
+        categories.ueb5101 + categories.ueb2104 +
+        categories.urb5101 + categories.urb2104 +
+        categories.uab5101 + categories.uab2104
+    )
 end
 
 function BuildCategories6()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player,
-             categories.urb0101 + categories.ueb0101 + categories.uab0101 + categories.ueb0102 +
-             categories.uel0101 + categories.uel0106 + categories.uel0103 + categories.uel0104 +
-             categories.url0101 + categories.url0106 + categories.url0103 + categories.url0104 +
-             categories.ual0101 + categories.ual0106 + categories.ual0103 + categories.ual0104 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb0101 + categories.ueb0101 + categories.uab0101 + categories.ueb0102 +
+        categories.uel0101 + categories.uel0106 + categories.uel0103 + categories.uel0104 +
+        categories.url0101 + categories.url0106 + categories.url0103 + categories.url0104 +
+        categories.ual0101 + categories.ual0106 + categories.ual0103 + categories.ual0104
+    )
 end
 
 function BuildCategories7()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uea0107 +
-                                         categories.ura0107 +
-                                         categories.uaa0107 +
-                                         categories.url0107 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uea0107 +
+        categories.ura0107 +
+        categories.uaa0107 +
+        categories.url0107
+    )
 end
 
 function BuildCategoriesFinal()

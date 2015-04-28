@@ -560,10 +560,9 @@ function StartMission1()
         end
     end
 
-    if(LeaderFaction == 'cybran') then
-        ScenarioFramework.CreateTimerTrigger(M1CybranTechReveal, 35)
-    end
-        ScenarioFramework.CreateTimerTriggerUnlockCoop(M1CybranTechRevealCoop, 3, 35)
+    -- Cybran megabot.
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrl0403, "cybran", 35, OpStrings.X06_M01_110)
+
     ScenarioFramework.CreateTimerTrigger(M1Subplot, 360)
     if(Difficulty > 1) then
         ScenarioFramework.CreateArmyStatTrigger(M1ExperimentalBuilt, ArmyBrains[Player], 'M1ExperimentalBuilt',
@@ -572,16 +571,6 @@ function StartMission1()
     ScenarioFramework.Dialogue(OpStrings.X06_M01_120)
 
     ScenarioFramework.CreateTimerTrigger(RhizaNavalStrikeForces, 300)
-end
-
-function M1CybranTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X06_M01_110)
-    ScenarioFramework.RemoveRestriction(Player, categories.xrl0403) -- Cybran Amphibious Mega Bot
-end
-
-function M1CybranTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrl0403) -- Cybran Amphibious Mega Bot
-
 end
 
 --------------------------------------------------------------------------------------

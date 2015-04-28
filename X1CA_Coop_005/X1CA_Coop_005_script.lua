@@ -1188,7 +1188,12 @@ function StartMission2()
 
     -- subplot, tech reveal, warning, taunts
     ScenarioFramework.CreateTimerTrigger(M2SubplotDialogue, 600)
-    ScenarioFramework.CreateTimerTrigger(M2TechReveal, 120)
+
+    -- T3 aa gunship, T3 xport, t3 gunship.
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xaa0305, "aeon", 120, OpStrings.X05_M01_210)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xea0306, "uef", 120, OpStrings.X05_M01_200)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xra0305, "cybran", 120, OpStrings.X05_M01_220)
+
     if ScenarioInfo.M2SpiderbotSpawned == true then
         -- If we spawned in spiderbots for counterattack, play some VO warning
         ScenarioFramework.CreateTimerTrigger(M2CounterSpiderebotWarning, 10)
@@ -1317,22 +1322,6 @@ function KillOrder()
             v:Kill()
         end
     end
-end
-
-function M2TechReveal()
-    if(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_210)
-        ScenarioFramework.RemoveRestriction(Player, categories.xaa0305, false)      -- T3 aa gunship
-    elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_200)
-        ScenarioFramework.RemoveRestriction(Player, categories.xea0306, false)      -- t3 xport
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_220)
-        ScenarioFramework.RemoveRestriction(Player, categories.xra0305, false)      -- t3 gunship
-    end
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xaa0305, false)      -- T3 aa gunship
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xea0306, false)      -- t3 xport
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xra0305, false)      -- t3 gunship
 end
 
 -- ---------
@@ -1953,17 +1942,11 @@ function StartMission3()
     ScenarioFramework.CreateUnitDamagedTrigger(M2BrackmanTakingDamage1, ScenarioInfo.BrackmanCrab, .01)  -- guanranteed first-damaged warning
 
     SetupM3Taunts()
-    ScenarioFramework.CreateTimerTrigger(M3UnlockOrbitalLaser, 120)
+
+    -- Unlock novax after 2 minutes.
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xeb2402, "uef", 120, OpStrings.X05_M02_012)
 
     ForkThread(CheatEconomy, QAI)
-end
-
-function M3UnlockOrbitalLaser()
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M02_012)
-        ScenarioFramework.RemoveRestriction(Player, categories.xeb2402, false) -- Sub-orbital defense
-    end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb2402, false) -- Sub-orbital defense
 end
 
 function M3S1Failed()

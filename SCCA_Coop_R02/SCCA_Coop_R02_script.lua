@@ -698,10 +698,7 @@ function M1GiveTech()
     -- Heavy Tank and Mobile Flak
     -- T2 Land Factory
     -- T2 Land Defense and T2 Anti-Air Defense
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M1CybranLandTechAllowance +
-                                         M1CybranBuildingTechAllowance )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(M1CybranLandTechAllowance + M1CybranBuildingTechAllowance )
 
     ScenarioFramework.RemoveRestriction(CybranJanus, M1CybranLandTechAllowance +
                                           M1CybranBuildingTechAllowance)
@@ -1869,9 +1866,7 @@ end
 function M2GiveTech()
     -- T2 Engineer
     -- T2 Anti-Air and Point Defense
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M2CybranLandTechAllowance + M2CybranBuildingTechAllowance)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(M2CybranLandTechAllowance + M2CybranBuildingTechAllowance)
     ScenarioFramework.RemoveRestriction(CybranJanus, M2CybranLandTechAllowance + M2CybranBuildingTechAllowance)
     ScenarioFramework.RemoveRestriction(Aeon, M2AeonLandTechAllowance + M2AeonBuildingTechAllowance)
 
@@ -2306,9 +2301,7 @@ end
 
 function M3GiveTech()
     -- T2 Land Factory can build the Mobile Missile Launcher
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M3CybranLandTechAllowance)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(M3CybranLandTechAllowance)
     ScenarioFramework.RemoveRestriction(CybranJanus, M3CybranLandTechAllowance)
     ScenarioFramework.RemoveRestriction(Aeon, M3AeonLandTechAllowance)
 

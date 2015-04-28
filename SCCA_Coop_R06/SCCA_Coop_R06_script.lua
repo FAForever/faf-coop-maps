@@ -791,10 +791,17 @@ function IntroMission2()
         IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol1'))
     end
 
-    -- Adjust buildable categories
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction(player, categories.urb4302 +    -- T3 Strategic Missile Defense
-                                   categories.url0402)     -- Spider Bot
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb4302 +    -- T3 Strategic Missile Defense
+        categories.url0402 + 	-- Spider Bot
+        categories.ueb2302 +  	-- Long Range Heavy Artillery
+        categories.ueb4301 +  	-- T3 Heavy Shield Generator
+        categories.uel0401 + 	-- Experimental Mobile Factory
+        categories.ues0304 +   	-- Strategic Missile Submarine
+        categories.uab0304 + 	-- Quantum Gate
+        categories.ual0301 + 	-- Sub Commander
+        categories.uas0304  	-- Strategic Missile Submarine
+    )
 
     ScenarioFramework.RemoveRestriction(uef, categories.ueb2302 +  -- Long Range Heavy Artillery
                                 categories.ueb4301 +  -- T3 Heavy Shield Generator
@@ -805,22 +812,6 @@ function IntroMission2()
                                  categories.ual0301 + -- Sub Commander
                                  categories.uas0304)  -- Strategic Missile Submarine
 
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			ScenarioFramework.RemoveRestriction(iArmy,
-				categories.urb4302 +    -- T3 Strategic Missile Defense
-				categories.url0402 + 	-- Spider Bot
-				categories.ueb2302 +  	-- Long Range Heavy Artillery
-                categories.ueb4301 +  	-- T3 Heavy Shield Generator
-                categories.uel0401 + 	-- Experimental Mobile Factory
-                categories.ues0304 +   	-- Strategic Missile Submarine	
-				categories.uab0304 + 	-- Quantum Gate
-				categories.ual0301 + 	-- Sub Commander
-				categories.uas0304)  	-- Strategic Missile Submarine
-		end
-	end	
-								 
     ScenarioFramework.Dialogue(OpStrings.C06_M02_010, StartMission2)
 end
 

@@ -1520,12 +1520,7 @@ function BuildCategories1()
          ScenarioFramework.AddRestriction(player, categories.ALLUNITS)
     end
 
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab1103 + -- Mass
-                                         -- For use with captured UEF units
-                                         categories.ueb1103 ) -- Mass
-    end
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab1103 + categories.ueb1103) -- Mass
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',
                                             'ChronoDampener',
                                             'CrysalisBeam',
@@ -1540,96 +1535,82 @@ function BuildCategories1()
 end
 
 function BuildCategories1b()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab1101 + -- Power Gen
-     
-                                         -- For use with captured UEF units
-                                         categories.ueb1101 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab1101 + categories.ueb1101) -- Power
 end
 
 function BuildCategories2()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0103 + -- T1 Naval Factory
-                                         categories.uab5101 + -- Wall
-                                         categories.uab3101 + -- Radar
-     
-                                         -- For use with captured UEF units
-                                         categories.ueb0103 + -- T1 Naval Factory
-                                         categories.ueb5101 + -- Wall
-                                         categories.ueb3101)  -- Radar
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+            categories.uab0103 + -- T1 Naval Factory
+            categories.uab5101 + -- Wall
+            categories.uab3101 + -- Radar
+
+            -- For use with captured UEF units
+            categories.ueb0103 + -- T1 Naval Factory
+            categories.ueb5101 + -- Wall
+            categories.ueb3101 -- Power
+    )
 end
 
 function BuildCategories3()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uas0102 + -- Attack boats
-                                        categories.ual0105 + -- T1 Engineer
-                                        categories.uab3102 + -- Sonar
-     
-                                        -- For use with captured UEF units
-                                        categories.ueb3102 + -- Sonar
-                                        categories.uel0105)  -- T1 Engineer
-    end
+ScenarioFramework.RemoveRestrictionForAllHumans(
+    categories.uas0102 + -- Attack boats
+    categories.ual0105 + -- T1 Engineer
+    categories.uab3102 + -- Sonar
+
+    -- For use with captured UEF units
+    categories.ueb3102 + -- Sonar
+    categories.uel0105   -- T1 Engineer
+)
 end
 
 function BuildCategories4()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab2109 + -- T1 Torpedo launcher
-                                        categories.uas0203 + -- Subs
-     
-                                        -- For use with captured UEF units
-                                        categories.ueb2109 + -- T1 Torpedo launcher
-                                        categories.ues0203)  -- Subs
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab2109 + -- T1 Torpedo launcher
+        categories.uas0203 + -- Subs
+
+        -- For use with captured UEF units
+        categories.ueb2109 + -- T1 Torpedo launcher
+        categories.ues0203   -- Subs
+    )
 end
 
 function BuildCategories5()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab2104 + -- T1 AA turret
-                                        categories.uab2101 + -- T1 land turret
-     
-                                        -- For use with captured UEF units
-                                        categories.ueb2104 + -- T1 AA turret
-                                        categories.ueb2101)  -- T1 land turret
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab2104 + -- T1 AA turret
+        categories.uab2101 + -- T1 land turret
+
+        -- For use with captured UEF units
+        categories.ueb2104 + -- T1 AA turret
+        categories.ueb2101   -- T1 land turret
+    )
 end
 
 function BuildCategories6()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player,
-     
-                                        categories.uas0103 + -- Frigate
-     
-                                        -- For use with captured UEF units
-                                        categories.ues0103)  -- Frigate
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uas0103 + -- Frigate
+
+        -- For use with captured UEF units
+        categories.ues0103   -- Frigate
+    )
 end
 
 function BuildCategories7()
-    ScenarioFramework.PlayUnlockDialogue()
     -- T1 air for T1 Air factory, Aeon
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uaa0101 +  -- Scout
-                                        categories.uaa0102 +  -- Interceptor
-                                        categories.uaa0103 +  -- Attack Bomber
-     
-                                        -- For use with captured UEF units
-                                        categories.uea0101 +  -- Scout
-                                        categories.uea0102 +  -- Interceptor
-                                        categories.uea0103)   -- Attack Bomber
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uaa0101 +  -- Scout
+        categories.uaa0102 +  -- Interceptor
+        categories.uaa0103 +  -- Attack Bomber
+
+        -- For use with captured UEF units
+        categories.uea0101 +  -- Scout
+        categories.uea0102 +  -- Interceptor
+        categories.uea0103    -- Attack Bomber
+    )
 
     -- Disable some units for FauxUEF, to keep Land Assault reasonable
     ScenarioFramework.AddRestriction(FauxUEF, categories.uel0304 +  -- mobile heavy art
-                                 categories.uel0203 +  -- amphib tank
-                                 categories.uel0111)   -- mobile missile
+                                              categories.uel0203 +  -- amphib tank
+                                              categories.uel0111)   -- mobile missile
 
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',
                                             'ChronoDampener',
@@ -1643,11 +1624,10 @@ function BuildCategories7()
 end
 
 function BuildCategories7_AirFact()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0102 +  -- t1 air factory
-                                        categories.ueb0102)   -- t1 air factory
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0102 +  -- t1 air factory
+        categories.ueb0102   -- t1 air factory
+    )
 end
 
  -- - win/lose functions

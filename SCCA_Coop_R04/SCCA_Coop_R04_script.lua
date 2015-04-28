@@ -1483,42 +1483,22 @@ function EnemyCommanderDied()
 end
 
 function AddTechMission2()
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction( Player, categories.urb4202 + -- T2 Shield Generator
-                                                categories.urb4204 + -- T2 Shield upgrade 1
-                                                categories.urb4205 + -- T2 Shield upgrade 2
-                                                categories.urb2303 + -- Light Artillery Installation
-                                                categories.ura0104 + -- T2 Transport
-                                                categories.ura0302 ) -- Spy Plane
---For Coop Players
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >=ScenarioInfo.Coop1 then
-			ScenarioFramework.RemoveRestriction(iArmy, 
-				categories.urb4202 + -- T2 Shield Generator
-                categories.urb4204 + -- T2 Shield upgrade 1
-                categories.urb4205 + -- T2 Shield upgrade 2
-                categories.urb2303 + -- Light Artillery Installation
-                categories.ura0104 + -- T2 Transport
-                categories.ura0302 ) -- Spy Plane
-		end
-	end	
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb4202 + -- T2 Shield Generator
+        categories.urb4204 + -- T2 Shield upgrade 1
+        categories.urb4205 + -- T2 Shield upgrade 2
+        categories.urb2303 + -- Light Artillery Installation
+        categories.ura0104 + -- T2 Transport
+        categories.ura0302   -- Spy Plane
+    )
 end
 
 function AddTechMission3()
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction( Player, categories.urb5202 + -- Air Staging Platform
-                                                categories.urb4201 + -- T2 Anti-Missile Gun
-                                                categories.url0306 ) -- Mobile Stealth Generator
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >=ScenarioInfo.Coop1 then
-			ScenarioFramework.RemoveRestriction(iArmy, 
-				categories.urb5202 + -- Air Staging Platform
-                categories.urb4201 + -- T2 Anti-Missile Gun
-                categories.url0306 ) -- Mobile Stealth Generator
-		end
-	end																							
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb5202 + -- Air Staging Platform
+        categories.urb4201 + -- T2 Anti-Missile Gun
+        categories.url0306   -- Mobile Stealth Generator
+    )
 end
 
 function PlayerCommanderDied()

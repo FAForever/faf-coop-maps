@@ -1127,11 +1127,10 @@ function StartMission2()
     if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M2RevealAeonSecondary, 300)
     end
-    if(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_011)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
-    end
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0205) -- Cybran Counter-Intelligence Boat
+
+    -- Cybran Counter-Intelligence Boat
+    ScenarioFramework.UnrestrictWithVoiceover(categories.xrs0205, "cybran", OpStrings.X03_M02_011)
+
     SetupNorthM2Taunts()
     SetupWestM2Taunts()
 
@@ -1242,28 +1241,13 @@ end
 
 function M2PreTechReveal()
     -- tech dialogue, dramatic slight pause before a bit more VO and the reveal
-    ScenarioFramework.CreateTimerTrigger(M2TechReveal, 3)
-    ScenarioFramework.Dialogue(OpStrings.X03_M02_021)
-end
 
-function M2TechReveal()
-    -- antisub stuff for player
-    if (LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_022)
-        ScenarioFramework.RemoveRestriction(Player, categories.xes0102) -- UEF Torpedo Boat
-    elseif (LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_023)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrs0204) -- Cybran Sub Killer
-    elseif (LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_024)
-        ScenarioFramework.RemoveRestriction(Player, categories.xas0204) -- Aeon Submarine Hunter
-    end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0102) -- UEF Torpedo Boat
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrs0204) -- Cybran Sub Killer
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xas0204) -- Aeon Submarine Hunter
-    for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xss0304) -- Seraph Sub Hunter
-    end
+    -- UEF Torpedo Boat, Cybran Sub Killer, and Aeon Submarine Hunter
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xes0102, "uef", 3, OpStrings.X03_M02_022)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrs0204, "cybran", 3, OpStrings.X03_M02_023)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xas0204, "aeon", 3, OpStrings.X03_M02_024)
+
+    ScenarioFramework.Dialogue(OpStrings.X03_M02_021)
 end
 
 function M2KaelTaunt()
@@ -1745,7 +1729,8 @@ function StartMission3()
     SetupNorthM3Taunts()
     SetupWestM3Taunts()
 
-    ScenarioFramework.CreateTimerTrigger(M3TechReveal, 15)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xes0307, "uef", 15, OpStrings.X03_M02_220)
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xas0306, "aeon", 15, OpStrings.X03_M02_230)
 end
 
 function CheatEconomy()
@@ -1762,21 +1747,6 @@ function NorthACUDestroyed()
     ScenarioFramework.Dialogue(OpStrings.X03_M03_160, nil, true)
     if(ScenarioInfo.WestACUWarp) then
         ScenarioInfo.M3P1:ManualResult(true)
-    end
-end
-
-function M3TechReveal()
-    if (LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_220)           -- UEF Battlecruiser
-        ScenarioFramework.RemoveRestriction(Player, categories.xes0307)
-    elseif (LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_230)           -- Aeon Missile Ship
-        ScenarioFramework.RemoveRestriction(Player, categories.xas0306)
-    end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xes0307)
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xas0306)
-    for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xsa0402)    -- Seraph Exp Bomb
     end
 end
 
@@ -1821,13 +1791,12 @@ function M3PrincessWarning6()
 end
 
 function M3Crystals()
-    if(LeaderFaction == 'cybran' or LeaderFaction == 'uef') then
+    if LeaderFaction == 'cybran' or LeaderFaction == 'uef' then
         ScenarioFramework.Dialogue(OpStrings.X03_M03_020)
-    elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X03_M03_025)
-        ScenarioFramework.RemoveRestriction(Player, categories.xab3301) -- Aeon Quantum Optics Device
     end
-    ScenarioFramework.RemoveRestrictionCoop(2, categories.xab3301) -- Aeon Quantum Optics Device
+
+    -- Aeon Quantum Optics Device
+    ScenarioFramework.UnrestrictWithVoiceover(categories.xab3301, "aeon", OpStrings.X03_M03_025)
 end
 
 function M3Subplot()

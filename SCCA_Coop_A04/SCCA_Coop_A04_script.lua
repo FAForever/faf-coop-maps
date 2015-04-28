@@ -512,11 +512,8 @@ end
 
 -- Unlock shields and tell the player about them
 function M1ShieldReveal()
-    -- LOG('*DEBUG: GIVE PLAYER SHIELDS')
     ScenarioFramework.Dialogue(OpStrings.A04_M01_070)
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab4202 + categories.urb4202 + categories.ual0307)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab4202 + categories.urb4202 + categories.ual0307)
 end
 
 -- Allow naval attacks to commence
@@ -680,18 +677,18 @@ function StartMission2()
 
     -- === Buildable Categories === #
     -- Player
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0302 +
-                                         categories.uab4201 +
-                                         categories.uab2303 +
-                                         categories.uaa0304 +
-                                         categories.uab4202 +
-                                         categories.urb0302 +
-                                         categories.urb4201 +
-                                         categories.urb2303 +
-                                         categories.ura0304 +
-                                         categories.urb4202 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0302 +
+        categories.uab4201 +
+        categories.uab2303 +
+        categories.uaa0304 +
+        categories.uab4202 +
+        categories.urb0302 +
+        categories.urb4201 +
+        categories.urb2303 +
+        categories.ura0304 +
+        categories.urb4202
+    )
 
     -- Cybran
     -- ScenarioFramework.RemoveRestriction(Cybran, categories.ura0304)

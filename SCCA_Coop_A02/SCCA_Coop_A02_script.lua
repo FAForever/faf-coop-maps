@@ -1307,25 +1307,23 @@ function M3CybranCommanderKilled()
 end
 
 function AddTechMission2()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0202 + -- T2 Air Factory
-                                         categories.uaa0107 + -- T1 Transport
-                                         categories.uaa0204)  -- Torpedo Bomber
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0202 + -- T2 Air Factory
+        categories.uaa0107 + -- T1 Transport
+        categories.uaa0204   -- Torpedo Bomber
+    )
 
     -- if needed, add tech that the Cybran get here as well
 end
 
 function AddTechMission3()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ual0208 + -- T2 Engineer
-                                         categories.uab2301 + -- T2 Heavy Gun Tower
-                                         categories.uab2204 + -- T2 Anti-Air Gun Tower
-                                         categories.uab1201 + -- T2 Power Generator
-                                         categories.uab1202)  -- T2 Mass Extractor
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ual0208 + -- T2 Engineer
+        categories.uab2301 + -- T2 Heavy Gun Tower
+        categories.uab2204 + -- T2 Anti-Air Gun Tower
+        categories.uab1201 + -- T2 Power Generator
+        categories.uab1202   -- T2 Mass Extractor
+    )
 
     -- if needed, add tech that the Cybran get here as well
 end

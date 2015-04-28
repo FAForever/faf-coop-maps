@@ -119,20 +119,20 @@ function OnStart(self)
                                      categories.TECH3)   -- T3
     end
 
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb0201 + categories.uab0201 +    -- T2 Land Factory
-                                        categories.uel0208 + categories.ual0208 +    -- T2 Engineer
-                                        categories.uel0202 + categories.ual0202 +    -- Heavy Tank
-                                        categories.uel0111 + categories.ual0111 +    -- Mobile Missile Launcher
-                                        categories.uel0205 + categories.ual0205 +    -- Mobile AA Flak
-                                        categories.uel0307 + categories.ual0307 +    -- Mobile Sheild Generator
-                                        categories.ueb0202 + categories.uab0202 +    -- T2 Air Factory
-                                        categories.uea0203 + categories.uaa0203 +    -- Gunship
-                                        categories.uea0204 + categories.uaa0204 +    -- Torpedo Bomber
-                                        categories.ueb1202 + categories.uab1202 +    -- T2 Mass Extractor
-                                        categories.ueb2204 + categories.uab2204 +    -- T2 AA Tower
-                                        categories.ueb2301 + categories.uab2301)     -- T2 Gun Tower
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb0201 + categories.uab0201 +    -- T2 Land Factory
+        categories.uel0208 + categories.ual0208 +    -- T2 Engineer
+        categories.uel0202 + categories.ual0202 +    -- Heavy Tank
+        categories.uel0111 + categories.ual0111 +    -- Mobile Missile Launcher
+        categories.uel0205 + categories.ual0205 +    -- Mobile AA Flak
+        categories.uel0307 + categories.ual0307 +    -- Mobile Sheild Generator
+        categories.ueb0202 + categories.uab0202 +    -- T2 Air Factory
+        categories.uea0203 + categories.uaa0203 +    -- Gunship
+        categories.uea0204 + categories.uaa0204 +    -- Torpedo Bomber
+        categories.ueb1202 + categories.uab1202 +    -- T2 Mass Extractor
+        categories.ueb2204 + categories.uab2204 +    -- T2 AA Tower
+        categories.ueb2301 + categories.uab2301      -- T2 Gun Tower
+    )
 
     -- Player has access to ResourceAllocation, DamageStabilization, Shield, LeftPod, HeavyAntiMatterCannon and AdvancedEngineering.
     ScenarioFramework.RestrictEnhancements({'T3Engineering',
@@ -451,12 +451,7 @@ end
 -- ---------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
-
-    -- Adjust buildable categories for the Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb1201 + categories.uab1201) -- T2 Power Generator
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb1201 + categories.uab1201) -- T2 Power Generator
 
     -- Island Engineers
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Engineers')
@@ -606,12 +601,10 @@ function IntroMission3()
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
     end
 
-    -- Adjust buildable categories for the Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2205 + categories.uab2205 +    -- T2 Torpedo Launcher
-                                        categories.ueb3202 + categories.uab3202)     -- Long Range Sonar
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb2205 + categories.uab2205 +  -- T2 Torpedo Launcher
+        categories.ueb3202 + categories.uab3202    -- Long Range Sonar
+    )
 
     ScenarioFramework.Dialogue(OpStrings.E03_M03_010, StartMission3)
 	ForkThread(CheatEconomy)
@@ -706,12 +699,9 @@ function ReSpawnM3Strike()
 end
 
 function M3NewSchematic()
-    if(ScenarioInfo.M3P1.Active) then
-        ScenarioFramework.PlayUnlockDialogue()
+    if ScenarioInfo.M3P1.Active then
         ScenarioFramework.Dialogue(OpStrings.E03_M03_020)
-        for _, player in ScenarioInfo.HumanPlayers do
-                 ScenarioFramework.RemoveRestriction(player, categories.ueb3201 + categories.uab3201) -- Long Range Radar
-        end
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb3201 + categories.uab3201) -- Long Range Radar
     end
 end
 
@@ -799,14 +789,12 @@ function IntroMission4()
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
     end
 
-    -- Adjust buildable categories for the Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb5202 + categories.uab5202 +    -- Air Staging Platform
-                                        categories.ueb0203 + categories.uab0203 +    -- T2 Naval Factory
-                                        categories.ues0201 + categories.uas0201 +    -- Destroyer
-                                        categories.ues0202 + categories.uas0202)     -- Cruiser
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb5202 + categories.uab5202 +  -- Air Staging Platform
+        categories.ueb0203 + categories.uab0203 +  -- T2 Naval Factory
+        categories.ues0201 + categories.uas0201 +  -- Destroyer
+        categories.ues0202 + categories.uas0202    -- Cruiser
+    )
 
     ScenarioFramework.Dialogue(OpStrings.E03_M04_010, StartMission4)
 end

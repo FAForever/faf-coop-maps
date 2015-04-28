@@ -423,10 +423,8 @@ end
 
 -- Reveal that the player has work yet to be finished
 function M1RevealNukeObjective()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab4302)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab4302)
+
     -- Primary Objective 2
     ScenarioInfo.M1P2Obj = Objectives.Basic(
         'secondary',                           -- type
@@ -767,11 +765,7 @@ function StartMission2()
     SetAlliance(AeonAriel, Colonies, 'Neutral')
 
     -- Allow player to build awesomeness
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0301 + categories.ueb0301)
-    end
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab0301 + categories.ueb0301)
     ScenarioFramework.RemoveRestriction(UEF, categories.uel0303 + categories.uel0304)
 
     -- UEF Setup
@@ -1087,10 +1081,7 @@ function StartMission3()
     ScenarioInfo.VarTable['M1EnableArielAir'] = true
 
     -- Unlock le nukes
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab2305 + categories.ueb2305)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab2305 + categories.ueb2305)
     ScenarioFramework.RemoveRestriction(AeonAriel, categories.uaa0304)
 
     ScenarioFramework.CreateTimerTrigger(M3ArielTaunt1, M3ArielTaunt1Timer)

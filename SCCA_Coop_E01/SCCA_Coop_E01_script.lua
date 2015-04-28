@@ -82,13 +82,10 @@ function OnStart(self)
     -- Adjust buildable categories for Player
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.UEF)
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.CYBRAN)
     end
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb1103)  -- T1 Mass Extractor
-    end
+
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb1103)  -- T1 Mass Extractor
 
     -- Lock off cdr upgrades
     ScenarioFramework.RestrictEnhancements({'ResourceAllocation',
@@ -110,7 +107,6 @@ function OnStart(self)
             SetIgnorePlayableRect(i, true)
         end
     end
-
 
     -- Army Colors
     ScenarioFramework.SetUEFColor(Player)
@@ -268,10 +264,7 @@ end
 
 function StartMission1Part2()
     -- Adjust buildable categories for Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb1101)  -- T1 Power Generator
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb1101)  -- T1 Power Generator
 
     -- Primary Objective 2
     ScenarioInfo.M1P2 = Objectives.ArmyStatCompare(
@@ -325,13 +318,7 @@ end
 -- ---------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
-
-    -- Adjust buildable categories for Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb0101)  -- T1 Land Factory
-    end
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb0101)  -- T1 Land Factory
     ScenarioFramework.Dialogue(OpStrings.E01_M02_010, StartMission2)
 end
 
@@ -388,16 +375,13 @@ end
 -- ---------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
-
-    -- Adjust buildable categories for Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0105 + -- T1 Engineer
-                                        categories.uel0201 + -- T1 Medium Tank
-                                        categories.ueb2101 + -- T1 Point Defense
-                                        categories.ueb3101 + -- T1 Radar
-                                        categories.ueb5101)  -- Wall
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uel0105 + -- T1 Engineer
+        categories.uel0201 + -- T1 Medium Tank
+        categories.ueb2101 + -- T1 Point Defense
+        categories.ueb3101 + -- T1 Radar
+        categories.ueb5101   -- Wall
+    )
 
     ScenarioFramework.Dialogue(OpStrings.E01_M03_010, StartMission3)
 end
@@ -546,30 +530,26 @@ end
 -- ---------
 function IntroMission5()
     ScenarioInfo.MissionNumber = 5
-
-
-    -- Adjust buildable categories for Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0101 + -- Land Scout
-                                        categories.uel0103 + -- Mobile Light Artillery
-                                        categories.uel0104 + -- Mobile AA Gun
-                                        categories.uel0106)  -- Light Assault Bot
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uel0101 + -- Land Scout
+        categories.uel0103 + -- Mobile Light Artillery
+        categories.uel0104 + -- Mobile AA Gun
+        categories.uel0106   -- Light Assault Bot
+    )
 
     -- Adjust buildable categories for Cybran in case Player captures them
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb0102 + -- T1 Air Factory
-                                        categories.urb1101 + -- T1 Power Generator
-                                        categories.urb1103 + -- T1 Mass Extractor
-                                        categories.urb2104 + -- T1 AA Tower
-                                        categories.urb3101 + -- T1 Radar
-                                        categories.urb5101 + -- Wall
-                                        categories.ura0101 + -- Air Scout
-                                        categories.ura0102 + -- Interceptor
-                                        categories.ura0103 + -- Attack Bomber
-                                        categories.url0105)  -- T1 Engineer
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb0102 + -- T1 Air Factory
+        categories.urb1101 + -- T1 Power Generator
+        categories.urb1103 + -- T1 Mass Extractor
+        categories.urb2104 + -- T1 AA Tower
+        categories.urb3101 + -- T1 Radar
+        categories.urb5101 + -- Wall
+        categories.ura0101 + -- Air Scout
+        categories.ura0102 + -- Interceptor
+        categories.ura0103 + -- Attack Bomber
+        categories.url0105   -- T1 Engineer
+    )
 
     -- Cybran Air Base
     ScenarioUtils.CreateArmyGroup('Cybran', 'AirBasePreBuilt')
@@ -783,19 +763,15 @@ end
 -- ---------
 function IntroMission7()
     ScenarioInfo.MissionNumber = 7
-
-
     ScenarioFramework.Dialogue(OpStrings.E01_M06_020)
 
-    -- Adjust buildable categories for Player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb0102 + -- T1 Air Factory
-                                        categories.ueb2104 + -- T1 AA Tower
-                                        categories.uea0101 + -- Air Scout
-                                        categories.uea0102 + -- Interceptor
-                                        categories.uea0103)  -- Attack Bomber
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb0102 + -- T1 Air Factory
+        categories.ueb2104 + -- T1 AA Tower
+        categories.uea0101 + -- Air Scout
+        categories.uea0102 + -- Interceptor
+        categories.uea0103   -- Attack Bomber
+    )
 
     -- Player has access to ResourceAllocation and DamageStabilization
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',
@@ -810,14 +786,14 @@ function IntroMission7()
                                             'Teleporter'})
 
     -- Adjust buildable categories for Cybran in case Player captures them
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.urb0101 + -- T1 Land Factory
-                                        categories.urb2101 + -- T1 Point Defense
-                                        categories.url0101 + -- Land Scout
-                                        categories.url0103 + -- Mobile Light Artillery
-                                        categories.url0104 + -- Mobile AA Gun
-                                        categories.url0106)  -- Light Assault Bot
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb0101 + -- T1 Land Factory
+        categories.urb2101 + -- T1 Point Defense
+        categories.url0101 + -- Land Scout
+        categories.url0103 + -- Mobile Light Artillery
+        categories.url0104 + -- Mobile AA Gun
+        categories.url0106   -- Light Assault Bot
+    )
 
     CybranNumLandChildrenD1 = 3
     CybranNumLandChildrenD2 = 5

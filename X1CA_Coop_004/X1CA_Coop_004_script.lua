@@ -380,23 +380,15 @@ function M1UnitRevealTrigger()
 end
 
 function M1UnitReveal()
-    -- tech revea dialogue, engineering station
-    if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X04_M01_012)
-        ScenarioFramework.RemoveRestriction(Player, categories.xeb0104) -- UEF Engineering Station 1
-        ScenarioFramework.RemoveRestriction(Player, categories.xeb0204) -- UEF Engineering Station 2
-    end
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb0104) -- UEF Engineering Station 1
-    ScenarioFramework.RemoveRestrictionCoop(1, categories.xeb0204) -- UEF Engineering Station 2
-    if(LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X04_M01_013)
-        ScenarioFramework.RemoveRestriction(Player, categories.xrb0104) -- Cybran Engineering Station 1
-        ScenarioFramework.RemoveRestriction(Player, categories.xrb0204) -- Cybran Engineering Station 2
-        ScenarioFramework.RemoveRestriction(Player, categories.xrb0304) -- Cybran Engineering Station 3
-    end
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb0104) -- Cybran Engineering Station 1
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb0204) -- Cybran Engineering Station 2
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb0304) -- Cybran Engineering Station 3
+    -- UEF Engineering Station 1-2
+    ScenarioFramework.UnrestrictWithVoiceover(categories.xeb0104, "uef", OpStrings.X04_M01_012)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xeb0204)
+
+    -- Cybran Engineering Station 1-3
+    ScenarioFramework.Dialogue(OpStrings.X04_M01_013)
+    ScenarioFramework.UnrestrictWithVoiceover(categories.xrb0104, "cybran", OpStrings.X04_M01_013)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrb0204)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrb0304)
 end
 
 function M1BrickPingEvent()
@@ -817,9 +809,10 @@ function StartMission2()
 
     if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M2PingEvent, 600)
-        ScenarioFramework.CreateTimerTrigger(M2CybranTechReveal, 90)
+
+        -- Cybran Perimeter Monitoring System
+        ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrb3301, "cybran", 90, OpStrings.X04_M02_060)
     end
-        ScenarioFramework.CreateTimerTriggerUnlockCoop(M2CybranTechRevealCoop, 3, 90)
 end
 
 function M2JammerSpottedDialogue()
@@ -828,18 +821,6 @@ end
 
 function M2OpeningMoreInfoDialogue()
     ScenarioFramework.Dialogue(OpStrings.X04_M02_010)
-end
-
-function M2CybranTechReveal()
-    ScenarioFramework.Dialogue(OpStrings.X04_M02_060)
-    ScenarioFramework.RemoveRestriction(Player, categories.xrb3301) -- Cybran Perimeter Monitoring System
-
-end
-
-function M2CybranTechRevealCoop()
-    ScenarioFramework.RemoveRestrictionCoop(3, categories.xrb3301) -- Cybran Perimeter Monitoring System
-
-
 end
 
 function DostyaAirAttack()
@@ -1704,24 +1685,8 @@ function M3Destroyed()
 end
 
 function M3AeonTechRevealTrigger()
-    ScenarioFramework.CreateTimerTrigger(M3AeonTechReveal, 20)
-    ScenarioFramework.CreateTimerTriggerUnlockCoop(M3AeonTechRevealCoop, 2, 20)
-end
-
-
-function M3AeonTechRevealTriggerCoop()
-    ScenarioFramework.CreateTimerTrigger(M3AeonTechReveal, 20)
-end
-
-function M3AeonTechReveal()
-    if(LeaderFaction == 'aeon') then
-        ScenarioFramework.RemoveRestriction(Player, categories.xab2307) -- Aeon Rapid Fire Artillery
-        ScenarioFramework.Dialogue(OpStrings.X04_M03_056)
-    end
-end
-
-function M3AeonTechRevealCoop()
-        ScenarioFramework.RemoveRestrictionCoop(2, categories.xab2307) -- Aeon Rapid Fire Artillery
+    -- Aeon rapid fire artillery.
+    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xab2307, "aeon", 20, OpStrings.X04_M03_056)
 end
 
 function M3RecallCountdown1()

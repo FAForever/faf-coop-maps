@@ -609,17 +609,16 @@ function GiveMission1Tech()
     -- T2 Engineer, Heavy Tank and Mobile Flak
     -- T2 Land Factory
     -- Attack Submarine
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M1CybranT2LandTechAllowance +
-                                         M1CybranT1LandTechAllowance +
-                                         M1CybranBuildingTechAllowance +
-                                         M1CybranNavalTechAllowance +
-                                         M1UEFT2LandTechAllowance +
-                                         M1UEFT1LandTechAllowance +
-                                         M1UEFBuildingTechAllowance +
-                                         M1UEFNavalTechAllowance )
-    end
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        M1CybranT2LandTechAllowance +
+        M1CybranT1LandTechAllowance +
+        M1CybranBuildingTechAllowance +
+        M1CybranNavalTechAllowance +
+        M1UEFT2LandTechAllowance +
+        M1UEFT1LandTechAllowance +
+        M1UEFBuildingTechAllowance +
+        M1UEFNavalTechAllowance
+    )
 
     ScenarioFramework.RemoveRestriction(UEF, M1UEFT2LandTechAllowance +
                                  M1UEFT1LandTechAllowance +
@@ -882,10 +881,7 @@ end
 
 function M2GiveTech()
     -- T2 Engineer can build the T2 Mass Extractor, T2 Power Generator
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M2CybranBuildingTechAllowance + M2UEFBuildingTechAllowance)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(M2CybranBuildingTechAllowance + M2UEFBuildingTechAllowance)
     ScenarioFramework.RemoveRestriction(UEF, M2UEFBuildingTechAllowance)
 end
 
@@ -1226,10 +1222,7 @@ end
 function M3GiveTech()
     -- T1 Air Factory can upgrade to T2 Air Factory
     -- T2 Air Factory can build Gunship
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, M3CybranBuildingTechAllowance + M3CybranAirTechAllowance + M3UEFBuildingTechAllowance + M3UEFAirTechAllowance)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(M3CybranBuildingTechAllowance + M3CybranAirTechAllowance + M3UEFBuildingTechAllowance + M3UEFAirTechAllowance)
     ScenarioFramework.RemoveRestriction(UEF, M3UEFBuildingTechAllowance + M3UEFAirTechAllowance)
 end
 

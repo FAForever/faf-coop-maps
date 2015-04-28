@@ -135,18 +135,18 @@ function OnStart(self)
                                      categories.ues0202)                                             -- UEF Cruiser
     end
 
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0202 +    -- T2 Air Factory
-                                        categories.ual0208 +    -- T2 Engineer
-                                        categories.uaa0204 +    -- T2 Torpedo Bomber
-                                        categories.uab1201 +    -- T2 Power Generator
-                                        categories.uab1202 +    -- T2 Mass Extractor
-                                        categories.uab2204 +    -- T2 AA Tower
-                                        categories.uab2205 +    -- T2 Torpedo Tower
-                                        categories.uab2301 +    -- T2 Point Defense
-                                        categories.uab3201 +    -- T2 Radar
-                                        categories.uab3202)     -- T2 Sonar
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0202 +    -- T2 Air Factory
+        categories.ual0208 +    -- T2 Engineer
+        categories.uaa0204 +    -- T2 Torpedo Bomber
+        categories.uab1201 +    -- T2 Power Generator
+        categories.uab1202 +    -- T2 Mass Extractor
+        categories.uab2204 +    -- T2 AA Tower
+        categories.uab2205 +    -- T2 Torpedo Tower
+        categories.uab2301 +    -- T2 Point Defense
+        categories.uab3201 +    -- T2 Radar
+        categories.uab3202      -- T2 Sonar
+    )
 
     ScenarioFramework.AddRestriction(uef, categories.TECH3 +    -- T3
                              categories.uea0204 +  -- Torpedo Bomber
@@ -535,17 +535,14 @@ end
 -- ---------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
-
-
     ScenarioInfo.UEFViz:Destroy()
 
     -- Adjust buildable categories for player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0203 +    -- T2 Naval Factory
-                                        categories.uas0201 +    -- Destroyer
-                                        categories.uaa0203)     -- T2 Gunship
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0203 +    -- T2 Naval Factory
+        categories.uas0201 +    -- Destroyer
+        categories.uaa0203      -- T2 Gunship
+    )
 
     -- Land Base
     ScenarioUtils.CreateArmyGroup('UEF', 'LandBasePreBuilt_D' .. ScenarioInfo.Options.Difficulty)
@@ -874,12 +871,8 @@ end
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
-
     -- Adjust buildable categories for player
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uas0202)     -- Cruiser
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uas0202)  -- Cruiser
 
     -- Main Base
     ScenarioUtils.CreateArmyGroup('UEF', 'MainBasePreBuilt_D' .. ScenarioInfo.Options.Difficulty)

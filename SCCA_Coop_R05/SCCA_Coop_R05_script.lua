@@ -1627,84 +1627,41 @@ end
 
 function M2_BuildCategories()
     -- Player enable for M2, Cybran units:
-    ScenarioFramework.PlayUnlockDialogue()
-	ScenarioFramework.RemoveRestriction( Player,
-                            categories.urb2108 + -- Tactical Missile Launcher
-                            categories.urb2304 + -- T3 SAM Launcher
-                            categories.ura0304 ) -- Strategic Bomber
+	ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb2108 + -- Tactical Missile Launcher
+        categories.urb2304 + -- T3 SAM Launcher
+        categories.ura0304   -- Strategic Bomber
+    )
 
-	ScenarioFramework.RemoveRestriction( Player,
-                            -- Player enable for M2, UEF units:
-                            categories.ueb2108 + -- Tactical Missile Launcher
-                            categories.ueb2108 + -- Tactical Missile Launcher
-                            categories.ueb2304 + -- T3 SAM Launcher
-                            categories.uea0304 + -- Strategic Bomber
+    -- Player enable for M2, UEF units:
+	ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb2108 + -- Tactical Missile Launcher
+        categories.ueb2108 + -- Tactical Missile Launcher
+        categories.ueb2304 + -- T3 SAM Launcher
+        categories.uea0304 + -- Strategic Bomber
 
-                            -- UEF enable for M2+ UEF units:
-                            categories.uea0304 + -- Strategic Bomber
-                            categories.uea0303 ) -- Air sup
-
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-			if (factionIdx == 1) then
-				ScenarioFramework.RemoveRestriction(iArmy,
-					        categories.ueb2108 + -- Tactical Missile Launcher
-                            categories.ueb2108 + -- Tactical Missile Launcher
-                            categories.ueb2304 + -- T3 SAM Launcher
-                            categories.uea0304 + -- Strategic Bomber
-                            categories.uea0304 + -- Strategic Bomber
-                            categories.uea0303) -- Air sup		
-			else
-				ScenarioFramework.RemoveRestriction(iArmy,		
-							categories.urb2108 + -- Tactical Missile Launcher
-                            categories.urb2304 + -- T3 SAM Launcher
-                            categories.ura0304 ) -- Strategic Bomber
-			end
-		end
-	end	
+        -- UEF enable for M2+ UEF units:
+        categories.uea0304 + -- Strategic Bomber
+        categories.uea0303   -- ASF
+    )
 end
 
 function M2_BuildCategories2()
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction( Player, categories.ura0303 + -- Air Superiority Fighter
-                                                 categories.uea0303 ) -- Air Superiority Fighter
-	local tblArmy = ListArmies()											 
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-			if (factionIdx == 1) then
-				ScenarioFramework.RemoveRestriction(iArmy, categories.uea0303)
-			else
-				ScenarioFramework.RemoveRestriction(iArmy, categories.ura0303)
-			end
-		end
-	end													 
+    -- Unlock ASF
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ura0303 + categories.uea0303)
 end
 
 function M3_BuildCategories()
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction( Player, categories.url0303 + -- Siege Assault Bot
-                                                 categories.uel0303 ) -- Siege Assault Bot
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.url0303 + -- Siege Assault Bot
+        categories.uel0303   -- Siege Assault Bot
+    )
 
      -- UEF enable for M3, UEF units:
     ScenarioFramework.RemoveRestriction( UEF,    categories.uel0303 ) -- Siege Assault Bot
 
     -- Unlock strategic bombers for the uef, on hard dif
     ScenarioFramework.RemoveRestriction( UEF, categories.uea0304 ) -- Strategic Bomber
-	
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-			if (factionIdx == 1) then
-				ScenarioFramework.RemoveRestriction(iArmy, categories.uel0303 + categories.uel0303 + categories.uea0304)
-			else
-				ScenarioFramework.RemoveRestriction(iArmy, categories.url0303)
-			end
-		end
-	end				
 end
 
 -- ---------------

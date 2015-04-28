@@ -787,12 +787,7 @@ function M1InitialNukeShotDownPt2()
     ScenarioInfo.M1Objectives:AddObjective(ScenarioInfo.M1P2)
 
     -- ! Give the player access to anti-nukes
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb4302 +
-                                         categories.uab4302 +
-                                         categories.urb4302 )
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb4302 + categories.uab4302 + categories.urb4302)
 
     -- ! Arnold launches three nukes after (a)M1AeonTripleNukeDelay, (b)the player builds two anti-nuke missles, or
     -- !
@@ -802,7 +797,6 @@ function M1InitialNukeShotDownPt2()
     -- ! Remind the player to do M1P2 after M1P2ReminderTimer
     ScenarioInfo.NextM1P2Reminder = 1
     ScenarioFramework.CreateTimerTrigger(M1P2Reminder, M1P2ReminderTimer)
-
 end
 
 -- ! Check for M1P2 success (Create two missle defenses next to research facilities)
@@ -1150,25 +1144,23 @@ function StartMission2()
     SetArmyUnitCap(Cybran, 700)
     SetArmyUnitCap(City, 225)
 
-    -- ! Give access to new units
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb3104 + -- Omni Radar
-                                         categories.uab3104 + -- Omni Radar
-                                         categories.urb3104 + -- Omni Radar
-     
-                                         categories.ueb0304 + -- Quantum Gateway
-                                         categories.uel0304 + -- Mobile Heavy Artillery
-                                         categories.uel0301 + -- Sub Commander
-     
-                                         categories.uab0304 + -- Quantum Gateway
-                                         categories.ual0304 + -- Mobile Heavy Artillery
-                                         categories.ual0301 + -- Sub Commander
-     
-                                         categories.urb0304 + -- Quantum Gateway
-                                         categories.url0304 + -- Mobile Heavy Artillery
-                                         categories.url0301 ) -- Sub Commander
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb3104 + -- Omni Radar
+        categories.uab3104 + -- Omni Radar
+        categories.urb3104 + -- Omni Radar
+
+        categories.ueb0304 + -- Quantum Gateway
+        categories.uel0304 + -- Mobile Heavy Artillery
+        categories.uel0301 + -- Sub Commander
+
+        categories.uab0304 + -- Quantum Gateway
+        categories.ual0304 + -- Mobile Heavy Artillery
+        categories.ual0301 + -- Sub Commander
+
+        categories.urb0304 + -- Quantum Gateway
+        categories.url0304 + -- Mobile Heavy Artillery
+        categories.url0301   -- Sub Commander
+    )
 
     ScenarioFramework.RemoveRestriction(Aeon, categories.ueb0304 + -- Quantum Gateway
                                   categories.uel0301 + -- Sub Commander
@@ -1423,7 +1415,7 @@ function StartMission2Part2()
             {                               -- target
                 Units = ScenarioInfo.CybranLRHA,
             }
-       )
+        )
         ScenarioInfo.M2P2:AddResultCallback(
             function(result)
                 ScenarioInfo.M2P2Complete = true
@@ -1431,7 +1423,7 @@ function StartMission2Part2()
                 -- removed when combined with m3p1
                 -- ScenarioInfo.M2P1:ManualResult(true)
             end
-       )
+        )
         ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M2P2)
 
         -- ! Remind the player to do M2P2 after M2P2ReminderTimer
@@ -1439,12 +1431,7 @@ function StartMission2Part2()
         ScenarioFramework.CreateTimerTrigger(M2P2Reminder, M2P2ReminderTimer)
 
         -- ! Give the player access to nukes
-        ScenarioFramework.PlayUnlockDialogue()
-        for _, player in ScenarioInfo.HumanPlayers do
-                 ScenarioFramework.RemoveRestriction(player, categories.ueb2305 +
-                                                 categories.uab2305 +
-                                                 categories.urb2305 )
-        end
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb2305 + categories.uab2305 + categories.urb2305)
 
         ScenarioInfo.StartMission2Part2Ran = true
     end

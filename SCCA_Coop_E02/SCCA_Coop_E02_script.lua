@@ -2195,41 +2195,16 @@ function EnemyCommanderDied(unit)
 end
 
 function AddTechMission15()
-    ScenarioFramework.PlayUnlockDialogue()
-    -- T2 Anti-Air Flak Cannon
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2204)
-    end
-    -- T2 Heavy Gun Tower
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2301)
-    end
-    -- T2 Engineer
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0208)
-    end
-    -- T2 Mass Extractor
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb1202)
-    end
-
-    -- T2 Air Factory
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb0202)
-    end
-    -- Gunship
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uea0203)
-    end
-
-    -- T2 Land Factory
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb0201)
-    end
-    -- Mobile AA Flak
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0205)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb2204 +  -- T2 Anti-Air Flak Cannon
+        categories.ueb2301 +  -- T2 Heavy Gun Tower
+        categories.uel0208 +  -- T2 Engineer
+        categories.ueb1202 +  -- T2 Mass Extractor
+        categories.ueb0202 +  -- T2 Air Factory
+        categories.uea0203 +  -- Gunship
+        categories.ueb0201 +  -- T2 Land Factory
+        categories.uel0205    -- Mobile AA Flak
+    )
 end
 
 function AddTechMission2()
@@ -2237,19 +2212,11 @@ function AddTechMission2()
 end
 
 function AddTechMission3()
-    ScenarioFramework.PlayUnlockDialogue()
-    -- Heavy Tank
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0202)
-    end
-    -- Mobile Missile Launcher
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0111)
-    end
-    -- Mobile Shield Generator
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uel0307)
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uel0202 +  -- Heavy Tank
+        categories.uel0111 +  -- Mobile Missile Launcher
+        categories.uel0307    -- Mobile Shield Generator
+    )
 end
 
 function PlayerCommanderDied()

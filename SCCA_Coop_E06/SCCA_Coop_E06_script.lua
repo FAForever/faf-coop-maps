@@ -280,10 +280,8 @@ function OnPopulate(scen)
                                       categories.ueb4301 +
                                       categories.ues0304 )
     end
-        -- Allowed
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ues0401)
-    end
+
+    ScenarioFramework.RemoveRestriction(RemoveRestrictionForAllHumans, categories.ues0401)
 
     -- NIS Units
         -- Components
@@ -597,14 +595,6 @@ function EndMission1()
     StartMission2()
 end
 
-
-
-
-
-
-
-
-
 -- === MISSION 2 FUNCTIONS === #
 function StartMission2()
     -- Set MissionNumber, Set Objectives, Play Dialogue, Set Area
@@ -618,14 +608,12 @@ function StartMission2()
     end
     ScenarioFramework.Dialogue(OpStrings.E06_M02_020)
 
-    -- Allowed restrictions
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.ueb2302 +
-                                         categories.ueb4301 +
-                                         categories.uel0401 +
-                                         categories.ues0304 )
-    end
-
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.ueb2302 +
+        categories.ueb4301 +
+        categories.uel0401 +
+        categories.ues0304
+    )
 
     -- Create Aeon base and death trigger for the base
     ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Base_Defenses_D'..ScenarioInfo.Options.Difficulty)
@@ -1106,9 +1094,7 @@ function StartMission3()
         ScenarioFramework.Dialogue(ScenarioStrings.PObjUpdate)
 
         -- Give the Player ability to make le Mavor
-        for _, player in ScenarioInfo.HumanPlayers do
-                 ScenarioFramework.RemoveRestriction(player, categories.ueb2401)
-        end
+        ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb2401)
 
         if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
             ScenarioFramework.Dialogue(OpStrings.E06_M03_010)
@@ -1942,15 +1928,6 @@ function OnShiftF3()
 -- EndMission2()
     M3BlackSunFired()
 end
-
--- # Allowed restrictions
-      for _, player in ScenarioInfo.HumanPlayers do
-       -- ScenarioFramework.RemoveRestriction(ArmyBrains[player], categories.ueb2302 +
-       --                                            categories.ueb4301 +
-       --                                            categories.uel0401 +
-       --                                            categories.ues0304 )
-      end
--- end
 
 function OnCtrlF4()
     ForkThread(M3FinalAttack)

@@ -1192,15 +1192,14 @@ function M3Dialog5()
 end
 
 function AddTechMission2()
-    ScenarioFramework.PlayUnlockDialogue()
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.RemoveRestriction(player, categories.uab0304 + -- Quantum Gate
-                                         categories.ual0301 + -- Sub Commander
-                                         categories.uas0304 + -- Strategic Missile Submarine
-                                         categories.ual0401 + -- Giant Assault Bot
-                                         categories.uas0401 + -- Submersible Battleship
-                                         categories.uaa0310 ) -- Death Saucer
-    end
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0304 + -- Quantum Gate
+        categories.ual0301 + -- Sub Commander
+        categories.uas0304 + -- Strategic Missile Submarine
+        categories.ual0401 + -- Giant Assault Bot
+        categories.uas0401 + -- Submersible Battleship
+        categories.uaa0310   -- Death Saucer
+    )
 end
 
 function AddTechMission3()
