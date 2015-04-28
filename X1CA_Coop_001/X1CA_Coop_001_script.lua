@@ -23,6 +23,7 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 local Utilities = import('/lua/utilities.lua')
+local FactionData = import('/lua/factions.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -52,7 +53,12 @@ local Civilians = ScenarioInfo.Civilians
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
-local Faction
+
+-- The faction of player 1: determines the dialog and suchlike you get.
+local LeaderFaction
+
+-- The faction of the local player. Determines a few other bits and bobs.
+local LocalFaction
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
@@ -87,14 +93,8 @@ local RequiredTrucks = {6, 6, 6}
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
 
-    factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-    if(factionIdx == 1) then
-        Faction = "uef"
-    elseif(factionIdx == 2) then
-        Faction = "aeon"
-    else 
-        Faction = "cybran"
-    end
+    local leaderFactionIndex = GetArmyBrain('Player'):GetFactionIndex()
+    LeaderFaction = FactoinData.Factions[leaderFactionIndex].Key
 
     -- Army Colors
     ScenarioFramework.SetUEFAlly1Color(Player)      -- starting base units are "originally" from the UEF, before being given to player
@@ -418,39 +418,8 @@ function IntroNISPart1()
     end
 
 	SetAreaKillable('M1_Playable_Area', true)
-	
-	local factions = import('/lua/factions.lua')
-	
-	factionIdx = GetArmyBrain('Player'):GetFactionIndex()
-	if(factionIdx == 1) then
-		Faction = "uef"
-	elseif(factionIdx == 2) then
-		Faction = "aeon"
-	else 	
-		Faction = "cybran"
-	end
-	
-    
-    SetArmyFactionIndex( 'Player', factions.FactionIndexMap[Faction] - 1 )
-
-    ScenarioInfo.Options.FACampaignFaction = Faction
-    ForkThread(IntroNISPart2)	
-	
+    ForkThread(IntroNISPart2)
 end
-
-function FactionReminder1()
-    if(not Faction) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_290, nil, true)
-        ScenarioFramework.CreateTimerTrigger(FactionReminder2, 240)
-    end
-end
-
-function FactionReminder2()
-    if(not Faction) then
-        ScenarioFramework.Dialogue(OpStrings.X01_M01_280, nil, true)
-    end
-end
-
 
 function SetAreaKillable(area, val)
     for k,v in GetUnitsInRect( ScenarioUtils.AreaToRect(area) ) do
@@ -461,19 +430,19 @@ end
 
 function IntroNISPart2()
     -- set faction color before spawning in player CDR
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonAllyColor(Player)
     end
 
-    if(Faction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-    elseif(Faction == 'uef') then
+    elseif(LeaderFaction == 'uef') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
     end
 
@@ -802,11 +771,11 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1TechReveal, 55)
     SetupGariM1M2TauntTriggers()
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_030)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_040)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_050)
     end
 
@@ -818,9 +787,9 @@ end
 
 function M1SubPlot()
     if(ScenarioInfo.MissionNumber == 1) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_117)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_118)
         end
     end
@@ -828,13 +797,13 @@ end
 
 function M1TechReveal()
     -- tech reveal dialogue, siege bots
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_070)           -- xel0305 Percival
         ScenarioFramework.RemoveRestriction(Player, categories.xel0305)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_080)           -- xrl0305 Bricks
         ScenarioFramework.RemoveRestriction(Player, categories.xrl0305)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_032)           -- xal0203 Blaze assault tank
         ScenarioFramework.RemoveRestriction(Player, categories.xal0203)
     end
@@ -1288,7 +1257,7 @@ end
 
 function AeonM2TechReveal()
     -- Only play the voice-over if the player is Aeon.
-    if Faction == 'aeon' then
+    if LeaderFaction == 'aeon' then
         ScenarioFramework.Dialogue(OpStrings.X01_M01_031)
     end
 
@@ -1301,22 +1270,22 @@ function M2P1Warnings()
 
     -- if we've only 3 buildings more than the min, play a warning
     if ScenarioInfo.M2CivBuildingCount == (ScenarioInfo.M2BuildingFailLimit + 4) and ScenarioInfo.M2P1.Active then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_030)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_035)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_037)
         end
     end
 
     -- if we've only 1 building more than the min, play another
     if ScenarioInfo.M2CivBuildingCount == (ScenarioInfo.M2BuildingFailLimit + 1) and ScenarioInfo.M2P1.Active then
-       if(Faction == 'uef') then
+       if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_020)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_036)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_038)
         end
     end
@@ -1974,9 +1943,9 @@ function StartMission3()
                 ScenarioFramework.Dialogue(OpStrings.TAUNT23)
                 ForkThread(OrderCDRDeathNIS)
                 ForkThread(KillOrder)
-                if(Faction == 'uef' or Faction == 'cybran') then
+                if(LeaderFaction == 'uef' or LeaderFaction == 'cybran') then
                     ScenarioFramework.Dialogue(OpStrings.X01_M02_320, IntroMission4)
-                elseif(Faction == 'aeon') then
+                elseif(LeaderFaction == 'aeon') then
                     ScenarioFramework.Dialogue(OpStrings.X01_M02_330, IntroMission4)
                 end
             end
@@ -1986,7 +1955,7 @@ function StartMission3()
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 2700)
     ScenarioFramework.CreateTimerTrigger(CounterAttackWarning, 5)
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         -- For UEF, assign the Truck Town objective after a bit of a pause. We'll send in the
         -- attack where we assign, as it is dialogue-callback based (ie, in case dialogue gets stacked
         -- up, we don't have the attack sent before the late dialogue)
@@ -2042,11 +2011,11 @@ function Mission3NIS()
 end
 
 function CounterAttackWarning()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_250)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_260)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_270)
     end
 end
@@ -2637,11 +2606,11 @@ function StartMission4()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M4P1)
 
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_122, RevealM4P2)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_133, RevealM4P2)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_142, RevealM4P2)
     end
 
@@ -2744,11 +2713,11 @@ end
 
 function M4NukeWarning()
     -- non UEF players get a general warning of a nuke strike
-    if not (Faction == 'uef') then
+    if not (LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_410)
 
     -- UEF players whe havent completed the m3 town obj get an emphatic warning. Those who have get the general warning
-    elseif (Faction == 'uef') then
+    elseif (LeaderFaction == 'uef') then
         if(ScenarioInfo.M3S1UEF.Active) then
             ScenarioFramework.Dialogue(OpStrings.X01_M02_420)
         elseif not (ScenarioInfo.M3S1UEF.Active) then
@@ -2776,9 +2745,9 @@ function DeathNIS(unit)
 end
 
 function M4Subplot()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_300)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_310)
     end
 end
@@ -2840,11 +2809,11 @@ end
 -- M1
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_090)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_105)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_110)
         end
         ScenarioFramework.CreateTimerTrigger(M1P1Reminder2, 2000)
@@ -2853,11 +2822,11 @@ end
 
 function M1P1Reminder2()
     if(ScenarioInfo.M1P1.Active) then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_100)
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_106)
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.X01_M01_116)
         end
     end
@@ -2885,11 +2854,11 @@ end
 -- M2
 -- M3
 function M3P1Reminder1()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_380)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_390)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M02_400)
     end
 end
@@ -2925,11 +2894,11 @@ end
 
 -- M4
 function M4P2Reminder1()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_200)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_220)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_240)
     end
 
@@ -2937,11 +2906,11 @@ function M4P2Reminder1()
 end
 
 function M4P2Reminder2()
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_210)
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_230)
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_250)
     end
 end
@@ -2966,7 +2935,7 @@ function SetupGariTauntTriggers()
     GariTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 8)
 
     -- On losing resource structures
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         GariTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 9)
     end
     GariTM:AddUnitsKilledTaunt('TAUNT6', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 14)
@@ -2977,7 +2946,7 @@ function SetupGariTauntTriggers()
 
     -- On destroying resource structures
     GariTM:AddEnemiesKilledTaunt('TAUNT11', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 4)
-    if(Faction == 'aeon') then
+    if(LeaderFaction == 'aeon') then
         GariTM:AddEnemiesKilledTaunt('TAUNT12', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 15)
     end
 
@@ -2994,11 +2963,11 @@ end
 
 function M3GariTaunt1()
     if ScenarioInfo.M3P1.Active then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT15, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT17, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT19, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
         end
     end
@@ -3006,11 +2975,11 @@ end
 
 function M3GariTaunt2()
     if ScenarioInfo.M3P1.Active then
-        if(Faction == 'uef') then
+        if(LeaderFaction == 'uef') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT16, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(Faction == 'cybran') then
+        elseif(LeaderFaction == 'cybran') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT18, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
-        elseif(Faction == 'aeon') then
+        elseif(LeaderFaction == 'aeon') then
             ScenarioFramework.Dialogue(OpStrings.TAUNT20, nil, nil, ScenarioInfo.UnitNames[Order]['Order_ACU'])
         end
     end
@@ -3020,7 +2989,7 @@ end
 
 function SetupFletcherTauntTriggers()
     -- -- Faction specific Fletcher dialogue, using the taunt system
-    if(Faction == 'uef') then
+    if(LeaderFaction == 'uef') then
         FletcherTM:AddDamageTaunt('X01_M03_020', ScenarioInfo.ClarkeMonument, .01)                              -- Admin building taking damage, UEF
         FletcherTM:AddDamageTaunt('X01_M03_030', ScenarioInfo.ClarkeMonument, .40)                              -- Admin building taking damage, UEF
         FletcherTM:AddUnitKilledTaunt('X01_M03_170', ScenarioInfo.UnitNames[Seraphim]['M4_Seraphim_Factory'])   -- Fletcher enjoys a factory being destroyed, UEF
@@ -3029,12 +2998,12 @@ function SetupFletcherTauntTriggers()
                    -- Seraph loses structures, UEF
         FletcherTM:AddUnitsKilledTaunt('X01_M03_270', ArmyBrains[Seraphim], categories.STRUCTURE, 14)           -- Seraph loses structures, UEF
         FletcherTM:AddUnitsKilledTaunt('X01_M03_280', ArmyBrains[Seraphim], categories.STRUCTURE, 28)           -- Seraph loses structures, UEF
-    elseif(Faction == 'cybran') then
+    elseif(LeaderFaction == 'cybran') then
         FletcherTM:AddDamageTaunt('X01_M03_040', ScenarioInfo.ClarkeMonument, .95)                              -- Admin building taking damage, Cybran
         FletcherTM:AddDamageTaunt('X01_M03_050', ScenarioInfo.ClarkeMonument, .40)                              -- Admin building taking damage, Cybran
         FletcherTM:AddUnitKilledTaunt('X01_M03_180', ScenarioInfo.UnitNames[Seraphim]['M4_Seraphim_Factory'])   -- Fletcher enjoys a factory being destroyed, Cybran
         FletcherTM:AddUnitsKilledTaunt('X01_M03_100', ArmyBrains[UEF], categories.STRUCTURE, 14)                -- Fletcher loses 14 structures, Cyrban
-    elseif(Faction == 'aeon') then
+    elseif(LeaderFaction == 'aeon') then
         FletcherTM:AddDamageTaunt('X01_M03_060', ScenarioInfo.ClarkeMonument, .95)                              -- Admin building taking damage, Aeon
         FletcherTM:AddDamageTaunt('X01_M03_070', ScenarioInfo.ClarkeMonument, .40)                              -- Admin building taking damage, Aeon
         FletcherTM:AddUnitKilledTaunt('X01_M03_190', ScenarioInfo.UnitNames[Seraphim]['M4_Seraphim_Factory'])   -- Fletcher enjoys a factory being destroyed, Aeon
