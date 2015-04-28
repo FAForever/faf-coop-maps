@@ -1348,9 +1348,7 @@ function OnCommanderDeath()
     PlayerLose(OpStrings.E04_D01_010)
 -- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, false)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-
 end
-
 
 function WinGame()
     WaitSeconds(5)
@@ -1367,46 +1365,3 @@ function LoseGame()
     WaitSeconds(5)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
-
--- #### Miscellaneous Functions #####
-
--- function OnF3()
--- #WinGame()
--- LOG('Debugmatt:'..LOC '{i CDR_Player}')
--- M2OnAMDTimer()
--- end
---
--- function OnF4()
--- StartMission2()
--- end
---
--- function OnF5()
--- objGroup2 = Objectives.CreateGroup('Mission2', M2Success, 3)
--- M2OnTruckFoundTimer()
--- StartMission3()
--- end
---
--- function OnCtrlF3()
--- M2OnTruckFoundTimer()
--- end
---
--- function OnCtrlF4()
--- StartMission2()
--- end
---
--- function OnCtrlF5()
--- LOG('debugMatt:remove T2')
--- objGroup2 = Objectives.CreateGroup('Mission2', M2Success, 3)
--- M2OnTruckFoundTimer()
--- StartMission3()
--- M3OnRadarTimer(true)
--- end
--- function OnShiftF5()
--- LOG('debug: Op: ShiftF5')
--- LOG('debug: Op: Player army: '.. GetArmyUnitCostTotal(ScenarioInfo.Player) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Player))
--- LOG('debug: Op: Cybran army: '.. GetArmyUnitCostTotal(ScenarioInfo.Cybran) .. ' out of ' .. GetArmyUnitCap(ScenarioInfo.Cybran))
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_E04', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end

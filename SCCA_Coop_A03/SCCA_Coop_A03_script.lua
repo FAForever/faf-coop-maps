@@ -1015,18 +1015,3 @@ function M3P1Reminder3()
         ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, M3P1Subsequent)
     end
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnShiftF3()
--- IntroMission2()
--- end
---
--- function OnShiftF5()
--- IntroMission3()
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_A03', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end

@@ -1663,27 +1663,3 @@ function M3_BuildCategories()
     -- Unlock strategic bombers for the uef, on hard dif
     ScenarioFramework.RemoveRestriction( UEF, categories.uea0304 ) -- Strategic Bomber
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnCtrlF4()
--- print ('CntrlF4')
--- BeginMission3()
--- end
---
--- function OnF4()
--- print ('F4')
--- BeginMission2()
--- end
---
--- function OnCtrlAltF4()
--- print('OnCtrlAltF4')
--- Utilities.UserConRequest('ui_DebugAltClick')
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_R05', true, ScenarioInfo.Options.Difficulty, true, true )
--- end
---
--- #I complained I had no shoes, until I met a man who had no belt-sander.

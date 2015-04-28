@@ -1045,39 +1045,3 @@ function CybranAirChildBuildCondition(num)
         return false
     end
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnF4()
--- #ForkThread(ArnoldFlyover)
--- #ForkThread(TankApproach)
--- IntroMission7()
--- end
---
--- function OnF5()
--- ForkThread(KillBase)
--- end
---
--- function OnF3()
--- ScenarioFramework.MidOperationCamera(ScenarioInfo.PlayerCDR)
---
--- end
---
--- function OnCtrlF3()
--- ScenarioInfo.OpComplete = true
--- ScenarioFramework.EndOperation('SCCA_Coop_E01', ScenarioInfo.OpComplete, ScenarioInfo.Options.Difficulty, true, true, true)
--- end
---
--- function OnShiftF3()
--- ScenarioInfo.OpComplete = false
--- ScenarioFramework.EndOperation('SCCA_Coop_E01', ScenarioInfo.OpComplete, ScenarioInfo.Options.Difficulty, false, false, false)
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_E01', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end
---
--- function OnCtrlAltF4()
--- ScenarioFramework.EndOperation('SCCA_Coop_E01', false, ScenarioInfo.Options.Difficulty, false, false, false)
--- end

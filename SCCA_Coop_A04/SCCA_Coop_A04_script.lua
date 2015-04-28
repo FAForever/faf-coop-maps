@@ -1271,12 +1271,6 @@ function M2ObjectiveReminder()
     end
 end
 
-
-
-
-
-
-
 -- === WIN LOSS FUNCTIONS === #
 function WinGame()
     ScenarioInfo.OpComplete = true
@@ -1299,29 +1293,3 @@ function PlayerCDRDestroyed(unit)
     ScenarioFramework.EndOperationSafety()
     ScenarioFramework.Dialogue(OpStrings.A04_D01_010, LoseGame, true)
 end
-
--- ---------------
--- Debug Functions
--- ---------------
-
--- function OnF3()
--- ForkThread(StartMission2)
---
--- end
---
--- function OnF4()
--- ScenarioUtils.CreateArmyGroup('Player', 'Base')
--- ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
--- ScenarioUtils.CreateArmyGroup('Player', 'DEBUG_BASE')
--- end
---
--- function OnF5()
---    StartMission2()
--- #M2MainframeDestroyed()
--- #    ForkThread(WinGame)
--- #    M2CountdownComplete(false)
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_A04', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end

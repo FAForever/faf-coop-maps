@@ -1925,26 +1925,3 @@ function M8P1Reminder3()
         ScenarioFramework.CreateTimerTrigger(M8P1Reminder1, ReminderSubsequentTime2)
     end
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnCtrlF4()
--- #ScenarioFramework.EndOperation('SCCA_Coop_R01', true, ScenarioInfo.Options.Difficulty, false, false)
--- print('Ctrl f4')
--- BeginPart2()
--- end
---
--- function OnF4()
--- print ('F4')
--- BeginPart3()
--- end
---
--- function OnCtrlAltF4()
--- print('OnCtrlAltF4')
--- #    Utilities.UserConRequest('ui_DebugAltClick')
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_R01', true, ScenarioInfo.Options.Difficulty, true, true)
--- end

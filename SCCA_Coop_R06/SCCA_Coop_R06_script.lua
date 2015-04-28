@@ -1369,32 +1369,3 @@ function M3P2Reminder3()
         ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, SubsequentTime)
     end
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnF3()
--- LOG('*DEBUG: Player Unit Cap: ', repr(GetArmyUnitCostTotal(player)))
--- LOG('*DEBUG: Aeon Unit Cap: ', repr(GetArmyUnitCostTotal(aeon)))
--- LOG('*DEBUG: UEF Unit Cap: ', repr(GetArmyUnitCostTotal(uef)))
--- end
---
--- function OnShiftF3()
--- BlackSunFired()
--- end
---
--- function OnShiftF4()
--- IntroMission3()
--- end
---
--- function OnShiftF5()
--- ControlCenterDestroyed()
--- end
---
--- function OnF4()
--- M3AikoVO()
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_R06', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end

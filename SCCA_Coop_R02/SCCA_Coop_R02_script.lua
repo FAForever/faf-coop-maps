@@ -2553,30 +2553,3 @@ function AdjustForDifficulty(string_in)
     end
     return string_out
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnF4()
--- StartMission2()
--- end
---
--- function OnCtrlF4()
--- StartMission3()
--- end
---
--- function OnShiftF5()
--- # local civTemp = ScenarioUtils.CreateArmyUnit('Civilian', 'Civ_Placeholder')
--- #local playerTestGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_GROUP')
--- M1SpawnSecondTechResponse()
--- end
---
--- function OnCtrlF5()
--- ScenarioFramework.Dialogue(ScenarioStrings.CybranGenericReminder)
--- #local playerSuperGroup = ScenarioUtils.CreateArmyGroup('Player', 'TEST_SUPERGROUP')
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_R02', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end
-

@@ -940,21 +940,3 @@ function M4P2Reminder3()
         ScenarioFramework.CreateTimerTrigger(M4P2Reminder1, ReminderDelay)
     end
 end
-
--- ---------------
--- Debug Functions
--- ---------------
--- function OnShiftF4()
--- ForkThread(ArnoldDeath)
--- end
--- function OnF4()
--- IntroMission3()
--- end
---
--- function OnF5()
--- IntroMission4()
--- end
---
--- function OnCtrlAltF5()
--- ScenarioFramework.EndOperation('SCCA_Coop_E03', true, ScenarioInfo.Options.Difficulty, true, true, true)
--- end
