@@ -1499,7 +1499,7 @@ function IntroMission3()
             -- Disable the UEF Town in M2
             M2UEFAI.DisableBase()
 
-            -- ScenarioFramework.Dialogue(OpStrings.X01_M02_240)
+            ScenarioFramework.Dialogue(OpStrings.X01_M02_240)
 
             -- ----------------
             -- UEF Eastern Town

@@ -484,10 +484,10 @@ X01_M02_210 = {
   {text = '<LOC X01_M02_210_010>[{i Hall}]: Good work, Colonel. I\'m damn proud to have you in the UEF.', vid = 'X01_Hall_M02_03658.sfd', bank = 'X01_VO', cue = 'X01_Hall_M02_03658', faction = 'UEF'},
 }
 
--- M2 PO2 Counterattack Intro / Actor: HQ / Update: 07/03/2007 / VO Cut
+-- M2 PO2 Counterattack Intro / Actor: HQ / Update: 07/03/2007 / VO Ready
 X01_M02_240 = {
-  {text = '<LOC X01_M02_240_010>[{i HQ}]: Your backside ain\'t out of the fire yet, Commander. Scans show Order units massing for a counter-attack from the northeast. HQ out.', vid = 'CUT', bank = 'X01_VO', cue = 'CUT', faction = 'NONE'},
-  {text = '<LOC X01_M02_240_020>[{i HQ}]: The Order commander has launched her attack. It\'s going to be ugly. HQ out', vid = 'CUT', bank = 'X01_VO', cue = 'CUT', faction = 'NONE'},
+  {text = '<LOC X01_M02_240_010>[{i HQ}]: Your backside ain\'t out of the fire yet, Commander. Scans show Order units massing for a counter-attack from the northeast. HQ out.', vid = 'X01_HQ_M02_03662.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_03662', faction = 'NONE'},
+  {text = '<LOC X01_M02_240_020>[{i HQ}]: The Order commander has launched her attack. It\'s going to be ugly. HQ out', vid = 'X01_HQ_M02_03663.sfd', bank = 'X01_VO', cue = 'X01_HQ_M02_03663', faction = 'NONE'},
 }
 
 -- M2 PO2 Tech Reveal / Actor: HQ / Update: 07/05/2007 / VO Ready
