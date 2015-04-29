@@ -15,24 +15,24 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM1West = BaseManager.CreateBaseManager()
 local ForwardNorthBase = BaseManager.CreateBaseManager()
 local ForwardSouthBase = BaseManager.CreateBaseManager()
 
 function SeraphimM1WestAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M1 West
-    -- ----------------
+    ------------------
     SeraphimM1West:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M1_Seraph_West', 'Seraphim_M1_West', 50, {M1_Seraph_West = 100,})
     SeraphimM1West:StartNonZeroBase({{3, 5, 10}, {2, 3, 6}})
     SeraphimM1West:SetActive('AirScouting', true)
@@ -66,9 +66,9 @@ function SeraphimM1WestAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Seraphim M1 West Op AI, Air Attacks
-    -- -----------------------------------
+    -------------------------------------
 
     -- sends 3, 6, 6 [bombers] if player has >= 12, 8, 5 AA
     quantity = {3, 6, 6}
@@ -276,7 +276,7 @@ function SeraphimM1WestLandAttacks()
     local opai = nil
     local trigger = {}
 	
-	-- -- Build Engineers
+	---- Build Engineers
 	-- local Template = {
         -- 'T2Engineers',
         -- 'NoPlan',
@@ -298,9 +298,9 @@ function SeraphimM1WestLandAttacks()
     -- }
     -- ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M1 West Op AI, Land Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends engineers
     if(Difficulty > 1) then

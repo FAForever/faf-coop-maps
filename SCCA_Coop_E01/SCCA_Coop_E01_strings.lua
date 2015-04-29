@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E01>Operation Black Earth'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E01_B01_000_010>Date: 02-AUGUST-3844'},
@@ -35,10 +35,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_003_020>You have your orders, Colonel. You gate at 11:30 hours. Dismissed.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -47,10 +47,10 @@ E01_D01_010 = {
   {text = '<LOC E01_D01_010_010>[{i EarthCom}]: Lieutenant! Come in, Lieutenant!  We\'ve lost your signal...Lieutenant, report...', vid = 'E01_EarthCom_D01_0022.sfd', bank = 'E01_VO', cue = 'E01_EarthCom_D01_0022', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Foothold
--- ------------------------------
+--------------------------------
 
 
 
@@ -95,10 +95,10 @@ E01_M01_070 = {
   {text = '<LOC E01_M01_070_010>[{i Arnold}]: You\'re gonna need Mass if you want to survive, rookie.', vid = 'E01_Arnold_M01_01553.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M01_01553', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Foothold Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M1P1_Title = '<LOC E01_M01_OBJ_010_111>Build Three Power Generators'
@@ -126,10 +126,10 @@ OpE01_Bonus2_Desc = '<LOC E01_M01_OBJ_020_122>You\'ve generated over %s units of
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Backbone
--- ------------------------------
+--------------------------------
 
 
 
@@ -148,10 +148,10 @@ E01_M02_025 = {
   {text = '<LOC E01_M02_025_010>[{i Arnold}]: You gonna get that Land Factory built anytime soon?', vid = 'E01_Arnold_M02_01132.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M02_01132', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Backbone objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M2P1_Title = '<LOC E01_M02_OBJ_010_211>Build a Land Factory'
@@ -161,10 +161,10 @@ OpE01_M2P1_Desc = '<LOC E01_M02_OBJ_010_212>Select your CDR and click the Land F
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Armored Fist
--- ------------------------------
+--------------------------------
 
 
 
@@ -183,10 +183,10 @@ E01_M03_060 = {
   {text = '<LOC E01_M03_060_010>[{i Arnold}]: I hear there\'s a war on. Why don\'t you help out? ', vid = 'E01_Arnold_M03_01133.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M03_01133', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Armored Fist Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M3P1_Title = '<LOC E01_M03_OBJ_010_311>Construct %s MA12 \'Striker\' Medium Tanks'
@@ -196,10 +196,10 @@ OpE01_M3P1_Desc = '<LOC E01_M03_OBJ_010_312>Click on the Land Factory and click 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04
 -- Predator
--- ------------------------------
+--------------------------------
 
 
 
@@ -218,10 +218,10 @@ E01_M04_055 = {
   {text = '<LOC E01_M04_055_010>[{i Arnold}]: Get a move on, rookie! I need that radar down ASAP!', vid = 'E01_Arnold_M04_01134.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M04_01134', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04_OBJ
 -- Predator Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 OpE01_M4P1_Title = '<LOC E01_M04_OBJ_010_411>Destroy the Enemy Radar'
@@ -231,10 +231,10 @@ OpE01_M4P1_Desc = '<LOC E01_M04_OBJ_010_412>Use your tanks to destroy the Cybran
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05
 -- Duck Hunt
--- ------------------------------
+--------------------------------
 
 
 
@@ -265,10 +265,10 @@ E01_M05_055 = {
   {text = '<LOC E01_M05_055_010>[{i Arnold}]: Did you forget why we\'re here? Flatten that air base, pronto!', vid = 'E01_Arnold_M05_01135.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M05_01135', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05_OBJ
 -- Duck Hunt Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M5P1_Title = '<LOC E01_M05_OBJ_010_511>Destroy the Enemy Air Factory to the Southwest'
@@ -278,10 +278,10 @@ OpE01_M5P1_Desc = '<LOC E01_M05_OBJ_010_512>The Lobo Mobile Artillery and Archer
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06
 -- Trample
--- ------------------------------
+--------------------------------
 
 
 
@@ -300,10 +300,10 @@ E01_M06_055 = {
   {text = '<LOC E01_M06_055_010>[{i Arnold}]: I gave you an order to take out that defensive line, rookie. Jump to it!', vid = 'E01_Arnold_M06_01136.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M06_01136', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06_OBJ
 -- Trample Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M6P1_Title = '<LOC E01_M06_OBJ_010_611>Destroy all Towers Along the Defensive Line'
@@ -313,10 +313,10 @@ OpE01_M6P1_Desc = '<LOC E01_M06_OBJ_010_612>You have received some advanced unit
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07
 -- Tidal Wave
--- ------------------------------
+--------------------------------
 
 
 
@@ -409,10 +409,10 @@ E01_M07_175 = {
   {text = '<LOC E01_M07_175_010>[{i Arnold}]: Director Thompson is still waiting on you to capture that Tech 2 Generator. Let\'s not disappoint him.', vid = 'E01_Arnold_M07_01457.sfd', bank = 'E01_VO', cue = 'E01_Arnold_M07_01457', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07_OBJ
 -- Tidal Wave Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpE01_M7P1_Title = '<LOC E01_M07_OBJ_010_711>Defeat the Cybran Commander'
@@ -428,10 +428,10 @@ OpE01_M7S1_Desc = '<LOC E01_M07_OBJ_020_712>Use your ACU or an Engineer to captu
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

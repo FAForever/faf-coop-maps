@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Hex5 = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local Hex5M2Base = BaseManager.CreateBaseManager()
 
 function Hex5M2BaseAI()
 
-    -- ------------
+    --------------
     -- Hex5 M2 Base
-    -- ------------
+    --------------
     Hex5M2Base:InitializeDifficultyTables(ArmyBrains[Hex5], 'M2_Hex5_Main_Base', 'M2_Hex5_Base_Marker', 150, {M2_Hex5_Main_Base = 100})
     Hex5M2Base:StartNonZeroBase({{5, 10, 21}, {5, 8, 18}})
     Hex5M2Base:SetActive('AirScouting', true)
@@ -43,9 +43,9 @@ function Hex5M2BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------
+    ---------------------------------
     -- Hex5 M2 Base Op AI, Air Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 4, 8, 12 [bombers], ([gunships] on hard)
     quantity = {4, 8, 12}
@@ -249,9 +249,9 @@ function Hex5M2BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------
+    ----------------------------------
     -- Hex5 M2 Base Op AI, Land Attacks
-    -- --------------------------------
+    ----------------------------------
 
     -- sends 6, 10, 20 [amphibious tanks]
     quantity = {6, 10, 20}

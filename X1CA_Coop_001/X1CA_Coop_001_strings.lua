@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X01>Operation: Black Day'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X01_B01_000_010>29-July-3847'},
@@ -35,10 +35,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X01_B01_003_010>Failure is not an option, Commander.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -52,10 +52,10 @@ X01_DB01_020 = {
   {text = '<LOC X01_DB01_020_010>[{i Kael}]: Attention all Order commanders: Fort Clarke has fallen, the remnants of the UEF command structure have been destroyed and the Coalition is no more. This is a glorious day for the Order of the Illuminate! We are triumphant!', vid = 'X01_Kael_DB01_04259.sfd', bank = 'Briefings', cue = 'X01_Kael_DB01_04259', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Destroy Order Bases
--- ------------------------------
+--------------------------------
 
 
 
@@ -261,10 +261,10 @@ X01_M01_290 = {
   {text = '<LOC X01_M01_290_010>[{i HQ}]: Commander, select your ACU.', vid = 'X01_HQ_M01_05105.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_05105', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Mission 1: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X01_M01_OBJ_010_010 = '<LOC X01_M01_OBJ_010_010>Destroy the Order Bases'
@@ -304,10 +304,10 @@ X01_M01_OBJ_020_060 = '<LOC X01_M01_OBJ_020_060>Destroy the enemy\'s submarine p
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2: Save the Town
--- ------------------------------
+--------------------------------
 
 
 
@@ -585,10 +585,10 @@ X01_M02_420 = {
   {text = '<LOC X01_M02_420_010>[{i Graham}]: They\'ve launched a nuke! If it hits the town to the east, millions of lives will be lost! ', vid = 'X01_Graham_M02_04891.sfd', bank = 'X01_VO', cue = 'X01_Graham_M02_04891', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mission 2: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X01_M02_OBJ_010_010 = '<LOC X01_M02_OBJ_010_010>Defend the Civilians at Seabring'
@@ -622,10 +622,10 @@ X01_M02_OBJ_020_040 = '<LOC X01_M02_OBJ_020_040>Use the Command Signal to move t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Relieve Ft. Clarke and Defeat the Seraphim
--- ------------------------------
+--------------------------------
 
 
 
@@ -814,10 +814,10 @@ X01_M03_310 = {
   {text = '<LOC X01_M03_310_010>[{i Rhiza}]: Gari proved more bark than bite. Lay your sights upon the Seraphim and destroy him. Losing both in one day will enrage Kael and give heart to the Loyalists. Rhiza out.', vid = 'X01_Rhiza_M03_03718.sfd', bank = 'X01_VO', cue = 'X01_Rhiza_M03_03718', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mission 3: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X01_M03_OBJ_010_010 = '<LOC X01_M03_OBJ_010_010>Protect Fort Clarke'
@@ -839,10 +839,10 @@ X01_M03_OBJ_010_060 = '<LOC X01_M03_OBJ_010_060>Hostile experimentals pose a sig
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

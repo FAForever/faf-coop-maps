@@ -11,15 +11,15 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Princess = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local PrincessBase = BaseManager.CreateBaseManager()
 local PrincessDefenseLine_1 = BaseManager.CreateBaseManager()
 local PrincessDefenseLine_2 = BaseManager.CreateBaseManager()
@@ -28,9 +28,9 @@ local PrincessDefenseLine_4 = BaseManager.CreateBaseManager()
 
 function PrincessBaseAI()
 
-    -- -------------
+    ---------------
     -- Princess Base
-    -- -------------
+    ---------------
     PrincessBase:InitializeDifficultyTables(ArmyBrains[Princess], 'M3_Princess_Base', 'Princess_Base', 150, {M3_Princess_Base = 100})
     PrincessBase:StartNonZeroBase({12, 4})
     PrincessBase:SetMaximumConstructionEngineers(8)

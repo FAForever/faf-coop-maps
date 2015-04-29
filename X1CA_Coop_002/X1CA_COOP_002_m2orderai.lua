@@ -14,22 +14,22 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Order = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM2NorthBase = BaseManager.CreateBaseManager()
 
 function OrderM2NorthBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Order North Base Op AI
-    -- ----------------------
+    ------------------------
     OrderM2NorthBase:InitializeDifficultyTables(ArmyBrains[Order], 'M2_North_Base', 'Order_M2_North_Base_Marker', 70, {M2_North_Base = 100})
     OrderM2NorthBase:StartNonZeroBase({{4, 8, 12}, {4, 7, 10}})
     OrderM2NorthBase:SetActive('AirScouting', true)
@@ -49,9 +49,9 @@ function OrderM2NorthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------------
+    ----------------------------------------
     -- Order M2 North Base Op AI, Air Attacks
-    -- --------------------------------------
+    ----------------------------------------
     -- sends 3, 4, 8 [bombers]
     quantity = {3, 4, 8}
     opai = OrderM2NorthBase:AddOpAI('AirAttacks', 'M2_AirAttacks1',
@@ -269,9 +269,9 @@ function OrderM2NorthBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------------
+    -----------------------------------------
     -- Order M2 North Base Op AI, Land Attacks
-    -- ---------------------------------------
+    -----------------------------------------
 	
 	for i = 1, 2 do
 	-- sends 6 [mobile shields, heavy tanks, anti air]

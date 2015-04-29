@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A02>Operation Machine Purge'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A02_B01_000_010>Date: 17-AUGUST-3844'},
@@ -38,10 +38,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_050>You have your orders, Commander.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -50,10 +50,10 @@ A02_D01_010 = {
   {text = '<LOC A02_D01_010_010>[{i Choir}]: Choir to Knight, respond. Choir to Knight, please respond. We\'ve lost your signal, please respond.', vid = 'A02_Choir_D01_00789.sfd', bank = 'A02_VO', cue = 'A02_Choir_D01_00789', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Cleanse
--- ------------------------------
+--------------------------------
 
 
 
@@ -93,10 +93,10 @@ A02_M01_060 = {
   {text = '<LOC A02_M01_060_010>[{i Choir}]: New Catalon has been cleansed. The Way can now flourish on Zeta Canis. Choir out.', vid = 'A02_Choir_M01_00805.sfd', bank = 'A02_VO', cue = 'A02_Choir_M01_00805', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Cleanse Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC A02_M01_OBJ_010_111>Cleanse New Catalon'
@@ -130,10 +130,10 @@ M1B1Detail = '<LOC A02_M01_OBJ_020_122>You built Hydrocarbon Plants on all avail
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Thunderous
--- ------------------------------
+--------------------------------
 
 
 
@@ -223,10 +223,10 @@ A02_M02_150 = {
   {text = '<LOC A02_M02_150_020>[{i Choir}]: There have been too many civilian casualties. Abort and return. Choir out.', vid = 'A02_Choir_M02_02670.sfd', bank = 'A02_VO', cue = 'A02_Choir_M02_02670', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Thunderous Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC A02_M02_OBJ_010_211>Destroy Cybran Base'
@@ -272,10 +272,10 @@ M2B2Detail = '<LOC A02_M02_OBJ_020_132>All buildings in the human settlement wer
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Break Down
--- ------------------------------
+--------------------------------
 
 
 
@@ -342,10 +342,10 @@ A02_M03_100 = {
   {text = '<LOC A02_M03_100_020>[{i Choir}]: Zeta Canis is now under our control. Well done.', vid = 'A02_Choir_M03_01150.sfd', bank = 'A02_VO', cue = 'A02_Choir_M03_01150', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Break Down Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC A02_M03_OBJ_010_311>Survive Cybran Assault'
@@ -379,10 +379,10 @@ M3S1Detail = '<LOC A02_M03_OBJ_020_312>These artillery pieces could be a great h
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

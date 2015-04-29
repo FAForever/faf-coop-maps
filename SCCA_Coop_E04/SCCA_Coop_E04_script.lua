@@ -175,9 +175,9 @@ local TauntTable = {
        }
 
 
--- -----------
+-------------
 -- Army Brains
--- -----------
+-------------
 ScenarioInfo.Player = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.CybranResearch = 3

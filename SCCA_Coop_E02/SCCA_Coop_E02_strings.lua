@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E02>Operation Snow Blind'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E02_B01_000_010>Date: 16-AUGUST-3844'},
@@ -35,10 +35,10 @@ BriefingData = {
   {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_004_010>A word of warning, Lieutenant. The Aeon are brain-washing monsters who have only one purpose, to spread their so-called \'Way.\' Do not listen to anything they say. Attack and kill them with extreme prejudice. You gate in 30.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -47,10 +47,10 @@ E02_D01_010 = {
   {text = '<LOC E02_D01_010_010>[{i EarthCom}]: Lieutenant! Come in, Lieutenant! We\'ve lost your signal...Lieutenant, report...', vid = 'E02_EarthCom_D01_0056.sfd', bank = 'E02_VO', cue = 'E02_EarthCom_D01_0056', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Rescue
--- ------------------------------
+--------------------------------
 
 
 
@@ -129,10 +129,10 @@ E02_M01_210 = {
   {text = '<LOC E02_M01_210_010>[{i EarthCom}]: Sir, General Clarke is wondering why the Power Core hasn\'t been repaired yet. EarthCom out.', vid = 'E02_EarthCom_M01_00692.sfd', bank = 'E02_VO', cue = 'E02_EarthCom_M01_00692', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Rescue Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC E02_M01_OBJ_010_111>Build an Air Factory'
@@ -178,10 +178,10 @@ M1H2Detail = '<LOC E02_M01_OBJ_030_122>You\'ve generated over %s units of Energy
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Shield Wall
--- ------------------------------
+--------------------------------
 
 
 
@@ -217,10 +217,10 @@ E02_M02_040 = {
   {text = '<LOC E02_M02_040_020>[{i Arnold}]: Nice job defending the Station, rookie.', vid = 'E02_Arnold_M02_0051.sfd', bank = 'E02_VO', cue = 'E02_Arnold_M02_0051', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Shield Wall Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M15P1Text = '<LOC E02_M02_OBJ_010_211>Defeat Aeon Assault'
@@ -230,10 +230,10 @@ M15P1Detail = '<LOC E02_M02_OBJ_010_212>Multiple waves of Aeon units are heading
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Bodyguard
--- ------------------------------
+--------------------------------
 
 
 
@@ -353,10 +353,10 @@ E02_M03_215 = {
   {text = '<LOC E02_M03_215_010>[{i Nakamura}]: You need to get those trucks to the Station soon, Lieutenant. The longer they\'re out there, the more likely the Aeon are to find them.', vid = 'E02_Nakamura_M03_01459.sfd', bank = 'E02_VO', cue = 'E02_Nakamura_M03_01459', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Bodyguard Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Text = '<LOC E02_M03_OBJ_010_311>Get Units to Luthien Colony'
@@ -393,10 +393,10 @@ M2H1Detail = '<LOC E02_M03_OBJ_030_312>General Clarke sends her personal congrat
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04
 -- Avalanche
--- ------------------------------
+--------------------------------
 
 
 
@@ -450,10 +450,10 @@ E02_M04_215 = {
   {text = '<LOC E02_M04_215_010>[{i Arnold}]: If you\'re having trouble with that Aeon, try a different unit combination. That might expose a flaw in her defenses. Arnold out.', vid = 'E02_Arnold_M04_01097.sfd', bank = 'E02_VO', cue = 'E02_Arnold_M04_01097', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04_OBJ
 -- Avalanche Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC E02_M04_OBJ_010_411>Defend Station Lima Foxtrot'
@@ -475,10 +475,10 @@ M3S1Detail = '<LOC E02_M04_OBJ_020_412>Bring Aeon production to a halt by destro
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy taunts
--- ------------------------------
+--------------------------------
 
 
 

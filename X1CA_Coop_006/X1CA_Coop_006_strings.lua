@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X06>Operation: Overlord'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X06_B01_000_010>10-August-3847'},
@@ -37,10 +37,10 @@ BriefingData = {
   {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_090>Commander, you have your orders. You gate immediately.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -59,10 +59,10 @@ X06_DB01_030 = {
   {text = '<LOC X06_DB01_030_010>[{i HQ}]: Commander? You there? Dammit.', vid = 'X06_HQ_DB01_04963.sfd', bank = 'Briefings', cue = 'X06_HQ_DB01_04963', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Assault and Build Up
--- ------------------------------
+--------------------------------
 
 
 
@@ -151,10 +151,10 @@ X06_M01_140 = {
   {text = '<LOC X06_M01_140_010>[{i HQ}]: Commander, you read me? Commander? Ah hell...', vid = 'X06_HQ_M01_04961.sfd', bank = 'X06_VO', cue = 'X06_HQ_M01_04961', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Mission 1: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X06_M01_OBJ_010_010 = '<LOC X06_M01_OBJ_010_010>Destroy the Forward Seraphim Position'
@@ -170,10 +170,10 @@ X06_M01_OBJ_010_040 = '<LOC X06_M01_OBJ_010_040>Issue a target for Option Zero\'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2: Defeat the Order Commanders
--- ------------------------------
+--------------------------------
 
 
 
@@ -338,10 +338,10 @@ X06_M02_270 = {
   {text = '<LOC X06_M02_270_010>[{i Rhiza}]: [High Pitched Death Scream]', vid = 'X06_Rhiza_M02_05125.sfd', bank = 'X06_VO', cue = 'X06_Rhiza_M02_05125', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mission 2: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X06_M02_OBJ_010_010 = '<LOC X06_M02_OBJ_010_010>Defeat Order Commander Vendetta'
@@ -363,10 +363,10 @@ X06_M02_OBJ_010_060 = '<LOC X06_M02_OBJ_010_060>Capture and hold Black Sun\'s co
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Get the Princess to the Rift
--- ------------------------------
+--------------------------------
 
 
 
@@ -483,10 +483,10 @@ X06_M03_240 = {
   {text = '<LOC X06_M03_240_010>[{i HQ}]: Scratch one alien. HQ out.', vid = 'X06_HQ_M03_04002.sfd', bank = 'X06_VO', cue = 'X06_HQ_M03_04002', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mission 3: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X06_M03_OBJ_010_010 = '<LOC X06_M03_OBJ_010_010>Destroy the Quantum Archway'
@@ -502,10 +502,10 @@ X06_M03_OBJ_010_040 = '<LOC X06_M03_OBJ_010_040>If able, destroy the Seraphim AC
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

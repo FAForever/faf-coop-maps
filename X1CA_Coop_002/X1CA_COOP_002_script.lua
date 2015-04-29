@@ -33,9 +33,9 @@ local Triggers = import('/lua/scenariotriggers.lua')
 local SPAIFileName = '/Lua/Scenarioplatoonai.lua'
 local ScriptFile = '/maps/X1CA_Coop_002/X1CA_Coop_002_script.lua'
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Order = 2
 ScenarioInfo.QAI = 3
@@ -45,9 +45,9 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -62,9 +62,9 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 
--- --------------
+----------------
 -- Taunt Managers
--- --------------
+----------------
 local CeleneTM = TauntManager.CreateTauntManager('CeleneTM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 local CeleneM4TM = TauntManager.CreateTauntManager('CeleneM2TM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
@@ -72,9 +72,9 @@ local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_002/X1CA
 local LeaderFaction
 local LocalFaction
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
@@ -100,18 +100,18 @@ function OnPopulate()
     -- Walls
     ScenarioUtils.CreateArmyGroup('Loyalist', 'M1_Walls')
 
-    -- -----------
+    -------------
     -- Order M1 AI
-    -- -----------
+    -------------
     M1OrderAI.OrderM1MainBaseAI()
     M1OrderAI.OrderM1ResourceBaseAI()
 
     ScenarioInfo.M1P1Units = ScenarioFramework.GetCatUnitsInArea(categories.FACTORY + (categories.SHIELD * categories.STRUCTURE), 'M1_Order_Factories_Area', ArmyBrains[Order])
     ScenarioInfo.M1S1Units = ScenarioFramework.GetCatUnitsInArea(categories.ENERGYPRODUCTION, 'M1_NE_Base_Area', ArmyBrains[Order])
 
-    -- ---------------------
+    -----------------------
     -- Order Initial Patrols
-    -- ---------------------
+    -----------------------
     for i = 1, 2 do
         local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Order_MainBase_DefPatrol_' .. i .. '_D' .. Difficulty, 'AttackFormation')
         for k, v in units:GetPlatoonUnits() do
@@ -124,9 +124,9 @@ function OnPopulate()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Order_MassArea_Chain')))
     end
 
-    -- --------------------
+    ----------------------
     -- Order Initial Attack
-    -- --------------------
+    ----------------------
 
     --ScenarioInfo.M1OrderAttack = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
     ScenarioInfo.M1OrderAttackPlatoons = {}
@@ -146,9 +146,9 @@ function OnPopulate()
 		
     end
     
-    -- --------------
+    ----------------
     -- Loyalist M1 AI
-    -- --------------
+    ----------------
     M1LoyalistAI.LoyalistM1MainBaseAI()
     ScenarioFramework.CreateArmyStatTrigger(M1LoyalistAI.LoyalistNewEngCount, ArmyBrains[Loyalist], 'LoyalistNewEngCount',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uab1301}})
@@ -158,9 +158,9 @@ function OnPopulate()
 end
 
 function OnStart()
-    -- ------------------
+    --------------------
     -- Build Restrictions
-    -- ------------------
+    --------------------
 
     for _, player in ScenarioInfo.HumanPlayers do
         ScenarioFramework.AddRestriction(player, categories.xal0305) -- Aeon Sniper Bot
@@ -214,9 +214,9 @@ function OnStart()
     ForkThread(IntroNIS)
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then
         ScenarioInfo.OpComplete = true
@@ -329,9 +329,9 @@ function KillGame()
     )
 end
 
--- ---------
+-----------
 -- Intro NIS
--- ---------
+-----------
 function IntroNIS()
 
     Cinematics.EnterNISMode()
@@ -394,9 +394,9 @@ function IntroNIS()
     IntroMission1()
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -425,9 +425,9 @@ function IntroMission1()
 end
 
 function StartMission1()
-    -- ---------------------------------------------
+    -----------------------------------------------
     -- Primary Objective 1 - Defeat the Order Attack
-    -- ---------------------------------------------
+    -----------------------------------------------
     ScenarioInfo.M1P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -479,9 +479,9 @@ function StartMission1()
 end
 
 function M1OrderAttackDefeated()
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Primary Objective 2 - Defeat the Order Base
-    -- -------------------------------------------
+    ---------------------------------------------
     ScenarioInfo.M1P2 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -518,9 +518,9 @@ function M1RevealSecondary()
 end
 
 function M1AssignSecondary()
-    -- ---------------------------------------------
+    -----------------------------------------------
     -- Secondary Objective 1 - Destroy Resource Base
-    -- ---------------------------------------------
+    -----------------------------------------------
     ScenarioInfo.M1S1 = Objectives.KillOrCapture(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -547,9 +547,9 @@ function M1AssignSecondary()
 end
 
 function AssignBonus_ConstructShield()
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Secondary Objective 2 - Construct 2 shields
-    -- -------------------------------------------
+    ---------------------------------------------
     ScenarioInfo.M1S2 = Objectives.CategoriesInArea(
         'secondary',			-- type
         'incomplete', 			-- complete
@@ -585,9 +585,9 @@ function AssignBonus_ConstructShield()
     table.insert(AssignedObjectives, ScenarioInfo.M1S2)
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ForkThread(
         function()
@@ -603,14 +603,14 @@ function IntroMission2()
             ScenarioInfo.MissionNumber = 2
             local units = nil
 
-            -- -----------
+            -------------
             -- M2 Order AI
-            -- -----------
+            -------------
             M2OrderAI.OrderM2NorthBaseAI()
 
-            -- ---------------------
+            -----------------------
             -- Order Initial Patrols
-            -- ---------------------
+            -----------------------
 
             -- Land Patrol
             units = ScenarioUtils.CreateArmyGroup('Order', 'M2_North_DefPatrol_1_D' .. Difficulty)
@@ -630,15 +630,15 @@ function IntroMission2()
                 platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
             end
 
-            -- ---------------------
+            -----------------------
             -- Order Static Defenses
-            -- ---------------------
+            -----------------------
             ScenarioUtils.CreateArmyGroup('Order', 'M2_Canyon_Defense_D' .. Difficulty)
             ScenarioUtils.CreateArmyGroup('Order', 'M2_Prison_Defenses_D' .. Difficulty)
 
-            -- --------------------
+            ----------------------
             -- Order Initial Attack
-            -- --------------------
+            ----------------------
             local routes = {'M2_InitialAttack_Land_A_Chain', 'M2_InitialAttack_Land_B_Chain', 'M2_Combined_LandAttack3_Chain'}
             units = ScenarioUtils.CreateArmyGroup('Order', 'M2_Order_InitialAttack_Land_A_D' .. Difficulty)
             for k,v in units do
@@ -661,14 +661,14 @@ function IntroMission2()
                 ScenarioFramework.PlatoonPatrolChain(platoon, routes[Random(1, 3)])
             end
 
-            -- ---------
+            -----------
             -- M2 QAI AI
-            -- ---------
+            -----------
             M2QAIAI.QAIM2SouthBaseAI()
 
-            -- -------------------
+            ---------------------
             -- QAI Initial Patrols
-            -- -------------------
+            ---------------------
 
             -- Land Patrol 1
             units = ScenarioUtils.CreateArmyGroup('QAI', 'M2_Base_LandDef_1_D' .. Difficulty)
@@ -698,14 +698,14 @@ function IntroMission2()
                 platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
             end
 
-            -- -------------------
+            ---------------------
             -- QAI Static Defenses
-            -- -------------------
+            ---------------------
             ScenarioUtils.CreateArmyGroup('QAI', 'M2_QAI_OuterDef_D' .. Difficulty)
 
-            -- ------------------
+            --------------------
             -- QAI Initial Attack
-            -- ------------------
+            --------------------
             units = ScenarioUtils.CreateArmyGroup('QAI', 'M2_QAI_InitialAttack_Land_A_D' .. Difficulty)
             for k,v in units do
                 local platoon = ArmyBrains[QAI]:MakePlatoon('','')
@@ -727,21 +727,21 @@ function IntroMission2()
                 ScenarioFramework.PlatoonPatrolChain(platoon, routes[Random(1, 3)])
             end
 
-            -- --------------
+            ----------------
             -- M2 Loyalist AI
-            -- --------------
+            ----------------
             M2LoyalistAI.LoyalistM2EastBaseAI()
             M2LoyalistAI.LoyalistM2WestBaseAI()
 
-            -- -----------------------
+            -------------------------
             -- Loyalist Resource Bases
-            -- -----------------------
+            -------------------------
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource')
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource2')
 
-			-- --------------
+			----------------
 			-- Loyalist ACUs
-			-- --------------
+			----------------
 			ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_East')
             ScenarioInfo.LoyalistDana:SetCustomName('Dana')
             ScenarioInfo.LoyalistDana:CreateEnhancement('T3Engineering')
@@ -756,9 +756,9 @@ function IntroMission2()
             ScenarioInfo.LoyalistSascha:CreateEnhancement('HeatSink')
 		    ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistSascha)
 			
-            -- --------------------
+            ----------------------
             -- Objective Structures
-            -- --------------------
+            ----------------------
 
             -- Prison
             ScenarioInfo.Prison = ScenarioUtils.CreateArmyUnit('Order', 'M2_Prison')
@@ -847,9 +847,9 @@ function IntroMission2NIS()
 end
 
 function StartMission2()
-    -- ------------------------------------
+    --------------------------------------
     -- Primary Objective 1 - Capture Prison
-    -- ------------------------------------
+    --------------------------------------
     ScenarioInfo.M2P1 = Objectives.Capture(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -892,9 +892,9 @@ function StartMission2()
 end
 
 function SecondaryDefendLoyalists()
-    -- ----------------------------------------------
+    ------------------------------------------------
     -- Secondary Objective 1 - protect the Loyalists
-    -- ----------------------------------------------
+    ------------------------------------------------
     ScenarioInfo.M2S1 = Objectives.Protect(
         'secondary',                            -- type
         'incomplete',                           -- complete
@@ -951,9 +951,9 @@ function M2AssignAeonSecondary()
          end
     end
 
-    -- ----------------------------------------------------
+    ------------------------------------------------------
     -- Secondary Objective 1 - Aeon - Rescue Order Diplomat
-    -- ----------------------------------------------------
+    ------------------------------------------------------
     ScenarioInfo.M2S1Aeon = Objectives.KillOrCapture(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -1040,15 +1040,15 @@ function M2PingReminder()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
-    -- ---------
+    -----------
     -- M3 QAI AI
-    -- ---------
+    -----------
     M3QAIAI.QAIM3NavalBaseAI()
 
     ScenarioInfo.ColossusAttack = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_CounterAttack_Colossus_2', 'None')
@@ -1091,9 +1091,9 @@ function IntroMission3NIS()
 end
 
 function StartMission3()
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Primary Objective 1 - Survive Counterattack
-    -- -------------------------------------------
+    ---------------------------------------------
     ScenarioInfo.M3P1 = Objectives.Basic(
         'primary',                          -- type
         'incomplete',                       -- complete
@@ -1153,9 +1153,9 @@ function EndMission3()
     IntroMission4()
 end
 
--- ---------
+-----------
 -- Mission 4
--- ---------
+-----------
 function IntroMission4()
     ForkThread(
         function()
@@ -1184,28 +1184,28 @@ function IntroMission4()
 			    ScenarioInfo.M2S1:ManualResult(true)
 			end
 
-            -- ------------------------
+            --------------------------
             -- M4 Loyalist Transport AI
-            -- ------------------------
+            --------------------------
             M1LoyalistAI.LoyalistM4TransportAttacks()
             SetArmyUnitCap(Loyalist, 480)
 
-            -- ------------------------
+            --------------------------
             -- M4 Loyalist Expansion AI
-            -- ------------------------			
+            --------------------------
             ScenarioFramework.CreateTimerTrigger(M2LoyalistAI.LoyalistM2ExpansionBaseAI, 90)
 
-            -- -----------
+            -------------
             -- M4 Order AI
-            -- -----------
+            -------------
             M4OrderAI.OrderM4MainBaseAI()
             M4OrderAI.OrderM4NorthBaseAI()
             M4OrderAI.OrderM4CenterBaseAI()
             M4OrderAI.OrderM4SouthBaseAI()
 
-            -- ------------------
+            --------------------
             -- Order Celene ACU
-            -- ------------------
+            --------------------
             ScenarioInfo.OrderACU = ScenarioUtils.CreateArmyUnit('Order', 'M4_Order_Commander')
             ScenarioInfo.OrderACU:SetCustomName(LOC '{i Celene}')
             ScenarioInfo.OrderACU:CreateEnhancement('T3Engineering')
@@ -1216,9 +1216,9 @@ function IntroMission4()
 
             ScenarioFramework.CreateUnitDamagedTrigger(CeleneWarp, ScenarioInfo.OrderACU, .8)
 
-            -- ---------------------
+            -----------------------
             -- Order Initial Patrols
-            -- ---------------------
+            -----------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M4_Order_Defense_Air_D' .. Difficulty, 'NoFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M4_Order_Air_Defense_Chain')))
@@ -1229,9 +1229,9 @@ function IntroMission4()
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M4_Order_Main_Land_Defense_Chain')))
             end
 
-            -- ---------------------
+            -----------------------
             -- Order Initial Attacks
-            -- ---------------------
+            -----------------------
             units = ScenarioUtils.CreateArmyGroup('Order', 'M4_Order_NukeNorth_Starter')
             for k, v in units do
                 platoon = ArmyBrains[Order]:MakePlatoon('','')
@@ -1259,25 +1259,25 @@ function IntroMission4()
                 platoon:ForkAIThread(ScenarioPlatoonAI.PlatoonAttackLocation)
             end
 
-            -- -----------
+            -------------
             -- Order Nukes
-            -- -----------
+            -------------
             ScenarioInfo.M4OrderNorthNuke:GiveNukeSiloAmmo(1)
             ScenarioInfo.M4OrderCenterNuke:GiveNukeSiloAmmo(1)
             ScenarioInfo.M4OrderSouthNuke:GiveNukeSiloAmmo(1)
 
-            -- ---------
+            -----------
             -- M4 QAI AI
-            -- ---------
+            -----------
             M4QAIAI.QAIM4MainBaseAI()
             M4QAIAI.QAIM4NavalBaseAI()
             M4QAIAI.QAIM4NorthBaseAI()
             M4QAIAI.QAIM4CenterBaseAI()
             M4QAIAI.QAIM4SouthBaseAI()
 
-            -- -------------------
+            ---------------------
             -- QAI Initial Patrols
-            -- -------------------
+            ---------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M4_Main_Patrol_NW_D' .. Difficulty, 'NoFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M4_Main_Base_NW_Def_Chain')))
@@ -1337,9 +1337,9 @@ function IntroMission4()
                 platoon:ForkAIThread(ScenarioPlatoonAI.PlatoonAttackLocation)
             end
 
-            -- -----------------------
+            -------------------------
             -- QAI Attacks In Progress
-            -- -----------------------
+            -------------------------
 
             -- air: 1 via overland route, 2 via normal air attack routes
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M4_QAI_InitAir_3_D' .. Difficulty, 'GrowthFormation')   -- air: 1 via overland route, 2 via normal air attack routes
@@ -1364,9 +1364,9 @@ function IntroMission4()
                 ScenarioFramework.PlatoonAttackWithTransports(units, 'M3_Transport_Landing_Chain', 'M3_Transport_Attack_Chain', false)
             end
 
-            -- ---------------------
+            -----------------------
             -- QAI Colossus Response
-            -- ---------------------
+            -----------------------
             local colossi = ArmyBrains[Order]:GetListOfUnits(categories.ual0401, false)
             if(table.getn(colossi) > 1) then
                 for i = 1, Difficulty do
@@ -1393,9 +1393,9 @@ function IntroMission4()
                 end
             end
 
-            -- ---------
+            -----------
             -- QAI Nukes
-            -- ---------
+            -----------
             ScenarioInfo.M4QAIMainNuke = ScenarioInfo.UnitNames[QAI]['QAI_Nuke_Launcher']
             ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(2)
 
@@ -1408,9 +1408,9 @@ function IntroMission4()
             ScenarioInfo.M4QAISouthNuke = ScenarioUtils.CreateArmyUnit('QAI', 'M4_QAI_South_Silo')
             ScenarioInfo.M4QAISouthNuke:GiveNukeSiloAmmo(1)
 
-            -- ---------------
+            -----------------
             -- Objective Units
-            -- ---------------
+            -----------------
             if(LeaderFaction == 'cybran') then
                 local units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Sundry')
                 for k, v in units do
@@ -1530,9 +1530,9 @@ function IntroMission4NIS()
 end
 
 function StartMission4()
-    -- ----------------------------------------
+    ------------------------------------------
     -- Primary Objective 1 - Kill QAI Commander
-    -- ----------------------------------------
+    ------------------------------------------
     ScenarioInfo.M4P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -1637,9 +1637,9 @@ function StartM4S2Cybran()
 end
 
 function AssignM4S2Cybran()
-    -- ----------------------------------
+    ------------------------------------
     -- Secondary Objective 2 - Infect QAI
-    -- ----------------------------------
+    ------------------------------------
     ScenarioInfo.M4S2Cybran = Objectives.CategoriesInArea(
         'secondary',                        -- type
         'incomplete',                       -- complete
@@ -1754,9 +1754,9 @@ function CzarDamaged()
     )
 end
 
--- ---------------
+-----------------
 -- Taunts
--- ---------------
+-----------------
 function SetupCeleneM1Taunt()
     CeleneTM:AddEnemiesKilledTaunt('TAUNT8', ArmyBrains[Order], categories.MOBILE, 60)              -- Order destroys 60 mobile units
     CeleneTM:AddDamageTaunt('TAUNT13', ScenarioInfo.PlayerCDR, .15)                                 -- Player CDR is reduced to 90% health
@@ -1819,9 +1819,9 @@ function SetupQAIM4Taunt()
 
 end
 
--- -------------------
+---------------------
 -- Objective Reminders
--- -------------------
+---------------------
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_110)

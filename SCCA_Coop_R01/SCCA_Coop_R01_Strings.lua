@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C01>Operation Liberation'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C01_B01_000_010>Date: 06-AUGUST-3844'},
@@ -38,10 +38,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_050>Do not judge the Doctor, Commander. He is a great man, a genius. He just thinks a little sideways. We gate in 30. Dostya out.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -50,10 +50,10 @@ C01_D01_010 = {
   {text = '<LOC C01_D01_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C01_Ops_D01_0003.sfd', bank = 'C01_VO', cue = 'C01_Ops_D01_0003', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: G01_OBJ
 -- Bonus Objectives
--- ------------------------------
+--------------------------------
 
 -- Bonus Objectives
 C01_G01_OBJ_010_041 = '<LOC C01_G01_OBJ_010_041>Equal Opportunity'
@@ -69,10 +69,10 @@ C01_G01_OBJ_010_046 = '<LOC C01_G01_OBJ_010_046>You built over %s Interceptors.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Material
--- ------------------------------
+--------------------------------
 
 
 
@@ -111,10 +111,10 @@ C01_M01_070 = {
   {text = '<LOC C01_M01_070_010>[{i Dostya}]: You will not last long without a steady Mass income. Build Extractors immediately.', vid = 'C01_Dostya_M01_01555.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M01_01555', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Material Objectives 
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC C01_M01_OBJ_010_111>Build Three Power Generators'
@@ -154,10 +154,10 @@ M1P2Built3 = '<LOC C01_M01_OBJ_010_126>(3/3)'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Anvil
--- ------------------------------
+--------------------------------
 
 
 
@@ -176,10 +176,10 @@ C01_M02_030 = {
   {text = '<LOC C01_M02_030_010>[{i Dostya}]: If the UEF attacks before you build an Air Factory, you will be destroyed. Dostya out.', vid = 'C01_Dostya_M02_01473.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M02_01473', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Anvil  Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC C01_M02_OBJ_010_211>Build an Air Factory'
@@ -189,10 +189,10 @@ M2P1Detail = '<LOC C01_M02_OBJ_010_212>Select your CDR and click the Air Factory
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Air Power
--- ------------------------------
+--------------------------------
 
 
 
@@ -211,10 +211,10 @@ C01_M03_025 = {
   {text = '<LOC C01_M03_025_010>[{i Dostya}]: Do you plan on fighting this war without units, Commander? Build some Bombers.  Dostya out. ', vid = 'C01_Dostya_M03_01474.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M03_01474', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Air Power Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC C01_M03_OBJ_010_311>Build %s Bombers'
@@ -242,10 +242,10 @@ M3P1Built5 = '<LOC C01_M03_OBJ_010_318>(5/5)'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04
 -- First Strike
--- ------------------------------
+--------------------------------
 
 
 
@@ -279,10 +279,10 @@ C01_M04_065 = {
   {text = '<LOC C01_M04_065_010>[{i Dostya}]: I am still waiting for you to capture that radar, Commander. Dostya out. ', vid = 'C01_Dostya_M04_01481.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M04_01481', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04_OBJ
 -- First Strike Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M4P1Text = '<LOC C01_M04_OBJ_010_411>Defeat the UEF Patrols'
@@ -298,10 +298,10 @@ M4P2Detail = '<LOC C01_M04_OBJ_010_422>Use your ACU or an Engineer to capture th
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05
 -- Brawl
--- ------------------------------
+--------------------------------
 
 
 
@@ -325,10 +325,10 @@ C01_M05_045 = {
   {text = '<LOC C01_M05_045_010>[{i Dostya}]: I expect those UEF units to your north to be destroyed shortly, Commander. Dostya out.', vid = 'C01_Dostya_M05_01476.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M05_01476', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05_OBJ
 -- Brawl Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M5P1Text = '<LOC C01_M05_OBJ_010_511>Destroy the UEF Mass Refineries'
@@ -338,10 +338,10 @@ M5P1Detail = '<LOC C01_M05_OBJ_010_512>Order your squadron of Bombers to destroy
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06
 -- Thunder
--- ------------------------------
+--------------------------------
 
 
 
@@ -392,10 +392,10 @@ C01_M06_090 = {
   {text = '<LOC C01_M06_090_010>[{i Dostya}]: Those patrols must be eliminated, Commander. Dostya Out.', vid = 'C01_Dostya_M06_01498.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M06_01498', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06_OBJ
 -- Thunder Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objective
 M6P1Text = '<LOC C01_M06_OBJ_010_611>Defeat UEF Outer Defenses'
@@ -435,10 +435,10 @@ M6P2Destroyed3 = '<LOC C01_M06_OBJ_010_626>(3/3)'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07
 -- Lightning
--- ------------------------------
+--------------------------------
 
 
 
@@ -512,10 +512,10 @@ C01_M07_190 = {
   {text = '<LOC C01_M07_190_010>[{i Dostya}]: You must destroy the UEF base before you can rescue the Symbionts, Commander. Dostya out.', vid = 'C01_Dostya_M07_01500.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M07_01500', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07_OBJ
 -- Lightning Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M7P1Text = '<LOC C01_M07_OBJ_010_711>Defeat Symbiont Guards'
@@ -531,10 +531,10 @@ M7P2Detail = '<LOC C01_M07_OBJ_010_722>The Symbionts will not be free until the 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M08
 -- Crash
--- ------------------------------
+--------------------------------
 
 
 
@@ -560,10 +560,10 @@ C01_M08_055 = {
   {text = '<LOC C01_M08_055_010>[{i Dostya}]: Push harder and the Aeon Commander will crumble. Dostya out.', vid = 'C01_Dostya_M08_01501.sfd', bank = 'C01_VO', cue = 'C01_Dostya_M08_01501', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M08_OBJ
 -- Crash Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M8P1Text = '<LOC C01_M08_OBJ_010_811>Defeat the Aeon Commander'
@@ -573,10 +573,10 @@ M8P1Detail = '<LOC C01_M08_OBJ_010_812>Breach the Aeon Commander\'s defenses and
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

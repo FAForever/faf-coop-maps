@@ -12,9 +12,9 @@ local NavalOSB = import('/lua/ai/opai/GenerateNaval.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = 1
 local QAI = 4
 local AeonArmy = 5
@@ -22,9 +22,9 @@ local UEFArmy = 6
 local Brackman = 8
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local QAIMainBase = BaseManager.CreateBaseManager()
 local QAILandBase = BaseManager.CreateBaseManager()
 local QAIAirBase = BaseManager.CreateBaseManager()
@@ -35,9 +35,9 @@ local QAIUEFExpBase = BaseManager.CreateBaseManager()
 
 function QAIMainBaseAI()
 
-    -- -------------
+    ---------------
     -- QAI Main Base
-    -- -------------
+    ---------------
     QAIMainBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Main_Base', 'M3_QAI_Main_Base_Marker', 50, {M3_QAI_Main_Base = 100})
     QAIMainBase:StartNonZeroBase({{2, 6, 9}, {2, 5, 7}})
 
@@ -55,9 +55,9 @@ function QAIMainBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------
+    ----------------------------------
     -- QAI Main Base Op AI, Air Attacks
-    -- --------------------------------
+    ----------------------------------
 
     -- sends 2, 4, 6 [bombers]
     quantity = {2, 4, 6}
@@ -247,9 +247,9 @@ function QAIMainBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------
+    -----------------------------------
     -- QAI Main Base Op AI, Land Attacks
-    -- ---------------------------------
+    -----------------------------------
 
     -- sends 6, 10, 14 [light tanks, heavy tanks]
     quantity = {6, 10, 14}
@@ -444,9 +444,9 @@ end
 
 function QAILandBaseAI()
 
-    -- -------------
+    ---------------
     -- QAI Land Base
-    -- -------------
+    ---------------
     QAILandBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_LandBase', 'M3_QAI_LandBase_Marker', 40, {M3_QAI_LandBase = 100})
     QAILandBase:StartNonZeroBase({{3, 7, 11}, {3, 6, 9}})
 
@@ -458,9 +458,9 @@ function QAILandBaseAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------
+    -----------------------------------
     -- QAI Land Base Op AI, Land Attacks
-    -- ---------------------------------
+    -----------------------------------
 
     -- sends 6, 12, 18 [light tanks, heavy tanks]
     quantity = {6, 12, 18}
@@ -668,9 +668,9 @@ end
 
 function QAIAirBaseAI()
 
-    -- ------------
+    --------------
     -- QAI Air Base
-    -- ------------
+    --------------
     QAIAirBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_AirBase', 'M3_QAI_AirBase_Marker', 50, {M3_QAI_AirBase = 100})
     QAIAirBase:StartNonZeroBase({{2, 10, 14}, {2, 9, 12}})
 
@@ -687,9 +687,9 @@ function QAIAirBaseAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------
+    ---------------------------------
     -- QAI Air Base Op AI, Air Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 6, 12, 18 [bombers]
     quantity = {6, 12, 18}
@@ -958,9 +958,9 @@ end
 
 function QAINavalBaseAI()
 
-    -- --------------
+    ----------------
     -- QAI Naval Base
-    -- --------------
+    ----------------
     QAINavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 50, {M3_QAI_Naval_Base = 100})
     QAINavalBase:StartNonZeroBase({{1, 4, 7}, {1, 3, 6}})
 
@@ -969,9 +969,9 @@ end
 
 function QAINavalBaseAttacks()
 
-    -- -----------------------------------
+    -------------------------------------
     -- QAI Naval Base Op AI, Naval Attacks
-    -- -----------------------------------
+    -------------------------------------
     local quantity = {20, 30, 40}
     for i = 1, 2 do
         local navalOSB = NavalOSB.GenerateNavalOSB('QAINaval' .. i, 5, 1, quantity[Difficulty], 'C', 100, nil, nil)
@@ -991,9 +991,9 @@ end
 
 function QAICybranExpBaseAI()
 
-    -- -------------------
+    ---------------------
     -- QAI Cybran Exp Base
-    -- -------------------
+    ---------------------
     QAICybranExpBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_ExpBase', 'M3_QAI_ExpBase_Marker', 50, {M3_QAI_ExpBase = 100})
     QAICybranExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1002,9 +1002,9 @@ end
 
 function QAICybranExpBaseAttacks()
 
-    -- -------------------------
+    ---------------------------
     -- QAI Cybran Exp Base Op AI
-    -- -------------------------
+    ---------------------------
 
     local units = {'M3_QAI_Exp_Spider', 'M3_QAI_Exp_Gunship'}
     if(Difficulty == 3) then
@@ -1028,9 +1028,9 @@ end
 
 function QAIAeonExpBaseAI()
 
-    -- -----------------
+    -------------------
     -- QAI Aeon Exp Base
-    -- -----------------
+    -------------------
     QAIAeonExpBase:InitializeDifficultyTables(ArmyBrains[AeonArmy], 'M3_Aeon_Factory', 'M3_QAI_ExpBase_Marker', 50, {M3_Aeon_Factory = 100})
     QAIAeonExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1039,9 +1039,9 @@ end
 
 function QAIAeonExpBaseAttacks()
 
-    -- -----------------------
+    -------------------------
     -- QAI Aeon Exp Base Op AI
-    -- -----------------------
+    -------------------------
 
     local numEngineers = {1, 2, 3}
     local opai = QAIAeonExpBase:AddOpAI({'M3_Aeon_Exp_Czar', 'M3_Aeon_Exp_Col'},
@@ -1061,9 +1061,9 @@ end
 
 function QAIUEFExpBaseAI()
 
-    -- ----------------
+    ------------------
     -- QAI UEF Exp Base
-    -- ----------------
+    ------------------
     QAIUEFExpBase:InitializeDifficultyTables(ArmyBrains[UEFArmy], 'M3_UEF_Factory', 'M3_QAI_ExpBase_Marker', 50, {M3_UEF_Factory = 100})
     QAIUEFExpBase:StartNonZeroBase({1, 2, 3})
 
@@ -1072,9 +1072,9 @@ end
 
 function QAIUEFExpBaseAttacks()
 
-    -- ----------------------
+    ------------------------
     -- QAI UEF Exp Base Op AI
-    -- ----------------------
+    ------------------------
 
     local numEngineers = {1, 2, 3}
     local opai = QAIUEFExpBase:AddOpAI('M3_UEF_Exp_Fatboy',

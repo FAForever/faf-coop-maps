@@ -11,23 +11,23 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM1NorthBase = BaseManager.CreateBaseManager()
 local SeraphimM1MiddleBase = BaseManager.CreateBaseManager()
 
 function SeraphimM1NorthBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M1 North Base
-    -- ----------------------
+    ------------------------
     SeraphimM1NorthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M1_North_Base', 'Seraphim_M1_North_Base', 200, {M1_North_Base = 100})
     SeraphimM1NorthBase:StartNonZeroBase({{12, 19, 28}, {10, 16, 24}})
     SeraphimM1NorthBase:SetMaximumConstructionEngineers(4)
@@ -49,9 +49,9 @@ function SeraphimM1NorthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Seraphim M1 North Base Op AI, Air Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- sends 4, 6, 8 [bombers]
     quantity = {4, 6, 8}
@@ -334,9 +334,9 @@ function SeraphimM1NorthBaseNavalAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Seraphim M1 North Base Op AI, Naval Attacks
-    -- -------------------------------------------
+    ---------------------------------------------
 
     -- sends 3 frigate power of [frigates]
     opai = SeraphimM1NorthBase:AddNavalAI('M1_NavalAttack1',
@@ -530,9 +530,9 @@ end
 
 function SeraphimM1MiddleBaseAI()
 
-    -- -----------------------
+    -------------------------
     -- Seraphim M1 Middle Base
-    -- -----------------------
+    -------------------------
     SeraphimM1NorthBase:AddExpansionBase('SeraphimM1MiddleBase', Difficulty)
     SeraphimM1MiddleBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'SeraphimM1MiddleBase', 'Seraphim_Middle_Base', 80, {M1_Seraph_Mid_Base = 100})
     SeraphimM1MiddleBase:SetEngineerCount({2,3,4})

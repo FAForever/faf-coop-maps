@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C03>Operation Defrag'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C03_B01_000_010>Date: 27-AUGUST-3844'},
@@ -37,10 +37,10 @@ BriefingData = {
   {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_004_030>No time, no time. My boy is only one Gate from us. I must escape from Minerva. Tip of the spear.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -49,10 +49,10 @@ C03_D01_010 = {
   {text = '<LOC C03_D01_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C03_Ops_D01_0433.sfd', bank = 'C03_VO', cue = 'C03_Ops_D01_0433', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Pesticide
--- ------------------------------
+--------------------------------
 
 
 
@@ -136,10 +136,10 @@ C03_M01_135 = {
   {text = '<LOC C03_M01_135_010>[{i Ops}]: You need to assault the northeastern base soon, sir. Ops out. ', vid = 'C03_Ops_M01_01511.sfd', bank = 'C03_VO', cue = 'C03_Ops_M01_01511', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Pesticide Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Title = '<LOC C03_M01_OBJ_010_111>Defend York18'
@@ -185,10 +185,10 @@ B2Description = '<LOC C03_M01_OBJ_020_125>York18 is secure and intact, and all o
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- The Doctor
--- ------------------------------
+--------------------------------
 
 
 
@@ -293,10 +293,10 @@ C03_M02_225 = {
   {text = '<LOC C03_M02_225_010>[{i Ops}]: Those trucks need to get to the Gate ASAP, sir. Ops out. ', vid = 'C03_Ops_M02_01514.sfd', bank = 'C03_VO', cue = 'C03_Ops_M02_01514', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- The Doctor Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Title = '<LOC C03_M02_OBJ_010_111>Defeat UEF Artillery Positions'
@@ -330,10 +330,10 @@ M2S1Description = '<LOC C03_M02_OBJ_020_115>The trucks contain valuable research
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Steamroller
--- ------------------------------
+--------------------------------
 
 
 
@@ -378,10 +378,10 @@ C03_M03_110 = {
   {text = '<LOC C03_M03_110_010>[{i Ops}]: The Gate has been lost. Abort the mission.', vid = 'C03_Ops_M03_01171.sfd', bank = 'C03_VO', cue = 'C03_Ops_M03_01171', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Steamroller Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Title = '<LOC C03_M03_OBJ_010_111>Destroy the UEF Commander'
@@ -403,10 +403,10 @@ M3H1Description = '<LOC C03_M03_OBJ_020_115>You now have use of an allied Omni-S
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

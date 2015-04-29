@@ -17,15 +17,15 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Dostya = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local DostyaBase = BaseManager.CreateBaseManager()
 local DostyaAirbase = BaseManager.CreateBaseManager()
 
@@ -98,9 +98,9 @@ function DostyaAirAttacks()
     local opai = nil
     local quantity = {}
 
-    -- -------------------------
+    ---------------------------
     -- Dostya Op AI, Air Attacks
-    -- -------------------------
+    ---------------------------
 
     -- sends 24, 18, 12 [gunships, bombers]
     quantity = {24, 18, 12}
@@ -180,9 +180,9 @@ function DostyaLandAttacks()
     local quantity = {}
     local count = {}
 
-    -- --------------------------
+    ----------------------------
     -- Dostya Op AI, Land Attacks
-    -- --------------------------
+    ----------------------------
 
     count = {2, 2, 1}
     -- sends [random - Heavy Bots - mobile heavy artillery]
@@ -347,7 +347,7 @@ function Dostya_HeavyGunships_AI(platoon)
     end
 end
 
--- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
 
 function DostyaAirbaseAttacks()
 

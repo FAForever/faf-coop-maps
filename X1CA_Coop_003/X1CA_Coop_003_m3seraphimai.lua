@@ -11,15 +11,15 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM3Mini1 = BaseManager.CreateBaseManager()
 local SeraphimM3Mini2 = BaseManager.CreateBaseManager()
 local SeraphimM3Mini3 = BaseManager.CreateBaseManager()
@@ -80,9 +80,9 @@ end
 function SeraphimM3MiniD1Attacks()
     local opai = nil
 
-    -- -------------------------
+    ---------------------------
     -- Seraphim M3 Mini D1 Op AI
-    -- -------------------------
+    ---------------------------
 
     opai = SeraphimM3Mini1:AddOpAI('BasicLandAttack', 'M3Mini1_LandAttack',
         {
@@ -165,9 +165,9 @@ end
 function SeraphimM3MiniD2Attacks()
     local opai = nil
 
-    -- -------------------------
+    ---------------------------
     -- Seraphim M3 Mini D2 Op AI
-    -- -------------------------
+    ---------------------------
 
     opai = SeraphimM3Mini7:AddOpAI('BasicLandAttack', 'M3Mini7_LandAttack',
         {
@@ -195,9 +195,9 @@ end
 function SeraphimM3MiniD3Attacks()
     local opai = nil
 
-    -- -------------------------
+    ---------------------------
     -- Seraphim M3 Mini D3 Op AI
-    -- -------------------------
+    ---------------------------
 
     opai = SeraphimM3Mini9:AddOpAI('BasicLandAttack', 'M3Mini9_LandAttack',
         {
@@ -234,9 +234,9 @@ end
 
 function SeraphimM3SouthBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M3 South Base
-    -- ----------------------
+    ------------------------
     SeraphimM3SouthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_South', 'M3_Seraph_South', 150, {M3_Seraph_South = 100})
     SeraphimM3SouthBase:StartNonZeroBase({{9, 17, 23}, {8, 15, 20}})
     SeraphimM3SouthBase:SetActive('AirScouting', true)
@@ -257,9 +257,9 @@ function SeraphimM3SouthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Seraphim M3 South Base Op AI, Air Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- sends 14, 21, 28 [bombers]
     quantity = {14, 21, 28}
@@ -466,9 +466,9 @@ function SeraphimM3SouthBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Seraphim M3 South Base Op AI, Naval Attacks
-    -- -------------------------------------------
+    ---------------------------------------------
 
     -- sends 3 frigate power of [frigates]
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack1',

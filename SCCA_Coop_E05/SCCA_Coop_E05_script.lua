@@ -59,7 +59,7 @@ ScenarioInfo.M1AeonMainBaseAttackDelay = M1AeonMainBaseAttackDelayTable[Scenario
     -- This is now a player fail case only. So I'm being pretty generous with time
 local M1AeonTripleNukeDelayTable = {900 , 900 , 600}
 
-local M1AeonTripleNukeDelay = M1AeonTripleNukeDelayTable[ScenarioInfo.Difficulty] -- - AeonNukeTravelTime
+local M1AeonTripleNukeDelay = M1AeonTripleNukeDelayTable[ScenarioInfo.Difficulty] --- AeonNukeTravelTime
 
 -- Number of seconds after Arnold's big attack is built that the player gets warned (based on how long it takes the troops to move out of Arnold's base)
 local M1AeonBigAttackWarningDelay = 120
@@ -107,9 +107,9 @@ ScenarioInfo.RequiredUEFTrucks = RequiredUEFTrucksTable[ScenarioInfo.Difficulty]
     -- Delay after the LRHA bases are destroyed, before Truck 1 is spawned
 ScenarioInfo.M2TruckGroup1Delay = 120 - (2*ScenarioInfo.UEFTruckGroupSize)
     -- Delay after Truck 1 arrives at its destination, before Truck 2 is spawned
-ScenarioInfo.M2TruckGroup2Delay = 70 -- - (2*ScenarioInfo.UEFTruckGroupSize)
+ScenarioInfo.M2TruckGroup2Delay = 70 --- (2*ScenarioInfo.UEFTruckGroupSize)
     -- Delay after Truck 2 arrives at its destination, before Truck 3 is spawned
-ScenarioInfo.M2TruckGroup3Delay = 70 -- - (2*ScenarioInfo.UEFTruckGroupSize)
+ScenarioInfo.M2TruckGroup3Delay = 70 --- (2*ScenarioInfo.UEFTruckGroupSize)
     -- Delay between the truck warning dialogue and when the truck is spawned.
 ScenarioInfo.M2TruckDialogueToSpawnDelay = 60
 

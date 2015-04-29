@@ -11,23 +11,23 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Fletcher = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local FletcherM2Base = BaseManager.CreateBaseManager()
 local FletcherM2ExpBase = BaseManager.CreateBaseManager()
 
 function FletcherM2BaseAI()
 
-    -- ----------------
+    ------------------
     -- Fletcher M2 Base
-    -- ----------------
+    ------------------
     FletcherM2Base:Initialize(
         ArmyBrains[Fletcher],
         'M2_Fletcher_Base',
@@ -49,9 +49,9 @@ end
 function FletcherM2BaseNavalAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Fletcher M2 Base Op AI, Naval Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     local Temp = {
         'NavalAttackTemp',
@@ -102,9 +102,9 @@ function FletcherM2BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Fletcher M2 Base Op AI, Air Attacks
-    -- -----------------------------------
+    -------------------------------------
 	
     local template = {
         'HeavyAir1',
@@ -338,9 +338,9 @@ function FletcherM2BaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    -- ----------------------
+    ------------------------
     -- Fletcher M2 Base Op AI
-    -- ----------------------
+    ------------------------
 
     quantity = {1, 3, 5}
     opai = FletcherM2Base:AddOpAI('M2_Fletcher_Main_Fatboy',
@@ -450,9 +450,9 @@ end
 
 function FletcherM2ExpBaseAI()
 
-    -- --------------------
+    ----------------------
     -- Fletcher M2 Exp Base
-    -- --------------------
+    ----------------------
     FletcherM2ExpBase:InitializeDifficultyTables(ArmyBrains[Fletcher], 'M2_Fletcher_EastExp_Group', 'M2_Fletcher_Exp_Base', 30, {M2_Fletcher_EastExp_Group = 100})
     FletcherM2ExpBase:StartNonZeroBase({0, 1, 2})
 
@@ -462,9 +462,9 @@ end
 function FletcherM2ExpBaseLandAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Fletcher M2 Exp Base Op AI, Land Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     opai = FletcherM2ExpBase:AddOpAI('M2_Fletcher_East_Fatboy',
         {

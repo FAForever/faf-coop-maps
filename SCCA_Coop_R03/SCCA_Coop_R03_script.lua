@@ -66,7 +66,7 @@ local DelayBetweenTaunts    =   720
 ScenarioInfo.TruckPosition = 1
 
  -- reminder timers:
- -- - M1
+ --- M1
 local Reminder_M1P1_Initial            =   700
 local Reminder_M1P1_Subsequent         =   600
 
@@ -79,7 +79,7 @@ local Reminder_M1P3_Subsequent         =   600
 local Reminder_M1P4_Initial            =   800
 local Reminder_M1P4_Subsequent         =   600
 
- -- - M2
+ --- M2
 local Reminder_M2P1_Initial            =   800
 local Reminder_M2P1_Subsequent         =   600
 
@@ -89,7 +89,7 @@ local Reminder_M2P2_Subsequent         =   700
 local Reminder_M2P3_Initial            =   900
 local Reminder_M2P3_Subsequent         =   600
 
- -- - M3
+ --- M3
 local Reminder_M3P1_Initial            =   1200
 local Reminder_M3P1_Subsequent         =   600
 
@@ -388,7 +388,7 @@ function PlayTaunt()
     end
 end
 
- -- -
+ ---
 function M1P2Reminder1()
     if(not ScenarioInfo.M1P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.C03_M01_110)   -- Western Base
@@ -431,7 +431,7 @@ function M1P2Reminder3()
     end
 end
 
- -- -
+ ---
 
 function M1P3Reminder1()
     if(not ScenarioInfo.M1P3Complete) then
@@ -469,7 +469,7 @@ function M1P3Reminder3()
     end
 end
 
- -- -
+ ---
 
 function M1P4Reminder1()
     if(not ScenarioInfo.M1P4Complete) then

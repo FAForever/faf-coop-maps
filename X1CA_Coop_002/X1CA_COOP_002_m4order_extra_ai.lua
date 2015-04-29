@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Order = 2
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM2SupportBase = BaseManager.CreateBaseManager()
 
 
 function OrderM2SupportBaseAI()
 
-    -- ---------------------
+    -----------------------
     -- Order M2 Support Base
-    -- ---------------------
+    -----------------------
     OrderM2SupportBase:InitializeDifficultyTables(ArmyBrains[Order], 'M2_Order_Support_Base', 'M2_QAI_Base_Marker', 50, {M2_South_Base = 100})
     OrderM2SupportBase:StartEmptyBase({{15, 15, 15}, {12, 12, 12}})
 
@@ -38,9 +38,9 @@ end
 function OrderM2SupportBaseAirAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Order M2 Support Base Op AI, Air Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- sends [bombers]
     opai = OrderM2SupportBase:AddOpAI('AirAttacks', 'M2_Support_AirAttacks1',
@@ -82,9 +82,9 @@ end
 function OrderM2SupportBaseLandAttacks()
     local opai = nil
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Order M3 Support Base Op AI, Land Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- sends [light artillery]
 -- for i = 1, 3 do

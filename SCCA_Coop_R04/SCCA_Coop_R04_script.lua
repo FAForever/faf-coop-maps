@@ -19,9 +19,9 @@ local OpStrings = import ('/maps/SCCA_Coop_R04/SCCA_Coop_R04_v01_strings.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local Weather = import('/lua/weather.lua')
 
--- ----------------------
+------------------------
 -- Local Tuning Variables
--- ----------------------
+------------------------
 
 -- What should the player's army unit cap be in each mission?
 local M1ArmyCap = 1000
@@ -1698,9 +1698,9 @@ function M3P3Reminder()
     end
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
         -- Turn units neutral

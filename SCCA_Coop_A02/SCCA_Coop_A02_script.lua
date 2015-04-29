@@ -18,9 +18,9 @@ local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_strings.lua')
 local Weather = import('/lua/weather.lua')
 
--- -----------------------
+-------------------------
 -- Misc Global Definitions
--- -----------------------
+-------------------------
 ScenarioInfo.Player = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.NeutralCybran = 3
@@ -32,9 +32,9 @@ ScenarioInfo.VarTable = {}
 ScenarioInfo.M1P1Complete = false
 ScenarioInfo.M1P2Complete = false
 
--- ----------------------
+------------------------
 -- Misc Local Definitions
--- ----------------------
+------------------------
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
@@ -61,13 +61,13 @@ local TauntTable = {
     OpStrings.TAUNT8,
 }
 
--- ---------------
+-----------------
 -- Debug Variables
--- ---------------
+-----------------
 
--- ----------------------
+------------------------
 -- Local Tuning Variables
--- ----------------------
+------------------------
 
 -- What should the player's army unit cap be in each mission?
 local M1ArmyCap = 300
@@ -1420,9 +1420,9 @@ function M3P4Reminder()
     end
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
         -- Computer voice saying op complete

@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E04>Operation Vaccine'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E04_B01_000_010>Date: 27-AUGUST-3844'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_005_010>I will be blunt, Captain. This mission cannot fail. If we lose control of the Gates, the war is lost. You gate in one hour. Good luck.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -46,10 +46,10 @@ E04_D01_010 = {
   {text = '<LOC E04_D01_010_010>[{i EarthCom}]: Captain! Come in, Captain!  We\'ve lost your signal...Captain, report...', vid = 'E04_EarthCom_D01_0163.sfd', bank = 'E04_VO', cue = 'E04_EarthCom_D01_0163', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: G01_OBJ
 -- Bonus Objectives
--- ------------------------------
+--------------------------------
 
 -- Bonus Objectives
 M1B1Title = '<LOC E04_G01_OBJ_010_111>River Raider'
@@ -65,10 +65,10 @@ M1B2Description = '<LOC E04_G01_OBJ_010_122>You completed the Operation in under
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Toehold
--- ------------------------------
+--------------------------------
 
 
 
@@ -129,10 +129,10 @@ E04_M01_115 = {
   {text = '<LOC E04_M01_115_010>[{i EarthCom}]: We\'re still waiting on the data from those Command Centers. EarthCom out. ', vid = 'E04_EarthCom_M01_01465.sfd', bank = 'E04_VO', cue = 'E04_EarthCom_M01_01465', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Toehold Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M1P1Title = '<LOC E04_M01_OBJ_010_111>Destroy the Cybran\'s Base'
@@ -148,10 +148,10 @@ M1P2Description = '<LOC E04_M01_OBJ_010_122>The Command Centers will provide you
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Reunion
--- ------------------------------
+--------------------------------
 
 
 
@@ -240,10 +240,10 @@ E04_M02_175 = {
   {text = '<LOC E04_M02_175_010>[{i EarthCom}]: Take out that Cybran, sir. We know you can do it. EarthCom out. ', vid = 'E04_EarthCom_M02_01542.sfd', bank = 'E04_VO', cue = 'E04_EarthCom_M02_01542', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Reunion Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Title = '<LOC E04_M02_OBJ_010_211>Capture the Science Facility'
@@ -265,10 +265,10 @@ M2P3Description = '<LOC E04_M02_OBJ_010_232>You must gather all of the intel in 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mad Scientist
--- ------------------------------
+--------------------------------
 
 
 
@@ -376,10 +376,10 @@ E04_M03_175 = {
   {text = '<LOC E04_M03_175_010>[{i EarthCom}]: The Cybran unit is still up and dangerous, Captain. EarthCom out. ', vid = 'E04_EarthCom_M03_01468.sfd', bank = 'E04_VO', cue = 'E04_EarthCom_M03_01468', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mad Scienctist Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M3P1Title = '<LOC E04_M03_OBJ_010_311>Construct Three Long-Range (LR) Radar Installations'
@@ -422,10 +422,10 @@ M3S1Progress = '<LOC E04_M03_OBJ_020_314>%s/%s'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

@@ -11,23 +11,23 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM2Lower = BaseManager.CreateBaseManager()
 local SeraphimM2Upper = BaseManager.CreateBaseManager()
 
 function SeraphimM2LowerAI()
 
-    -- -----------------
+    -------------------
     -- Seraphim M2 Lower
-    -- -----------------
+    -------------------
     SeraphimM2Lower:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_LowerBase', 'Seraphim_M2_Lower', 50, {M2_Seraph_LowerBase = 100,})
     SeraphimM2Lower:StartNonZeroBase({{3, 5, 7}, {3, 4, 6}})
     SeraphimM2Lower:SetActive('LandScouting', true)
@@ -43,9 +43,9 @@ function SeraphimM2LowerLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Seraphim M2 Lower Op AI, Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 12, 16, 18 [Heavy Tanks] to Dostya
     quantity = {12, 16, 18}
@@ -216,9 +216,9 @@ end
 
 function SeraphimM2UpperAI()
 
-    -- -----------------
+    -------------------
     -- Seraphim M2 Upper
-    -- -----------------
+    -------------------
     SeraphimM2Upper:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_UpperBase', 'Seraphim_M2_Upper', 50, {M2_Seraph_UpperBase = 100,})
     SeraphimM2Upper:StartNonZeroBase({{3, 5, 8}, {3, 4, 7}})
     SeraphimM2Upper:SetActive('AirScouting', true)
@@ -237,9 +237,9 @@ function SeraphimM2UpperAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M2 Upper Op AI, Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     quantity = {12, 16, 18}
     opai = SeraphimM2Lower:AddOpAI('AirAttacks', 'M2_AirAttackDostya_1',

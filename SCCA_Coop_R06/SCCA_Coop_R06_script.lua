@@ -15,9 +15,9 @@ local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Weather = import('/lua/weather.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.UEF = 3
@@ -41,9 +41,9 @@ local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, Sc
 local aikoTaunt = 1
 local arnoldTaunt = 9
 
--- ------------------------
+--------------------------
 -- Objective Reminder Times
--- ------------------------
+--------------------------
 local M1P1Time = 600
 local M2P1Time = 300
 local M2P2Time = 300
@@ -52,9 +52,9 @@ local M3P1Time = 300
 local M3P2Time = 300
 local SubsequentTime = 600
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -364,9 +364,9 @@ function JerichoKilled()
     ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Jericho, 7 )
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 -- rolled into BlackSunFired()
 -- function PlayerWin()
 -- end
@@ -440,9 +440,9 @@ function KillGame()
         ScenarioInfo.OpComplete, true)
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -700,9 +700,9 @@ function M1P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
 
@@ -1122,9 +1122,9 @@ function M2P3Reminder2()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 

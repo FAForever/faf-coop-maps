@@ -18,9 +18,9 @@ local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_strings.lua')
 local Weather = import('/lua/weather.lua')
 
--- -----------------------
+-------------------------
 -- Misc Global Definitions
--- -----------------------
+-------------------------
 ScenarioInfo.MissionNumber = 1
 
 ScenarioInfo.Player = 1
@@ -40,9 +40,9 @@ ScenarioInfo.M1P2Complete = false
 ScenarioInfo.Mission2ObjectiveGroup = nil
 
 
--- ----------------------
+------------------------
 -- Misc Local Definitions
--- ----------------------
+------------------------
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
@@ -93,13 +93,13 @@ local TauntTableAiko = {
     OpStrings.TAUNT24,
 }
 
--- ---------------
+-----------------
 -- Debug Variables
--- ---------------
+-----------------
 
--- ----------------------
+------------------------
 -- Local Tuning Variables
--- ----------------------
+------------------------
 
 -- What should the player's army unit cap be in each mission?
 local M1ArmyCap = 300
@@ -1339,9 +1339,9 @@ function M3P1Reminder()
     end
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
         -- Turn everything neutral; protect the player commander

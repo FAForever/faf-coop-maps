@@ -15,9 +15,9 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.UEF = 2
 ScenarioInfo.Eris = 3
@@ -31,9 +31,9 @@ ScenarioInfo.ThirdWave = 7
 
 ScenarioInfo.VarTable = {}
 
--- -----------
+-------------
 -- Misc Locals
--- -----------
+-------------
 
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
@@ -77,9 +77,9 @@ local arnoldTaunt = 1
 local LeaderFaction
 local LocalFaction
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
@@ -179,9 +179,9 @@ function OnStart(self)
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
@@ -224,9 +224,9 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -530,9 +530,9 @@ function M1P1Complete()
     ScenarioInfo.DestroyTrigger:Destroy()
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
     ScenarioInfo.UEFViz:Destroy()
@@ -865,9 +865,9 @@ function M2P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 

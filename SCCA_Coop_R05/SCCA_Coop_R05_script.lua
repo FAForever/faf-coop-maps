@@ -20,9 +20,9 @@ local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local Utilities = import('/lua/utilities.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 
 ScenarioInfo.Player         = 1
 ScenarioInfo.UEF            = 2
@@ -94,7 +94,7 @@ function AdjustDifficulty (table)
 	return table[Difficulty]
 end
 
- -- - hard diff stuff
+ --- hard diff stuff
 local M2_OffmapAttack_Land_Inital                   =   300
 local M2_OffmapAttack_Land_Delay                    =   500
 local M2_OffmapAttack_Air_Inital                    =   160
@@ -121,9 +121,9 @@ ScenarioInfo.VarTable['M3_VirusUpload']             = false
 ScenarioInfo.VarTable['M3_PlayerAtUEFMainBase']     = false
 
 ScenarioInfo.OperationEnding        = false
--- --------------------
+----------------------
 -- Starter Functions
--- --------------------
+----------------------
 
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
@@ -213,7 +213,7 @@ function M1UnitsForStart()
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M1_UEFBase_Production_Sundry' )
     ScenarioInfo.UEFGenerators = ScenarioUtils.CreateArmyGroup ( 'UEF', 'M1_UEFGenerators' )
 
-      -- - make a new base maintence template for the base
+      --- make a new base maintence template for the base
     AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'M1_UEFGenBaseMaintain' )
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M1_UEFBase_Defense_'..DifficultyConc), 'M1_UEFGenBaseMaintain')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M1_UEFBase_Production_Fact'), 'M1_UEFGenBaseMaintain')
@@ -256,9 +256,9 @@ function M1UnitsForStart()
 end
 
 
--- ------------
+--------------
 -- Mission 1
--- ------------
+--------------
 
 function BeginOperation()
     ScenarioInfo.MissionNumber = 1
@@ -350,7 +350,7 @@ function M1_UEFSpotsPlayerThread()
     ScenarioFramework.Dialogue(OpStrings.C05_M01_040)
 end
 
- -- - First Stage of attacks: scouts, tell pbm to begin building weak attacks
+ --- First Stage of attacks: scouts, tell pbm to begin building weak attacks
 
 function M1_BeginFirstAttacks()
     ForkThread(M1_SpawnUEFScoutsThread)
@@ -380,7 +380,7 @@ function M1_ExpandFirstAttacks()
     ScenarioInfo.VarTable['M1_UEFAttackBeginIncrease'] = true
 end
 
- -- - Second Stage of attacks: attack strength/frequency increase, naval attack (if units from attacking subgroup are remaining) occurs
+ --- Second Stage of attacks: attack strength/frequency increase, naval attack (if units from attacking subgroup are remaining) occurs
 
 function M1_BeginSecondAttacks()
     -- Tell pbm to begin building second attacks
@@ -389,7 +389,7 @@ function M1_BeginSecondAttacks()
 end
 
 
- -- - Third Stage of attacks: offmap airbase begins gunship attacks, offmap "warning" land transport comes in
+ --- Third Stage of attacks: offmap airbase begins gunship attacks, offmap "warning" land transport comes in
 
 function M1_BeginThirdAttacks()
     ScenarioInfo.VarTable['M1_UEFAttackBegin3'] = true
@@ -453,9 +453,9 @@ function M1_UEFGeneratorsDestroyed()
 end
 
 
--- ------------
+--------------
 -- Mission 2
--- ------------
+--------------
 
 function BeginMission2()
     SetArmyUnitCap( 1, 400)
@@ -527,7 +527,7 @@ function M2_CreateUnitsForMission()
     table.insert(ScenarioInfo.M2_ObjectiveOmniTable, ScenarioInfo.M2_UEFOmniSouthWest)
 
     -- Create UEF Omni bases
-      -- -Eastern (production already created at start of m1, for use in m1.
+      ---Eastern (production already created at start of m1, for use in m1.
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseEast_Walls' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseEast_Defense_'..DifficultyConc )
     local eastOmniDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEFOmniBaseEast_AirPatrol1_'..DifficultyConc, 'NoFormation' )
@@ -540,7 +540,7 @@ function M2_CreateUnitsForMission()
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseEast_Production' ), 'M2_UEFOmniBaseEastBaseMaintain')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseEast_Walls' ), 'M2_UEFOmniBaseEastBaseMaintain')
 
-      -- -Southwestern
+      ---Southwestern
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseSouthWest_Production_Fact_'..DifficultyConc )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseSouthWest_Production_Sundry' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseSouthWest_'..DifficultyConc )
@@ -557,7 +557,7 @@ function M2_CreateUnitsForMission()
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseSouthWest_Production_Sundry' ), 'M2_UEFOmniBaseSouthWestBaseMaintain')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseSouthWest_Walls' ), 'M2_UEFOmniBaseSouthWestBaseMaintain')
 
-      -- -North
+      ---North
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseNorth_'..DifficultyConc )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseNorth_Production_fact_'..DifficultyConc )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFOmniBaseNorth_Production_Sundry' )
@@ -575,7 +575,7 @@ function M2_CreateUnitsForMission()
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseNorth_Production_Sundry' ), 'M2_UEFOmniBaseNorthMaintainBase')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFOmniBaseNorth_Walls' ), 'M2_UEFOmniBaseNorthMaintainBase')
 
-     -- - in medium and hard dif, add a LAI out front, to discourage small numbers of cyrban land destroyers. A single one should do an ok-ish job at this task, but not make a conventional land assault much harder for the player
+     --- in medium and hard dif, add a LAI out front, to discourage small numbers of cyrban land destroyers. A single one should do an ok-ish job at this task, but not make a conventional land assault much harder for the player
     if Difficulty > 1 then
         ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_OmniBaseNorth_NoMaintain' )
     end
@@ -592,7 +592,7 @@ function M2_CreateUnitsForMission()
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFNavalBase_Walls' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M2_UEFNavalBase_AssistEngineers_'..DifficultyConc )
 
-       -- - base maintain for engineers
+       --- base maintain for engineers
     AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'M2_UEFNavalBaseMaintain' )
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFNavalBase_'..DifficultyConc), 'M2_UEFNavalBaseMaintain')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M2_UEFNavalBase_Production' ), 'M2_UEFNavalBaseMaintain')
@@ -709,7 +709,7 @@ function M2_OmniTriggeredTaunt2()
     end
 end
 
- -- - Hex5 related functions
+ --- Hex5 related functions
 
 function M2_Hex5Appears()
     -- Assign the Obj to get to Hex5
@@ -887,9 +887,9 @@ function M2_GunshipAttackDefeated()
     end
 end
 
- -- - Hard difficulty M2 offmap attacks
+ --- Hard difficulty M2 offmap attacks
 
- -- - Land (west)
+ --- Land (west)
 
 function M2_Hard_OffmapAttack_Counter()
     ScenarioInfo.M2_OffmapPlatoonsDead = ScenarioInfo.M2_OffmapPlatoonsDead + 1
@@ -947,7 +947,7 @@ function M2_Hard_Offmap_AddEscort(escort, transport)
     ScenarioFramework.PlatoonPatrolChain( escort, 'M2_UEFGunshipAttack_Chain2' )
 end
 
- -- - Air (South)
+ --- Air (South)
 
 function M2_Hard_OffmapAirAttack_Counter()
     -- increment counter for each platoon death
@@ -1007,9 +1007,9 @@ function M2_Hard_OffmapAirAttack_Thread()
     end
 end
 
--- ------------
+--------------
 -- Mission 3
--- ------------
+--------------
 
 function BeginMission3()
     SetArmyUnitCap( 1, 500)
@@ -1091,17 +1091,17 @@ function M3_CreateUnitsForMission()
     ScenarioFramework.PlatoonPatrolChain( airDef2, 'M3_UEFAir_AirPatrolChain_2' )
     ScenarioFramework.PlatoonPatrolChain( landDef2, 'M3_UEFAir_LandPatrolChain_1' )
 
-      -- - fail the gunship virus obj if all the platforms get destroyed
+      --- fail the gunship virus obj if all the platforms get destroyed
     ScenarioInfo.M3_UEFAirBase_ASPlatforms = ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFAirBase_Platforms' )
     ScenarioFramework.CreateGroupDeathTrigger( M3_PlatformsDestroyedObjFail, ScenarioInfo.M3_UEFAirBase_ASPlatforms )
 
-      -- - capture triggers for each plat, to start the gunship destruction
+      --- capture triggers for each plat, to start the gunship destruction
     for k,unit in ScenarioInfo.M3_UEFAirBase_ASPlatforms do
         ScenarioFramework.CreateUnitCapturedTrigger( M3_StartGunshipDestroy, nil, unit )
         unit:SetDoNotTarget(true)
     end
 
-      -- - Append build templates for base maintenence
+      --- Append build templates for base maintenence
     AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'M3_UEFAirBaseMaintainBase' )
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M3_UEFAirBase_'..DifficultyConc), 'M3_UEFAirBaseMaintainBase')
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M3_UEFAirBase_Production_Sundry'), 'M3_UEFAirBaseMaintainBase')
@@ -1127,20 +1127,20 @@ function M3_CreateUnitsForMission()
     ScenarioInfo.M3_ColonyPrisonBuilding:SetCustomName(LOC '{i R05_GeneralPrison}')
 
     -- Create UEF Main base
-      -- - Base and engineers
+      --- Base and engineers
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_'..DifficultyConc )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_Production_Sundry' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_Walls' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_Production_Factories' )
     ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_Production_AssistEngineers_'..DifficultyConc )
 
-      -- - take the uef TMLs, enable them
+      --- take the uef TMLs, enable them
     EnableTMLPlatoon('M3_UEF_TML')
     if Difficulty > 1 then
         EnableTMLPlatoon('M3_UEF_TML2')
     end
 
-      -- - Append template for base maintain
+      --- Append template for base maintain
     AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'M3_UEFMainBaseMaintainBase' )
     if Difficulty == 3 then
         AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M3_UEFMainBase_'..DifficultyConc), 'M3_UEFMainBaseMaintainBase')
@@ -1148,7 +1148,7 @@ function M3_CreateUnitsForMission()
         AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M3_UEFMainBase_Walls'), 'M3_UEFMainBaseMaintainBase')
     end
 
-      -- - base patrols
+      --- base patrols
     local mainAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M3_UEFMainBase_AirPatrol1_'..DifficultyConc, 'NoFormation' )
     local mainAirDef2 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M3_UEFMainBase_AirPatrol2_'..DifficultyConc, 'NoFormation' )
     local mainLandDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M3_UEFMainBase_LandPatrol1_'..DifficultyConc, 'AttackFormation' )
@@ -1157,7 +1157,7 @@ function M3_CreateUnitsForMission()
     ScenarioFramework.PlatoonPatrolChain( mainAirDef2, 'M3_UEFMainBase_AirPatrolChain_2' )
     ScenarioFramework.PlatoonPatrolChain( mainLandDef1, 'M3_UEFMainBase_LandPatrolChain_1' )
     ScenarioFramework.PlatoonPatrolChain( mainLandDef2, 'M3_UEFMainBase_LandPatrolChain_2' )
-      -- - CDR with a shield, death trigger, patrol
+      --- CDR with a shield, death trigger, patrol
     ScenarioInfo.M3_UEFMainBase_Commander = ScenarioUtils.CreateArmyUnit ( 'UEF', 'M3_UEFMainBase_Commander' )
     ScenarioInfo.M3_UEFMainBase_Commander:CreateEnhancement( 'ShieldGeneratorField' )
     ScenarioInfo.M3_UEFMainBase_Commander:CreateEnhancement( 'ResourceAllocation' )
@@ -1175,7 +1175,7 @@ function M3_CreateUnitsForMission()
 	import('/lua/ai/AIBehaviors.lua').CommanderBehavior(platoon)
     ArmyBrains[UEF]:DisbandPlatoon(cdrPlatoon)
 
-     -- - hard difficulty: air superiority patrols, aa patrols, a few engineers to guard CDR
+     --- hard difficulty: air superiority patrols, aa patrols, a few engineers to guard CDR
     if Difficulty == 3 then
         local mainExtraAir1 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M3_UEFMainBase_AirPatrol3a', 'NoFormation' )
         local mainExtraAir2 = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M3_UEFMainBase_AirPatrol3b', 'NoFormation' )
@@ -1187,7 +1187,7 @@ function M3_CreateUnitsForMission()
         ScenarioFramework.PlatoonPatrolChain( mainExtraAA1, 'M3_UEFMain_AA_HardNorth_Chain' )
         ScenarioFramework.PlatoonPatrolChain( mainExtraAA2, 'M3_UEFMain_AA_HardSouth_Chain' )
 
-        -- - engineers guard cdr
+        --- engineers guard cdr
         local guards = ScenarioUtils.CreateArmyGroup ( 'UEF', 'M3_UEFMainBase_CDRguards' )
         for k,v in guards do
             IssueGuard( {v}, ScenarioInfo.M3_UEFMainBase_Commander )
@@ -1218,7 +1218,7 @@ function M3_InitialGunshipTaunt()
 end
 
 function EnableTMLPlatoon(unitName)
-      -- - take the uef TML, add it to a platoon, and give that platoon  tml ai.
+      --- take the uef TML, add it to a platoon, and give that platoon  tml ai.
     local uefTML = ScenarioInfo.UnitNames[UEF][unitName]
     local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
     ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {uefTML}, 'attack', 'AttackFormation')
@@ -1241,7 +1241,7 @@ function M3_PlayerAtUEFBackBase()
     AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', ('M3_UEFMainBase_ExpandBase'), 'M3_UEFMainBaseMaintainBase')
 end
 
- -- - Gunship Virus functions
+ --- Gunship Virus functions
 
 function M3_PlatformsDestroyedObjFail()
     ScenarioInfo.M3_AirPlatformsDestroyed = true
@@ -1318,9 +1318,9 @@ function M3_GodwynGunshipTaunt()
     end
 end
 
--- ------------
+--------------
 -- Miscellaneous Functions
--- ------------
+--------------
 
 function TransportAttack(transports, landPlat, brainNum, landingMarkerName, attackMarkerChain)
     ScenarioFramework.AttachUnitsToTransports(landPlat:GetPlatoonUnits(), transports:GetPlatoonUnits())
@@ -1354,7 +1354,7 @@ function AddPlatoonToTable(unitTable, platoon)
         table.insert(unitTable, unit)
     end
 end
- -- - Objective reminder triggers
+ --- Objective reminder triggers
 
 function M1P1Reminder1()
     if(not ScenarioInfo.M1P1Complete) then
@@ -1441,7 +1441,7 @@ function M3P1Reminder3()
 end
 
 
- -- - Win/Lose functions
+ --- Win/Lose functions
 
 function M3_UEFCommanderDestroyed()
     -- Flag uef cdr as dead for other checks
@@ -1525,7 +1525,7 @@ function KillGame_Win()
     ScenarioFramework.EndOperation('SCCA_Coop_R05', true, ScenarioInfo.Options.Difficulty, true, secondaries )
 end
 
- -- - Build Category functions
+ --- Build Category functions
 
 function M1_BuildCategories()
 	local tblArmy = ListArmies()

@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A06>Operation Beginnings'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A06_B01_000_010>Date: 14-SEPTEMBER-3844'},
@@ -32,10 +32,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A06_B01_003_010>I will attune myself with the Black Sun and spread my consciousness throughout the galaxy. Doing so may kill me, but I must reach everyone\'s heart if I am to end this war. When Marxon is defeated and Black Sun is in your hands, I will come to Earth. Go now, my Champion. It is time to meet our fate.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -44,10 +44,10 @@ A06_D01_010 = {
   {text = '<LOC A06_D01_010_010>[{i Choir}]: Choir to Champion, respond. Choir to Champion, please respond. We\'ve lost your signal, please respond.', vid = 'A06_Choir_D01_01017.sfd', bank = 'A06_VO', cue = 'A06_Choir_D01_01017', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Taking Control
--- ------------------------------
+--------------------------------
 
 
 
@@ -102,10 +102,10 @@ A06_M01_090 = {
   {text = '<LOC A06_M01_090_010>[{i Choir}]: The Control Center is ours, Champion, and both naval forces have been defeated. Choir out.', vid = 'A06_Choir_M01_01057.sfd', bank = 'A06_VO', cue = 'A06_Choir_M01_01057', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Taking Control Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC A06_M01_OBJ_010_111>Capture Black Sun Control Center'
@@ -133,10 +133,10 @@ M1B2Detail = '<LOC A06_M01_OBJ_020_122>You built one of each Experimental Unit: 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Deus Es Machina
--- ------------------------------
+--------------------------------
 
 
 
@@ -219,10 +219,10 @@ A06_M02_140 = {
   {text = '<LOC A06_M02_140_010>[{i Aiko}]: I can\'t...no! ', vid = 'A06_Aiko_M02_01158.sfd', bank = 'A06_VO', cue = 'A06_Aiko_M02_01158', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Deus Es Machina Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC A06_M02_OBJ_010_211>The Black Sun Control Center Must Survive'
@@ -238,10 +238,10 @@ M2P2Detail = '<LOC A06_M02_OBJ_010_222>The Cybran Commander is too dangerous to 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Smoke and Fire
--- ------------------------------
+--------------------------------
 
 
 
@@ -297,10 +297,10 @@ A06_M03_080 = {
   {text = '<LOC A06_M03_080_020>[{i Princess}]: It is almost over. I will join you on Earth shortly, my Champion. Then, at long last, the Infinite War will end.', vid = 'A06_Princess_M03_01092.sfd', bank = 'A06_VO', cue = 'A06_Princess_M03_01092', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Smoke and Fire Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC A06_M03_OBJ_010_311>Defeat Marxon'
@@ -316,10 +316,10 @@ M3P2Detail = '<LOC A06_M03_OBJ_010_322>Clear out all of Marxon\'s forces from ar
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

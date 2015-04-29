@@ -19,9 +19,9 @@ local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Utilities = import('/lua/utilities.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player         = 1
 ScenarioInfo.Rhiza          = 2
 ScenarioInfo.UEF            = 3
@@ -42,7 +42,7 @@ local FauxRhiza             = ScenarioInfo.FauxRhiza
 
 local MissionStartDelay     = 1.25
 
- -- - reminders
+ --- reminders
 ScenarioInfo.M1P1Complete               = false -- power
 ScenarioInfo.M1P2Complete               = false -- mass
 ScenarioInfo.M2P1Complete               = false -- factory
@@ -62,13 +62,13 @@ ScenarioInfo.M7S2Complete               = false -- defeat naval base
 ScenarioInfo.AssistCzarAssigned         = false
 ScenarioInfo.CzarSpawned                = false
 
- -- - reminder timers
+ --- reminder timers
 local ReminderInitialTime1              =   600
 local ReminderSubsequentTime1           =   300
 local ReminderInitialTime2              =   600
 local ReminderSubsequentTime2           =   600
 
- -- -
+ ---
 local M4_OffmapAir_Counter    = 0
 local M4_OffmapAir_Patrol     = 1
 local M7_AirPatrolCount       = 0
@@ -90,9 +90,9 @@ local M3P1_BuildBoatValue     = 3  -- number Attack Boats to build for m3p1 obje
 local LeaderFaction
 local LocalFaction
 
--- --------------------
+----------------------
 -- Starter Functions
--- --------------------
+----------------------
 
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
@@ -163,9 +163,9 @@ function CreateCommander()
 
 end
 
--- ------------
+--------------
 -- Mission 1
--- ------------
+--------------
 
 function BeginOperation()
     for i = 2, table.getn(ArmyBrains) do
@@ -254,9 +254,9 @@ function M1_SecondObjective()
 
 end
 
--- ------------
+--------------
 -- Mission 2
--- ------------
+--------------
 
 function M2_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M2_Start, MissionStartDelay)
@@ -294,9 +294,9 @@ function M2_BuildFactoryObj()
     m2Objectives:AddObjective(ScenarioInfo.M2P1)
 end
 
--- ------------
+--------------
 -- Mission 3
--- ------------
+--------------
 
 function M3_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M3_Start, MissionStartDelay)
@@ -382,9 +382,9 @@ function M3_BuildGunboatsObjective()
    )
 end
 
--- ------------
+--------------
 -- Mission 4
--- ------------
+--------------
 function M4_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M4_Start, 3)
 end
@@ -443,9 +443,9 @@ function M4_OffmapInterlude()
     ScenarioFramework.CreateTimerTrigger(M4_OffmapAir1, 55)
 end
 
--- ------------
+--------------
 -- Mission 5
--- ------------
+--------------
 function M5_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M5_Start, MissionStartDelay)
     ScenarioInfo.MissionNumber = 5 -- set this a bit early, so the interceptor from previous mission dont apear in interum
@@ -485,9 +485,9 @@ function M5_DestroyUEFSubsObj()
     m5Objectives:AddObjective(ScenarioInfo.M5P1)
 end
 
--- ------------
+--------------
 -- Mission 6
--- ------------
+--------------
 function M6_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M6_Start, 2)
 end
@@ -564,9 +564,9 @@ end
 function M6_Hard_DelayedAirAttack()
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.M6AirHard1  , 'M6_UEF_InitialAttackPatrol_Chain')
 end
--- ------------
+--------------
 -- Mission 7
--- ------------
+--------------
 
 function M7_StartDelay()
     ScenarioFramework.CreateTimerTrigger(M7_BeginMission, 3)
@@ -1291,9 +1291,9 @@ function TriggerWinEnd()
     ForkThread(KillGame_Win)
 end
 
--- ------------
+--------------
 -- Miscellaneous Functions
--- ------------
+--------------
 
 function SetGroupFlags(group)
     -- Sets a group of units to no cap/reclaim
@@ -1305,8 +1305,8 @@ function SetGroupFlags(group)
     end
 end
 
- -- - Reminders
- -- - 1
+ --- Reminders
+ --- 1
 function M1P1Reminder1()
     if not ScenarioInfo.M1P1Complete then
         ScenarioFramework.Dialogue(OpStrings.A01_M01_050)
@@ -1328,7 +1328,7 @@ function M1P1Reminder3()
     end
 end
 
- -- - 1
+ --- 1
 function M1P2Reminder1()
     if not ScenarioInfo.M1P2Complete then
         ScenarioFramework.Dialogue(OpStrings.A01_M01_065)
@@ -1350,7 +1350,7 @@ function M1P2Reminder3()
     end
 end
 
- -- - 2
+ --- 2
 function M2P1Reminder1()
     if(not ScenarioInfo.M2P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M02_020)
@@ -1372,7 +1372,7 @@ function M2P1Reminder3()
     end
 end
 
- -- -  3
+ ---  3
 function M3P2Reminder1()
     if(not ScenarioInfo.M3P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M03_030)
@@ -1394,7 +1394,7 @@ function M3P2Reminder3()
     end
 end
 
- -- - 4
+ --- 4
 function M4P1Reminder1()
     if(not ScenarioInfo.M4P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M04_020)
@@ -1416,7 +1416,7 @@ function M4P1Reminder3()
     end
 end
 
- -- - 5
+ --- 5
 function M5P1Reminder1()
     if(not ScenarioInfo.M5P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M05_020)
@@ -1438,7 +1438,7 @@ function M5P1Reminder3()
     end
 end
 
- -- - 6
+ --- 6
 function M6P1Reminder1()
     if(not ScenarioInfo.M6P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M06_030)
@@ -1460,7 +1460,7 @@ function M6P1Reminder3()
     end
 end
 
- -- - 7
+ --- 7
 function M7P2Reminder1()
     if(not ScenarioInfo.M7P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M07_160)
@@ -1490,7 +1490,7 @@ function M7P2Reminder3()
         ScenarioFramework.CreateTimerTrigger(M7P3Reminder1, ReminderSubsequentTime2)
     end
 end
- -- - 7
+ --- 7
 function M7P3Reminder1()
     if(not ScenarioInfo.M7P3Complete) then
         ScenarioFramework.Dialogue(OpStrings.A01_M07_170)
@@ -1512,7 +1512,7 @@ function M7P3Reminder3()
     end
 end
 
- -- - Build categories
+ --- Build categories
 function BuildCategories1()
 
     -- Initially lock all
@@ -1630,7 +1630,7 @@ function BuildCategories7_AirFact()
     )
 end
 
- -- - win/lose functions
+ --- win/lose functions
 
 function PlayerCommanderDies_Lose(unit)
     if not ScenarioInfo.OperationEnding then

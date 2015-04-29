@@ -16,9 +16,9 @@ local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.Arnold = 3
@@ -26,9 +26,9 @@ ScenarioInfo.Coop1 = 4
 ScenarioInfo.Coop2 = 5
 ScenarioInfo.Coop3 = 6
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
--- -----------
+-------------
 -- Misc locals
--- -----------
+-------------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -41,9 +41,9 @@ local ReminderDelay = 300
 
 local erisTaunt = 1
 
--- -------
+---------
 -- Startup
--- -------
+---------
 
 function CheatEconomy()
     ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
@@ -165,9 +165,9 @@ function CDRAI(platoon)
     platoon:PatrolLocationFactoriesAI()
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function KillBase()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
@@ -224,9 +224,9 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -446,9 +446,9 @@ function ArnoldDeathConfirmed()
     end
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb1201 + categories.uab1201) -- T2 Power Generator
@@ -578,9 +578,9 @@ function M2Wave3Defeated()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
@@ -717,9 +717,9 @@ function M3ErisTaunt2()
     end
 end
 
--- ---------
+-----------
 -- Mission 4
--- ---------
+-----------
 function IntroMission4()
     ScenarioInfo.MissionNumber = 4
 
@@ -875,9 +875,9 @@ function M4ErisTaunt3()
     end
 end
 
--- -------------------
+---------------------
 -- Objective Reminders
--- -------------------
+---------------------
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.E03_M01_120)

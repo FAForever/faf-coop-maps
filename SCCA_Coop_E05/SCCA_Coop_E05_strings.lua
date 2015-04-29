@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E05>Operation Forge'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E05_B01_000_010>Date: 30-AUGUST-3844'},
@@ -35,10 +35,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Riley>Riley', text = '<LOC E05_B01_005_010>Without Black Sun, we have no chance of winning the Infinite War. Our only choice would be to deploy Option Zero. I pray that that never happens. Our fate rests in your hands.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -47,10 +47,10 @@ E05_D01_010 = {
   {text = '<LOC E05_D01_010_010>[{i EarthCom}]: Captain! Come in, Captain! We\'ve lost your signal...Captain, report...', vid = 'E05_EarthCom_D01_0225.sfd', bank = 'E05_VO', cue = 'E05_EarthCom_D01_0225', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Safeguard
--- ------------------------------
+--------------------------------
 
 
 
@@ -129,10 +129,10 @@ E05_M01_115 = {
   {text = '<LOC E05_M01_115_010>[{i EarthCom}]: The Aeon still have nuke capability, sir. You need to destroy their nuke sites in order to preserve the safety of the Research Facilities. EarthCom out.', vid = 'E05_EarthCom_M01_00726.sfd', bank = 'E05_VO', cue = 'E05_EarthCom_M01_00726', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Safeguard Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M1P1Title = '<LOC E05_M01_OBJ_010_111>Protect at Least Two of the Research Facilities'
@@ -184,10 +184,10 @@ M1B2Description = '<LOC E05_M01_OBJ_020_172>You have launched %s or more nuclear
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Lightning Strike
--- ------------------------------
+--------------------------------
 
 
 
@@ -224,10 +224,10 @@ E05_M02_055 = {
   {text = '<LOC E05_M02_055_010>[{i EarthCom}]: You must take out those Cybran artillery pieces, sir. The mission depends on it. EarthCom out.', vid = 'E05_EarthCom_M02_00728.sfd', bank = 'E05_VO', cue = 'E05_EarthCom_M02_00728', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Lightning Strike Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Title = '<LOC E05_M02_OBJ_010_211>Defend at Least Two of the Remaining Research Facilities'
@@ -252,10 +252,10 @@ M2B1Description = '<LOC E05_M02_OBJ_020_232>Excellent work. You have helped ensu
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Armored Wall
--- ------------------------------
+--------------------------------
 
 
 
@@ -389,10 +389,10 @@ E05_M03_205 = {
   {text = '<LOC E05_M03_205_010>[{i EarthCom}]: Your mission is finished, sir. Return to Earth. EarthCom out.', vid = 'E05_EarthCom_M03_00730.sfd', bank = 'E05_VO', cue = 'E05_EarthCom_M03_00730', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Armored Wall Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M3P1Title = '<LOC E05_M03_OBJ_010_311>Defend at Least Two of the Remaining Research Facilities'
@@ -438,10 +438,10 @@ M3B2Description = '<LOC E05_M03_OBJ_020_362>All of the trucks have safely reache
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

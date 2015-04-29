@@ -18,14 +18,14 @@ local OpStrings   = import('/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_Strings.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local Utilities = import('/lua/utilities.lua')
 
--- ----------------
+------------------
 -- Timing Variables
--- ----------------
+------------------
 
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player             = 1
 ScenarioInfo.Aeon               = 2
 ScenarioInfo.UEF                = 3
@@ -62,7 +62,7 @@ local M1_RadarPatrolsDestroyed          = 0
 local M1_RadarAndPatrolElementsDone     = 0
 local M1_BombersBuilt                   = 0
 
- -- - reminders
+ --- reminders
 ScenarioInfo.M1P1Complete               = false -- power
 ScenarioInfo.M1P2Complete               = false -- mass
 ScenarioInfo.M2P1Complete               = false -- factory
@@ -77,12 +77,12 @@ ScenarioInfo.M7P2Complete               = false -- destroy uef base
 ScenarioInfo.M8P1Complete               = false -- defeat aeon cdr
 
 
- -- - reminder timers
+ --- reminder timers
 local ReminderInitialTime1              = 600
 local ReminderSubsequentTime1           = 300
 local ReminderInitialTime2              = 630
 local ReminderSubsequentTime2           = 600
- -- -
+ ---
 ScenarioInfo.Part2PatrolsDestroyed      = 0
 ScenarioInfo.Part2CampsDestroyed        = 0
 ScenarioInfo.Part2ElementsCompleted     = 0
@@ -108,9 +108,9 @@ ScenarioInfo.TooEarlyForAeonTaunts  = true  -- Part 4, check this before we play
 
 local M3P1_BomberBuildValue         = 5   -- number of bombers the player is to build for the objective M3P1
 
--- --------------------
+----------------------
 -- Starter Functions
--- --------------------
+----------------------
 
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
@@ -124,7 +124,7 @@ function OnPopulate(scenario)
         end
     end
 
-    -- -- Add initial groups here
+    ---- Add initial groups here
     M1UnitsForStart()
 end
 
@@ -189,11 +189,11 @@ function SecondCamera()
     BeginOperation()
 end
 
--- ------------
+--------------
 -- Part 1
--- ------------
+--------------
 
- -- -- M1 Part1
+ ---- M1 Part1
 
 function BeginOperation()
     BuildCategories1()
@@ -414,7 +414,7 @@ function M1_BuildBomberObjective()
 end
 
 
- -- -- M1 Part2
+ ---- M1 Part2
 
 function M1_BeginPart2Intro()
     -- DIALOGUE
@@ -545,7 +545,7 @@ function M1_RadarAndPatrolClosingPause()
         ScenarioFramework.CreateTimerTrigger(M1_DestroyMass, 3)-- slight pause between obj's
 end
 
- -- -- M1 Part3
+ ---- M1 Part3
 
 function M1_DestroyMass()
     ScenarioInfo.MissionNumber = 5
@@ -612,9 +612,9 @@ function UEFIntercepter_CheckThread()
         WaitSeconds(6)
     end
 end
--- ------------
+--------------
 -- Part 2
--- ------------
+--------------
 
 function BeginPart2()
     -- Wreckage
@@ -777,7 +777,7 @@ function Part2PatrolsObjective()
     end
 end
 
- -- - Symbiont functions
+ --- Symbiont functions
 
 function Part2CreateSymbionts()
     -- M2 Spawn in the Symbionts
@@ -841,9 +841,9 @@ function Part2FinishCounter()
     end
 end
 
--- ------------
+--------------
 -- Part 3
--- ------------
+--------------
 
 function BeginPart3()
 	for _, player in ScenarioInfo.HumanPlayers do
@@ -1139,9 +1139,9 @@ function Part3SpawnSymbiontsThread()
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition("NIS_Symbionts_Spawn"), camInfo)
 end
 
--- ------------
+--------------
 -- Part 4
--- ------------
+--------------
 
 function BeginPart4()
     ScenarioInfo.MissionNumber = 8
@@ -1301,7 +1301,7 @@ function Part4_UEFAttackAeonPauseThread()
     Part4_UEFAttackAeon()
 end
 
--- - Dostya Unit Trasfer functions
+--- Dostya Unit Trasfer functions
 
 function Part4DostyaTransfer()
     -- Spawn in each transport+ground platoon.
@@ -1471,9 +1471,9 @@ function Part4AeonCommanderDeath()
 end
 
 
--- ------------
+--------------
 -- Miscellaneous Functions
--- ------------
+--------------
 
 function AddGroupToTable(unitTable, group)
     for k,unit in group do
@@ -1481,7 +1481,7 @@ function AddGroupToTable(unitTable, group)
     end
 end
 
- -- - patrol a chain, with pauses at each point
+ --- patrol a chain, with pauses at each point
 function PatrolWithPauseThread(chain, platoon)
     -- Moves a platoon to a series of points in a chain, with a pause at each point.
     local points = ScenarioUtils.ChainToPositions(chain)
@@ -1502,7 +1502,7 @@ function PatrolWithPauseThread(chain, platoon)
     end
 end
 
- -- - damage unit function
+ --- damage unit function
 function DamageUnit(unit)
     local rndCheck = Random(1, 5)
     if rndCheck < 4 then -- 3/5 of units are touched
@@ -1512,7 +1512,7 @@ function DamageUnit(unit)
     end
 end
 
--- - Failure functions
+--- Failure functions
 
 function PlayerCDRKilled()
     if not ScenarioInfo.OperationEnding then
@@ -1539,7 +1539,7 @@ function KillGame_Fail()
 end
 
 
--- - Build alterations
+--- Build alterations
 
 function BuildCategories1()
     -- Start by restricting all
@@ -1636,8 +1636,8 @@ function BuildCategoriesFinal()
                                             'Teleporter'})
 end
 
- -- - Reminders
- -- - 1
+ --- Reminders
+ --- 1
 function M1P1Reminder1()
     if not ScenarioInfo.M1P1Complete then
         ScenarioFramework.Dialogue(OpStrings.C01_M01_050)
@@ -1659,7 +1659,7 @@ function M1P1Reminder3()
     end
 end
 
- -- - 1
+ --- 1
 function M1P2Reminder1()
     if(not ScenarioInfo.M1P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M01_065)
@@ -1681,7 +1681,7 @@ function M1P2Reminder3()
     end
 end
 
- -- - 2
+ --- 2
 function M2P1Reminder1()
     if(not ScenarioInfo.M2P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M02_020)
@@ -1703,7 +1703,7 @@ function M2P1Reminder3()
     end
 end
 
- -- -  3
+ ---  3
 function M3P1Reminder1()
     if(not ScenarioInfo.M3P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M03_020)
@@ -1725,7 +1725,7 @@ function M3P1Reminder3()
     end
 end
 
- -- - 4
+ --- 4
 function M4P1Reminder1()
     if(not ScenarioInfo.M4P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M04_050)
@@ -1756,7 +1756,7 @@ function M4P1Reminder3()
     end
 end
 
- -- - 4
+ --- 4
 function M4P2Reminder1()
     if(not ScenarioInfo.M4P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M04_060)
@@ -1778,7 +1778,7 @@ function M4P2Reminder3()
     end
 end
 
- -- - 5
+ --- 5
 function M5P1Reminder1()
     if(not ScenarioInfo.M5P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M05_040)
@@ -1800,7 +1800,7 @@ function M5P1Reminder3()
     end
 end
 
- -- - 6
+ --- 6
 function M6P1Reminder1()
     if(not ScenarioInfo.M6P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M06_060)
@@ -1852,7 +1852,7 @@ function M6P2Reminder3()
     end
 end
 
- -- - 7
+ --- 7
 function M7P1Reminder1()
     if(not ScenarioInfo.M7P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M07_170)
@@ -1882,7 +1882,7 @@ function M7P1Reminder3()
         ScenarioFramework.CreateTimerTrigger(M7P2Reminder1, ReminderSubsequentTime2)
     end
 end
- -- - 7
+ --- 7
 function M7P2Reminder1()
     if(not ScenarioInfo.M7P2Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M07_185)
@@ -1904,7 +1904,7 @@ function M7P2Reminder3()
     end
 end
 
- -- - 8
+ --- 8
 function M8P1Reminder1()
     if(not ScenarioInfo.M8P1Complete) then
         ScenarioFramework.Dialogue(OpStrings.C01_M08_050)

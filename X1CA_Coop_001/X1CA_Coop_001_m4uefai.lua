@@ -13,24 +13,24 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local UEF = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local FortClarke = BaseManager.CreateBaseManager()
 local UEFM4ForwardOne = BaseManager.CreateBaseManager()
 local UEFM4ForwardTwo = BaseManager.CreateBaseManager()
 
 function FortClarkeAI()
 
-    -- -----------
+    -------------
     -- Fort Clarke
-    -- -----------
+    -------------
     ScenarioUtils.CreateArmyGroup('UEF', 'M4_UEF_Clarke_Init_Eng_D' .. Difficulty)
     FortClarke:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Fort_Clarke_Base', 'UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100,})
     FortClarke:StartNonZeroBase({40, 32})
@@ -61,9 +61,9 @@ end
 function FortClarkeLandAttacks()
     local opai = nil
 
-    -- -------------------------------
+    ---------------------------------
     -- Fort Clarke Op AI, Land Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 1 fatboy
     opai = FortClarke:AddOpAI('UEF_Fatboy',
@@ -222,9 +222,9 @@ end
 function FortClarkeAirAttacks()
     local opai = nil
 
-    -- ------------------------------
+    --------------------------------
     -- Fort Clarke Op AI, Air Attacks
-    -- ------------------------------
+    --------------------------------
 
     -- sends [heavy gunships, gunships, interceptors]
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirAttack1',
@@ -367,9 +367,9 @@ end
 
 function UEFM4ForwardOneAI()
 
-    -- ------------------
+    --------------------
     -- UEF Forward Base 1
-    -- ------------------
+    --------------------
     UEFM4ForwardOne:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_One', 'UEF_M3_Forward_One_Base_Marker', 40, {M3_Forward_One = 100,})
     UEFM4ForwardOne:StartNonZeroBase({6, 4})
 
@@ -380,9 +380,9 @@ end
 function UEFM4ForwardOneLandAttacks()
     local opai = nil
 
-    -- --------------------------------------
+    ----------------------------------------
     -- UEF M4 Forward One Op AI, Land Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends [heavy tanks]
     opai = UEFM4ForwardOne:AddOpAI('BasicLandAttack', 'UEF_ForwardOne_LandAttack1',
@@ -427,9 +427,9 @@ end
 function UEFM4ForwardOneAirAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- UEF M4 Forward One Op AI, Air Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends [gunships, interceptors]
     opai = UEFM4ForwardOne:AddOpAI('AirAttacks', 'UEF_ForwardOne_AirAttack1',
@@ -448,9 +448,9 @@ end
 
 function UEFM4ForwardTwoAI()
 
-    -- ------------------
+    --------------------
     -- UEF Forward Base 2
-    -- ------------------
+    --------------------
     UEFM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_Two', 'UEF_M3_Forward_Two_Base_Marker', 60, {M3_Forward_Two = 100,})
     UEFM4ForwardTwo:StartNonZeroBase({6, 4})
 
@@ -460,9 +460,9 @@ end
 function UEFM4ForwardTwoLandAttacks()
     local opai = nil
 
-    -- --------------------------------------
+    ----------------------------------------
     -- UEF M4 Forward Two Op AI, Land Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends [siege bots, mobile shields, heavy tanks, light bots]
     opai = UEFM4ForwardTwo:AddOpAI('BasicLandAttack', 'UEF_ForwardTwo_LandAttack1',

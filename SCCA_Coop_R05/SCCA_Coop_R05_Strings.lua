@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C05>Operation Unlock'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Brief
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C05_B01_000_010>Date: 06-SEPTEMBER-3844'},
@@ -38,10 +38,10 @@ BriefingData = {
   {phase = 6, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_006_010>We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probability the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -50,10 +50,10 @@ C05_D01_010 = {
   {text = '<LOC C05_D01_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C05_Ops_D01_02594.sfd', bank = 'C05_VO', cue = 'C05_Ops_D01_02594', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: G01_OBJ
 -- Bonus Objectives
--- ------------------------------
+--------------------------------
 
 -- Bonus Objectives
 Bonus1Text = '<LOC C05_G01_OBJ_010_711>Besieged'
@@ -69,10 +69,10 @@ Bonus2Detail = '<LOC C05_G01_OBJ_010_722>You destroyed over %s Gunships.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- The Key
--- ------------------------------
+--------------------------------
 
 
 
@@ -119,10 +119,10 @@ C05_M01_070 = {
   {text = '<LOC C05_M01_070_010>[{i Ops}]: The Generators are still online, sir. We need to get those down ASAP. Ops out.', vid = 'C05_Ops_M01_01520.sfd', bank = 'C05_VO', cue = 'C05_Ops_M01_01520', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- The Key Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC C05_M01_OBJ_010_111>Destroy UEF Power Generators'
@@ -138,10 +138,10 @@ M1S1Detail = '<LOC C05_M01_OBJ_020_122>Clear the water by destroying all the Fri
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Camera Shy
--- ------------------------------
+--------------------------------
 
 
 
@@ -221,10 +221,10 @@ C05_M02_120 = {
   {text = '<LOC C05_M02_120_010>[{i Ops}]: The Gunships have been routed and the codes are secure. Let\'s get you off that rock. Ops out.', vid = 'C05_Ops_M02_00526.sfd', bank = 'C05_VO', cue = 'C05_Ops_M02_00526', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Camera Shy Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC C05_M02_OBJ_010_211>Destroy Omni-Sensors'
@@ -252,10 +252,10 @@ M2S1Detail = '<LOC C05_M02_OBJ_020_242>Destroy all UEF Naval Factories.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Unplug
--- ------------------------------
+--------------------------------
 
 
 
@@ -315,10 +315,10 @@ C05_M03_105 = {
   {text = '<LOC C05_M03_105_010>[{i Ops}]: The longer that UEF Commander is around, the more likely he is to figure out why Hex5 was here. Kill the Commander. Ops out.', vid = 'C05_Ops_M03_01523.sfd', bank = 'C05_VO', cue = 'C05_Ops_M03_01523', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Unplug Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC C05_M03_OBJ_010_311>Defeat UEF Commander'
@@ -364,10 +364,10 @@ M3S1Update3Percent = '<LOC C05_M03_OBJ_020_380>75%'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunt
--- ------------------------------
+--------------------------------
 
 
 

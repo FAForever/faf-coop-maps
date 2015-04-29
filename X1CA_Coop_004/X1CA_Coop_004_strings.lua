@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X04>Operation: Meltdown'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X04_B01_000_010>06-August-3847'},
@@ -36,10 +36,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X04_B01_003_010>We\'ll provide additional intel as it becomes available. Good luck.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -53,10 +53,10 @@ X04_DB01_020 = {
   {text = '<LOC X04_DB01_020_010>[{i Brackman}]: The Seraphim are unstoppable, oh yes. So few of us are left. So few. I shall hide, bide my time. There is no other alternative. No other choice.', vid = 'X04_Brackman_DB01_04406.sfd', bank = 'Briefings', cue = 'X04_Brackman_DB01_04406', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Charge and Counterattack
--- ------------------------------
+--------------------------------
 
 
 
@@ -145,10 +145,10 @@ X04_M01_060 = {
   {text = '<LOC X04_M01_060_010>[{i Dostya}]: Commander, we have lost all communication with Coalition Command, and we cannot recall. Wait ... I am registering something to your west. It appears to be a jamming array -- it must what is blocking our communications. Locate and destroy the jamming device. Dostya out.', vid = 'X04_Dostya_M01_03735.sfd', bank = 'X04_VO', cue = 'X04_Dostya_M01_03735', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Mission 1: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X04_M01_OBJ_010_010 = '<LOC X04_M01_OBJ_010_010>Eliminate the Seraphim Base'
@@ -176,10 +176,10 @@ X04_M01_OBJ_010_055 = '<LOC X04_M01_OBJ_010_055>The Seraphim has strategically b
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2: Re-establish Communications
--- ------------------------------
+--------------------------------
 
 
 
@@ -262,10 +262,10 @@ X04_M02_060 = {
   {text = '<LOC X04_M02_060_010>[{i HQ}]: You got clearance from Brackman to receive the Soothsayer. It generates thousands of nano-cameras that let you keep tabs on the surrounding area. Great for preventing sneak attacks. HQ out.', vid = 'X04_HQ_M02_04919.sfd', bank = 'X04_VO', cue = 'X04_HQ_M02_04919', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mission 2: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X04_M02_OBJ_010_010 = '<LOC X04_M02_OBJ_010_010>Destroy the Quantum Jammer'
@@ -275,10 +275,10 @@ X04_M02_OBJ_010_020 = '<LOC X04_M02_OBJ_010_020>Disable or destroy the jammer so
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Flee the Planet
--- ------------------------------
+--------------------------------
 
 
 
@@ -483,10 +483,10 @@ X04_M03_270 = {
   {text = '<LOC X04_M03_270_010>[{i HQ}]: That was damn close, Commander. Glad we got you out of there in one piece.', vid = 'X04_HQ_M03_05107.sfd', bank = 'X04_VO', cue = 'X04_HQ_M03_05107', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mission 3: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X04_M03_OBJ_010_010 = '<LOC X04_M03_OBJ_010_010>Survive until Recalled'
@@ -508,10 +508,10 @@ X04_M03_OBJ_010_060 = '<LOC X04_M03_OBJ_010_060>Secure one of the marked Seraphi
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

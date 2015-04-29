@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Order = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM2Base = BaseManager.CreateBaseManager()
 
 function OrderM2BaseAI()
 
-    -- -------------
+    ---------------
     -- Order M2 Base
-    -- -------------
+    ---------------
     OrderM2Base:InitializeDifficultyTables(ArmyBrains[Order], 'M2_Order_MainBase', 'M2_Order_Base_Marker', 100, {M2_Order_MainBase = 100})
     OrderM2Base:StartNonZeroBase({{6, 11, 23}, {6, 10, 20}})
     OrderM2Base:SetActive('AirScouting', true)
@@ -45,9 +45,9 @@ function OrderM2BaseAirAttacks()
 	local template = {}
 	local builder = {}
 
-    -- ---------------------------------
+    -----------------------------------
     -- Order M2 Base Op AI - Air Attacks
-    -- ---------------------------------
+    -----------------------------------
 	
 	template = {
         'OrderAirToFletcher1',

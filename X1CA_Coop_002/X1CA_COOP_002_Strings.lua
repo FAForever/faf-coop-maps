@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X02>Operation: Dawn'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X02_B01_000_010>01-August-3847'},
@@ -39,10 +39,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_005_020>Watch your back, Commander. Good hunting.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -56,10 +56,10 @@ X02_D01_030 = {
   {text = '<LOC X02_D01_030_010>[{i QAI}]: This is just a shell.', vid = 'X02_QAI_D01_03179.sfd', bank = 'X02_VO', cue = 'X02_QAI_D01_03179', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -78,10 +78,10 @@ X02_DB01_020 = {
   {text = '<LOC X02_DB01_020_010>[{i Thalia}]: This is Thalia. I am located on the planet Copernicus. Coalition forces sent to assist us have been destroyed. QAI is closing in on our position, and we have no chance of surviving. We can\'t --', vid = 'X02_Thalia_DB01_04021.sfd', bank = 'Briefings', cue = 'X02_Thalia_DB01_04021', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Covert Operation
--- ------------------------------
+--------------------------------
 
 
 
@@ -234,10 +234,10 @@ X02_M01_220 = {
   {text = '<LOC X02_M01_220_010>[{i HQ}]: Uploading the schematic for the Spearhead, Commander. It\'s a mobile missile launcher that pounds the hell out of shields and tactical missile defense systems. Have fun. HQ out.', vid = 'X02_HQ_M01_04895.sfd', bank = 'X02_VO', cue = 'X02_HQ_M01_04895', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Mission 1: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X02_M01_OBJ_010_010 = '<LOC X02_M01_OBJ_010_010>Thwart the Order Assault'
@@ -277,10 +277,10 @@ X02_M01_OBJ_020_025 = '<LOC X02_M01_OBJ_020_025>Make sure the Loyalist survives!
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2: Princess Reveals Herself
--- ------------------------------
+--------------------------------
 
 
 
@@ -442,10 +442,10 @@ X02_M02_200 = {
   {text = '<LOC X02_M02_200_010>[{i Thalia}]: The Loyalists have been killed. I shall mourn their loss.', vid = 'X02_Thalia_M02_04904.sfd', bank = 'X02_VO', cue = 'X02_Thalia_M02_04904', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mission 2: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X02_M02_OBJ_010_010 = '<LOC X02_M02_OBJ_010_010>Rescue the Loyalist POWs'
@@ -473,10 +473,10 @@ X02_M02_OBJ_020_035 = '<LOC X02_M02_OBJ_020_035>There are two Loyalist Commander
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Joint Assault with a New Ally
--- ------------------------------
+--------------------------------
 
 
 
@@ -677,10 +677,10 @@ X02_M03_340 = {
   {text = '<LOC X02_M03_340_010>[{i Brackman}]: Excellent work, excellent. Soon all of its secrets will be ours.', vid = 'X02_Brackman_M03_04860.sfd', bank = 'X02_VO', cue = 'X02_Brackman_M03_04860', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mission 3: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X02_M03_OBJ_010_070 = '<LOC X02_M03_OBJ_010_070>Defeat QAI Commander Avatar'
@@ -696,10 +696,10 @@ X02_M03_OBJ_020_015 = '<LOC X02_M03_OBJ_020_015>If able, transport an Engineer t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

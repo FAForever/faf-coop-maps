@@ -22,9 +22,9 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Dostya = 2
 ScenarioInfo.Seraphim = 3
@@ -33,9 +33,9 @@ ScenarioInfo.Coop1 = 5
 ScenarioInfo.Coop2 = 6
 ScenarioInfo.Coop3 = 7
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -51,18 +51,18 @@ local NukeHandles = {}
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
--- --------------
+----------------
 -- Taunt Managers
--- --------------
+----------------
 local OumEoshiTM = TauntManager.CreateTauntManager('OumEoshiTM', '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_Strings.lua')
 local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_Strings.lua')
 
 local LeaderFaction
 local LocalFaction
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
@@ -84,14 +84,14 @@ function OnPopulate(scenario)
     SetArmyUnitCap(Dostya, 400)
     SetArmyUnitCap(Seraphim, 700)	
 
-    -- --------------
+    ----------------
     -- M1 Seraphim AI
-    -- --------------
+    ----------------
     M1SeraphimAI.SeraphimM1WestAI()
 
-    -- ------------------------
+    --------------------------
     -- Seraphim Initial Patrols
-    -- ------------------------
+    --------------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAir_Def_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_AirPatrol_Chain')))
@@ -106,9 +106,9 @@ function OnPopulate(scenario)
 end
 
 function OnStart(self)
-    -- ------------------
+    --------------------
     -- Build Restrictions
-    -- ------------------
+    --------------------
     for _, player in ScenarioInfo.HumanPlayers do
         ScenarioFramework.AddRestriction(player, categories.xab2307) -- Aeon Rapid Fire Artillery
         ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship
@@ -138,9 +138,9 @@ function OnStart(self)
     ForkThread(IntroMission1NIS)
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if(not ScenarioInfo.OpEnded and not ScenarioInfo.TimerExpired) then
         ScenarioFramework.EndOperationSafety()
@@ -168,9 +168,9 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
--- ---------
+-----------
 -- Intro NIS
--- ---------
+-----------
 function IntroMission1NIS()
     Cinematics.EnterNISMode()
 
@@ -278,9 +278,9 @@ function SpawnPlayer()
     end
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -295,9 +295,9 @@ function StartMission1()
     ForkThread(CheatEconomy)
 
     local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.AIRSTAGINGPLATFORM + categories.FACTORY + categories.MASSEXTRACTION, false)
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Primary Objective 1 - Destroy Seraphim Base
-    -- -------------------------------------------
+    ---------------------------------------------
     ScenarioInfo.M1P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -409,9 +409,9 @@ function M1DostyaFinished()
     end
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ForkThread(
         function()
@@ -426,21 +426,21 @@ function IntroMission2()
                 ScenarioInfo.M1BrickPing:Destroy()
             end
 
-            -- --------------
+            ----------------
             -- M2 Seraphim AI
-            -- --------------
+            ----------------
             M2SeraphimAI.SeraphimM2LowerAI()
             M2SeraphimAI.SeraphimM2UpperAI()
 
-            -- ------------
+            --------------
             -- M2 Dostya AI
-            -- ------------
+            --------------
             M2DostyaAI.DostyaBaseAI()
             M2DostyaAI.DostyaAirbaseAI()
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Initial Patrols
-            -- ------------------------
+            --------------------------
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_AirPatrol_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_AirDef_Chain')))
@@ -469,20 +469,20 @@ function IntroMission2()
                 end
             end
 
-            -- ---------------
+            -----------------
             -- Seraphim Jammer
-            -- ---------------
+            -----------------
             ScenarioInfo.Jammer = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_Jammer')
 
-            -- -----------
+            -------------
             -- Dostya Base
-            -- -----------
+            -------------
 --       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Base')
 --       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Wreckage', true)
 
-	    -- -------------------
+	    ---------------------
 	    -- Dostya ACU Upgrades
-	    -- -------------------
+	    ---------------------
 	    ScenarioInfo.DostyaCDR:CreateEnhancement('T3Engineering')
 	    ScenarioInfo.DostyaCDR:CreateEnhancement('MicrowaveLaserGenerator')
 	    ScenarioInfo.DostyaCDR:CreateEnhancement('ResourceAllocation')
@@ -749,9 +749,9 @@ function M2InitialAttack()
 end
 
 function StartMission2()
-    -- ------------------------------------
+    --------------------------------------
     -- Primary Objective 1 - Destroy Jammer
-    -- ------------------------------------
+    --------------------------------------
     ScenarioInfo.M2P1 = Objectives.KillOrCapture(
         'primary',                          -- type
         'incomplete',                       -- complete
@@ -974,22 +974,22 @@ function DostyaDeath()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
     SetArmyUnitCap(Seraphim, 900)
 	
-	-- --------------
+	----------------
     -- M3 Dostya AI
-    -- --------------
+    ----------------
     M2DostyaAI.DostyaExperimentals()
 
-    -- --------------
+    ----------------
     -- M3 Seraphim AI
-    -- --------------
+    ----------------
     if(Difficulty > 1) then
         M3SeraphimAI.SeraphimM3SouthWestAI()
         M3SeraphimAI.SeraphimM3EastSouthEastAI()
@@ -1006,9 +1006,9 @@ function IntroMission3()
         v:SetVeterancy(5)
     end
 
-    -- -----------------------
+    -------------------------
     -- Seraphim Initial Attack
-    -- -----------------------
+    -------------------------
 
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_InitAttack_S_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')
@@ -1045,9 +1045,9 @@ function IntroMission3()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')
     end
 
-    -- ------------------------------
+    --------------------------------
     -- Seraphim Experimental Response
-    -- ------------------------------
+    --------------------------------
     for _, player in ScenarioInfo.HumanPlayers do
         local airExp = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL * categories.AIR, false)
         if(table.getn(airExp) > 0) then
@@ -1107,9 +1107,9 @@ function IntroMission3()
     M3Experimentals()
     M3Nukes()
 
-    -- -------------------------
+    ---------------------------
     -- Secondary Objective Units
-    -- -------------------------
+    ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_NE_Radar_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_NW_Radar_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_SW_Radar_D' .. Difficulty)
@@ -1569,9 +1569,9 @@ function M3LaunchNukes()
 end
 
 function StartMission3()
-    -- --------------------------------------------
+    ----------------------------------------------
     -- Primary Objective 1 - Survive Until Recalled
-    -- --------------------------------------------
+    ----------------------------------------------
     ScenarioInfo.M3P1 = Objectives.Timer(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -1690,9 +1690,9 @@ function M3PreNukeDialogue()
 end
 
 function M3CybranSecondary()
-    -- ------------------------------------------------
+    --------------------------------------------------
     -- Secondary Objective 1 - Recover Dostya©s Remains
-    -- ------------------------------------------------
+    --------------------------------------------------
     ScenarioInfo.M3S1Cybran = Objectives.Reclaim(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -1716,9 +1716,9 @@ function M3CybranSecondary()
 end
 
 function M3AeonSecondary()
-    -- --------------------------------------------
+    ----------------------------------------------
     -- Secondary Objective - Capture Seraphim Radar
-    -- --------------------------------------------
+    ----------------------------------------------
     ScenarioInfo.M3S1Aeon = Objectives.Capture(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -1903,9 +1903,9 @@ function FakeNuke(posX, posZ)
     tempNuke:CreateNuclearExplosion()
 end
 
--- ------
+--------
 -- Taunts
--- ------
+--------
 
 function SetupOumEoshiM1Taunt()
     OumEoshiTM:AddUnitsKilledTaunt('TAUNT7', ArmyBrains[Seraphim], categories.FACTORY, 1)
@@ -1924,9 +1924,9 @@ function SetupHex5M3Taunts()
     Hex5TM:AddAreaTaunt('TAUNT10', 'M1Area', categories.xsl0401, ArmyBrains[Seraphim], 1)       -- Seraph exp bot enters m1 area
 end
 
--- ---------
+-----------
 -- Reminders
--- ---------
+-----------
 
  -- M1
 function M1P1Reminder1()

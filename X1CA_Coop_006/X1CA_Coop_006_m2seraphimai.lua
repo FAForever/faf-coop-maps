@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 5
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM2Base = BaseManager.CreateBaseManager()
 
 function SeraphimM2BaseAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M2 Base
-    -- ----------------
+    ------------------
     SeraphimM2Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_Base', 'M2_Seraphim_Base_Marker', 130, {M2_Seraph_Base = 100})
     SeraphimM2Base:StartNonZeroBase({{4, 12, 18}, {4, 8, 14}})
 	SeraphimM2Base:SetMaximumConstructionEngineers(3)
@@ -41,9 +41,9 @@ end
 function SeraphimM2BaseAirAttacks()
     local opai = nil
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M2 Base Op AI - Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends [gunships]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks1',
@@ -122,9 +122,9 @@ function SeraphimM2BaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Seraphim M2 Base Op AI - Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends engineers
     opai = SeraphimM2Base:AddOpAI('EngineerAttack', 'M2_SeraphimEngAttack1',
@@ -180,9 +180,9 @@ end
 
 function SeraphimM2BaseNavalAttacks()
 
-    -- --------------------------------------
+    ----------------------------------------
     -- Seraphim M2 Base Op AI - Naval Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends 20 frigate power to Fletcher
     local opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack_Fletcher',

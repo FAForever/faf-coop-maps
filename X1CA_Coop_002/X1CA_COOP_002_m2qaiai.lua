@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local QAI = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local QAIM2SouthBase = BaseManager.CreateBaseManager()
 
 function QAIM2SouthBaseAI()
 
-    -- -----------------
+    -------------------
     -- QAI M2 South Base
-    -- -----------------
+    -------------------
     QAIM2SouthBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M2_South_Base', 'M2_QAI_Base_Marker', 50, {M2_South_Base = 100})
     QAIM2SouthBase:StartNonZeroBase({{6, 12, 20}, {5, 10, 18}})
     QAIM2SouthBase:SetBuild('Defenses', false)
@@ -47,9 +47,9 @@ function QAIM2SouthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- QAI M2 South Base Op AI, Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends 2, 2, 6 [bombers]
     quantity = {2, 2, 6}
@@ -205,9 +205,9 @@ end
 function QAIM2SouthBaseLandAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- QAI M2 South Base Op AI, Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 	
 	for i = 1, 2 do
 	-- sends 6 [mobile flak, light bots]

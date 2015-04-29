@@ -24,9 +24,9 @@ local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_strings.lua')
 local Weather = import('/lua/weather.lua')
 
 
--- ---------------
+-----------------
 -- Debug Variables
--- ---------------
+-----------------
 -- Difficulty values are
 -- easy = 1
 -- medium = 2
@@ -34,9 +34,9 @@ local Weather = import('/lua/weather.lua')
 -- ScenarioInfo.Options.Difficulty is the difficulty passed in from the front end
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
 
--- ----------------------
+------------------------
 -- Local Tuning Variables
--- ----------------------
+------------------------
 
 -- Multi-mission variables:
 -- How often the player should be attacked, broken out by difficulty
@@ -2362,9 +2362,9 @@ end
 -- ScenarioInfo.M1H2:ManualResult(true)
 -- end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
         -- Turn everything neutral

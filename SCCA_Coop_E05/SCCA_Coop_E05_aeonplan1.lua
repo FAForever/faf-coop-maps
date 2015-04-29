@@ -25,13 +25,13 @@ local ScenarioFramework = import('/lua/modules/scenarioframework.lua')
 local ScenarioPlatoonAI = import('/lua/modules/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/ScenarioUtilities.lua')
 
--- ------------------------
+--------------------------
 -- Platoon Build Conditions
--- ------------------------
+--------------------------
 
--- ----------
+------------
 -- Platoon AI
--- ----------
+------------
 
 local PlayerBaseLocations = {
     ScenarioUtils.MarkerToPosition('Research_Facility_1'),
@@ -99,18 +99,18 @@ function GenericAttack(platoon)
     platoon:ForkThread( ScenarioPlatoonAI.PlatoonAttackLocationList ) -- , PlayerBaseLocations, false, LandSquadsTarget )
 end
 
--- -----------------------
+-------------------------
 -- Platoon Build Callbacks
--- -----------------------
+-------------------------
 
--- ------------
+--------------
 -- Platoon List
--- ------------
+--------------
 local PlatoonList = {
 
-    -- -------------
+    ---------------
     -- Nuke Building
-    -- -------------
+    ---------------
     {
         PlatoonTemplate = Scenario.Platoons['UEF_Nuke_Silo'],
         InstanceCount = 1,
@@ -125,9 +125,9 @@ local PlatoonList = {
         PlatoonAIFunction = AeonNukeThread,
     },
 
-    -- -----------------
+    -------------------
     -- M1 Aeon attackers
-    -- -----------------
+    -------------------
     {
         PlatoonTemplate = Scenario.Platoons['UEF_LandAttack1'],
         InstanceCount = 2,
@@ -271,9 +271,9 @@ local PlatoonList = {
         RequiresConstruction = true,
         PlatoonAIFunction = GenericAttack,
     },
-    -- ------------------------
+    --------------------------
     -- M1 Aeon base maintenance
-    -- ------------------------
+    --------------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -336,9 +336,9 @@ local PlatoonList = {
     },
 
 
-    -- -----------------
+    -------------------
     -- M2 Aeon Air Base
-    -- -----------------
+    -------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -599,9 +599,9 @@ local PlatoonList = {
 
 
 
-    -- -----------------------
+    -------------------------
     -- M2 Aeon Land Base South
-    -- -----------------------
+    -------------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,
@@ -860,9 +860,9 @@ local PlatoonList = {
         PlatoonAIFunction = GenericAttack,
     },
 
-    -- -----------------------
+    -------------------------
     -- M2 Aeon Land Base North
-    -- -----------------------
+    -------------------------
     {
         PlatoonTemplate = Scenario.Platoons['Aeon_Engineer'],
         InstanceCount = 3,

@@ -11,22 +11,22 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 5
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM1Base = BaseManager.CreateBaseManager()
 
 function SeraphimM1BaseAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M1 Base
-    -- ----------------
+    ------------------
     SeraphimM1Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M1_Seraph_Base', 'M1_Seraphim_Main_Base', 100, {M1_Seraph_Base = 100})
     SeraphimM1Base:StartNonZeroBase({{6, 13, 20}, {5, 11, 17}})
     SeraphimM1Base:SetActive('AirScouting', true)
@@ -50,9 +50,9 @@ function SeraphimM1BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Seraphim M1 Base Op AI, Air Attacks
-    -- -----------------------------------
+    -------------------------------------
 
     -- sends 6, 12, 18 [bombers], ([gunships] on hard)
     quantity = {6, 12, 18}
@@ -216,9 +216,9 @@ function SeraphimM1BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------
+    ---------------------------------
     -- Seraphim M1 Op AI, Land Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 6, 10, 20 [light tanks, heavy tanks]
     quantity = {6, 10, 20}
@@ -252,9 +252,9 @@ function SeraphimM1BaseLandAttacks()
         opai:SetLockingStyle('None')
     end
 
-    -- --------------------
+    ----------------------
     -- Hard Difficulty Only
-    -- --------------------
+    ----------------------
     if(Difficulty == 3) then
        opai = SeraphimM1Base:AddOpAI('BasicLandAttack', 'M1_LandAttackHard1',
            {

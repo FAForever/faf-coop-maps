@@ -16,21 +16,21 @@ local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Rhiza = 3
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local M1RhizaBase = BaseManager.CreateBaseManager()
 
 function M1RhizaBaseAI()
 
-    -- -------------
+    ---------------
     -- M1 Rhiza Base
-    -- -------------
+    ---------------
     M1RhizaBase:InitializeDifficultyTables(
         ArmyBrains[Rhiza],
         'M1_Rhiza_Base',
@@ -74,9 +74,9 @@ end
 function M1RhizaBaseLandAttacks()
     local opai = nil
 
-    -- ---------------------------------
+    -----------------------------------
     -- M1 Rhiza Base Op AI, Land Attacks
-    -- ---------------------------------
+    -----------------------------------
 	
     -- ##################
 	-- CUSTOM PLATOONS #
@@ -147,9 +147,9 @@ end
 function M1RhizaBaseAirAttacks()
     local opai = nil
 
-    -- --------------------------------
+    ----------------------------------
     -- M1 Rhiza Base Op AI, Air Attacks
-    -- --------------------------------
+    ----------------------------------
 
     -- sends [air superiority, gunships, bombers]
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirAttacks1',
@@ -280,9 +280,9 @@ end
 function M1RhizaBaseNavalAttacks()
     local opai = nil
 
-    -- ----------------------------------
+    ------------------------------------
     -- M1 Rhiza Base Op AI, Naval Attacks
-    -- ----------------------------------
+    ------------------------------------
     -- sends 15 frigate power of all but T3
     opai = M1RhizaBase:AddNavalAI('Rhiza_NavalAttack2',
         {
@@ -293,7 +293,7 @@ function M1RhizaBaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     -- sends 8 frigate power of all but T3
     opai = M1RhizaBase:AddNavalAI('Rhiza_NavalAttack3',
         {
@@ -304,7 +304,7 @@ function M1RhizaBaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack1',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
@@ -314,7 +314,7 @@ function M1RhizaBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack2',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
@@ -324,7 +324,7 @@ function M1RhizaBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack3' .. i,
             {
@@ -337,7 +337,7 @@ function M1RhizaBaseNavalAttacks()
         opai:SetChildActive('T3', false)
         opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
     end
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M3_NavalAttack1' .. i,
             {
@@ -350,7 +350,7 @@ function M1RhizaBaseNavalAttacks()
         opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
 		opai:SetChildActive('T3', false)
     end
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     -- ################
     -- Naval Defense #
     -- ################
@@ -406,7 +406,7 @@ function M1RhizaBaseNavalAttacks()
         )
         opai:SetChildActive('T3', false)
     end
-    -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+    ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('M2_NavalDefense_Additional',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},

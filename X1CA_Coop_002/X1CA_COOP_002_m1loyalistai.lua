@@ -16,21 +16,21 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Loyalist = 4
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local LoyalistM1MainBase = BaseManager.CreateBaseManager()
 
 function LoyalistM1MainBaseAI()
 
-    -- ---------------------
+    -----------------------
     -- Loyalist M1 Main Base
-    -- ---------------------
+    -----------------------
     ScenarioUtils.CreateArmyGroup('Loyalist', 'Starting_Units')
     LoyalistM1MainBase:InitializeDifficultyTables(ArmyBrains[Loyalist], 'M1_Loy_StartBase', 'Loyalist_M1_Pinned_Base', 70, {M1_Loy_StartBase = 110})
     LoyalistM1MainBase:StartNonZeroBase({{16, 12, 9}, {14, 10, 7}})
@@ -57,9 +57,9 @@ end
 function LoyalistM1MainBaseAirAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Loyalist M1 Main Base Op AI, Air Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     for i = 1, 2 do
         opai = LoyalistM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttack1_' .. i,
@@ -126,9 +126,9 @@ function LoyalistM1MainBaseLandAttacks()
     local opai = nil
     local platoons = {}
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Loyalist M1 Main Base Op AI, Land Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_BasicLandAttack',
         {

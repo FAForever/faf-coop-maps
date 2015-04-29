@@ -12,24 +12,24 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Order = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM3MainBase = BaseManager.CreateBaseManager()
 local OrderM3NavalBase = BaseManager.CreateBaseManager()
 local OrderM3ExpansionBase = BaseManager.CreateBaseManager()
 
 function OrderM3MainBaseAI()
 
-    -- ------------------
+    --------------------
     -- Order M3 Main Base
-    -- ------------------
+    --------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M2_Order_AirBase_Init_Eng_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'M2_Order_LandBase_Init_Eng_D' .. Difficulty)
     OrderM3MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M2_Main_Base', 'M2_Main_Base_Marker', 70, {M2_Main_Base = 100})
@@ -53,9 +53,9 @@ function OrderM3MainBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------------
+    ----------------------------------------
     -- Order M3 Main Base Op AI - Air Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends 5, 8, 20 [bombers]
     quantity = {5, 8, 20}
@@ -260,9 +260,9 @@ function OrderM3MainBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------------
+    -----------------------------------------
     -- Order M3 Main Base Op AI - Land Attacks
-    -- ---------------------------------------
+    -----------------------------------------
 
     -- sends 4, 8, 10 [heavy tanks, heavy bots]
     quantity = {4, 8, 10}
@@ -339,9 +339,9 @@ end
 
 function OrderM3NavalBaseAI()
 
-    -- -------------------
+    ---------------------
     -- Order M3 Naval Base
-    -- -------------------
+    ---------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M2_Naval_Init_Eng_D' .. Difficulty)
     OrderM3NavalBase:Initialize(ArmyBrains[Order], 'M2_Naval_Base', 'Order_M2_Naval_Base_Marker', 50, {M2_Naval_Base = 100})
     OrderM3NavalBase:StartNonZeroBase({{1, 3, 5}, {1, 3, 5}})
@@ -354,9 +354,9 @@ function OrderM3NavalBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Order M3 Naval Base Op AI, Naval Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- sends 3 frigate power of [frigates] if player has >= 5, 3, 1 boats
     trigger = {4, 2, 1}
@@ -444,9 +444,9 @@ end
 
 function OrderM3ExpansionBaseAI()
 
-    -- -----------------------
+    -------------------------
     -- Order M3 Expansion Base
-    -- -----------------------
+    -------------------------
     -- TODO: make sure this is working
     OrderM3MainBase:AddExpansionBase('OrderM3ExpansionBase', 1)
     OrderM3ExpansionBase:InitializeDifficultyTables(ArmyBrains[Order], 'OrderM3ExpansionBase', 'Order_M2_Expansion_One_Marker', 50,

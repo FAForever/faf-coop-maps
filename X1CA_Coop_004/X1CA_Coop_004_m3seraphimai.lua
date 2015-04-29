@@ -11,16 +11,16 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = 1
 local Seraphim = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM3SouthWest = BaseManager.CreateBaseManager()
 local SeraphimM3South = BaseManager.CreateBaseManager()
 local SeraphimM3SouthEast = BaseManager.CreateBaseManager()
@@ -33,9 +33,9 @@ local SeraphimM3West = BaseManager.CreateBaseManager()
 
 function SeraphimM3SouthWestAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M3 South West
-    -- ----------------------
+    ------------------------
     SeraphimM3SouthWest:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_SouthWest', 'M3_SouthWest_Marker', 50, {M3_SouthWest = 100,})
     SeraphimM3SouthWest:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -47,9 +47,9 @@ function SeraphimM3SouthWestLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M3 South West Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends 3, 5, 10 [heavy bots]
     quantity = {3, 5, 10}
@@ -188,9 +188,9 @@ end
 
 function SeraphimM3SouthAI()
 
-    -- -----------------
+    -------------------
     -- Seraphim M3 South
-    -- -----------------
+    -------------------
     SeraphimM3South:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_South', 'M3_South_Marker', 50, {M3_South = 100,})
     SeraphimM3South:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -207,9 +207,9 @@ function SeraphimM3SouthAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M3 South Op AI, Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends 10, 15, 20 [bombers]
     quantity = {10, 15, 20}
@@ -349,9 +349,9 @@ end
 
 function SeraphimM3SouthEastAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M3 South East
-    -- ----------------------
+    ------------------------
     SeraphimM3SouthEast:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_SouthEast', 'M3_SouthEast_Marker', 50, {M3_SouthEast = 100,})
     SeraphimM3SouthEast:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -363,9 +363,9 @@ function SeraphimM3SouthEastLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M3 South East Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends 3, 5, 10 [heavy bots]
     quantity = {3, 5, 10}
@@ -504,9 +504,9 @@ end
 
 function SeraphimM3EastSouthEastAI()
 
-    -- ---------------------------
+    -----------------------------
     -- Seraphim M3 East South East
-    -- ---------------------------
+    -----------------------------
     SeraphimM3EastSouthEast:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_EastSouthEast', 'M3_EastSouthEast_Marker', 50, {M3_EastSouthEast = 100,})
     SeraphimM3EastSouthEast:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -523,9 +523,9 @@ function SeraphimM3EastSouthEastAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ----------------------------------------------
+    ------------------------------------------------
     -- Seraphim M3 East South East Op AI, Air Attacks
-    -- ----------------------------------------------
+    ------------------------------------------------
 
     -- sends 5, 10, 15 [bombers]
     quantity = {5, 10, 15}
@@ -665,9 +665,9 @@ end
 
 function SeraphimM3EastAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M3 East
-    -- ----------------
+    ------------------
     SeraphimM3East:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_East', 'M3_East_Marker', 50, {M3_East = 100,})
     SeraphimM3East:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -679,9 +679,9 @@ function SeraphimM3EastLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M3 East Op AI, Land Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends 3, 5, 10 [heavy bots]
     quantity = {3, 5, 10}
@@ -820,9 +820,9 @@ end
 
 function SeraphimM3NorthEastAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M3 North East
-    -- ----------------------
+    ------------------------
     SeraphimM3NorthEast:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_NorthEast', 'M3_NorthEast_Marker', 50, {M3_NorthEast = 100,})
     SeraphimM3NorthEast:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -834,9 +834,9 @@ function SeraphimM3NorthEastLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M3 North East Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends 3, 5, 10 [heavy bots]
     quantity = {3, 5, 10}
@@ -975,9 +975,9 @@ end
 
 function SeraphimM3NorthAI()
 
-    -- -----------------
+    -------------------
     -- Seraphim M3 North
-    -- -----------------
+    -------------------
     SeraphimM3North:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_North', 'M3_North_Marker', 50, {M3_North = 100,})
     SeraphimM3North:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -994,9 +994,9 @@ function SeraphimM3NorthAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M3 North Op AI, Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends 4, 8, 12 [bombers]
     quantity = {4, 8, 12}
@@ -1168,9 +1168,9 @@ end
 
 function SeraphimM3NorthWestAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M3 North West
-    -- ----------------------
+    ------------------------
     SeraphimM3NorthWest:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_NorthWest', 'M3_NorthWest_Marker', 50, {M3_NorthWest = 100,})
     SeraphimM3NorthWest:StartNonZeroBase({{7, 7, 7}, {7, 7, 7}})
 
@@ -1182,9 +1182,9 @@ function SeraphimM3NorthWestLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M3 North West Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends 3, 5, 10 [heavy bots]
     quantity = {3, 5, 10}
@@ -1323,9 +1323,9 @@ end
 
 function SeraphimM3WestAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M3 West
-    -- ----------------
+    ------------------
     SeraphimM3West:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_West', 'M3_West_Marker', 50, {M3_West = 100,})
     SeraphimM3West:StartNonZeroBase({{9, 9, 9}, {9, 9, 9}})
 
@@ -1342,9 +1342,9 @@ function SeraphimM3WestAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Seraphim M3 West Op AI, Air Attacks
-    -- -----------------------------------
+    -------------------------------------
 
     -- sends 10, 15, 20 [bombers]
     quantity = {10, 15, 20}

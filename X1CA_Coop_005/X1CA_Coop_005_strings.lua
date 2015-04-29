@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X05>Operation: Mind Games'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X05_B01_000_010>09-August-3847'},
@@ -37,10 +37,10 @@ BriefingData = {
   {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_060>I will see you soon, my child. See you soon.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -64,10 +64,10 @@ X05_DB01_040 = {
   {text = '<LOC X05_DB01_040_010>[{i HQ}]: Commander? Can you read me? Ah hell, I think the Commander is dea --', vid = 'X05_HQ_DB01_04957.sfd', bank = 'Briefings', cue = 'X05_HQ_DB01_04957', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Linking Up with Allies
--- ------------------------------
+--------------------------------
 
 
 
@@ -220,10 +220,10 @@ X05_M01_220 = {
   {text = '<LOC X05_M01_220_010>[{i HQ}]: Brackman has authorized you to receive the T3 Wailer. It\'s a heavy gunship. HQ out.', vid = 'X05_HQ_M01_04941.sfd', bank = 'X05_VO', cue = 'X05_HQ_M01_04941', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Mission 1: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X05_M01_OBJ_010_010 = '<LOC X05_M01_OBJ_010_010>Clear the Landing Zone'
@@ -251,10 +251,10 @@ X05_M01_OBJ_010_075 = '<LOC X05_M01_OBJ_010_075>Signal Dr. Brackman to advance t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2: Defeating Hex5
--- ------------------------------
+--------------------------------
 
 
 
@@ -468,10 +468,10 @@ X05_M02_360 = {
   {text = '<LOC X05_M02_360_010>[{i Fletcher}]: Commander, send up a spy plane or two and track down Hex5. He\'s cloaked and stealthed, so the only way we\'re going to find him is through line of sight. Fletcher out.', vid = 'X05_Fletcher_M02_05114.sfd', bank = 'X05_VO', cue = 'X05_Fletcher_M02_05114', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mission 2: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X05_M02_OBJ_010_010 = '<LOC X05_M02_OBJ_010_010>Defeat Hex5'
@@ -487,10 +487,10 @@ X05_M02_OBJ_020_020 = '<LOC X05_M02_OBJ_020_020>Ensure Fletcher\'s safety during
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Brackman vs. QAI
--- ------------------------------
+--------------------------------
 
 
 
@@ -708,10 +708,10 @@ X05_M03_350 = {
   {text = '<LOC X05_M03_350_010>[{i Rhiza}]: Because you destroyed the Colossus, there is no reason to capture the Science Facility. Rhiza out.', vid = 'X05_Rhiza_M03_04955.sfd', bank = 'X05_VO', cue = 'X05_Rhiza_M03_04955', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Mission 3: Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X05_M03_OBJ_010_010 = '<LOC X05_M03_OBJ_010_010>Protect Dr. Brackman'
@@ -745,10 +745,10 @@ X05_M03_OBJ_010_100 = '<LOC X05_M03_OBJ_010_100>Get Dr. Brackman to the mainfram
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

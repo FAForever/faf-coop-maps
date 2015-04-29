@@ -14,22 +14,22 @@ local ThisFile = '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2rhizaai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Rhiza = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local RhizaM2Base = BaseManager.CreateBaseManager()
 
 function RhizaM2BaseAI()
 
-    -- -------------
+    ---------------
     -- Rhiza M2 Base
-    -- -------------
+    ---------------
     RhizaM2Base:Initialize(
         ArmyBrains[Rhiza],
         'M2_Rhiza_Base',
@@ -233,9 +233,9 @@ end
 
 function RhizaM2BaseAirAttacks()
     local opai = nil
-    -- ---------------------------------
+    -----------------------------------
     -- Rhiza M2 Base Op AI - Air Attacks
-    -- ---------------------------------
+    -----------------------------------
 
     -- sends [gunships]
     opai = RhizaM2Base:AddOpAI('AirAttacks', 'M2_RhizaAirAttacks1',
@@ -366,9 +366,9 @@ end
 function RhizaM2BaseLandAttacks()
     local opai = nil
 
-    -- ----------------------------------
+    ------------------------------------
     -- Rhiza M2 Base Op AI - Land Attacks
-    -- ----------------------------------
+    ------------------------------------
 
     -- Land Defense
     opai = RhizaM2Base:AddOpAI('BasicLandAttack', 'M2_RhizaLandDefense1',
@@ -410,9 +410,9 @@ end
 
 function RhizaM2BaseNavalAttacks()
     local ai = {}
-    -- -----------------------------------
+    -------------------------------------
     -- Rhiza M2 Base Op AI - Naval Attacks
-    -- -----------------------------------
+    -------------------------------------
 
     -- sends 20 frigate power
     local opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack1',

@@ -27,9 +27,9 @@ local FactionData = import('/lua/factions.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Order = 3
@@ -39,9 +39,9 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -226,28 +226,28 @@ local LocalFaction
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
--- -----------------
+-------------------
 -- UEF Base Managers
--- -----------------
+-------------------
 local UEFM3EasternTown = BaseManager.CreateBaseManager()
 
--- --------------
+----------------
 -- Taunt Managers
--- --------------
+----------------
 local GariM1M2TM = TauntManager.CreateTauntManager('GariM1M2TM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua') -- M1 / M2 Gari related taunts (ie, when she is not onmap)
 local GariTM = TauntManager.CreateTauntManager('GariTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 local SeraphTM = TauntManager.CreateTauntManager('SeraphTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 
--- -----------------------
+-------------------------
 -- UEF Secondary variables
--- -----------------------
+-------------------------
 local MaxTrucks = 10
 local RequiredTrucks = {6, 6, 6}
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
@@ -271,9 +271,9 @@ function OnPopulate(scenario)
     -- Walls
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
 
-    -- -----------
+    -------------
     -- Player Base
-    -- -----------
+    -------------
     local units = ScenarioUtils.CreateArmyGroup('UEF', 'Starting_Base')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
@@ -285,17 +285,17 @@ function OnPopulate(scenario)
     ScenarioInfo.M1ObjectiveShield = ScenarioUtils.CreateArmyUnit('UEF', 'M1_UEF_StartShield')
     ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
 
-    -- ----------------------
+    ------------------------
     -- Player Initial Patrols
-    -- ----------------------
+    ------------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_PercivalPatrol_Chain')
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Naval_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_Start_NavalPatrol_Chain')
 
-    -- -----------
+    -------------
     -- Order M1 AI
-    -- -----------
+    -------------
     M1OrderAI.OrderM1WestBaseAI()
     M1OrderAI.OrderM1EastBaseAI()
 
@@ -303,9 +303,9 @@ function OnPopulate(scenario)
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:SetCustomName(LOC '{i sCDR_Victoria}')
 
-    -- ---------------------
+    -----------------------
     -- Order Initial Patrols
-    -- ---------------------
+    -----------------------
 
     -- Order Sub Patrols
     ScenarioInfo.M1Subs = {}
@@ -323,9 +323,9 @@ function OnPopulate(scenario)
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Beach' .. i .. '_Chain')
     end
 
-    -- ---------------------------
+    -----------------------------
     -- Beach Defense and Artillery
-    -- ---------------------------
+    -----------------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground_D' .. Difficulty)
@@ -335,9 +335,9 @@ function OnPopulate(scenario)
 end
 
 function OnStart(self)
-    -- ------------------
+    --------------------
     -- Build Restrictions
-    -- ------------------
+    --------------------
     for _, player in ScenarioInfo.HumanPlayers do
         ScenarioFramework.AddRestriction(player, categories.xal0305) -- Aeon Sniper Bot
         ScenarioFramework.AddRestriction(player, categories.xaa0202) -- Aeon Mid Range fighter (Swift Wind)
@@ -392,9 +392,9 @@ function OnStart(self)
     ForkThread(IntroNISPart1)
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     ForkThread(
         function()
@@ -451,9 +451,9 @@ function KillGame()
     )
 end
 
--- ---------
+-----------
 -- Intro NIS
--- ---------
+-----------
 function IntroNISPart1()
     ScenarioInfo.NISShield = ScenarioInfo.UnitNames[UEF]['Player_NIS_Shield']
     ScenarioInfo.NISGate = ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate']
@@ -803,18 +803,18 @@ function NIS1KillUnits2()
     end
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
     StartMission1()
 end
 
 function StartMission1()
-    -- ---------------------------------------
+    -----------------------------------------
     -- Primary Objective 1 - Destroy Factories
-    -- ---------------------------------------
+    -----------------------------------------
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -847,9 +847,9 @@ function StartMission1()
         categories.AEON * categories.CONSTRUCTION, true, true, ArmyBrains[Order])
 
     if(Difficulty == 3) then
-        -- -----------------------------------------
+        -------------------------------------------
         -- Secondary Objective 1 - Destroy Artillery
-        -- -----------------------------------------
+        -------------------------------------------
         ScenarioInfo.M1S1 = Objectives.CategoriesInArea(
             'secondary',                    -- type
             'incomplete',                   -- status
@@ -867,9 +867,9 @@ function StartMission1()
             }
         )
     else
-        -- -----------------------------------------
+        -------------------------------------------
         -- Secondary Objective 1 - Destroy Artillery
-        -- -----------------------------------------
+        -------------------------------------------
         ScenarioInfo.M1S1 = Objectives.CategoriesInArea(
             'secondary',                    -- type
             'incomplete',                   -- status
@@ -954,9 +954,9 @@ function M1S2Reveal()
 end
 
 function M1S2Assign()
-    -- -------------------------------------
+    ---------------------------------------
     -- Secondary Objective 2 - Repair Shield
-    -- -------------------------------------
+    ---------------------------------------
     ScenarioInfo.M1S2 = Objectives.Basic(
         'secondary',                        -- type
         'incomplete',                       -- status
@@ -1015,9 +1015,9 @@ function M1S3Reveal()
 end
 
 function M1S3Assign()
-    -- ------------------------------------
+    --------------------------------------
     -- Secondary Objective 3 - Destroy Subs
-    -- ------------------------------------
+    --------------------------------------
     ScenarioInfo.M1S3 = Objectives.KillOrCapture(
         'secondary',
         'incomplete',
@@ -1037,9 +1037,9 @@ function M1S3Assign()
     table.insert(AssignedObjectives, ScenarioInfo.M1S3)
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ForkThread(
         function()
@@ -1061,37 +1061,37 @@ function IntroMission2()
                 ScenarioInfo.M1S3:ManualResult(false)
             end
 
-            -- ---------------------
+            -----------------------
             -- Western Civilian Town
-            -- ---------------------
+            -----------------------
             ScenarioInfo.M2CivilianBuildings = ScenarioUtils.CreateArmyGroup('Civilians', 'M2_Civilian_Buildings')
             ScenarioUtils.CreateArmyGroup('Civilians', 'M2_Wreckage', true)
 
-            -- ---------
+            -----------
             -- UEF M2 AI
-            -- ---------
+            -----------
             M2UEFAI.UEFM2WesternTownAI()
 
-            -- ------------------
+            --------------------
             -- UEF Initial Attack
-            -- ------------------
+            --------------------
             for i = 1, 2 do
                 local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_Town_Init_Land' .. i .. '_D' .. Difficulty, 'AttackFormation')
                 ScenarioFramework.PlatoonPatrolChain(units, 'UEF_M2_West_Town_Patrol_Chain')
             end
 
-            -- -----------
+            -------------
             -- Order M2 AI
-            -- -----------
+            -------------
             M2OrderAI.OrderM2MainBaseAI()
             M2OrderAI.OrderM2AirNorthBaseAI()
             M2OrderAI.OrderM2AirSouthBaseAI()
             M2OrderAI.OrderM2LandNorthBaseAI()
             M2OrderAI.OrderM2LandSouthBaseAI()
 
-            -- ---------------------
+            -----------------------
             -- Order Initial Patrols
-            -- ---------------------
+            -----------------------
 
             -- Default
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_InitPatrol_Air_D' .. Difficulty, 'GrowthFormation')
@@ -1200,9 +1200,9 @@ function IntroMission2()
                 end
             end
 
-            -- --------------------
+            ----------------------
             -- Order Initial Attack
-            -- --------------------
+            ----------------------
             for i = 1, 2 do
                 local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Init_BaseAttack_Land' .. i .. '_D' .. Difficulty, 'AttackFormation')
                 for k, v in units:GetPlatoonUnits() do
@@ -1212,9 +1212,9 @@ function IntroMission2()
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Init_BaseAttack_Air1_D' .. Difficulty, 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'Order_M2_Town_AirPatrol_Chain')
 
-            -- ----------------------
+            ------------------------
             -- Order Secondary Attack
-            -- ----------------------
+            ------------------------
             ScenarioInfo.OrderSecondaryAttack1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Init_BaseAttack_Land3_D' .. Difficulty, 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.OrderSecondaryAttack1, 'Order_M2_BaseLand1_Chain')
 
@@ -1313,9 +1313,9 @@ function IntroMission2NIS()
 end
 
 function StartMission2()
-    -- --------------------------------------
+    ----------------------------------------
     -- Primary Objective 1 - Protect the Town
-    -- --------------------------------------
+    ----------------------------------------
     ScenarioInfo.M2P1 = Objectives.Protect(
         'primary',
         'incomplete',
@@ -1338,9 +1338,9 @@ function StartMission2()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2P1)
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Primary Objective 2 - Destroy Order Base
-    -- ----------------------------------------
+    ------------------------------------------
     ScenarioInfo.M2P2 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -1446,9 +1446,9 @@ function OrderSecondaryAttack4()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ForkThread(
         function()
@@ -1465,24 +1465,24 @@ function IntroMission3()
 
             ScenarioFramework.Dialogue(OpStrings.X01_M02_240)
 
-            -- ----------------
+            ------------------
             -- UEF Eastern Town
-            -- ----------------
+            ------------------
             UEFM3EasternTown:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_South_Town_Defense', 'UEF_M2_South_Base_Marker', 50, {M2_South_Town_Defense = 100})
             UEFM3EasternTown:StartNonZeroBase(0)
 
-            -- ---------
+            -----------
             -- Civilians
-            -- ---------
+            -----------
             ScenarioUtils.CreateArmyGroup('Civilians', 'M2_Civilian_WreckedCity_South', true)
             ScenarioUtils.CreateArmyGroup('Civilians', 'M3_Wreckage', true)
             ScenarioInfo.M3CivilianCity = ScenarioUtils.CreateArmyGroup('Civilians', 'M2_Civilian_South_City')
             ScenarioInfo.M3CivilianCityNum = table.getn(ScenarioInfo.M3CivilianCity)
             ScenarioUtils.CreateArmyGroup('Civilians', 'M2_Civilian_Middle_City')
 
-            -- -----------
+            -------------
             -- Order M3 AI
-            -- -----------
+            -------------
             M3OrderAI.OrderM3MainBaseAI()
             M3OrderAI.OrderM3NavalBaseAI()
             M3OrderAI.OrderM3ExpansionBaseAI()
@@ -1491,9 +1491,9 @@ function IntroMission3()
             ScenarioInfo.OrderCDR = ScenarioUtils.CreateArmyUnit('Order', 'Order_ACU')
             ScenarioInfo.OrderCDR:SetCustomName(LOC '{i Gari}')
 
-            -- ---------------------
+            -----------------------
             -- Order Initial Patrols
-            -- ---------------------
+            -----------------------
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Main_Adapt_Colos_' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Order_M2_Main_Exp_Chain')))
@@ -2003,9 +2003,9 @@ function M3CounterAttack()
         end
     end
 
-    -- ----------------
+    ------------------
     -- Retake the beach
-    -- ----------------
+    ------------------
 
     -- Snipers on the bluffs
     local veterancy = 0
@@ -2034,9 +2034,9 @@ function StartMission3()
     ScenarioFramework.CreateTimerTrigger(M3GariTaunt1, 600)
     ScenarioFramework.CreateTimerTrigger(M3GariTaunt2, 1200)
 
-    -- ------------------------------------
+    --------------------------------------
     -- Primary Objective 1 - Kill Order ACU
-    -- ------------------------------------
+    --------------------------------------
     ScenarioInfo.M3P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -2129,9 +2129,9 @@ function M3UEFSecondaryPart1()
     ScenarioInfo.NavalTownAttack = ScenarioUtils.CreateArmyGroup('Order', 'M2_Naval_Attack_D' .. Difficulty)
     ScenarioFramework.CreateGroupDeathTrigger(M3UEFTownSaved, ScenarioInfo.NavalTownAttack)
 
-    -- ------------------------------------------------------
+    --------------------------------------------------------
     -- UEF Secondary Objective 1 - Protect Civilians - Part 1
-    -- ------------------------------------------------------
+    --------------------------------------------------------
     ScenarioInfo.M3S1UEF = Objectives.Protect(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -2206,9 +2206,9 @@ function TruckNIS()
         IssueMove({unit}, ScenarioUtils.MarkerToPosition('M3_Truck_ParkSpot_' .. i))
     end
 
-    -- ------------------------------------------------------
+    --------------------------------------------------------
     -- UEF Secondary Objective 1 - Protect Civilians - Part 2
-    -- ------------------------------------------------------
+    --------------------------------------------------------
     ScenarioInfo.M3S2UEF = Objectives.Basic(
         'secondary',                                        -- type
         'incomplete',                                       -- complete
@@ -2311,9 +2311,9 @@ function KillOrder()
     end
 end
 
--- ---------
+-----------
 -- Mission 4
--- ---------
+-----------
 function IntroMission4()
     ForkThread(
         function()
@@ -2324,24 +2324,24 @@ function IntroMission4()
 
             ScenarioInfo.MissionNumber = 4
 
-            -- ---------
+            -----------
             -- Civilians
-            -- ---------
+            -----------
             ScenarioUtils.CreateArmyGroup('Civilians', 'M3_Civilian_Buildings')
             ScenarioUtils.CreateArmyGroup('Civilians', 'M4_Wreckage', true)
 
-            -- ---------
+            -----------
             -- M4 UEF AI
-            -- ---------
+            -----------
             M4UEFAI.FortClarkeAI()
             M4UEFAI.UEFM4ForwardOneAI()
             M4UEFAI.UEFM4ForwardTwoAI()
 
             ScenarioFramework.CreateTimerTrigger(M4UEFAI.FortClarkeTransportAttacks, 1200)
 
-            -- -------------------
+            ---------------------
             -- UEF Initial Patrols
-            -- -------------------
+            ---------------------
 
             -- Land Fort Clarke Interior
             for i = 1, 2 do
@@ -2379,9 +2379,9 @@ function IntroMission4()
                 ScenarioFramework.GroupPatrolChain({v}, 'M4_UEF_AirPatrol1_Chain')
             end
 
-            -- ---------------------------
+            -----------------------------
             -- UEF Spawned Misc Structures
-            -- ---------------------------
+            -----------------------------
             ScenarioUtils.CreateArmyGroup('UEF', 'Bridge_Defenses_D' .. Difficulty)
             ScenarioUtils.CreateArmyGroup('UEF', 'M3_Walls')
 
@@ -2391,9 +2391,9 @@ function IntroMission4()
             ScenarioInfo.ClarkeMonument:SetCustomName(LOC '{i Coalition_HQ}')
             ScenarioInfo.ClarkeMonument:SetReclaimable(false)
 
-            -- --------------
+            ----------------
             -- M4 Seraphim AI
-            -- --------------
+            ----------------
             M4SeraphimAI.SeraphimM4NorthMainBaseAI()
             M4SeraphimAI.SeraphimM4SouthMainBaseAI()
             M4SeraphimAI.SeraphimM4AirMainBaseAI()
@@ -2401,16 +2401,16 @@ function IntroMission4()
             M4SeraphimAI.SeraphimM4ForwardTwoAI()
             M4SeraphimAI.SeraphimM4NavalBaseAI()
 
-            -- --------------------------------
+            ----------------------------------
             -- Seraphim Spawned Misc Structures
-            -- --------------------------------
+            ----------------------------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_West_Mass_D' .. Difficulty)
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_East_Mass_D'.. Difficulty)
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Middle_Defenses_D' .. Difficulty)
 
-            -- -----------------------------
+            -------------------------------
             -- Seraphim Spawned Base Patrols
-            -- -----------------------------
+            -------------------------------
 
             -- Air Defense
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Patrolling_Air_Groups', 'GrowthFormation')
@@ -2663,9 +2663,9 @@ function KillDoomedFactory()
 end
 
 function StartMission4()
-    -- -----------------------------------------
+    -------------------------------------------
     -- Primary Objective 1 - Protect Fort Clarke
-    -- -----------------------------------------
+    -------------------------------------------
     ScenarioInfo.M4P1 = Objectives.Protect(
         'primary',                              -- type
         'incomplete',                           -- complete
@@ -2698,9 +2698,9 @@ function StartMission4()
 end
 
 function RevealM4P2()
-    -- ---------------------------------------
+    -----------------------------------------
     -- Primary Objective 2 - Kill Seraphim ACU
-    -- ---------------------------------------
+    -----------------------------------------
     ScenarioInfo.M4P2 = Objectives.KillOrCapture(
         'primary',                              -- type
         'incomplete',                           -- complete
@@ -2726,9 +2726,9 @@ function RevealM4P2()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M4P2)
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Primary Objective 3 - Kill Experimentals
-    -- ----------------------------------------
+    ------------------------------------------
     local units = {ScenarioInfo.Incarna1}
     if(Difficulty == 3) then
         table.insert(units, ScenarioInfo.Incarna3)
@@ -2868,9 +2868,9 @@ function IncarnaWarning()
     end
 end
 
--- -------------------
+---------------------
 -- Objective Reminders
--- -------------------
+---------------------
 
 -- M1
 function M1P1Reminder1()
@@ -2951,10 +2951,10 @@ function M4P2Reminder2()
     ScenarioFramework.Dialogue(VoiceOvers.KillSeraphimReminder2)
 end
 
--- ------
+--------
 -- Taunts
--- ------
- -- - M1
+--------
+ --- M1
 
 function SetupGariM1M2TauntTriggers()
     -- not tied to gari's unit, as it is not spawned in m1, m2. So, these are tied to m1/m2 instead.
@@ -2963,7 +2963,7 @@ function SetupGariM1M2TauntTriggers()
 end
 
 
- -- - M3
+ --- M3
 function SetupGariTauntTriggers()
     GariTM:AddTauntingCharacter(ScenarioInfo.UnitNames[Order]['Order_ACU'])
 
@@ -3012,7 +3012,7 @@ end
  -- M4
 
 function SetupFletcherTauntTriggers()
-    -- -- Faction specific Fletcher dialogue, using the taunt system
+    ---- Faction specific Fletcher dialogue, using the taunt system
     if(LeaderFaction == 'uef') then
         FletcherTM:AddDamageTaunt('X01_M03_020', ScenarioInfo.ClarkeMonument, .01)                              -- Admin building taking damage, UEF
         FletcherTM:AddDamageTaunt('X01_M03_030', ScenarioInfo.ClarkeMonument, .40)                              -- Admin building taking damage, UEF

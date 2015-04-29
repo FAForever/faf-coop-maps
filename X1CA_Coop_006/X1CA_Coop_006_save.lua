@@ -99,7 +99,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 946.0, 15.50, 156.5 ),
                 },
-                -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+                ---- ---- ---- ---- ---- ---- ---- ---- --
                 ['M3_Seraph_LandAttack1_4'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -6637,7 +6637,7 @@ Scenario = {
                 "M1_Rhiza_NavalStrikeForce_5",
             },
         },
-        -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+        ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
         ['M1SeraphimChain'] = {
             Markers = {
                 "M1SeraphimPatrol1",

@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_X03>Operation: Red Flag'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X03_B01_000_010>02-August-3847'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_003_020>Rhiza is already on-planet and awaits your arrival. You gate immediately. Be safe, my child. Be safe.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
--- ------------------------------
+--------------------------------
 
 
 
@@ -56,10 +56,10 @@ X03_DB01_030 = {
   {text = '<LOC X03_DB01_030_010>[{i HQ}]: Commander, do you read me ... Commander?', vid = 'X03_HQ_DB01_04918.sfd', bank = 'Briefings', cue = 'X03_HQ_DB01_04918', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Mission 1: Command and Conquer
--- ------------------------------
+--------------------------------
 
 
 
@@ -196,10 +196,10 @@ X03_M01_230 = {
   {text = '<LOC X03_M01_230_010>[{i Rhiza}]: I have ordered my forces to deal with any enemies that remain in your operational area. Rhiza out.', vid = 'X03_Rhiza_M01_04915.sfd', bank = 'X03_VO', cue = 'X03_Rhiza_M01_04915', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Recover Translator Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X03_M01_OBJ_010_010 = '<LOC X03_M01_OBJ_010_010>Destroy the Seraphim Naval Base'
@@ -233,10 +233,10 @@ X03_M01_OBJ_010_055 = '<LOC X03_M01_OBJ_010_055>A saboteur will stun Seraphim un
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mission 2
--- ------------------------------
+--------------------------------
 
 
 
@@ -514,10 +514,10 @@ X03_M02_330 = {
   {text = '<LOC X03_M02_330_010>[{i HQ}]: I got confirmation on Burke\'s intel. The Seraphim is building several experimental-class bombers, the same kind that blew the hell out of the Earth. If they take off, Princess Burke is in big trouble. Either destroy the bombers or the Engineers constructing them. No matter what, they can\'t be allowed to get in the air. HQ out.', vid = 'X03_HQ_M02_04934.sfd', bank = 'X03_VO', cue = 'X03_HQ_M02_04934', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Destroy Stuff Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X03_M02_OBJ_010_010 = '<LOC X03_M02_OBJ_010_010>Destroy the Experimental Bombers'
@@ -533,10 +533,10 @@ X03_M02_OBJ_020_020 = '<LOC X03_M02_OBJ_020_020>If the opportunity arises, use t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Mission 3: Rescuing the Princess
--- ------------------------------
+--------------------------------
 
 
 
@@ -722,10 +722,10 @@ X03_M03_280 = {
   {text = '<LOC X03_M03_280_010>[{i HQ}]: Locking in on the two Seraphim commanders in the area. One is to the west of the Princess and one is directly to her north. Destroy them. HQ out.', vid = 'X03_HQ_M03_04874.sfd', bank = 'X03_VO', cue = 'X03_HQ_M03_04874', faction = 'NONE'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Save the Princess Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 X03_M03_OBJ_010_010 = '<LOC X03_M03_OBJ_010_010>Defeat the Seraphim Commanders'
@@ -747,10 +747,10 @@ X03_M03_OBJ_010_060 = '<LOC X03_M03_OBJ_010_060>Defend the Princess\' palace at 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

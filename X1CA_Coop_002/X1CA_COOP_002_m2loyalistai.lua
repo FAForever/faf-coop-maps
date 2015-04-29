@@ -15,23 +15,23 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ThisFile = '/maps/X1CA_Coop_002/X1CA_Coop_002_m2loyalistai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Loyalist = 4
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local LoyalistM2EastBase = BaseManager.CreateBaseManager()
 local LoyalistM2WestBase = BaseManager.CreateBaseManager()
 local LoyalistM2ExpansionBase = BaseManager.CreateBaseManager()
 
 function LoyalistM2EastBaseAI()
 
-    -- ---------------------
+    -----------------------
     -- Loyalist M2 East Base
-    -- ---------------------
+    -----------------------
     LoyalistM2EastBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_East', 'M2_Loyalist_Base_East_Marker', 40, {M2_Loyalist_Base_East = 100,}) -- M4_Loyalist_PrisonBase = 90
     LoyalistM2EastBase:StartNonZeroBase({3, 3})
     LoyalistM2EastBase:SetActive('AirScouting', true)
@@ -55,9 +55,9 @@ end
 function LoyalistM2EastBaseAirAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Loyalist M2 East Base Op AI, Air Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
 	local template = {
         'M2_AirAttacks',
@@ -127,9 +127,9 @@ end
 function LoyalistM2EastBaseLandAttacks()
     local opai = nil
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Loyalist M2 East Base Op AI, Land Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- Land Attack
     opai = LoyalistM2EastBase:AddOpAI('BasicLandAttack', 'M2_LandAttackEast',
@@ -162,9 +162,9 @@ end
 
 function LoyalistM2WestBaseAI()
 
-    -- ---------------------
+    -----------------------
     -- Loyalist M2 West Base
-    -- ---------------------
+    -----------------------
     LoyalistM2WestBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_West', 'M2_Loyalist_Base_West_Marker', 35, {M2_Loyalist_Base_West = 100})
     LoyalistM2WestBase:StartNonZeroBase({2, 2})
     LoyalistM2WestBase:SetActive('LandScouting', true)
@@ -175,9 +175,9 @@ end
 function LoyalistM2WestBaseLandAttacks()
     local opai = nil
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Loyalist M2 West Base Op AI, Land Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- Land Attack
     for i = 1, 2 do

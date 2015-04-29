@@ -134,7 +134,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00125563, 0 ),
                     ['position'] = VECTOR3( 487.5, 33, 687.5 ),
                 },
-				-- -- --
+				---- --
                 ['Dostya_Airbase_RallyPoint'] = {
                     ['hint'] = BOOLEAN( true ),
                     ['color'] = STRING( 'FF808000' ),
@@ -247,7 +247,7 @@ Scenario = {
                     ['position'] = VECTOR3( 474.5, 32.82, 701.5 ),
                 },
 				
-                -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+                ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
                 ['M1_Seraph_LandDef_2_Patrol_4'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -3000,7 +3000,7 @@ Scenario = {
                 "M1Patrol2",
             },
         },
-		-- -- -- -- -- -- -- -- -- -- -- -- --
+		---- ---- ---- ---- ---- ---- --
         ['DostyaAttackChain'] = {
             Markers = {
                 "DostyaAttack",

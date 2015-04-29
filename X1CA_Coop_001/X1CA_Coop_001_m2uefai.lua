@@ -12,9 +12,9 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local UEF = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
@@ -35,16 +35,16 @@ local M2_UEF_AttackChain = {
 }
 
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local UEFM2WesternTown = BaseManager.CreateBaseManager()
 
 function UEFM2WesternTownAI()
 
-    -- ----------------
+    ------------------
     -- UEF Western Town
-    -- ----------------
+    ------------------
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Init_Eng_D' .. Difficulty)
 -- ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Turrets_D' .. Difficulty)
     UEFM2WesternTown:Initialize(ArmyBrains[UEF], 'M2_Town_Defenses', 'UEF_M2_Base_Marker', 70,
@@ -66,9 +66,9 @@ end
 function UEFM2WesternTownLandAttacks()
     local opai = nil
 
-    -- ---------------------------------------
+    -----------------------------------------
     -- UEF M2 Western Town Op AI, Land Attacks
-    -- ---------------------------------------
+    -----------------------------------------
 
     -- sends [mobile missiles]
     opai = UEFM2WesternTown:AddOpAI('BasicLandAttack', 'M2_LandAttack1',
@@ -129,9 +129,9 @@ end
 function UEFM2WesternTownAirAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- UEF M2 Western Town Op AI, Air Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- air defense
     for i = 1, 6 do

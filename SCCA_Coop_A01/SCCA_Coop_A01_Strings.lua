@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A01>Operation Joust'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A01_B01_000_010>Date: 09-AUGUST-3844'},
@@ -36,10 +36,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_003_030>Crusader Rhiza awaits you, Knight. You gate immediately.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -48,10 +48,10 @@ A01_D01_010 = {
   {text = '<LOC A01_D01_010_010>[{i Choir}]: Choir to Knight, respond. Choir to Knight, please respond...we\'ve lost your signal, please respond.', vid = 'A01_Choir_D01_00737.sfd', bank = 'A01_VO', cue = 'A01_Choir_D01_00737', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Power Concerns
--- ------------------------------
+--------------------------------
 
 
 
@@ -95,10 +95,10 @@ A01_M01_070 = {
   {text = '<LOC A01_M01_070_010>[{i Rhiza}]: You cannot spread The Way if you don\'t have sufficient Mass, Knight. I suggest you build some Mass Extractors.', vid = 'A01_Rhiza_M01_01559.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M01_01559', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Power Concerns Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC A01_M01_OBJ_010_110>Build Three Power Generators'
@@ -126,10 +126,10 @@ B2Detail = '<LOC A01_M01_OBJ_020_156>You\'ve built over %s Interceptors.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Naval Forge
--- ------------------------------
+--------------------------------
 
 
 
@@ -148,10 +148,10 @@ A01_M02_025 = {
   {text = '<LOC A01_M02_025_010>[{i Rhiza}]: Why haven\'t you built a Naval Factory? Rhiza out. ', vid = 'A01_Rhiza_M02_01560.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M02_01560', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Naval Forge Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC A01_M02_OBJ_010_210>Build a Naval Factory'
@@ -161,10 +161,10 @@ M2P1Detail = '<LOC A01_M02_OBJ_010_211>Select your CDR and click the Naval Facto
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- First Strike
--- ------------------------------
+--------------------------------
 
 
 
@@ -183,10 +183,10 @@ A01_M03_030 = {
   {text = '<LOC A01_M03_030_010>[{i Rhiza}]: You need to destroy that patrol, Knight. Rhiza out. ', vid = 'A01_Rhiza_M03_01561.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M03_01561', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- First Strike Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC A01_M03_OBJ_010_310>Build %s Light Attack Boats'
@@ -202,10 +202,10 @@ M3P2Detail = '<LOC A01_M03_OBJ_010_321>Send your Light Attack Boats north to def
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04
 -- Sharks
--- ------------------------------
+--------------------------------
 
 
 
@@ -224,10 +224,10 @@ A01_M04_030 = {
   {text = '<LOC A01_M04_030_010>[{i Rhiza}]: Get your subs online ASAP. Rhiza out', vid = 'A01_Rhiza_M04_01562.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M04_01562', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04_OBJ
 -- Sharks Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M4P1Text = '<LOC A01_M04_OBJ_010_410>Build Three Attack Submarines'
@@ -237,10 +237,10 @@ M4P1Detail = '<LOC A01_M04_OBJ_010_411>You will need at least three Attack Subma
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05
 -- Sub Hunt
--- ------------------------------
+--------------------------------
 
 
 
@@ -259,10 +259,10 @@ A01_M05_025 = {
   {text = '<LOC A01_M05_025_010>[{i Rhiza}]: I\'m still reading subs in your sector. Rhiza out.', vid = 'A01_Rhiza_M05_01563.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M05_01563', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M05_OBJ
 -- Sub Hunt Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M5P1Text = '<LOC A01_M05_OBJ_010_510>Destroy UEF Blockade'
@@ -272,10 +272,10 @@ M5P1Detail = '<LOC A01_M05_OBJ_010_511>Patrol the area with your submarines and 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06
 -- Full Steam
--- ------------------------------
+--------------------------------
 
 
 
@@ -294,10 +294,10 @@ A01_M06_035 = {
   {text = '<LOC A01_M06_035_010>[{i Rhiza}]: The longer that resource base is standing, the stronger the UEF gets. Rhiza out. ', vid = 'A01_Rhiza_M06_01564.sfd', bank = 'A01_VO', cue = 'A01_Rhiza_M06_01564', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M06_OBJ
 -- Full Steam Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M6P1Text = '<LOC A01_M06_OBJ_010_610>Destroy all UEF Power Generators and Factories'
@@ -307,10 +307,10 @@ M6P1Detail = '<LOC A01_M06_OBJ_010_611>Destroy all Power Generators and Factorie
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07
 -- Open Water 
--- ------------------------------
+--------------------------------
 
 
 
@@ -445,10 +445,10 @@ A01_M07_180 = {
   {text = '<LOC A01_M07_180_010>[{i Choir}]: Well done, Knight. You may return home.', vid = 'A01_Choir_M07_00788.sfd', bank = 'A01_VO', cue = 'A01_Choir_M07_00788', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M07_OBJ
 -- Open Water Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M7P1Text = '<LOC A01_M07_OBJ_010_710>Destroy all Surface Ships'
@@ -488,10 +488,10 @@ M7S2Detail = '<LOC A01_M07_OBJ_020_791>The main UEF base has a large number of u
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy taunts
--- ------------------------------
+--------------------------------
 
 
 

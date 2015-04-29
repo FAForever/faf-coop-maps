@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A03>Operation High Tide'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A03_B01_000_010>Date: 23-AUGUST-3844'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_003_030>No one is innocent in this war, Toth. Everyone has blood on their hands. You have your orders, Knight. Carry them out.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -46,10 +46,10 @@ A03_D01_010 = {
   {text = '<LOC A03_D01_010_010>[{i Choir}]: Choir to Knight, respond. Choir to Knight, please respond.  We\'ve lost your signal, please respond.', vid = 'A03_Choir_D01_00841.sfd', bank = 'A03_VO', cue = 'A03_Choir_D01_00841', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Fury
--- ------------------------------
+--------------------------------
 
 
 
@@ -112,10 +112,10 @@ A03_M01_120 = {
   {text = '<LOC A03_M01_120_020>[{i Arnold}]: I\'ll be damned. Maybe you ain\'t a pansy after all.', vid = 'A03_Arnold_M01_00863.sfd', bank = 'A03_VO', cue = 'A03_Arnold_M01_00863', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Fury Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpA03_M1P1_Title = '<LOC A03_M01_OBJ_010_111>Survive UEF Assault'
@@ -137,10 +137,10 @@ OpA03_Bonus2_Desc = '<LOC A03_M01_OBJ_020_122>You built over %s Gunships.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Moving Target
--- ------------------------------
+--------------------------------
 
 
 
@@ -199,10 +199,10 @@ A03_M02_105 = {
   {text = '<LOC A03_M02_105_010>[{i Choir}]: We are fully confident that you can defeat the UEF Commander. Choir out.', vid = 'A03_Choir_M02_01569.sfd', bank = 'A03_VO', cue = 'A03_Choir_M02_01569', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Moving Target Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpA03_M2P1_Title = '<LOC A03_M02_OBJ_010_211>Defeat the UEF Commander'
@@ -230,10 +230,10 @@ OpA03_M2S3_Desc = '<LOC A03_M02_OBJ_020_232>This base houses the majority of the
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Cornered
--- ------------------------------
+--------------------------------
 
 
 
@@ -291,10 +291,10 @@ A03_M03_090 = {
   {text = '<LOC A03_M03_090_040>[{i Princess}]: It is as I have seen. Secure Commander Arnold, Knight. I eagerly await your arrival.', vid = 'A03_Princess_M03_00888.sfd', bank = 'A03_VO', cue = 'A03_Princess_M03_00888', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Cornered Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpA03_M3P1_Title = '<LOC A03_M03_OBJ_010_311>Defeat the UEF Commander'
@@ -304,10 +304,10 @@ OpA03_M3P1_Desc = '<LOC A03_M03_OBJ_010_312>The UEF cannot resist for much longe
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunt
--- ------------------------------
+--------------------------------
 
 
 

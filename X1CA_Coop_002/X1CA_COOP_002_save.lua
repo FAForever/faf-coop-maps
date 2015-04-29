@@ -130,7 +130,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.0018301, 0 ),
                     ['position'] = VECTOR3( 680, 20, 286.35 ),
                 },
-		-- -- -- -- -- -- -- -- -- -- -- -- -- -- --
+		---- ---- ---- ---- ---- ---- ---- --
                 ['Rally Point 18'] = {
                     ['hint'] = BOOLEAN( true ),
                     ['color'] = STRING( 'FF808000' ),

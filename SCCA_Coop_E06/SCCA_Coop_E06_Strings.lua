@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E06>Operation Stone Wall'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E06_B01_000_010>Date: 24-SEPTEMBER-3844'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_003_020>Behind you stand generations of soldiers that gave their lives during the course of this war. Do not let them down. You gate in 30.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -46,10 +46,10 @@ E06_D01_010 = {
   {text = '<LOC E06_D01_010_010>[{i EarthCom}]: Major! Come in, Major! We\'ve lost your signal...Major, report...', vid = 'E06_EarthCom_D01_0298.sfd', bank = 'E06_VO', cue = 'E06_EarthCom_D01_0298', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: G01
 -- Bonus Objectives
--- ------------------------------
+--------------------------------
 
 -- Bonus Objectives
 M1B1Title = '<LOC E06_G01_010_111>Massacre'
@@ -65,10 +65,10 @@ M1B2Description = '<LOC E06_G01_010_122>You have built %s experimental units.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Final Nail
--- ------------------------------
+--------------------------------
 
 
 
@@ -118,10 +118,10 @@ E06_M01_065 = {
   {text = '<LOC E06_M01_065_010>[{i EarthCom}]: Recover that component ASAP, sir! Black Sun needs it to fire! EarthCom out.', vid = 'E06_EarthCom_M01_01469.sfd', bank = 'E06_VO', cue = 'E06_EarthCom_M01_01469', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Final Nail Objective
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M1P1Title = '<LOC E06_M01_OBJ_010_111>Black Sun Must be Protected'
@@ -137,10 +137,10 @@ M1P2Description = '<LOC E06_M01_OBJ_010_122>Black Sun cannot be completed until 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Surrounded
--- ------------------------------
+--------------------------------
 
 
 
@@ -238,10 +238,10 @@ E06_M02_155 = {
   {text = '<LOC E06_M02_155_010>[{i EarthCom}]: The technicians are working as fast as they can, but they need more time. Destroy the Aeon! ', vid = 'E06_EarthCom_M02_01470.sfd', bank = 'E06_VO', cue = 'E06_EarthCom_M02_01470', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Surrounded Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Title = '<LOC E06_M02_OBJ_010_211>Black Sun Must Survive'
@@ -269,10 +269,10 @@ M2P4Description = '<LOC E06_M02_OBJ_010_242>Do not let the Cybrans gain access t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Showdown
--- ------------------------------
+--------------------------------
 
 
 
@@ -370,10 +370,10 @@ E06_M03_115 = {
   {text = '<LOC E06_M03_115_010>[{i EarthCom}]: What are you waiting for! Fire Black Sun! End the war! EarthCom out.', vid = 'E06_EarthCom_M03_01471.sfd', bank = 'E06_VO', cue = 'E06_EarthCom_M03_01471', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Showdown Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M3P1Title = '<LOC E06_M03_OBJ_010_311>Black Sun Must Survive'
@@ -455,10 +455,10 @@ M3P3Description = '<LOC E06_M03_OBJ_010_362>Select Black Sun and press the Fire 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

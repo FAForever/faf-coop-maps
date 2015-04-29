@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A05>Operation Shining Star'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A05_B01_000_010>DATE: 09-SEPTEMBER-3844'},
@@ -36,10 +36,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A05_B01_005_019>We now believe that our ancestors were wrong to start this conflict. The original teachings of the Seraphim have been corrupted, and The Way is now little more than a weapon. The Princess will correct this. I began the process by ensuring her placement on the throne, and now you will be her sword. Go forth and show Marxon how a true believer in The Way fights.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -48,10 +48,10 @@ A05_D01_010 = {
   {text = '<LOC A05_D01_010_010>[{i Choir}]: Choir to Champion, respond. Choir to Champion, please respond. We\'ve lost your signal, please respond.', vid = 'A05_Choir_D01_00937.sfd', bank = 'A05_VO', cue = 'A05_Choir_D01_00937', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Proclamation
--- ------------------------------
+--------------------------------
 
 
 
@@ -154,10 +154,10 @@ A05_M01_160 = {
   {text = '<LOC A05_M01_160_010>[{i Choir}]: The colonies are safe. The Princess will be pleased. Choir out. ', vid = 'A05_Choir_M01_00984.sfd', bank = 'A05_VO', cue = 'A05_Choir_M01_00984', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Proclamation Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Title = '<LOC A05_M01_OBJ_010_010>Protect Colonies'
@@ -191,10 +191,10 @@ M1B2Description = '<LOC A05_M01_OBJ_020_065>You destroyed over %s combined UEF a
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Mistrust
--- ------------------------------
+--------------------------------
 
 
 
@@ -285,10 +285,10 @@ A05_M02_150 = {
   {text = '<LOC A05_M02_150_010>[{i Choir}]: The UEF Commander has been defeated. You must now defeat Crusader Ariel.', vid = 'A05_Choir_M02_01003.sfd', bank = 'A05_VO', cue = 'A05_Choir_M02_01003', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Mistrust Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Title = '<LOC A05_M02_OBJ_010_010>Destroy UEF Artillery Positions'
@@ -310,10 +310,10 @@ M2S1Description = '<LOC A05_M02_OBJ_020_015>This artillery position will shell a
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Colossus
--- ------------------------------
+--------------------------------
 
 
 
@@ -367,10 +367,10 @@ A05_M03_070 = {
   {text = '<LOC A05_M03_070_010>[{i Princess}]: This is a day of sorrow. An Aeon has slain another Aeon. This war must come to an end, for all our sakes. Come home, Champion.', vid = 'A05_Princess_M03_01016.sfd', bank = 'A05_VO', cue = 'A05_Princess_M03_01016', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Colossus Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Title = '<LOC A05_M03_OBJ_010_010>Defeat the Colossus'
@@ -386,10 +386,10 @@ M3P2Description = '<LOC A05_M03_OBJ_010_025>Ariel and the other Commanders loyal
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

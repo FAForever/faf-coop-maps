@@ -10,22 +10,22 @@
 
 AIPlansList = 
 {
-    -- ---
+    -----
     -- UEF
-    -- ---
+    -----
     {   
         '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_cybranneutralplan.lua',
     },
 
-    -- ----
+    ------
     -- Aeon
-    -- ----
+    ------
     {   
     },
 
-    -- ------
+    --------
     -- Cybran
-    -- ------
+    --------
     {   
     },
 }

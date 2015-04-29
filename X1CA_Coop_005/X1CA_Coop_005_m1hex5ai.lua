@@ -11,15 +11,15 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Hex5 = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local Hex5M1Base = BaseManager.CreateBaseManager()
 local Hex5M1ResourceBase1 = BaseManager.CreateBaseManager()
 local Hex5M1ResourceBase2 = BaseManager.CreateBaseManager()
@@ -27,9 +27,9 @@ local Hex5M1ResourceBase3 = BaseManager.CreateBaseManager()
 
 function Hex5M1BaseAI()
 
-    -- ------------
+    --------------
     -- Hex5 M1 Base
-    -- ------------
+    --------------
     Hex5M1Base:InitializeDifficultyTables(ArmyBrains[Hex5], 'M1_Hex5_Main_Base', 'M1_Hex5_Base_Marker', 100, {M1_Hex5_Main_Base = 100})
     Hex5M1Base:StartNonZeroBase({{4, 9, 14}, {4, 8, 12}})
     Hex5M1Base:SetActive('AirScouting', true)
@@ -50,9 +50,9 @@ function Hex5M1BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------
+    ---------------------------------
     -- Hex5 M1 Base Op AI, Air Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 3 [bombers] if player has >= 12, 8, 5 AA
     trigger = {12, 8, 5}
@@ -264,9 +264,9 @@ function Hex5M1BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------
+    ----------------------------------
     -- Hex5 M1 Base Op AI, Land Attacks
-    -- --------------------------------
+    ----------------------------------
 
     -- sends engineers
     if(Difficulty > 1) then
@@ -570,9 +570,9 @@ end
 
 function Hex5M1ResourceBase1AI()
 
-    -- -----------------------
+    -------------------------
     -- Hex5 M1 Resource Base 1
-    -- -----------------------
+    -------------------------
     Hex5M1ResourceBase1:InitializeDifficultyTables(ArmyBrains[Hex5], 'M1_Hex5_Resource1', 'M1_Hex5_Resource1_Marker', 30, {M1_Hex5_Resource1 = 100})
     Hex5M1ResourceBase1:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     Hex5M1ResourceBase1:SetActive('LandScouting', true)
@@ -586,9 +586,9 @@ function Hex5M1ResourceBase1LandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Hex5 Resource Base 1 Op AI, Land Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- sends 1, 1, 2 [light bots] if player has >= 8, 5, 3 DF/IF
     quantity = {1, 1, 2}
@@ -818,9 +818,9 @@ end
 
 function Hex5M1ResourceBase2AI()
 
-    -- -----------------------
+    -------------------------
     -- Hex5 M1 Resource Base 2
-    -- -----------------------
+    -------------------------
     Hex5M1ResourceBase2:InitializeDifficultyTables(ArmyBrains[Hex5], 'M1_Hex5_Resource2', 'M1_Hex5_Resource2_Marker', 30, {M1_Hex5_Resource2 = 100})
     Hex5M1ResourceBase2:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     Hex5M1ResourceBase2:SetActive('AirScouting', true)
@@ -834,9 +834,9 @@ function Hex5M1ResourceBase2AirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------------
+    -----------------------------------------
     -- Hex5 Resource Base 2 Op AI, Air Attacks
-    -- ---------------------------------------
+    -----------------------------------------
 
     -- sends 1, 2, 3 [bombers] if player has >= 12, 8, 5 AA
     quantity = {1, 2, 3}
@@ -1048,9 +1048,9 @@ end
 
 function Hex5M1ResourceBase3AI()
 
-    -- -----------------------
+    -------------------------
     -- Hex5 M1 Resource Base 3
-    -- -----------------------
+    -------------------------
     Hex5M1ResourceBase3:InitializeDifficultyTables(ArmyBrains[Hex5], 'M1_Hex5_Resource3', 'M1_Hex5_Resource3_Marker', 30, {M1_Hex5_Resource3 = 100})
     Hex5M1ResourceBase3:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     Hex5M1ResourceBase3:SetActive('AirScouting', true)
@@ -1064,9 +1064,9 @@ function Hex5M1ResourceBase3AirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ---------------------------------------
+    -----------------------------------------
     -- Hex5 Resource Base 3 Op AI, Air Attacks
-    -- ---------------------------------------
+    -----------------------------------------
 
     -- sends 1, 2, 3 [bombers] if player has >= 12, 8, 5 AA
     quantity = {1, 2, 3}

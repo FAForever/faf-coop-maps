@@ -26,9 +26,9 @@ local TauntManager = import('/lua/TauntManager.lua')
 local ScriptFile = '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_script.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Rhiza = 3
@@ -40,9 +40,9 @@ ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 ScenarioInfo.NumBombersDestroyed = 0
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -60,9 +60,9 @@ local NumBombers = 0
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 1
 
--- --------------
+----------------
 -- Taunt Managers
--- --------------
+----------------
 local ZanNorthTM = TauntManager.CreateTauntManager('ZanNorthTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
 local ThelWestTM = TauntManager.CreateTauntManager('ThelWestTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
 local PrincTM = TauntManager.CreateTauntManager('PrincTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
@@ -74,9 +74,9 @@ local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/
 local LeaderFaction
 local LocalFaction
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
@@ -102,15 +102,15 @@ function OnPopulate()
     -- Crystals
     ScenarioUtils.CreateArmyGroup('Crystals', 'M1_Crystals')
 
-    -- --------------
+    ----------------
     -- Seraphim M1 AI
-    -- --------------
+    ----------------
     M1SeraphimAI.SeraphimM1NorthBaseAI()
     M1SeraphimAI.SeraphimM1MiddleBaseAI()
 
-    -- ------------------------
+    --------------------------
     -- Seraphim Initial Patrols
-    -- ------------------------
+    --------------------------
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_Init_AirDef1_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_Main_AirDef_Chain')))
@@ -143,9 +143,9 @@ function OnPopulate()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_MidAir_Def_Chain')))
     end
 
-    -- ------------------------
+    --------------------------
     -- Seraphim Initial Attacks
-    -- ------------------------
+    --------------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Air_1', 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Seraph_InitAir_Attack_Chain')))
@@ -164,9 +164,9 @@ function OnPopulate()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_InitAttack_Naval_3', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Seraph_Naval_Attack2_Chain')
 
-    -- ------------------------
+    --------------------------
     -- Seraphim Special Attacks
-    -- ------------------------
+    --------------------------
 
     -- East Carrier
     ScenarioInfo.M1EastCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M1_Seraph_East_AC')
@@ -212,16 +212,16 @@ function OnPopulate()
     ScenarioFramework.CreateArmyStatTrigger(M1NorthBattleshipAttack, ArmyBrains[Player], 'M1NorthBattleshipAttack',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 30, Category = categories.TECH3 - categories.ENGINEER}})
 
-    -- -----------
+    -------------
     -- Rhiza M1 AI
-    -- -----------
+    -------------
     M1RhizaAI.M1RhizaBaseAI()
 	
 	ForkThread(CheatEcoRhiza)
 
-    -- ---------------------
+    -----------------------
     -- Rhiza Initial Patrols
-    -- ---------------------
+    -----------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'M1_Rhiza_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Rhiza_AirDef_Chain')))
@@ -258,9 +258,9 @@ function CheatEcoRhiza()
 end
 
 function OnStart()
-    -- ------------------
+    --------------------
     -- Build Restrictions
-    -- ------------------
+    --------------------
     for _, player in ScenarioInfo.HumanPlayers do
         ScenarioFramework.AddRestriction(player, categories.xas0204) -- Aeon Submarine Hunter
         ScenarioFramework.AddRestriction(player, categories.xaa0306) -- Aeon Torpedo Bomber
@@ -316,9 +316,9 @@ function RhizaWarp()
     M1RhizaAI.DisableBase()
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
@@ -386,9 +386,9 @@ function KillGame()
     )
 end
 
--- ---------
+-----------
 -- Intro NIS
--- ---------
+-----------
 function IntroNIS()
 
     -- Show all of the naval factories to the north
@@ -545,9 +545,9 @@ end
 function StartMission1()
     local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.FACTORY * categories.STRUCTURE, false)
 
-    -- ------------------------------------------------
+    --------------------------------------------------
     -- Primary Objective 1 - Defeat Seraphim Naval Base
-    -- ------------------------------------------------
+    --------------------------------------------------
     ScenarioInfo.M1P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -688,9 +688,9 @@ function M1Subplot2()
     ScenarioFramework.Dialogue(OpStrings.X03_M01_100)
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ForkThread(
         function()
@@ -705,21 +705,21 @@ function IntroMission2()
             -- Crystals
             ScenarioUtils.CreateArmyGroup('Crystals', 'M2_Crystals')
 
-            -- --------------
+            ----------------
             -- Seraphim M2 AI
-            -- --------------
+            ----------------
             M2SeraphimAI.SeraphimM2NorthBaseAI()
             M2SeraphimAI.SeraphimM2SouthBaseAI()
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Static Defenses
-            -- ------------------------
+            --------------------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_NorthIsland_Defense_D' .. Difficulty)
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_SouthIsland_Defense_D' .. Difficulty)
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Initial Patrols
-            -- ------------------------
+            --------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_North_Base_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -758,18 +758,18 @@ function IntroMission2()
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_Exper_NavalDef' .. Random(1,2) .. '_Chain')))
             end
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Initial Attacks
-            -- ------------------------
+            --------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAir_Attack_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_North_AirMain_1_Chain')
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitNaval_Attack_D' .. Difficulty, 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_South_NavalMain_1_Chain')
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Special Attacks
-            -- ------------------------
+            --------------------------
 
             -- North Carrier
             ScenarioInfo.M2NorthCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_North_Carrier')
@@ -799,9 +799,9 @@ function IntroMission2()
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2SouthCarrier}, 'M2_Seraph_Carrier_South_Chain')
             ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
 
-            -- -----------------
+            -------------------
             -- Experimental Base
-            -- -----------------
+            -------------------
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_North_Experimental_Base_D' .. Difficulty)
             units = ArmyBrains[Seraphim]:GetListOfUnits(categories.xsb4302, false)
             if(table.getn(units) > 0) then
@@ -810,14 +810,14 @@ function IntroMission2()
                 end
             end
 			
-			-- -----------------
+			-------------------
 			-- Rhiza's Colossus
-			-- -----------------
+			-------------------
 			M1RhizaAI.M1RhizaBaseExperimentalAttacks()
 
-            -- --------------
+            ----------------
             -- Aeon Secondary
-            -- --------------
+            ----------------
             if(LeaderFaction == 'aeon') then
                 units = ScenarioUtils.CreateArmyGroup('Princess', 'M2_Priest_Base')
                 for k, v in units do
@@ -1035,9 +1035,9 @@ function StartMission2()
         end
     end
 
-    -- --------------------------------------------------
+    ----------------------------------------------------
     -- Primary Objective 1 - Destroy Experimental Bombers
-    -- --------------------------------------------------
+    ----------------------------------------------------
     ScenarioInfo.M2P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -1231,9 +1231,9 @@ function M2AssignAeonSecondary()
     ScenarioInfo.Priests:SetDoNotTarget(true)
     ScenarioFramework.CreateUnitDeathTrigger(PriestsKilled, ScenarioInfo.Priests)
 
-    -- -----------------------------------------------
+    -------------------------------------------------
     -- Aeon Secondary Objective 1 - Rescue the Priests
-    -- -----------------------------------------------
+    -------------------------------------------------
     ScenarioInfo.M2S1Aeon = Objectives.Basic(
         'secondary',                    -- type
         'incomplete',                   -- status
@@ -1410,9 +1410,9 @@ function M2SeraphimUnitCap()
     SetArmyUnitCap(Seraphim, 550)
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ForkThread(
         function()
@@ -1437,16 +1437,16 @@ function IntroMission3()
             -- Wreckage
             ScenarioUtils.CreateArmyGroup('Princess', 'M3_Wreckage', true)
 
-            -- --------------
+            ----------------
             -- Seraphim M3 AI
-            -- --------------
+            ----------------
             M3SeraphimAI.SeraphimM3MiniBasesAI()
             M3SeraphimAI.SeraphimM3SouthBaseAI()
             ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_Seraph_North_D' .. Difficulty)
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Initial Patrols
-            -- ------------------------
+            --------------------------
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
@@ -1488,9 +1488,9 @@ function IntroMission3()
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSW_Chain')))
             end
 
-            -- ------------------------
+            --------------------------
             -- Seraphim Initial Attacks
-            -- ------------------------
+            --------------------------
             for i = 1, 3 do
                 units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_Stream' .. i, 'AttackFormation')
                 for k, v in units:GetPlatoonUnits() do
@@ -1506,9 +1506,9 @@ function IntroMission3()
                 ScenarioFramework.GroupMoveChain({v}, 'M3_Seraph_InitAir_Chain')
             end
 
-            -- -------------
+            ---------------
             -- Seraphim ACUs
-            -- -------------
+            ---------------
             ScenarioInfo.NorthACU = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraphim_ACU_North')
             ScenarioInfo.NorthACU:SetCustomName(LOC '{i ZanAishahesh}')
             ScenarioInfo.NorthACU:CreateEnhancement('BlastAttack')
@@ -1535,22 +1535,22 @@ function IntroMission3()
             ThelWestTM:AddTauntingCharacter(ScenarioInfo.WestACU)
             PrincWestTM:AddTauntingCharacter(ScenarioInfo.WestACU)
 
-            -- --------------
+            ----------------
             -- Princess M3 AI
-            -- --------------
+            ----------------
             M3PrincessAI.PrincessBaseAI()
 
-            -- ------------------------
+            --------------------------
             -- Princess Initial Patrols
-            -- ------------------------
+            --------------------------
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Princess', 'M3_Princess_Init_AirDef_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Princess_AirDef_Chain')))
             end
 
-            -- ---------------
+            -----------------
             -- Princess Palace
-            -- ---------------
+            -----------------
             ScenarioUtils.CreateArmyGroup('Princess', 'Palace_Buildings')
             for i = 1, 4 do
                 ScenarioUtils.CreateArmyGroup('Princess', 'M3_Princess_Line_' .. i .. '_D' .. Difficulty)
@@ -1607,9 +1607,9 @@ end
 
 function StartMission3()
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Primary Objective 1 - Defeat the ACUs
-    -- -------------------------------------
+    ---------------------------------------
     ScenarioInfo.M3P1 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -1634,9 +1634,9 @@ function StartMission3()
     ScenarioInfo.PrincessPalace:SetCapturable(false)
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PrincessPalace)
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Primary Objective 3 - Protect the Palace
-    -- ----------------------------------------
+    ------------------------------------------
     ScenarioInfo.M3P3 = Objectives.Protect(
         'primary',                      -- type
         'incomplete',                   -- status
@@ -1753,9 +1753,9 @@ function M3Subplot()
     ScenarioFramework.Dialogue(OpStrings.X03_M03_015)
 end
 
--- -------------------
+---------------------
 -- Objective Reminders
--- -------------------
+---------------------
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_200)
@@ -1826,9 +1826,9 @@ function M2BomberWarning5()
     end
 end
 
--- -----
+-------
 -- Taunts
--- -----
+-------
 
 -- M1
 function SetupNorthM1Taunts()

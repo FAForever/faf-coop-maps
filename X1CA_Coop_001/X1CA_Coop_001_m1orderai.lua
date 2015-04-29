@@ -11,23 +11,23 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Order = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM1WestBase = BaseManager.CreateBaseManager()
 local OrderM1EastBase = BaseManager.CreateBaseManager()
 
 function OrderM1WestBaseAI()
 
-    -- ------------------
+    --------------------
     -- Order M1 West Base
-    -- ------------------
+    --------------------
     OrderM1WestBase:InitializeDifficultyTables(ArmyBrains[Order], 'M1_West_Road', 'Order_M1_West_Base_Marker', 60, {M1_West_Road = 100,})
     OrderM1WestBase:StartNonZeroBase({{4, 7, 14}, {3, 6, 13}})
     OrderM1WestBase:SetBuild('Defenses', false)
@@ -61,9 +61,9 @@ function OrderM1WestBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Order M1 West Base Op AI, Air Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 2, 4, 6 [bombers]
     quantity = {2, 4, 6}
@@ -307,9 +307,9 @@ function OrderM1WestBaseAirAttacks()
 end
 
 function OrderM1EastBaseAI()
-    -- ------------------
+    --------------------
     -- Order M1 East Base
-    -- ------------------
+    --------------------
     OrderM1EastBase:InitializeDifficultyTables(ArmyBrains[Order], 'M1_East_Road', 'Order_M1_East_Base_Marker', 60, {M1_East_Road = 100,})
     OrderM1EastBase:StartNonZeroBase({{3, 5, 12}, {2, 4, 11}})
     OrderM1EastBase:SetActive('LandScouting', true)
@@ -344,9 +344,9 @@ function OrderM1EastBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Order M1 East Base Op AI, Air Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 2, 4, 6 [bombers]
     quantity = {2, 4, 6}
@@ -594,9 +594,9 @@ function OrderM1EastBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- --------------------------------------
+    ----------------------------------------
     -- Order M1 East Base Op AI, Land Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends 4, 6, 8 [light tanks]
     quantity = {4, 6, 8}

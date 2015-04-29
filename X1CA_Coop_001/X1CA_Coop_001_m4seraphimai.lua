@@ -12,15 +12,15 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM4NorthMainBase = BaseManager.CreateBaseManager()
 local SeraphimM4SouthMainBase = BaseManager.CreateBaseManager()
 local SeraphimM4AirMainBase = BaseManager.CreateBaseManager()
@@ -30,9 +30,9 @@ local SeraphimM4NavalBase = BaseManager.CreateBaseManager()
 
 function SeraphimM4NorthMainBaseAI()
 
-    -- ---------------------------
+    -----------------------------
     -- Seraphim M4 North Main Base
-    -- ---------------------------
+    -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphNorth_Start_Eng_D' .. Difficulty)
     SeraphimM4NorthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_North_Base_Main', 'Seraphim_M3_North_Base_Marker', 60, {M3_North_Base_Main = 100,})
     SeraphimM4NorthMainBase:StartNonZeroBase({28, 24})
@@ -44,9 +44,9 @@ end
 function SeraphimM4NorthMainBaseLandAttacks()
     local opai = nil
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M4 North Main Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends [siege bots, heavy tanks, light tanks]
     opai = SeraphimM4NorthMainBase:AddOpAI('BasicLandAttack', 'M4_NorthLandAttack1',
@@ -103,9 +103,9 @@ end
 
 function SeraphimM4SouthMainBaseAI()
 
-    -- ---------------------------
+    -----------------------------
     -- Seraphim M4 South Main Base
-    -- ---------------------------
+    -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphSouth_Start_Eng_D' .. Difficulty)
     SeraphimM4SouthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_South_Base_Main', 'Seraphim_M3_South_Base_Marker', 50, {M3_South_Base_Main = 100,})
     SeraphimM4SouthMainBase:StartNonZeroBase({30, 24})
@@ -122,9 +122,9 @@ end
 function SeraphimM4SouthMainBaseLandAttacks()
     local opai = nil
 
-    -- ------------------------------------------
+    --------------------------------------------
     -- Seraphim M4 South Main Op AI, Land Attacks
-    -- ------------------------------------------
+    --------------------------------------------
 
     -- sends [siege bots, heavy tanks, light tanks]
     opai = SeraphimM4SouthMainBase:AddOpAI('BasicLandAttack', 'M4_SouthLandAttack1',
@@ -181,9 +181,9 @@ end
 
 function SeraphimM4AirMainBaseAI()
 
-    -- -------------------------
+    ---------------------------
     -- Seraphim M4 Air Main Base
-    -- -------------------------
+    ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphAir_Start_Eng_D' .. Difficulty)
     SeraphimM4AirMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
     SeraphimM4AirMainBase:StartNonZeroBase({28, 24})		-- ({{5, 9, 28}, {4, 8, 20}})
@@ -207,11 +207,11 @@ function SeraphimM4AirMainBaseAirAttacks()
     local opai = nil
     local quantity = {}
 
-    -- --------------------------------------------
+    ----------------------------------------------
     -- Seraphim M4 Air Main Base Op AI, Air Attacks
-    -- --------------------------------------------
+    ----------------------------------------------
 
-    -- -- Attacks Fort Clarke
+    ---- Attacks Fort Clarke
 
     -- sends [gunships, interceptors]
     quantity = {8, 12, 16}
@@ -254,7 +254,7 @@ function SeraphimM4AirMainBaseAirAttacks()
     opai:SetChildQuantity({'Gunships'}, 24)
     opai:SetLockingStyle('BuildTimer', {LockTimer = 60})
 
-    -- -- Attacks Player
+    ---- Attacks Player
 
     -- sends 6, 8, 10 [gunships, interceptors]
     quantity = {8, 12, 16}
@@ -284,7 +284,7 @@ function SeraphimM4AirMainBaseAirAttacks()
     opai:SetChildQuantity({'Gunships', 'Bombers'}, quantity[Difficulty])
     opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 
-    -- -- Defense Patrols
+    ---- Defense Patrols
 
     -- [interceptors]
     quantity = {8, 12, 16}
@@ -380,9 +380,9 @@ end
 
 function SeraphimM4ForwardOneAI()
 
-    -- ---------------------
+    -----------------------
     -- Seraphim M4 Forward 1
-    -- ---------------------
+    -----------------------
     SeraphimM4ForwardOne:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_One', 'Seraphim_M3_Forward_One_Base_Marker', 30, {M3_Seraph_Forward_One = 100,})
     SeraphimM4ForwardOne:StartNonZeroBase({6, 4})
     -- SeraphimM4ForwardOne:SetBuild('Defenses', false)
@@ -393,9 +393,9 @@ end
 function SeraphimM4ForwardOneLandAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Seraphim M4 Foward 1 Op AI, Land Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- sends [siege bots, heavy tanks, light tanks]
     opai = SeraphimM4ForwardOne:AddOpAI('BasicLandAttack', 'M4_Forward1LandAttack1',
@@ -452,9 +452,9 @@ end
 
 function SeraphimM4ForwardTwoAI()
 
-    -- ---------------------
+    -----------------------
     -- Seraphim M4 Forward 2
-    -- ---------------------
+    -----------------------
     SeraphimM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_Two', 'Seraphim_M3_Forward_Two_Base_Marker', 30, {M3_Seraph_Forward_Two = 100,})
     SeraphimM4ForwardTwo:StartNonZeroBase({10, 8})
     SeraphimM4ForwardTwo:SetBuild('Defenses', false)
@@ -465,9 +465,9 @@ end
 function SeraphimM4ForwardTwoLandAttacks()
     local opai = nil
 
-    -- ----------------------------------------
+    ------------------------------------------
     -- Seraphim M4 Foward 2 Op AI, Land Attacks
-    -- ----------------------------------------
+    ------------------------------------------
 
     -- sends [siege bots, heavy tanks, light tanks]
     opai = SeraphimM4ForwardTwo:AddOpAI('BasicLandAttack', 'M4_Forward2LandAttack1',
@@ -524,9 +524,9 @@ end
 
 function SeraphimM4NavalBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M4 Naval Base
-    -- ----------------------
+    ------------------------
     SeraphimM4NavalBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Naval_Base', 'M3_Naval_Base_Marker', 60, {M3_Naval_Base = 100,})
     SeraphimM4NavalBase:StartNonZeroBase({{1, 3, 6}, {1, 3, 6}})
     SeraphimM4NavalBase:SetBuild('Defenses', false)
@@ -538,9 +538,9 @@ function SeraphimM4NavalBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Seraphim M4 Naval Base Op AI, Naval Attacks
-    -- -------------------------------------------
+    ---------------------------------------------
 
     -- sends 3 frigate power of [frigates]
     opai = SeraphimM4NavalBase:AddNavalAI('M4_NavalAttack1',

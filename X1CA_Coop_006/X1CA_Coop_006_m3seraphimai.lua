@@ -11,24 +11,24 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 5
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM3Base = BaseManager.CreateBaseManager()
 local SeraphimM3WestBase = BaseManager.CreateBaseManager()
 local SeraphimM3EastBase = BaseManager.CreateBaseManager()
 
 function SeraphimM3BaseAI()
 
-    -- ----------------
+    ------------------
     -- Seraphim M3 Base
-    -- ----------------
+    ------------------
     SeraphimM3Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Base', 'M3_Seraphim_Base_Marker', 120, {M3_Seraph_Base = 100})
     SeraphimM3Base:StartNonZeroBase({{5, 8, 11}, {5, 7, 9}})
     SeraphimM3Base:SetActive('AirScouting', true)
@@ -49,9 +49,9 @@ function SeraphimM3BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- ------------------------------------
+    --------------------------------------
     -- Seraphim M3 Base Op AI - Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- sends 8, 16, 24 [bombers], ([gunships] on hard)
     quantity = {8, 16, 24}
@@ -236,9 +236,9 @@ function SeraphimM3BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Seraphim M3 Base Op AI - Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 4, 6, 8 [heavy bots]
     quantity = {4, 6, 8}
@@ -374,9 +374,9 @@ function SeraphimM3BaseLandAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
-    -- -----------------
+    -------------------
     -- Transport Attacks
-    -- -----------------
+    -------------------
     -- sends 1, 2, 3 [heavy tanks]
     quantity = {1, 2, 3}
     opai = SeraphimM3Base:AddOpAI('BasicLandAttack', 'M3_SeraphimTransportAttack1',
@@ -413,9 +413,9 @@ function SeraphimM3BaseLandAttacks()
     opai:SetChildActive('MobileMissiles', true)
     opai:SetChildCount(quantity[Difficulty])
 
-    -- --------------------
+    ----------------------
     -- Hard Difficulty Only
-    -- --------------------
+    ----------------------
     if(Difficulty == 3) then
        opai = SeraphimM3Base:AddOpAI('BasicLandAttack', 'M3_SeraphimTransportAttackHard1',
            {
@@ -434,9 +434,9 @@ function SeraphimM3BaseLandAttacks()
        opai:SetChildCount(1)
     end
 
-    -- --------------
+    ----------------
     -- Land Defense N
-    -- --------------
+    ----------------
 
     -- maintains 8, 12, 16 [heavy tanks]
     quantity = {4, 6, 8}
@@ -483,9 +483,9 @@ function SeraphimM3BaseLandAttacks()
         opai:SetChildQuantity('MobileAntiAir', quantity[Difficulty])
     end
 
-    -- --------------
+    ----------------
     -- Land Defense S
-    -- --------------
+    ----------------
 
     -- maintains 4, 8, 16 [siege bots]
     quantity = {2, 4, 8}
@@ -535,9 +535,9 @@ end
 
 function SeraphimM3WestBaseAI()
 
-    -- ---------------------------
+    -----------------------------
     -- Seraphim M3 Naval Base West
-    -- ---------------------------
+    -----------------------------
     SeraphimM3WestBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_West', 'M3_Seraph_Naval_West', 100, {M3_Seraph_Naval_West = 100})
     SeraphimM3WestBase:StartNonZeroBase({{3, 4, 6}, {3, 3, 5}})
 
@@ -550,9 +550,9 @@ function SeraphimM3WestNavalAttacks()
     local minQuantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Seraphim M3 West Op AI, Naval Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 2, 5, 8 frigate power of [frigates]
     maxQuantity = {2, 5, 8}
@@ -630,9 +630,9 @@ end
 
 function SeraphimM3EastBaseAI()
 
-    -- ---------------------------
+    -----------------------------
     -- Seraphim M3 Naval Base East
-    -- ---------------------------
+    -----------------------------
     SeraphimM3EastBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_East', 'M3_Seraph_Naval_East', 100, {M3_Seraph_Naval_East = 100})
     SeraphimM3EastBase:StartNonZeroBase({{2, 3, 5}, {2, 3, 4}})
 
@@ -645,9 +645,9 @@ function SeraphimM3EastNavalAttacks()
     local minQuantity = {}
     local trigger = {}
 
-    -- -------------------------------------
+    ---------------------------------------
     -- Seraphim M3 East Op AI, Naval Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- sends 2, 5, 8 frigate power of [frigates]
     maxQuantity = {2, 5, 8}

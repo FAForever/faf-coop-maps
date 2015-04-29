@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C02>Operation Artifact'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C02_B01_000_010>Date: 13-AUGUST-3844'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_005_010>The Aeon on Orionis are absolute fanatics. They will attack you without mercy. Subdue them and secure as much of the Tech as you can. Mach will collect the Tech and prepare it for the return trip. Do not, under any circumstances, attempt to interface with the Tech. The two of you gate in 30. Good luck.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D02
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -46,10 +46,10 @@ C02_D02_010 = {
   {text = '<LOC C02_D02_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C02_Ops_D02_0365.sfd', bank = 'C02_VO', cue = 'C02_Ops_D02_0365', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: G01_OBJ
 -- Bonus Objectives
--- ------------------------------
+--------------------------------
 
 -- Bonus Objectives
 C02_G01_OBJ_010_911 = '<LOC C02_G01_OBJ_010_911>Armada'
@@ -65,10 +65,10 @@ C02_G01_OBJ_010_922 = '<LOC C02_G01_OBJ_010_922>Your defenses have destroyed ove
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Insertion
--- ------------------------------
+--------------------------------
 
 
 
@@ -175,10 +175,10 @@ C02_M01_235 = {
   {text = '<LOC C02_M01_235_010>[{i Ops}]: Mach is still waiting for those units to be destroyed, sir. Ops out. ', vid = 'C02_Ops_M01_01505.sfd', bank = 'C02_VO', cue = 'C02_Ops_M01_01505', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Title = '<LOC C02_M01_OBJ_010_111>Clear Village of Aeon Units'
@@ -230,10 +230,10 @@ M1S1Description = '<LOC C02_M01_OBJ_020_162>Capture the Short-Range Radar Instal
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Sweep & Clear
--- ------------------------------
+--------------------------------
 
 
 
@@ -293,10 +293,10 @@ C02_M02_155 = {
   {text = '<LOC C02_M02_155_010>[{i Ops}]: Try to find that Tech quickly! You don\'t want to stay on an Aeon planet for too long. Ops out.', vid = 'C02_Ops_M02_01506.sfd', bank = 'C02_VO', cue = 'C02_Ops_M02_01506', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Title = '<LOC C02_M02_OBJ_010_211>Destroy Eastern Aeon Base and Recover Its Tech'
@@ -318,10 +318,10 @@ M2P3Description = '<LOC C02_M02_OBJ_010_232>Mach is using an Engineer to secure 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Friend or Foe
--- ------------------------------
+--------------------------------
 
 
 
@@ -360,10 +360,10 @@ C02_M03_065 = {
   {text = '<LOC C02_M03_065_010>[{i Ops}]: We suggest moving to the Gate ASAP, sir. Ops out. ', vid = 'C02_Ops_M03_01508.sfd', bank = 'C02_VO', cue = 'C02_Ops_M03_01508', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Title = '<LOC C02_M03_OBJ_010_311>Defeat Mach'
@@ -385,10 +385,10 @@ M3S1Description = '<LOC C02_M03_OBJ_020_332>Avoid fighting on two fronts--defeat
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

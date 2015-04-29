@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C04>Operation Mainframe Tango'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C04_B01_000_010>Date: 29-AUGUST-3844'},
@@ -35,10 +35,10 @@ BriefingData = {
   {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_004_010>Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -47,10 +47,10 @@ C04_D01_010 = {
   {text = '<LOC C04_D01_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C04_Ops_D01_02593.sfd', bank = 'C04_VO', cue = 'C04_Ops_D01_02593', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Stiletto
--- ------------------------------
+--------------------------------
 
 
 
@@ -119,10 +119,10 @@ C04_M01_110 = {
   {text = '<LOC C04_M01_110_010>[{i Ops}]: We lost the Node. QAI will have to shut down until we can rebuild somewhere else. Abort the mission and return.', vid = 'C04_Ops_M01_0474.sfd', bank = 'C04_VO', cue = 'C04_Ops_M01_0474', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Stiletto Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Text = '<LOC C04_M01_OBJ_010_111>Defeat the Aeon Commander'
@@ -150,10 +150,10 @@ M1B2Detail = '<LOC C04_M01_OBJ_020_122>Your artillery units destroyed over %s un
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Reinforce
--- ------------------------------
+--------------------------------
 
 
 
@@ -203,10 +203,10 @@ C04_M02_085 = {
   {text = '<LOC C04_M02_085_010>[{i Ops}]: We can\'t lose that Node, sir! Ops out.', vid = 'C04_Ops_M02_01517.sfd', bank = 'C04_VO', cue = 'C04_Ops_M02_01517', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Reinforce Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Text = '<LOC C04_M02_OBJ_010_211>Save the Network Node'
@@ -231,10 +231,10 @@ M2S1Fail = '<LOC C04_M02_OBJ_020_213>Less than %s%% of the buildings survived.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Purge
--- ------------------------------
+--------------------------------
 
 
 
@@ -322,10 +322,10 @@ C04_M03_115 = {
   {text = '<LOC C04_M03_115_010>[{i Ops}]: Defeat the Aeon forces around the Mainframe ASAP, sir. Ops out. ', vid = 'C04_Ops_M03_01519.sfd', bank = 'C04_VO', cue = 'C04_Ops_M03_01519', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Purge Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M3P1Text = '<LOC C04_M03_OBJ_010_311>Capture the Northwest Node'
@@ -353,10 +353,10 @@ M3P4Detail = '<LOC C04_M03_OBJ_010_342>The Aeon has rigged the Mainframe with ex
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

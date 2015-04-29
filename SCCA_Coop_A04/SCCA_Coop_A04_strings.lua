@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_A04>Operation Entity'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC A04_B01_000_010>Date: 29-AUGUST-3844'},
@@ -37,10 +37,10 @@ BriefingData = {
   {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A04_B01_005_020>You gate to Procyon immediately. Go forth with grace, Champion of the Illuminate.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -49,10 +49,10 @@ A04_D01_010 = {
   {text = '<LOC A04_D01_010_010>[{i Choir}]: Choir to Champion, respond. Choir to Champion, please respond. We\'ve lost your signal, please respond.', vid = 'A04_Choir_D01_00889.sfd', bank = 'A04_VO', cue = 'A04_Choir_D01_00889', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Searching
--- ------------------------------
+--------------------------------
 
 
 
@@ -143,10 +143,10 @@ A04_M01_150 = {
   {text = '<LOC A04_M01_150_010>[{i Choir}]: The Node has been captured. The techs are preparing to connect to it via a Quantum uplink. Choir out.', vid = 'A04_Choir_M01_00911.sfd', bank = 'A04_VO', cue = 'A04_Choir_M01_00911', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Searching Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Title = '<LOC A04_M01_OBJ_010_010>Pacify Nexus04'
@@ -180,10 +180,10 @@ M1B2Description = '<LOC A04_M01_OBJ_020_065>All three Nodes survive.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Discovery
--- ------------------------------
+--------------------------------
 
 
 
@@ -278,10 +278,10 @@ A04_M02_160 = {
   {text = '<LOC A04_M02_160_010>[{i Princess}]: The veil has been lifted and now I...understand. Return home, Champion. There is much to discuss.', vid = 'A04_Princess_M02_00936.sfd', bank = 'A04_VO', cue = 'A04_Princess_M02_00936', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Discovery Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M2P1Title = '<LOC A04_M02_OBJ_010_010>Capture and Defend the Mainframe'
@@ -297,10 +297,10 @@ M2P2Description = '<LOC A04_M02_OBJ_010_025>The Nodes are critical to the operat
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunt
--- ------------------------------
+--------------------------------
 
 
 

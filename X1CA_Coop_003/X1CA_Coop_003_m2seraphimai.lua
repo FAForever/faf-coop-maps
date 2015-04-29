@@ -14,23 +14,23 @@ local Buff = import('/lua/sim/Buff.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Seraphim = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local SeraphimM2NorthBase = BaseManager.CreateBaseManager()
 local SeraphimM2SouthBase = BaseManager.CreateBaseManager()
 
 function SeraphimM2NorthBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M2 North Base
-    -- ----------------------
+    ------------------------
     SeraphimM2NorthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_North_Base', 'Seraphim_M2_North_Base', 220, {M2_Seraph_North_Base = 100})
     SeraphimM2NorthBase:StartNonZeroBase({{5, 9, 14}, {4, 8, 13}})
     SeraphimM2NorthBase:SetActive('AirScouting', true)
@@ -217,9 +217,9 @@ function SeraphimM2NorthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Seraphim M2 North Base Op AI, Air Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- sends 7, 14, 24 [bombers]
     quantity = {7, 14, 24}
@@ -415,9 +415,9 @@ function SeraphimM2NorthBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Seraphim M2 North Base Op AI, Naval Attacks
-    -- -------------------------------------------
+    ---------------------------------------------
 
     -- sends 3 frigate power of [frigates]
     opai = SeraphimM2NorthBase:AddNavalAI('M2North_NavalAttack1',
@@ -514,9 +514,9 @@ end
 
 function SeraphimM2SouthBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Seraphim M2 South Base
-    -- ----------------------
+    ------------------------
     SeraphimM2SouthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_South_Base', 'Seraphim_M2_South_Base', 150, {M2_Seraph_South_Base = 100})
     SeraphimM2SouthBase:StartNonZeroBase({{8, 12, 16}, {6, 9, 12}})
     SeraphimM2SouthBase:SetActive('AirScouting', true)
@@ -563,9 +563,9 @@ function SeraphimM2SouthBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------------
+    -------------------------------------------
     -- Seraphim M2 South Base Op AI, Air Attacks
-    -- -----------------------------------------
+    -------------------------------------------
 
     -- sends 3, 6, 9 [bombers]
     quantity = {3, 6, 9}
@@ -761,9 +761,9 @@ function SeraphimM2SouthBaseNavalAttacks()
     local opai = nil
     local trigger = {}
 
-    -- -------------------------------------------
+    ---------------------------------------------
     -- Seraphim M2 South Base Op AI, Naval Attacks
-    -- -------------------------------------------
+    ---------------------------------------------
 
     -- sends 7 frigate power of [frigates]
     opai = SeraphimM2SouthBase:AddNavalAI('M2South_NavalAttack1',

@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_C06>Operation Freedom'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operational Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC C06_B01_000_010>Date: 14-SEPTEMBER-3844'},
@@ -37,10 +37,10 @@ BriefingData = {
   {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_004_040>Be safe.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -49,10 +49,10 @@ C06_D01_010 = {
   {text = '<LOC C06_D01_010_010>[{i Ops}]: Commander? What\'s your status? Commander?', vid = 'C06_Ops_D01_02595.sfd', bank = 'C06_VO', cue = 'C06_Ops_D01_02595', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Into the Fire
--- ------------------------------
+--------------------------------
 
 
 
@@ -123,10 +123,10 @@ C06_M01_110 = {
   {text = '<LOC C06_M01_110_010>[{i Arnold}]: That changes nothing. Our victory was determined long ago.', vid = 'C06_Arnold_M01_00571.sfd', bank = 'C06_VO', cue = 'C06_Arnold_M01_00571', faction = 'Aeon'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Into the Fire Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpC06_M1P1_Title = '<LOC C06_M01_OBJ_010_111>Destroy the CZAR'
@@ -148,10 +148,10 @@ OpR6_Bonus2_Desc = '<LOC C06_M01_OBJ_020_122>You defeated over %s enemy units.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Allies
--- ------------------------------
+--------------------------------
 
 
 
@@ -252,10 +252,10 @@ C06_M02_175 = {
   {text = '<LOC C06_M02_175_010>[{i Ops}]: Sir, we need to start the upload! Move your ACU next to the Gate and we\'ll start immediately. Ops out. ', vid = 'C06_Ops_M02_01528.sfd', bank = 'C06_VO', cue = 'C06_Ops_M02_01528', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Allies Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 OpC06_M2P1_Title = '<LOC C06_M02_OBJ_010_211>Build a Quantum Gate'
@@ -277,10 +277,10 @@ OpC06_M2P3_Desc = '<LOC C06_M02_OBJ_010_232>The QAI must integrate itself with t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Call of Freedom
--- ------------------------------
+--------------------------------
 
 
 
@@ -337,10 +337,10 @@ C06_M03_090 = {
   {text = '<LOC C06_M03_090_010>[{i Dostya}]: Black Sun has been destroyed. Return to the Nation. We must prepare for the Aeon attack.', vid = 'C06_Dostya_M03_00603.sfd', bank = 'C06_VO', cue = 'C06_Dostya_M03_00603', faction = 'Cybran'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Call of Freedom Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objective
 OpC06_M3P1_Title = '<LOC C06_M03_OBJ_010_311>Capture Black Sun'
@@ -356,10 +356,10 @@ OpC06_M3P2_Desc = '<LOC C06_M03_OBJ_010_322>Select Black Sun and click the Fire 
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemey taunt
--- ------------------------------
+--------------------------------
 
 
 

@@ -11,15 +11,15 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local QAI = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local QAIM4MainBase = BaseManager.CreateBaseManager()
 local QAIM4NavalBase = BaseManager.CreateBaseManager()
 local QAIM4NorthBase = BaseManager.CreateBaseManager()
@@ -28,9 +28,9 @@ local QAIM4SouthBase = BaseManager.CreateBaseManager()
 
 function QAIM4MainBaseAI()
 
-    -- ----------------
+    ------------------
     -- QAI M4 Main Base
-    -- ----------------
+    ------------------
     QAIM4MainBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M4_Main_Base', 'QAI_M4_Main_Base_Marker', 80, {M4_Main_Base = 100})
     QAIM4MainBase:StartNonZeroBase({{5, 9, 13}, {4, 7, 10}})
     QAIM4MainBase:SetActive('AirScouting', true)
@@ -53,9 +53,9 @@ function QAIM4MainBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -------------------------------
+    ---------------------------------
     -- QAI M4 Base Op AI, Air Attacks
-    -- -------------------------------
+    ---------------------------------
 
     -- sends 5, 10, 15 [bombers], ([gunships] on hard)
     quantity = {5, 10, 15}
@@ -230,9 +230,9 @@ function QAIM4MainBaseLandAttacks()
     local quantity = nil
     local trigger = nil
 
-    -- ------------------------------------
+    --------------------------------------
     -- QAI M4 Main Base Op AI, Land Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- builds monkey defense
     opai = QAIM4MainBase:AddOpAI('UNIT_666',
@@ -425,9 +425,9 @@ end
 
 function QAIM4NavalBaseAI()
 
-    -- -----------------
+    -------------------
     -- QAI M4 Naval Base
-    -- -----------------
+    -------------------
     QAIM4NavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M4_Naval_Base', 'QAI_M4_Naval_Marker', 80, {M4_Naval_Base = 100})
     QAIM4NavalBase:StartNonZeroBase({{4, 7, 10}, {4, 6, 8}})
     QAIM4NavalBase:SetBuild('Defenses', false)
@@ -438,9 +438,9 @@ end
 function QAIM4NavalBaseNavalAttacks()
     local opai = nil
 
-    -- --------------------------------------
+    ----------------------------------------
     -- QAI M4 Naval Base Op AI, Naval Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
     -- sends [frigates]
     opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack1',
@@ -510,9 +510,9 @@ end
 
 function QAIM4NorthBaseAI()
 
-    -- -----------------
+    -------------------
     -- QAI M4 North Base
-    -- -----------------
+    -------------------
     QAIM4NorthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_QAI_North_Base = 100})
     QAIM4NorthBase:StartNonZeroBase(7)
 	QAIM4NorthBase:SetMaximumConstructionEngineers(5)
@@ -525,9 +525,9 @@ end
 function QAIM4NorthBaseLandAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- QAI M4 North Base Op AI, Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- Land Attack
     opai = QAIM4NorthBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_North',
@@ -547,9 +547,9 @@ end
 
 function QAIM4CenterBaseAI()
 
-    -- ------------------
+    --------------------
     -- QAI M4 Center Base
-    -- ------------------
+    --------------------
     QAIM4CenterBase:Initialize(ArmyBrains[QAI], 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_QAI_Middle_Base = 100})
     QAIM4CenterBase:StartNonZeroBase(9)
 	
@@ -564,9 +564,9 @@ end
 function QAIM4CenterBaseAirAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- QAI M4 Center Base Op AI, Air Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- Air Attack
     opai = QAIM4CenterBase:AddOpAI('AirAttacks', 'M4_AirAttack_Center',
@@ -597,9 +597,9 @@ end
 function QAIM4CenterBaseLandAttacks()
     local opai = nil
 
-    -- --------------------------------------
+    ----------------------------------------
     -- QAI M4 Center Base Op AI, Land Attacks
-    -- --------------------------------------
+    ----------------------------------------
 
      -- Land Attack
     opai = QAIM4CenterBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Center_1',
@@ -629,9 +629,9 @@ end
 
 function QAIM4SouthBaseAI()
 
-    -- -----------------
+    -------------------
     -- QAI M4 South Base
-    -- -----------------
+    -------------------
     QAIM4SouthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_QAI_South_Base = 100})
     QAIM4SouthBase:StartNonZeroBase(7)
 	
@@ -644,9 +644,9 @@ end
 function QAIM4SouthBaseAirAttacks()
     local opai = nil
 
-    -- ------------------------------------
+    --------------------------------------
     -- QAI M4 South Base Op AI, Air Attacks
-    -- ------------------------------------
+    --------------------------------------
 
     -- Air Attack
     opai = QAIM4SouthBase:AddOpAI('AirAttacks', 'M4_AirAttack_South',
@@ -665,9 +665,9 @@ end
 function QAIM4SouthBaseLandAttacks()
     local opai = nil
 
-    -- -------------------------------------
+    ---------------------------------------
     -- QAI M4 South Base Op AI, Land Attacks
-    -- -------------------------------------
+    ---------------------------------------
 
     -- Land Attack
     opai = QAIM4SouthBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_South',

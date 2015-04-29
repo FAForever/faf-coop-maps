@@ -13,25 +13,25 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local AIFileName = '/maps/X1CA_Coop_002/X1CA_Coop_002_m1orderai.lua'
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Player = 1
 local Order = 2
 local Loyalist = 4
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local OrderM1MainBase = BaseManager.CreateBaseManager()
 local OrderM1ResourceBase = BaseManager.CreateBaseManager()
 
 function OrderM1MainBaseAI()
 
-    -- ------------------
+    --------------------
     -- Order M1 Main Base
-    -- ------------------
+    --------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_MainBase_InitEng_D' .. Difficulty)
     OrderM1MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M1_Order_MainBase', 'Order_M1_Order_MainBase_Marker', 70, {M1_Order_MainBase = 100})
     OrderM1MainBase:StartNonZeroBase({{3, 9, 18}, {3, 8, 16}})
@@ -74,9 +74,9 @@ function OrderM1MainBaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Order Main Base Op AI, Air Atttacks
-    -- -----------------------------------
+    -------------------------------------
 	
     -- sends 4, 6, 8 [gunships, interceptors] Mass
 	for i = 1, 2 do
@@ -357,9 +357,9 @@ function OrderM1MainBaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
-    -- -----------------------------------
+    -------------------------------------
     -- Order Main Base Op AI, Land Attacks
-    -- -----------------------------------
+    -------------------------------------
 	
     -- sends basic attack with shields
     opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandAttackBasic',
@@ -656,9 +656,9 @@ end
 
 function OrderM1ResourceBaseAI()
 
-    -- ----------------------
+    ------------------------
     -- Order M1 Resource Base
-    -- ----------------------
+    ------------------------
     OrderM1ResourceBase:InitializeDifficultyTables(ArmyBrains[Order], 'M1_Order_ResourceBase', 'Order_M1_Resource_Base_Marker', 30, {M1_Order_ResourceBase = 100})
     OrderM1ResourceBase:StartNonZeroBase()
 end

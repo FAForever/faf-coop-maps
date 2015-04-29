@@ -20,10 +20,10 @@ OPERATION_NAME = '<LOC OPNAME_E03>Operation Metal Shark'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: B01
 -- Operation Briefing
--- ------------------------------
+--------------------------------
 
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC E03_B01_000_010>Date: 25-AUGUST-3844'},
@@ -34,10 +34,10 @@ BriefingData = {
   {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_004_020>Our techs say that the Gates are functioning properly. Time is short, so I expect Matar to be liberated in a matter of hours. Be ready to gate at 17:30. Dismissed.'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
--- ------------------------------
+--------------------------------
 
 
 
@@ -46,10 +46,10 @@ E03_D01_010 = {
   {text = '<LOC E03_D01_010_010>[{i EarthCom}]: Captain! Come in, Captain!  We\'ve lost your signal...Captain, report...', vid = 'E03_EarthCom_D01_0119.sfd', bank = 'E03_VO', cue = 'E03_EarthCom_D01_0119', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01
 -- Splash Down
--- ------------------------------
+--------------------------------
 
 
 
@@ -135,10 +135,10 @@ E03_M01_125 = {
   {text = '<LOC E03_M01_125_010>[{i EarthCom}]: The Frigate group is still a threat. EarthCom out. ', vid = 'E03_EarthCom_M01_01461.sfd', bank = 'E03_VO', cue = 'E03_EarthCom_M01_01461', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M01_OBJ
 -- Splash Down Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives
 M1P1Title = '<LOC E03_M01_OBJ_010_111>Defeat Frigate Force'
@@ -172,10 +172,10 @@ M1H2Description = '<LOC E03_M01_OBJ_020_142>You have built over %s units.'
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02
 -- Seige
--- ------------------------------
+--------------------------------
 
 
 
@@ -215,10 +215,10 @@ E03_M02_070 = {
   {text = '<LOC E03_M02_070_010>[{i EarthCom}]: You did it, Captain! There is no sign of any Aeon units. EarthCom out.', vid = 'E03_EarthCom_M02_0134.sfd', bank = 'E03_VO', cue = 'E03_EarthCom_M02_0134', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M02_OBJ
 -- Siege Objectives 
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M2P1Title = '<LOC E03_M02_OBJ_010_111>Defeat the Aeon Counterattack'
@@ -228,10 +228,10 @@ M2P1Description = '<LOC E03_M02_OBJ_010_112>The Aeon force that defeated Colonel
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03
 -- Black Box
--- ------------------------------
+--------------------------------
 
 
 
@@ -270,10 +270,10 @@ E03_M03_105 = {
   {text = '<LOC E03_M03_105_010>[{i EarthCom}]: Sir, the Colonel\'s Black Box is too valuable to leave to the Aeon. Recover it! EarthCom out.', vid = 'E03_EarthCom_M03_01462.sfd', bank = 'E03_VO', cue = 'E03_EarthCom_M03_01462', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M03_OBJ
 -- Black Box Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M3P1Title = '<LOC E03_M03_OBJ_010_111>Reclaim Arnold\'s Black Box'
@@ -283,10 +283,10 @@ M3P1Description = '<LOC E03_M03_OBJ_010_112>Use either an Engineer or your ACU t
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04
 -- Broadside
--- ------------------------------
+--------------------------------
 
 
 
@@ -343,10 +343,10 @@ E03_M04_105 = {
   {text = '<LOC E03_M04_105_010>[{i EarthCom}]: Destroy the Aeon! Make them pay for what they did to Colonel Arnold. EarthCom out.', vid = 'E03_EarthCom_M04_01463.sfd', bank = 'E03_VO', cue = 'E03_EarthCom_M04_01463', faction = 'UEF'},
 }
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: M04_OBJ
 -- Broadside Objectives
--- ------------------------------
+--------------------------------
 
 -- Primary Objectives 
 M4P1Title = '<LOC E03_M04_OBJ_010_111>Kill or Capture the Aeon Princess'
@@ -368,10 +368,10 @@ M4S1Description = '<LOC E03_M04_OBJ_020_112>The TML is protecting the northern s
 
 
 
--- ------------------------------
+--------------------------------
 -- Opnode ID: T01
 -- Enemy Taunts
--- ------------------------------
+--------------------------------
 
 
 

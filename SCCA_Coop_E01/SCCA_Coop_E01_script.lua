@@ -15,9 +15,9 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Weather = import('/lua/weather.lua')
 
--- -------
+---------
 -- Globals
--- -------
+---------
 ScenarioInfo.Player = 1
 ScenarioInfo.Arnold = 2
 ScenarioInfo.Cybran = 3
@@ -39,9 +39,9 @@ ScenarioInfo.PowerGenDestroyed = 0
 ScenarioInfo.VarTable['BuildAirMaster'] = false
 ScenarioInfo.VarTable['BuildLandMaster'] = true
 
--- ------------------------
+--------------------------
 -- Objective Reminder Times
--- ------------------------
+--------------------------
 local M1P1Time = 300
 local M1P2Time = 300
 local M2P1Time = 300
@@ -54,9 +54,9 @@ local M7P2Time = 900
 local M7S1Time = 600
 local SubsequentTime = 600
 
--- -----------
+-------------
 -- Misc Locals
--- -----------
+-------------
 local M1P1_MassRequired = 3
 local M1P2_PowerRequired = 3
 local M3P1_TanksRequired = 3
@@ -70,9 +70,9 @@ local CybranNumAirChildrenD3 = 3
 
 local leopardTaunt = 1
 
--- -------
+---------
 -- Startup
--- -------
+---------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -118,9 +118,9 @@ function OnStart(self)
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
 end
 
--- --------
+----------
 -- End Game
--- --------
+----------
 function KillBase()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
@@ -178,9 +178,9 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
--- ---------
+-----------
 -- Mission 1
--- ---------
+-----------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -313,9 +313,9 @@ function M1P2Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 2
--- ---------
+-----------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb0101)  -- T1 Land Factory
@@ -370,9 +370,9 @@ function M2P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 3
--- ---------
+-----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
     ScenarioFramework.RemoveRestrictionForAllHumans(
@@ -450,9 +450,9 @@ function M3P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 4
--- ---------
+-----------
 function IntroMission4()
     ScenarioInfo.MissionNumber = 4
 
@@ -525,9 +525,9 @@ function M4P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 5
--- ---------
+-----------
 function IntroMission5()
     ScenarioInfo.MissionNumber = 5
     ScenarioFramework.RemoveRestrictionForAllHumans(
@@ -663,9 +663,9 @@ function M5P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 6
--- ---------
+-----------
 function IntroMission6()
     ScenarioInfo.MissionNumber = 6
 
@@ -758,9 +758,9 @@ function M6P1Reminder3()
     end
 end
 
--- ---------
+-----------
 -- Mission 7
--- ---------
+-----------
 function IntroMission7()
     ScenarioInfo.MissionNumber = 7
     ScenarioFramework.Dialogue(OpStrings.E01_M06_020)
@@ -995,9 +995,9 @@ function M7P1Reminder3()
     end
 end
 
--- -----------------
+-------------------
 -- Attack Conditions
--- -----------------
+-------------------
 function CybranLandMasterFormCondition(num)
     if ScenarioInfo.Options.Difficulty == 1 and num >= CybranNumLandChildrenD1 then
         return true

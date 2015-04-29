@@ -14,23 +14,23 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
--- ------
+--------
 -- Locals
--- ------
+--------
 local Fletcher = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- -------------
+---------------
 -- Base Managers
--- -------------
+---------------
 local FletcherBase = BaseManager.CreateBaseManager()
 local FletcherM3Base = BaseManager.CreateBaseManager()
 
 function FletcherBaseAI()
 
-    -- -------------
+    ---------------
     -- Fletcher Base
-    -- -------------
+    ---------------
     FletcherBase:Initialize(ArmyBrains[Fletcher], 'M1_Fletcher_Base', 'M1_Fletcher_Base_Marker', 150,
         {
              M1_Fletcher_MEX1 = 1000,
@@ -104,9 +104,9 @@ function FletcherBaseLandAttacks()
     local opai = nil
     local quantity = {}
 
-    -- ---------------------------------
+    -----------------------------------
     -- Fletcher Base Op AI, Land Attacks
-    -- ---------------------------------
+    -----------------------------------
 
     opai = FletcherBase:AddOpAI('Fatboy_1',
         {
@@ -357,9 +357,9 @@ function M2FletcherBaseAirAttacks()
     local opai = nil
     local quantity = {}
 
-    -- --------------------------------
+    ----------------------------------
     -- Fletcher Base Op AI, Air Attacks
-    -- --------------------------------
+    ----------------------------------
 
     -- sends 12, 10, 8 [bombers]
     for i = 1, 2 do
