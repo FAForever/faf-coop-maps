@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Aeon Vanilla Campain - Mission 5',
-    description = 'Campaign Map: Not Intended for Multiplayer Play',
+    description = 'This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

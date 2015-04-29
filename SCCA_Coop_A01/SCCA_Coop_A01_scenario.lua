@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Aeon Vanilla Campain - Mission 1',
-    description = '',
+    description = "This is Rigel, a lightly populated UEF world.\nYour task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.\nRemember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.",
     type = 'campaign_coop',
     starts = true,
     preview = '',
