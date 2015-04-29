@@ -262,7 +262,7 @@ function IntroSequenceThread()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Start_Camera_Area'), 3)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Start_Camera_Area_2'), 2)
     Cinematics.ExitNISMode()
-	
+
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
@@ -271,8 +271,8 @@ function IntroSequenceThread()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-			ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
-			IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))
+            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))
             coop = coop + 1
             WaitSeconds(1.8)
         end
@@ -284,7 +284,7 @@ function IntroSequenceThread()
         ScenarioFramework.PauseUnitDeath(coopACU)
         ScenarioFramework.CreateUnitDeathTrigger(OnCommanderDeath, coopACU)
     end
-    ScenarioFramework.CreateUnitDeathTrigger(OnCommanderDeath, ScenarioInfo.PlayerCDR)	
+    ScenarioFramework.CreateUnitDeathTrigger(OnCommanderDeath, ScenarioInfo.PlayerCDR)
 
     WaitSeconds(1.5)
     StartMission1()
@@ -301,9 +301,9 @@ end
 function StartMission1()
     -- Begin scenario Scripting
     -- Initial dialog from Ops
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap (player, 300)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap (player, 300)
+    end
     SetupM1Triggers()
     GiveMission1Tech()
     ScenarioFramework.CreateTimerTrigger(InitialBerryTaunt, M1BerryInitialTauntDelay)
@@ -720,12 +720,12 @@ function M1UEFAirBaseDefeated()
 
 -- Airbase destroyed cam
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { -2.8, 0.1, 0 },
-    	positionOffset = { 0, 1, 0 },
-    	zoomVal = 35,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { -2.8, 0.1, 0 },
+        positionOffset = { 0, 1, 0 },
+        zoomVal = 35,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('M1_UEF_Air_Base'), camInfo)
 
@@ -747,12 +747,12 @@ function M1UEFLandBaseDefeated()
 
 -- Land base destroyed cam
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { 1.3, 0.15, 0 },
-    	positionOffset = { 0, 0.5, 0 },
-    	zoomVal = 55,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { 1.3, 0.15, 0 },
+        positionOffset = { 0, 0.5, 0 },
+        zoomVal = 55,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('M1_UEF_Land_Base'), camInfo)
 
@@ -774,12 +774,12 @@ function M1UEFLandAirBaseDefeated()
 
 -- Combination land/air base destroyed cam
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { 0.3269, 0.4, 0 },
-    	positionOffset = { 0, 0.75, 0 },
-    	zoomVal = 55,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { 0.3269, 0.4, 0 },
+        positionOffset = { 0, 0.75, 0 },
+        zoomVal = 55,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('M1_UEF_Land_Air_Base'), camInfo)
 
@@ -797,9 +797,9 @@ end
 
 function StartMission2()
     ScenarioInfo.MissionNumber = 2
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap (player, 400)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap (player, 400)
+    end
     -- ! Expand the map area
     ScenarioFramework.SetPlayableArea('M2_PlayableArea')
 
@@ -928,12 +928,12 @@ function M2SpawnTrucks()
 
 -- Truck Spawn cam
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { 2.19, 0.6, 0 },
-    	positionOffset = { -2, 0.5, 0 },
-    	zoomVal = 15,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { 2.19, 0.6, 0 },
+        positionOffset = { -2, 0.5, 0 },
+        zoomVal = 15,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('M2_Brackman_Base'), camInfo)
 end
@@ -1079,28 +1079,28 @@ end
 -- ! If any truck1 gets close to the gate, move it closer and send it through.
 function Truck1NearGate(truck)
     LOG('debug: Op: Running Truck1NearGate')
-	local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
+    local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
     IssueMove({truck}, {x,y,z})
 end
 
 -- ! If any truck2 gets close to the gate, move it closer and send it through.
 function Truck2NearGate(truck)
     LOG('debug: Op: Running Truck2NearGate')
-	local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
+    local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
     IssueMove({truck}, {x,y,z})
 end
 
 -- ! If any truck3 gets close to the gate, move it closer and send it through.
 function Truck3NearGate(truck)
     LOG('debug: Op: Running Truck3NearGate')
-	local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
+    local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
     IssueMove({truck}, {x,y,z})
 end
 
 -- ! If any truck4 gets close to the gate, move it closer and send it through.
 function Truck4NearGate(truck)
     LOG('debug: Op: Running Truck4NearGate')
-	local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
+    local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
 
     IssueMove({truck}, {x,y,z})
 end
@@ -1108,7 +1108,7 @@ end
 -- ! If any truck5 gets close to the gate, move it closer and send it through.
 function Truck5NearGate(truck)
     LOG('debug: Op: Running Truck5NearGate')
-	local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
+    local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
 
     IssueMove({truck}, {x,y,z})
 end
@@ -1155,9 +1155,9 @@ end
 -- === MISSION 3 FUNCTIONS === #
 
 function StartMission3()
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap (player, 500)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap (player, 500)
+    end
     for k, truck in ScenarioInfo.EscapeConvoy do
         truck:Destroy() -- clean up convoy
     end
@@ -1270,7 +1270,7 @@ end
 
 function WinGame()
     WaitSeconds(5)
-	ScenarioInfo.OpComplete = true
+    ScenarioInfo.OpComplete = true
     local secondaries = Objectives.IsComplete(ScenarioInfo.M2S1Obj)
 
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
@@ -1278,7 +1278,7 @@ end
 
 function LoseGame()
     WaitSeconds(10)
-	ScenarioInfo.OpComplete = false
+    ScenarioInfo.OpComplete = false
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 

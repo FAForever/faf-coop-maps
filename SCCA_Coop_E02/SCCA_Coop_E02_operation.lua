@@ -9,9 +9,9 @@
 -- ****************************************************************************
 
 -- ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_E02'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opLoc = {x = 200, y = 452}			-- location of op 'planet' on op select screen
-opDesc = ''							-- used in op select screen
+opID = 'SCCA_Coop_E02'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opLoc = {x = 200, y = 452}            -- location of op 'planet' on op select screen
+opDesc = ''                            -- used in op select screen
 opPlanet = ''
 opTitle = 'Op 2'
 

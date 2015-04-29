@@ -137,13 +137,13 @@ function OnPopulate()
         local armyGroup = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
         local playerPlatoons = {}
         for _, v in armyGroup do
-			local platoon = ArmyBrains[Order]:MakePlatoon('', '')
-			ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
-			platoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('Loyalist_M1_Pinned_Base'))
-			table.insert(ScenarioInfo.M1OrderAttackPlatoons, platoon)
-			table.insert(ScenarioInfo.M1OrderAttack, v)
-		end		
-		
+            local platoon = ArmyBrains[Order]:MakePlatoon('', '')
+            ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
+            platoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('Loyalist_M1_Pinned_Base'))
+            table.insert(ScenarioInfo.M1OrderAttackPlatoons, platoon)
+            table.insert(ScenarioInfo.M1OrderAttack, v)
+        end
+
     end
     
     ----------------
@@ -355,24 +355,24 @@ function IntroNIS()
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     
     -- spawn coop players too
-	ScenarioInfo.CoopCDR = {}
-	local tblArmy = ListArmies()
-	coop = 1
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-			if(factionIdx == 1) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
-			elseif(factionIdx == 2) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
-			else
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
-			end
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            if(factionIdx == 1) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+            elseif(factionIdx == 2) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+            else
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+            end
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-			coop = coop + 1
-			WaitSeconds(0.5)
-		end
-	end
+            coop = coop + 1
+            WaitSeconds(0.5)
+        end
+    end
     
     
     
@@ -380,10 +380,10 @@ function IntroNIS()
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
     
-	for index, coopACU in ScenarioInfo.CoopCDR do
-		ScenarioFramework.PauseUnitDeath(coopACU)
-		ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
-	end    
+    for index, coopACU in ScenarioInfo.CoopCDR do
+        ScenarioFramework.PauseUnitDeath(coopACU)
+        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
+    end
     
     IntroMission1()
 end
@@ -396,12 +396,12 @@ function IntroMission1()
 
     for k, v in ScenarioInfo.M1OrderAttackPlatoons do
         if(ArmyBrains[Order]:PlatoonExists(v)) then
-			local r = Random(1, table.getn(ScenarioInfo.HumanPlayers))
-			if (r==1) then
-				v:AttackTarget(ScenarioInfo.PlayerCDR)
-			else
-				v:AttackTarget(ScenarioInfo.CoopCDR[r-1])
-			end
+            local r = Random(1, table.getn(ScenarioInfo.HumanPlayers))
+            if (r==1) then
+                v:AttackTarget(ScenarioInfo.PlayerCDR)
+            else
+                v:AttackTarget(ScenarioInfo.CoopCDR[r-1])
+            end
         end
     end
 
@@ -545,12 +545,12 @@ function AssignBonus_ConstructShield()
     -- Secondary Objective 2 - Construct 2 shields
     ---------------------------------------------
     ScenarioInfo.M1S2 = Objectives.CategoriesInArea(
-        'secondary',			-- type
-        'incomplete', 			-- complete
-        OpStrings.X02_M01_OBJ_020_020,	-- title
-        OpStrings.X02_M01_OBJ_020_025,	-- description
-        'Build',			-- action
-        {				-- target
+        'secondary',            -- type
+        'incomplete',             -- complete
+        OpStrings.X02_M01_OBJ_020_020,    -- title
+        OpStrings.X02_M01_OBJ_020_025,    -- description
+        'Build',            -- action
+        {                -- target
             MarkArea= true,
             Requirements = {
                 {
@@ -733,23 +733,23 @@ function IntroMission2()
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource')
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource2')
 
-			----------------
-			-- Loyalist ACUs
-			----------------
-			ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_East')
+            ----------------
+            -- Loyalist ACUs
+            ----------------
+            ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_East')
             ScenarioInfo.LoyalistDana:SetCustomName('Dana')
             ScenarioInfo.LoyalistDana:CreateEnhancement('T3Engineering')
             ScenarioInfo.LoyalistDana:CreateEnhancement('ResourceAllocationAdvanced')
             ScenarioInfo.LoyalistDana:CreateEnhancement('HeatSink')
-			ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistDana)
-			
-			ScenarioInfo.LoyalistSascha = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_West')
+            ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistDana)
+
+            ScenarioInfo.LoyalistSascha = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_West')
             ScenarioInfo.LoyalistSascha:SetCustomName('Sascha')
             ScenarioInfo.LoyalistSascha:CreateEnhancement('T3Engineering')
             ScenarioInfo.LoyalistSascha:CreateEnhancement('ResourceAllocationAdvanced')
             ScenarioInfo.LoyalistSascha:CreateEnhancement('HeatSink')
-		    ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistSascha)
-			
+            ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistSascha)
+
             ----------------------
             -- Objective Structures
             ----------------------
@@ -866,8 +866,8 @@ function StartMission2()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2P1)
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, 900)
-	
-	ScenarioFramework.Dialogue(OpStrings.X02_M02_190, SecondaryDefendLoyalists)
+
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_190, SecondaryDefendLoyalists)
 
     if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M2RevealAeonSecondary, 60)
@@ -896,7 +896,7 @@ function SecondaryDefendLoyalists()
         OpStrings.X02_M02_OBJ_020_035,          -- description
         {                                       -- target
             Units = {ScenarioInfo.LoyalistSascha, ScenarioInfo.LoyalistDana},
-			-- ShowProgress = true,
+            -- ShowProgress = true,
             -- PercentProgress = true,
             -- ShowFaction = 'UEF',
         }
@@ -905,31 +905,31 @@ function SecondaryDefendLoyalists()
         function(result)
             if(not result and not ScenarioInfo.OpEnded and ScenarioInfo.M2S1.Active and ScenarioInfo.LoyalistDana:IsDead() and ScenarioInfo.LoyalistSascha:IsDead()) then
                 ScenarioInfo.M2S1:ManualResult(false)
-				ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
+                ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
             end
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S1)
-	ScenarioFramework.CreateUnitDeathTrigger(SaschaKilled, ScenarioInfo.LoyalistSascha)
-	ScenarioFramework.CreateUnitDeathTrigger(DanaKilled, ScenarioInfo.LoyalistDana)
+    ScenarioFramework.CreateUnitDeathTrigger(SaschaKilled, ScenarioInfo.LoyalistSascha)
+    ScenarioFramework.CreateUnitDeathTrigger(DanaKilled, ScenarioInfo.LoyalistDana)
 end
 
 function SaschaKilled()
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.LoyalistSascha, 5)
-	ScenarioInfo.SaschaDead = true
-	M2S1Failed()
+    ScenarioInfo.SaschaDead = true
+    M2S1Failed()
 end
 
 function DanaKilled()
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.LoyalistDana, 5)
-	ScenarioInfo.DanaDead = true
-	M2S1Failed()
+    ScenarioInfo.DanaDead = true
+    M2S1Failed()
 end
 
 function M2S1Failed()
     if(not ScenarioInfo.OpEnded and ScenarioInfo.M2S1.Active and ScenarioInfo.LoyalistDana:IsDead() and ScenarioInfo.LoyalistSascha:IsDead()) then
         ScenarioInfo.M2S1:ManualResult(false)
-		ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
+        ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
     end
 end
 
@@ -1173,10 +1173,10 @@ function IntroMission4()
             if(ScenarioInfo.M3P1.Active) then
                 ScenarioInfo.M3P1:ManualResult(true)
             end
-			
-			if(ScenarioInfo.M2S1.Active) then
-			    ScenarioInfo.M2S1:ManualResult(true)
-			end
+
+            if(ScenarioInfo.M2S1.Active) then
+                ScenarioInfo.M2S1:ManualResult(true)
+            end
 
             --------------------------
             -- M4 Loyalist Transport AI

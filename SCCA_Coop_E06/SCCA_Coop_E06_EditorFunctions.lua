@@ -15,7 +15,7 @@ local MainScript = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_script.lua')
 -- #############################################################################################################
 -- function: AeonM2NavyMaster = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- #############################################################################################################
 function AeonM2NavyMaster(brain)
@@ -30,7 +30,7 @@ end
 -- #############################################################################################################
 -- function: AeonM2NavyTopChild = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- #############################################################################################################
 function AeonM2NavyTopChild(brain)
@@ -45,7 +45,7 @@ end
 -- #############################################################################################################
 -- function: AeonM2NavyBottomChild = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- #############################################################################################################
 function AeonM2NavyBottomChild(brain)
@@ -60,7 +60,7 @@ end
 -- #############################################################################################################
 -- function: EngineersBC = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	brain		= "default_brain"
+-- parameter 0: string    brain        = "default_brain"
 -- parameter 1: string   area            = "area_name"
 --
 -- #############################################################################################################
@@ -81,7 +81,7 @@ end
 -- #############################################################################################################
 -- function: AeonBomberEscort = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	brain		= "default_brain"
+-- parameter 0: string    brain        = "default_brain"
 --
 -- #############################################################################################################
 function AeonBomberEscort(brain)

@@ -324,9 +324,9 @@ end
 -- === MISSION 1 ============================================================= #
 ----------------------------------------------------------------------------- #
 function StartMission1()
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 300)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 300)
+    end
     SetArmyUnitCap(2, 400)
     SetArmyUnitCap(3, 500)
 
@@ -395,16 +395,16 @@ end
 
 function MakeGroupsIntoPlatoon(brain, ...)
     local newPlatoon = brain:MakePlatoon('', '')
-	local name = brain.Name
+    local name = brain.Name
 
-	local i = 1
-	while i <= arg['n'] do
-	    local group = ScenarioUtils.CreateArmyGroup(name, arg[i])
-		for counter, unit in group do
-			brain:AssignUnitsToPlatoon(newPlatoon, {unit}, 'Attack', 'ChevronFormation')
-		end
-		i = i + 1
-	end
+    local i = 1
+    while i <= arg['n'] do
+        local group = ScenarioUtils.CreateArmyGroup(name, arg[i])
+        for counter, unit in group do
+            brain:AssignUnitsToPlatoon(newPlatoon, {unit}, 'Attack', 'ChevronFormation')
+        end
+        i = i + 1
+    end
 
     return newPlatoon
 end
@@ -587,17 +587,17 @@ function M1JanusLeaves()
 
     local objUnits = ScenarioInfo.NeTempleDefenders:GetPlatoonUnits()
 
-	ScenarioInfo.M1P1 = Objectives.Basic(
+    ScenarioInfo.M1P1 = Objectives.Basic(
         'primary',
         'incomplete',
         OpStrings.M1P1Title,
         OpStrings.M1P1Description,
         Objectives.GetActionIcon('kill'),
         {
-        	Units = objUnits,
-        	MarkUnits = true,
+            Units = objUnits,
+            MarkUnits = true,
         }
-	)
+    )
 
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
     ScenarioFramework.Dialogue(OpStrings.C02_M01_010)
@@ -689,14 +689,14 @@ end
 function M1P6Assign(tech)
     if not ScenarioInfo.M1P6_Assigned then
         ScenarioInfo.M1P6_Assigned = true
-    	ScenarioInfo.M1P6 = Objectives.Basic(
-    		'primary', 'incomplete', OpStrings.M1P6Title, OpStrings.M1P6Description,
-    		Objectives.GetActionIcon('protect'),
-    		{
-    			Units = {tech},
-    			-- MarkUnits = true,
-    		}
-    	)
+        ScenarioInfo.M1P6 = Objectives.Basic(
+            'primary', 'incomplete', OpStrings.M1P6Title, OpStrings.M1P6Description,
+            Objectives.GetActionIcon('protect'),
+            {
+                Units = {tech},
+                -- MarkUnits = true,
+            }
+        )
     end
 end
 
@@ -727,7 +727,7 @@ function M1P2Complete()
     if not ScenarioInfo.M1P2 then
         M1P2Activate()
     end
-	ScenarioInfo.M1P2:ManualResult(true)
+    ScenarioInfo.M1P2:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
     M1NETechPickupRequirements = M1NETechPickupRequirements + 1
@@ -738,7 +738,7 @@ function M1P2Complete()
         if ScenarioInfo.M1SETechFound == false then
             -- This is the first piece of tech
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToNE, ScenarioUtils.AreaToRect('NE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
-			M1P6Assign(ScenarioInfo.CivilianTempleNETech)
+            M1P6Assign(ScenarioInfo.CivilianTempleNETech)
         else
             ScenarioInfo.M1DestinationIsNE = true
             ForkThread(M1SpawnSecondTechDefense)
@@ -750,14 +750,14 @@ function M1P2Activate()
     -- Theoretically, this is only supposed to happen when you see the T1 units guarding the NORTHEAST temple, specifically.
 
     -- === M1P2. Destroy Temple to Find Tech ========================================= #
-	ScenarioInfo.M1P2 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description,
-		Objectives.GetActionIcon('kill'),
-		{
-			Units = {ScenarioInfo.CivilianTempleNE},
-			MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M1P2 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description,
+        Objectives.GetActionIcon('kill'),
+        {
+            Units = {ScenarioInfo.CivilianTempleNE},
+            MarkUnits = true,
+        }
+    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
     ScenarioFramework.CreateTimerTrigger(M1P2Reminder1, M1P2Reminder1Delay)
@@ -781,7 +781,7 @@ function M1NEDefendersKilled()
     local destination = ScenarioUtils.MarkerToPosition('M1_NE_Village_LZ')
     local techSpot = ScenarioUtils.MarkerToPosition('M1_NE_Village_Tech_Spot')
 
-	ScenarioInfo.M1P1:ManualResult(true)
+    ScenarioInfo.M1P1:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
     M1NETechPickupRequirements = M1NETechPickupRequirements + 1
@@ -790,7 +790,7 @@ function M1NEDefendersKilled()
     -- If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1TechsPickedUp == 0 then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToNE, ScenarioUtils.AreaToRect('NE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
-			M1P6Assign(ScenarioInfo.CivilianTempleNETech)
+            M1P6Assign(ScenarioInfo.CivilianTempleNETech)
         else
             ScenarioInfo.M1DestinationIsNE = true
             ForkThread(M1SpawnSecondTechDefense)
@@ -818,7 +818,7 @@ function M1SEDefendersKilled()
     -- If the temple was already blown up, then we're ready to bring in Janus for the pickup.  Otherwise, we do nothing here.
         if ScenarioInfo.M1TechsPickedUp == 0 then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToSE, ScenarioUtils.AreaToRect('SE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
-			M1P6Assign(ScenarioInfo.CivilianTempleSETech)
+            M1P6Assign(ScenarioInfo.CivilianTempleSETech)
         else
             ScenarioInfo.M1DestinationIsNE = false
             ForkThread(M1SpawnSecondTechDefense)
@@ -826,26 +826,26 @@ function M1SEDefendersKilled()
     end
 end
 function M1P3Assign()
-	ScenarioInfo.M1P3 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description,
-		Objectives.GetActionIcon('locate'),
-		{
-			Units = ScenarioInfo.M1_TempleCombinedTable,
-			MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M1P3 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description,
+        Objectives.GetActionIcon('locate'),
+        {
+            Units = ScenarioInfo.M1_TempleCombinedTable,
+            MarkUnits = true,
+        }
+    )
 end
 
 function M1P4Assign(objArea)
-	ScenarioInfo.M1P4 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
-		Objectives.GetActionIcon('kill'),
-		{
-			Area = objArea,
-			ShowFaction = 'Aeon',
-			-- MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M1P4 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
+        Objectives.GetActionIcon('kill'),
+        {
+            Area = objArea,
+            ShowFaction = 'Aeon',
+            -- MarkUnits = true,
+        }
+    )
 end
 function M1P3Complete()
     -- Player has blown up the temple to the SE.  This one is a little tricky, because P1 (Investigate Village for Tech) is specifically called out
@@ -875,7 +875,7 @@ function M1P3Complete()
     if not ScenarioInfo.M1P3Given then
         ScenarioInfo.M1P3Given = true
     else
-		ScenarioInfo.M1P3:ManualResult(true)
+        ScenarioInfo.M1P3:ManualResult(true)
     end
 
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
@@ -888,10 +888,10 @@ function M1P3Complete()
         if ScenarioInfo.M1NETechFound == false then
             ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToSE, ScenarioUtils.AreaToRect('SE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
 
-			M1P6Assign(ScenarioInfo.CivilianTempleSETech)
+            M1P6Assign(ScenarioInfo.CivilianTempleSETech)
         else
         -- === M1P4. Defeat Aeon Defense Force ===================================== #
-			M1P4Assign('SE_Temple_Reinforce')
+            M1P4Assign('SE_Temple_Reinforce')
 
             ScenarioFramework.Dialogue(OpStrings.C02_M01_080)
 
@@ -975,14 +975,14 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     ScenarioInfo.JanusCrewIsActive = true
 
     if ScenarioInfo.M1TechsPickedUp == 1 then
-		ScenarioInfo.M1P7 = Objectives.Basic(
-			'primary', 'incomplete', OpStrings.M1P7Title, OpStrings.M1P7Description,
-			Objectives.GetActionIcon('protect'),
-			{
-				Units = {Tech},
-				MarkUnits = true,
-			}
-		)
+        ScenarioInfo.M1P7 = Objectives.Basic(
+            'primary', 'incomplete', OpStrings.M1P7Title, OpStrings.M1P7Description,
+            Objectives.GetActionIcon('protect'),
+            {
+                Units = {Tech},
+                MarkUnits = true,
+            }
+        )
     end
 
     WaitSeconds(DelayTime)
@@ -1047,12 +1047,12 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     end
 
     if ScenarioInfo.M1TechsPickedUp == 0 then
-		ScenarioInfo.M1P6:ManualResult(true)
+        ScenarioInfo.M1P6:ManualResult(true)
     elseif ScenarioInfo.M1TechsPickedUp == 1 then
-		ScenarioInfo.M1P7:ManualResult(true)
+        ScenarioInfo.M1P7:ManualResult(true)
     else
         -- Mission 2 tech
-		ScenarioInfo.M2P3:ManualResult(true)
+        ScenarioInfo.M2P3:ManualResult(true)
     end
 
     IssueClearCommands({transport})
@@ -1081,11 +1081,11 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
         WaitSeconds(1)
         if not loadCam then
             local camInfo = {
-            	blendTime = 1.0,
-            	holdTime = 6,
-            	orientationOffset = { 0, 0.2, 0 },
-            	positionOffset = { 0, 0.5, 0 },
-            	zoomVal = 30,
+                blendTime = 1.0,
+                holdTime = 6,
+                orientationOffset = { 0, 0.2, 0 },
+                positionOffset = { 0, 0.5, 0 },
+                zoomVal = 30,
             }
             ScenarioFramework.OperationNISCamera(ScenarioInfo.CapturedTech, camInfo)
         end
@@ -1144,7 +1144,7 @@ function M1JanusFirstTechReturnHome(PickupPoint)
             ScenarioFramework.CreateTimerTrigger(M1P3Reminder1, M1P3Reminder1Delay)
             ScenarioFramework.CreateTimerTrigger(M1P3Reminder2, M1P3Reminder2Delay)
 
-    		M1P3Assign()
+            M1P3Assign()
         end
     end
 
@@ -1437,15 +1437,15 @@ function M1JanusPicksUpSecondTechAtNE()
     if ScenarioInfo.M1P4Given == false then
         -- If not, then we should "silently" activate and complete the objective.
     -- === M1P4. Defeat Aeon Defense Force ===================================== #
-		ScenarioInfo.M1P4 = Objectives.Basic(
-			'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
-			Objectives.GetActionIcon('kill'),
-			{
-			    ShowFaction = 'Aeon',
-				-- Units = {},
-				-- MarkUnits = true,
-			}
-		)
+        ScenarioInfo.M1P4 = Objectives.Basic(
+            'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
+            Objectives.GetActionIcon('kill'),
+            {
+                ShowFaction = 'Aeon',
+                -- Units = {},
+                -- MarkUnits = true,
+            }
+        )
         ScenarioInfo.M1P4Given = true
 
         ScenarioFramework.CreateTimerTrigger(M1P4Reminder1, M1P4Reminder1Delay)
@@ -1473,7 +1473,7 @@ function M1JanusPicksUpSecondTechAtSE()
     -- Now that the player has taken out the "Aeon Defense Force" that defends the second piece of tech, let's bring in our special guest.
     ScenarioInfo.M1P4Complete = true
 
-	ScenarioInfo.M1P4:ManualResult(true)
+    ScenarioInfo.M1P4:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
     ScenarioFramework.CreateAreaTrigger(M1JanusClearedForTakeoffToSE, ScenarioUtils.AreaToRect('SE_Temple_Safe_Zone'), categories.ALLUNITS, true, true, ArmyBrains[Aeon], 1, false)
@@ -1486,15 +1486,15 @@ function M1SpawnSecondTechResponse()
     -- This happens when Janus picks up the second piece of tech.
 
     -- === M1P5. Defeat Aeon Assault =========================================== #
-	ScenarioInfo.M1P5 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M1P5Title, OpStrings.M1P5Description,
-		Objectives.GetActionIcon('protect'),
-		{
-			Area = 'M1_Defend_Area',
-			ShowFaction = 'Aeon',
-			-- MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M1P5 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M1P5Title, OpStrings.M1P5Description,
+        Objectives.GetActionIcon('protect'),
+        {
+            Area = 'M1_Defend_Area',
+            ShowFaction = 'Aeon',
+            -- MarkUnits = true,
+        }
+    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
     ScenarioFramework.Dialogue(OpStrings.C02_M01_100)
 
@@ -1683,7 +1683,7 @@ function M1Complete()
 
         ScenarioInfo.M1CompleteTriggerFired = true
         WaitSeconds(M1CompleteDelayTime)
-		ScenarioInfo.M1P5:ManualResult(true)
+        ScenarioInfo.M1P5:ManualResult(true)
         ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
         ScenarioFramework.Dialogue(ScenarioStrings.MissionSuccessDialogue)
         ScenarioFramework.Dialogue(OpStrings.C02_M01_120)
@@ -1701,9 +1701,9 @@ function StartMission2()
     ScenarioFramework.Dialogue(OpStrings.C02_M02_010)
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
 
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 400)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 400)
+    end
     SetArmyUnitCap(2, 500)
     SetArmyUnitCap(3, 500)
 
@@ -1724,27 +1724,27 @@ function StartMission2()
 
     -- === M2P1. Defeat Eastern Aeon Base and Recover Its Tech ================================ #
     -- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, Objectives.GetActionIcon('kill'))
-	ScenarioInfo.M2P1 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description,
-		Objectives.GetActionIcon('kill'),
-		{
-		    ShowFaction = 'Aeon',
-			Area = 'M2_Aeon_Land_Base_Area',
-			-- MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M2P1 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description,
+        Objectives.GetActionIcon('kill'),
+        {
+            ShowFaction = 'Aeon',
+            Area = 'M2_Aeon_Land_Base_Area',
+            -- MarkUnits = true,
+        }
+    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 
     -- === M2P2. Defeat Southern Aeon Base  =================================================== #
-	ScenarioInfo.M2P2 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description,
-		Objectives.GetActionIcon('kill'),
-		{
-		    ShowFaction = 'Aeon',
-			Area = 'M2_Aeon_Naval_Base_Area',
-			-- MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M2P2 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description,
+        Objectives.GetActionIcon('kill'),
+        {
+            ShowFaction = 'Aeon',
+            Area = 'M2_Aeon_Naval_Base_Area',
+            -- MarkUnits = true,
+        }
+    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
 end
 
@@ -2006,28 +2006,28 @@ function M2TempleDestroyed()
 
     ScenarioFramework.Dialogue(OpStrings.C02_M02_020)
 
-	ScenarioInfo.M2P3 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M2P3Title, OpStrings.M2P3Description,
-		Objectives.GetActionIcon('protect'),
-		{
-			Units = {ScenarioInfo.M2Tech},
-			MarkUnits = true,
-		}
-	)
+    ScenarioInfo.M2P3 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M2P3Title, OpStrings.M2P3Description,
+        Objectives.GetActionIcon('protect'),
+        {
+            Units = {ScenarioInfo.M2Tech},
+            MarkUnits = true,
+        }
+    )
 end
 
 function M2AeonNavalBaseDestroyed()
-	ScenarioInfo.M2P2:ManualResult(true)
+    ScenarioInfo.M2P2:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
     ScenarioFramework.Dialogue(OpStrings.C02_M02_040)
 
 -- NIS for destruction of naval base
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { 2.5, 0.2, 0 },
-    	positionOffset = { 0, 1, 0 },
-    	zoomVal = 30,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { 2.5, 0.2, 0 },
+        positionOffset = { 0, 1, 0 },
+        zoomVal = 30,
         markerCam = true,
         }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition("M2_Naval_Factory"), camInfo)
@@ -2043,7 +2043,7 @@ function M2JanusClearedForTakeoff()
 end
 
 function M2JanusReturnHome()
-	ScenarioInfo.M2P1:ManualResult(true)
+    ScenarioInfo.M2P1:ManualResult(true)
     ScenarioInfo.M2P1Complete = true
     if Objectives.IsComplete(ScenarioInfo.M2P1) and Objectives.IsComplete(ScenarioInfo.M2P2) then
         ForkThread(M2Complete)
@@ -2090,9 +2090,9 @@ end
 -- === MISSION 3 ============================================================= #
 ----------------------------------------------------------------------------- #
 function StartMission3()
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 500)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 500)
+    end
     SetArmyUnitCap(2, 500)
     SetArmyUnitCap(3, 500)
 
@@ -2318,15 +2318,15 @@ function M3P1Complete()
     ScenarioInfo.JanusDead = true
 
     -- === M3P2. Move Your Commander to the Gate ============================================== #
-	ScenarioInfo.M3P2 = Objectives.Basic(
-		'primary', 'incomplete', OpStrings.M3P2Title, OpStrings.M3P2Description,
-		Objectives.GetActionIcon('move'),
-		{
-			Units = {ScenarioInfo.M3Gate},
-			MarkUnits = true,
-			AlwaysVisible = true,
-		}
-	)
+    ScenarioInfo.M3P2 = Objectives.Basic(
+        'primary', 'incomplete', OpStrings.M3P2Title, OpStrings.M3P2Description,
+        Objectives.GetActionIcon('move'),
+        {
+            Units = {ScenarioInfo.M3Gate},
+            MarkUnits = true,
+            AlwaysVisible = true,
+        }
+    )
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
     ScenarioFramework.Dialogue(OpStrings.C02_M03_030)
 
@@ -2351,7 +2351,7 @@ function M3_CybranCDRDestroyed(unit)
 end
 
 function M3PlayerReachedGate()
-	ScenarioInfo.M3P2:ManualResult(true)
+    ScenarioInfo.M3P2:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
     -- Reached Qgate cam
@@ -2489,24 +2489,24 @@ end
 
 function WinGame()
     WaitSeconds(5)
-	ScenarioInfo.OpComplete = true
+    ScenarioInfo.OpComplete = true
     local secondaries = Objectives.IsComplete(ScenarioInfo.M3S1)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
 function LoseGame()
     WaitSeconds(5)
-	ScenarioInfo.OpComplete = false
+    ScenarioInfo.OpComplete = false
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 
 function TechRevealedNISCamera(unit)
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { math.pi, 0.2, 0 },
-    	positionOffset = { 0, 0.5, 0 },
-    	zoomVal = 20,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { math.pi, 0.2, 0 },
+        positionOffset = { 0, 0.5, 0 },
+        zoomVal = 20,
     }
     ScenarioFramework.OperationNISCamera(unit, camInfo)
 end

@@ -113,7 +113,7 @@ local M3P1_BomberBuildValue         = 5   -- number of bombers the player is to 
 ----------------------
 
 function OnPopulate(scenario)
-	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
     ---- Add initial groups here
@@ -197,11 +197,11 @@ function BeginOperation()
     -- Dialogue (build cats with dialogue after delay)
     ScenarioInfo.MissionNumber = 1
 
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 250)
-	end
-	
-	SetArmyUnitCap(2, 700)
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 250)
+    end
+
+    SetArmyUnitCap(2, 700)
     SetArmyUnitCap(3, 700)
 
     ScenarioFramework.CreateTimerTrigger(BeginningObjectives, 10)
@@ -613,9 +613,9 @@ function BeginPart2()
     ScenarioUtils.CreateArmyGroup('Wreckage_Holding' ,'Part2_UEF_Wreckage', true)
 
     ScenarioInfo.MissionNumber = 6
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 400)
-	end	
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 400)
+    end
 
     SetArmyUnitCap(2, 500)
     SetArmyUnitCap(3, 500)
@@ -836,9 +836,9 @@ end
 --------------
 
 function BeginPart3()
-	for _, player in ScenarioInfo.HumanPlayers do
-		SetArmyUnitCap(player, 500)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        SetArmyUnitCap(player, 500)
+    end
     SetArmyUnitCap(2, 500)
     SetArmyUnitCap(3, 500)
     ScenarioInfo.MissionNumber = 7
@@ -1515,13 +1515,13 @@ function PlayerCDRKilled()
 end
 
 function KillGame_Win()
-	ScenarioInfo.OpComplete = true
+    ScenarioInfo.OpComplete = true
     WaitSeconds(10.0)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
 function KillGame_Fail()
-	ScenarioInfo.OpComplete = false
+    ScenarioInfo.OpComplete = false
         WaitSeconds(10.0)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end

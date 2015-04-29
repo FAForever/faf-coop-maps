@@ -4987,9 +4987,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-				['Coop1'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Coop3'] = 'Ally',
+                ['Coop1'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Coop3'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5268,9 +5268,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-				['Player'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Coop3'] = 'Ally',
+                ['Player'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Coop3'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5549,9 +5549,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-				['Coop1'] = 'Ally',
-				['Player'] = 'Ally',
-				['Coop3'] = 'Ally',
+                ['Coop1'] = 'Ally',
+                ['Player'] = 'Ally',
+                ['Coop3'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5830,9 +5830,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-				['Coop1'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Player'] = 'Ally',
+                ['Coop1'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Player'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -6099,7 +6099,7 @@ Scenario = {
                 Builders = {
                 },
             },
-        },		
+        },
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
@@ -6114,9 +6114,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-				['Coop1'] = 'Enemy',
-				['Coop2'] = 'Enemy',
-				['Coop3'] = 'Enemy',
+                ['Coop1'] = 'Enemy',
+                ['Coop2'] = 'Enemy',
+                ['Coop3'] = 'Enemy',
                 ['Player'] = 'Enemy',
             },
             ['Units'] = GROUP {

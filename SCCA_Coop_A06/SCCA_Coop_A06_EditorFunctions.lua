@@ -16,7 +16,7 @@ local ScenarioFramework = import( '/lua/ScenarioFramework.lua' )
 -- #############################################################################################################
 -- function: M2HugeAttack = AddFunction   doc = "Send the huge attack at the control center"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function M2HugeAttack(platoon)
@@ -30,7 +30,7 @@ end
 -- #############################################################################################################
 -- function: SpiderAttackDefeated = BuildCallback   doc = "The huge attack has been defeated"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 -- parameter 1: string   table       = "1"
 --
 -- #############################################################################################################
@@ -43,7 +43,7 @@ end
 -- #############################################################################################################
 -- function: MoveToExperimentalIsland = AddFunction   doc = "Move to the SE island and disband"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function MoveToExperimentalIsland(platoon)

@@ -390,13 +390,13 @@ function MoveComponents(unloadCmd)
         WaitSeconds(2)
     end
     for num,unit in ScenarioInfo.InvincibleTransports:GetPlatoonUnits() do
-		if unit then
-			unit:SetCanTakeDamage(true)
-			unit:SetCanBeKilled(true)
-			if not unit:IsDead() then
-				ScenarioFramework.GiveUnitToArmy(unit, Player)
-			end
-		end
+        if unit then
+            unit:SetCanTakeDamage(true)
+            unit:SetCanBeKilled(true)
+            if not unit:IsDead() then
+                ScenarioFramework.GiveUnitToArmy(unit, Player)
+            end
+        end
     end
     for k,v in ScenarioInfo.InvincibleComponents do
         IssueMove({v}, ScenarioUtils.MarkerToPosition('Component_Move_Marker_'..k))

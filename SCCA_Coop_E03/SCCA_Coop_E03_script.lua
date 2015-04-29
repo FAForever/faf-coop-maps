@@ -46,7 +46,7 @@ local erisTaunt = 1
 ---------
 
 function OnPopulate(scenario)
- 	ScenarioUtils.InitializeScenarioArmies()
+     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Player Base
@@ -63,10 +63,10 @@ function OnPopulate(scenario)
     ScenarioUtils.CreateArmyGroup('Aeon', 'ResourceIsland_PreBuilt')
 
     -- Frigates - M1P1 Target
- 	ScenarioInfo.M1AeonDefenseFrigate = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseFrigate_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
- 	ScenarioInfo.M1AeonDefenseFrigate.PlatoonData = {}
- 	ScenarioInfo.M1AeonDefenseFrigate.PlatoonData.PatrolChain = 'M1ResourceIslandNaval_Chain1'
- 	ScenarioInfo.M1AeonDefenseFrigate:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+     ScenarioInfo.M1AeonDefenseFrigate = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseFrigate_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+     ScenarioInfo.M1AeonDefenseFrigate.PlatoonData = {}
+     ScenarioInfo.M1AeonDefenseFrigate.PlatoonData.PatrolChain = 'M1ResourceIslandNaval_Chain1'
+     ScenarioInfo.M1AeonDefenseFrigate:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     -- Attack Boats
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseEscort_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
@@ -75,15 +75,15 @@ function OnPopulate(scenario)
     platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     -- Subs - M1S1 Target
- 	ScenarioInfo.M1Subs1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
- 	ScenarioInfo.M1Subs1.PlatoonData = {}
- 	ScenarioInfo.M1Subs1.PlatoonData.PatrolChain = 'M1Sub_Chain1'
- 	ScenarioInfo.M1Subs1:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+     ScenarioInfo.M1Subs1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
+     ScenarioInfo.M1Subs1.PlatoonData = {}
+     ScenarioInfo.M1Subs1.PlatoonData.PatrolChain = 'M1Sub_Chain1'
+     ScenarioInfo.M1Subs1:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     ScenarioInfo.M1Subs2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_DefenseSub_D' .. ScenarioInfo.Options.Difficulty, 'NoFormation')
- 	ScenarioInfo.M1Subs2.PlatoonData = {}
- 	ScenarioInfo.M1Subs2.PlatoonData.PatrolChain = 'M1Sub_Chain2'
- 	ScenarioInfo.M1Subs2:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+     ScenarioInfo.M1Subs2.PlatoonData = {}
+     ScenarioInfo.M1Subs2.PlatoonData.PatrolChain = 'M1Sub_Chain2'
+     ScenarioInfo.M1Subs2:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
 
     -- Eris
     ScenarioInfo.AeonCDR = ScenarioUtils.CreateArmyUnit('Aeon', 'Aeon_CDR')

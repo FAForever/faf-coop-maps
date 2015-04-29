@@ -56,40 +56,40 @@ function FletcherM2BaseNavalAttacks()
     local Temp = {
         'NavalAttackTemp',
         'NoPlan',
-        { 'ues0201', 1, 4, 'Attack', 'GrowthFormation' },	-- Destroyers
-        { 'ues0202', 1, 3, 'Attack', 'GrowthFormation' },	-- Cruisers
-        { 'xes0102', 1, 4, 'Attack', 'GrowthFormation' },	-- Torpedo Boat
+        { 'ues0201', 1, 4, 'Attack', 'GrowthFormation' },    -- Destroyers
+        { 'ues0202', 1, 3, 'Attack', 'GrowthFormation' },    -- Cruisers
+        { 'xes0102', 1, 4, 'Attack', 'GrowthFormation' },    -- Torpedo Boat
     }
     local Builder = {
         BuilderName = 'NavyAttackBuilder',
         PlatoonTemplate = Temp,
-		InstanceCount = 3,
+        InstanceCount = 3,
         Priority = 200,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Fletcher_Base',
-        PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},		
+        PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Rhiza_NavalAttack_Chain',
         },
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( Builder )
 -- =========================================================================================
-	Temp = {
+    Temp = {
         'NavalDefenseTemp',
         'NoPlan',
-        { 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },	-- Destroyers
-        { 'ues0202', 1, 1, 'Attack', 'GrowthFormation' },	-- Cruisers
+        { 'ues0201', 1, 2, 'Attack', 'GrowthFormation' },    -- Destroyers
+        { 'ues0202', 1, 1, 'Attack', 'GrowthFormation' },    -- Cruisers
     }
     Builder = {
         BuilderName = 'NavyDefenseBuilder',
         PlatoonTemplate = Temp,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 300,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Fletcher_Base',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},		
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Rhiza_NavalAttack_Fletcher_Chain',
         },
@@ -105,24 +105,24 @@ function FletcherM2BaseAirAttacks()
     -------------------------------------
     -- Fletcher M2 Base Op AI, Air Attacks
     -------------------------------------
-	
+
     local template = {
         'HeavyAir1',
         'NoPlan',
-        { 'uea0303', 1, 9, 'Attack', 'GrowthFormation' },	-- Air Superiority
-        { 'uea0204', 1, 18, 'Attack', 'GrowthFormation' },	-- Gunships
-        { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' },	-- Heavy Gunships
-        { 'uea0102', 1, 18, 'Attack', 'GrowthFormation' },	-- Interceptors
+        { 'uea0303', 1, 9, 'Attack', 'GrowthFormation' },    -- Air Superiority
+        { 'uea0204', 1, 18, 'Attack', 'GrowthFormation' },    -- Gunships
+        { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' },    -- Heavy Gunships
+        { 'uea0102', 1, 18, 'Attack', 'GrowthFormation' },    -- Interceptors
     }
     local builder = {
         BuilderName = 'HeavyAir1',
         PlatoonTemplate = template,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 220,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M2_Fletcher_Base',
-        PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},		
+        PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Fletcher_AirAttack_MAIN_Chain',
         },
@@ -318,8 +318,8 @@ function FletcherM2BaseAirAttacks()
         )
         opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     end
-	
-	quantity = {3, 6, 9}
+
+    quantity = {3, 6, 9}
     for i = 1, 3 do
         opai = FletcherM2Base:AddOpAI('AirAttacks', 'M2_FletcherAirDefense3_' .. i,
             {
@@ -402,7 +402,7 @@ end
 
 function FletcherCaptureControlCenter()
     -- Transport Builder
-	local opai = FletcherM2Base:AddOpAI('EngineerAttack', 'M2_Fletcher_TransportBuilder',
+    local opai = FletcherM2Base:AddOpAI('EngineerAttack', 'M2_Fletcher_TransportBuilder',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
@@ -416,7 +416,7 @@ function FletcherCaptureControlCenter()
     opai:SetChildActive('T3Transports', true)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uea0104})
-		
+
     -- sends engineers
     opai = FletcherM2Base:AddOpAI('EngineerAttack', 'M2_FletcherEngAttack1',
     {
@@ -430,19 +430,19 @@ function FletcherCaptureControlCenter()
         Priority = 1000,
     })
     opai:SetChildActive('T1Transports', false)
-	opai:SetChildActive('T2Transports', false)
-	opai:SetChildActive('T3Transports', false)
-	
+    opai:SetChildActive('T2Transports', false)
+    opai:SetChildActive('T3Transports', false)
+
     for i = 1, 4 do
     opai = FletcherM2Base:AddOpAI('BasicLandAttack', 'M2_FletcherTransportAttack_ToSeraphim' .. i,
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
-		    AttackChain = 'M2_Rhiza_Transport_Attack_Chain',
-		    LandingChain = 'M1_Fatboy_Move_Chain',
-		    TransportReturn = 'M2_Fletcher_Base_Marker',
-	    },
-	    Priority = 1000,
+            AttackChain = 'M2_Rhiza_Transport_Attack_Chain',
+            LandingChain = 'M1_Fatboy_Move_Chain',
+            TransportReturn = 'M2_Fletcher_Base_Marker',
+        },
+        Priority = 1000,
     })
     opai:SetChildQuantity({'MobileShields', 'HeavyTanks', 'MobileAntiAir'},  12)
     end

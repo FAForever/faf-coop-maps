@@ -19697,7 +19697,7 @@ Scenario = {
                                                         Position = { 188.500000, 22.000000, 386.500000 },
                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                     },
-						    ['UNIT_EAF1'] = {
+                            ['UNIT_EAF1'] = {
                                                         type = 'ueb0302',
                                                         orders = '',
                                                         platoon = '',
@@ -21476,7 +21476,7 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
-			    ['UEF_Experimentals'] = GROUP {
+                ['UEF_Experimentals'] = GROUP {
                                 orders = '',
                                 platoon = '',
                                 Units = {

@@ -77,9 +77,9 @@ function OrderM1MainBaseAirAttacks()
     -------------------------------------
     -- Order Main Base Op AI, Air Atttacks
     -------------------------------------
-	
+
     -- sends 4, 6, 8 [gunships, interceptors] Mass
-	for i = 1, 2 do
+    for i = 1, 2 do
     quantity = {4, 6, 8}
     opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttackMass1' .. i,
         {
@@ -91,10 +91,10 @@ function OrderM1MainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'Bombers'}, quantity[Difficulty])
-	end
-	
+    end
+
     -- sends 4, 6, 8 [gunships, interceptors] basic
-	for i = 1, 2 do
+    for i = 1, 2 do
     quantity = {4, 6, 8}
     opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttackBasic1' .. i,
         {
@@ -106,7 +106,7 @@ function OrderM1MainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'Interceptors'}, quantity[Difficulty])
-	end
+    end
 
     -- sends 3, 4, 6 [bombers] if player has >= 12, 8, 5 AA
     quantity = {3, 4, 6}
@@ -325,7 +325,7 @@ function OrderM1MainBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', 4)
-		
+
         opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirDefense2' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -337,9 +337,9 @@ function OrderM1MainBaseAirAttacks()
         )
         opai:SetChildQuantity('CombatFighters', 4)
     end
-	
-	for i = 1, 3 do
-	    opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirDefense3' .. i,
+
+    for i = 1, 3 do
+        opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirDefense3' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
                 PlatoonData = {
@@ -360,7 +360,7 @@ function OrderM1MainBaseLandAttacks()
     -------------------------------------
     -- Order Main Base Op AI, Land Attacks
     -------------------------------------
-	
+
     -- sends basic attack with shields
     opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandAttackBasic',
         {
@@ -372,9 +372,9 @@ function OrderM1MainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileShields', 'HeavyTanks', 'MobileAntiAir'}, 9)
-	opai:SetLockingStyle('BuildTimer', {LockTimer = 45})
-	opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-	    {'default_brain', 'Loyalist', 1, categories.uab1301})
+    opai:SetLockingStyle('BuildTimer', {LockTimer = 45})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain', 'Loyalist', 1, categories.uab1301})
 
     -- sends 4, 5, 10 [light bots]
     quantity = {4, 5, 10}
@@ -641,7 +641,7 @@ function OrderM1MainBaseLandAttacks()
         )
         opai:SetChildQuantity({'LightBots', 'HeavyTanks'}, 4)
     end
-	
+
     opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_OrderFrontLandDefenseHeavy',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

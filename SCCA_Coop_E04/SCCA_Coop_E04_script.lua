@@ -27,7 +27,7 @@ local SimCamera = import('/lua/SimCamera.lua').SimCamera
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
 
 function AdjustDifficulty (table)
-	return table[Difficulty]
+    return table[Difficulty]
 end
 
 -- === GLOBAL VARIABLES === #
@@ -188,7 +188,7 @@ ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
-	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 end
 
@@ -271,14 +271,14 @@ function StartMission1()
 
 
     -- Define Tech Restrictions
-	for _, player in ScenarioInfo.HumanPlayers do
-		-- prevent all units from building t3 units, except t3 air factories, spy planes
-		ScenarioFramework.AddRestriction(player, categories.TECH3 - categories.ueb0302 - categories.urb0302 -  categories.uea0302 - categories.ura0302)
-		-- prevent building t2 restricted units
-		ScenarioFramework.AddRestriction(player, M1UEFTech2NotAllowed)
-		-- prevent building cybran t2 restricted units, should the player capture cybran engineers
-		ScenarioFramework.AddRestriction(player, M1CybranTech2NotAllowed)
-	end
+    for _, player in ScenarioInfo.HumanPlayers do
+        -- prevent all units from building t3 units, except t3 air factories, spy planes
+        ScenarioFramework.AddRestriction(player, categories.TECH3 - categories.ueb0302 - categories.urb0302 -  categories.uea0302 - categories.ura0302)
+        -- prevent building t2 restricted units
+        ScenarioFramework.AddRestriction(player, M1UEFTech2NotAllowed)
+        -- prevent building cybran t2 restricted units, should the player capture cybran engineers
+        ScenarioFramework.AddRestriction(player, M1CybranTech2NotAllowed)
+    end
     -- Commander enhancements
     ScenarioFramework.RestrictEnhancements({'T3Engineering',
                                             'ShieldGeneratorField',
@@ -401,8 +401,8 @@ function M1OnExpansionBaseDestroyed()
         holdTime = 4,
         orientationOffset = { 2.7, 0.1, 0 },
         positionOffset = { 0, 0.5, 0 },
-      	zoomVal = 30,
-    	markerCam = true,
+          zoomVal = 30,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), camInfo)
 end
@@ -414,12 +414,12 @@ function M1OnLabCaptured(success, units)
         ScenarioFramework.Dialogue(OpStrings.E04_M01_050)
 -- labs captured cam
         local camInfo = {
-        	blendTime = 1.0,
-        	holdTime = 4,
-        	orientationOffset = { -2.1, 0.4, 0 },
-        	positionOffset = { 0, 1, 0 },
-        	markerCam = true,
-        	zoomVal = 35,
+            blendTime = 1.0,
+            holdTime = 4,
+            orientationOffset = { -2.1, 0.4, 0 },
+            positionOffset = { 0, 1, 0 },
+            markerCam = true,
+            zoomVal = 35,
         }
         ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('York18_Cam'), camInfo)
     else
@@ -433,8 +433,8 @@ function M1OnLabCaptured(success, units)
             positionOffset = { 0, 4, 0 },
             zoomVal = 35,
             spinSpeed = 0.03,
-        	markerCam = true,
-        	overrideCam = true,
+            markerCam = true,
+            overrideCam = true,
         }
         ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('York18_Cam'), camInfo)
     end
@@ -487,7 +487,7 @@ function StartMission2()
     local cdrPlatoon = ArmyBrains[ScenarioInfo.Cybran]:MakePlatoon(' ', ' ')
     ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
     --import('/lua/ai/AIBehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
-	cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
+    cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
     ArmyBrains[ScenarioInfo.Cybran]:DisbandPlatoon(cdrPlatoon)
 
     -- Outer defense
@@ -813,11 +813,11 @@ function M2OnTruckEscaped(result)
 -- NIS of Truck Escaping
         local unit = ScenarioInfo.M2EscapeTruck:GetPlatoonUnits()[1]
         local camInfo = {
-        	blendTime = 1.0,
-        	holdTime = 4,
-        	orientationOffset = { -2.0, 0.6, 0 },
-        	positionOffset = { 0, 1, 0 },
-        	zoomVal = 30,
+            blendTime = 1.0,
+            holdTime = 4,
+            orientationOffset = { -2.0, 0.6, 0 },
+            positionOffset = { 0, 1, 0 },
+            zoomVal = 30,
         }
         ScenarioFramework.OperationNISCamera(unit, camInfo)
 
@@ -837,7 +837,7 @@ function M2OnTruckEscaped(result)
                     positionOffset = { 0, 0.5, 0 },
                     zoomVal = 15,
                     spinSpeed = 0.03,
-                	overrideCam = true,
+                    overrideCam = true,
                 }
                 ScenarioFramework.OperationNISCamera(unit, camInfo)
 
@@ -1188,7 +1188,7 @@ function M3FrenzySpawnPlatoon()
     local frenzyPlatoon = ArmyBrains[ScenarioInfo.Cybran]:MakePlatoon(' ', ' ')
     for i = 1,M3FrenzyPlatoonCount do
         local tempUnits = ScenarioUtils.CreateArmyGroup('Cybran', groupName)
-	    ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(frenzyPlatoon, tempUnits, 'Attack', 'AttackFormation')
+        ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(frenzyPlatoon, tempUnits, 'Attack', 'AttackFormation')
     end
 
     local spawnpoint = ScenarioUtils.MarkerToPosition('M3_Spawn_Point_' .. Random(1, 3)..'_'..Random(1, 4))
@@ -1279,7 +1279,7 @@ function M3OnSpiderbotSpotted(blip)
                         positionOffset = { 0, 0.5, 0 },
                         zoomVal = 25,
                         spinSpeed = 0.03,
-                    	overrideCam = true,
+                        overrideCam = true,
                     }
                     ScenarioFramework.OperationNISCamera(unit, camInfo)
 

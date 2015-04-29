@@ -441,7 +441,7 @@ function M1CityBuildingDestroyed(unit)
         Objectives.UpdateBasicObjective(ScenarioInfo.M1P1Objective, 'progress', LOCF(OpStrings.M1P1Progress, math.floor(((ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsAlive) / ScenarioInfo.M1CityBuildingsTotal) * 100), M1DestroyCityGoalPercentage))
 
         if(ScenarioInfo.M1CityBuildingsAlive <(ScenarioInfo.M1CityBuildingsTotal - ScenarioInfo.M1CityBuildingsTotal *(M1DestroyCityGoalPercentage / 100))) then
-		LOG("city destroyed")
+        LOG("city destroyed")
 -- new catalon destroyed
             local citymarker = ScenarioUtils.MarkerToPosition("M1_New_Catalon")
             local camInfo = {
@@ -458,8 +458,8 @@ function M1CityBuildingDestroyed(unit)
             -- finish the objective
             ScenarioInfo.M1P1Objective:ManualResult(true)
             -- check to see if both objectives are complete
-			LOG("city destroyed")
-			LOG(ScenarioInfo.M1P2Complete)
+            LOG("city destroyed")
+            LOG(ScenarioInfo.M1P2Complete)
             if ScenarioInfo.M1P2Complete then
                 EndMission1()
             end

@@ -411,8 +411,8 @@ function ArnoldFlyover()
     ScenarioInfo.Flyover.PlatoonData = {}
     ScenarioInfo.Flyover.PlatoonData.MoveRoute = {'FlyoverDeath'}
     ScenarioPlatoonAI.MoveToThread(ScenarioInfo.Flyover)
-	WaitSeconds(10)
-	KillFlyover()
+    WaitSeconds(10)
+    KillFlyover()
     --ScenarioFramework.CreateAreaTrigger(KillFlyover, ScenarioUtils.AreaToRect('FlyoverDeath'), categories.UEF,
       -- true, false, ArmyBrains[arnold], table.getn(ScenarioInfo.Flyover:GetPlatoonUnits()))
 end
@@ -663,9 +663,9 @@ function IntroMission6()
 
     -- Turn off airbase builders
     for k, v in ArmyBrains[cybran]:GetPlatoonsList() do
-	    if(v.BuilderName == 'AirBase_Engineers_D' .. ScenarioInfo.Options.Difficulty) then
-		    v.PlatoonData.MaintainBaseTemplate = false
-	    end
+        if(v.BuilderName == 'AirBase_Engineers_D' .. ScenarioInfo.Options.Difficulty) then
+            v.PlatoonData.MaintainBaseTemplate = false
+        end
     end
 
     -- Cybran Defensive Line

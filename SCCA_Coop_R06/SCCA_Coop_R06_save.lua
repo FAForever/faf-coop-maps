@@ -1456,9 +1456,9 @@ Scenario = {
             Alliances = {
                 ['Aeon'] = 'Enemy',
                 ['UEF'] = 'Enemy',
-				['Coop1'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Coop3'] = 'Ally',				
+                ['Coop1'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Coop3'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -2263,9 +2263,9 @@ Scenario = {
             Alliances = {
                 ['Aeon'] = 'Enemy',
                 ['UEF'] = 'Enemy',
-				['Player'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Coop3'] = 'Ally',				
+                ['Player'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Coop3'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -3070,9 +3070,9 @@ Scenario = {
             Alliances = {
                 ['Aeon'] = 'Enemy',
                 ['UEF'] = 'Enemy',
-				['Coop1'] = 'Ally',
-				['Player'] = 'Ally',
-				['Coop3'] = 'Ally',				
+                ['Coop1'] = 'Ally',
+                ['Player'] = 'Ally',
+                ['Coop3'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -3877,9 +3877,9 @@ Scenario = {
             Alliances = {
                 ['Aeon'] = 'Enemy',
                 ['UEF'] = 'Enemy',
-				['Coop1'] = 'Ally',
-				['Coop2'] = 'Ally',
-				['Player'] = 'Ally',				
+                ['Coop1'] = 'Ally',
+                ['Coop2'] = 'Ally',
+                ['Player'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -4670,7 +4670,7 @@ Scenario = {
                 Builders = {
                 },
             },
-        },		
+        },
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
@@ -4812,9 +4812,9 @@ Scenario = {
                 ['Aeon'] = 'Enemy',
                 ['BlackSun'] = 'Ally',
                 ['Player'] = 'Enemy',
-				['Coop1'] = 'Enemy',
-				['Coop2'] = 'Enemy',
-				['Coop3'] = 'Enemy',				
+                ['Coop1'] = 'Enemy',
+                ['Coop2'] = 'Enemy',
+                ['Coop3'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -15096,9 +15096,9 @@ Scenario = {
                 ['BlackSun'] = 'Enemy',
                 ['Player'] = 'Enemy',
                 ['UEF'] = 'Enemy',
-				['Coop1'] = 'Enemy',
-				['Coop2'] = 'Enemy',
-				['Coop3'] = 'Enemy',					
+                ['Coop1'] = 'Enemy',
+                ['Coop2'] = 'Enemy',
+                ['Coop3'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',

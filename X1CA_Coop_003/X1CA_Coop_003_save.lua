@@ -5572,7 +5572,7 @@ Scenario = {
                 "M1_Rhiza_Naval_Attack2_6",
             },
         },
-	['M1_Rhiza_Naval_Attack3_Chain'] = {
+    ['M1_Rhiza_Naval_Attack3_Chain'] = {
             Markers = {
                 "M1_Seraph_Air_Def_2",
                 "Blank Marker 44",
@@ -10260,14 +10260,14 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
-						    ['Ythota_North'] = {
+                            ['Ythota_North'] = {
                                 type = 'xsl0401',
                                 orders = '',
                                 platoon = '',
                                 Position = { 1032.500000, 18.000000, 295.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-						    ['Ythota_South'] = {
+                            ['Ythota_South'] = {
                                 type = 'xsl0401',
                                 orders = '',
                                 platoon = '',
@@ -20599,7 +20599,7 @@ Scenario = {
                             },
                         },
                         },
-						['Rhiza_Base_Wreckage'] = GROUP {
+                        ['Rhiza_Base_Wreckage'] = GROUP {
                                 orders = '',
                                 platoon = '',
                                 Units = {
@@ -20618,7 +20618,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1093'] = {
-                                type = 'uab2301',	-- originally uab2204
+                                type = 'uab2301',    -- originally uab2204
                                 orders = '',
                                 platoon = '',
                                 Position = { 158.500000, 17.992188, 724.500000 },
@@ -20743,9 +20743,9 @@ Scenario = {
                                 Position = { 125.500000, 18.000000, 752.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
-							},
-							},
-							    
+                            },
+                            },
+
                             ['UNIT_2286'] = {
                                 type = 'uab1106',
                                 orders = '',
@@ -21182,7 +21182,7 @@ Scenario = {
                             },
                         },
                     },
-		            ['M2'] = GROUP {
+                    ['M2'] = GROUP {
                         orders = '',
                         platoon = '',
                         Units = {

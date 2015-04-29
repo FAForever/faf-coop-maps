@@ -548,9 +548,9 @@ function SeraphimM3SouthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
-		
-	-- sends 20 frigate power
-	for i = 1, 2 do
+
+    -- sends 20 frigate power
+    for i = 1, 2 do
     opai = SeraphimM3SouthBase:AddNavalAI('M3South_NavalAttack6' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -562,7 +562,7 @@ function SeraphimM3SouthBaseNavalAttacks()
             Priority = 130,
         }
     )
-	end
+    end
 end
 
 function DisableBase()

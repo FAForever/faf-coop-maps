@@ -216,8 +216,8 @@ function OnPopulate()
     -- Rhiza M1 AI
     -------------
     M1RhizaAI.M1RhizaBaseAI()
-	
-	ForkThread(CheatEcoRhiza)
+
+    ForkThread(CheatEcoRhiza)
 
     -----------------------
     -- Rhiza Initial Patrols
@@ -803,11 +803,11 @@ function IntroMission2()
                     v:GiveTacticalSiloAmmo(5)
                 end
             end
-			
-			-------------------
-			-- Rhiza's Colossus
-			-------------------
-			M1RhizaAI.M1RhizaBaseExperimentalAttacks()
+
+            -------------------
+            -- Rhiza's Colossus
+            -------------------
+            M1RhizaAI.M1RhizaBaseExperimentalAttacks()
 
             ----------------
             -- Aeon Secondary
@@ -839,13 +839,13 @@ end
 
 function ColossusPing(platoon)
     local Colossus = ArmyBrains[Rhiza]:GetListOfUnits(categories.ual0401, false)
-	
-	ScenarioInfo.RhizaColossus = Colossus[1]
+
+    ScenarioInfo.RhizaColossus = Colossus[1]
     ScenarioInfo.ColossusPing = PingGroups.AddPingGroup(OpStrings.X03_M01_PNG_010_010, 'ual0401', 'move', OpStrings.X03_M01_PNG_010_015)
     ScenarioInfo.ColossusPing:AddCallback(ColossusPingActivate)
-	
-	ScenarioFramework.CreateUnitDestroyedTrigger(ColossusDead, ScenarioInfo.RhizaColossus)
-	
+
+    ScenarioFramework.CreateUnitDestroyedTrigger(ColossusDead, ScenarioInfo.RhizaColossus)
+
 end
 
 function ColossusPingActivate(location)

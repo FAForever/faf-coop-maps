@@ -299,13 +299,13 @@ function PlayerWin()
                 Cinematics.EnterNISMode()
                 local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player])
 
-        	    WaitSeconds(1)
-        	    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
-        	    WaitSeconds(1)
-        	    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_2'), 8)
-        	    WaitSeconds(3)
-        	    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_3'), 4)
-        	    WaitSeconds(3)
+                WaitSeconds(1)
+                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
+                WaitSeconds(1)
+                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_2'), 8)
+                WaitSeconds(3)
+                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_3'), 4)
+                WaitSeconds(3)
 
                 ForkThread(KillGameWin)
             end
@@ -744,13 +744,13 @@ end
 
 function RhizaNavyPing(platoon)
     local tempest = ArmyBrains[Rhiza]:GetListOfUnits(categories.uas0401, false)
-	
-	ScenarioInfo.RhizaTempest = tempest[1]
+
+    ScenarioInfo.RhizaTempest = tempest[1]
     ScenarioInfo.RhizaTempestPing = PingGroups.AddPingGroup(OpStrings.X06_M01_OBJ_010_010, 'uas0401', 'move', OpStrings.X06_M01_OBJ_010_020)
     ScenarioInfo.RhizaTempestPing:AddCallback(RhizaTempestPingActivate)
-	
-	ScenarioFramework.CreateUnitDestroyedTrigger(RhizaTempestDead, ScenarioInfo.RhizaTempest)
-	
+
+    ScenarioFramework.CreateUnitDestroyedTrigger(RhizaTempestDead, ScenarioInfo.RhizaTempest)
+
 end
 
 function RhizaTempestPingActivate(location)
@@ -1574,8 +1574,8 @@ function M2OptionZeroRhizaNuke()
     local nukeLocationsSeraphim = {'M3_Seraph_NukeTarget_9', 'M2_RhizaNukeTarget_3', 'M3_Rhiza_Naval_1'}
     local nukeFletcherOrder = {'M2_Fletcher_Base_Marker', 'M2_Order_Base_Marker'}
     local numS = table.getn(ArmyBrains[Seraphim]:GetListOfUnits(categories.STRUCTURE, false))
-	local numO = table.getn(ArmyBrains[Order]:GetListOfUnits(categories.STRUCTURE, false))
-	local numF = table.getn(ArmyBrains[Fletcher]:GetListOfUnits(categories.STRUCTURE, false))
+    local numO = table.getn(ArmyBrains[Order]:GetListOfUnits(categories.STRUCTURE, false))
+    local numF = table.getn(ArmyBrains[Fletcher]:GetListOfUnits(categories.STRUCTURE, false))
     local M3nukeLocations = {'M3_Seraph_Return_Point_1', 'M3_Rhiza_Transport_3', 'M3_Rhiza_Transport_2', 'M2_Seraph_LandSouth_Def_3', 'M2_Seraph_LandSouth_Def_2'}
 
     if(ScenarioInfo.ControlCenterPossession == Rhiza and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
@@ -1586,33 +1586,33 @@ function M2OptionZeroRhizaNuke()
             -- nuke Seraphim
             if(numS >= 8) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeLocationsSeraphim[Random(1, 3)]))
-				LOG('*DEBUG: Rhiza launched nuke at Seraphim')
+                LOG('*DEBUG: Rhiza launched nuke at Seraphim')
 
             -- nuke Order / Fletcher
             elseif(not ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
-			    if(numO >= numF) then	-- Nuke Vendetta
+                if(numO >= numF) then    -- Nuke Vendetta
                     IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
-				    LOG('*DEBUG: Rhiza launched nuke at Vendetta')
-				elseif(numO < numF) then
+                    LOG('*DEBUG: Rhiza launched nuke at Vendetta')
+                elseif(numO < numF) then
                     IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[1]))
-				    LOG('*DEBUG: Rhiza launched nuke at Fletcher')
-				end
+                    LOG('*DEBUG: Rhiza launched nuke at Fletcher')
+                end
 
             -- nuke Fletcher
             elseif(ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[1]))
-				LOG('*DEBUG: Rhiza launched nuke at Fletcher')
+                LOG('*DEBUG: Rhiza launched nuke at Fletcher')
 
             -- nuke Order
             elseif(not ScenarioInfo.OrderACU:IsDead() and ScenarioInfo.FletcherACU:IsDead()) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
-				LOG('*DEBUG: Rhiza launched nuke at Vendetta')
+                LOG('*DEBUG: Rhiza launched nuke at Vendetta')
 
             end
 
         elseif(ScenarioInfo.MissionNumber == 3) then
             IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(M3nukeLocations[Random(1, 5)]))
-			LOG('*DEBUG: Rhiza launched nuke at Seraphim Main Base')
+            LOG('*DEBUG: Rhiza launched nuke at Seraphim Main Base')
         end
 
         ScenarioInfo.NukeTimer = ScenarioFramework.CreateTimerTrigger(NukeTimer, 300)
@@ -1631,13 +1631,13 @@ end
 function NukeTimer()
     if(ScenarioInfo.ControlCenterPossession == Fletcher) then
         M2OptionZeroFletcherNuke()
-		LOG('*DEBUG: Fletcher ready to launch nuke')
+        LOG('*DEBUG: Fletcher ready to launch nuke')
     elseif(ScenarioInfo.ControlCenterPossession == Rhiza) then
         M2OptionZeroRhizaNuke()
-		LOG('*DEBUG: Rhiza ready to launch nuke')
+        LOG('*DEBUG: Rhiza ready to launch nuke')
     elseif(ScenarioInfo.ControlCenterPossession == Order) then
         M2OptionZeroOrderNuke()
-		LOG('*DEBUG: Order ready to launch nuke')
+        LOG('*DEBUG: Order ready to launch nuke')
     elseif(ScenarioInfo.ControlCenterPossession == Player) then
         ScenarioInfo.NukePing = PingGroups.AddPingGroup(OpStrings.X06_M01_OBJ_010_030, nil, 'attack', OpStrings.X06_M01_OBJ_010_040)
         ScenarioInfo.NukePing:AddCallback(M2OptionZeroPlayerNuke)
@@ -1804,16 +1804,16 @@ function IntroMission3NIS()
             local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_2'), 0, ArmyBrains[Player])
             local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_3'), 0, ArmyBrains[Player])
 
-		    WaitSeconds(1)
-		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
-		    WaitSeconds(1)
-		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 8)
-		    WaitSeconds(3)
-		    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 4)
-		    WaitSeconds(3)
+            WaitSeconds(1)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+            WaitSeconds(1)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 8)
+            WaitSeconds(3)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 4)
+            WaitSeconds(3)
 
             Cinematics.SetInvincible('M2Area', true)
-		    Cinematics.ExitNISMode()
+            Cinematics.ExitNISMode()
             VisMarker1:Destroy()
             VisMarker2:Destroy()
             VisMarker3:Destroy()

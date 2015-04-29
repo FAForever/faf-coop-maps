@@ -763,11 +763,11 @@ end
 
 function M2T3FactoryBuilt()
     local factory = ArmyBrains[Fletcher]:GetListOfUnits(categories.FACTORY * categories.AIR, false)
-	
+
     IssueStop({ScenarioInfo.FletcherCDR})
     IssueClearCommands({ScenarioInfo.FletcherCDR})
-	
-	IssueGuard({ScenarioInfo.FletcherCDR}, factory[2])
+
+    IssueGuard({ScenarioInfo.FletcherCDR}, factory[2])
 
     ScenarioFramework.CreateArmyStatTrigger(M2T3AirFactory2Built, ArmyBrains[Fletcher], 'M2T3AirFactory2Built',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.ueb0302}})
@@ -775,11 +775,11 @@ end
 
 function M2T3AirFactory2Built()
     local factory = ArmyBrains[Fletcher]:GetListOfUnits(categories.FACTORY * categories.LAND, false)
-	
+
     IssueStop({ScenarioInfo.FletcherCDR})
     IssueClearCommands({ScenarioInfo.FletcherCDR})
-	
-	IssueGuard({ScenarioInfo.FletcherCDR}, factory[1])
+
+    IssueGuard({ScenarioInfo.FletcherCDR}, factory[1])
 
     ScenarioFramework.CreateArmyStatTrigger(M2T3LandFactoryBuilt, ArmyBrains[Fletcher], 'M2T3LandFactoryBuilt',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0301}})

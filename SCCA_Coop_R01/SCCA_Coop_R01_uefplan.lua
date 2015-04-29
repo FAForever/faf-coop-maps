@@ -12,7 +12,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 ScenarioInfo.UEFPlanRunOnce = false
 
 function EvaluatePlan( brain )
-	return 100
+    return 100
 end
 
 function BuildStructures( brain )
@@ -22,8 +22,8 @@ function BuildUnits( brain )
 end
 
 function ExecutePlan( brain )
-	BuildStructures( brain )
-	BuildUnits( brain )
+    BuildStructures( brain )
+    BuildUnits( brain )
 end
 
 

@@ -41,7 +41,7 @@ function RhizaM2BaseAI()
         }
     )
 
-    RhizaM2Base:StartNonZeroBase({30, 26})	-- ({30, 26}) ({13, 13})
+    RhizaM2Base:StartNonZeroBase({30, 26})    -- ({30, 26}) ({13, 13})
     RhizaM2Base:SetMaximumConstructionEngineers(3)
 
     RhizaM2Base:SetActive('LandScouting', true)
@@ -53,47 +53,47 @@ function RhizaM2BaseAI()
     RhizaM2BaseLandAttacks()
     RhizaM2BaseNavalAttacks()
     RhizaTransportAttacks()
-	CustomBuilders()
+    CustomBuilders()
 end
 
 function CustomBuilders()
 
     -- ################
-	-- LAND PLATOONS #
-	-- ################
-	
-	local PrebuiltLandTemplate = {
+    -- LAND PLATOONS #
+    -- ################
+
+    local PrebuiltLandTemplate = {
         'PrebuiltLandTemplate',
         'NoPlan',
-        { 'ual0303', 1, 60, 'Attack', 'GrowthFormation' },	-- Siege Bots
-		{ 'xal0203', 1, 60, 'Attack', 'GrowthFormation' },	-- Hover Tanks
-		{ 'ual0304', 1, 60, 'Attack', 'GrowthFormation' },	-- Heavy Arty
+        { 'ual0303', 1, 60, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'xal0203', 1, 60, 'Attack', 'GrowthFormation' },    -- Hover Tanks
+        { 'ual0304', 1, 60, 'Attack', 'GrowthFormation' },    -- Heavy Arty
     }
     local PrebuiltLandBuilder = {
         BuilderName = 'PrebuiltLandBuilder',
         PlatoonTemplate = PrebuiltLandTemplate,
-		InstanceCount = 20,
+        InstanceCount = 20,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = false,
         LocationType = 'M2_Rhiza_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M2_Rhiza_LandDef_Chain',
             NoFormation = true,
         },
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( PrebuiltLandBuilder )
-	
-	local EngineerLandTemp = {
+
+    local EngineerLandTemp = {
         'EngineerLandTemp',
         'NoPlan',
-        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },	-- Engineers
+        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },    -- Engineers
     }
     local EngineerLandBuilder = {
         BuilderName = 'EngineerLandBuilder',
         PlatoonTemplate = EngineerLandTemp,
-		InstanceCount = 20,
+        InstanceCount = 20,
         PlatoonAIPlan = 'DisbandAI',
         Priority = 5115,
         PlatoonType = 'Land',
@@ -104,20 +104,20 @@ function CustomBuilders()
         LocationType = 'M2_Rhiza_Base',
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
-	
-	-- ###############
-	-- AIR PLATOONS #
-	-- ###############
-	
-	local EngineerAirTemp = {
+
+    -- ###############
+    -- AIR PLATOONS #
+    -- ###############
+
+    local EngineerAirTemp = {
         'EngineerAirTemp',
         'NoPlan',
-        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },	-- Engineers
+        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },    -- Engineers
     }
     local EngineerAirBuilder = {
         BuilderName = 'EngineerAirBuilder',
         PlatoonTemplate = EngineerAirTemp,
-		InstanceCount = 5,
+        InstanceCount = 5,
         PlatoonAIPlan = 'DisbandAI',
         Priority = 5115,
         PlatoonType = 'Air',
@@ -128,8 +128,8 @@ function CustomBuilders()
         LocationType = 'M2_Rhiza_Base',
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerAirBuilder )
-	
-	local AirTemplateTRANSPORTS = {
+
+    local AirTemplateTRANSPORTS = {
         'AirTemplateTRANSPORTS',
         'NoPlan',
         { 'uaa0104', 1, 8, 'Attack', 'GrowthFormation' },
@@ -147,7 +147,7 @@ function CustomBuilders()
         PlatoonAIFunction = {SPAIFileName, 'TransportPool'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( AirTRANSPORTSbuilder )
-	
+
     local AirTemplateFIGHTER_TORPEDO_SCOUT = {
         'AirTemplateFIGHTER_TORPEDO_SCOUT',
         'NoPlan',
@@ -167,20 +167,20 @@ function CustomBuilders()
         PlatoonAIFunction = {ThisFile, 'RhizaNavalAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( Air1Builder )
-	
-	-- ###############
-	-- SEA PLATOONS #
-	-- ###############
-	
-	local EngineerSeaTemp = {
+
+    -- ###############
+    -- SEA PLATOONS #
+    -- ###############
+
+    local EngineerSeaTemp = {
         'EngineerSeaTemp',
         'NoPlan',
-        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },	-- Engineers
+        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },    -- Engineers
     }
     local EngineerSeaBuilder = {
         BuilderName = 'EngineerSeaBuilder',
         PlatoonTemplate = EngineerSeaTemp,
-		InstanceCount = 10,
+        InstanceCount = 10,
         PlatoonAIPlan = 'DisbandAI',
         Priority = 5115,
         PlatoonType = 'Sea',
@@ -191,13 +191,13 @@ function CustomBuilders()
         LocationType = 'M2_Rhiza_Base',
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerSeaBuilder )
-	
+
     local NavalFleettemp1 = {
         'NavalFleettemp1',
         'NoPlan',
-        { 'uas0201', 1, 2, 'Attack', 'GrowthFormation' },	-- Destroyers
-        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	-- Cruisers
-        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },	-- Sub Hunters
+        { 'uas0201', 1, 2, 'Attack', 'GrowthFormation' },    -- Destroyers
+        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },    -- Cruisers
+        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },    -- Sub Hunters
     }
     local Navy1Builder = {
         BuilderName = 'Navy1Builder',
@@ -209,22 +209,22 @@ function CustomBuilders()
         PlatoonAIFunction = {ThisFile, 'RhizaNavalAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( Navy1Builder )
-	
-	local NavalDefensetemp1 = {
+
+    local NavalDefensetemp1 = {
         'NavalDefensetemp1',
         'NoPlan',
-        { 'uas0202', 1, 3, 'Attack', 'GrowthFormation' },	-- Cruisers
+        { 'uas0202', 1, 3, 'Attack', 'GrowthFormation' },    -- Cruisers
     }
     local NavyDefenseCruisersBuilder = {
         BuilderName = 'NavyDefenseCruisersBuilder',
         PlatoonTemplate = NavalDefensetemp1,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 120,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Rhiza_Base',
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonData = {
             PatrolChain = 'M2_Rhiza_NavalDef_Chain',
         },
     }
@@ -418,14 +418,14 @@ function RhizaM2BaseNavalAttacks()
     local opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack1',
         {
             MasterPlatoonFunction = {ThisFile, 'RhizaNavalAI'},
-            MaxFrigates = 20,		-- No Cruiser
+            MaxFrigates = 20,        -- No Cruiser
             MinFrigates = 20,
             Priority = 110,
         }
     )
 
     for i = 1, 2 do
-	    ai = {'RhizaNavalAI', 'RhizaNavyToFletcherFirstAI'}
+        ai = {'RhizaNavalAI', 'RhizaNavyToFletcherFirstAI'}
         -- sends 15 frigate power
         opai = RhizaM2Base:AddNavalAI('M2_RhizaNavalAttack2' .. i,
             {
@@ -457,7 +457,7 @@ function RhizaM2BaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-	opai:SetLockingStyle('DeathTimer', {LockTimer = 45})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 45})
 
     -- sends 22 frigate power (mission 3)
     opai = RhizaM2Base:AddNavalAI('M3_RhizaNavalAttack1',
@@ -619,7 +619,7 @@ function RhizaTransportAttacks()
         }
     )
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, 8)
-	opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
 
     opai = RhizaM2Base:AddOpAI('BasicLandAttack', 'M2_RhizaTransportAttack2',
         {
@@ -633,7 +633,7 @@ function RhizaTransportAttacks()
         }
     )
     opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 8)
-	opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
 
     opai = RhizaM2Base:AddOpAI('BasicLandAttack', 'M2_RhizaTransportAttack3',
         {
@@ -647,8 +647,8 @@ function RhizaTransportAttacks()
         }
     )
     opai:SetChildQuantity({'SiegeBots'}, 4)
-	opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
-	opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.uaa0104})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.uaa0104})
 
     -- Mission 3
     for i = 1, 2 do

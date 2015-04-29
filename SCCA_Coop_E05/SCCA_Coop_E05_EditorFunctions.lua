@@ -32,7 +32,7 @@ end
 -- #############################################################################################################
 -- function: BigAeonAttackAddFunction = AddFunction   doc = "Fires when Arnold's big attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function BigAeonAttackAddFunction(platoon)
@@ -45,7 +45,7 @@ end
 -- #############################################################################################################
 -- function: AeonMainBaseAttackAddFunction = AddFunction   doc = "Fires when the Aeon main base attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function AeonMainBaseAttackAddFunction(platoon)
@@ -98,7 +98,7 @@ end
 -- #############################################################################################################
 -- function: AeonNuke2BasePatrolAddFunction = AddFunction   doc = "Fires when the Aeon Nuke2 base patrol gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function AeonNuke2BasePatrolAddFunction(platoon)
@@ -116,7 +116,7 @@ end
 -- #############################################################################################################
 -- function: AeonNuke3BasePatrolAddFunction = AddFunction   doc = "Fires when the Aeon Nuke3 base patrol gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function AeonNuke3BasePatrolAddFunction(platoon)
@@ -134,7 +134,7 @@ end
 -- #############################################################################################################
 -- function: AeonM2SecondBaseAttackAddFunction = AddFunction   doc = "Fires when the Aeon second base Cybran attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function AeonM2SecondBaseAttackAddFunction(platoon)
@@ -154,7 +154,7 @@ end
 -- #############################################################################################################
 -- function: CybranWAttackAddFunction = AddFunction   doc = "Fires when the Aeon second base Cybran attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function CybranWAttackAddFunction(platoon)
@@ -170,7 +170,7 @@ end
 -- #############################################################################################################
 -- function: CybranNNWAttackAddFunction = AddFunction   doc = "Fires when the Cybran NNW Base Player attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function CybranNNWAttackAddFunction(platoon)
@@ -212,7 +212,7 @@ end
 -- #############################################################################################################
 -- function: CybranNWAttackAddFunction = AddFunction   doc = "Fires when the Cybran NW Base Player attack gets created"
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function CybranNWAttackAddFunction(platoon)

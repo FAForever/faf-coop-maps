@@ -488,25 +488,25 @@ function OnStart(self)
 
     -- Take away units that the player shouldn't have access to
 
-	local tblArmy = ListArmies()
-	for _, player in Players do
-		for iArmy, strArmy in pairs(tblArmy) do
-			if iArmy == player then
-				ScenarioFramework.AddRestriction(player, 
-					categories.TECH3 +  -- All T3 units
-					categories.EXPERIMENTAL + -- All experimental units
-					categories.urb4202 + -- T2 Shield Generator
-					categories.urb4204 +
-					categories.urb4205 +
-					categories.urb4206 +
-					categories.urb4207 +
-					categories.urb2303 + -- Light Artillery Installation
-					categories.urb2108 + -- Tactical Missile Launcher
-					categories.ura0104 + -- T2 Transport
-					categories.ura0302 + -- Spy Plane
-					categories.url0306 + -- Mobile Stealth Generator
-					categories.urs0202 + -- Cruiser
-					categories.urb5202 + -- Air Staging Platform
+    local tblArmy = ListArmies()
+    for _, player in Players do
+        for iArmy, strArmy in pairs(tblArmy) do
+            if iArmy == player then
+                ScenarioFramework.AddRestriction(player,
+                    categories.TECH3 +  -- All T3 units
+                    categories.EXPERIMENTAL + -- All experimental units
+                    categories.urb4202 + -- T2 Shield Generator
+                    categories.urb4204 +
+                    categories.urb4205 +
+                    categories.urb4206 +
+                    categories.urb4207 +
+                    categories.urb2303 + -- Light Artillery Installation
+                    categories.urb2108 + -- Tactical Missile Launcher
+                    categories.ura0104 + -- T2 Transport
+                    categories.ura0302 + -- Spy Plane
+                    categories.url0306 + -- Mobile Stealth Generator
+                    categories.urs0202 + -- Cruiser
+                    categories.urb5202 + -- Air Staging Platform
                     categories.xrl0302 + -- Cybran Mobile Bomb
                     categories.xra0105 + -- Cybran Light Gunship
                     categories.xrs0204 + -- Cybran Sub Killer
@@ -528,17 +528,17 @@ function OnStart(self)
                     categories.xaa0305 + -- Aeon AA Gunship
                     categories.daa0206 + -- Aeon Mercy
                     categories.dal0310 + -- Aeon Shield Disruptor
-					categories.urb4201 ) -- T2 Anti-Missile Gun
+                    categories.urb4201 ) -- T2 Anti-Missile Gun
 
-				ScenarioFramework.RestrictEnhancements({'StealthGenerator',
-					'T3Engineering',
-					'Teleporter',})
+                ScenarioFramework.RestrictEnhancements({'StealthGenerator',
+                    'T3Engineering',
+                    'Teleporter',})
 
-				ScenarioFramework.StartOperationJessZoom( 'Start_Camera_Area', BeginMission1)
-			end
-		end
-	end
-end			
+                ScenarioFramework.StartOperationJessZoom( 'Start_Camera_Area', BeginMission1)
+            end
+        end
+    end
+end
 
 function BeginMission1()
     ScenarioInfo.VarTable['Mission1'] = true
@@ -598,24 +598,24 @@ function BeginMission1()
 
     -- Player commander unit
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit( 'Player', 'Commander' )
-	ScenarioInfo.CoopCDR = {}
-	local tblArmy = ListArmies()
-	coop = 1
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
-			IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_1' ))		
-			IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_2' ))
-			coop = coop + 1
-			WaitSeconds(0.5)
-		end
-	end
-	
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
+            IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_1' ))
+            IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_2' ))
+            coop = coop + 1
+            WaitSeconds(0.5)
+        end
+    end
+
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     for index, coopACU in ScenarioInfo.CoopCDR do
         ScenarioFramework.PauseUnitDeath(coopACU)
         ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, coopACU)
-    end	
+    end
     ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
 
     -- ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()

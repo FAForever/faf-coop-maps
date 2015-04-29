@@ -34,10 +34,10 @@ function DostyaBaseAI()
 -- ScenarioUtils.CreateArmyGroup('Dostya', 'M2_Dostya_Base_Defenders')
 
     DostyaBase:Initialize(ArmyBrains[Dostya], 'Dostya_Base', 'DostyaAttack', 65,
-	{
-	    Dostya_Base = 100,
-	    Dostya_Wreckage = 90,
-	}
+    {
+        Dostya_Base = 100,
+        Dostya_Wreckage = 90,
+    }
     )
     DostyaBase:StartNonZeroBase({22, 18})
 
@@ -50,9 +50,9 @@ end
 function DostyaAirbaseAI()
 
     DostyaAirbase:Initialize(ArmyBrains[Dostya], 'Dostya_Airbase', 'Dostya_Airbase_Marker', 25,
-	{
-	    Dostya_Airbase = 100,
-	}
+    {
+        Dostya_Airbase = 100,
+    }
     )
     DostyaAirbase:StartNonZeroBase({5, 4})
     DostyaAirbase:SetActive('AirScouting', true)
@@ -227,10 +227,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NE_1_' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		    PlatoonData = {
-		        PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
+            PlatoonData = {
+                PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
                 NoFormation = true,
-		    },
+            },
             Priority = 110,
         })
         opai:SetChildQuantity('HeavyBots', 3)
@@ -238,10 +238,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NE_2_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
+        PlatoonData = {
+            PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
                     NoFormation = true,
-		},
+        },
                 Priority = 110,
             }
         )
@@ -250,10 +250,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NE_3_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
+        PlatoonData = {
+            PatrolChain = 'Dostya_NorthEast_Patrol_Chain',
                     NoFormation = true,
-		},
+        },
                 Priority = 109,
             }
         )
@@ -262,10 +262,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NW_1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
+        PlatoonData = {
+            PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
                     NoFormation = true,
-		},
+        },
                 Priority = 110,
             }
         )
@@ -274,10 +274,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NW_2_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
+        PlatoonData = {
+            PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
                     NoFormation = true,
-		},
+        },
                 Priority = 110,
             }
         )
@@ -286,10 +286,10 @@ function DostyaLandAttacks()
         opai = DostyaBase:AddOpAI('BasicLandAttack', 'Dostya_LandDefense_NW_3_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
+        PlatoonData = {
+            PatrolChain = 'Dostya_NorthWest_Patrol_Chain',
                     NoFormation = true,
-		},
+        },
                 Priority = 105,
             }
         )
@@ -320,8 +320,8 @@ function DostyaAI(platoon)
                 if(Random(1, 3) == 1) then
                     ScenarioFramework.PlatoonPatrolRoute(platoon, 'Dostya_M3_NorthAttackChain')
                 else
-	            ScenarioFramework.PlatoonPatrolRoute(platoon, 'Dostya_M3_SouthAttackChain')
-	        end
+                ScenarioFramework.PlatoonPatrolRoute(platoon, 'Dostya_M3_SouthAttackChain')
+            end
             end
         end
         WaitSeconds(3)

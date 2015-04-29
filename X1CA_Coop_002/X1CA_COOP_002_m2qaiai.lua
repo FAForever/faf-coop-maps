@@ -208,17 +208,17 @@ function QAIM2SouthBaseLandAttacks()
     ---------------------------------------
     -- QAI M2 South Base Op AI, Land Attacks
     ---------------------------------------
-	
-	for i = 1, 2 do
-	-- sends 6 [mobile flak, light bots]
+
+    for i = 1, 2 do
+    -- sends 6 [mobile flak, light bots]
     opai = QAIM2SouthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyEast' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyEastSiege'},
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'LightBots'}, 6)
-	
-	-- sends 6 [heavy tanks, light tanks]
+
+    -- sends 6 [heavy tanks, light tanks]
     opai = QAIM2SouthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyWest' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyWestSiege'},
@@ -226,7 +226,7 @@ function QAIM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'HeavyTanks', 'LightBots'}, 8)
-	end
+    end
 
     -- sends 6, 8, 9 [light artillery]
     quantity = {6, 8, 9}

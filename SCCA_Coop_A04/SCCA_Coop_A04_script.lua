@@ -353,13 +353,13 @@ function StartMission1()
     blockadeDestroyers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Destroyer_Blockade_Marker'), false)
     local blockadeCruisers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Cruiser_Blockade_D'..DiffLevel,
                                 'GrowthFormation')
-	marker = 1
+    marker = 1
     for k,v in blockadeCruisers:GetPlatoonUnits() do
         IssueMove({v}, ScenarioUtils.MarkerToPosition('Cybran_M1_Cruiser_Blockade_Marker_'..marker))
-		marker = marker + 1
-		marker = 1
-		if marker > 3 then
-		end
+        marker = marker + 1
+        marker = 1
+        if marker > 3 then
+        end
     end
     -- blockadeCruisers:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Cruiser_Blockade_Marker'), false)
 

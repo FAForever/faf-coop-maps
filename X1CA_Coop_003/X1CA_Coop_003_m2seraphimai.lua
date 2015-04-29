@@ -102,28 +102,28 @@ end
 
 function SeraphimM2NorthBaseExperimentals()
     local opai = nil
-	
-	local NorthYthPatrol = {
-	    'M2_Seraph_NorthBase_Eng_2',
-		'M2_Seraph_NorthBase_Eng_3',
-		'M2_Seraph_NorthBase_Eng_4',
-		'Blank Marker 33',
-		'Blank Marker 30',
-	}
-	
-	opai = SeraphimM2NorthBase:AddOpAI('Ythota_North',
+
+    local NorthYthPatrol = {
+        'M2_Seraph_NorthBase_Eng_2',
+        'M2_Seraph_NorthBase_Eng_3',
+        'M2_Seraph_NorthBase_Eng_4',
+        'Blank Marker 33',
+        'Blank Marker 30',
+    }
+
+    opai = SeraphimM2NorthBase:AddOpAI('Ythota_North',
         {
             Amount = Difficulty,
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},
-			PlatoonData = {
-			    PatrolRoute = NorthYthPatrol,
-			},
+            PlatoonData = {
+                PatrolRoute = NorthYthPatrol,
+            },
             MaxAssist = 5,
             Retry = true,
         }
     )
-	
+
     -- number of engineers to use
     local engineers = 6
     -- number of bombers to use
@@ -530,28 +530,28 @@ function SeraphimM2SouthBaseAI()
 
     SeraphimM2SouthBaseAirAttacks()
     SeraphimM2SouthBaseNavalAttacks()
-	SeraphimM2SouthBaseExperimentals()
+    SeraphimM2SouthBaseExperimentals()
 end
 
 function SeraphimM2SouthBaseExperimentals()
     local opai = nil
-	
-	local SouthYthPatrol = {
-	    'Seraphim_M2_South_Base',
-		'M2_Seraph_SouthBase_Eng_5',
-		'Seraphim_M2_South_Mass_Base',
-		'M2_Seraph_SouthBase_Eng_4',
-		'M2_Seraph_SouthBase_Eng_2',
-	}
-	
-	opai = SeraphimM2SouthBase:AddOpAI('Ythota_South',
+
+    local SouthYthPatrol = {
+        'Seraphim_M2_South_Base',
+        'M2_Seraph_SouthBase_Eng_5',
+        'Seraphim_M2_South_Mass_Base',
+        'M2_Seraph_SouthBase_Eng_4',
+        'M2_Seraph_SouthBase_Eng_2',
+    }
+
+    opai = SeraphimM2SouthBase:AddOpAI('Ythota_South',
         {
             Amount = Difficulty,
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},
-			PlatoonData = {
-			    PatrolRoute = SouthYthPatrol,
-			},
+            PlatoonData = {
+                PatrolRoute = SouthYthPatrol,
+            },
             MaxAssist = 5,
             Retry = true,
         }

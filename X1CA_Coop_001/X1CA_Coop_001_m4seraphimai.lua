@@ -109,12 +109,12 @@ function SeraphimM4SouthMainBaseAI()
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphSouth_Start_Eng_D' .. Difficulty)
     SeraphimM4SouthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_South_Base_Main', 'Seraphim_M3_South_Base_Marker', 50, {M3_South_Base_Main = 100,})
     SeraphimM4SouthMainBase:StartNonZeroBase({30, 24})
-	SeraphimM4SouthMainBase:SetMaximumConstructionEngineers(2)
-	SeraphimM4SouthMainBase:SetConstructionAlwaysAssist(true)
+    SeraphimM4SouthMainBase:SetMaximumConstructionEngineers(2)
+    SeraphimM4SouthMainBase:SetConstructionAlwaysAssist(true)
     -- SeraphimM4SouthMainBase:SetBuild('Defenses', false)
-	
-	SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_One_D2', 90)	
-	SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_Two_D2', 80)
+
+    SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_One_D2', 90)
+    SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_Two_D2', 80)
 
     SeraphimM4SouthMainBaseLandAttacks()
 end
@@ -186,13 +186,13 @@ function SeraphimM4AirMainBaseAI()
     ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphAir_Start_Eng_D' .. Difficulty)
     SeraphimM4AirMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
-    SeraphimM4AirMainBase:StartNonZeroBase({28, 24})		-- ({{5, 9, 28}, {4, 8, 20}})
+    SeraphimM4AirMainBase:StartNonZeroBase({28, 24})        -- ({{5, 9, 28}, {4, 8, 20}})
     SeraphimM4AirMainBase:SetActive('AirScouting', true)
     SeraphimM4AirMainBase:SetBuild('Defenses', false)
-	SeraphimM4AirMainBase:SetBuild('Shields', true)
-	
-	SeraphimM4AirMainBase:SetMaximumConstructionEngineers(4)
-	SeraphimM4AirMainBase:SetConstructionAlwaysAssist(true)
+    SeraphimM4AirMainBase:SetBuild('Shields', true)
+
+    SeraphimM4AirMainBase:SetMaximumConstructionEngineers(4)
+    SeraphimM4AirMainBase:SetConstructionAlwaysAssist(true)
 
     -- SeraphimM4AirMainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalLand')
     SeraphimM4AirMainBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalAir')
@@ -337,7 +337,7 @@ function SeraphimM4AirMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-	
+
     -- [air superiority]
     quantity = {8, 12, 16}
     opai = SeraphimM4AirMainBase:AddOpAI('AirAttacks', 'M4_AirMainDefense5',
@@ -350,7 +350,7 @@ function SeraphimM4AirMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-	
+
     -- [gunships]
     quantity = {8, 12, 16}
     opai = SeraphimM4AirMainBase:AddOpAI('AirAttacks', 'M4_AirMainDefense6',
@@ -363,7 +363,7 @@ function SeraphimM4AirMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-	
+
     -- [gunships]
     quantity = {8, 12, 16}
     opai = SeraphimM4AirMainBase:AddOpAI('AirAttacks', 'M4_AirMainDefense7',

@@ -9841,14 +9841,14 @@ Scenario = {
                                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                                     },
                                                                     ['UNIT_2706'] = {
-                                                                        type = 'uab2204',	-- T2 Sonar
+                                                                        type = 'uab2204',    -- T2 Sonar
                                                                         orders = '',
                                                                         platoon = '',
                                                                         Position = { 256.500000, 15.500000, 157.500000 },
                                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                                     },
                                                                     ['UNIT_2709'] = {
-                                                                        type = 'uab2204',	-- T2 Sonar
+                                                                        type = 'uab2204',    -- T2 Sonar
                                                                         orders = '',
                                                                         platoon = '',
                                                                         Position = { 285.500000, 15.500000, 135.500000 },
@@ -10075,7 +10075,7 @@ Scenario = {
                                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                                     },
                                                                     ['UNIT_2612'] = {
-                                                                        type = 'uab0302',	-- LAND
+                                                                        type = 'uab0302',    -- LAND
                                                                         orders = '',
                                                                         platoon = '',
                                                                         Position = { 99.500000, 17.949219, 52.500000 },
@@ -10103,14 +10103,14 @@ Scenario = {
                                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                                     },
                                                                     ['UNIT_2613'] = {
-                                                                        type = 'uab0302',	-- LAND
+                                                                        type = 'uab0302',    -- LAND
                                                                         orders = '',
                                                                         platoon = '',
                                                                         Position = { 113.500000, 17.896484, 48.500000 },
                                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                                     },
                                                                     ['UNIT_2611'] = {
-                                                                        type = 'uab0302',	-- LAND
+                                                                        type = 'uab0302',    -- LAND
                                                                         orders = '',
                                                                         platoon = '',
                                                                         Position = { 127.500000, 17.726563, 52.500000 },

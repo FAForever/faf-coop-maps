@@ -52,7 +52,7 @@ Scenario = {
     MasterChain = {
         ['_MASTERCHAIN_'] = {
             Markers = {
-		-- Own Markers --
+        -- Own Markers --
                 ['SeraphNorth_Marker'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -134,7 +134,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00125563, 0 ),
                     ['position'] = VECTOR3( 487.5, 33, 687.5 ),
                 },
-				---- --
+                ---- --
                 ['Dostya_Airbase_RallyPoint'] = {
                     ['hint'] = BOOLEAN( true ),
                     ['color'] = STRING( 'FF808000' ),
@@ -200,8 +200,8 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00125563, 0 ),
                     ['position'] = VECTOR3( 639.5, 25, 352.5 ),
                 },
-				
-				-- UEF MARKERS --
+
+                -- UEF MARKERS --
                 ['UEF Mass 1'] = {
                     ['size'] = FLOAT( 1.000000 ),
                     ['resource'] = BOOLEAN( true ),
@@ -246,7 +246,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00125563, 0 ),
                     ['position'] = VECTOR3( 474.5, 32.82, 701.5 ),
                 },
-				
+
                 ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
                 ['M1_Seraph_LandDef_2_Patrol_4'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -2964,7 +2964,7 @@ Scenario = {
         },
     },
     Chains = {
-	    -- UEF Chains --
+        -- UEF Chains --
         ['UEF_Base_EngineerChain'] = {
             Markers = {
                 "UEF_Base_Eng1",
@@ -3000,7 +3000,7 @@ Scenario = {
                 "M1Patrol2",
             },
         },
-		---- ---- ---- ---- ---- ---- --
+        ---- ---- ---- ---- ---- ---- --
         ['DostyaAttackChain'] = {
             Markers = {
                 "DostyaAttack",
@@ -3047,40 +3047,40 @@ Scenario = {
                 "M1_Dostya_Bricks_Exit_3",
             },
         },
-	    ['Dostya_M2_HeavyGunshipsChain'] = {
-	        Markers = {
-	        	"M2_Rhiza_AirAttack_2_1",
-		        "M1_Seraph_AirDef_Patrol_6",
-		        "M2_Seraph_Lower_Eng_3",
-		        "M2_Seraph_Lower_Eng_1",
-		        "M2_Seraph_Upper_Eng_3",
-		        "M2_Rhiza_AirAttack_1_4",
-		        "M2_Seraph_AirAttack_3_2",
-	        },
-	    },
+        ['Dostya_M2_HeavyGunshipsChain'] = {
+            Markers = {
+                "M2_Rhiza_AirAttack_2_1",
+                "M1_Seraph_AirDef_Patrol_6",
+                "M2_Seraph_Lower_Eng_3",
+                "M2_Seraph_Lower_Eng_1",
+                "M2_Seraph_Upper_Eng_3",
+                "M2_Rhiza_AirAttack_1_4",
+                "M2_Seraph_AirAttack_3_2",
+            },
+        },
         ['M3_DostyaAirAttackChain'] = {
-	        Markers = {
-		        "M2_AirPing_Destro_Point",
-		        "M3_NorthWest_Marker",
-		        "DostyaPatrol3",
-		        "M3_NorthEast_Marker",
-		        "M3_North_Marker",
-		        "M3_NorthEast_Eng_1",
-		        "DostyaPatrol3",
-		        "M3_East_Eng_1",
-		        "PlayerArea_ExteriorLoop_3",
-		        "M3_EastSouthEast_Marker",
-		        "M3_SouthEast_Eng_3",
-		        "M3_South_Marker",
-		        "M3_SouthWest_Marker",
-		        "M2_Seraph_LandDef_1_1",
-		        "M2_Seraph_LandDef_1_1",
-		        "M2_Seraph_Landing_8",
-		        "M3_West_Marker",
-	        },
-	    },
+            Markers = {
+                "M2_AirPing_Destro_Point",
+                "M3_NorthWest_Marker",
+                "DostyaPatrol3",
+                "M3_NorthEast_Marker",
+                "M3_North_Marker",
+                "M3_NorthEast_Eng_1",
+                "DostyaPatrol3",
+                "M3_East_Eng_1",
+                "PlayerArea_ExteriorLoop_3",
+                "M3_EastSouthEast_Marker",
+                "M3_SouthEast_Eng_3",
+                "M3_South_Marker",
+                "M3_SouthWest_Marker",
+                "M2_Seraph_LandDef_1_1",
+                "M2_Seraph_LandDef_1_1",
+                "M2_Seraph_Landing_8",
+                "M3_West_Marker",
+            },
+        },
         ['Dostya_M3_NorthAttackChain'] = {
-	        Markers = {
+            Markers = {
             "M3_NorthEast_Eng_3",
             "M3_North_Exp_3",
             "M3_North_Eng_1",
@@ -3088,10 +3088,10 @@ Scenario = {
             "M3_Seraph_NE_LandAttack_3",
             "M3_NorthWest_Eng_3",
             "DostyaPatrol4"
-	        },
-	    },
+            },
+        },
         ['Dostya_M3_SouthAttackChain'] = {
-	        Markers = {
+            Markers = {
             "M3_East_Marker",
             "PlayerArea_ExteriorLoop_3",
             "PlayerArea_ExteriorLoop_4",
@@ -3107,8 +3107,8 @@ Scenario = {
             "M2_Seraph_LandDef_1_1",
             "M3_West_Marker",
             "M2_Seraph_Landing_8"
-	        },
-	    },
+            },
+        },
         ['M1_Seraph_AirAttack_Chain'] = {
             Markers = {
                 "M1_Seraph_Air_1",
@@ -10365,116 +10365,116 @@ Scenario = {
                                     },
                                 },
                             },
-							['Seraph_M1ForwardNorth'] = GROUP {
-							    orders = '',
-								platoon = '',
-								Units = {
-								    ['North_FactoryT1'] = {
+                            ['Seraph_M1ForwardNorth'] = GROUP {
+                                orders = '',
+                                platoon = '',
+                                Units = {
+                                    ['North_FactoryT1'] = {
                                         type = 'xsb0101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 396.500000, 25.000000, 514.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_FactoryT2'] = {
+                                    ['North_FactoryT2'] = {
                                         type = 'xsb0201',
                                         orders = '',
                                         platoon = '',
                                         Position = { 408.500000, 25.000000, 514.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_ShieldT2'] = {
+                                    ['North_ShieldT2'] = {
                                         type = 'xsb4202',
                                         orders = '',
                                         platoon = '',
                                         Position = { 402.500000, 25.000000, 507.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_PowerT2'] = {
+                                    ['North_PowerT2'] = {
                                         type = 'xsb1201',
                                         orders = '',
                                         platoon = '',
                                         Position = { 402.500000, 25.000000, 501.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_PDT2'] = {
+                                    ['North_PDT2'] = {
                                         type = 'xsb2301',
                                         orders = '',
                                         platoon = '',
                                         Position = { 402.500000, 25.000000, 519.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_PDT1_1'] = {
+                                    ['North_PDT1_1'] = {
                                         type = 'xsb2101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 404.500000, 25.000000, 519.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['North_PDT1_2'] = {
+                                    ['North_PDT1_2'] = {
                                         type = 'xsb2101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 400.500000, 25.000000, 519.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								},
-							},
-							['Seraph_M1ForwardSouth'] = GROUP {
-							    orders = '',
-								platoon = '',
-								Units = {
-								    ['South_FactoryT1'] = {
+                                },
+                            },
+                            ['Seraph_M1ForwardSouth'] = GROUP {
+                                orders = '',
+                                platoon = '',
+                                Units = {
+                                    ['South_FactoryT1'] = {
                                         type = 'xsb0101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 305.500000, 25.000000, 680.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_FactoryT2'] = {
+                                    ['South_FactoryT2'] = {
                                         type = 'xsb0201',
                                         orders = '',
                                         platoon = '',
                                         Position = { 305.500000, 25.000000, 668.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_ShieldT2'] = {
+                                    ['South_ShieldT2'] = {
                                         type = 'xsb4202',
                                         orders = '',
                                         platoon = '',
                                         Position = { 298.500000, 25.000000, 674.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_PowerT2'] = {
+                                    ['South_PowerT2'] = {
                                         type = 'xsb1201',
                                         orders = '',
                                         platoon = '',
                                         Position = { 292.500000, 25.000000, 674.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_PDT2'] = {
+                                    ['South_PDT2'] = {
                                         type = 'xsb2301',
                                         orders = '',
                                         platoon = '',
                                         Position = { 310.500000, 25.000000, 674.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_PDT1_1'] = {
+                                    ['South_PDT1_1'] = {
                                         type = 'xsb2101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 310.500000, 25.000000, 672.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								    ['South_PDT1_2'] = {
+                                    ['South_PDT1_2'] = {
                                         type = 'xsb2101',
                                         orders = '',
                                         platoon = '',
                                         Position = { 310.500000, 25.000000, 676.500000 },
                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                     },
-								},
-							},
+                                },
+                            },
                         },
                     },
                     ['M2_Hex5'] = {
@@ -16169,7 +16169,7 @@ Scenario = {
                                         platoon = '',
                                         Units = {
                                             ['UNIT_4759'] = {
-                                                type = 'urb0302',	-- AF2
+                                                type = 'urb0302',    -- AF2
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 595.500000, 25.000000, 383.500000 },
@@ -16197,7 +16197,7 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_4758'] = {
-                                                type = 'urb0302',	-- AF1
+                                                type = 'urb0302',    -- AF1
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 585.500000, 25.000000, 383.500000 },
@@ -16218,28 +16218,28 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_AF3'] = {
-                                                type = 'urb0302',	-- AF3
+                                                type = 'urb0302',    -- AF3
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 583.500000, 25.000000, 393.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_AF4'] = {
-                                                type = 'urb0302',	-- AF4
+                                                type = 'urb0302',    -- AF4
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 597.500000, 25.000000, 393.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_AF5'] = {
-                                                type = 'urb0302',	-- AF5
+                                                type = 'urb0302',    -- AF5
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 605.500000, 25.000000, 383.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_AF6'] = {
-                                                type = 'urb0302',	-- AF6
+                                                type = 'urb0302',    -- AF6
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 575.500000, 25.000000, 383.500000 },
@@ -16502,21 +16502,21 @@ Scenario = {
                                         platoon = '',
                                         Units = {
                                             ['UNIT_ASt1'] = {
-                                                type = 'urb5202',	-- Air Staging 1
+                                                type = 'urb5202',    -- Air Staging 1
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 584.500000, 25.000000, 400.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_AF4'] = {
-                                                type = 'urb5202',	-- Air Staging 2
+                                                type = 'urb5202',    -- Air Staging 2
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 596.500000, 25.000000, 400.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_ShieldT5.1'] = {
-                                                type = 'urb4207',	-- T5 Shield
+                                                type = 'urb4207',    -- T5 Shield
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 590.500000, 25.000000, 404.500000 },

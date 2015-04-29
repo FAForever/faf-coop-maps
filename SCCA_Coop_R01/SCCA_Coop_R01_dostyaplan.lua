@@ -8,12 +8,12 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 function EvaluatePlan( brain )
-	return 100
+    return 100
 end
 
 function ExecutePlan( brain )
-	BuildStructures( brain )
-	BuildUnits( brain )
+    BuildStructures( brain )
+    BuildUnits( brain )
 end
 
 function BuildStructures( brain )

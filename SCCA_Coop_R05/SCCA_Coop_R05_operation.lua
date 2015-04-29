@@ -9,9 +9,9 @@
 -- ****************************************************************************
 
 -- ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_R05'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opLoc = {x = 435, y = 221}			-- location of op 'planet' on op select screen
-opDesc = ''							-- used in op select screen
+opID = 'SCCA_Coop_R05'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opLoc = {x = 435, y = 221}            -- location of op 'planet' on op select screen
+opDesc = ''                            -- used in op select screen
 
 -- DO NOT EDIT
 local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'cybran', 5)

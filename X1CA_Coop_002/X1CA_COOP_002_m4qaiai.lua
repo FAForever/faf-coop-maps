@@ -515,9 +515,9 @@ function QAIM4NorthBaseAI()
     -------------------
     QAIM4NorthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_QAI_North_Base = 100})
     QAIM4NorthBase:StartNonZeroBase(7)
-	QAIM4NorthBase:SetMaximumConstructionEngineers(5)
-	
-	QAIM4NorthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
+    QAIM4NorthBase:SetMaximumConstructionEngineers(5)
+
+    QAIM4NorthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
 
     QAIM4NorthBaseLandAttacks()
 end
@@ -552,10 +552,10 @@ function QAIM4CenterBaseAI()
     --------------------
     QAIM4CenterBase:Initialize(ArmyBrains[QAI], 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_QAI_Middle_Base = 100})
     QAIM4CenterBase:StartNonZeroBase(9)
-	
-	QAIM4CenterBase:AddBuildGroup('M4_QAI_North_Base', 90)
-	QAIM4CenterBase:AddBuildGroup('M4_QAI_South_Base', 90)
-	QAIM4CenterBase:SetMaximumConstructionEngineers(4)
+
+    QAIM4CenterBase:AddBuildGroup('M4_QAI_North_Base', 90)
+    QAIM4CenterBase:AddBuildGroup('M4_QAI_South_Base', 90)
+    QAIM4CenterBase:SetMaximumConstructionEngineers(4)
 
     QAIM4CenterBaseAirAttacks()
     QAIM4CenterBaseLandAttacks()
@@ -580,7 +580,7 @@ function QAIM4CenterBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 6)
     opai:SetLockingStyle('None')
-	
+
     opai = QAIM4CenterBase:AddOpAI('AirAttacks', 'M4_AirAttack_Center2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -634,8 +634,8 @@ function QAIM4SouthBaseAI()
     -------------------
     QAIM4SouthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_QAI_South_Base = 100})
     QAIM4SouthBase:StartNonZeroBase(7)
-	
-	QAIM4SouthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
+
+    QAIM4SouthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
 
     QAIM4SouthBaseAirAttacks()
     QAIM4SouthBaseLandAttacks()

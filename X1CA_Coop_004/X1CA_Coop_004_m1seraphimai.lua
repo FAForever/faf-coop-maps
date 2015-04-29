@@ -49,16 +49,16 @@ function SeraphimM1WestAI()
     ScenarioFramework.CreateTimerTrigger(SeraphForwardAI, 180)
 end
 
-function SeraphForwardAI()	
-	SeraphimM1West:AddBuildGroup('Seraph_M1ForwardSouth', 90)
-	SeraphimM1West:AddBuildGroup('Seraph_M1ForwardNorth', 80)
-	
+function SeraphForwardAI()
+    SeraphimM1West:AddBuildGroup('Seraph_M1ForwardSouth', 90)
+    SeraphimM1West:AddBuildGroup('Seraph_M1ForwardNorth', 80)
+
     ForwardNorthBase:Initialize(ArmyBrains[Seraphim], 'ForwardNorthSeraph', 'SeraphNorth_Marker', 40, {Seraph_M1ForwardNorth = 100,})
-	ForwardSouthBase:Initialize(ArmyBrains[Seraphim], 'ForwardSouthSeraph', 'SeraphSouth_Marker', 40, {Seraph_M1ForwardSouth = 100,})
-	ForwardNorthBase:StartEmptyBase({4, 2})
-	ForwardSouthBase:StartEmptyBase({4, 2})
-	
-	ForwardLandAttacks()
+    ForwardSouthBase:Initialize(ArmyBrains[Seraphim], 'ForwardSouthSeraph', 'SeraphSouth_Marker', 40, {Seraph_M1ForwardSouth = 100,})
+    ForwardNorthBase:StartEmptyBase({4, 2})
+    ForwardSouthBase:StartEmptyBase({4, 2})
+
+    ForwardLandAttacks()
 end
 
 function SeraphimM1WestAirAttacks()
@@ -258,7 +258,7 @@ function SeraphimM1WestAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', 5)
-		
+
         opai = SeraphimM1West:AddOpAI('AirAttacks', 'M1_AirDefense_2' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -275,22 +275,22 @@ end
 function SeraphimM1WestLandAttacks()
     local opai = nil
     local trigger = {}
-	
-	---- Build Engineers
-	-- local Template = {
+
+    ---- Build Engineers
+    -- local Template = {
         -- 'T2Engineers',
         -- 'NoPlan',
-        -- { 'xsl0208', 1, 2, 'Support', 'GrowthFormation' },	-- T2 Engineers
+        -- { 'xsl0208', 1, 2, 'Support', 'GrowthFormation' },    -- T2 Engineers
     -- }
-	-- local Limit = {3, 5, 10}
+    -- local Limit = {3, 5, 10}
     -- local Builder = {
         -- BuilderName = 'T2Engineers',
         -- PlatoonTemplate = Template,
-		-- InstanceCount = 1,
+        -- InstanceCount = 1,
         -- Priority = 5000,
         -- PlatoonType = 'Land',
         -- RequiresConstruction = true,
-		-- AIPlan = 'DisbandAI',
+        -- AIPlan = 'DisbandAI',
         -- LocationType = 'M1_Seraph_West',
         -- BuildConditions = {
             -- { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', Limit[Difficulty] + 7, categories.xsl0208}},
@@ -549,8 +549,8 @@ end
 
 function ForwardLandAttacks()
     local opai = nil
-	
-	opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North1',
+
+    opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -560,8 +560,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 4)
-	
-	opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North2',
+
+    opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -571,8 +571,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightTanks'}, 6)
-	
-	opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North3',
+
+    opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -582,8 +582,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'LightBots'}, 4)
-	
-	opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North4',
+
+    opai = ForwardNorthBase:AddOpAI('BasicLandAttack', 'M1_North4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -593,8 +593,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, 2)
-	
-	opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South1',
+
+    opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -604,8 +604,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 4)
-	
-	opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South2',
+
+    opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -615,8 +615,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightTanks'}, 6)
-	
-	opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South3',
+
+    opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -626,8 +626,8 @@ function ForwardLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'LightBots'}, 4)
-	
-	opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South4',
+
+    opai = ForwardSouthBase:AddOpAI('BasicLandAttack', 'M1_South4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {

@@ -21,7 +21,7 @@ local ScenarioUtils = import( '/lua/sim/ScenarioUtilities.lua' )
 -- ##
 -- ###################################################################################################################
 -- #############################################################################################################
--- function: ChooseAttackLocation = AddFunction	doc = "Please work function docs."
+-- function: ChooseAttackLocation = AddFunction    doc = "Please work function docs."
 --
 -- parameter 0: string   platoon         = "default_platoon"
 --

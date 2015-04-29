@@ -9,9 +9,9 @@
 -- ****************************************************************************
 
 -- ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_A01'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opLoc = {x = 360, y = 560}			-- location of op 'planet' on op select screen
-opDesc = ''							-- used in op select screen
+opID = 'SCCA_Coop_A01'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opLoc = {x = 360, y = 560}            -- location of op 'planet' on op select screen
+opDesc = ''                            -- used in op select screen
 
 -- DO NOT EDIT
 local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'aeon', 1)

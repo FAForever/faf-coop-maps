@@ -11,7 +11,7 @@
 -- #############################################################################################################
 -- function: LeftoverCleanupBC = BuildCondition   doc = "Please work function docs."
 --
--- parameter 0: string	aiBrain		= "default_brain"
+-- parameter 0: string    aiBrain        = "default_brain"
 -- parameter 1: string   locationType = "default_location_type"
 --
 -- #############################################################################################################

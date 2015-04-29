@@ -272,9 +272,9 @@ function OrderM2NorthBaseLandAttacks()
     -----------------------------------------
     -- Order M2 North Base Op AI, Land Attacks
     -----------------------------------------
-	
-	for i = 1, 2 do
-	-- sends 6 [mobile shields, heavy tanks, anti air]
+
+    for i = 1, 2 do
+    -- sends 6 [mobile shields, heavy tanks, anti air]
     opai = OrderM2NorthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyEast' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyEastSiege'},
@@ -282,8 +282,8 @@ function OrderM2NorthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileShields', 'HeavyTanks', 'MobileAntiAir'}, 9)
-	
-	-- sends 6 [heavy tanks, light tanks]
+
+    -- sends 6 [heavy tanks, light tanks]
     opai = OrderM2NorthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyWest' .. i,
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyWestSiege'},
@@ -294,8 +294,8 @@ function OrderM2NorthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, 6)
-	end
-	
+    end
+
     -- sends 2, 2, 4 [light artillery]
     quantity = {2, 2, 4}
     opai = OrderM2NorthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack1',

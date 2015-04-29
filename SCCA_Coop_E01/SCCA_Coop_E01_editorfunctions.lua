@@ -34,7 +34,7 @@ end
 -- ###############################################################################
 -- function: LandMaster = BuildCondition   doc = ""
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- ###############################################################################
 function LandMaster(brain)
@@ -44,7 +44,7 @@ end
 -- ###############################################################################
 -- function: LandChild = BuildCondition   doc = ""
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- ###############################################################################
 function LandChild(brain)
@@ -54,7 +54,7 @@ end
 -- ###############################################################################
 -- function: AirMaster = BuildCondition   doc = ""
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- ###############################################################################
 function AirMaster(brain)
@@ -64,7 +64,7 @@ end
 -- ###############################################################################
 -- function: AirChild = BuildCondition   doc = ""
 --
--- parameter 0: string	brain		= "default_brain"		
+-- parameter 0: string    brain        = "default_brain"
 --
 -- ###############################################################################
 function AirChild(brain)
@@ -72,9 +72,9 @@ function AirChild(brain)
 end
 
 -- ###############################################################################
--- function: AirRandomPatrolAndRestThread = AddFunction	doc = ""
+-- function: AirRandomPatrolAndRestThread = AddFunction    doc = ""
 --
--- parameter 0: string	platoon         = "default_platoon"		
+-- parameter 0: string    platoon         = "default_platoon"
 --
 -- ###############################################################################
 function AirRandomPatrolAndRestThread(platoon)

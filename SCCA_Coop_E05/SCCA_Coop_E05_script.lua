@@ -93,7 +93,7 @@ local M2P2ReminderTimer = 600
 
     -- How many seconds between reminders to move the trucks
 local M3P2ReminderTimer = 120
-    -- How many trucks can get made in M3 by each facility	
+    -- How many trucks can get made in M3 by each facility
 local UEFTruckGroupSizeTable = {8, 8, 8}
 ScenarioInfo.UEFTruckGroupSize = UEFTruckGroupSizeTable[ScenarioInfo.Difficulty]
 
@@ -223,16 +223,16 @@ function OnPopulate(scenario)
                 self:DoOnDamagedCallbacks(instigator)
                 self:DoTakeDamage(instigator, amount, vector, damageType)
             end
-			if instigator then
-				local damagerArmy = instigator:GetArmy()
-				if (damagerArmy == Aeon) and (not ScenarioInfo.RF1DamagedByAeonTauntPlayed) then
-					ForkArnoldTaunt()
-					ScenarioInfo.RF1DamagedByAeonTauntPlayed = true
-				elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF1DamagedByCybranTauntPlayed) then
-					ForkMachTaunt()
-					ScenarioInfo.RF1DamagedByCybranTauntPlayed = true
-				end
-			end
+            if instigator then
+                local damagerArmy = instigator:GetArmy()
+                if (damagerArmy == Aeon) and (not ScenarioInfo.RF1DamagedByAeonTauntPlayed) then
+                    ForkArnoldTaunt()
+                    ScenarioInfo.RF1DamagedByAeonTauntPlayed = true
+                elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF1DamagedByCybranTauntPlayed) then
+                    ForkMachTaunt()
+                    ScenarioInfo.RF1DamagedByCybranTauntPlayed = true
+                end
+            end
         end
     ScenarioInfo.ResearchFacility2.OnDamage =
         function(self, instigator, amount, vector, damageType)
@@ -240,16 +240,16 @@ function OnPopulate(scenario)
                 self:DoOnDamagedCallbacks(instigator)
                 self:DoTakeDamage(instigator, amount, vector, damageType)
             end
-			if instigator then
-				local damagerArmy = instigator:GetArmy()
-				if (damagerArmy == Aeon) and (not ScenarioInfo.RF2DamagedByAeonTauntPlayed) then
-					ForkArnoldTaunt()
-					ScenarioInfo.RF2DamagedByAeonTauntPlayed = true
-				elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF2DamagedByCybranTauntPlayed) then
-					ForkMachTaunt()
-					ScenarioInfo.RF2DamagedByCybranTauntPlayed = true
-				end
-			end
+            if instigator then
+                local damagerArmy = instigator:GetArmy()
+                if (damagerArmy == Aeon) and (not ScenarioInfo.RF2DamagedByAeonTauntPlayed) then
+                    ForkArnoldTaunt()
+                    ScenarioInfo.RF2DamagedByAeonTauntPlayed = true
+                elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF2DamagedByCybranTauntPlayed) then
+                    ForkMachTaunt()
+                    ScenarioInfo.RF2DamagedByCybranTauntPlayed = true
+                end
+            end
         end
     ScenarioInfo.ResearchFacility3.OnDamage =
         function(self, instigator, amount, vector, damageType)
@@ -257,16 +257,16 @@ function OnPopulate(scenario)
                 self:DoOnDamagedCallbacks(instigator)
                 self:DoTakeDamage(instigator, amount, vector, damageType)
             end
-			if instigator then
-				local damagerArmy = instigator:GetArmy()
-				if (damagerArmy == Aeon) and (not ScenarioInfo.RF3DamagedByAeonTauntPlayed) then
-					ForkArnoldTaunt()
-					ScenarioInfo.RF3DamagedByAeonTauntPlayed = true
-				elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF3DamagedByCybranTauntPlayed) then
-					ForkMachTaunt()
-					ScenarioInfo.RF3DamagedByCybranTauntPlayed = true
-				end
-			end
+            if instigator then
+                local damagerArmy = instigator:GetArmy()
+                if (damagerArmy == Aeon) and (not ScenarioInfo.RF3DamagedByAeonTauntPlayed) then
+                    ForkArnoldTaunt()
+                    ScenarioInfo.RF3DamagedByAeonTauntPlayed = true
+                elseif (damagerArmy == Cybran) and (not ScenarioInfo.RF3DamagedByCybranTauntPlayed) then
+                    ForkMachTaunt()
+                    ScenarioInfo.RF3DamagedByCybranTauntPlayed = true
+                end
+            end
         end
 
     -- ! Aeon Bases
@@ -515,11 +515,11 @@ function CreatePlayer()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-			IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
-			IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))			
-			ScenarioFramework.PauseUnitDeath(ScenarioInfo.CoopCDR[coop])
-			ScenarioFramework.CreateUnitDeathTrigger(CommanderDied, ScenarioInfo.CoopCDR[coop])
-			ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
+            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
+            ScenarioFramework.PauseUnitDeath(ScenarioInfo.CoopCDR[coop])
+            ScenarioFramework.CreateUnitDeathTrigger(CommanderDied, ScenarioInfo.CoopCDR[coop])
+            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
             coop = coop + 1
             WaitSeconds(0.5)
         end
@@ -726,11 +726,11 @@ function FirstNukeNIS()
     if not ScenarioInfo.AeonNuke1:IsDead() then
         local unit = ScenarioInfo.AeonNuke1
         local camInfo = {
-        	blendTime = 1.0,
-        	holdTime = 8,
-        	orientationOffset = { 2.3, 0.2, 0 },
-        	positionOffset = { 0, 1, 0 },
-        	zoomVal = 30,
+            blendTime = 1.0,
+            holdTime = 8,
+            orientationOffset = { 2.3, 0.2, 0 },
+            positionOffset = { 0, 1, 0 },
+            zoomVal = 30,
             vizRadius = 8,
         }
         ScenarioFramework.OperationNISCamera(unit, camInfo)
@@ -1095,10 +1095,10 @@ function EndMission1()
             WaitSeconds(2)
             ScenarioInfo.M1P1:ManualResult(true)
 
-	   		-- ! If more than 10% of the town wasn't destroyed in M1, then the town was saved!
-		    if not ScenarioInfo.M1S1Failed then
-		        ScenarioInfo.M1S1:ManualResult(true)
-		    end
+               -- ! If more than 10% of the town wasn't destroyed in M1, then the town was saved!
+            if not ScenarioInfo.M1S1Failed then
+                ScenarioInfo.M1S1:ManualResult(true)
+            end
 
             LOG('debug: Op: Mission2 is starting')
             StartMission2()
@@ -1592,7 +1592,7 @@ function CybranBaseDestroyed(marker)
     -- Todo Addmarker: remove marker from base?
 
     Objectives.UpdateBasicObjective(ScenarioInfo.M3S1, 'progress', LOCF(OpStrings.M3S1Progress, ScenarioInfo.CybranBasesDestroyed))
-	Objectives.UpdateObjective(OpStrings.X03_M03_OBJ_010_010, 'Progress', '(1/2)', ScenarioInfo.M3P1.Tag )
+    Objectives.UpdateObjective(OpStrings.X03_M03_OBJ_010_010, 'Progress', '(1/2)', ScenarioInfo.M3P1.Tag )
 
     -- ! If 5 have been destroyed, then complete M3S1, and play an NIS at the marker passed in
     if ScenarioInfo.CybranBasesDestroyed >= 5 then

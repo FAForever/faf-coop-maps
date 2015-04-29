@@ -830,7 +830,7 @@ function IntroNIS()
 
     ScenarioFramework.CreateTimerTrigger(BeginMission1,  4.8)
     -- !BeginMission1()
-	
+
 end
 
 function CauseInitialResearchFacilityDamage()

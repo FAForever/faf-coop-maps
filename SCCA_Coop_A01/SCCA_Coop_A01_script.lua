@@ -1060,7 +1060,7 @@ function M7_CreateCzar()
         ScenarioInfo.CzarAircraftPlatoon = ArmyBrains[FauxRhiza]:MakePlatoon(' ', ' ')
         for i = 1,15 do
             local group = ScenarioUtils.CreateArmyGroup('FauxRhiza', 'M7_CzarAircraft')
-    	    ArmyBrains[FauxRhiza]:AssignUnitsToPlatoon(ScenarioInfo.CzarAircraftPlatoon, group, 'Attack', 'ChevronFormation')
+            ArmyBrains[FauxRhiza]:AssignUnitsToPlatoon(ScenarioInfo.CzarAircraftPlatoon, group, 'Attack', 'ChevronFormation')
             for k,unit in group do
                 IssueStop({unit})
                 ScenarioInfo.RhizaCzar:AddUnitToStorage(unit)

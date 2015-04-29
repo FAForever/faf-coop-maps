@@ -273,12 +273,12 @@ end
 
 function OnStart(self)
     -- Adjust buildable categories for Player
-	local tblArmy = ListArmies()
-	for _, player in Players do
-		for iArmy, strArmy in pairs(tblArmy) do
-			if iArmy == player then
-				ScenarioFramework.AddRestriction(player, 
-					categories.urb2305 +   -- Strategic Missile Launcher
+    local tblArmy = ListArmies()
+    for _, player in Players do
+        for iArmy, strArmy in pairs(tblArmy) do
+            if iArmy == player then
+                ScenarioFramework.AddRestriction(player,
+                    categories.urb2305 +   -- Strategic Missile Launcher
                     categories.urb4302 +   -- Strategic Missile Defense
                     categories.url0402 +   -- Spider Bot
                     categories.urs0304 +   -- Strategic Missile Submarine
@@ -298,9 +298,9 @@ function OnStart(self)
                     categories.xrl0403)    -- Cybran Amphibious Mega Bot
 
     -- Adjust buildable categories for UEF in case Player captures them
-				ScenarioFramework.AddRestriction(uef, 
-					categories.ueb2302 +  -- Long Range Heavy Artillery
-					categories.ueb4301 +  -- T3 Heavy Shield Generator
+                ScenarioFramework.AddRestriction(uef,
+                    categories.ueb2302 +  -- Long Range Heavy Artillery
+                    categories.ueb4301 +  -- T3 Heavy Shield Generator
                     categories.uel0401 +  -- Experimental Mobile Factory
                     categories.dea0202 +  -- UEF Fighter Bomber
                     categories.del0204 +  -- UEF Gatling Bot
@@ -317,8 +317,8 @@ function OnStart(self)
                     categories.ues0304)   -- Strategic Missile Submarine
 
     -- Adjust buildable categories for Aeon in case Player captures them
-				ScenarioFramework.AddRestriction(aeon, 
-					categories.uab0304 + -- Quantum Gate
+                ScenarioFramework.AddRestriction(aeon,
+                    categories.uab0304 + -- Quantum Gate
                     categories.ual0301 + -- Sub Commander
                     categories.xal0305 + -- Aeon Sniper Bot
                     categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
@@ -333,9 +333,9 @@ function OnStart(self)
                     categories.xab2307 + -- Aeon Rapid Fire Artillery
                     categories.xaa0305 + -- Aeon AA Gunship
                     categories.uas0304)  -- Strategic Missile Submarine
-			end
-		end
-	end	
+            end
+        end
+    end
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
 
@@ -467,28 +467,28 @@ function IntroMission1()
 
     -- Player CDR
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player')
-	ScenarioInfo.CoopCDR = {}
-	local tblArmy = ListArmies()
-	coop = 1
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
---			ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
-			coop = coop + 1
-			WaitSeconds(0.5)
-		end
-	end		
-	
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
+--            ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
+            coop = coop + 1
+            WaitSeconds(0.5)
+        end
+    end
+
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-	for index, coopACU in ScenarioInfo.CoopCDR do
-		ScenarioFramework.PauseUnitDeath(coopACU)
-		ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, coopACU)
-	end	
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, ScenarioInfo.PlayerCDR)	
-	
+    for index, coopACU in ScenarioInfo.CoopCDR do
+        ScenarioFramework.PauseUnitDeath(coopACU)
+        ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, coopACU)
+    end
+    ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, ScenarioInfo.PlayerCDR)
+
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
--- ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')	
-	
+-- ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
+
     -- Jericho strut
     local cmd = IssueMove({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('JerichoDestination'))
     while(not IsCommandDone(cmd)) do
@@ -786,14 +786,14 @@ function IntroMission2()
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.urb4302 +    -- T3 Strategic Missile Defense
-        categories.url0402 + 	-- Spider Bot
-        categories.ueb2302 +  	-- Long Range Heavy Artillery
-        categories.ueb4301 +  	-- T3 Heavy Shield Generator
-        categories.uel0401 + 	-- Experimental Mobile Factory
-        categories.ues0304 +   	-- Strategic Missile Submarine
-        categories.uab0304 + 	-- Quantum Gate
-        categories.ual0301 + 	-- Sub Commander
-        categories.uas0304  	-- Strategic Missile Submarine
+        categories.url0402 +     -- Spider Bot
+        categories.ueb2302 +      -- Long Range Heavy Artillery
+        categories.ueb4301 +      -- T3 Heavy Shield Generator
+        categories.uel0401 +     -- Experimental Mobile Factory
+        categories.ues0304 +       -- Strategic Missile Submarine
+        categories.uab0304 +     -- Quantum Gate
+        categories.ual0301 +     -- Sub Commander
+        categories.uas0304      -- Strategic Missile Submarine
     )
 
     ScenarioFramework.RemoveRestriction(uef, categories.ueb2302 +  -- Long Range Heavy Artillery
@@ -1130,15 +1130,15 @@ function IntroMission3()
     ScenarioFramework.PlayUnlockDialogue()
     ScenarioFramework.RemoveRestriction(player, categories.urb2305 +    -- Strategic Missile Launcher
                                    categories.urs0304)     -- Strategic Missile Submarine
-								   
-	local tblArmy = ListArmies()
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then   			
-			ScenarioFramework.RemoveRestriction(iArmy,
-				categories.urb2305 +    -- Strategic Missile Launcher
-				categories.urs0304)     -- Strategic Missile Submarine
-		end
-	end	
+
+    local tblArmy = ListArmies()
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            ScenarioFramework.RemoveRestriction(iArmy,
+                categories.urb2305 +    -- Strategic Missile Launcher
+                categories.urs0304)     -- Strategic Missile Submarine
+        end
+    end
 
     ScenarioFramework.Dialogue(OpStrings.C06_M03_010, StartMission3)
 end

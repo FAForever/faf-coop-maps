@@ -566,7 +566,7 @@ function IntroNISPart1()
     ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
 
-	SetAreaKillable('M1_Playable_Area', true)
+    SetAreaKillable('M1_Playable_Area', true)
     ForkThread(IntroNISPart2)
 end
 
@@ -664,25 +664,25 @@ function IntroNISPart2()
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
     --ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
 
-	ScenarioInfo.CoopCDR = {}
-	local tblArmy = ListArmies()
-	coop = 1
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-			if(factionIdx == 1) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
-			elseif(factionIdx == 2) then
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
-			else
-				ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
-			end
-			IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
-			ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
-			coop = coop + 1
-			WaitSeconds(2)
-		end
-	end
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            if(factionIdx == 1) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+            elseif(factionIdx == 2) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+            else
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+            end
+            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
+            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+            coop = coop + 1
+            WaitSeconds(2)
+        end
+    end
 
     ForkThread( NIS1KillUnits )
 

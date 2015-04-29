@@ -11,7 +11,7 @@
 -- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 -- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 function ResetAMVariables(platoon)
     ScenarioInfo.VarTable['AttackStartLocation'] = false
     ScenarioInfo.VarTable['AttackResearchFacility'] = false

@@ -91,7 +91,7 @@ function SeraphimM1NorthBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'Interceptors'}, quantity[Difficulty])
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
     -- sends 4, 6, 8 [bombers] if player has >= 12, 8, 5 AA
     quantity = {4, 6, 8}
@@ -496,9 +496,9 @@ function SeraphimM1NorthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     end
     end
-	
+
     -- sends 15 frigate power of all but T3
-	for i = 1, 2 do
+    for i = 1, 2 do
         opai = SeraphimM1NorthBase:AddNavalAI('M1_NavalDefense_ForwardEast' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -511,7 +511,7 @@ function SeraphimM1NorthBaseNavalAttacks()
             }
         )
         opai:SetChildActive('T3', false)
-	
+
         opai = SeraphimM1NorthBase:AddNavalAI('M1_NavalDefense_ForwardWest' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -524,7 +524,7 @@ function SeraphimM1NorthBaseNavalAttacks()
             }
         )
         opai:SetChildActive('T3', false)
-	end
+    end
 
 end
 

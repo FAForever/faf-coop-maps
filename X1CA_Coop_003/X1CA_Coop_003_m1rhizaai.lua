@@ -42,11 +42,11 @@ function M1RhizaBaseAI()
     )
     M1RhizaBase:StartNonZeroBase({10, 8})
     M1RhizaBase:SetMaximumConstructionEngineers(5)
-	M1RhizaBase:SetConstructionAlwaysAssist(true)
+    M1RhizaBase:SetConstructionAlwaysAssist(true)
     M1RhizaBase:SetActive('AirScouting', true)
-	
-	M1RhizaBase:AddBuildGroup('M1_Rhiza_NoRebuild', 400)
-	M1RhizaBase:AddBuildGroup('Rhiza_Base_Wreckage', 450)
+
+    M1RhizaBase:AddBuildGroup('M1_Rhiza_NoRebuild', 400)
+    M1RhizaBase:AddBuildGroup('Rhiza_Base_Wreckage', 450)
 
     ArmyBrains[Rhiza]:PBMSetCheckInterval(4)
 
@@ -58,7 +58,7 @@ end
 
 function M1RhizaBaseExperimentalAttacks()
     local opai = nil
-	
+
     opai = M1RhizaBase:AddOpAI('Colossus_1',
         {
             Amount = 1,
@@ -77,20 +77,20 @@ function M1RhizaBaseLandAttacks()
     -----------------------------------
     -- M1 Rhiza Base Op AI, Land Attacks
     -----------------------------------
-	
+
     -- ##################
-	-- CUSTOM PLATOONS #
-	-- ##################
-	
-	local EngineerLandTemp = {
+    -- CUSTOM PLATOONS #
+    -- ##################
+
+    local EngineerLandTemp = {
         'EngineerLandTemp',
         'NoPlan',
-        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },	-- Engineers
+        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },    -- Engineers
     }
     local EngineerLandBuilder = {
         BuilderName = 'EngineerLandBuilder',
         PlatoonTemplate = EngineerLandTemp,
-		InstanceCount = 15,
+        InstanceCount = 15,
         PlatoonAIPlan = 'DisbandAI',
         Priority = 5115,
         PlatoonType = 'Land',
@@ -101,23 +101,23 @@ function M1RhizaBaseLandAttacks()
         LocationType = 'M1_Rhiza_Base',
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
-	
-	local template = {
+
+    local template = {
         'AmphibiousLandTemp',
         'NoPlan',
-        { 'xal0203', 1, 4, 'Attack', 'GrowthFormation' },	-- Amph Tanks
-        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },	-- Mobile Shields
-        { 'ual0205', 1, 3, 'Attack', 'GrowthFormation' },	-- Mobile Flak
+        { 'xal0203', 1, 4, 'Attack', 'GrowthFormation' },    -- Amph Tanks
+        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    -- Mobile Shields
+        { 'ual0205', 1, 3, 'Attack', 'GrowthFormation' },    -- Mobile Flak
     }
-	local builder = {
+    local builder = {
         BuilderName = 'AmphibiousLand1',
         PlatoonTemplate = template,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 90,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-		PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
 
@@ -159,7 +159,7 @@ function M1RhizaBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'AirSuperiority', 'Gunships', 'Bombers'}, 12)
-	opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
 
     -- sends all but [strat bombers]
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirAttacks2',
@@ -174,10 +174,10 @@ function M1RhizaBaseAirAttacks()
     local template = {
         'Air_HeavyGunships_AirSup_SPY_Gunships_Temp',
         'NoPlan',
-        { 'xaa0305', 1, 4, 'Attack', 'GrowthFormation' },	-- Heavy Gunships
-        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },	-- Air Superiority
-        { 'uaa0203', 1, 8, 'Attack', 'GrowthFormation' },	-- Gunships
-        { 'uaa0302', 1, 2, 'Attack', 'GrowthFormation' },	-- Spy Plane
+        { 'xaa0305', 1, 4, 'Attack', 'GrowthFormation' },    -- Heavy Gunships
+        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },    -- Air Superiority
+        { 'uaa0203', 1, 8, 'Attack', 'GrowthFormation' },    -- Gunships
+        { 'uaa0302', 1, 2, 'Attack', 'GrowthFormation' },    -- Spy Plane
     }
     local builder = {
         BuilderName = 'Air_HeavyGunships_AirSup_SPY_Gunships',
@@ -189,8 +189,8 @@ function M1RhizaBaseAirAttacks()
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
-	
-	-- sends [air superiority, gunships, bombers] ( mission 3 )
+
+    -- sends [air superiority, gunships, bombers] ( mission 3 )
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M3_AirAttacks1',
         {
             MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
@@ -198,14 +198,14 @@ function M1RhizaBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'AirSuperiority', 'Gunships', 'Bombers'}, 18)
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
 
     -- ##############
     -- Air Defense #
     -- ##############
-	
-	for i = 1, 2 do
+
+    for i = 1, 2 do
         opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirDefense_Player_1' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -219,7 +219,7 @@ function M1RhizaBaseAirAttacks()
         opai:SetChildActive('AirSuperiority', true)
         opai:SetChildCount(1)
     end
-	
+
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirDefense_Player_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -229,7 +229,7 @@ function M1RhizaBaseAirAttacks()
         Priority = 120,
         }
     )
-	opai:SetChildQuantity('Gunships', 4)
+    opai:SetChildQuantity('Gunships', 4)
 
     for i = 1, 3 do
         opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirDefense_1_' .. i,
@@ -348,50 +348,50 @@ function M1RhizaBaseNavalAttacks()
             }
         )
         opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
-		opai:SetChildActive('T3', false)
+        opai:SetChildActive('T3', false)
     end
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     -- ################
     -- Naval Defense #
     -- ################
-	
-	local template = {
+
+    local template = {
         'NavalDefense1Temp',
         'NoPlan',
-        { 'uas0201', 1, 1, 'Attack', 'GrowthFormation' },	-- Destroyer
-        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	-- Cruisers
-        { 'uas0201', 1, 1, 'Attack', 'GrowthFormation' },	-- Destroyer
-        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },	-- Sub Hunters
+        { 'uas0201', 1, 1, 'Attack', 'GrowthFormation' },    -- Destroyer
+        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },    -- Cruisers
+        { 'uas0201', 1, 1, 'Attack', 'GrowthFormation' },    -- Destroyer
+        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },    -- Sub Hunters
     }
-	local builder = {
+    local builder = {
         BuilderName = 'NavalDefense1',
         PlatoonTemplate = template,
-		InstanceCount = 1,
+        InstanceCount = 1,
         Priority = 130,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-		PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
-	
-	template = {
+
+    template = {
         'SubmarineDefenseTemp',
         'NoPlan',
-        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },	-- Sub Hunters
+        { 'xas0204', 1, 4, 'Attack', 'GrowthFormation' },    -- Sub Hunters
     }
-	builder = {
+    builder = {
         BuilderName = 'SubmarineDefenseTemp',
         PlatoonTemplate = template,
-		InstanceCount = 1,
+        InstanceCount = 1,
         Priority = 120,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-		PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-		PlatoonData = {
-		    PatrolChain = 'M1_Rhiza_SubDef_Chain',
-		},
+        PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+        PlatoonData = {
+            PatrolChain = 'M1_Rhiza_SubDef_Chain',
+        },
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
 
@@ -440,7 +440,7 @@ function M1RhizaAirAttackAI(platoon)
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
                     if(v and not v:IsDead()) then
-					    ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Air_Attack_Chain')
+                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Air_Attack_Chain')
                         -- ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Rhiza_Air_Attack_Chain')))
                     end
                 end
@@ -452,7 +452,7 @@ function M1RhizaAirAttackAI(platoon)
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
                     if(v and not v:IsDead()) then
-					    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_AirAttack_Chain')
+                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_AirAttack_Chain')
                         -- ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Rhiza_AirAttack_Chain')))
                     end
                 end

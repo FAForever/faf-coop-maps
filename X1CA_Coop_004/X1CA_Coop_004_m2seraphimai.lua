@@ -32,8 +32,8 @@ function SeraphimM2LowerAI()
     SeraphimM2Lower:StartNonZeroBase({{3, 5, 7}, {3, 4, 6}})
     SeraphimM2Lower:SetActive('LandScouting', true)
     SeraphimM2Lower:SetBuild('Defenses', false)
-	
-	SeraphimM2Lower:AddBuildGroup('M1_Seraph_West', 90)
+
+    SeraphimM2Lower:AddBuildGroup('M1_Seraph_West', 90)
 
     SeraphimM2LowerLandAttacks()
 end
@@ -60,8 +60,8 @@ function SeraphimM2LowerLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
     opai:SetLockingStyle('None')
-	
-	-- sends 12, 16, 18 [Mobile Flak] to Dostya
+
+    -- sends 12, 16, 18 [Mobile Flak] to Dostya
     quantity = {12, 16, 18}
     opai = SeraphimM2Lower:AddOpAI('BasicLandAttack', 'M2_LandAttackDostya_2',
         {
@@ -253,7 +253,7 @@ function SeraphimM2UpperAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
-	
+
     -- sends 4, 8, 15 [bombers]
     quantity = {4, 8, 15}
     opai = SeraphimM2Upper:AddOpAI('AirAttacks', 'M2_AirAttacks1',
@@ -404,7 +404,7 @@ function SeraphimM2UpperAirAttacks()
             }
         )
         opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-		
+
         opai = SeraphimM2Upper:AddOpAI('AirAttacks', 'M2_AirDefense2' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},

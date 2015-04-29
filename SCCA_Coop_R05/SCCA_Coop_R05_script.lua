@@ -28,17 +28,17 @@ ScenarioInfo.Player         = 1
 ScenarioInfo.UEF            = 2
 ScenarioInfo.Hex5           = 3
 ScenarioInfo.FauxUEF        = 4
-ScenarioInfo.Coop1			= 5
-ScenarioInfo.Coop2			= 6
-ScenarioInfo.Coop3			= 7
+ScenarioInfo.Coop1            = 5
+ScenarioInfo.Coop2            = 6
+ScenarioInfo.Coop3            = 7
 
 local Player                = ScenarioInfo.Player
 local UEF                   = ScenarioInfo.UEF
 local Hex5                  = ScenarioInfo.Hex5
 local FauxUEF               = ScenarioInfo.FauxUEF
-local Coop1					= ScenarioInfo.Coop1
-local Coop2					= ScenarioInfo.Coop2
-local Coop3					= ScenarioInfo.Coop3
+local Coop1                    = ScenarioInfo.Coop1
+local Coop2                    = ScenarioInfo.Coop2
+local Coop3                    = ScenarioInfo.Coop3
 local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, ScenarioInfo.Coop3}
 
  -- reminder timers:
@@ -91,7 +91,7 @@ local M2_GunshipAttackDelay             = 10    -- Delay between warning dialogu
 
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
 function AdjustDifficulty (table)
-	return table[Difficulty]
+    return table[Difficulty]
 end
 
  --- hard diff stuff
@@ -126,7 +126,7 @@ ScenarioInfo.OperationEnding        = false
 ----------------------
 
 function OnPopulate(scenario)
-	ScenarioUtils.InitializeScenarioArmies()
+    ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
     M1UnitsForStart()
 end
@@ -158,27 +158,27 @@ end
 
 function CreateCommander_Thread()
     ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit ( 'Player', 'M1_PlayerCDR' )
--- ForkThread(NameCDRThread)	
-	ScenarioInfo.CoopCDR = {}
-	local tblArmy = ListArmies()
-	coop = 1
-	for iArmy, strArmy in pairs(tblArmy) do
-		if iArmy >= ScenarioInfo.Coop1 then
-			ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )	
-			coop = coop + 1
-			WaitSeconds(0.5)
---			ScenarioInfo.PlayerCommander:SetCustomName(LOC '{i CDR_Player}')			
-		end
-	end	
+-- ForkThread(NameCDRThread)
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )
+            coop = coop + 1
+            WaitSeconds(0.5)
+--            ScenarioInfo.PlayerCommander:SetCustomName(LOC '{i CDR_Player}')
+        end
+    end
 
-	ScenarioFramework.PauseUnitDeath( ScenarioInfo.PlayerCommander )
-	for index, coopACU in ScenarioInfo.CoopCDR do
+    ScenarioFramework.PauseUnitDeath( ScenarioInfo.PlayerCommander )
+    for index, coopACU in ScenarioInfo.CoopCDR do
         ScenarioFramework.PauseUnitDeath(coopACU)
         ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, coopACU)
-	end
+    end
     ScenarioFramework.CreateUnitDeathTrigger( PlayerCDRKilled, ScenarioInfo.PlayerCommander )
---	ScenarioInfo.PlayerCommander:PlayCommanderWarpInEffect()
-    ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCommander )	
+--    ScenarioInfo.PlayerCommander:PlayCommanderWarpInEffect()
+    ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCommander )
 end
 
 function M1UnitsForStart()
@@ -760,12 +760,12 @@ function M2_UncloakHex5()
     WaitSeconds(2)
     local unit = ScenarioInfo.M2_Hex5_Commander
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { -2.2, 0.1, 0 },
-    	positionOffset = { 0, 0.5, 0 },
-    	zoomVal = 55,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { -2.2, 0.1, 0 },
+        positionOffset = { 0, 0.5, 0 },
+        zoomVal = 55,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera( ScenarioUtils.MarkerToPosition('NIS_M2_Hex5Intro'), camInfo )
 end
@@ -795,12 +795,12 @@ function M2_DownloadToCommanderThread()
 
 -- Hex5 Download Cam
     local camInfo = {
-    	blendTime = 1.0,
-    	holdTime = 4,
-    	orientationOffset = { -2.2, 0.4, 0 },
-    	positionOffset = { 0, 0.5, 0 },
-    	zoomVal = 35,
-    	markerCam = true,
+        blendTime = 1.0,
+        holdTime = 4,
+        orientationOffset = { -2.2, 0.4, 0 },
+        positionOffset = { 0, 0.5, 0 },
+        zoomVal = 35,
+        markerCam = true,
     }
     ScenarioFramework.OperationNISCamera( ScenarioUtils.MarkerToPosition('NIS_M2_Hex5Intro'), camInfo )
 
@@ -826,17 +826,17 @@ function M2_DownloadToCommanderThread()
     -- Hex5 moves out, heads offmap. Fork thread to check for when his load command is complete, so we can then recloak him.
     ScenarioInfo.M2_Hex5LoadToLeaveCommand = ScenarioInfo.M2_Hex5Platoon:LoadUnits( categories.ALLUNITS )
     ScenarioInfo.M2_Hex5Platoon:MoveToLocation( ScenarioUtils.MarkerToPosition('M2_Hex5_ReturnPoint'), false )
-    ScenarioInfo.M2_Hex5Platoon:Destroy()	
-    ForkThread(M2_Hex5ReloadAndLeaveCheckThread)	
+    ScenarioInfo.M2_Hex5Platoon:Destroy()
+    ForkThread(M2_Hex5ReloadAndLeaveCheckThread)
 
     -- Spawn in Gunship Attack, as thread so we can add delays as needed
     ForkThread(M2_UEFGunshipAttackThread)
 end
 
 function M2_Hex5ReloadAndLeaveCheckThread()
---	while ScenarioInfo.M2_Hex5Platoon:IsCommandsActive( ScenarioInfo.M2_Hex5LoadToLeaveCommand ) == true do
-	WaitSeconds(4)
---	end
+--    while ScenarioInfo.M2_Hex5Platoon:IsCommandsActive( ScenarioInfo.M2_Hex5LoadToLeaveCommand ) == true do
+    WaitSeconds(4)
+--    end
     -- Do Stuff
     ForkThread(M2_ActivateHex5CloakThread)
 end
@@ -1164,7 +1164,7 @@ function M3_CreateUnitsForMission()
     cdrPlatoon.CDRData.LeashPosition = 'UEF_Commander_Leash'
     cdrPlatoon.CDRData.LeashRadius = 34
     ArmyBrains[UEF]:AssignUnitsToPlatoon( cdrPlatoon, {ScenarioInfo.M3_UEFMainBase_Commander}, 'Attack', 'AttackFormation' )
-	import('/lua/ai/AIBehaviors.lua').CommanderBehavior(platoon)
+    import('/lua/ai/AIBehaviors.lua').CommanderBehavior(platoon)
     ArmyBrains[UEF]:DisbandPlatoon(cdrPlatoon)
 
      --- hard difficulty: air superiority patrols, aa patrols, a few engineers to guard CDR
@@ -1520,11 +1520,11 @@ end
  --- Build Category functions
 
 function M1_BuildCategories()
-	local tblArmy = ListArmies()
-	for _, player in Players do
-		for iArmy, strArmy in pairs(tblArmy) do
-			if iArmy == player then
-				ScenarioFramework.AddRestriction(player,
+    local tblArmy = ListArmies()
+    for _, player in Players do
+        for iArmy, strArmy in pairs(tblArmy) do
+            if iArmy == player then
+                ScenarioFramework.AddRestriction(player,
                          categories.urb0303 + -- T3 Naval Factory
                          categories.urb2302 + -- Long Range Heavy Artillery
                          categories.url0301 + -- Sub Commander
@@ -1592,7 +1592,7 @@ function M1_BuildCategories()
                          categories.ueb0304 + -- Quantum Gate
                          categories.uel0303 ) -- Siege Assault Bot
 
-				ScenarioFramework.AddRestriction( UEF,
+                ScenarioFramework.AddRestriction( UEF,
                          categories.ueb0302 + -- T3 Naval Factory
                          categories.ueb2302 + -- Long Range Heavy Artillery
                          categories.uel0301 + -- Sub Commander
@@ -1610,23 +1610,23 @@ function M1_BuildCategories()
                          categories.ueb0304 + -- Quantum Gate
                          categories.uel0303 ) -- Siege Assault Bot
 
-				ScenarioFramework.RestrictEnhancements({'StealthGenerator', -- 5
+                ScenarioFramework.RestrictEnhancements({'StealthGenerator', -- 5
                                             'Teleporter'})
-			end
-		end
-	end	
+            end
+        end
+    end
 end
 
 function M2_BuildCategories()
     -- Player enable for M2, Cybran units:
-	ScenarioFramework.RemoveRestrictionForAllHumans(
+    ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.urb2108 + -- Tactical Missile Launcher
         categories.urb2304 + -- T3 SAM Launcher
         categories.ura0304   -- Strategic Bomber
     )
 
     -- Player enable for M2, UEF units:
-	ScenarioFramework.RemoveRestrictionForAllHumans(
+    ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.ueb2108 + -- Tactical Missile Launcher
         categories.ueb2108 + -- Tactical Missile Launcher
         categories.ueb2304 + -- T3 SAM Launcher

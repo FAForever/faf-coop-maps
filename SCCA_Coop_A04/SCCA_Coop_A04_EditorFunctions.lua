@@ -15,7 +15,7 @@ local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_strings.lua')
 -- #############################################################################################################
 -- function: CruiserBlockade = AddFunction   doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function CruiserBlockade(platoon)
@@ -25,7 +25,7 @@ end
 -- #############################################################################################################
 -- function: DestroyerBlockade = AddFunction     doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function DestroyerBlockade(platoon)
@@ -35,7 +35,7 @@ end
 -- #############################################################################################################
 -- function: M1NavalFleet = AddFunction     doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function M1NavalFleet(platoon)
@@ -55,7 +55,7 @@ end
 -- #############################################################################################################
 -- function: CybranM1Attack = AddFunction     doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function CybranM1Attack(platoon)

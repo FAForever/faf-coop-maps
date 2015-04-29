@@ -29,8 +29,8 @@ function SeraphimM2BaseAI()
     ------------------
     SeraphimM2Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_Base', 'M2_Seraphim_Base_Marker', 130, {M2_Seraph_Base = 100})
     SeraphimM2Base:StartNonZeroBase({{4, 12, 18}, {4, 8, 14}})
-	SeraphimM2Base:SetMaximumConstructionEngineers(3)
-	SeraphimM2Base:SetConstructionAlwaysAssist(true)
+    SeraphimM2Base:SetMaximumConstructionEngineers(3)
+    SeraphimM2Base:SetConstructionAlwaysAssist(true)
     SeraphimM2Base:SetActive('AirScouting', true)
 
     SeraphimM2BaseAirAttacks()
@@ -93,7 +93,7 @@ function SeraphimM2BaseAirAttacks()
     opai:SetChildQuantity('AirSuperiority', 12)
 
     -- Air Defense
-	for i = 1, 3 do
+    for i = 1, 3 do
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirDefense1' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
@@ -115,7 +115,7 @@ function SeraphimM2BaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', 6)
-	end
+    end
 end
 
 function SeraphimM2BaseLandAttacks()
@@ -197,7 +197,7 @@ function SeraphimM2BaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-	
+
     -- sends 20 frigate power
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack1',
         {
@@ -207,7 +207,7 @@ function SeraphimM2BaseNavalAttacks()
             Priority = 100,
         }
     )
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
     -- sends 10 frigate power of [all but T3]
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack2',
@@ -229,7 +229,7 @@ function SeraphimM2BaseNavalAttacks()
             Priority = 100,
         }
     )
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
     -- Naval Defense
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalDefense1',

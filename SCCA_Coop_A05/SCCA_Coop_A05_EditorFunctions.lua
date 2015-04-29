@@ -15,7 +15,7 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 -- #############################################################################################################
 -- function: Ariel_M1_Bombers = AddFunction   doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function Ariel_M1_Bombers(platoon)
@@ -39,7 +39,7 @@ end
 -- #############################################################################################################
 -- function: UEF_M2_Bombers = AddFunction   doc = "Please work function docs."
 --
--- parameter 0: string	platoon		= "default_platoon"
+-- parameter 0: string    platoon        = "default_platoon"
 --
 -- #############################################################################################################
 function UEF_M2_Bombers(platoon)

@@ -35,18 +35,18 @@ function FortClarkeAI()
     FortClarke:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Fort_Clarke_Base', 'UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100,})
     FortClarke:StartNonZeroBase({40, 32})
     FortClarke:SetMaximumConstructionEngineers(4)
-	FortClarke:SetConstructionAlwaysAssist(true)
-	
-	ScenarioFramework.AddRestriction(UEF, categories.uel0105) -- UEF T1 Engineer
-	
-	-- Expansion setup
+    FortClarke:SetConstructionAlwaysAssist(true)
+
+    ScenarioFramework.AddRestriction(UEF, categories.uel0105) -- UEF T1 Engineer
+
+    -- Expansion setup
     -- FortClarke:AddExpansionBase('UEFM4ForwardOne', 4)
-	-- FortClarke:AddExpansionBase('UEFM4ForwardTwo', 4)
+    -- FortClarke:AddExpansionBase('UEFM4ForwardTwo', 4)
 
     FortClarke:AddBuildGroup('Bridge_Defenses_D1', 95)
-	
-	ScenarioFramework.CreateTimerTrigger(FortClarkeExpansionRebuilds, 480)
-	
+
+    ScenarioFramework.CreateTimerTrigger(FortClarkeExpansionRebuilds, 480)
+
     ArmyBrains[UEF]:PBMSetCheckInterval(7)
 
     FortClarkeLandAttacks()
@@ -55,7 +55,7 @@ end
 
 function FortClarkeExpansionRebuilds()
     FortClarke:AddBuildGroup('M3_Forward_One_D1', 90)
-	FortClarke:AddBuildGroup('M3_Forward_Two_D1', 80)
+    FortClarke:AddBuildGroup('M3_Forward_Two_D1', 80)
 end
 
 function FortClarkeLandAttacks()
@@ -81,108 +81,108 @@ function FortClarkeLandAttacks()
     )
 
     -- sends [siege bots, mobile shields, mobile missile platforms]
-	local template = {
+    local template = {
         'HeavyLandAttack1',
         'NoPlan',
-        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	-- Siege Bots
-        { 'xel0306', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Missile Platforms
-        { 'uel0307', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Shields
+        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'xel0306', 1, 4, 'Attack', 'GrowthFormation' },    -- Mobile Missile Platforms
+        { 'uel0307', 1, 4, 'Attack', 'GrowthFormation' },    -- Mobile Shields
     }
-	local builder = {
+    local builder = {
         BuilderName = 'HeavyLandAttack1',
         PlatoonTemplate = template,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'UEF_Fort_Clarke_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( builder )
-	
-	template = {
+
+    template = {
         'HeavyLandAttack2',
         'NoPlan',
-        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	-- Siege Bots
-        { 'xel0305', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Missile Platforms
+        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'xel0305', 1, 4, 'Attack', 'GrowthFormation' },    -- Mobile Missile Platforms
     }
-	builder = {
+    builder = {
         BuilderName = 'HeavyLandAttack2',
         PlatoonTemplate = template,
-		InstanceCount = 3,
+        InstanceCount = 3,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'UEF_Fort_Clarke_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( builder )
-	
-	template = {
+
+    template = {
         'HeavyLandAttack3',
         'NoPlan',
-        { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
-        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Flak
+        { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' },    -- Heavy Tanks
+        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },    -- Mobile Flak
     }
-	builder = {
+    builder = {
         BuilderName = 'HeavyLandAttack3',
         PlatoonTemplate = template,
-		InstanceCount = 4,
+        InstanceCount = 4,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'UEF_Fort_Clarke_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( builder )
-	
-	template = {
+
+    template = {
         'HeavyLandAttack4',
         'NoPlan',
-        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },	-- Siege Bots
-        { 'uel0111', 1, 8, 'Attack', 'GrowthFormation' },	-- Mobile Missiles
+        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'uel0111', 1, 8, 'Attack', 'GrowthFormation' },    -- Mobile Missiles
     }
-	builder = {
+    builder = {
         BuilderName = 'HeavyLandAttack4',
         PlatoonTemplate = template,
-		InstanceCount = 4,
+        InstanceCount = 4,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'UEF_Fort_Clarke_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( builder )
-	
-	template = {
+
+    template = {
         'HeavyLandAttack5',
         'NoPlan',
-        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },	-- Siege Bots
-        { 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
-        { 'uel0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Mobile Light Artillery
+        { 'uel0303', 1, 4, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'uel0202', 1, 4, 'Attack', 'GrowthFormation' },    -- Heavy Tanks
+        { 'uel0103', 1, 4, 'Attack', 'GrowthFormation' },    -- Mobile Light Artillery
     }
-	builder = {
+    builder = {
         BuilderName = 'HeavyLandAttack5',
         PlatoonTemplate = template,
-		InstanceCount = 4,
+        InstanceCount = 4,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'UEF_Fort_Clarke_Base',
-		PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
@@ -190,7 +190,7 @@ function FortClarkeLandAttacks()
 
     -- [mobile flak, mobile aa] patrols
     for i = 1, 2 do
-	for x = 1, 2 do
+    for x = 1, 2 do
         opai = FortClarke:AddOpAI('BasicLandAttack', 'FortClarkeLandBasePatrol' .. i .. x,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -202,7 +202,7 @@ function FortClarkeLandAttacks()
         )
         opai:SetChildQuantity({'MobileFlak', 'MobileAntiAir'}, 4)
     end
-	end
+    end
 
     -- [siege bots] patrols
     for i = 1, 2 do
@@ -332,9 +332,9 @@ function FortClarkeTransportAttacks()
     opai:SetChildQuantity('SiegeBots', 6)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveGreaterThanUnitsWithCategory', {'default_brain', 0, categories.xea0306})
-	
-	for i = 1, 2 do
-    	opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack2' .. i,
+
+    for i = 1, 2 do
+        opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack2' .. i,
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
             PlatoonData = {
@@ -347,8 +347,8 @@ function FortClarkeTransportAttacks()
         opai:SetChildQuantity('HeavyTanks', 12)
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
             'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.xea0306})
-		
-		opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack3' .. i,
+
+        opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack3' .. i,
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
             PlatoonData = {
@@ -361,7 +361,7 @@ function FortClarkeTransportAttacks()
         opai:SetChildQuantity('LightTanks', 16)
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
             'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.xea0306})
-	end
+    end
 
 end
 

@@ -34,24 +34,24 @@ function LoyalistM1MainBaseAI()
     ScenarioUtils.CreateArmyGroup('Loyalist', 'Starting_Units')
     LoyalistM1MainBase:InitializeDifficultyTables(ArmyBrains[Loyalist], 'M1_Loy_StartBase', 'Loyalist_M1_Pinned_Base', 70, {M1_Loy_StartBase = 110})
     LoyalistM1MainBase:StartNonZeroBase({{16, 12, 9}, {14, 10, 7}})
-	
-	LoyalistM1MainBase:SetMaximumConstructionEngineers(1)
-	LoyalistM1MainBase:SetConstructionAlwaysAssist(true)
-	
+
+    LoyalistM1MainBase:SetMaximumConstructionEngineers(1)
+    LoyalistM1MainBase:SetConstructionAlwaysAssist(true)
+
     LoyalistM1MainBase:SetActive('AirScouting', true)
     LoyalistM1MainBase:SetActive('LandScouting', true)
 
     ArmyBrains[Loyalist]:PBMSetCheckInterval(7)
 
     LoyalistM1MainBaseLandAttacks()
-	LoyalistM1BaseLandDefense()
+    LoyalistM1BaseLandDefense()
     LoyalistM1MainBaseAirAttacks()
     -- LoyalistM4TransportAttacks()
 end
 
 function LoyalistNewEngCount()
-    LoyalistM1MainBase:SetEngineerCount({{18, 13, 9}, {14, 10, 7}})	
-	LoyalistM1MainBase:SetMaximumConstructionEngineers(4)
+    LoyalistM1MainBase:SetEngineerCount({{18, 13, 9}, {14, 10, 7}})
+    LoyalistM1MainBase:SetMaximumConstructionEngineers(4)
 end
 
 function LoyalistM1MainBaseAirAttacks()
@@ -69,29 +69,29 @@ function LoyalistM1MainBaseAirAttacks()
             }
         )
         opai:SetChildQuantity({'Gunships', 'CombatFighters'}, 8)
-	    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
-	        {0, categories.uab1301, false})
+        opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
+            {0, categories.uab1301, false})
     end
-	
-	local template = {
+
+    local template = {
         'M1_AirAttack2',
         'NoPlan',
-        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },	-- Air Superiority
-        { 'uaa0203', 1, 3, 'Attack', 'GrowthFormation' },	-- Gunships
-        { 'uaa0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Bombers
+        { 'uaa0303', 1, 2, 'Attack', 'GrowthFormation' },    -- Air Superiority
+        { 'uaa0203', 1, 3, 'Attack', 'GrowthFormation' },    -- Gunships
+        { 'uaa0103', 1, 4, 'Attack', 'GrowthFormation' },    -- Bombers
     }
-	local builder = {
+    local builder = {
         BuilderName = 'M1_AirAttack2',
         PlatoonTemplate = template,
-		InstanceCount = 1,
+        InstanceCount = 1,
         Priority = 110,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M1_Loy_StartBase',
-		PlatoonAIFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua', 'LoyalistM1MainAirAttacksAI'},
-		BuildCondition = {
-		    {'/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {0, categories.uab1301, false}},
-		},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua', 'LoyalistM1MainAirAttacksAI'},
+        BuildCondition = {
+            {'/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {0, categories.uab1301, false}},
+        },
     }
     ArmyBrains[Loyalist]:PBMAddPlatoon( builder )
 
@@ -99,9 +99,9 @@ function LoyalistM1MainBaseAirAttacks()
         opai = LoyalistM1MainBase:AddOpAI('AirAttacks', 'M1_AirDef_1' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-		        PlatoonData = {
-		            PatrolChain = 'M1_Loyalist_AirPatrol_Chain',
-		        },
+                PlatoonData = {
+                    PatrolChain = 'M1_Loyalist_AirPatrol_Chain',
+                },
                 Priority = 120,
             }
         )
@@ -110,9 +110,9 @@ function LoyalistM1MainBaseAirAttacks()
         opai = LoyalistM1MainBase:AddOpAI('AirAttacks', 'M1_AirDef_2' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-		        PlatoonData = {
-		            PatrolChain = 'M1_Loyalist_AirPatrol_Chain',
-		        },
+                PlatoonData = {
+                    PatrolChain = 'M1_Loyalist_AirPatrol_Chain',
+                },
                 Priority = 120,
             }
         )
@@ -142,8 +142,8 @@ function LoyalistM1MainBaseLandAttacks()
     opai:SetChildActive('T3', false)
     opai:SetChildActive('MobileShields', false)
     opai:SetChildCount(2)
-	opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
-	    {0, categories.uab1301, false})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
+        {0, categories.uab1301, false})
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_BasicLandAttack2',
         {
@@ -160,8 +160,8 @@ function LoyalistM1MainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('HeavyTanks', 4)
-	opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
-	    {0, categories.uab1301, false})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
+        {0, categories.uab1301, false})
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_BasicLandAttack4',
         {
@@ -178,8 +178,8 @@ function LoyalistM1MainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'SiegeBots', 'MobileShields', 'HeavyTanks', 'LightBots'}, 4)
-	opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
-	    {0, categories.uab1301, false})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
+        {0, categories.uab1301, false})
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M4_BasicLandAttack',
         {
@@ -188,16 +188,16 @@ function LoyalistM1MainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'SiegeBots', 'MobileShields', 'HeavyTanks', 'LightBots'}, 8)
-	opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 4})
-	opai:SetLockingStyle('None')
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 4})
+    opai:SetLockingStyle('None')
 
 end
 
 function LoyalistM1BaseLandDefense()
     local opai = nil
-	local platoons = {}
-	
-	-- Land Defense
+    local platoons = {}
+
+    -- Land Defense
     platoons = {2, 2, 1}
     for i = 1, platoons[Difficulty] do
         opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandDef1_' .. i,
@@ -239,8 +239,8 @@ function LoyalistM1BaseLandDefense()
             }
         )
         opai:SetChildQuantity({'HeavyTanks'}, 2)
-	    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
-	        {0, categories.uab1301, false})
+        opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory',
+            {0, categories.uab1301, false})
     end
 end
 
@@ -299,7 +299,7 @@ end
 
 function LoyalistM4TransportAttacks()
     local opai = nil
-	
+
     local template = {
         'AirTemplateTRANSPORTS',
         'NoPlan',
@@ -330,7 +330,7 @@ function LoyalistM4TransportAttacks()
         Priority = 200,
     })
     opai:SetChildQuantity({'SiegeBots', 'HeavyTanks', 'LightTanks'}, 3)
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_Loy_TransportAttack2',
     {
@@ -343,7 +343,7 @@ function LoyalistM4TransportAttacks()
         Priority = 200,
     })
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, 8)
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
     opai = LoyalistM1MainBase:AddOpAI('BasicLandAttack', 'M1_Loy_TransportAttack3',
     {
@@ -356,6 +356,6 @@ function LoyalistM4TransportAttacks()
         Priority = 200,
     })
     opai:SetChildQuantity({'MobileFlak', 'MobileAntiAir'}, 8)
-	opai:SetLockingStyle('None')
+    opai:SetLockingStyle('None')
 
 end

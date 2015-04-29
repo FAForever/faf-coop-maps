@@ -1,6 +1,6 @@
 -- ONLY EDIT THESE VARS 
-opID = 'X1CA_Coop_001'						-- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opDesc = '<LOC X1CA_Coop_001_description>Fort Clarke, located on the planet Griffin IV, is the UEF\'s last stronghold. Seraphim and Order forces are attacking the fort with overwhelming force. If Fort Clarke falls, the UEF is finished. You will defeat the enemy commanders on Griffin IV and end the siege of Fort Clarke.'							-- used in op select screen
+opID = 'X1CA_Coop_001'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
+opDesc = '<LOC X1CA_Coop_001_description>Fort Clarke, located on the planet Griffin IV, is the UEF\'s last stronghold. Seraphim and Order forces are attacking the fort with overwhelming force. If Fort Clarke falls, the UEF is finished. You will defeat the enemy commanders on Griffin IV and end the siege of Fort Clarke.'                            -- used in op select screen
 
 -- DO NOT EDIT
 local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'X', 1)

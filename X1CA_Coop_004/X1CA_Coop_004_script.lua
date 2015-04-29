@@ -69,7 +69,7 @@ function OnPopulate(scenario)
 
     -- Army Colors
     ScenarioFramework.SetCoalitionColor(Player)
-	if(LeaderFaction == 'cybran') then
+    if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player)
     elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
@@ -82,7 +82,7 @@ function OnPopulate(scenario)
 
     -- Unit cap
     SetArmyUnitCap(Dostya, 400)
-    SetArmyUnitCap(Seraphim, 700)	
+    SetArmyUnitCap(Seraphim, 700)
 
     ----------------
     -- M1 Seraphim AI
@@ -473,12 +473,12 @@ function IntroMission2()
 --       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Base')
 --       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Wreckage', true)
 
-	    ---------------------
-	    -- Dostya ACU Upgrades
-	    ---------------------
-	    ScenarioInfo.DostyaCDR:CreateEnhancement('T3Engineering')
-	    ScenarioInfo.DostyaCDR:CreateEnhancement('MicrowaveLaserGenerator')
-	    ScenarioInfo.DostyaCDR:CreateEnhancement('ResourceAllocation')
+        ---------------------
+        -- Dostya ACU Upgrades
+        ---------------------
+        ScenarioInfo.DostyaCDR:CreateEnhancement('T3Engineering')
+        ScenarioInfo.DostyaCDR:CreateEnhancement('MicrowaveLaserGenerator')
+        ScenarioInfo.DostyaCDR:CreateEnhancement('ResourceAllocation')
 
             ScenarioFramework.Dialogue(OpStrings.X04_M02_001, IntroMission2NIS)
         end
@@ -935,8 +935,8 @@ function KillDostya()
         ScenarioInfo.DostyaCDR:SetCanBeKilled(true)
         ScenarioInfo.DostyaCDR:Kill()
     end
-	
-	M2DostyaAI.DisableBase()
+
+    M2DostyaAI.DisableBase()
 end
 
 function DostyaDeath()
@@ -974,8 +974,8 @@ function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
     SetArmyUnitCap(Seraphim, 900)
-	
-	----------------
+
+    ----------------
     -- M3 Dostya AI
     ----------------
     M2DostyaAI.DostyaExperimentals()

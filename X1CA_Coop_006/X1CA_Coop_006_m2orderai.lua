@@ -42,35 +42,35 @@ function OrderM2BaseAirAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
-	local template = {}
-	local builder = {}
+    local template = {}
+    local builder = {}
 
     -----------------------------------
     -- Order M2 Base Op AI - Air Attacks
     -----------------------------------
-	
-	template = {
+
+    template = {
         'OrderAirToFletcher1',
         'NoPlan',
-        { 'xaa0305', 1, 6, 'Attack', 'GrowthFormation' },	-- Heavy Gunships
-        { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },	-- Gunships		
-        { 'uaa0303', 1, 6, 'Attack', 'GrowthFormation' },	-- Air Superiority
+        { 'xaa0305', 1, 6, 'Attack', 'GrowthFormation' },    -- Heavy Gunships
+        { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },    -- Gunships
+        { 'uaa0303', 1, 6, 'Attack', 'GrowthFormation' },    -- Air Superiority
     }
-	builder = {
+    builder = {
         BuilderName = 'OrderAirToFletcher1',
         PlatoonTemplate = template,
-		InstanceCount = 1,
+        InstanceCount = 1,
         Priority = 150,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M2_Order_MainBase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonData = {
             PatrolChain = 'M2_Rhiza_AirAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )				-- SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
-	
+    ArmyBrains[Order]:PBMAddPlatoon( builder )                -- SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
+
 -- ==============================================================================================================
 
     -- sends 6, 18, 24 [gunships, combat fighters] (to Fletcher)
@@ -344,37 +344,37 @@ function OrderM2BaseNavalAttacks()
     local maxQuantity = {}
     local minQuantity = {}
     local trigger = {}
-	local template = {}
-	local builder = {}
+    local template = {}
+    local builder = {}
 
-	-- ##################
+    -- ##################
     -- Custom Builders #
-	-- ##################
-	
-	template = {
+    -- ##################
+
+    template = {
         'OrderNavyToFletcher1',
         'NoPlan',
-        { 'uas0201', 1, 4, 'Attack', 'GrowthFormation' },	-- Destroyers
-        { 'uas0103', 1, 4, 'Attack', 'GrowthFormation' },	-- Frigates
-        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },	-- Cruisers
-        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },	-- Sub Hunters
+        { 'uas0201', 1, 4, 'Attack', 'GrowthFormation' },    -- Destroyers
+        { 'uas0103', 1, 4, 'Attack', 'GrowthFormation' },    -- Frigates
+        { 'uas0202', 1, 2, 'Attack', 'GrowthFormation' },    -- Cruisers
+        { 'xas0204', 1, 2, 'Attack', 'GrowthFormation' },    -- Sub Hunters
     }
-	builder = {
+    builder = {
         BuilderName = 'OrderNavyToFletcher1',
         PlatoonTemplate = template,
-		InstanceCount = 1,
+        InstanceCount = 1,
         Priority = 100,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Order_MainBase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-		PlatoonData = {
+        PlatoonData = {
             PatrolChain = 'M2_Rhiza_NavalAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )				-- SENDS A SMALL FLEET TO FLETCHER'S BASE
+    ArmyBrains[Order]:PBMAddPlatoon( builder )                -- SENDS A SMALL FLEET TO FLETCHER'S BASE
 
--- =============================================================================	
+-- =============================================================================
 
     -- sends 4 destroyers, 2 subs (to Rhiza)
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack_Rhiza_1',

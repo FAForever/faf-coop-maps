@@ -69,7 +69,7 @@ function FletcherBaseAI()
              M1_Fletcher_MSTOR1 = 20,
              M1_Fletcher_MSTOR2 = 20,
              M1_Fletcher_MSTOR3 = 20,
-			 M1_Fletcher_FACT4 = 15,	-- 4 factories - 2 air - 2 land	# Belonged to FACT3!
+             M1_Fletcher_FACT4 = 15,    -- 4 factories - 2 air - 2 land    # Belonged to FACT3!
              M1_Fletcher_WALL1 = 10,
              M1_Fletcher_WALL2 = 10,
              M1_Fletcher_WALL3 = 10,
@@ -82,7 +82,7 @@ function FletcherBaseAI()
              M1_Fletcher_WALL10 = 10,
              M1_Fletcher_WALL11 = 10,
              M1_Fletcher_WALL12 = 10,
-             M1_Fletcher_FACT3 = 5,	-- 675
+             M1_Fletcher_FACT3 = 5,    -- 675
          }
     )
 -- FletcherBase:StartEmptyBase({60, 48})
@@ -157,28 +157,28 @@ function FletcherBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', 12)
     opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
-	end
+    end
 
 -- ========================================================================
 
-    -- sends [siege bots, mobile shields, heavy tanks, land scout]	
-	local template = {
+    -- sends [siege bots, mobile shields, heavy tanks, land scout]
+    local template = {
         'ShieldedLandTemp',
         'NoPlan',
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },	-- Siege Bots
-        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },	-- Mobile Shields
-        { 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },	-- Heavy Tanks
-        { 'uel0101', 1, 2, 'Attack', 'GrowthFormation' },	-- Land Scout
+        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },    -- Siege Bots
+        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },    -- Mobile Shields
+        { 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },    -- Heavy Tanks
+        { 'uel0101', 1, 2, 'Attack', 'GrowthFormation' },    -- Land Scout
     }
-	local builder = {
+    local builder = {
         BuilderName = 'ShieldedLand1',
         PlatoonTemplate = template,
-		InstanceCount = 2,
+        InstanceCount = 2,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Fletcher_Base',
-		PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( builder )
 
@@ -498,7 +498,7 @@ function FletcherAirPlatoonThread(platoon)
 --           ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Fletcher_Air_Attack_Chain')
                 for k, v in platoon:GetPlatoonUnits() do
                     if(v and not v:IsDead()) then
-       	                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Main_Base_AirDef_Chain')))
+                           ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Main_Base_AirDef_Chain')))
                     end
                 end
             end

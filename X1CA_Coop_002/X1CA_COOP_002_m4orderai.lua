@@ -225,17 +225,17 @@ end
 
 function OrderM4NorthBaseLandAttacks()
     local opai = nil
-	local units = {}
-	local quantity = {}
+    local units = {}
+    local quantity = {}
 
     -----------------------------------------
     -- Order M4 North Base Op AI, Land Attacks
     -----------------------------------------
 
     -- Land Attacks
-	for i = 1, 3 do
-	units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-	quantity = {6, 8, 6}
+    for i = 1, 3 do
+    units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
+    quantity = {6, 8, 6}
     opai = OrderM4NorthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttacks_North' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -247,7 +247,7 @@ function OrderM4NorthBaseLandAttacks()
     )
     opai:SetChildQuantity(units[i], quantity[i])
     opai:SetLockingStyle('None')
-	end
+    end
 end
 
 function OrderM4CenterBaseAI()
@@ -257,10 +257,10 @@ function OrderM4CenterBaseAI()
     ----------------------
     OrderM4CenterBase:Initialize(ArmyBrains[Order], 'M4_Order_MiddleBase', 'Order_M4_Middle_Base', 60, {M4_Order_Middle_Base = 100})
     OrderM4CenterBase:StartNonZeroBase({15, 7})
-	
+
     OrderM4CenterBase:AddBuildGroup('M4_Order_North_Base', 90)
-	OrderM4CenterBase:AddBuildGroup('M4_Order_South_Base', 90)
-	OrderM4CenterBase:SetMaximumConstructionEngineers(8)
+    OrderM4CenterBase:AddBuildGroup('M4_Order_South_Base', 90)
+    OrderM4CenterBase:SetMaximumConstructionEngineers(8)
 
     OrderM4CenterBaseAirAttacks()
     OrderM4CenterBaseLandAttacks()
@@ -319,10 +319,10 @@ function OrderM4CenterBaseLandAttacks()
     -- opai:RemoveChildren({'MobileShields', 'HeavyBots'})
     -- opai:SetChildCount(1)
     -- opai:SetLockingStyle('None')
-	
-	for i = 1, 3 do
-	local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-	local quantity = {3, 4, 4}
+
+    for i = 1, 3 do
+    local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
+    local quantity = {3, 4, 4}
     opai = OrderM4CenterBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_Center' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -334,7 +334,7 @@ function OrderM4CenterBaseLandAttacks()
     )
     opai:SetChildQuantity(units[i], quantity[i])
     opai:SetLockingStyle('None')
-	end
+    end
 end
 
 function OrderM4SouthBaseAI()
@@ -392,10 +392,10 @@ function OrderM4SouthBaseLandAttacks()
     -- opai:RemoveChildren({'HeavyBots'})
     -- opai:SetChildCount(1)
     -- opai:SetLockingStyle('None')
-	
-	for i = 1, 3 do
-	local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-	local quantity = {3, 4, 4}
+
+    for i = 1, 3 do
+    local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
+    local quantity = {3, 4, 4}
     opai = OrderM4SouthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_South' .. i,
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
@@ -407,5 +407,5 @@ function OrderM4SouthBaseLandAttacks()
     )
     opai:SetChildQuantity(units[i], quantity[i])
     opai:SetLockingStyle('None')
-	end
+    end
 end

@@ -48,10 +48,10 @@ function UEFM2WesternTownAI()
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Init_Eng_D' .. Difficulty)
 -- ScenarioUtils.CreateArmyGroup('UEF', 'M2_Town_Turrets_D' .. Difficulty)
     UEFM2WesternTown:Initialize(ArmyBrains[UEF], 'M2_Town_Defenses', 'UEF_M2_Base_Marker', 70,
-	{
-	    M2_Town_Defenses = 100,
-	    M2_Town_Turrets_D1 = 95,
-	}
+    {
+        M2_Town_Defenses = 100,
+        M2_Town_Turrets_D1 = 95,
+    }
     )
     UEFM2WesternTown:StartNonZeroBase({13, 10})
     UEFM2WesternTown:SetMaximumConstructionEngineers(3)

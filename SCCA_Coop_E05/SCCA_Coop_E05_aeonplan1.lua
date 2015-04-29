@@ -1365,15 +1365,15 @@ local PlatoonList = {
 
 function EvaluatePlan(brain)
     if(ScenarioInfo.MissionState == 1) then
-	    return 100
-	else
-	    return 0
-	end
+        return 100
+    else
+        return 0
+    end
 end
 
 function ExecutePlan(brain)
-	if(not brain:PBMHasPlatoonList()) then
--- 	    brain:PBMSetCheckInterval(47)
+    if(not brain:PBMHasPlatoonList()) then
+--         brain:PBMSetCheckInterval(47)
 
         brain:PBMRemoveBuildLocation(nil, 'MAIN')
 

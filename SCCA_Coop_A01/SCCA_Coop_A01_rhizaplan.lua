@@ -22,8 +22,8 @@ function BuildUnits( brain )
 end
 
 function ExecutePlan( brain )
-	BuildStructures( brain )
-	BuildUnits( brain )
+    BuildStructures( brain )
+    BuildUnits( brain )
 end
 
 function ExecutePlan(brain)
