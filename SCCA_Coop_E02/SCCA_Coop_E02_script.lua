@@ -453,22 +453,6 @@ function OnStart(self)
     -- Restrict the map
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Aeon, 'Enemy')
-    end
-    SetAlliance(AllyResearch, Aeon, 'Enemy')
-    SetAlliance(AllyCivilian, Aeon, 'Enemy')
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, AllyResearch, 'Neutral')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, AllyCivilian, 'Neutral')
-    end
-    SetAlliance(AllyResearch, AllyCivilian, 'Ally')
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, AeonNeutral, 'Neutral')
-    end
-
     SetIgnorePlayableRect(Aeon, true)
     SetIgnorePlayableRect(AeonNeutral, true)
     SetIgnorePlayableRect(AllyResearch, true)

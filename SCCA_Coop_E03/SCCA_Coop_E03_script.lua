@@ -424,10 +424,8 @@ function ArnoldDeath()
         SetAlliance(Arnold, Aeon, 'Neutral')
         SetAlliance(Aeon, Arnold, 'Neutral')
         for _, player in ScenarioInfo.HumanPlayers do
-                SetAlliance(Arnold, player, 'Neutral')
-        end
-        for _, player in ScenarioInfo.HumanPlayers do
-                SetAlliance(player, Arnold,  'Neutral')
+            SetAlliance(Arnold, player, 'Neutral')
+            SetAlliance(player, Arnold,  'Neutral')
         end
     end
 end

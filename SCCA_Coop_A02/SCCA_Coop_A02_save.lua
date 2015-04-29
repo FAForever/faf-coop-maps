@@ -1494,6 +1494,7 @@ Scenario = {
                 ['Coop2'] = 'Ally',
                 ['Coop3'] = 'Ally',
                 ['Cybran'] = 'Enemy',
+                ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1534,6 +1535,7 @@ Scenario = {
                 ['Coop2'] = 'Ally',
                 ['Coop3'] = 'Ally',
                 ['Cybran'] = 'Enemy',
+                ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1574,6 +1576,7 @@ Scenario = {
                 ['Coop1'] = 'Ally',
                 ['Coop3'] = 'Ally',
                 ['Cybran'] = 'Enemy',
+                ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1614,6 +1617,7 @@ Scenario = {
                 ['Coop1'] = 'Ally',
                 ['Coop2'] = 'Ally',
                 ['Cybran'] = 'Enemy',
+                ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1654,6 +1658,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
+                ['Cybran'] = 'Neutral',
+                ['Coop1'] = 'Neutral',
+                ['Coop2'] = 'Neutral',
+                ['Coop3'] = 'Neutral',
+                ['Player'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1829,6 +1838,7 @@ Scenario = {
                 ['Coop1'] = 'Enemy',
                 ['Coop2'] = 'Enemy',
                 ['Coop3'] = 'Enemy',
+                ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',

@@ -1240,8 +1240,6 @@ function M3H1Achieved()
    )
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, CybranCloaked, 'Ally')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(CybranCloaked, player, 'Ally')
     end
     ScenarioInfo.M3H1:ManualResult(true)

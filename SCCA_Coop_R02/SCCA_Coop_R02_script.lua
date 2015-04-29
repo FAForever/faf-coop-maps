@@ -662,8 +662,6 @@ function TrackIntialJanusThread(unit)
     end
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, CybranJanus, 'Ally')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(CybranJanus, player, 'Ally')
     end
 end
@@ -2124,8 +2122,6 @@ function StartMission3()
 
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, CybranJanus, 'Enemy')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(CybranJanus, player, 'Enemy')
     end
     SetAlliance(Aeon, CybranJanus, 'Enemy')

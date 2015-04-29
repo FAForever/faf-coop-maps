@@ -245,8 +245,6 @@ function SwapDostyaNeutral()
     -- Set Dostya to neutral, so we stop getting sight intel from that army as they go offmap.
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, Dostya, 'Neutral')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(Dostya, player, 'Neutral')
     end
 end
@@ -1142,8 +1140,6 @@ function BeginPart4()
     -- Set Dostya back to ally in preperation for getting units
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, Dostya, 'Ally')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(Dostya, player, 'Ally')
     end
 

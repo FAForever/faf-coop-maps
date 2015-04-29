@@ -884,8 +884,6 @@ end
 function RDAlly()
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(eastResearch, player, 'Ally')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, eastResearch, 'Ally')
     end
 end

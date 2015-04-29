@@ -349,47 +349,6 @@ function OnStart(self)
     SetArmyUnitCap(UEF, UEFUnitCap)
     SetArmyUnitCap(Neutral, NeutralUnitCap)
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, UEF, 'Enemy')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Cybran, 'Enemy')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Aeon, 'Enemy')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Neutral, 'Neutral')
-    end
-
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(UEF, player, 'Enemy')
-    end
-    SetAlliance(UEF, Cybran, 'Enemy')
-    SetAlliance(UEF, Aeon, 'Enemy')
-    SetAlliance(UEF, Neutral, 'Neutral')
-
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(Cybran, player, 'Enemy')
-    end
-    SetAlliance(Cybran, UEF, 'Enemy')
-    SetAlliance(Cybran, Aeon, 'Enemy')
-    SetAlliance(Cybran, Neutral, 'Neutral')
-
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(Aeon, player, 'Enemy')
-    end
-    SetAlliance(Aeon, UEF, 'Enemy')
-    SetAlliance(Aeon, Cybran, 'Enemy')
-    SetAlliance(Aeon, Neutral, 'Neutral')
-
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(Neutral, player, 'Neutral')
-    end
-    SetAlliance(Neutral, UEF, 'Neutral')
-    SetAlliance(Neutral, Cybran, 'Neutral')
-    SetAlliance(Neutral, Aeon, 'Neutral')
-
     SetIgnorePlayableRect(UEF, true)
     SetIgnorePlayableRect(Cybran, true)
     SetIgnorePlayableRect(Aeon, true)

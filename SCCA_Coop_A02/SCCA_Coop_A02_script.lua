@@ -284,21 +284,6 @@ function OnStart(self)
     -- This override will make sure that the Cybran army doesn't run into the unit cap
     SetArmyUnitCap(Cybran, CybranUnitCap)
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Cybran, 'Enemy')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(Cybran, player, 'Enemy')
-    end
-    SetAlliance(NeutralCybran, Cybran, 'Neutral')
-    SetAlliance(Cybran, NeutralCybran, 'Neutral')
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, NeutralCybran, 'Neutral')
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(NeutralCybran, player, 'Neutral')
-    end
-
     SetIgnorePlayableRect(Cybran, true)
     SetIgnorePlayableRect(NeutralCybran, true)
 
