@@ -60,13 +60,6 @@ local NumBombers = 0
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 1
 
--- -----------
--- Debug only!
--- -----------
-local SkipNIS1 = false
-local SkipNIS2 = false	-- if true, bombers objective will not function!
-
-
 -- --------------
 -- Taunt Managers
 -- --------------
@@ -308,9 +301,7 @@ function OnStart()
         end
     end
 
-    if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
-    end
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
     ForkThread(IntroNIS)
 end
@@ -410,169 +401,130 @@ function IntroNIS()
     -- Show the north base buildings
     local NorthVisMarker = ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'M1_North_Vis_Marker' ), 0, ArmyBrains[Player] )
 
-    if not SkipNIS1 then
-        Cinematics.EnterNISMode()
+    Cinematics.EnterNISMode()
 
-        -- I'm not sure that the player can really see these ships much with the current pan speed we're using
-        -- So, commenting out for now
-        -- local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player])
+    -- I'm not sure that the player can really see these ships much with the current pan speed we're using
+    -- So, commenting out for now
+    -- local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player])
 
-        -- Turn off her shields for more visibility during the NIS
-        local AllShieldUnits = ArmyBrains[Rhiza]:GetListOfUnits(categories.SHIELD, false)
-        ForkThread( ShieldToggle, AllShieldUnits, false, false )
+    -- Turn off her shields for more visibility during the NIS
+    local AllShieldUnits = ArmyBrains[Rhiza]:GetListOfUnits(categories.SHIELD, false)
+    ForkThread(ShieldToggle, AllShieldUnits, false, false)
 
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
-        -- Let slower machines catch up before we get going
-        WaitSeconds(NIS1InitialDelay)
+    -- Let slower machines catch up before we get going
+    WaitSeconds(NIS1InitialDelay)
 
-        ScenarioFramework.Dialogue(OpStrings.X03_M01_010, nil, true)
+    ScenarioFramework.Dialogue(OpStrings.X03_M01_010, nil, true)
 
-        WaitSeconds(2)
+    WaitSeconds(2)
 
-        local NISUnits1 = ScenarioUtils.CreateArmyGroup( 'Seraphim', 'Initial_NIS' )
-        local NISUnits2 = ScenarioUtils.CreateArmyGroup( 'Rhiza', 'Initial_NIS' )
+    local NISUnits1 = ScenarioUtils.CreateArmyGroup('Seraphim', 'Initial_NIS')
+    local NISUnits2 = ScenarioUtils.CreateArmyGroup('Rhiza', 'Initial_NIS')
 
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 4)
-        WaitSeconds(0.5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
-        WaitSeconds(0.5)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 4)
+    WaitSeconds(0.5)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
+    WaitSeconds(0.5)
 
-        if(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_020, nil, true)
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_021, nil, true)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_030, nil, true)
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_031, nil, true)
-        elseif(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_040, nil, true)
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_041, nil, true)
-        end
+    if (LeaderFaction == 'uef') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_020, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_021, nil, true)
+    elseif (LeaderFaction == 'cybran') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_030, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_031, nil, true)
+    elseif (LeaderFaction == 'aeon') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_040, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_041, nil, true)
+    end
 
-        if ( Difficulty == 3 ) then
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4_Hard'), 3)
-        else
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
-        end
-        WaitSeconds(1)
-        if ( Difficulty == 3 ) then
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5_Hard'), 6)
-        else
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 6)
-        end
-        WaitSeconds(1)
-
-        -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1_2'), 0)
-        -- Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 20, 0 )
-        Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 30, 4 )
-        WaitSeconds(1.5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
-
-        if(LeaderFaction == 'aeon') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(LeaderFaction == 'uef') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-        end
-
-        ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-        ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
-
-        -- spawn coop players too
-        ScenarioInfo.CoopCDR = {}
-        local tblArmy = ListArmies()
-        coop = 1
-        for iArmy, strArmy in pairs(tblArmy) do
-            if iArmy >= ScenarioInfo.Coop1 then
-                factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-                if(factionIdx == 1) then
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
-                elseif(factionIdx == 2) then
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
-                else
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
-                end
-                ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-                coop = coop + 1
-                WaitSeconds(0.5)
-            end
-        end
-
-        for index, coopACU in ScenarioInfo.CoopCDR do
-            ScenarioFramework.PauseUnitDeath(coopACU)
-            ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
-        end
-
-        WaitSeconds(2)
-
-        if(LeaderFaction == 'aeon') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_042, nil, true)
-        elseif(LeaderFaction == 'uef') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_022, nil, true)
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioFramework.Dialogue(OpStrings.X03_M01_032, nil, true)
-        end
-
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 3)
-
-        for k, unit in NISUnits1 do
-            if unit and not unit:IsDead() then
-                unit:Kill()
-            end
-        end
-
-        for k, unit in NISUnits2 do
-            if unit and not unit:IsDead() then
-                unit:Kill()
-            end
-        end
-
-        -- Turn her shields back on
-        ForkThread( ShieldToggle, AllShieldUnits, true, false )
-
-        Cinematics.ExitNISMode()
+    if (Difficulty == 3) then
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4_Hard'), 3)
     else
-        if(LeaderFaction == 'aeon') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-        elseif(LeaderFaction == 'uef') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-        elseif(LeaderFaction == 'cybran') then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-        end
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
+    end
+    WaitSeconds(1)
+    if (Difficulty == 3) then
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5_Hard'), 6)
+    else
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 6)
+    end
+    WaitSeconds(1)
 
-        ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-        ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1_2'), 0)
+    -- Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 20, 0 )
+    Cinematics.CameraTrackEntity(ScenarioInfo.RhizaACU, 30, 4)
+    WaitSeconds(1.5)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
 
-        -- spawn coop players too
-        ScenarioInfo.CoopCDR = {}
-        local tblArmy = ListArmies()
-        coop = 1
-        for iArmy, strArmy in pairs(tblArmy) do
-            if iArmy >= ScenarioInfo.Coop1 then
-                factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-                if(factionIdx == 1) then
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
-                elseif(factionIdx == 2) then
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
-                else
-                    ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
-                end
-                ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-                coop = coop + 1
-                WaitSeconds(0.5)
+    if (LeaderFaction == 'aeon') then
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+    elseif (LeaderFaction == 'uef') then
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+    elseif (LeaderFaction == 'cybran') then
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+    end
+
+    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
+    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
+
+    -- spawn coop players too
+    ScenarioInfo.CoopCDR = {}
+    local tblArmy = ListArmies()
+    coop = 1
+    for iArmy, strArmy in pairs(tblArmy) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            if (factionIdx == 1) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+            elseif (factionIdx == 2) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+            else
+                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
             end
-        end
-
-        for index, coopACU in ScenarioInfo.CoopCDR do
-            ScenarioFramework.PauseUnitDeath(coopACU)
-            ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
+            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            coop = coop + 1
+            WaitSeconds(0.5)
         end
     end
+
+    for index, coopACU in ScenarioInfo.CoopCDR do
+        ScenarioFramework.PauseUnitDeath(coopACU)
+        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
+    end
+
+    WaitSeconds(2)
+
+    if (LeaderFaction == 'aeon') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_042, nil, true)
+    elseif (LeaderFaction == 'uef') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_022, nil, true)
+    elseif (LeaderFaction == 'cybran') then
+        ScenarioFramework.Dialogue(OpStrings.X03_M01_032, nil, true)
+    end
+
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 3)
+
+    for k, unit in NISUnits1 do
+        if unit and not unit:IsDead() then
+            unit:Kill()
+        end
+    end
+
+    for k, unit in NISUnits2 do
+        if unit and not unit:IsDead() then
+            unit:Kill()
+        end
+    end
+
+    -- Turn her shields back on
+    ForkThread(ShieldToggle, AllShieldUnits, true, false)
+
+    Cinematics.ExitNISMode()
 
     NorthVisMarker:Destroy()
     IntroMission1()
@@ -993,66 +945,64 @@ end
 function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
 
-    if not SkipNIS2 then
-        -- Get those engineers building the bombers, guaranteed
-        ArmyBrains[Seraphim]:PBMSetCheckInterval(2)
+    -- Get those engineers building the bombers, guaranteed
+    ArmyBrains[Seraphim]:PBMSetCheckInterval(2)
 
-        local AllShieldUnits = ArmyBrains[Seraphim]:GetListOfUnits(categories.SHIELD, false)
+    local AllShieldUnits = ArmyBrains[Seraphim]:GetListOfUnits(categories.SHIELD, false)
 
-        ForkThread( ShieldToggle, AllShieldUnits, false, false )
+    ForkThread(ShieldToggle, AllShieldUnits, false, false)
 
-        local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(75, ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 0, ArmyBrains[Player])
-        ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 0.1, ArmyBrains[Player])
+    local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(75, ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 0, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 0.1, ArmyBrains[Player])
 
-        Cinematics.EnterNISMode()
-        Cinematics.SetInvincible( 'M1_Playable_Area' )
+    Cinematics.EnterNISMode()
+    Cinematics.SetInvincible('M1_Playable_Area')
 
-        WaitSeconds(3.5)
+    WaitSeconds(3.5)
 
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_016, nil, true)
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_017, nil, true)
+    ScenarioFramework.Dialogue(OpStrings.X03_M02_016, nil, true)
+    ScenarioFramework.Dialogue(OpStrings.X03_M02_017, nil, true)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 7)
-        WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 7)
+    WaitSeconds(1)
 
-        -- Set it back to the default
-        ArmyBrains[Seraphim]:PBMSetCheckInterval(13)
+    -- Set it back to the default
+    ArmyBrains[Seraphim]:PBMSetCheckInterval(13)
 
-        -- Look north
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
-        WaitSeconds(1)
-        ScenarioFramework.Dialogue(OpStrings.X03_M02_018, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 5)
-        WaitSeconds(2)
-        -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
-        Cinematics.CameraTrackEntity( ScenarioInfo.PlayerCDR, 40, 4 )
-        VisMarker:Destroy()
+    -- Look north
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
+    WaitSeconds(1)
+    ScenarioFramework.Dialogue(OpStrings.X03_M02_018, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 5)
+    WaitSeconds(2)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+    Cinematics.CameraTrackEntity(ScenarioInfo.PlayerCDR, 40, 4)
+    VisMarker:Destroy()
 
-        local fakeMarker1 = {
-            ['zoom'] = FLOAT( 140 ),
-            ['canSetCamera'] = BOOLEAN( true ),
-            ['canSyncCamera'] = BOOLEAN( true ),
-            ['color'] = STRING( 'ff808000' ),
-            ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-            ['type'] = STRING( 'Camera Info' ),
-            ['prop'] = STRING( '/env/common/props/markers/M_Camera_prop.bp' ),
-            ['orientation'] = VECTOR3( -3.14159, 1.19772, 0 ),
-            ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
-        }
-        Cinematics.CameraMoveToMarker( fakeMarker1, 1.5)
+    local fakeMarker1 = {
+        ['zoom'] = FLOAT(140),
+        ['canSetCamera'] = BOOLEAN(true),
+        ['canSyncCamera'] = BOOLEAN(true),
+        ['color'] = STRING('ff808000'),
+        ['editorIcon'] = STRING('/textures/editor/marker_mass.bmp'),
+        ['type'] = STRING('Camera Info'),
+        ['prop'] = STRING('/env/common/props/markers/M_Camera_prop.bp'),
+        ['orientation'] = VECTOR3(-3.14159, 1.19772, 0),
+        ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
+    }
+    Cinematics.CameraMoveToMarker(fakeMarker1, 1.5)
 
-        -- WaitSeconds(1)
+    -- WaitSeconds(1)
 
-        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 80 )
-        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 80 )
-        Cinematics.SetInvincible( 'M1_Playable_Area', true )
-        Cinematics.ExitNISMode()
+    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 80)
+    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 80)
+    Cinematics.SetInvincible('M1_Playable_Area', true)
+    Cinematics.ExitNISMode()
 
-        ForkThread( ShieldToggle, AllShieldUnits, true, true )
-    end
+    ForkThread(ShieldToggle, AllShieldUnits, true, true)
 
     StartMission2()
 

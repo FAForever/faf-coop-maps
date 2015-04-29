@@ -226,11 +226,6 @@ local LocalFaction
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
--- -----------
--- Debug only!
--- -----------
-local SkipNIS1 = false
-
 -- -----------------
 -- UEF Base Managers
 -- -----------------
@@ -393,9 +388,7 @@ function OnStart(self)
     end
 
     -- Initialize camera
-    if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'))
-    end
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'))
     ForkThread(IntroNISPart1)
 end
 
@@ -494,92 +487,90 @@ function IntroNISPart1()
         end
     end
 
-    if not SkipNIS1 then
-        Cinematics.EnterNISMode()
+    Cinematics.EnterNISMode()
 
-        ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('UEF', 'NIS_AA')
-        ScenarioInfo.NISAntiAir:SetCanBeKilled( false )
-        ScenarioInfo.NISGate:SetCanBeKilled( false )
+    ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('UEF', 'NIS_AA')
+    ScenarioInfo.NISAntiAir:SetCanBeKilled( false )
+    ScenarioInfo.NISGate:SetCanBeKilled( false )
 
-        -- Vis markers near base, artillery, etc.
-        -- ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 25, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_3' ), 35 + NIS1InitialDelay, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
+    -- Vis markers near base, artillery, etc.
+    -- ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 25, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_3' ), 35 + NIS1InitialDelay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
 
-        -- Grant intel on the enemy base locations
-        ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Base_Marker' ), 1, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Base_Marker' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 1, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 1, ArmyBrains[Player] )
+    -- Grant intel on the enemy base locations
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Base_Marker' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Base_Marker' ), 25 + NIS1InitialDelay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 1, ArmyBrains[Player] )
 
-        -- Let slower machines catch up before we get going
-        WaitSeconds(NIS1InitialDelay)
+    -- Let slower machines catch up before we get going
+    WaitSeconds(NIS1InitialDelay)
 
-        -- Start talking
-        ScenarioFramework.Dialogue(VoiceOvers.Introduction, nil, true)
+    -- Start talking
+    ScenarioFramework.Dialogue(VoiceOvers.Introduction, nil, true)
 
-        -- Look at the enemy base
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 5)
-        WaitSeconds(1)
+    -- Look at the enemy base
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 5)
+    WaitSeconds(1)
 
-        -- Look at the artillery
-        ScenarioFramework.Dialogue(VoiceOvers.IntroductionArtillery, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
+    -- Look at the artillery
+    ScenarioFramework.Dialogue(VoiceOvers.IntroductionArtillery, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
 
-        WaitSeconds(2)
+    WaitSeconds(2)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 4)
-        ScenarioFramework.Dialogue(VoiceOvers.IntroductionGunshipPanic, nil, true)
-        WaitSeconds(2)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 4)
+    ScenarioFramework.Dialogue(VoiceOvers.IntroductionGunshipPanic, nil, true)
+    WaitSeconds(2)
 
-        ScenarioInfo.NISGunships = {}
-        ScenarioInfo.NISGunshipPlatoons = {}
-        for i = 1, 6 do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_NIS_Gunships' .. i, 'StaggeredChevronFormation')
-            table.insert(ScenarioInfo.NISGunshipPlatoons, platoon)
-            for k, v in platoon:GetPlatoonUnits() do
-                table.insert(ScenarioInfo.NISGunships, v)
-            end
+    ScenarioInfo.NISGunships = {}
+    ScenarioInfo.NISGunshipPlatoons = {}
+    for i = 1, 6 do
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_NIS_Gunships' .. i, 'StaggeredChevronFormation')
+        table.insert(ScenarioInfo.NISGunshipPlatoons, platoon)
+        for k, v in platoon:GetPlatoonUnits() do
+            table.insert(ScenarioInfo.NISGunships, v)
         end
-        for i = 1, 2 do
-            ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetDoNotTarget(true)
-            ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetCanTakeDamage(false)
-        end
-
-        -- Make one in ten guys attack the anti-air gun to give some plausibility to its death
-        -- And another one in ten attack the shield for the same reason
-        local i = 0
-        for k, v in ScenarioInfo.NISGunshipPlatoons do
-            i = math.mod( (i + 1), 10 )
-            if ( i == 5 ) then
-                v:AttackTarget( ScenarioInfo.NISAntiAir )
-            elseif ( i == 6 ) then
-                v:AttackTarget( ScenarioInfo.NISShield )
-            else
-                v:AttackTarget( ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate'] )
-            end
-        end
-
-        WaitSeconds(0.5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 0)
-        WaitSeconds(1)
-
-        local NISTrackTarget = ScenarioInfo.UnitNames[Order]['M1_Gunship_NIS_Track']
-        Cinematics.CameraTrackEntity( NISTrackTarget, 60, 1 )
-
-        WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 2)
-        WaitSeconds(1)
-
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
-        WaitSeconds(1)
-        ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
     end
+    for i = 1, 2 do
+        ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetDoNotTarget(true)
+        ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetCanTakeDamage(false)
+    end
+
+    -- Make one in ten guys attack the anti-air gun to give some plausibility to its death
+    -- And another one in ten attack the shield for the same reason
+    local i = 0
+    for k, v in ScenarioInfo.NISGunshipPlatoons do
+        i = math.mod( (i + 1), 10 )
+        if ( i == 5 ) then
+            v:AttackTarget( ScenarioInfo.NISAntiAir )
+        elseif ( i == 6 ) then
+            v:AttackTarget( ScenarioInfo.NISShield )
+        else
+            v:AttackTarget( ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate'] )
+        end
+    end
+
+    WaitSeconds(0.5)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 0)
+    WaitSeconds(1)
+
+    local NISTrackTarget = ScenarioInfo.UnitNames[Order]['M1_Gunship_NIS_Track']
+    Cinematics.CameraTrackEntity( NISTrackTarget, 60, 1 )
+
+    WaitSeconds(3)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 2)
+    WaitSeconds(1)
+
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
+    WaitSeconds(1)
+    ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
 
 	SetAreaKillable('M1_Playable_Area', true)
     ForkThread(IntroNISPart2)
@@ -701,48 +692,41 @@ function IntroNISPart2()
 
     ForkThread( NIS1KillUnits )
 
-    if not SkipNIS1 then
-        ScenarioInfo.PlayerCDR:SetDoNotTarget(true)
-        ScenarioInfo.PlayerCDR:SetCanTakeDamage(false)
+    ScenarioInfo.PlayerCDR:SetDoNotTarget(true)
+    ScenarioInfo.PlayerCDR:SetCanTakeDamage(false)
 
-        ForkThread( NISKillGunshipsSlowly )
-        ScenarioInfo.NISAntiAir:SetCanBeKilled( true )
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp2'), 2)
+    ForkThread( NISKillGunshipsSlowly )
+    ScenarioInfo.NISAntiAir:SetCanBeKilled( true )
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp2'), 2)
 
-        WaitSeconds(1)
+    WaitSeconds(1)
 
-        ForkThread( NIS1KillUnits2 )
+    ForkThread( NIS1KillUnits2 )
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp3'), 3)
-        ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp3'), 3)
+    ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
 
-        ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
-        ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
-        Cinematics.ExitNISMode()
+    ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
+    ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
+    Cinematics.ExitNISMode()
 
-        -- Get rid of intel on the enemy bases
-        -- ...no longer!  Word has come down that the player should see the enemy base info.
-        -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 40 )
-        -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 40 )
-        -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
-        -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
-    end
+    -- Get rid of intel on the enemy bases
+    -- ...no longer!  Word has come down that the player should see the enemy base info.
+    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 40 )
+    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 40 )
+    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
+    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
 
     for k, unit in NIS1Over90PostConversion do
         if (unit and not unit:IsDead()) then
             unit:SetCanBeKilled( true )
-            -- LOG('*DEBUG: ', unit:GetUnitId(), ' before health adjustment: ', unit:GetHealth() )
             unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.9), unit:GetMaxHealth() ))
-            -- LOG('*DEBUG: ', unit:GetUnitId(), ' after health adjustment: ', unit:GetHealth() )
         end
     end
-    -- LOG('*DEBUG: 90 done')
     for k, unit in NIS1Over80PostConversion do
         if (unit and not unit:IsDead()) then
             unit:SetCanBeKilled( true )
-            -- LOG('*DEBUG: ', unit:GetUnitId(), ' before health adjustment: ', unit:GetHealth() )
             unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.8), unit:GetMaxHealth() ))
-            -- LOG('*DEBUG: ', unit:GetUnitId(), ' after health adjustment: ', unit:GetHealth() )
         end
     end
 
@@ -790,7 +774,6 @@ function NISKillGunshipsSlowly()
                 WaitSeconds(0.2)
                 flipToggle = true
             end
-            -- LOG('*DEBUG: Killing gunship (slowly)')
         end
     end
 end
@@ -808,7 +791,6 @@ function NIS1KillUnits2()
                 WaitSeconds(0.1)
             end
             unit:Kill()
-            -- LOG('*DEBUG: Killing gunship (quickly)')
         end
     end
 

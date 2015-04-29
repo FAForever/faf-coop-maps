@@ -60,19 +60,7 @@ local OrderNeutral = ScenarioInfo.OrderNeutral
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
-
-
-
--- -----------
--- Debug only!
--- -----------
-local SkipNIS2 = false
-local SkipM3Dialog = false
-local DebugShortM3 = false
-
-
 
 -- --------------
 -- Taunt Managers
@@ -803,59 +791,57 @@ end
 function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
 
-    if ( not SkipNIS2 ) then
-        Cinematics.EnterNISMode()
-        Cinematics.SetInvincible( 'M1_Playable_Area' )
+    Cinematics.EnterNISMode()
+    Cinematics.SetInvincible('M1_Playable_Area')
 
-        local fakeMarker1 = {
-            ['zoom'] = FLOAT( 35 ),
-            ['canSetCamera'] = BOOLEAN( true ),
-            ['canSyncCamera'] = BOOLEAN( true ),
-            ['color'] = STRING( 'ff808000' ),
-            ['editorIcon'] = STRING( '/textures/editor/marker_mass.bmp' ),
-            ['type'] = STRING( 'Camera Info' ),
-            ['prop'] = STRING( '/env/common/props/markers/M_Camera_prop.bp' ),
-            ['orientation'] = VECTOR3( -3.14159, 1.19772, 0 ),
-            ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
-        }
-        Cinematics.CameraMoveToMarker( fakeMarker1, 0 )
+    local fakeMarker1 = {
+        ['zoom'] = FLOAT(35),
+        ['canSetCamera'] = BOOLEAN(true),
+        ['canSyncCamera'] = BOOLEAN(true),
+        ['color'] = STRING('ff808000'),
+        ['editorIcon'] = STRING('/textures/editor/marker_mass.bmp'),
+        ['type'] = STRING('Camera Info'),
+        ['prop'] = STRING('/env/common/props/markers/M_Camera_prop.bp'),
+        ['orientation'] = VECTOR3(-3.14159, 1.19772, 0),
+        ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
+    }
+    Cinematics.CameraMoveToMarker(fakeMarker1, 0)
 
-        WaitSeconds(1)
+    WaitSeconds(1)
 
-        -- Show the prison
-        ScenarioFramework.CreateVisibleAreaLocation( 4, ScenarioInfo.Prison:GetPosition(), 10, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 60, ScenarioUtils.MarkerToPosition( 'M2_QAI_Base_Marker' ), 10, ArmyBrains[Player] )
-        -- ScenarioFramework.CreateVisibleAreaLocation( 60, ScenarioUtils.MarkerToPosition( 'Order_M2_North_Base_Marker' ), 10, ArmyBrains[Player] )
-        ScenarioFramework.CreateVisibleAreaLocation( 350, ScenarioInfo.Prison:GetPosition(), 1, ArmyBrains[Player] )
+    -- Show the prison
+    ScenarioFramework.CreateVisibleAreaLocation(4, ScenarioInfo.Prison:GetPosition(), 10, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('M2_QAI_Base_Marker'), 10, ArmyBrains[Player])
+    -- ScenarioFramework.CreateVisibleAreaLocation( 60, ScenarioUtils.MarkerToPosition( 'Order_M2_North_Base_Marker' ), 10, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation(350, ScenarioInfo.Prison:GetPosition(), 1, ArmyBrains[Player])
 
-        WaitSeconds(1)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_010, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 3)
-        WaitSeconds(1)
+    WaitSeconds(1)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_010, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 3)
+    WaitSeconds(1)
 
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_011, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 3)
-        WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
-        WaitSeconds(1)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_011, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 3)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
+    WaitSeconds(1)
 
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_012, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 4)
-        WaitSeconds(1)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_012, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 4)
+    WaitSeconds(1)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 4)
-        -- WaitSeconds(1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 4)
+    -- WaitSeconds(1)
 
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_013, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 5)
-        WaitSeconds(1)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_013, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 5)
+    WaitSeconds(1)
 
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_014, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_014, nil, true)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
 
-        Cinematics.SetInvincible( 'M1_Playable_Area', true )
-        Cinematics.ExitNISMode()
-    end
+    Cinematics.SetInvincible('M1_Playable_Area', true)
+    Cinematics.ExitNISMode()
 
     StartMission2()
 end
@@ -1119,25 +1105,19 @@ function StartMission3()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M3P1)
 
-    if ( not DebugShortM3 ) then
-        ScenarioFramework.CreateTimerTrigger(M3PrincessReveal, 60)
-    else
-        ScenarioFramework.CreateTimerTrigger(M3PrincessReveal, 5)
-    end
+    ScenarioFramework.CreateTimerTrigger(M3PrincessReveal, 60)
 
     -- In case any dialogue is queueing up, turn off Celenes taunt manager early, ahead of the flip.
     CeleneTM:Activate(false)
 end
 
 function M3PrincessReveal()
-    if ( not SkipM3Dialog ) then
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_170)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_171)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_172)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_173)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_174)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_175)
-    end
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_170)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_171)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_172)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_173)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_174)
+    ScenarioFramework.Dialogue(OpStrings.X02_M02_175)
     ScenarioFramework.Dialogue(OpStrings.X02_M02_176, EndMission3)
 end
 
