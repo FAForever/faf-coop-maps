@@ -1460,22 +1460,9 @@ function IntroMission4()
                 end
             end
 
-            ForkThread(CheatEconomy, Order)
-            ForkThread(CheatEconomy, QAI)
-
             ForkThread(IntroMission4NIS)
         end
     )
-end
-
-function CheatEconomy(army)
-    ArmyBrains[army]:GiveStorage('ENERGY', 10000)
-    ArmyBrains[army]:GiveStorage('MASS', 10000)
-    while(true) do
-        ArmyBrains[army]:GiveResource('ENERGY', 10000)
-        ArmyBrains[army]:GiveResource('MASS', 10000)
-        WaitSeconds(1)
-    end
 end
 
 function CeleneWarp()

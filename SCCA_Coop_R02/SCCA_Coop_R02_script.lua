@@ -260,24 +260,7 @@ ScenarioInfo.TauntsAllowed = true
 ScenarioInfo.M3AeonCDRDead = false
 
 
-function CheatEconomy()
-	
-    ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
-    ArmyBrains[Aeon]:GiveStorage('ENERGY', 500000)
-    ArmyBrains[CybranJanus]:GiveStorage('MASS', 500000)
-    ArmyBrains[CybranJanus]:GiveStorage('ENERGY', 500000)
-    while(true) do
-		ArmyBrains[Aeon]:GiveResource('MASS', 500000)
-		ArmyBrains[Aeon]:GiveResource('ENERGY', 500000)
-		if(ScenarioInfo.MissionNumber == 3) then
-			ArmyBrains[CybranJanus]:GiveResource('MASS', 500000)
-			ArmyBrains[CybranJanus]:GiveResource('ENERGY', 500000)
-		end
-		WaitSeconds(.5)
-    end
-end
-
------------------------------------------------------------------------------ #
+--------------------------------------------------------------------------- #
 -- === STARTER FUNCTIONS ===================================================== #
 ----------------------------------------------------------------------------- #
 function OnPopulate(scenario)
@@ -386,8 +369,6 @@ function StartMission1()
     -- Seed our aeon taunt playing cycle: 50 units will kick it off
     ScenarioFramework.CreateArmyStatTrigger(PlayAeonTaunt, ArmyBrains[Aeon], 'AeonTauntStartTrigger',
         {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = PlayerUnitsLost, Category = categories.CYBRAN, },}) -- Player units killed by Aeon
-		
-	ForkThread(CheatEconomy)
 end
 
 function RandomizeLocationsInPlatoon(platoon, shuffleRadius)

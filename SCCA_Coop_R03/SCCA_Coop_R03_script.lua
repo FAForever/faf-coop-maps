@@ -189,17 +189,6 @@ local M3CybranAirTechAllowance = categories.ura0203
 local M3UEFBuildingTechAllowance = categories.ueb0202
 local M3UEFAirTechAllowance = categories.uea0203
 
-function CheatEconomy()
-	
-    ArmyBrains[UEF]:GiveStorage('MASS', 500000)
-    ArmyBrains[UEF]:GiveStorage('ENERGY', 500000)
-    while(true) do
-		ArmyBrains[UEF]:GiveResource('MASS', 500000)
-		ArmyBrains[UEF]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
@@ -363,8 +352,6 @@ function SetupM1Triggers()
     -- Assign M1P5: Defend the Gate
     ScenarioInfo.M1P5Obj = Objectives.Protect('primary', 'incomplete', OpStrings.M1P5Title, OpStrings.M1P5Description,{Units = {ScenarioInfo.Gate}})
     ScenarioFramework.CreateUnitDestroyedTrigger(M1GateDestroyed , ScenarioInfo.Gate)
-	ForkThread(CheatEconomy)
-
 end
 
 

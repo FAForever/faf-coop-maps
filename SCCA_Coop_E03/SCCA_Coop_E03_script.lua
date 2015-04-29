@@ -45,16 +45,6 @@ local erisTaunt = 1
 -- Startup
 ---------
 
-function CheatEconomy()
-    ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
-    ArmyBrains[Aeon]:GiveStorage('ENERGY', 500000)
-    while(true) do
-		ArmyBrains[Aeon]:GiveResource('MASS', 500000)
-		ArmyBrains[Aeon]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
 function OnPopulate(scenario)
  	ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -598,7 +588,6 @@ function IntroMission3()
     )
 
     ScenarioFramework.Dialogue(OpStrings.E03_M03_010, StartMission3)
-	ForkThread(CheatEconomy)
 end
 
 function StartMission3()

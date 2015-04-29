@@ -430,17 +430,6 @@ local AeonM2TruckAttackRoute2 = {
 -- Starter functions
 --
 
-function CheatEconomy()
-	
-    ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
-    ArmyBrains[Aeon]:GiveStorage('ENERGY', 500000)
-    while(true) do
-		ArmyBrains[Aeon]:GiveResource('MASS', 500000)
-		ArmyBrains[Aeon]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -2098,8 +2087,6 @@ function BeginMission3()
 
     -- Start up the attacks against the player again
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM3, M3PeriodicAttackPlayerInitialDelay[ Difficulty ])
-	
-	ForkThread(CheatEconomy)
 end
 
 function M3AeonCommanderAIThread(platoon)

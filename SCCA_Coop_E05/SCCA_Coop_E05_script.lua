@@ -145,22 +145,6 @@ local Cybran = ScenarioInfo.Cybran
 -- Aeon.SetArmyShowScore = false
 -- Cybran.SetArmyShowScore = false
 
-
-function CheatEconomy()
-    ArmyBrains[Cybran]:GiveStorage('MASS', 500000)
-    ArmyBrains[Cybran]:GiveStorage('ENERGY', 500000)
-    ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
-    ArmyBrains[Aeon]:GiveStorage('ENERGY', 500000)
-    while(true) do
-        ArmyBrains[Cybran]:GiveResource('MASS', 500000)
-        ArmyBrains[Cybran]:GiveResource('ENERGY', 500000)
-		ArmyBrains[Aeon]:GiveResource('MASS', 500000)
-		ArmyBrains[Aeon]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
-
     -- === Tracking Variables === #
     -- How many research facilities have been destroyed
 ScenarioInfo.FacilitiesDestroyedNumber = 0
@@ -637,8 +621,6 @@ function M1AssignP1()
     -- Don't add this one to Objective group, as it is completed when the group is completed
     -- Matt 10.16.06
     -- ScenarioInfo.M1Objectives:AddObjective(ScenarioInfo.M1P1)
-	
-	ForkThread(CheatEconomy)
 end
 
 function SiloAmmoThread(callback, areaName)

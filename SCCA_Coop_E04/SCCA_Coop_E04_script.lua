@@ -192,16 +192,6 @@ function OnPopulate(scenario)
     ScenarioFramework.GetLeaderAndLocalFactions()
 end
 
-function CheatEconomy()
-    ArmyBrains[ScenarioInfo.Cybran]:GiveStorage('MASS', 500000)
-    ArmyBrains[ScenarioInfo.Cybran]:GiveStorage('ENERGY', 500000)
-    while(true) do
-        ArmyBrains[ScenarioInfo.Cybran]:GiveResource('MASS', 500000)
-        ArmyBrains[ScenarioInfo.Cybran]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
 function OnLoad(self)
 end
 
@@ -493,8 +483,6 @@ function StartMission2()
     -- ScenarioInfo.CybranCDR:CreateEnhancement('CloakingGenerator')
     -- ScenarioFramework.CreateUnitDeathTrigger(M2OnCybranLeaderDeath, ScenarioInfo.CybranCDR)
 
-	ForkThread(CheatEconomy)
-	
     -- Overcharge manager
     local cdrPlatoon = ArmyBrains[ScenarioInfo.Cybran]:MakePlatoon(' ', ' ')
     ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')

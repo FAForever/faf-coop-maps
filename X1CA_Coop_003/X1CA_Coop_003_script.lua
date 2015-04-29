@@ -1020,8 +1020,6 @@ function ShieldToggle( ShieldUnits, ToggleOn, Wait )
 end
 
 function StartMission2()
-    ForkThread(CheatEconomy)
-	
     local bombers = {}
     for k, v in ScenarioInfo.ExperimentalEngineers do
         if(v and not v:IsDead()) then
@@ -1675,16 +1673,6 @@ function StartMission3()
 
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xes0307, "uef", 15, OpStrings.X03_M02_220)
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xas0306, "aeon", 15, OpStrings.X03_M02_230)
-end
-
-function CheatEconomy()
-    ArmyBrains[Seraphim]:GiveStorage('MASS', 10000)
-    ArmyBrains[Seraphim]:GiveStorage('ENERGY', 10000)
-    while(true) do
-        ArmyBrains[Seraphim]:GiveResource('MASS', 10000)
-        ArmyBrains[Seraphim]:GiveResource('ENERGY', 10000)
-        WaitSeconds(1)
-    end
 end
 
 function NorthACUDestroyed()

@@ -337,8 +337,6 @@ end
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
-    ForkThread(CheatEconomy, Hex5)
-
     StartMission1()
 end
 
@@ -523,8 +521,6 @@ function IntroMission2()
                 WaitSeconds(0.2)
             end
             ScenarioInfo.MissionNumber = 2
-
-            ForkThread(CheatEconomy, Fletcher)
 
             ----------------
             -- M2 Fletcher AI
@@ -1873,8 +1869,6 @@ function StartMission3()
 
     -- Unlock novax after 2 minutes.
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xeb2402, "uef", 120, OpStrings.X05_M02_012)
-
-    ForkThread(CheatEconomy, QAI)
 end
 
 function M3S1Failed()
@@ -2149,16 +2143,6 @@ function KillQAIBuildingGroup()
             unit:SetCanBeKilled(true)
             unit:Kill()
         end
-    end
-end
-
-function CheatEconomy(army)
-    ArmyBrains[army]:GiveStorage('MASS', 10000)
-    ArmyBrains[army]:GiveStorage('ENERGY', 10000)
-    while(true) do
-        ArmyBrains[army]:GiveResource('MASS', 10000)
-        ArmyBrains[army]:GiveResource('ENERGY', 10000)
-		WaitSeconds(0.5)
     end
 end
 

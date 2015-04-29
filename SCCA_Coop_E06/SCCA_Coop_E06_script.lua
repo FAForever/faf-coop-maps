@@ -118,22 +118,6 @@ ScenarioInfo.VarTable['M3NukeClumpTimer_D1'] = 480
 ScenarioInfo.VarTable['M3NukeClumpTimer_D2'] = 300
 ScenarioInfo.VarTable['M3NukeClumpTimer_D3'] = 150
 
-
-function CheatEconomy()
-    ArmyBrains[Cybran]:GiveStorage('MASS', 500000)
-    ArmyBrains[Cybran]:GiveStorage('ENERGY', 500000)
-    ArmyBrains[Aeon]:GiveStorage('MASS', 500000)
-    ArmyBrains[Aeon]:GiveStorage('ENERGY', 500000)
-    while(true) do
-        ArmyBrains[Cybran]:GiveResource('MASS', 500000)
-        ArmyBrains[Cybran]:GiveResource('ENERGY', 500000)
-		ArmyBrains[Aeon]:GiveResource('MASS', 500000)
-		ArmyBrains[Aeon]:GiveResource('ENERGY', 500000)
-		WaitSeconds(.5)
-    end
-end
-
-
 function OnPopulate(scen)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -392,8 +376,6 @@ function IntroNIS()
     -- Check if the transport is in range to die
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(IntroKillTransport, ScenarioInfo.DeathTransport, 'INTRO_Island_Death_Marker', 12)
     ForkThread(MoveComponents, unloadCmd)
-	
-	ForkThread(CheatEconomy)
 end
 
 function MoveEscorts(group)

@@ -286,7 +286,6 @@ function IntroMission1()
 end
 
 function StartMission1()
-    ForkThread(CheatEconomy)
 
     local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.AIRSTAGINGPLATFORM + categories.FACTORY + categories.MASSEXTRACTION, false)
     ---------------------------------------------
@@ -1124,20 +1123,6 @@ function IntroMission3()
     ScenarioUtils.CreateArmyGroup('SeraphimSecondary', 'M3_Secondary_DefenseSwap_D' .. Difficulty)
 
     StartMission3()
-end
-
-function CheatEconomy()
-    ArmyBrains[Seraphim]:GiveStorage('MASS', 10000)
-    ArmyBrains[Seraphim]:GiveStorage('ENERGY', 200000)
-    ArmyBrains[Dostya]:GiveStorage('MASS', 10000)
-    ArmyBrains[Dostya]:GiveStorage('ENERGY', 200000)
-    while(true) do
-        ArmyBrains[Dostya]:GiveResource('MASS', 10000)
-        ArmyBrains[Dostya]:GiveResource('ENERGY', 200000)
-        ArmyBrains[Seraphim]:GiveResource('MASS', 10000)
-        ArmyBrains[Seraphim]:GiveResource('ENERGY', 200000)
-        WaitSeconds(1)
-    end
 end
 
 function M3Experimentals()

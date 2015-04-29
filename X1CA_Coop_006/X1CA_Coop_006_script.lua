@@ -595,7 +595,6 @@ function IntroMission2()
             ScenarioInfo.OptionZeroNuke:SetReclaimable(false)
             ScenarioInfo.OptionZeroNuke:SetIntelRadius('Vision', 0)
 
-            ForkThread(CheatEconomy)
             ForkThread(IntroMission2NIS)
 
             -- TODO: move to m3 when non-smoking wreckage can be done.
@@ -805,26 +804,6 @@ function M2Seraphim()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Init_NavalDef_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_Naval_Def_Chain')
-    end
-end
-
-function CheatEconomy()
-    ArmyBrains[Rhiza]:GiveStorage('MASS', 500000)
-    ArmyBrains[Rhiza]:GiveStorage('ENERGY', 500000)
-    ArmyBrains[Fletcher]:GiveStorage('MASS', 500000)
-    ArmyBrains[Fletcher]:GiveStorage('ENERGY', 500000)
-    ArmyBrains[Seraphim]:GiveStorage('MASS', 500000)
-    ArmyBrains[Seraphim]:GiveStorage('ENERGY', 500000)
-    while(true) do
-        ArmyBrains[Rhiza]:GiveResource('MASS', 500000)
-        ArmyBrains[Rhiza]:GiveResource('ENERGY', 500000)
-        if(ScenarioInfo.MissionNumber == 2) then
-            ArmyBrains[Fletcher]:GiveResource('MASS', 500000)
-            ArmyBrains[Fletcher]:GiveResource('ENERGY', 500000)
-            ArmyBrains[Seraphim]:GiveResource('MASS', 500000)
-            ArmyBrains[Seraphim]:GiveResource('ENERGY', 500000)
-        end
-        WaitSeconds(.5)
     end
 end
 
