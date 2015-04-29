@@ -381,14 +381,6 @@ function OnStart(self)
         )
     end
 
-    -- Hide all but the player army score
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     -- Initialize camera
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'))
     ForkThread(IntroNISPart1)

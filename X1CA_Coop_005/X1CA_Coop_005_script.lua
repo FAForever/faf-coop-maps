@@ -172,14 +172,6 @@ function OnStart(scenario)
     ScenarioFramework.AddRestriction(Fletcher, categories.uel0105 + categories.uel0208)
     ScenarioFramework.AddRestriction(Brackman, categories.url0105 + categories.url0208)
 
-    -- Hide all but the player army score
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
     ForkThread(IntroMission1NIS)

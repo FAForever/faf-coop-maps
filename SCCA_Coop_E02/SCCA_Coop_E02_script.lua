@@ -453,14 +453,6 @@ function OnStart(self)
     -- Restrict the map
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 
-    -- Hide scores for non-player armies
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, Aeon, 'Enemy')
     end

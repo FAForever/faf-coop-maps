@@ -215,14 +215,6 @@ function OnStart(self)
     -- Set the mission number
     ScenarioInfo.MissionNumber = 1
 
-    -- Hide scores for non-player armies
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     -- Add in the base locations for the PBM
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M2_Base_North'), 80, 'M2_Base_North')
     ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M2_Base_South'), 80, 'M2_Base_South')

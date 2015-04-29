@@ -144,13 +144,6 @@ function OnPopulate(scen)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetAeonColor(Aeon)
 
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     -- Player Army
     ScenarioUtils.CreateArmyGroup('Player', 'Naval_Base')
     ScenarioUtils.CreateArmyGroup('Player', 'Black_Sun_Defenses')

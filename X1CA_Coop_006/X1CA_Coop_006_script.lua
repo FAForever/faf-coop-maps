@@ -260,14 +260,6 @@ function FletcherTransportAI()
 end
 
 function OnStart(self)
-    -- Hide all but the player army score
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     --------------------
     -- Build Restrictions
     --------------------

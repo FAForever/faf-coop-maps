@@ -190,16 +190,7 @@ ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
 function OnPopulate(scenario)
 	ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
-
-    -- Per Teh
-    for i=2,table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
 end
-
 
 function CheatEconomy()
     ArmyBrains[ScenarioInfo.Cybran]:GiveStorage('MASS', 500000)

@@ -162,13 +162,6 @@ function OnStart(self)
 
     SetIgnorePlayableRect(uef, true)
     SetIgnorePlayableRect(eris, true)
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
 
     -- Army colors
     ScenarioFramework.SetAeonColor(Player)

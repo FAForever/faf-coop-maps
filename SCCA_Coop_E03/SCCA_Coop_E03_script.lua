@@ -143,13 +143,6 @@ function OnStart(self)
                                             'Teleporter'})
 
     SetIgnorePlayableRect(Aeon, true)
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
 
     -- Army Colors
     ScenarioFramework.SetUEFColor(Player)

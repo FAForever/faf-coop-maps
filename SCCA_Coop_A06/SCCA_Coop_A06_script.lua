@@ -276,15 +276,6 @@ function OnPopulate(scenario)
 end
 
 function OnStart(self)
-
-    -- Hide scores for non-player armies
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     -- Add in the base locations for the PBM
     ArmyBrains[UEF]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M1_Offense_Location'), 40, 'M1_Offense_Location')
     ArmyBrains[UEF]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('M1_UEF_Water_Attacks'), 60, 'M1_UEF_Water_Attacks')

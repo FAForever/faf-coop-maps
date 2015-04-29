@@ -130,16 +130,6 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranAllyColor(Nodes)
     ScenarioFramework.SetCybranNeutralColor(NexusDefense)
 
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
-    for i = 2, table.getn(ArmyBrains) do
-    end
-
     local plat
 
     -- === Lock off tech === #

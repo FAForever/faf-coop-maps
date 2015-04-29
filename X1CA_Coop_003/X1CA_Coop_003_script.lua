@@ -295,14 +295,6 @@ function OnStart()
 
     ScenarioFramework.AddRestriction(Rhiza, categories.uas0302) -- Aeon Battleship
 
-    -- Hide all but the player army score
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
-
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
     ForkThread(IntroNIS)

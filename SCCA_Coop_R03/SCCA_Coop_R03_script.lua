@@ -243,14 +243,6 @@ function OnPopulate(scenario)
         v:SetReclaimable(false)
         v:SetCapturable(false)
     end
-
-    -- Per Teh
-    for i=2,table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
 end
 
 function OnLoad(self)

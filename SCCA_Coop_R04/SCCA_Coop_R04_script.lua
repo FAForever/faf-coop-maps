@@ -454,14 +454,6 @@ function OnStart(self)
     end
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
-
-    -- Hide scores for non-player armies
-    for i = 2, table.getn(ArmyBrains) do
-		if i < ScenarioInfo.Coop1 then
-			SetArmyShowScore(i, false)
-		end
-    end
-
     ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node1:GetPosition(), 10, ArmyBrains[Player] )
 
     SetAlliance( Player, Aeon, 'Enemy' )

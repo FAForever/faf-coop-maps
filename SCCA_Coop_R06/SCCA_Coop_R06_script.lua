@@ -339,13 +339,6 @@ function OnStart(self)
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
 
-    for i = 2, table.getn(ArmyBrains) do
-		if i < ScenarioInfo.Coop1 then
-	        SetArmyShowScore(i, false)	
-			SetIgnorePlayableRect(i, true)
-		end
-    end
-
     SetArmyUnitCap(player, 300)
     SetArmyUnitCap(aeon, 600)
     SetArmyUnitCap(uef, 800)

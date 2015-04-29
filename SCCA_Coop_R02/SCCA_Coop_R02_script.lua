@@ -330,15 +330,7 @@ function OnStart(self)
         ScenarioInfo.VarTable['DifficultyIs3'] = true
     end
 
-    InitialSetup()
     ForkThread(IntroNIS)
-end
-
-function InitialSetup()
-    for brainCounter = 2, table.getn(ArmyBrains) do
-        SetIgnorePlayableRect(brainCounter, true)
-        SetArmyShowScore(brainCounter, false)
-    end
 end
 
 function IntroNIS()

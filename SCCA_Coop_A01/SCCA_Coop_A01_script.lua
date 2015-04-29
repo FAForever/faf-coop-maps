@@ -99,14 +99,6 @@ function OnPopulate(scenario)
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     M1_UnitsForStart()
-
-    -- Player only gets score
-    for i = 2, table.getn(ArmyBrains) do
-        if i < ScenarioInfo.Coop1 then
-            SetArmyShowScore(i, false)
-            SetIgnorePlayableRect(i, true)
-        end
-    end
 end
 
 function OnStart(self)
