@@ -110,19 +110,21 @@ function OnStart(self)
     -- Build Restrictions
     --------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xab2307) -- Aeon Rapid Fire Artillery
-        ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrb0104) -- Cybran Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xrb0204) -- Cybran Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xrb0304) -- Cybran Engineering Station 3
-        ScenarioFramework.AddRestriction(player, categories.xrb3301) -- Cybran Perimeter Monitoring System
-        ScenarioFramework.AddRestriction(player, categories.xra0305) -- Cybran Heavy Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
-        ScenarioFramework.AddRestriction(player, categories.xeb0104) -- UEF Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xeb0204) -- UEF Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xea0306) -- UEF Heavy Air Transport
-        ScenarioFramework.AddRestriction(player, categories.xeb2402) -- UEF Sub-Orbital Defense System
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraphim Strategic Missile Launcher
+        ScenarioFramework.AddRestriction(player,
+            categories.xab2307 + -- Aeon Rapid Fire Artillery
+            categories.xaa0305 + -- Aeon AA Gunship
+            categories.xrb0104 + -- Cybran Engineering Station 1
+            categories.xrb0204 + -- Cybran Engineering Station 2
+            categories.xrb0304 + -- Cybran Engineering Station 3
+            categories.xrb3301 + -- Cybran Perimeter Monitoring System
+            categories.xra0305 + -- Cybran Heavy Gunship
+            categories.xrl0403 + -- Cybran Amphibious Mega Bot
+            categories.xeb0104 + -- UEF Engineering Station 1
+            categories.xeb0204 + -- UEF Engineering Station 2
+            categories.xea0306 + -- UEF Heavy Air Transport
+            categories.xeb2402 + -- UEF Sub-Orbital Defense System
+            categories.xsb2401   -- Seraphim Strategic Missile Launcher
+        )
     end
 	
     -- Hide all but the player army score

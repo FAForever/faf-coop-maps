@@ -158,20 +158,19 @@ function OnStart(scenario)
     -- Build Restrictions
     --------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship                      # TODO: unlock somewhere in this op
-        ScenarioFramework.AddRestriction(player, categories.xra0305) -- Cybran Heavy Gunship                 # TODO: unlock somewhere in this op
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
-        ScenarioFramework.AddRestriction(player, categories.xea0306) -- UEF Heavy Air Transport              # TODO: unlock somewhere in this op
-        ScenarioFramework.AddRestriction(player, categories.xeb2402) -- UEF Sub-Orbital Defense System       # TODO: unlock somewhere in this op
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraphim Strategic Missile Launcher
+        ScenarioFramework.AddRestriction(player,
+            categories.xaa0305 + -- Aeon AA Gunship
+            categories.xra0305 + -- Cybran Heavy Gunship
+            categories.xrl0403 + -- Cybran Amphibious Mega Bot
+            categories.xea0306 + -- UEF Heavy Air Transport
+            categories.xeb2402 + -- UEF Sub-Orbital Defense System
+            categories.xsb2401   -- Seraphim Strategic Missile Launcher
+        )
     end
 
     -- Lock off T1/T2 engineers so Fletcher/Brackman doesnt build them
-    ScenarioFramework.AddRestriction(Fletcher, categories.uel0105)
-    ScenarioFramework.AddRestriction(Fletcher, categories.uel0208)
-	
-    ScenarioFramework.AddRestriction(Brackman, categories.url0105)
-    ScenarioFramework.AddRestriction(Brackman, categories.url0208)
+    ScenarioFramework.AddRestriction(Fletcher, categories.uel0105 + categories.uel0208)
+    ScenarioFramework.AddRestriction(Brackman, categories.url0105 + categories.url0208)
 
     -- Hide all but the player army score
     for i = 2, table.getn(ArmyBrains) do

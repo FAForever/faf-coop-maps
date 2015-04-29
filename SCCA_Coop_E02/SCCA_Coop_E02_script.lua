@@ -490,24 +490,14 @@ function OnStart(self)
 
     -- Take away units that the player shouldn't have access to
     for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.NAVAL)
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.TECH2)
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.TECH3)
-    end
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.EXPERIMENTAL)
-    end
-    -- Sonar buoy
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.ueb3102)
-    end
-    -- Torpedo Launcher
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.ueb2109)
+         ScenarioFramework.AddRestriction(player,
+             categories.NAVAL +
+             categories.TECH2 +
+             categories.TECH3 +
+             categories.EXPERIMENTAL +
+             categories.ueb3102 + -- Sonar buoy
+             categories.ueb2109   -- Torpedo Launcher
+         )
     end
 
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',

@@ -262,33 +262,35 @@ function OnStart()
     -- Build Restrictions
     --------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xas0204) -- Aeon Submarine Hunter
-        ScenarioFramework.AddRestriction(player, categories.xaa0306) -- Aeon Torpedo Bomber
-        ScenarioFramework.AddRestriction(player, categories.xas0306) -- Aeon Missile Ship
-        ScenarioFramework.AddRestriction(player, categories.xab3301) -- Aeon Quantum Optics Device
-        ScenarioFramework.AddRestriction(player, categories.xab2307) -- Aeon Rapid Fire Artillery
-        ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrs0204) -- Cybran Sub Killer
-        ScenarioFramework.AddRestriction(player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
-        ScenarioFramework.AddRestriction(player, categories.xrb2308) -- Cybran Torpedo Ambushing System
-        ScenarioFramework.AddRestriction(player, categories.xrb0104) -- Cybran Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xrb0204) -- Cybran Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xrb0304) -- Cybran Engineering Station 3
-        ScenarioFramework.AddRestriction(player, categories.xrb3301) -- Cybran Perimeter Monitoring System
-        ScenarioFramework.AddRestriction(player, categories.xra0305) -- Cybran Heavy Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
-        ScenarioFramework.AddRestriction(player, categories.xes0102) -- UEF Torpedo Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0205) -- UEF Shield Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0307) -- UEF Battlecruiser
-        ScenarioFramework.AddRestriction(player, categories.xeb0104) -- UEF Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xeb0204) -- UEF Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xea0306) -- UEF Heavy Air Transport
-        ScenarioFramework.AddRestriction(player, categories.xeb2402) -- UEF Sub-Orbital Defense System
-        ScenarioFramework.AddRestriction(player, categories.xsa0402) -- Seraph Exp Bomb
-        ScenarioFramework.AddRestriction(player, categories.xss0304) -- Seraph Sub Hunter
-        ScenarioFramework.AddRestriction(player, categories.xsb0304) -- Seraph Gate
-        ScenarioFramework.AddRestriction(player, categories.xsl0301) -- Seraph sACU
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraph exp Nuke
+        ScenarioFramework.AddRestriction(player,
+            categories.xas0204 + -- Aeon Submarine Hunter
+            categories.xaa0306 + -- Aeon Torpedo Bomber
+            categories.xas0306 + -- Aeon Missile Ship
+            categories.xab3301 + -- Aeon Quantum Optics Device
+            categories.xab2307 + -- Aeon Rapid Fire Artillery
+            categories.xaa0305 + -- Aeon AA Gunship
+            categories.xrs0204 + -- Cybran Sub Killer
+            categories.xrs0205 + -- Cybran Counter-Intelligence Boat
+            categories.xrb2308 + -- Cybran Torpedo Ambushing System
+            categories.xrb0104 + -- Cybran Engineering Station 1
+            categories.xrb0204 + -- Cybran Engineering Station 2
+            categories.xrb0304 + -- Cybran Engineering Station 3
+            categories.xrb3301 + -- Cybran Perimeter Monitoring System
+            categories.xra0305 + -- Cybran Heavy Gunship
+            categories.xrl0403 + -- Cybran Amphibious Mega Bot
+            categories.xes0102 + -- UEF Torpedo Boat
+            categories.xes0205 + -- UEF Shield Boat
+            categories.xes0307 + -- UEF Battlecruiser
+            categories.xeb0104 + -- UEF Engineering Station 1
+            categories.xeb0204 + -- UEF Engineering Station 2
+            categories.xea0306 + -- UEF Heavy Air Transport
+            categories.xeb2402 + -- UEF Sub-Orbital Defense System
+            categories.xsa0402 + -- Seraph Exp Bomb
+            categories.xss0304 + -- Seraph Sub Hunter
+            categories.xsb0304 + -- Seraph Gate
+            categories.xsl0301 + -- Seraph sACU
+            categories.xsb2401   -- Seraph exp Nuke
+        )
     end
 
     ScenarioFramework.AddRestriction(Rhiza, categories.uas0302) -- Aeon Battleship

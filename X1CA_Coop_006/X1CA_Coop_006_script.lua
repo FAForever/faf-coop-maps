@@ -272,10 +272,9 @@ function OnStart(self)
     -- Build Restrictions
     --------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraphim Strategic Missile Launcher
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
+        -- Seraphim Strategic Missile Launcher and Cybran Amphibious Mega Bot
+        ScenarioFramework.AddRestriction(player, categories.xsb2401 + categories.xrl0403)
     end
-
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
     IntroMission1NIS()

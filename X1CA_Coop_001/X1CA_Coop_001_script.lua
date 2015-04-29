@@ -339,44 +339,46 @@ function OnStart(self)
     -- Build Restrictions
     --------------------
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player, categories.xal0305) -- Aeon Sniper Bot
-        ScenarioFramework.AddRestriction(player, categories.xaa0202) -- Aeon Mid Range fighter (Swift Wind)
-        ScenarioFramework.AddRestriction(player, categories.xal0203) -- Aeon Assault Tank (Blaze)
-        ScenarioFramework.AddRestriction(player, categories.xab1401) -- Aeon Quantum Resource Generator
-        ScenarioFramework.AddRestriction(player, categories.xas0204) -- Aeon Submarine Hunter
-        ScenarioFramework.AddRestriction(player, categories.xaa0306) -- Aeon Torpedo Bomber
-        ScenarioFramework.AddRestriction(player, categories.xas0306) -- Aeon Missile Ship
-        ScenarioFramework.AddRestriction(player, categories.xab3301) -- Aeon Quantum Optics Device
-        ScenarioFramework.AddRestriction(player, categories.xab2307) -- Aeon Rapid Fire Artillery
-        ScenarioFramework.AddRestriction(player, categories.xaa0305) -- Aeon AA Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrl0302) -- Cybran Mobile Bomb
-        ScenarioFramework.AddRestriction(player, categories.xra0105) -- Cybran Light Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrs0204) -- Cybran Sub Killer
-        ScenarioFramework.AddRestriction(player, categories.xrs0205) -- Cybran Counter-Intelligence Boat
-        ScenarioFramework.AddRestriction(player, categories.xrb2308) -- Cybran Torpedo Ambushing System
-        ScenarioFramework.AddRestriction(player, categories.xrb0104) -- Cybran Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xrb0204) -- Cybran Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xrb0304) -- Cybran Engineering Station 3
-        ScenarioFramework.AddRestriction(player, categories.xrb3301) -- Cybran Perimeter Monitoring System
-        ScenarioFramework.AddRestriction(player, categories.xra0305) -- Cybran Heavy Gunship
-        ScenarioFramework.AddRestriction(player, categories.xrl0305) -- Cybran Brick
-        ScenarioFramework.AddRestriction(player, categories.xrl0403) -- Cybran Amphibious Mega Bot
-        ScenarioFramework.AddRestriction(player, categories.xeb2306) -- UEF Heavy Point Defense
-        ScenarioFramework.AddRestriction(player, categories.xel0305) -- UEF Percival
-        ScenarioFramework.AddRestriction(player, categories.xel0306) -- UEF Mobile Missile Platform
-        ScenarioFramework.AddRestriction(player, categories.xes0102) -- UEF Torpedo Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0205) -- UEF Shield Boat
-        ScenarioFramework.AddRestriction(player, categories.xes0307) -- UEF Battlecruiser
-        ScenarioFramework.AddRestriction(player, categories.xeb0104) -- UEF Engineering Station 1
-        ScenarioFramework.AddRestriction(player, categories.xeb0204) -- UEF Engineering Station 2
-        ScenarioFramework.AddRestriction(player, categories.xea0306) -- UEF Heavy Air Transport
-        ScenarioFramework.AddRestriction(player, categories.xeb2402) -- UEF Sub-Orbital Defense System
-        ScenarioFramework.AddRestriction(player, categories.xsl0305) -- Seraph Sniper Bot
-        ScenarioFramework.AddRestriction(player, categories.xsa0402) -- Seraph Exp Bomb
-        ScenarioFramework.AddRestriction(player, categories.xss0304) -- Seraph Sub Hunter
-        ScenarioFramework.AddRestriction(player, categories.xsb0304) -- Seraph Gate
-        ScenarioFramework.AddRestriction(player, categories.xsl0301) -- Seraph sACU
-        ScenarioFramework.AddRestriction(player, categories.xsb2401) -- Seraph exp Nuke
+        ScenarioFramework.AddRestriction(player,
+            categories.xal0305 + -- Aeon Sniper Bot
+            categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+            categories.xal0203 + -- Aeon Assault Tank (Blaze)
+            categories.xab1401 + -- Aeon Quantum Resource Generator
+            categories.xas0204 + -- Aeon Submarine Hunter
+            categories.xaa0306 + -- Aeon Torpedo Bomber
+            categories.xas0306 + -- Aeon Missile Ship
+            categories.xab3301 + -- Aeon Quantum Optics Device
+            categories.xab2307 + -- Aeon Rapid Fire Artillery
+            categories.xaa0305 + -- Aeon AA Gunship
+            categories.xrl0302 + -- Cybran Mobile Bomb
+            categories.xra0105 + -- Cybran Light Gunship
+            categories.xrs0204 + -- Cybran Sub Killer
+            categories.xrs0205 + -- Cybran Counter-Intelligence Boat
+            categories.xrb2308 + -- Cybran Torpedo Ambushing System
+            categories.xrb0104 + -- Cybran Engineering Station 1
+            categories.xrb0204 + -- Cybran Engineering Station 2
+            categories.xrb0304 + -- Cybran Engineering Station 3
+            categories.xrb3301 + -- Cybran Perimeter Monitoring System
+            categories.xra0305 + -- Cybran Heavy Gunship
+            categories.xrl0305 + -- Cybran Brick
+            categories.xrl0403 + -- Cybran Amphibious Mega Bot
+            categories.xeb2306 + -- UEF Heavy Point Defense
+            categories.xel0305 + -- UEF Percival
+            categories.xel0306 + -- UEF Mobile Missile Platform
+            categories.xes0102 + -- UEF Torpedo Boat
+            categories.xes0205 + -- UEF Shield Boat
+            categories.xes0307 + -- UEF Battlecruiser
+            categories.xeb0104 + -- UEF Engineering Station 1
+            categories.xeb0204 + -- UEF Engineering Station 2
+            categories.xea0306 + -- UEF Heavy Air Transport
+            categories.xeb2402 + -- UEF Sub-Orbital Defense System
+            categories.xsl0305 + -- Seraph Sniper Bot
+            categories.xsa0402 + -- Seraph Exp Bomb
+            categories.xss0304 + -- Seraph Sub Hunter
+            categories.xsb0304 + -- Seraph Gate
+            categories.xsl0301 + -- Seraph sACU
+            categories.xsb2401   -- Seraph exp Nuke
+        )
     end
 
     -- Hide all but the player army score
