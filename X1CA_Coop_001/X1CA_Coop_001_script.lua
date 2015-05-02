@@ -108,12 +108,11 @@ local VoiceOvers = {
         FirstBaseDestroyed = OpStrings.X01_M01_130,
 
         -- As you destroy each artilley installation.
+        AllArtyDestroyed = OpStrings.X01_M01_200,
         ArtyDestroyed1 = OpStrings.X01_M01_160,
         ArtyDestroyed2 = OpStrings.X01_M01_170,
         ArtyDestroyed3 = OpStrings.X01_M01_180,
-        ArtyDestroyed4 = OpStrings.X01_M01_190, -- Unused.
-
-        AllArtyDestroyed = OpStrings.X01_M01_200,
+        ArtyDestroyed4 = OpStrings.X01_M01_190,
 
         -- When you fail to defend the town.
         SadCivvies = OpStrings.X01_M02_160,
