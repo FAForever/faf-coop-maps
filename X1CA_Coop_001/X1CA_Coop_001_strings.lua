@@ -212,7 +212,7 @@ X01_M01_190 = {
 }
 
 -- Secondary Objective Artillery Complete / Actor: HQ / Update: 07/05/2007 / VO Ready
-VoiceOversX01_M01_200 = {
+X01_M01_200 = {
   {text = '<LOC X01_M01_200_010>[{i HQ}]: That\'s the last of them -- all the artillery positions are down. HQ out.', vid = 'X01_HQ_M01_03631.sfd', bank = 'X01_VO', cue = 'X01_HQ_M01_03631', faction = 'NONE'},
 }
 
