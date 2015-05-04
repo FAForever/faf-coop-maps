@@ -5,6 +5,8 @@ ScenarioInfo = {
     type = 'campaign_coop',
     starts = true,
     preview = '',
+    -- Do not manually edit. Ever. Controlled by deployment script:
+    map_version = 3,
     size = {1024, 1024},
     map = '/maps/X1CA_Coop_004/X1CA_Coop_004_v04.scmap',
     save = '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_save.lua',
