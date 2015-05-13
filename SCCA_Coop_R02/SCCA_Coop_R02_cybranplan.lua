@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_cybranplan.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_cybranplan.lua
 -- **  Author(s):  Grant Roberts
 -- **
 -- **  Summary  :

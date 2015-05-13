@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua
 -- **  Author(s):  Grant Roberts
 -- **
 -- **  Summary  :  This is a set of functions for the platoon builder, used in
@@ -9,7 +9,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local OpScript = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_script.lua')
+local OpScript = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_script.lua')
 local ScenarioFramework = import( '/lua/scenarioframework.lua' )
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import( '/lua/sim/ScenarioUtilities.lua' )

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_cybranplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_cybranplanlist.lua
 -- **  Author(s):  Grant Roberts
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- CYBRAN (JANUS) Faction Plans
     {
-        '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_cybranplan.lua',
+        '/maps/SCCA_Coop_R02/SCCA_Coop_R02_cybranplan.lua',
     },
 }

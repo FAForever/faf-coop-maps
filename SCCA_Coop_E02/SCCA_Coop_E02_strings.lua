@@ -1,6 +1,6 @@
 
 --*****************************************************************************
---* File: C:\work\rts\main\data\maps\SCCA_Coop_E02\SCCA_Coop_E02_v02_strings.lua
+--* File: C:\work\rts\main\data\maps\SCCA_Coop_E02\SCCA_Coop_E02_strings.lua
 --* Author: (BOT)Sam Demulling 
 --* Summary: Computer Generated operation data for E02
 --*

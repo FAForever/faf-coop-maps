@@ -1530,7 +1530,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_playerplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -3243,7 +3243,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -4955,7 +4955,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -6667,7 +6667,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -8375,7 +8375,7 @@ Scenario = {
         ['City'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_cityplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_cityplanlist.lua',
             color = 4,
             faction = 0,
             Economy = {
@@ -9189,7 +9189,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_cybranplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -16637,7 +16637,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'CybranWAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'CybranWAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -16798,7 +16798,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'CybranWAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'CybranWAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -16842,7 +16842,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'CybranNNWAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'CybranNNWAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -16863,7 +16863,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'CybranNWAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'CybranNWAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -16931,7 +16931,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_aeonplanlist.lua',
+            plans = '/maps/SCCA_Coop_E05/SCCA_Coop_E05_aeonplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -24469,7 +24469,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'AeonNuke3BasePatrolAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'AeonNuke3BasePatrolAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -24589,7 +24589,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'AeonM2SecondBaseAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'AeonM2SecondBaseAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -24604,7 +24604,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'AeonMainBaseAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'AeonMainBaseAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -24715,13 +24715,13 @@ Scenario = {
                             },
                         },
                         PlatoonBuildCallbacks = {
-                            [0] = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'BigAeonAttackDied',
+                            [0] = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'BigAeonAttackDied',
                                 {'default_brain','default_table'},
                                 {'default_brain','default_table'}
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'BigAeonAttackAddFunction',
+                            [0] = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'BigAeonAttackAddFunction',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -24740,7 +24740,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'AeonNuke2BasePatrolAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'AeonNuke2BasePatrolAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -24953,7 +24953,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua', 'AeonMainBaseAttackAddFunction',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'AeonMainBaseAttackAddFunction',
                             {'default_platoon'},
                             {'default_platoon'}
                         },

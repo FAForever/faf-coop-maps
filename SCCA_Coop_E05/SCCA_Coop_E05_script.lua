@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_script.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_script.lua
 -- **  Author(s):  David Tomandl, Ruth Tomandl
 -- **
 -- **  Summary  :  This is the main file in control of the events during
@@ -15,8 +15,8 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local Utilities = import('/lua/Utilities.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local OpStrings = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_strings.lua')
-local OpEditorFns = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_EditorFunctions.lua')
+local OpStrings = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_strings.lua')
+local OpEditorFns = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua')
 local OpBehaviors = import('/lua/ai/opai/opbehaviors.lua')
 
 -- ===  Debug Variables === #

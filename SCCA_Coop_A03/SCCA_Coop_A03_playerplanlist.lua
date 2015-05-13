@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A03/SCCA_Coop_A03_v03_playerplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_A03/SCCA_Coop_A03_playerplanlist.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :
@@ -16,7 +16,7 @@ AIPlansList =
 
     -- ALIEN Faction Plans
     {   
-        '/maps/SCCA_Coop_A03/SCCA_Coop_A03_v03_playerplan.lua', 
+        '/maps/SCCA_Coop_A03/SCCA_Coop_A03_playerplan.lua',
     },
 
     -- RECYCLER Faction Plans

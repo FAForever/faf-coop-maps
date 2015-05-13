@@ -1875,7 +1875,7 @@ Scenario = {
         ['FauxUEF'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_fauxuefplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_fauxuefplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -3444,7 +3444,7 @@ Scenario = {
                                 {'default_brain', 7 },
                                 {'default_brain','7'}
                             },
-                            [1] = {'/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_EditorFunctions.lua', 'LeftoverCleanupBC',
+                            [1] = {'/maps/SCCA_Coop_A01/SCCA_Coop_A01_EditorFunctions.lua', 'LeftoverCleanupBC',
                                 {'default_brain','default_location_type'},
                                 {'default_brain','default_location_type'}
                             },
@@ -3581,7 +3581,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -3631,7 +3631,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -3680,7 +3680,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -3729,7 +3729,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -3781,7 +3781,7 @@ Scenario = {
         ['UEF'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_uefplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_uefplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -8907,7 +8907,7 @@ Scenario = {
         ['FauxRhiza'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_fauxrhizaplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_fauxrhizaplanlist.lua',
             color = 7,
             faction = 1,
             Economy = {
@@ -9001,7 +9001,7 @@ Scenario = {
         ['Rhiza'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_rhizaplanlist.lua',
+            plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_rhizaplanlist.lua',
             color = 7,
             faction = 1,
             Economy = {

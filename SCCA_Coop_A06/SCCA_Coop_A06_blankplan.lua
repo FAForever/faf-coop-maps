@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplan.lua
+-- **  File     :  /maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplan.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :  This is a blank so that the AI doesn't default to using

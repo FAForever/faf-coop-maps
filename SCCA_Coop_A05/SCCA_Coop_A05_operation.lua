@@ -1,6 +1,6 @@
 -- *****************************************************************************
 -- *
--- *    File: maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_operation.lua
+-- *    File: maps/SCCA_Coop_A05/SCCA_Coop_A05_operation.lua
 -- *    Author: Drew Staltman
 -- *     Summary: Operation data for SCCA_Coop_A05
 -- *

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /data/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_EditorFunctions.lua
+-- **  File     :  /data/maps/SCCA_Coop_E06/SCCA_Coop_E06_EditorFunctions.lua
 -- **  Author(s): Dru Staltman
 -- **
 -- **  Summary  : PBM Editor functions for SCCA_Coop_E06
@@ -10,7 +10,7 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local MainScript = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_script.lua')
+local MainScript = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_script.lua')
 
 -- #############################################################################################################
 -- function: AeonM2NavyMaster = BuildCondition   doc = "Please work function docs."

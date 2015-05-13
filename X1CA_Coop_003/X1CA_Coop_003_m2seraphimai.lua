@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_003/X1CA_Coop_003_v02_m2seraphimai.lua
+-- **  File     : /maps/X1CA_Coop_003/X1CA_Coop_003_m2seraphimai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Seraphim army AI for Mission 2 - X1CA_Coop_003
@@ -9,7 +9,7 @@
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ScriptFile = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_script.lua')
+local ScriptFile = import('/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua')
 local Buff = import('/lua/sim/Buff.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2hex5ai.lua
+-- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Hex5 army AI for Mission 2 - X1CA_Coop_005

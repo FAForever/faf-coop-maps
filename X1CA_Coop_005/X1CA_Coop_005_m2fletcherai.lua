@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua
+-- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_005
@@ -115,7 +115,7 @@ function FletcherBaseLandAttacks()
             BuildCondition = {
                 {'/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {8, categories.ueb1301, false}}
             },
-            PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherBaseAmphibiousAttacks'},
+            PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherBaseAmphibiousAttacks'},
             MaxAssist = 15,
             Retry = true,
         }
@@ -127,7 +127,7 @@ function FletcherBaseLandAttacks()
     -- sends [heavy tanks]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack1' .. i,
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -139,7 +139,7 @@ function FletcherBaseLandAttacks()
     -- sends [mobile missiles]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack2' .. i,
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -151,7 +151,7 @@ function FletcherBaseLandAttacks()
     -- sends [mobile flak]
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack3' .. i,
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -178,7 +178,7 @@ function FletcherBaseLandAttacks()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Fletcher_Base',
-        PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
     }
     ArmyBrains[Fletcher]:PBMAddPlatoon( builder )
 
@@ -187,7 +187,7 @@ function FletcherBaseLandAttacks()
     -- sends [heavy bots] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack4',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherBaseAmphibiousAttacks'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherBaseAmphibiousAttacks'},
             Priority = 100,
         }
     )
@@ -199,7 +199,7 @@ function FletcherBaseLandAttacks()
     -- sends [siege bots] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack5',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -212,7 +212,7 @@ function FletcherBaseLandAttacks()
     -- sends [heavy tanks] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack6',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -225,7 +225,7 @@ function FletcherBaseLandAttacks()
     -- sends [mobile flak] (mission 3)
     opai = FletcherBase:AddOpAI('BasicLandAttack', 'M2_LandAttack7',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 100,
         }
     )
@@ -366,7 +366,7 @@ function M2FletcherBaseAirAttacks()
         quantity = {12, 10, 8}
         opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack1' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
                 Priority = 100,
             }
         )
@@ -377,7 +377,7 @@ function M2FletcherBaseAirAttacks()
     quantity = {12, 9, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
             Priority = 100,
         }
     )
@@ -387,7 +387,7 @@ function M2FletcherBaseAirAttacks()
     quantity = {12, 9, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack3',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
             Priority = 100,
         }
     )
@@ -397,7 +397,7 @@ function M2FletcherBaseAirAttacks()
     quantity = {12, 8, 6}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack4',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherAirPlatoonThread'},
             Priority = 100,
         }
     )
@@ -408,7 +408,7 @@ function M2FletcherBaseAirAttacks()
     quantity = {24, 18, 9}
     opai = FletcherBase:AddOpAI('AirAttacks', 'M2_AirAttack5',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
             Priority = 90,
         }
     )

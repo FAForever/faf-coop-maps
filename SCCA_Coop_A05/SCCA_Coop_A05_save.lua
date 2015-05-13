@@ -1714,7 +1714,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_playerplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -4519,7 +4519,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -7323,7 +7323,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -10127,7 +10127,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A05/SCCA_Coop_A05_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -19683,7 +19683,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_EditorFunctions.lua', 'UEF_M2_Bombers',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A05/SCCA_Coop_A05_EditorFunctions.lua', 'UEF_M2_Bombers',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -27713,7 +27713,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A05/SCCA_Coop_A05_v03_EditorFunctions.lua', 'Ariel_M1_Bombers',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A05/SCCA_Coop_A05_EditorFunctions.lua', 'Ariel_M1_Bombers',
                             {'default_platoon'},
                             {'default_platoon'}
                         },

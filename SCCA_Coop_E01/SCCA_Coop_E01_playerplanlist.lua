@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplanlist.lua
+-- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplanlist.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : AIBrain Strategic Plans Definitions
@@ -14,7 +14,7 @@ AIPlansList =
     -- UEF
     -----
     {   
-        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplan.lua',
+        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplan.lua',
     },
 
     ------

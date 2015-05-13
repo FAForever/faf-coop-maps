@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_rhizaplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_rhizaplanlist.lua
 -- **  Author(s): Greg
 -- **
 -- **  Summary  :
@@ -19,7 +19,7 @@ AIPlansList =
 
     -- ALIEN Faction Plans
     {
-        '/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_rhizaplan.lua',
+        '/maps/SCCA_Coop_A01/SCCA_Coop_A01_rhizaplan.lua',
     },
 
     -- RECYCLER Faction Plans

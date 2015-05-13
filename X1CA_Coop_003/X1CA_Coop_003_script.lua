@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/X1CA_Coop_003/X1CA_Coop_003_v02_script.lua
+-- **  File     :  /maps/X1CA_Coop_003/X1CA_Coop_003_script.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  : Main mission flow script for X1CA_Coop_003
@@ -9,13 +9,13 @@
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local M1SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1seraphimai.lua')
-local M1RhizaAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua')
-local M2SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m2seraphimai.lua')
-local M3PrincessAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m3princessai.lua')
-local M3SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m3seraphimai.lua')
+local M1SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1seraphimai.lua')
+local M1RhizaAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua')
+local M2SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m2seraphimai.lua')
+local M3PrincessAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3princessai.lua')
+local M3SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3seraphimai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_strings.lua')
+local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -23,7 +23,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 
-local ScriptFile = '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_script.lua'
+local ScriptFile = '/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 ---------
@@ -63,13 +63,13 @@ local NIS1InitialDelay = 1
 ----------------
 -- Taunt Managers
 ----------------
-local ZanNorthTM = TauntManager.CreateTauntManager('ZanNorthTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
-local ThelWestTM = TauntManager.CreateTauntManager('ThelWestTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
-local PrincTM = TauntManager.CreateTauntManager('PrincTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
-local PrincNorthTM = TauntManager.CreateTauntManager('PrincNorthTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')  -- for taunts related to north seraph from princess
-local PrincWestTM = TauntManager.CreateTauntManager('PrincWestTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')   -- for taunts related to west seraph from princess
-local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
-local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_v02_Strings.lua')
+local ZanNorthTM = TauntManager.CreateTauntManager('ZanNorthTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')
+local ThelWestTM = TauntManager.CreateTauntManager('ThelWestTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')
+local PrincTM = TauntManager.CreateTauntManager('PrincTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')
+local PrincNorthTM = TauntManager.CreateTauntManager('PrincNorthTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')  -- for taunts related to north seraph from princess
+local PrincWestTM = TauntManager.CreateTauntManager('PrincWestTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')   -- for taunts related to west seraph from princess
+local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')
+local ExperimentalTM = TauntManager.CreateTauntManager('ExperimentalTM', '/maps/X1CA_Coop_003/X1CA_Coop_003_Strings.lua')
 
 local LeaderFaction
 local LocalFaction

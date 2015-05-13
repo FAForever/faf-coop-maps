@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_brackmanconvoyplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_brackmanconvoyplanlist.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- Brackman_Convoy Faction Plans
     {
-        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_brackmanconvoyplan.lua',
+        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_brackmanconvoyplan.lua',
     },
 }

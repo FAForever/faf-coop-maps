@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua
+-- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : QAI army AI for Mission 3 - X1CA_Coop_005
@@ -874,45 +874,45 @@ function QAIAirBaseAttacks()
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack13',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'M3AttackMegalithWaterAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'M3AttackMegalithWaterAI'},
             Priority = 150,
         }
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'MegalithOnWater', {})
+    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'MegalithOnWater', {})
 
     -- sends 4, 8, 12 [gunships] at Megalith
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack14',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'M3AttackMegalithLandAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'M3AttackMegalithLandAI'},
             Priority = 140,
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'MegalithOnLand', {})
+    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'MegalithOnLand', {})
 
     -- sends 4, 8, 12 [torpedo bombers] at Player CDR
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack15',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'M3AttackCDRWaterAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'M3AttackCDRWaterAI'},
             Priority = 150,
         }
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'CDROnWater', {})
+    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'CDROnWater', {})
 
     -- sends 4, 8, 12 [gunships] at Player CDR
     quantity = {4, 8, 12}
     opai = QAIAirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack16',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'M3AttackCDRLandAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'M3AttackCDRLandAI'},
             Priority = 140,
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua', 'CDROnLand', {})
+    opai:AddBuildCondition('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua', 'CDROnLand', {})
 
     opai = QAIAirBase:AddOpAI('M3_Air_Base_Spiderbot_Unit',
         {

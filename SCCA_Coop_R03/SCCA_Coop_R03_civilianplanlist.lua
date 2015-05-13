@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_civilianplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_civilianplanlist.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- Cybran Faction Plans
     {
-        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_civilianplan.lua',
+        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_civilianplan.lua',
     },
 }

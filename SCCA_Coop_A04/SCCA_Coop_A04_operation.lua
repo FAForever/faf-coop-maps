@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_operation.lua
+-- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_operation.lua
 -- **  Author(s):  Evan Pongress
 -- **
 -- **  Summary  :  Operation data for OpA4

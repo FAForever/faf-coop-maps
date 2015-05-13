@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_symbiontplan.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_symbiontplan.lua
 -- **  Author(s):  Greg
 -- **
 -- **  Summary  :

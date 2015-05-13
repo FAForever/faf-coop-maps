@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_aeonplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_aeonplanlist.lua
 -- **  Author(s):
 -- **
 -- **  Summary  :
@@ -19,7 +19,7 @@ AIPlansList =
 
     -- AEON Faction Plans
     {
-        '/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_aeonaiplan.lua',
+        '/maps/SCCA_Coop_E02/SCCA_Coop_E02_aeonaiplan.lua',
     },
 
     -- CYBRAN Faction Plans

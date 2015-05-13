@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_script.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_script.lua
 -- **  Author(s):  Grant Roberts
 -- **
 -- **  Summary  :  Cybran Campaign, Operation 2
@@ -67,8 +67,8 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local OpStrings = import('/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_strings.lua')
-local OpEditorFns = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua')
+local OpStrings = import('/maps/SCCA_Coop_R02/SCCA_Coop_R02_strings.lua')
+local OpEditorFns = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua')
 local Utilities = import('/lua/Utilities.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'

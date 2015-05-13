@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_playerplan.lua
+-- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_playerplan.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :

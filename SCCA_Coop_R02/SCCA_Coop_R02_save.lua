@@ -2187,7 +2187,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -3792,7 +3792,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -5396,7 +5396,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -7000,7 +7000,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -8967,7 +8967,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_aeonplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_aeonplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -17401,7 +17401,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3BomberEscortAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3BomberEscortAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -17524,7 +17524,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Land',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'ChooseAttackLocation',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'ChooseAttackLocation',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -17547,7 +17547,7 @@ Scenario = {
                                 {'default_brain','default_platoon'},
                                 {'default_brain','default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M2AeonAMLandPlatoonKilled',
+                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonAMLandPlatoonKilled',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -17557,7 +17557,7 @@ Scenario = {
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M2AeonLandAMBuilt',
+                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonLandAMBuilt',
                                 {'default_brain','default_table'},
                                 {'default_brain','default_table'}
                             },
@@ -17786,7 +17786,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3LandAssaultAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3LandAssaultAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -17942,7 +17942,7 @@ Scenario = {
                                 {'default_brain','default_platoon'},
                                 {'default_brain','default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M2AeonAMNavalPlatoonKilled',
+                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonAMNavalPlatoonKilled',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -17952,7 +17952,7 @@ Scenario = {
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M2AeonNavalAMBuilt',
+                            [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonNavalAMBuilt',
                                 {'default_brain','default_table'},
                                 {'default_brain','default_table'}
                             },
@@ -17978,7 +17978,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3LandAssaultAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3LandAssaultAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -18172,7 +18172,7 @@ Scenario = {
         ['CybranJanus'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_R02/SCCA_Coop_R02_cybranplanlist.lua',
             color = 6,
             faction = 2,
             Economy = {
@@ -25393,7 +25393,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3BomberEscortAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3BomberEscortAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -25417,7 +25417,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3LandAssaultAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3LandAssaultAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -25470,7 +25470,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_EditorFunctions.lua', 'M3LandAssaultAttack',
+                            [0] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M3LandAssaultAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },

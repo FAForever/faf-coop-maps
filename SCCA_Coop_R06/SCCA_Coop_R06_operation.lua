@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_operation.lua
+-- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_operation.lua
 -- **  Author(s):  Evan Pongress
 -- **
 -- **  Summary  :  Operation data for OpR6

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_wreckage_holdingplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_wreckage_holdingplanlist.lua
 -- **  Author(s):
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_wreckage_holdingplan.lua',
+        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_wreckage_holdingplan.lua',
     },
 
     -- ALIEN Faction Plans

@@ -1439,7 +1439,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             color = 4,
             faction = 1,
             Economy = {
@@ -1665,7 +1665,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -1890,7 +1890,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -2115,7 +2115,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -2343,7 +2343,7 @@ Scenario = {
         ['Neutral'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             color = 4,
             faction = 0,
             Economy = {
@@ -2390,7 +2390,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -5022,7 +5022,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_EditorFunctions.lua', 'M2HugeAttack',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_EditorFunctions.lua', 'M2HugeAttack',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -5033,7 +5033,7 @@ Scenario = {
                             },
                         },
                         PlatoonBuildCallbacks = {
-                            [0] = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_EditorFunctions.lua', 'SpiderAttackDefeated',
+                            [0] = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_EditorFunctions.lua', 'SpiderAttackDefeated',
                                 {'default_platoon','1'},
                                 {'default_platoon','1'}
                             },
@@ -5535,7 +5535,7 @@ Scenario = {
         ['UEF'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -10891,7 +10891,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua',
+            plans = '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua',
             color = 6,
             faction = 1,
             Economy = {
@@ -15595,7 +15595,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = true,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_EditorFunctions.lua', 'MoveToExperimentalIsland',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A06/SCCA_Coop_A06_EditorFunctions.lua', 'MoveToExperimentalIsland',
                             {'default_platoon'},
                             {'default_platoon'}
                         },

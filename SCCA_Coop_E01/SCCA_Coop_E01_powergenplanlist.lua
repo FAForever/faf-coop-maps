@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_powergenplanlist.lua
+-- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_powergenplanlist.lua
 -- **  Author(s):
 -- **
 -- **  Summary  : AIBrain Strategic Plans Definitions
@@ -20,6 +20,6 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_powergenplan.lua',
+        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_powergenplan.lua',
     },
 }

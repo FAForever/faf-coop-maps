@@ -1135,7 +1135,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_playerplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -1189,7 +1189,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1242,7 +1242,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1295,7 +1295,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1351,7 +1351,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_cybranplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -5723,7 +5723,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM1AirStrikeTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM1AirStrikeTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -5761,7 +5761,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM2AirStrikeTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM2AirStrikeTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -5903,7 +5903,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM2GunshipStrikeTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM2GunshipStrikeTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -6019,7 +6019,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM2TorpedoPlaneTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM2TorpedoPlaneTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -6375,7 +6375,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM2TankStrikeTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM2TankStrikeTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -6412,7 +6412,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua', 'StartM1TankStrikeTimer',
+                            [0] = {'/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua', 'StartM1TankStrikeTimer',
                                 {'default_brain'},
                                 {'default_brain'}
                             },

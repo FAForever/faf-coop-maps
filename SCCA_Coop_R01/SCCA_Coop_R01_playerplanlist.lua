@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_playerplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_playerplanlist.lua
 -- **  Author(s): Drew Staltman
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_playerplan.lua',
+        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_playerplan.lua',
     },
 }

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_cityplan.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_cityplan.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :

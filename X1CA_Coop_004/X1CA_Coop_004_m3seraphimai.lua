@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_004/X1CA_Coop_004_v04_m3seraphimai.lua
+-- **  File     : /maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Seraphim army AI for Mission 3 - X1CA_Coop_004
@@ -1138,7 +1138,7 @@ function SeraphimM3NorthAirAttacks()
         quantity = {4, 12}
         opai = SeraphimM3North:AddOpAI('AirAttacks', 'M3_AirAttackN10',
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_004/X1CA_Coop_004_v04_m3seraphimai.lua', 'M3AttackCDRAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua', 'M3AttackCDRAI'},
                 Priority = 140,
             }
         )
@@ -1149,7 +1149,7 @@ function SeraphimM3NorthAirAttacks()
     if(Difficulty == 3) then
         opai = SeraphimM3North:AddOpAI('AirAttacks', 'M3_AirAttackN11',
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_004/X1CA_Coop_004_v04_m3seraphimai.lua', 'M3AttackCDRAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua', 'M3AttackCDRAI'},
                 Priority = 140,
             }
         )

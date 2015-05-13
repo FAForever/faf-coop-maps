@@ -2070,7 +2070,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -3013,7 +3013,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -3955,7 +3955,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -4897,7 +4897,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -5842,7 +5842,7 @@ Scenario = {
         ['Civilian'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_civilianplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_civilianplanlist.lua',
             color = 9,
             faction = 2,
             Economy = {
@@ -6215,7 +6215,7 @@ Scenario = {
         ['Nodes'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_nodeplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_nodeplanlist.lua',
             color = 4,
             faction = 2,
             Economy = {
@@ -7732,7 +7732,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_cybranplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -18104,7 +18104,7 @@ Scenario = {
                         BuildTimeOut = 240,
                         PlatoonType = 'Any',
                         RequiresConstruction = false,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_EditorFunctions.lua', 'M1NavalFleet',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_EditorFunctions.lua', 'M1NavalFleet',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -18173,7 +18173,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_EditorFunctions.lua', 'CybranM1Attack',
+                            [0] = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_EditorFunctions.lua', 'CybranM1Attack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -18224,7 +18224,7 @@ Scenario = {
                         BuildTimeOut = -1,
                         PlatoonType = 'Sea',
                         RequiresConstruction = true,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_EditorFunctions.lua', 'DestroyerBlockade',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_EditorFunctions.lua', 'DestroyerBlockade',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -18263,7 +18263,7 @@ Scenario = {
                         BuildTimeOut = -1,
                         PlatoonType = 'Sea',
                         RequiresConstruction = true,
-                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_EditorFunctions.lua', 'CruiserBlockade',
+                        PlatoonAIFunction = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_EditorFunctions.lua', 'CruiserBlockade',
                             {'default_platoon'},
                             {'default_platoon'}
                         },
@@ -18303,7 +18303,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_EditorFunctions.lua', 'CybranM1Attack',
+                            [0] = {'/maps/SCCA_Coop_A04/SCCA_Coop_A04_EditorFunctions.lua', 'CybranM1Attack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },

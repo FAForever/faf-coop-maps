@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_v02_m3seraphimai.lua
+-- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_m3seraphimai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Seraphim army AI for Mission 3 - X1CA_Coop_006

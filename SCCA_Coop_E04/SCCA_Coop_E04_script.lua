@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_script.lua
+-- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_script.lua
 -- **  Author(s):  Matt Mahon
 -- **
 -- **  Summary  :
@@ -12,8 +12,8 @@ local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local Objectives = ScenarioFramework.Objectives
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local OpStrings = import ('/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_strings.lua')
-local EditorFunctions = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua')
+local OpStrings = import ('/maps/SCCA_Coop_E04/SCCA_Coop_E04_strings.lua')
+local EditorFunctions = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioPlatoonAI = import ('/lua/ScenarioPlatoonAI.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker

@@ -1186,7 +1186,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -1222,7 +1222,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1257,7 +1257,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1292,7 +1292,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -1330,7 +1330,7 @@ Scenario = {
         ['EastResearch'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_eastresearchplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_eastresearchplanlist.lua',
             color = 4,
             faction = 0,
             Economy = {
@@ -3323,7 +3323,7 @@ Scenario = {
         ['Arnold'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_arnoldplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_arnoldplanlist.lua',
             color = 5,
             faction = 0,
             Economy = {
@@ -3717,7 +3717,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_E01/SCCA_Coop_E01_cybranplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -9846,7 +9846,7 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'LandChild',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'LandChild',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -9875,7 +9875,7 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'LandMaster',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'LandMaster',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -9897,7 +9897,7 @@ Scenario = {
                                 {'default_brain','default_platoon'},
                                 {'default_brain','default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'ChooseMaster',
+                            [1] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'ChooseMaster',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -10080,7 +10080,7 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'LandChild',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'LandChild',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -10120,7 +10120,7 @@ Scenario = {
                         PlatoonType = 'Air',
                         RequiresConstruction = true,
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'AirChild',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'AirChild',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -10196,7 +10196,7 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'LandChild',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'LandChild',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -10345,7 +10345,7 @@ Scenario = {
                                 {'default_brain', 7 },
                                 {'default_brain','7'}
                             },
-                            [3] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'AirMaster',
+                            [3] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'AirMaster',
                                 {'default_brain'},
                                 {'default_brain'}
                             },
@@ -10355,7 +10355,7 @@ Scenario = {
                                 {'default_brain','default_platoon'},
                                 {'default_brain','default_platoon'}
                             },
-                            [1] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'ChooseMaster',
+                            [1] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'ChooseMaster',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -10380,7 +10380,7 @@ Scenario = {
                         PlatoonType = 'Air',
                         RequiresConstruction = true,
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_EditorFunctions.lua', 'AirChild',
+                            [0] = {'/maps/SCCA_Coop_E01/SCCA_Coop_E01_EditorFunctions.lua', 'AirChild',
                                 {'default_brain'},
                                 {'default_brain'}
                             },

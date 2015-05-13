@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplanlist.lua
 -- **  Author(s): Drew Staltman
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- CYBRAN) Faction Plans
     {
-        '/maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_playerplan.lua',
+        '/maps/SCCA_Coop_R02/SCCA_Coop_R02_playerplan.lua',
     },
 }

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_eastresearchplan.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_eastresearchplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

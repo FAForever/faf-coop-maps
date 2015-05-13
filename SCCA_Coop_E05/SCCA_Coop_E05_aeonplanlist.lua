@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_aeonplanlist.lua
+-- **  File     : /maps/SCCA_Coop_E05/SCCA_Coop_E05_aeonplanlist.lua
 -- **  Author(s): David Tomandl
 -- **
 -- **  Summary  :
@@ -19,7 +19,7 @@ AIPlansList =
 
     -- AEON Faction Plans
     {
-        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_aeonplan.lua',
+        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_aeonplan.lua',
     },
 
     -- CYBRAN Faction Plans

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_playerplan.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_playerplan.lua
 -- **  Author(s):  Greg R
 -- **
 -- **  Summary  :

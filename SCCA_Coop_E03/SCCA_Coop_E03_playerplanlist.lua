@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_playerplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_playerplanlist.lua
 -- **  Author(s): Drew Staltman
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_playerplan.lua',
+        '/maps/SCCA_Coop_E03/SCCA_Coop_E03_playerplan.lua',
     },
 
     -- ALIEN Faction Plans

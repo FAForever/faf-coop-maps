@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_aeonplan.lua
+-- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_aeonplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

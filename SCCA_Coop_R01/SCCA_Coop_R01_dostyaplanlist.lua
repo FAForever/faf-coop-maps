@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_dostyaplan.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_dostyaplan.lua
 -- **  Author(s): Greg
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_dostyaplan.lua',
+        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_dostyaplan.lua',
     },
 }

@@ -10,7 +10,7 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_strings.lua')
 
 -- #############################################################################################################
 -- function: CruiserBlockade = AddFunction   doc = "Please work function docs."

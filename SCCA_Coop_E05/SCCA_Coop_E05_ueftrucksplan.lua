@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_ueftrucksplan.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_ueftrucksplan.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :

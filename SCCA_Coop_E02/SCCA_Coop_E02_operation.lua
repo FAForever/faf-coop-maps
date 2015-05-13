@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_operation.lua
+-- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_operation.lua
 -- **  Author(s):  Evan Pongress
 -- **
 -- **  Summary  :  Operation data for OpE2

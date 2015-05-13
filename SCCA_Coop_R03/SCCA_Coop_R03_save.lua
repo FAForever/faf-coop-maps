@@ -1491,7 +1491,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -2047,7 +2047,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -2602,7 +2602,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -3157,7 +3157,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
             faction = 2,
             Economy = {
                 mass = 0,
@@ -3715,7 +3715,7 @@ Scenario = {
         ['Civilian'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_civilianplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_civilianplanlist.lua',
             color = 9,
             faction = 2,
             Economy = {
@@ -4353,7 +4353,7 @@ Scenario = {
         ['CybranCloaked'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_cybrancloakedplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_cybrancloakedplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -4580,7 +4580,7 @@ Scenario = {
         ['BrackmanBase'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_brackmanconvoyplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_brackmanconvoyplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -5454,7 +5454,7 @@ Scenario = {
         ['UEF'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_uefplanlist.lua',
+            plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_uefplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {

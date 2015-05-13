@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua
+-- **  File     : /maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua
 -- **  Author(s): David Tomandl
 -- **
 -- **  Summary  : Editor functions for platoons in Op E2

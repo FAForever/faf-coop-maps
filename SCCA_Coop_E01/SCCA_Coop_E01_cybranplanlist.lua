@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_cybranplanlist.lua
+-- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_cybranplanlist.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : AIBrain Strategic Plans Definitions
@@ -26,6 +26,6 @@ AIPlansList =
     -- Cybran
     --------
     {   
-        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_cybranplan.lua',
+        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_cybranplan.lua',
     },
 }

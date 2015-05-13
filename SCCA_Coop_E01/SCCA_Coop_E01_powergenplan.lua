@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_powergenplan.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_powergenplan.lua
 -- **  Author(s):
 -- **
 -- **  Summary  :

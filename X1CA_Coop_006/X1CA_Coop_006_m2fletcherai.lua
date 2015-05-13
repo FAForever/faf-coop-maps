@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2fletcherai.lua
+-- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_m2fletcherai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Fletcher army AI for Mission 2 - X1CA_Coop_006

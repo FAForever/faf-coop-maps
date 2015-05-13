@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_cybrancloakedplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_cybrancloakedplanlist.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- Cybran_Cloaked Faction Plans
     {
-        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_cybrancloakedplan.lua',
+        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_cybrancloakedplan.lua',
     },
 }

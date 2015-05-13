@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_v01_aeonplan.lua
+-- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_aeonplan.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :

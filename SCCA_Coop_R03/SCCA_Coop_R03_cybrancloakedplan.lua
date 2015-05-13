@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_cybrancloakedplan.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_cybrancloakedplan.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :

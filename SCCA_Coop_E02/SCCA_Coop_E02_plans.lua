@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_plans.lua
+-- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_plans.lua
 -- **  Author(s):
 -- **
 -- **  Summary  :
@@ -15,12 +15,12 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {   
-        'maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_playerplan',
+        'maps/SCCA_Coop_E02/SCCA_Coop_E02_playerplan',
     },
 
     -- ALIEN Faction Plans
     {   
-        'maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_aeonaiplan',
+        'maps/SCCA_Coop_E02/SCCA_Coop_E02_aeonaiplan',
     },
 
     -- RECYCLER Faction Plans

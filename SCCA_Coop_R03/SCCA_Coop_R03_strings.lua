@@ -1,6 +1,6 @@
 
 --*****************************************************************************
---* File: C:\work\rts\main\data\maps\SCCA_Coop_R03\SCCA_Coop_R03_v01_strings.lua
+--* File: C:\work\rts\main\data\maps\SCCA_Coop_R03\SCCA_Coop_R03_strings.lua
 --* Author: (BOT)Sam Demulling 
 --* Summary: Computer Generated operation data for C03
 --*

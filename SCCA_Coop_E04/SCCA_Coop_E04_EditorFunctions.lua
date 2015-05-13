@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_EditorFunctions.lua
+-- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua
 -- **  Author(s):  Matt Mahon
 -- **
 -- **  Summary  :
@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local ScenarioFramework = import('/lua/scenarioframework.lua')
-local OpScript = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_script.lua')
+local OpScript = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_script.lua')
 
 
 -- ############################################################################################################

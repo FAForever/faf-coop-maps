@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R05/SCCA_Coop_R05_v01_hex5planlist.lua
+-- **  File     :  /maps/SCCA_Coop_R05/SCCA_Coop_R05_hex5planlist.lua
 -- **  Author(s): Greg
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_R05/SCCA_Coop_R05_v01_hex5plan.lua',
+        '/maps/SCCA_Coop_R05/SCCA_Coop_R05_hex5plan.lua',
     },
 }

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_v01_EditorFunctions.lua
+-- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_EditorFunctions.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :  This is a set of functions for the platoon builder, used in
@@ -9,7 +9,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
--- local OpScript = import ('/maps/SCCA_Coop_R04/SCCA_Coop_R04_v01_script.lua')
+-- local OpScript = import ('/maps/SCCA_Coop_R04/SCCA_Coop_R04_script.lua')
 
 -- #############################################################################################################
 -- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"

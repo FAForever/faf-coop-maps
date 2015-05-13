@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_script.lua
+-- **  File     :  /maps/SCCA_Coop_E02/SCCA_Coop_E02_script.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :  This is the main file in control of the events during
@@ -20,7 +20,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_strings.lua')
+local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_strings.lua')
 local Weather = import('/lua/weather.lua')
 
 

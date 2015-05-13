@@ -1,6 +1,6 @@
 ﻿-- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_script.lua
+-- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_script.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  : Main mission flow script for SCCA_Coop_E06
@@ -12,7 +12,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local OpStrings = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_Strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_Strings.lua')
 local ScenarioStrings = import('/lua/scenariostrings.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_arnoldplan.lua
+-- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_arnoldplan.lua
 -- **  Author(s):  Greg R.
 -- **
 -- **  Summary  :

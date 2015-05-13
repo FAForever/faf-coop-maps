@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_v01_aeonplan.lua
+-- **  File     :  /maps/SCCA_Coop_R02/SCCA_Coop_R02_aeonplan.lua
 -- **  Author(s):  Grant Roberts
 -- **
 -- **  Summary  :

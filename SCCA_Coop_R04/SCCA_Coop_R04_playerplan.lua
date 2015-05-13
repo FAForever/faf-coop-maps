@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_v01_playerplan.lua
+-- **  File     :  /maps/SCCA_Coop_R04/SCCA_Coop_R04_playerplan.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  :

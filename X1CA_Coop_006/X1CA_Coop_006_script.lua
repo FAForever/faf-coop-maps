@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/X1CA_Coop_006/X1CA_Coop_006_v02_script.lua
+-- **  File     :  /maps/X1CA_Coop_006/X1CA_Coop_006_script.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  : Main mission flow script for X1CA_Coop_006
@@ -8,14 +8,14 @@
 -- **  Copyright 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local M1SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m1seraphimai.lua')
-local M2FletcherAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2fletcherai.lua')
-local M2OrderAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2orderai.lua')
-local M2RhizaAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2rhizaai.lua')
-local M2SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua')
-local M3SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m3seraphimai.lua')
+local M1SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m1seraphimai.lua')
+local M2FletcherAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2fletcherai.lua')
+local M2OrderAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2orderai.lua')
+local M2RhizaAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2rhizaai.lua')
+local M2SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua')
+local M3SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m3seraphimai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_v02_strings.lua')
+local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_strings.lua')
 local Op3Strings = import('/maps/X1CA_Coop_006/X1CA_003_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
@@ -76,11 +76,11 @@ local NIS1InitialDelay = 3
 ----------------
 -- Taunt Managers
 ----------------
-local VedettaTM = TauntManager.CreateTauntManager('VedettaTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
-local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
-local TauTM = TauntManager.CreateTauntManager('TauTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
-local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
-local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_Strings.lua')
+local VedettaTM = TauntManager.CreateTauntManager('VedettaTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_Strings.lua')
+local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_Strings.lua')
+local TauTM = TauntManager.CreateTauntManager('TauTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_Strings.lua')
+local HQTM = TauntManager.CreateTauntManager('HQTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_Strings.lua')
+local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/X1CA_Coop_006_Strings.lua')
 
 local LeaderFaction
 local LocalFaction

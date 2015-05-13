@@ -1,13 +1,13 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_script.lua
+-- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_script.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :  Custom PBM functions
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 -- ###############################################################################

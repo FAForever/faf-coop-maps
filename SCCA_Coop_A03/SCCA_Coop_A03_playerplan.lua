@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A03/SCCA_Coop_A03_v03_playerplan.lua
+-- **  File     :  /maps/SCCA_Coop_A03/SCCA_Coop_A03_playerplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_script.lua
+-- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_script.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  :
@@ -12,7 +12,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local SimObjectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_Strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_Strings.lua')
 local ScenarioStrings = import('/lua/scenariostrings.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 

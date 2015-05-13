@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_cybranplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_cybranplanlist.lua
 -- **  Author(s): Matt Mahon
 -- **
 -- **  Summary  :
@@ -23,7 +23,7 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {   
-        '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_cybranplan.lua',
+        '/maps/SCCA_Coop_E04/SCCA_Coop_E04_cybranplan.lua',
         -- '/lua/AI/aiplanbalanced.lua',
     },
 }

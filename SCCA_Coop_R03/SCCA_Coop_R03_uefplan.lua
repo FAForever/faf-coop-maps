@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_uefplan.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_uefplan.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :

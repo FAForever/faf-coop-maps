@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_ueftrucksplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_ueftrucksplanlist.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_ueftrucksplan.lua',
+        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_ueftrucksplan.lua',
     },
 
     -- ALIEN Faction Plans

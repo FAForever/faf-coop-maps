@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_script.lua
+-- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_script.lua
 -- **  Author(s):  Greg
 -- **
 -- **  Summary  :
@@ -14,7 +14,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local SimCamera = import('/lua/SimCamera.lua').SimCamera
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local OpStrings   = import('/maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_Strings.lua')
+local OpStrings   = import('/maps/SCCA_Coop_A01/SCCA_Coop_A01_Strings.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Utilities = import('/lua/utilities.lua')

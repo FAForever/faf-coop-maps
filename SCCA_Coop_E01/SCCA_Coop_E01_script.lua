@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_script.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_script.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :  Controls the flow of events in Operation E1
@@ -9,7 +9,7 @@
 -- ****************************************************************************
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')

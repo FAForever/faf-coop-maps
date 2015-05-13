@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplanlist.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :
@@ -15,16 +15,16 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplan.lua',
+        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplan.lua',
     },
 
     -- ALIEN Faction Plans
     {
-        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplan.lua',
+        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplan.lua',
     },
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_v03_blankplan.lua',
+        '/maps/SCCA_Coop_A06/SCCA_Coop_A06_blankplan.lua',
     },
 }

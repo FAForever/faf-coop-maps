@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua
+-- **  File     : /maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Rhiza army AI for Mission 1 - X1CA_Coop_003
@@ -11,7 +11,7 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_v02_strings.lua')
+local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
@@ -63,7 +63,7 @@ function M1RhizaBaseExperimentalAttacks()
         {
             Amount = 1,
             KeepAlive = true,
-            PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_script.lua', 'ColossusPing'},
+            PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua', 'ColossusPing'},
             MaxAssist = 5,
             Retry = true,
             WaitSecondsAfterDeath = 480,
@@ -117,7 +117,7 @@ function M1RhizaBaseLandAttacks()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
 
@@ -125,7 +125,7 @@ function M1RhizaBaseLandAttacks()
     for i = 1, 6 do
         opai = M1RhizaBase:AddOpAI('BasicLandAttack', 'Rhiza_AmphibiousDefense_' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
                 Priority = 110,
             }
         )
@@ -135,7 +135,7 @@ function M1RhizaBaseLandAttacks()
     for i = 7, 8 do
         opai = M1RhizaBase:AddOpAI('BasicLandAttack', 'Rhiza_AmphibiousDefense_' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
                 Priority = 100,
             }
         )
@@ -154,7 +154,7 @@ function M1RhizaBaseAirAttacks()
     -- sends [air superiority, gunships, bombers]
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirAttacks1',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
             Priority = 1180,
         }
     )
@@ -164,7 +164,7 @@ function M1RhizaBaseAirAttacks()
     -- sends all but [strat bombers]
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M1_AirAttacks2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
             Priority = 100,
         }
     )
@@ -186,14 +186,14 @@ function M1RhizaBaseAirAttacks()
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
 
     -- sends [air superiority, gunships, bombers] ( mission 3 )
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M3_AirAttacks1',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
             Priority = 90,
         }
     )
@@ -286,7 +286,7 @@ function M1RhizaBaseNavalAttacks()
     -- sends 15 frigate power of all but T3
     opai = M1RhizaBase:AddNavalAI('Rhiza_NavalAttack2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
             MaxFrigates = 15,
             MinFrigates = 15,
             Priority = 90,
@@ -297,7 +297,7 @@ function M1RhizaBaseNavalAttacks()
     -- sends 8 frigate power of all but T3
     opai = M1RhizaBase:AddNavalAI('Rhiza_NavalAttack3',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
             MaxFrigates = 8,
             MinFrigates = 8,
             Priority = 95,
@@ -307,7 +307,7 @@ function M1RhizaBaseNavalAttacks()
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack1',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
             MaxFrigates = 20,
             MinFrigates = 20,
             Priority = 105,
@@ -317,7 +317,7 @@ function M1RhizaBaseNavalAttacks()
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
             MaxFrigates = 20,
             MinFrigates = 20,
             Priority = 105,
@@ -328,7 +328,7 @@ function M1RhizaBaseNavalAttacks()
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack3' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
                 MaxFrigates = 15,
                 MinFrigates = 15,
                 Priority = 100,
@@ -341,7 +341,7 @@ function M1RhizaBaseNavalAttacks()
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M3_NavalAttack1' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaNavalAttackAI'},
                 MaxFrigates = 20,
                 MinFrigates = 20,
                 Priority = 100,
@@ -371,7 +371,7 @@ function M1RhizaBaseNavalAttacks()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
-        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+        PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
 
@@ -398,7 +398,7 @@ function M1RhizaBaseNavalAttacks()
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M1_NavalDefense_' .. i,
             {
-                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+                MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
                 MaxFrigates = 15,
                 MinFrigates = 15,
                 Priority = 110,
@@ -409,7 +409,7 @@ function M1RhizaBaseNavalAttacks()
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('M2_NavalDefense_Additional',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
             MaxFrigates = 20,
             MinFrigates = 20,
             Priority = 120,
@@ -555,7 +555,7 @@ function RhizaExperimentals()
         {
             Amount = 1,
             KeepAlive = true,
-            PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_v02_m1rhizaai.lua', 'Colossus2AI'},
+            PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'Colossus2AI'},
             MaxAssist = 5,
             Retry = true,
         }

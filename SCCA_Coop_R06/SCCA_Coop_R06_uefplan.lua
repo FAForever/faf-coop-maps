@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_uefplan.lua
+-- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_uefplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

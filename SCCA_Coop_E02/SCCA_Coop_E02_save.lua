@@ -3736,7 +3736,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_aeonplanlist.lua',
+            plans = '/maps/SCCA_Coop_E02/SCCA_Coop_E02_aeonplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -14241,7 +14241,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -14410,7 +14410,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -14443,7 +14443,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -14522,7 +14522,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -14596,7 +14596,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -14629,7 +14629,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_EditorFunctions.lua', 'ResetAMVariables',
+                            [0] = {'/maps/SCCA_Coop_E02/SCCA_Coop_E02_EditorFunctions.lua', 'ResetAMVariables',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_civilianplan.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_civilianplan.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :

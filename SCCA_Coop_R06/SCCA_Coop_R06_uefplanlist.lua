@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_uefplanlist.lua
+-- **  File     : /maps/SCCA_Coop_R06/SCCA_Coop_R06_uefplanlist.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {   
-        '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_uefplan.lua', 
+        '/maps/SCCA_Coop_R06/SCCA_Coop_R06_uefplan.lua',
     },
 
     -- ALIEN Faction Plans

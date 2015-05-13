@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_brackmanconvoyplan.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_brackmanconvoyplan.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :

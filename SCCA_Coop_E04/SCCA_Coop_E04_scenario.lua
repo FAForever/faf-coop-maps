@@ -8,9 +8,9 @@ ScenarioInfo = {
     -- Do not manually edit. Ever. Controlled by deployment script:
     map_version = 3,
     size = {512, 512},
-    map = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03.scmap',
-    save = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_save.lua',
-    script = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_script.lua',
+    map = '/maps/SCCA_Coop_E04/SCCA_Coop_E04.scmap',
+    save = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_save.lua',
+    script = '/maps/SCCA_Coop_E04/SCCA_Coop_E04_script.lua',
     Configurations = {
         ['standard'] = {
             teams = {

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_m2dostyaai.lua'
+-- **  File     : '/maps/X1CA_Coop_004/X1CA_Coop_004_m2dostyaai.lua'
 -- **  Author(s): Greg Van Houdt
 -- **
 -- **  Summary  : Dostya army AI for Mission 2 - X1CA_Coop_004
@@ -11,7 +11,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
-local FileName = '/maps/X1CA_Coop_004/X1CA_Coop_004_v04_m2dostyaai.lua'
+local FileName = '/maps/X1CA_Coop_004/X1CA_Coop_004_m2dostyaai.lua'
 
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')

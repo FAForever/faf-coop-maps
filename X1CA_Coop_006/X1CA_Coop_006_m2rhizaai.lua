@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2rhizaai.lua
+-- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_m2rhizaai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Rhiza army AI for Mission 2 - X1CA_Coop_006
@@ -10,7 +10,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
-local ThisFile = '/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2rhizaai.lua'
+local ThisFile = '/maps/X1CA_Coop_006/X1CA_Coop_006_m2rhizaai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 

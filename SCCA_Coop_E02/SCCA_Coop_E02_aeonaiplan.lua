@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E02/SCCA_Coop_E02_v02_aeonaiplan.lua
+-- **  File     : /maps/SCCA_Coop_E02/SCCA_Coop_E02_aeonaiplan.lua
 -- **  Author(s): David Tomandl
 -- **
 -- **  Summary  : Functions for the AI to use in Op E2

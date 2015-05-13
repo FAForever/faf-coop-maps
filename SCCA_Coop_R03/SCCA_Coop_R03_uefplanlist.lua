@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_uefplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_uefplanlist.lua
 -- **  Author(s):  Christopher Burns
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- UEF Faction Plans
     {
-        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_uefplan.lua',
+        '/maps/SCCA_Coop_R03/SCCA_Coop_R03_uefplan.lua',
     },
 
     -- AEON Faction Plans

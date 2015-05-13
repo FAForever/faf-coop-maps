@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_symbiontplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_symbiontplanlist.lua
 -- **  Author(s): Greg
 -- **
 -- **  Summary  :
@@ -23,6 +23,6 @@ AIPlansList =
 
     -- RECYCLER Faction Plans
     {
-        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_symbiontplan.lua',
+        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_symbiontplan.lua',
     },
 }

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_v04_nodeplan.lua
+-- **  File     :  /maps/SCCA_Coop_A04/SCCA_Coop_A04_nodeplan.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  :

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_v03_script.lua
+-- **  File     : /maps/X1CA_Coop_005/X1CA_Coop_005_script.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Main mission flow script for X1CA_Coop_005
@@ -10,12 +10,12 @@
 
 local Cinematics = import('/lua/cinematics.lua')
 local EffectUtilities = import('/lua/effectutilities.lua')
-local M1Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m1hex5ai.lua')
-local M2FletcherAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2fletcherai.lua')
-local M2Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m2hex5ai.lua')
-local M3QAIAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_m3qaiai.lua')
+local M1Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m1hex5ai.lua')
+local M2FletcherAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua')
+local M2Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua')
+local M3QAIAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_005/X1CA_Coop_005_v03_strings.lua')
+local OpStrings = import('/maps/X1CA_Coop_005/X1CA_Coop_005_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -62,10 +62,10 @@ local NIS1InitialDelay = 3
 ----------------
 -- Taunt Managers
 ----------------
-local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
-local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
-local BrackmanTM = TauntManager.CreateTauntManager('BrackmanTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
-local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_v03_Strings.lua')
+local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_005/X1CA_Coop_005_Strings.lua')
+local Hex5TM = TauntManager.CreateTauntManager('Hex5TM', '/maps/X1CA_Coop_005/X1CA_Coop_005_Strings.lua')
+local BrackmanTM = TauntManager.CreateTauntManager('BrackmanTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_Strings.lua')
+local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_005/X1CA_Coop_005_Strings.lua')
 
 local LeaderFaction
 local LocalFaction

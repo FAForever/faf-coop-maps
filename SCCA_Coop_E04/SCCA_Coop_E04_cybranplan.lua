@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_v03_cybranplan.lua
+-- **  File     :  /maps/SCCA_Coop_E04/SCCA_Coop_E04_cybranplan.lua
 -- **  Author(s):  Matt Mahon
 -- **
 -- **  Summary  :

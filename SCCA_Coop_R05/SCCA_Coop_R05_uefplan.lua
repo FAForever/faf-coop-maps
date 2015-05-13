@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R05/SCCA_Coop_R05_v01_uefplan.lua
+-- **  File     :  /maps/SCCA_Coop_R05/SCCA_Coop_R05_uefplan.lua
 -- **  Author(s):  Greg
 -- **
 -- **  Summary  :

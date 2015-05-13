@@ -2983,7 +2983,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -8938,7 +8938,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -14892,7 +14892,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -20846,7 +20846,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
             faction = 0,
             Economy = {
                 mass = 0,
@@ -26803,7 +26803,7 @@ Scenario = {
         ['Black_Sun'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_blacksunplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_blacksunplanlist.lua',
             color = 4,
             faction = 0,
             Economy = {
@@ -27428,7 +27428,7 @@ Scenario = {
         ['Cybran'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_cybranplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_cybranplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -33222,7 +33222,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_aeonplanlist.lua',
+            plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_aeonplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -39446,7 +39446,7 @@ Scenario = {
                                 {'default_brain', 3 },
                                 {'default_brain','3'}
                             },
-                            [1] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_EditorFunctions.lua', 'EngineersBC',
+                            [1] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_EditorFunctions.lua', 'EngineersBC',
                                 {'default_brain','Arnold_Base_Area'},
                                 {'default_brain','Arnold_Base_Area'}
                             },
@@ -39628,7 +39628,7 @@ Scenario = {
                                 {'default_brain', 3 },
                                 {'default_brain','3'}
                             },
-                            [1] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_EditorFunctions.lua', 'EngineersBC',
+                            [1] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_EditorFunctions.lua', 'EngineersBC',
                                 {'default_brain','Aeon_SW_Base_Area'},
                                 {'default_brain','Aeon_SW_Base_Area'}
                             },
@@ -39710,7 +39710,7 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_EditorFunctions.lua', 'EngineersBC',
+                            [0] = {'/maps/SCCA_Coop_E06/SCCA_Coop_E06_EditorFunctions.lua', 'EngineersBC',
                                 {'default_brain','M2_Aeon_Base_Area'},
                                 {'default_brain','M2_Aeon_Base_Area'}
                             },

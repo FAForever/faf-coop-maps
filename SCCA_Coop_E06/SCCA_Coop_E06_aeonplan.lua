@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_aeonplan.lua
+-- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_aeonplan.lua
 -- **  Author(s):  Greg R., Drew Staltman
 -- **
 -- **  Summary  :

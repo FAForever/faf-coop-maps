@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_arnoldplan.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_arnoldplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_script.lua
+-- **  File     :  /maps/SCCA_Coop_R03/SCCA_Coop_R03_script.lua
 -- **  Author(s):  Drew Staltman, Christopher Burns
 -- **
 -- **  Summary  :
@@ -12,7 +12,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local OpStrings = import ('/maps/SCCA_Coop_R03/SCCA_Coop_R03_v01_strings.lua')
+local OpStrings = import ('/maps/SCCA_Coop_R03/SCCA_Coop_R03_strings.lua')
 local Utilities = import('/lua/Utilities.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'

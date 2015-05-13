@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_arnoldplanlist.lua
+-- **  File     : /maps/SCCA_Coop_E01/SCCA_Coop_E01_arnoldplanlist.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : AIBrain Strategic Plans Definitions
@@ -14,7 +14,7 @@ AIPlansList =
     -- UEF
     -----
     {   
-        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_arnoldplan.lua',
+        '/maps/SCCA_Coop_E01/SCCA_Coop_E01_arnoldplan.lua',
     },
 
     ------

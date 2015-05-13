@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_arnoldplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_arnoldplanlist.lua
 -- **  Author(s): Greg R.
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_arnoldplan.lua',
+        '/maps/SCCA_Coop_E03/SCCA_Coop_E03_arnoldplan.lua',
     },
 
     -- ALIEN Faction Plans

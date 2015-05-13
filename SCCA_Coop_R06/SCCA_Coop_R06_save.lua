@@ -1446,7 +1446,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -2253,7 +2253,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -3060,7 +3060,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -3867,7 +3867,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_playerplanlist.lua',
             color = 0,
             faction = 2,
             Economy = {
@@ -4677,7 +4677,7 @@ Scenario = {
         ['BlackSun'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_blacksunplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_blacksunplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -4801,7 +4801,7 @@ Scenario = {
         ['UEF'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_uefplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_uefplanlist.lua',
             color = 2,
             faction = 0,
             Economy = {
@@ -15085,7 +15085,7 @@ Scenario = {
         ['Aeon'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_v01_aeonplanlist.lua',
+            plans = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_aeonplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {

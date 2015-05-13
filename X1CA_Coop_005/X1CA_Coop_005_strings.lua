@@ -1,6 +1,6 @@
 ﻿
 --*****************************************************************************
---* File: C:\work\rts\main\data\maps\X1CA_Coop_005\X1CA_Coop_005_v03_strings.lua
+--* File: C:\work\rts\main\data\maps\X1CA_Coop_005\X1CA_Coop_005_strings.lua
 --* Author: (BOT)Sam Demulling 
 --* Summary: Computer Generated operation data for X05
 --*

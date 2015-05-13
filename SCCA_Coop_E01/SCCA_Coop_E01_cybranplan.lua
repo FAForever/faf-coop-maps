@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_cybranplan.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_cybranplan.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :

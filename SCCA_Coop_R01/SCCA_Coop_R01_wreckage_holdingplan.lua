@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_wreckage_holdingplan.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_wreckage_holdingplan.lua
 -- **  Author(s):
 -- **
 -- **  Summary  :

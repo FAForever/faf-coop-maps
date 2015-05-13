@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_script.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_script.lua
 -- **  Author(s):  Jessica St. Croix
 -- **
 -- **  Summary  :  Custom PBM functions
@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local MainScript = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_script.lua')
+local MainScript = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_script.lua')
 local ScenarioFramework = import('/lua/scenarioframework.lua')
 local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')

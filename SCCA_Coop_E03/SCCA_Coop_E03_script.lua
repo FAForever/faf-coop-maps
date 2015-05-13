@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_script.lua
+-- **  File     :  /maps/SCCA_Coop_E03/SCCA_Coop_E03_script.lua
 -- **  Author(s):  Brian Fricks, Jessica St. Croix
 -- **
 -- **  Summary  :
@@ -9,7 +9,7 @@
 -- ****************************************************************************
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_v03_strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')

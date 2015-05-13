@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_v04_operation.lua
+-- **  File     :  /maps/SCCA_Coop_E01/SCCA_Coop_E01_operation.lua
 -- **  Author(s):  Evan Pongress
 -- **
 -- **  Summary  :  Operation data for OpE1
@@ -9,7 +9,7 @@
 -- ****************************************************************************
 
 -- ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_E01'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_Coop_E01_v04
+opID = 'SCCA_Coop_E01'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_Coop_E01
 opLoc = {x = 360, y = 560}            -- location of op 'planet' on op select screen
 opDesc = ''                            -- used in op select screen
 opPlanet = ''

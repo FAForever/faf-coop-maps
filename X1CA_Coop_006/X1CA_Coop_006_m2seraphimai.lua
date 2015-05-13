@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua
+-- **  File     : /maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua
 -- **  Author(s): Jessica St. Croix
 -- **
 -- **  Summary  : Seraphim army AI for Mission 2 - X1CA_Coop_006
@@ -48,7 +48,7 @@ function SeraphimM2BaseAirAttacks()
     -- sends [gunships]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks1',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
             Priority = 100,
         }
     )
@@ -58,7 +58,7 @@ function SeraphimM2BaseAirAttacks()
     -- sends [gunships, combat fighters]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
             Priority = 100,
         }
     )
@@ -68,7 +68,7 @@ function SeraphimM2BaseAirAttacks()
     -- sends [bombers]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks3',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
             Priority = 110,
         }
     )
@@ -77,7 +77,7 @@ function SeraphimM2BaseAirAttacks()
     -- sends [strat bombers]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks4',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
             Priority = 110,
         }
     )
@@ -86,7 +86,7 @@ function SeraphimM2BaseAirAttacks()
     -- sends [air sups]
     opai = SeraphimM2Base:AddOpAI('AirAttacks', 'M2_SeraphimAirAttacks5',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimAirAttackAI'},
             Priority = 110,
         }
     )
@@ -201,7 +201,7 @@ function SeraphimM2BaseNavalAttacks()
     -- sends 20 frigate power
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack1',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
             MaxFrigates = 20,
             MinFrigates = 20,
             Priority = 100,
@@ -212,7 +212,7 @@ function SeraphimM2BaseNavalAttacks()
     -- sends 10 frigate power of [all but T3]
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack2',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
             MaxFrigates = 10,
             MinFrigates = 10,
             Priority = 105,
@@ -223,7 +223,7 @@ function SeraphimM2BaseNavalAttacks()
     -- sends 15 frigate power of [all but T3]
     opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack3',
         {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_v02_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
+            MasterPlatoonFunction = {'/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua', 'M2SeraphimNavalAttackAI'},
             MaxFrigates = 15,
             MinFrigates = 15,
             Priority = 100,

@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_v01_blacksunplan_one.lua
+-- **  File     :  /maps/SCCA_Coop_E06/SCCA_Coop_E06_blacksunplan_one.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  :

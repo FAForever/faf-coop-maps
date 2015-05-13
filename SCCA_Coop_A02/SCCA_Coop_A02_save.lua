@@ -1482,7 +1482,7 @@ Scenario = {
         ['Player'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
             color = 1,
             faction = 1,
             Economy = {
@@ -1524,7 +1524,7 @@ Scenario = {
         ['Coop1'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -1565,7 +1565,7 @@ Scenario = {
         ['Coop2'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -1606,7 +1606,7 @@ Scenario = {
         ['Coop3'] =  
         {
             personality = '',
-            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_playerplanlist.lua',
+            plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
             faction = 1,
             Economy = {
                 mass = 0,
@@ -6078,7 +6078,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M3ResetEastAttack',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M3ResetEastAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -6245,7 +6245,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M3ResetArtilleryAttack',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M3ResetArtilleryAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -6272,7 +6272,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M2ResetSouthAttack',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M2ResetSouthAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -6303,13 +6303,13 @@ Scenario = {
                             },
                         },
                         PlatoonBuildCallbacks = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M2CruiserBuildCallback',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M2CruiserBuildCallback',
                                 {'default_platoon','1'},
                                 {'default_platoon','1'}
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M2CruiserDone',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M2CruiserDone',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -6355,7 +6355,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M3ResetWestAttack',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M3ResetWestAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },
@@ -6448,7 +6448,7 @@ Scenario = {
                             },
                         },
                         PlatoonAddFunctions = {
-                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_v03_EditorFunctions.lua', 'M2ResetNorthAttack',
+                            [0] = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_EditorFunctions.lua', 'M2ResetNorthAttack',
                                 {'default_platoon'},
                                 {'default_platoon'}
                             },

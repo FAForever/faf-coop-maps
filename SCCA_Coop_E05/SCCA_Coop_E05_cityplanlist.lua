@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_cityplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_cityplanlist.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_cityplan.lua',
+        '/maps/SCCA_Coop_E05/SCCA_Coop_E05_cityplan.lua',
     },
 
     -- ALIEN Faction Plans

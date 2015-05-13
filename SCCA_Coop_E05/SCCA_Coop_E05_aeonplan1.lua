@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_aeonplan1.lua
+-- **  File     :  /maps/SCCA_Coop_E05/SCCA_Coop_E05_aeonplan1.lua
 -- **  Author(s):  David Tomandl
 -- **
 -- **  Summary  :
@@ -20,7 +20,7 @@ local AIBuildConditions = import('/lua/modules/ai/aibuildconditions.lua')
 local AIBuildStructures = import('/lua/modules/ai/aibuildstructures.lua')
 local AIBuildUnits = import('/lua/modules/ai/aibuildunits.lua')
 local BaseTemplates = import('/lua/modules/basetemplates.lua')
-local MapScript = import('/maps/SCCA_Coop_E05/SCCA_Coop_E05_v01_script.lua')
+local MapScript = import('/maps/SCCA_Coop_E05/SCCA_Coop_E05_script.lua')
 local ScenarioFramework = import('/lua/modules/scenarioframework.lua')
 local ScenarioPlatoonAI = import('/lua/modules/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/ScenarioUtilities.lua')

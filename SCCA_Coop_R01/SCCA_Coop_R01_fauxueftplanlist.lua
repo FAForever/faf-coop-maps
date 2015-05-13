@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_fauxuefplanlist.lua
+-- **  File     :  /maps/SCCA_Coop_R01/SCCA_Coop_R01_fauxuefplanlist.lua
 -- **  Author(s): Greg
 -- **
 -- **  Summary  :
@@ -15,7 +15,7 @@ AIPlansList =
 {
     -- EARTH Faction Plans
     {
-        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_v01_fauxuefplan.lua',
+        '/maps/SCCA_Coop_R01/SCCA_Coop_R01_fauxuefplan.lua',
     },
 
     -- ALIEN Faction Plans

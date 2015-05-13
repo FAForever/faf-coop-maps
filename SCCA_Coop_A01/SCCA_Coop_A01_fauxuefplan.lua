@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_v03_fauxuefplan.lua
+-- **  File     :  /maps/SCCA_Coop_A01/SCCA_Coop_A01_fauxuefplan.lua
 -- **  Author(s):  Greg
 -- **
 -- **  Summary  :
