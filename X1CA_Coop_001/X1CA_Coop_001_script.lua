@@ -1,12 +1,9 @@
--- ****************************************************************************
--- **
--- **  File     : /maps/X1CA_Coop_001/X1CA_Coop_001_script.lua
--- **  Author(s): Jessica St. Croix
--- **
--- **  Summary  : Main mission flow script for X1CA_Coop_001
--- **
--- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
--- ****************************************************************************
+-----------------------------------------------------------------
+-- File     : /maps/X1CA_Coop_001/X1CA_Coop_001_script.lua
+-- Author(s): Jessica St. Croix
+-- Summary  : Main mission flow script for X1CA_Coop_001
+-- Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
+-----------------------------------------------------------------
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local M1OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m1orderai.lua')
@@ -24,12 +21,9 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 local Utilities = import('/lua/utilities.lua')
 local FactionData = import('/lua/factions.lua')
-
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
----------
 -- Globals
----------
 ScenarioInfo.Player = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Order = 3
@@ -39,9 +33,8 @@ ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
 ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
---------
+
 -- Locals
---------
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
@@ -52,7 +45,7 @@ local UEF = ScenarioInfo.UEF
 local Civilians = ScenarioInfo.Civilians
 
 -- Maps readable IDs to faction-specific voice-overs. The "common" object holds voiceovers that lack
--- a specific faction.
+-- a specific faction
 local VoiceOvers = {
     common = {
         ColossusWarning = OpStrings.X01_M02_281,
@@ -61,22 +54,22 @@ local VoiceOvers = {
         EmotionalNukeWarning = OpStrings.X01_M02_420,
         CollossusDestroyed = OpStrings.X01_M03_292,
 
-        -- If you're slow killing the artillery...
+        -- If you're slow killing the artillery
         ArtilleryReminder1 = OpStrings.X01_M01_210,
         ArtilleryReminder2 = OpStrings.X01_M01_220,
 
         Victory = OpStrings.X01_M03_297,
 
-        -- The initial cutscene.
+        -- The initial cutscene
         Introduction = OpStrings.X01_M01_010,
         IntroductionArtillery = OpStrings.X01_M01_011,
         IntroductionGunshipPanic = OpStrings.X01_M01_012,
         IntroductionGatePanic = OpStrings.X01_M01_013,
 
-        -- Played immediately after you successfully gate in.
+        -- Played immediately after you successfully gate in
         IntroductionLanded = OpStrings.X01_M01_014,
 
-        -- Suggestion to repair the shield.
+        -- Suggestion to repair the shield
         RepairShield = OpStrings.X01_M01_260,
         ShieldRepaired = OpStrings.X01_M01_270,
 
@@ -84,7 +77,7 @@ local VoiceOvers = {
         KillSubmarines = OpStrings.X01_M01_240,
         SubmarinesKilled = OpStrings.X01_M01_250,
 
-        -- The civilians want to talk...
+        -- The civilians want to talk
         CivvyTalk = OpStrings.X01_M02_010,
         CivvyMessage = OpStrings.X01_M02_011,
         CivvyDefense = OpStrings.X01_M02_012,
@@ -97,31 +90,31 @@ local VoiceOvers = {
         -- "I'll kill everyone"
         AeonThreats = OpStrings.X01_M02_013,
 
-        -- Played when the Aeon counterattack.
+        -- Played when the Aeon counterattack
         AeonRevenge1 = OpStrings.X01_M02_340,
         AeonRevenge2 = OpStrings.X01_M02_350,
 
-        -- After you destroy the factories in the first base.
+        -- After you destroy the factories in the first base
         FactoriesDestroyed = OpStrings.X01_M01_140,
 
-        -- When you destroy the first base.
+        -- When you destroy the first base
         FirstBaseDestroyed = OpStrings.X01_M01_130,
 
-        -- As you destroy each artilley installation.
+        -- As you destroy each artillery installation
         AllArtyDestroyed = OpStrings.X01_M01_200,
         ArtyDestroyed1 = OpStrings.X01_M01_160,
         ArtyDestroyed2 = OpStrings.X01_M01_170,
         ArtyDestroyed3 = OpStrings.X01_M01_180,
         ArtyDestroyed4 = OpStrings.X01_M01_190,
 
-        -- When you fail to defend the town.
+        -- When you fail to defend the town
         SadCivvies = OpStrings.X01_M02_160,
         ManiacialAeonCackling = OpStrings.X01_M02_161,
 
         TownDefenseSuccess = OpStrings.X01_M02_043,
         NavalAttackWarning = OpStrings.X01_M02_045,
 
-        -- When the truck-defense starts.
+        -- When the truck defence starts
         TruckNotification = OpStrings.X01_M02_042,
         AeonTruckThreat = OpStrings.X01_M02_044,
         TruckDamage1 = OpStrings.X01_M02_075,
@@ -137,7 +130,7 @@ local VoiceOvers = {
         TruckDefenseComplete1 = OpStrings.X01_M02_190,
         TruckDefenseComplete2 = OpStrings.X01_M02_210,
 
-        -- Played when the corresponding number of trucks are rescued.
+        -- Played when the corresponding number of trucks are rescued
         TrucksRescued1 = OpStrings.X01_M02_170,
         TrucksRescued2 = OpStrings.X01_M02_180,
 
@@ -155,24 +148,24 @@ local VoiceOvers = {
         AttackSeraphimInstruction = OpStrings.X01_M03_122,
         M4Subplot = OpStrings.X01_M03_300,
 
-        -- If you're slow about destroying the first base...
+        -- If you're slow about destroying the first base
         FirstBaseReminder1 = OpStrings.X01_M01_090,
         FirstBaseReminder2 = OpStrings.X01_M01_100,
 
-        -- The UEF-specific secondary mission.
+        -- The UEF-specific secondary mission
         ProtectTownReminder1 = OpStrings.X01_M02_360,
         ProtectTrucksReminder1 = OpStrings.X01_M02_050,
         ProtectTrucksReminder2 = OpStrings.X01_M02_060,
         ProtectTrucksReminder3 = OpStrings.X01_M02_070,
 
-        -- ... Or the Aeon
+        -- Or the Aeon
         KillOrderReminder1 = OpStrings.X01_M02_380,
 
-        -- ... Or the Seraphim,
+        -- ... Or the Seraphim
         KillSeraphimReminder1 = OpStrings.X01_M03_200,
         KillSeraphimReminder2 = OpStrings.X01_M03_210,
 
-        -- Customised rude things for Gari to say to you before you kill her.
+        -- Customised rude things for Gari to say to you before you kill her
         AeonTaunt1 = OpStrings.TAUNT15,
         AeonTaunt2 = OpStrings.TAUNT16,
     },
@@ -225,76 +218,65 @@ local LocalFaction
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
--------------------
 -- UEF Base Managers
--------------------
 local UEFM3EasternTown = BaseManager.CreateBaseManager()
 
-----------------
 -- Taunt Managers
-----------------
-local GariM1M2TM = TauntManager.CreateTauntManager('GariM1M2TM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua') -- M1 / M2 Gari related taunts (ie, when she is not onmap)
+local GariM1M2TM = TauntManager.CreateTauntManager('GariM1M2TM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua') -- Gari taunts for missions 1 and 2
 local GariTM = TauntManager.CreateTauntManager('GariTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 local SeraphTM = TauntManager.CreateTauntManager('SeraphTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
 
--------------------------
 -- UEF Secondary variables
--------------------------
 local MaxTrucks = 10
 local RequiredTrucks = {6, 6, 6}
 
----------
+----------
 -- Startup
----------
+----------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
-    -- Build the faction-specific voiceover table.
+    -- Build the faction-specific voiceover table
     VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
 
     -- Army Colors
-    ScenarioFramework.SetUEFAlly1Color(Player)      -- starting base units are "originally" from the UEF, before being given to player
+    ScenarioFramework.SetUEFAlly1Color(Player)      -- Starting base units are "originally" from the UEF, before being given to player
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFAlly1Color(UEF)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
 
     -- Unit Cap
-    SetArmyUnitCap(Seraphim, 800)
-    SetArmyUnitCap(Order, 550)
-    SetArmyUnitCap(UEF, 800)
-    SetArmyUnitCap(Civilians, 250)
+    SetArmyUnitCap(Seraphim, 1000)
+    SetArmyUnitCap(Order, 1000)
+    SetArmyUnitCap(UEF, 1500)
+    SetArmyUnitCap(Civilians, 500)
 
     -- Walls
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
 
-    -------------
     -- Player Base
-    -------------
+    -- Spawn the starting base and adjust how damaged they start off
     local units = ScenarioUtils.CreateArmyGroup('UEF', 'Starting_Base')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
-    units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses_D' .. Difficulty)
+    units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
     ScenarioInfo.M1ObjectiveShield = ScenarioUtils.CreateArmyUnit('UEF', 'M1_UEF_StartShield')
     ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
 
-    ------------------------
     -- Player Initial Patrols
-    ------------------------
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_PercivalPatrol_Chain')
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Naval_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_Start_NavalPatrol_Chain')
 
-    -------------
     -- Order M1 AI
-    -------------
     M1OrderAI.OrderM1WestBaseAI()
     M1OrderAI.OrderM1EastBaseAI()
 
@@ -302,32 +284,27 @@ function OnPopulate(scenario)
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:SetCustomName(LOC '{i sCDR_Victoria}')
 
-    -----------------------
-    -- Order Initial Patrols
-    -----------------------
-
-    -- Order Sub Patrols
+    -- Order army's initial patrols
+    -- Sub Patrols
     ScenarioInfo.M1Subs = {}
     for i = 1, 2 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Subs_' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Subs_' .. i, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Sub_Patrol_Chain')
         for k, v in platoon:GetPlatoonUnits() do
             table.insert(ScenarioInfo.M1Subs, v)
         end
     end
 
-    -- Order Beach Patrols
+    -- Beach Patrols
     for i = 1, 3 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Init_Beach_' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Init_Beach_' .. i, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Beach' .. i .. '_Chain')
     end
 
-    -----------------------------
-    -- Beach Defense and Artillery
-    -----------------------------
-    ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs_D' .. Difficulty)
-    ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs_D' .. Difficulty)
-    ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground_D' .. Difficulty)
+    -- Beach Defence and Artillery
+    ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs')
+    ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs')
+    ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground')
     ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_Bridge_Defense')
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
