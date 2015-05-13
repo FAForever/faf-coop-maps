@@ -265,10 +265,10 @@ function OnPopulate(scenario)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
 
     -- Unit Cap
-    SetArmyUnitCap(Seraphim, 800)
-    SetArmyUnitCap(Order, 550)
-    SetArmyUnitCap(UEF, 800)
-    SetArmyUnitCap(Civilians, 250)
+    SetArmyUnitCap(Seraphim, 1000)
+    SetArmyUnitCap(Order, 1000)
+    SetArmyUnitCap(UEF, 1500)
+    SetArmyUnitCap(Civilians, 500)
 
     -- Walls
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
