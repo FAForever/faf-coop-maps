@@ -263,7 +263,7 @@ function OnPopulate(scenario)
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
-    units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses_D' .. Difficulty)
+    units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
@@ -284,12 +284,11 @@ function OnPopulate(scenario)
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:SetCustomName(LOC '{i sCDR_Victoria}')
 
-    -- Order the initial patrols
-
+    -- Order army's initial patrols
     -- Sub Patrols
     ScenarioInfo.M1Subs = {}
     for i = 1, 2 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Subs_' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Subs_' .. i, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Sub_Patrol_Chain')
         for k, v in platoon:GetPlatoonUnits() do
             table.insert(ScenarioInfo.M1Subs, v)
@@ -298,14 +297,14 @@ function OnPopulate(scenario)
 
     -- Beach Patrols
     for i = 1, 3 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Init_Beach_' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Init_Beach_' .. i, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Beach' .. i .. '_Chain')
     end
 
     -- Beach Defence and Artillery
-    ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs_D' .. Difficulty)
-    ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs_D' .. Difficulty)
-    ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground_D' .. Difficulty)
+    ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs')
+    ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs')
+    ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground')
     ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_Bridge_Defense')
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
