@@ -448,6 +448,15 @@ end
 -- Intro NIS
 -----------
 function IntroNISPart1()
+    for _, player in ScenarioInfo.HumanPlayers do
+        WARN(player)
+        WARN(ArmyBrains[player])
+    end
+    for k, player in ArmyBrains do
+        WARN(k)
+        WARN(player)
+    end
+
     ScenarioInfo.NISShield = ScenarioInfo.UnitNames[UEF]['Player_NIS_Shield']
     ScenarioInfo.NISGate = ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate']
 
