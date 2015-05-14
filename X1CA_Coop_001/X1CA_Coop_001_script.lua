@@ -715,13 +715,14 @@ function IntroNISPart2()
     ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
     Cinematics.ExitNISMode()
 
-    -- Get rid of intel on the enemy bases
-    -- ...no longer!  Word has come down that the player should see the enemy base info.
-    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 40 )
-    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 40 )
-    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
-    -- ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
-
+    -- Get rid of intel on the enemy bases for the highest difficulty
+    if Difficulty == 3 then
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), 40 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 40 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
+    end
+    
     for k, unit in NIS1Over90PostConversion do
         if (unit and not unit:IsDead()) then
             unit:SetCanBeKilled( true )
