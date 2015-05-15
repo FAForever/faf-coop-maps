@@ -49,7 +49,7 @@ local Coop3 = ScenarioInfo.Coop3
 local Seraphim = ScenarioInfo.Seraphim
 local Order = ScenarioInfo.Order
 local UEF = ScenarioInfo.UEF
-local Civilians = ScenarioInfo.Civilian
+local Civilians = ScenarioInfo.Civilians
 
 -- Maps readable IDs to faction-specific voice-overs. The "common" object holds voiceovers that lack
 -- a specific faction.
@@ -259,6 +259,9 @@ function OnPopulate(scenario)
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFAlly1Color(UEF)
+    WARN("CIVVIES")
+    WARN(Civilians)
+    WARN(ScenarioInfo.Civilian)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
 
     -- Unit Cap
