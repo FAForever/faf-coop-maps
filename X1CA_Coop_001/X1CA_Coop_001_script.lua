@@ -272,6 +272,7 @@ function OnPopulate(scenario)
 
     -- Walls
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
+    ScenarioUtils.CreateArmyGroup('UEF', 'BaseWalls', true) -- True as final arg means they spawn dead
 
     -------------
     -- Player Base
