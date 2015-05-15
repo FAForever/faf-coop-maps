@@ -37,7 +37,7 @@ ScenarioInfo.Brackman = 8
 ScenarioInfo.Coop1 = 9
 ScenarioInfo.Coop2 = 10
 ScenarioInfo.Coop3 = 11
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 --------
 -- Locals
 --------

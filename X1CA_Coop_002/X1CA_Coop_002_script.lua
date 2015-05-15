@@ -60,7 +60,7 @@ local OrderNeutral = ScenarioInfo.OrderNeutral
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 
 ----------------
 -- Taunt Managers

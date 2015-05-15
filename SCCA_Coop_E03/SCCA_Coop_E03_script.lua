@@ -25,7 +25,7 @@ ScenarioInfo.Arnold = 3
 ScenarioInfo.Coop1 = 4
 ScenarioInfo.Coop2 = 5
 ScenarioInfo.Coop3 = 6
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 -------------
 -- Misc locals
 -------------

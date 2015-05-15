@@ -22,7 +22,7 @@ ScenarioInfo.FakeJanus      = 6
 ScenarioInfo.Coop1 = 7
 ScenarioInfo.Coop2 = 8
 ScenarioInfo.Coop3 = 9
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 ScenarioInfo.M1P3Given      = false
 ScenarioInfo.M1P4Given      = false
 

@@ -38,7 +38,7 @@ ScenarioInfo.Civilians = 5
 ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 --------
 -- Locals
 --------
@@ -49,7 +49,7 @@ local Coop3 = ScenarioInfo.Coop3
 local Seraphim = ScenarioInfo.Seraphim
 local Order = ScenarioInfo.Order
 local UEF = ScenarioInfo.UEF
-local Civilians = ScenarioInfo.Civilians
+local Civilians = ScenarioInfo.Civilian
 
 -- Maps readable IDs to faction-specific voice-overs. The "common" object holds voiceovers that lack
 -- a specific faction.

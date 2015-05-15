@@ -27,7 +27,7 @@ ScenarioInfo.NexusDefense = 5
 ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player}
+ScenarioInfo.HumanPlayers = {}
 -- === LOCAL VARIABLES === #
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
