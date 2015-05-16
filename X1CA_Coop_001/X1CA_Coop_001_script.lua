@@ -274,9 +274,7 @@ function OnPopulate(scenario)
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
     ScenarioUtils.CreateArmyGroup('UEF', 'BaseWalls', true) -- True as final arg means they spawn dead
 
-    -------------
     -- Player Base
-    -------------
     local units = ScenarioUtils.CreateArmyGroup('UEF', 'Starting_Base')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
@@ -291,12 +289,10 @@ function OnPopulate(scenario)
     ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
     ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
 
-    ------------------------
-    -- Player Initial Patrols
-    ------------------------
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Patrol', 'AttackFormation')
+    -- Initial player Percival and Sub patrols
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'M1_Start_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_PercivalPatrol_Chain')
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1_Start_Naval_Patrol', 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'M1_Start_Naval_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_Start_NavalPatrol_Chain')
 
     -------------
@@ -662,18 +658,6 @@ function IntroNISPart2()
     if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
         ScenarioInfo.NISGate:SetCanBeKilled( false )
     end
-
-    -- Percivals back on patrol
-    local percivals = ArmyBrains[Player]:GetListOfUnits(categories.xel0305, false)
-    local percivalPlatoon = ArmyBrains[Player]:MakePlatoon(' ', ' ')
-    ArmyBrains[Player]:AssignUnitsToPlatoon( percivalPlatoon, percivals, 'Attack', 'AttackFormation' )
-    ScenarioFramework.PlatoonPatrolChain(percivalPlatoon, 'Player_PercivalPatrol_Chain')
-
-    -- Subs back on patrol
-    local subs = ArmyBrains[Player]:GetListOfUnits(categories.ues0203, false)
-    local platoon = ArmyBrains[Player]:MakePlatoon('', '')
-    ArmyBrains[Player]:AssignUnitsToPlatoon(platoon, subs, 'Attack', 'AttackFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'Player_Start_NavalPatrol_Chain')
 
     local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('CDRWarp'))
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
