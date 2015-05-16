@@ -276,13 +276,13 @@ function OnPopulate(scenario)
     -----------------------------------
     
     -- Much of the starting base, but not all of it
-    local units = ScenarioUtils.CreateArmyGroup('UEF', 'Starting_Base')
+    local units = ScenarioUtils.CreateArmyGroup('Player', 'Starting_Base')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
     
     -- Most of the base defences
-    units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses_D' .. Difficulty)
+    units = ScenarioUtils.CreateArmyGroup('Player', 'Player_Starting_Defenses_D' .. Difficulty)
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
@@ -619,14 +619,6 @@ function IntroNISPart2()
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
     elseif LeaderFaction == 'aeon' then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
-    end
-
-    -- Give the special NIS units to the player
-    if ScenarioInfo.NISShield and not ScenarioInfo.NISShield:IsDead() then
-        ScenarioInfo.NISShield = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISShield, Player )
-    end
-    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
-        ScenarioInfo.NISGate = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISGate, Player )
     end
 
     local NIS1Over90PostConversion = {}
