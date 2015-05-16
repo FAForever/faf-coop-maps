@@ -7144,6 +7144,18 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
+                        ['M1'] = GROUP {
+                            orders = '',
+                            platoon = '',
+                            Units = {
+                                ['M1_UEF_StartShield'] = {
+                                type = 'ueb4301',
+                                orders = '',
+                                platoon = '',
+                                Position = { 114.500000, 18.000000, 958.500000 },
+                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                },
+                            },
                         },
                     },
                     ['ACUs'] = GROUP {
@@ -19697,7 +19709,7 @@ Scenario = {
                                                         Position = { 188.500000, 22.000000, 386.500000 },
                                                         Orientation = { 0.000000, 0.000000, 0.000000 },
                                                     },
-                            ['UNIT_EAF1'] = {
+                                                    ['UNIT_EAF1'] = {
                                                         type = 'ueb0302',
                                                         orders = '',
                                                         platoon = '',

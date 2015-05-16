@@ -286,14 +286,10 @@ function OnPopulate(scenario)
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
     
-    -- Create objective shield, give it to the player, adjust the health, and set the deathwatch
-    ScenarioInfo.M1ObjectiveShield = ScenarioUtils.CreateArmyUnit('UEF', 'M1_UEF_StartShield')
-    if ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead() then
-        local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player)
-        ScenarioInfo.M1ObjectiveShield = unit
-        ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
-        ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
-    end
+    -- Create objective shield, adjust the health, and set the deathwatch
+    ScenarioInfo.M1ObjectiveShield = ScenarioUtils.CreateArmyUnit('Player', 'M1_UEF_StartShield')
+    ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
+    ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
 
     ------------------------
     -- Player Initial Patrols
