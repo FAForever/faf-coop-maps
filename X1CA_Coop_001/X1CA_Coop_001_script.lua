@@ -255,16 +255,13 @@ function OnPopulate(scenario)
     VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
 
     -- Army Colors
-    ScenarioFramework.SetUEFAlly1Color(Player)      -- starting base units are "originally" from the UEF, before being given to player
+    ScenarioFramework.SetUEFAlly1Color(Player)      -- Starting base units are "originally" from the UEF, before being given to player
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFAlly1Color(UEF)
-    WARN("CIVVIES")
-    WARN(Civilians)
-    WARN(ScenarioInfo.Civilian)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
 
-    -- Unit Cap
+    -- Set unit caps for AI
     SetArmyUnitCap(Seraphim, 1000)
     SetArmyUnitCap(Order, 1000)
     SetArmyUnitCap(UEF, 1500)
@@ -274,11 +271,17 @@ function OnPopulate(scenario)
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
     ScenarioUtils.CreateArmyGroup('UEF', 'BaseWalls', true) -- True as final arg means they spawn dead
 
-    -- Player Base
+    -----------------------------------
+    -- Spawn the player's initial units
+    -----------------------------------
+    
+    -- Much of the starting base, but not all of it
     local units = ScenarioUtils.CreateArmyGroup('UEF', 'Starting_Base')
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
+    
+    -- Most of the base defences
     units = ScenarioUtils.CreateArmyGroup('UEF', 'Player_Starting_Defenses_D' .. Difficulty)
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
@@ -295,21 +298,25 @@ function OnPopulate(scenario)
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'M1_Start_Naval_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'Player_Start_NavalPatrol_Chain')
 
-    -------------
-    -- Order M1 AI
-    -------------
+    -- Create an invulnerable SAM for the player
+    ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('Player', 'NIS_AA')
+    ScenarioInfo.NISAntiAir:SetCanBeKilled(false)
+    
+    ---------------------------------------------------------
+    -- Spawn the initial units for the Order AI for mission 1
+    ---------------------------------------------------------
+    
+    -- Start and AI for each base
     M1OrderAI.OrderM1WestBaseAI()
     M1OrderAI.OrderM1EastBaseAI()
 
+    -- Create Victoria, the SCU which looks after the east base
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('EngineeringFocusingModule')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:SetCustomName(LOC '{i sCDR_Victoria}')
 
-    -----------------------
-    -- Order Initial Patrols
-    -----------------------
-
-    -- Order Sub Patrols
+    -- Initial unit patrols for the Order AI, subs and assorted beach parties
+    -- Two submarine groups
     ScenarioInfo.M1Subs = {}
     for i = 1, 2 do
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Subs_' .. i .. '_D' .. Difficulty, 'AttackFormation')
@@ -318,21 +325,20 @@ function OnPopulate(scenario)
             table.insert(ScenarioInfo.M1Subs, v)
         end
     end
-
-    -- Order Beach Patrols
+    
+    -- Three beachfront groups
     for i = 1, 3 do
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_Init_Beach_' .. i .. '_D' .. Difficulty, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_Beach' .. i .. '_Chain')
     end
 
-    -----------------------------
-    -- Beach Defense and Artillery
-    -----------------------------
+    -- Initial defences on the beach, and the artillery
     ScenarioUtils.CreateArmyGroup('Order', 'M1_West_Bluffs_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'M1_East_Bluffs_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'Shoreline_Ground_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_Bridge_Defense')
 
+    -- Disable all command orders ready for the cinematic section
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 end
 
@@ -447,70 +453,62 @@ function KillGame()
     )
 end
 
------------
--- Intro NIS
------------
+-- Introduction cinematic part 1, scanning the enemy bases
 function IntroNISPart1()
-    for _, player in ScenarioInfo.HumanPlayers do
-        WARN(player)
-        WARN(ArmyBrains[player])
-    end
-    for k, player in ArmyBrains do
-        WARN(k)
-        WARN(player)
-    end
 
+    -- Two essential structures in the starting base, originate in starting base creation
     ScenarioInfo.NISShield = ScenarioInfo.UnitNames[UEF]['Player_NIS_Shield']
     ScenarioInfo.NISGate = ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate']
+    ScenarioInfo.NISGate:SetCanBeKilled(false)
 
     -- These groups of units will be guaranteed to have over 90% and 80% health left after the NIS is over
-    ScenarioInfo.NIS1Over90 = { ScenarioInfo.UnitNames[UEF]['M1Start_4'] }
+    -- All are created with the starting  base
+    ScenarioInfo.NIS1Over90 = {ScenarioInfo.UnitNames[UEF]['M1Start_4']}
     ScenarioInfo.NIS1Over80 = {
         ScenarioInfo.UnitNames[UEF]['M1Start_1'],
         ScenarioInfo.UnitNames[UEF]['M1Start_2'],
         ScenarioInfo.UnitNames[UEF]['M1Start_3']
     }
-    if (Difficulty == 1) then
-        table.insert( ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D1_1'] )
+    
+    -- Force some of the defences to survive depending on difficulty
+    if Difficulty == 1 then
+        table.insert(ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D1_1'])
     end
-    if (Difficulty <= 2) then
-        table.insert( ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D2_1'] )
-        table.insert( ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D2_2'] )
+    if Difficulty <= 2 then
+        table.insert(ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D2_1'])
+        table.insert(ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D2_2'])
     end
-    if (Difficulty <= 3) then
-        table.insert( ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D3_1'] )
+    if Difficulty <= 3 then
+        table.insert(ScenarioInfo.NIS1Over80, ScenarioInfo.UnitNames[UEF]['M1Start_D3_1'])
     end
 
+    -- Set the two groups to not die
     for k, unit in ScenarioInfo.NIS1Over90 do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( false )
+        if unit and not unit:IsDead() then
+            unit:SetCanBeKilled(false)
         end
     end
     for k, unit in ScenarioInfo.NIS1Over80 do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( false )
+        if unit and not unit:IsDead() then
+            unit:SetCanBeKilled(false)
         end
     end
 
     Cinematics.EnterNISMode()
 
-    ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('UEF', 'NIS_AA')
-    ScenarioInfo.NISAntiAir:SetCanBeKilled( false )
-    ScenarioInfo.NISGate:SetCanBeKilled( false )
-
-    -- Vis markers near base, artillery, etc.
+    -- Optical vision at essential points on the map
     local delay = 25 + NIS1InitialDelay
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_3' ), 35 + NIS1InitialDelay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), delay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_1'), delay, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_2'), delay, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(200, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_3'), 35 + NIS1InitialDelay, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_4'), delay, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_5'), delay, ArmyBrains[Player])
 
     -- Grant intel on the enemy base locations
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Base_Marker' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Base_Marker' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Order_M1_West_Base_Marker'), 1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Order_M1_East_Base_Marker'), delay, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('Order_M1_East_Bluffs_Patrol_3'), 1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('Order_M1_West_Bluffs_Patrol_1'), 1, ArmyBrains[Player])
 
     -- Let slower machines catch up before we get going
     WaitSeconds(NIS1InitialDelay)
@@ -534,6 +532,7 @@ function IntroNISPart1()
     ScenarioFramework.Dialogue(VoiceOvers.IntroductionGunshipPanic, nil, true)
     WaitSeconds(2)
 
+    -- Create gunship platoons for the Order
     ScenarioInfo.NISGunships = {}
     ScenarioInfo.NISGunshipPlatoons = {}
     for i = 1, 6 do
@@ -543,6 +542,8 @@ function IntroNISPart1()
             table.insert(ScenarioInfo.NISGunships, v)
         end
     end
+    
+    -- Make two gunships invulnerable
     for i = 1, 2 do
         ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetDoNotTarget(true)
         ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetCanTakeDamage(false)
@@ -552,13 +553,13 @@ function IntroNISPart1()
     -- And another one in ten attack the shield for the same reason
     local i = 0
     for k, v in ScenarioInfo.NISGunshipPlatoons do
-        i = math.mod( (i + 1), 10 )
-        if ( i == 5 ) then
-            v:AttackTarget( ScenarioInfo.NISAntiAir )
-        elseif ( i == 6 ) then
-            v:AttackTarget( ScenarioInfo.NISShield )
+        i = math.mod((i + 1), 10)
+        if i == 5 then
+            v:AttackTarget(ScenarioInfo.NISAntiAir)
+        elseif i == 6 then
+            v:AttackTarget(ScenarioInfo.NISShield)
         else
-            v:AttackTarget( ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate'] )
+            v:AttackTarget(ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate'])
         end
     end
 
@@ -566,8 +567,9 @@ function IntroNISPart1()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 0)
     WaitSeconds(1)
 
+    -- Panning camera shot to follow the gunships
     local NISTrackTarget = ScenarioInfo.UnitNames[Order]['M1_Gunship_NIS_Track']
-    Cinematics.CameraTrackEntity( NISTrackTarget, 60, 1 )
+    Cinematics.CameraTrackEntity(NISTrackTarget, 60, 1)
 
     WaitSeconds(3)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 2)
@@ -575,35 +577,40 @@ function IntroNISPart1()
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
     WaitSeconds(1)
+
     ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
 
+    -- Set the whole of the first map expansion and everything in it to be vulnerable
     SetAreaKillable('M1_Playable_Area', true)
+    
+    -- Move on to the second part of the intro
     ForkThread(IntroNISPart2)
 end
 
 function SetAreaKillable(area, val)
-    for k,v in GetUnitsInRect( ScenarioUtils.AreaToRect(area) ) do
+    for k,v in GetUnitsInRect(ScenarioUtils.AreaToRect(area)) do
         v:SetCanTakeDamage(val)
         v:SetCanBeKilled(val)
     end
 end
 
 function IntroNISPart2()
-    -- set faction color before spawning in player CDR
-    if(LeaderFaction == 'cybran') then
+    -- Set faction color before spawning in player CDR
+    if LeaderFaction == 'cybran' then
         ScenarioFramework.SetCybranPlayerColor(Player)
-    elseif(LeaderFaction == 'uef') then
+    elseif LeaderFaction == 'uef' then
         ScenarioFramework.SetUEFPlayerColor(Player)
-    elseif(LeaderFaction == 'aeon') then
+    elseif LeaderFaction == 'aeon' then
         ScenarioFramework.SetAeonAllyColor(Player)
     end
 
-    if(LeaderFaction == 'cybran') then
+    -- Create the player ACUs
+    if LeaderFaction == 'cybran' then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
-    elseif(LeaderFaction == 'uef') then
+    elseif LeaderFaction == 'uef' then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
-    elseif(LeaderFaction == 'aeon') then
+    elseif LeaderFaction == 'aeon' then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
     end
 
@@ -648,34 +655,37 @@ function IntroNISPart2()
         end
     end
     
-    -- Turn off those stupid massfabs
+    -- Turn off the base mass fabricators to stop them tanking your energy
     local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.ueb1303, false)
     for k, v in massFabs do
         v:ToggleScriptBit('RULEUTC_ProductionToggle')
     end
 
-    -- Set the gate back to being unkillable
+    -- Set the gate back to being unkillable (It was made vulnerable in SetAreaKillable)
     if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
         ScenarioInfo.NISGate:SetCanBeKilled( false )
     end
 
+    -- Tell the ACU to move away from the gate
     local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('CDRWarp'))
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
-    --ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
 
+    -- Spawn ACUs for the Coop players
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-            if(factionIdx == 1) then
+            if factionIdx == 1 then
                 ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
-            elseif(factionIdx == 2) then
+            elseif factionIdx == 2 then
                 ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
             else
                 ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
             end
+            
+            -- Tell these ACUs to move too
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
             ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
             coop = coop + 1
@@ -683,24 +693,33 @@ function IntroNISPart2()
         end
     end
 
-    ForkThread( NIS1KillUnits )
+    -- Kill the gate and shield
+    ForkThread(NIS1KillUnits)
 
+    -- Player ACU should be invulnerable until control is given
     ScenarioInfo.PlayerCDR:SetDoNotTarget(true)
     ScenarioInfo.PlayerCDR:SetCanTakeDamage(false)
 
-    ForkThread( NISKillGunshipsSlowly )
-    ScenarioInfo.NISAntiAir:SetCanBeKilled( true )
+    -- Kill the gunships around the base
+    ForkThread(NISKillGunshipsSlowly)
+    
+    -- Let the SAM die
+    ScenarioInfo.NISAntiAir:SetCanBeKilled(true)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp2'), 2)
 
     WaitSeconds(1)
 
-    ForkThread( NIS1KillUnits2 )
+    -- Make sure the SAM and gunships all die
+    ForkThread(NIS1KillUnits2)
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp3'), 3)
     ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
 
+    -- ACU is vulnerable now
     ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
     ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
+    
+    -- Give control to the player
     Cinematics.ExitNISMode()
 
     -- Get rid of intel on the enemy bases for the highest difficulty
@@ -724,6 +743,7 @@ function IntroNISPart2()
         end
     end
 
+    -- Create a deathwatch for the player ACUs
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
 
