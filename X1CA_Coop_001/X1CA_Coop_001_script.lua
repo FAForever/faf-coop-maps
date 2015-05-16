@@ -621,35 +621,9 @@ function IntroNISPart2()
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
     end
 
-    local NIS1Over90PostConversion = {}
-    local NIS1Over80PostConversion = {}
-
-    for k, unit in ScenarioInfo.NIS1Over90 do
-        if (unit and not unit:IsDead()) then
-            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player )
-            table.insert( NIS1Over90PostConversion, tempUnit )
-            tempUnit:SetCanBeKilled( false )
-        end
-    end
-    for k, unit in ScenarioInfo.NIS1Over80 do
-        if (unit and not unit:IsDead()) then
-            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player )
-            table.insert( NIS1Over80PostConversion, tempUnit )
-            tempUnit:SetCanBeKilled( false )
-        end
-    end
-
     -- These are filled with invalid unit handles now, so might as well clear them out
     ScenarioInfo.NIS1Over80 = nil
     ScenarioInfo.NIS1Over90 = nil
-
-    -- Swap beach units to player
-    local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Player_Base_Area'))
-    for k, v in units do
-        if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF]) then
-            ScenarioFramework.GiveUnitToArmy( v, Player )
-        end
-    end
     
     -- Turn off the base mass fabricators to stop them tanking your energy
     local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.ueb1303, false)
