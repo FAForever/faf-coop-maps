@@ -695,19 +695,6 @@ function IntroNISPart2()
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
     end
-    
-    for k, unit in NIS1Over90PostConversion do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( true )
-            unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.9), unit:GetMaxHealth() ))
-        end
-    end
-    for k, unit in NIS1Over80PostConversion do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( true )
-            unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.8), unit:GetMaxHealth() ))
-        end
-    end
 
     -- Create a deathwatch for the player ACUs
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
