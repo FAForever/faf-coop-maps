@@ -620,10 +620,6 @@ function IntroNISPart2()
     elseif LeaderFaction == 'aeon' then
         ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
     end
-
-    -- These are filled with invalid unit handles now, so might as well clear them out
-    ScenarioInfo.NIS1Over80 = nil
-    ScenarioInfo.NIS1Over90 = nil
     
     -- Turn off the base mass fabricators to stop them tanking your energy
     local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.ueb1303, false)
