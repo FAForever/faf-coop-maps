@@ -285,8 +285,15 @@ function OnPopulate(scenario)
     for k, v in units do
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -Difficulty)
     end
+    
+    -- Create objective shield, give it to the player, adjust the health, and set the deathwatch
     ScenarioInfo.M1ObjectiveShield = ScenarioUtils.CreateArmyUnit('UEF', 'M1_UEF_StartShield')
-    ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
+    if ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead() then
+        local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player)
+        ScenarioInfo.M1ObjectiveShield = unit
+        ScenarioInfo.M1ObjectiveShield:AdjustHealth(ScenarioInfo.M1ObjectiveShield, ScenarioInfo.M1ObjectiveShield:GetHealth()/-4)
+        ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
+    end
 
     ------------------------
     -- Player Initial Patrols
@@ -640,13 +647,6 @@ function IntroNISPart2()
     -- These are filled with invalid unit handles now, so might as well clear them out
     ScenarioInfo.NIS1Over80 = nil
     ScenarioInfo.NIS1Over90 = nil
-
-    -- Give objective shield to player
-    if(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead()) then
-        local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player)
-        ScenarioInfo.M1ObjectiveShield = unit
-        ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
-    end
 
     -- Swap beach units to player
     local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Player_Base_Area'))
