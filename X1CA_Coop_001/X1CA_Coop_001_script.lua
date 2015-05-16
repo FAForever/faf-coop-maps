@@ -496,6 +496,13 @@ function IntroNISPart1()
 
     Cinematics.EnterNISMode()
 
+    -- Create an invulnerable SAM for the player
+    ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('Player', 'NIS_AA')
+    ScenarioInfo.NISAntiAir:SetCanBeKilled(false)
+    
+    -- Set the gate to be unkillable
+    ScenarioInfo.NISGate:SetCanBeKilled(false)
+
     -- Optical vision at essential points on the map
     local delay = 25 + NIS1InitialDelay
     ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_NIS_Vis_1'), delay, ArmyBrains[Player])
@@ -615,9 +622,6 @@ function IntroNISPart2()
     end
 
     -- Give the special NIS units to the player
-    if ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir:IsDead() then
-        ScenarioInfo.NISAntiAir = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISAntiAir, Player )
-    end
     if ScenarioInfo.NISShield and not ScenarioInfo.NISShield:IsDead() then
         ScenarioInfo.NISShield = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISShield, Player )
     end

@@ -7244,6 +7244,13 @@ Scenario = {
                                         },
                                     },
                                 },
+                                ['NIS_AA'] = {
+                                type = 'ueb2304',
+                                orders = '',
+                                platoon = '',
+                                Position = { 72.500000, 18.000000, 972.500000 },
+                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                },
                             },
                         },
                     },
@@ -20869,13 +20876,6 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['NIS_AA'] = {
-                                type = 'ueb2304',
-                                orders = '',
-                                platoon = '',
-                                Position = { 72.500000, 18.000000, 972.500000 },
-                                Orientation = { 0.000000, 0.000000, 0.000000 },
-                            },
                             ['Player_Starting_Defenses_D1'] = GROUP {
                                 orders = '',
                                 platoon = '',
