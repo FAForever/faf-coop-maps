@@ -1504,6 +1504,9 @@ function IntroMission3()
             -- Order CDR
             ScenarioInfo.OrderCDR = ScenarioUtils.CreateArmyUnit('Order', 'Order_ACU')
             ScenarioInfo.OrderCDR:SetCustomName(LOC '{i Gari}')
+            ScenarioInfo.OrderCDR:CreateEnhancement('ResourceAllocationAdvanced')
+            ScenarioInfo.OrderCDR:CreateEnhancement('EnhancedSensors')
+            ScenarioInfo.OrderCDR:CreateEnhancement('T3Engineering')
 
             -----------------------
             -- Order Initial Patrols
