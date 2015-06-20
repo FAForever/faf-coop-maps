@@ -381,6 +381,10 @@ function StartMission1()
                 ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
                 FletcherTM:AddTauntingCharacter(ScenarioInfo.FletcherCDR)
                 ScenarioInfo.FletcherCDR:SetCustomName(LOC '{i Fletcher}')
+                WaitSeconds(2.5)
+                ScenarioInfo.FletcherCDR:ShowBone('Left_Upgrade', true)
+                ScenarioInfo.FletcherCDR:ShowBone('Right_Upgrade', true)
+                ScenarioInfo.FletcherCDR:ShowBone('Back_Upgrade_B01', true)
                 IntroMission2()
             end
         end
