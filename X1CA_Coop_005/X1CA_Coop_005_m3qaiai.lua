@@ -987,6 +987,31 @@ function QAINavalBaseAttacks()
         opai:SetChildActive('Cruiser', false)
         opai:SetChildActive('T3', false)
     end
+    
+    quantity = {2, 3, 4}
+    local Temp = {
+        'QAIBattleshipTemp1',
+        'NoPlan',
+        { 'urs0302', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },   # Battleship
+    }
+    local Builder = {
+        BuilderName = 'QAIBattleshipBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 100,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'M3_QAI_Naval_Base',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain', 'Player', 2, categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+        PlatoonData = {
+            PatrolChain = 'M3_QAI_NavalBase_Attack1_Chain',
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 end
 
 function QAICybranExpBaseAI()
