@@ -1218,19 +1218,6 @@ Scenario = {
                         Position = { 137.500000, 18.337891, 171.500000 },
                         Orientation = { 0.000000, 0.139626, 0.000000 },
                     },
-                    ['Escape_Truck'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                            ['UNIT_340'] = {
-                                type = 'urc0001',
-                                orders = '',
-                                platoon = '',
-                                Position = { 326.500000, 17.640625, 292.500000 },
-                                Orientation = { 0.000000, 0.000000, 0.000000 },
-                            },
-                        },
-                    },
                 },
             },
             PlatoonBuilders = {
@@ -1271,19 +1258,6 @@ Scenario = {
                         Position = { 137.500000, 18.337891, 171.500000 },
                         Orientation = { 0.000000, 0.139626, 0.000000 },
                     },
-                    ['Escape_Truck'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                            ['UNIT_340'] = {
-                                type = 'urc0001',
-                                orders = '',
-                                platoon = '',
-                                Position = { 326.500000, 17.640625, 292.500000 },
-                                Orientation = { 0.000000, 0.000000, 0.000000 },
-                            },
-                        },
-                    },
                 },
             },
             PlatoonBuilders = {
@@ -1323,19 +1297,6 @@ Scenario = {
                         platoon = '',
                         Position = { 137.500000, 18.337891, 171.500000 },
                         Orientation = { 0.000000, 0.139626, 0.000000 },
-                    },
-                    ['Escape_Truck'] = GROUP {
-                        orders = '',
-                        platoon = '',
-                        Units = {
-                            ['UNIT_340'] = {
-                                type = 'urc0001',
-                                orders = '',
-                                platoon = '',
-                                Position = { 326.500000, 17.640625, 292.500000 },
-                                Orientation = { 0.000000, 0.000000, 0.000000 },
-                            },
-                        },
                     },
                 },
             },
