@@ -506,6 +506,60 @@ function QAIM4NavalBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+        
+    local Temp = {
+        'QAIBattleshipTemp1',
+        'NoPlan',
+        { 'urs0302', 1, 1, 'Attack', 'AttackFormation' },   # Battleship
+        { 'urs0201', 1, 2, 'Attack', 'AttackFormation' },   # Destroyer
+        { 'xrs0205', 1, 1, 'Attack', 'AttackFormation' },   # Stealth Boat
+        { 'xrs0204', 1, 4, 'Attack', 'AttackFormation' }    # Sub Hunter
+    }
+    local Builder = {
+        BuilderName = 'QAIBattleshipBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 140,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'M4_Naval_Base',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain', 'Player', 1, categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+        PlatoonData = {
+            PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+
+    Temp = {
+        'QAIBattleshipTemp2',
+        'NoPlan',
+        { 'urs0302', 1, 3, 'Attack', 'AttackFormation' },   # Battleship
+        { 'urs0202', 1, 2, 'Attack', 'AttackFormation' },   # Cruiser
+        { 'xrs0205', 1, 2, 'Attack', 'AttackFormation' },   # Stealth Boat
+        { 'xrs0204', 1, 7, 'Attack', 'AttackFormation' }    # Sub Hunter
+    }
+    Builder = {
+        BuilderName = 'QAIBattleshipBuilder2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 150,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'M4_Naval_Base',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain', 'Player', 3, categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+        PlatoonData = {
+            PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 end
 
 function QAIM4NorthBaseAI()
