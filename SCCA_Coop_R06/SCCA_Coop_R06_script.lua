@@ -25,6 +25,7 @@ ScenarioInfo.BlackSun = 4
 ScenarioInfo.Coop1 = 5
 ScenarioInfo.Coop2 = 6
 ScenarioInfo.Coop3 = 7
+ScenarioInfo.HumanPlayers = {}
 
 ScenarioInfo.VarTable = {}
 
