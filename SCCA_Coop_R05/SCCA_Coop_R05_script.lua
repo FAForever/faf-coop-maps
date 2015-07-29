@@ -1576,6 +1576,7 @@ function M1_BuildCategories()
                          categories.xeb2402 + -- UEF Sub-Orbital Defense System
                          categories.dea0202 + -- UEF Fighter Bomber
                          categories.del0204 + -- UEF Gatling Bot
+                         categories.xel0209 + -- UEF Sparky
 
                          categories.urb2108 + -- Tactical Missile Launcher
                          categories.urb2304 + -- T3 SAM Launcher

@@ -312,6 +312,7 @@ function OnStart(self)
                     categories.xes0307 +  -- UEF Battlecruiser
                     categories.xeb0104 +  -- UEF Engineering Station 1
                     categories.xeb0204 +  -- UEF Engineering Station 2
+                    categories.xel0209 +  -- UEF Sparky
                     categories.xea0306 +  -- UEF Heavy Air Transport
                     categories.xeb2402 +  -- UEF Sub-Orbital Defense System
                     categories.ues0304)   -- Strategic Missile Submarine

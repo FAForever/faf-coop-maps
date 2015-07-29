@@ -16925,7 +16925,7 @@ Scenario = {
                                                 Orientation = { 0.000000, -0.008727, 0.000000 },
                                             },
                                             ['UNIT_2851'] = {
-                                                type = 'urb2303',
+                                                type = 'uab2303',
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 458.500000, 18.125000, 476.500000 },
@@ -16939,7 +16939,7 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_2850'] = {
-                                                type = 'urb2303',
+                                                type = 'uab2303',
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 451.491394, 18.159952, 476.473785 },
@@ -17006,14 +17006,14 @@ Scenario = {
                                 Orientation = { 0.000000, -0.008727, 0.000000 },
                             },
                             ['UNIT_2860'] = {
-                                type = 'urb2303',
+                                type = 'uab2303',
                                 orders = '',
                                 platoon = '',
                                 Position = { 507.500000, 18.126953, 477.500000 },
                                 Orientation = { 0.000000, -0.008727, 0.000000 },
                             },
                             ['UNIT_2859'] = {
-                                type = 'urb2303',
+                                type = 'uab2303',
                                 orders = '',
                                 platoon = '',
                                 Position = { 500.500000, 18.113281, 477.500000 },
