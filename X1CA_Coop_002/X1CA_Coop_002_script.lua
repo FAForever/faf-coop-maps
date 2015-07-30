@@ -736,14 +736,14 @@ function IntroMission2()
             ----------------
             -- Loyalist ACUs
             ----------------
-            ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_East')
+            ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'LoyPlayer_East')
             ScenarioInfo.LoyalistDana:SetCustomName('Dana')
             ScenarioInfo.LoyalistDana:CreateEnhancement('T3Engineering')
             ScenarioInfo.LoyalistDana:CreateEnhancement('ResourceAllocationAdvanced')
             ScenarioInfo.LoyalistDana:CreateEnhancement('HeatSink')
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistDana)
 
-            ScenarioInfo.LoyalistSascha = ScenarioUtils.CreateArmyUnit('Loyalist', 'Loy_ACU_West')
+            ScenarioInfo.LoyalistSascha = ScenarioUtils.CreateArmyUnit('Loyalist', 'LoyPlayer_West')
             ScenarioInfo.LoyalistSascha:SetCustomName('Sascha')
             ScenarioInfo.LoyalistSascha:CreateEnhancement('T3Engineering')
             ScenarioInfo.LoyalistSascha:CreateEnhancement('ResourceAllocationAdvanced')
