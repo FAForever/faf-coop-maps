@@ -1553,6 +1553,7 @@ function M1_BuildCategories()
                          categories.xrl0403 + -- Cybran Amphibious Mega Bot
                          categories.dra0202 + -- Cybran FIghter Bomber
                          categories.drl0204 + -- Cybran Rocket Bot
+                         categories.drlk001 + -- Cybran T3 Mobile AA
 
                          categories.ueb0302 + -- T3 Naval Factory
                          categories.ueb2302 + -- Long Range Heavy Artillery
@@ -1577,6 +1578,7 @@ function M1_BuildCategories()
                          categories.dea0202 + -- UEF Fighter Bomber
                          categories.del0204 + -- UEF Gatling Bot
                          categories.xel0209 + -- UEF Sparky
+                         categories.delk002 + -- UEF T3 Mobile AA
 
                          categories.urb2108 + -- Tactical Missile Launcher
                          categories.urb2304 + -- T3 SAM Launcher
