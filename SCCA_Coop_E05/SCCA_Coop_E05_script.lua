@@ -346,6 +346,20 @@ function OnPopulate(scenario)
                                       categories.ueb2302 + -- Long Range Heavy Artillery
                                       categories.uel0401 + -- Experimental Mobile Factory
                                       categories.ues0304 + -- Strategic Missile Submarine
+                                      categories.dea0202 +  -- UEF Fighter Bomber
+                                      categories.del0204 +  -- UEF Gatling Bot
+                                      categories.xeb2306 +  -- UEF Heavy Point Defense
+                                      categories.xel0305 +  -- UEF Percival
+                                      categories.xel0306 +  -- UEF Mobile Missile Platform
+                                      categories.xes0102 +  -- UEF Torpedo Boat
+                                      categories.xes0205 +  -- UEF Shield Boat
+                                      categories.xes0307 +  -- UEF Battlecruiser
+                                      categories.xeb0104 +  -- UEF Engineering Station 1
+                                      categories.xeb0204 +  -- UEF Engineering Station 2
+                                      categories.xel0209 +  -- UEF Sparky
+                                      categories.xea0306 +  -- UEF Heavy Air Transport
+                                      categories.xeb2402 +  -- UEF Sub-Orbital Defense System
+                                      categories.delk002 +  -- UEF T3 Mobile AA
      
                                       categories.uab4302 + -- Strategic Missile Defense
                                       categories.uab0304 + -- Quantum Gateway
@@ -358,6 +372,19 @@ function OnPopulate(scenario)
                                       categories.uas0305 + -- T3 Mobile Sonar
                                       categories.uab2302 + -- Long Range Heavy Artillery
                                       categories.uas0304 + -- Strategic Missile Submarine
+                                      categories.xal0305 + -- Aeon Sniper Bot
+                                      categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+                                      categories.daa0206 + -- Aeon Mercy
+                                      categories.dal0310 + -- Aeon Shield Disruptor
+                                      categories.xal0203 + -- Aeon Assault Tank (Blaze)
+                                      categories.xab1401 + -- Aeon Quantum Resource Generator
+                                      categories.xas0204 + -- Aeon Submarine Hunter
+                                      categories.xaa0306 + -- Aeon Torpedo Bomber
+                                      categories.xas0306 + -- Aeon Missile Ship
+                                      categories.xab3301 + -- Aeon Quantum Optics Device
+                                      categories.xab2307 + -- Aeon Rapid Fire Artillery
+                                      categories.xaa0305 + -- Aeon AA Gunship
+                                      categories.dalk003 + -- Aeon M3 Mobile AA
      
                                       categories.urb4302 + -- Strategic Missile Defense
                                       categories.urb0304 + -- Quantum Gateway
@@ -370,102 +397,27 @@ function OnPopulate(scenario)
                                       categories.urs0305 + -- T3 Mobile Sonar
                                       categories.urb2302 + -- Long Range Heavy Artillery
                                       categories.urs0304 + -- Strategic Missile Submarine
+                                      categories.drlk001 + -- Cybran T3 Mobile AA
+                                      categories.delk002 + -- UEF T3 Mobile AA
+                                      categories.dalk003 + -- Aeon M3 Mobile AA
+                                      categories.xrl0302 + -- Cybran Mobile Bomb
+                                      categories.xra0105 + -- Cybran Light Gunship
+                                      categories.xrs0204 + -- Cybran Sub Killer
+                                      categories.xrs0205 + -- Cybran Counter-Intelligence Boat
+                                      categories.xrb2308 + -- Cybran Torpedo Ambushing System
+                                      categories.xrb0104 + -- Cybran Engineering Station 1
+                                      categories.xrb0204 + -- Cybran Engineering Station 2
+                                      categories.xrb0304 + -- Cybran Engineering Station 3
+                                      categories.xrb3301 + -- Cybran Perimeter Monitoring System
+                                      categories.xra0305 + -- Cybran Heavy Gunship
+                                      categories.xrl0305 + -- Cybran Brick
+                                      categories.dra0202 + -- Cybran FIghter Bomber
+                                      categories.drl0204 + -- Cybran Rocket Bot
+                                      categories.drlk001 + -- Cybran T3 Mobile AA
      
                                       categories.EXPERIMENTAL )
     end
-
-    ScenarioFramework.AddRestriction(Aeon, categories.ueb4302 + -- Strategic Missile Defense
-                               categories.ueb0304 + -- Quantum Gateway
-                               categories.ueb2305 + -- Nuclear Missile Launcher
-                               categories.uel0304 + -- Mobile Heavy Artillery
-                               categories.uel0301 + -- Sub Commander
-                               categories.ueb3104 + -- Omni Detection System
-                               categories.ueb0303 + -- T3 Navy factory
-                               categories.ues0302 + -- Battleship
-                               categories.ues0305 + -- T3 Mobile Sonar
-                               categories.ues0401 + -- Submersible Aircraft Carrier
-                               categories.ueb2302 + -- Long Range Heavy Artillery
-                               categories.ueb4301 + -- Heavy Shield Generator
-                               categories.uel0401 + -- Experimental Mobile Factory
-                               categories.ues0304 + -- Strategic Missile Submarine
-
-                               categories.uab4302 + -- Strategic Missile Defense
-                               categories.uab0304 + -- Quantum Gateway
-                               categories.uab2305 + -- Nuclear Missile Launcher
-                               categories.ual0304 + -- Mobile Heavy Artillery
-                               categories.ual0301 + -- Sub Commander
-                               categories.uab3104 + -- Omni Detection System
-                               categories.uab0303 + -- T3 Navy factory
-                               categories.uas0302 + -- Battleship
-                               categories.uas0305 + -- T3 Mobile Sonar
-                               categories.uab2302 + -- Long Range Heavy Artillery
-                               categories.uab4301 + -- Heavy Shield Generator
-                               categories.uas0304 + -- Strategic Missile Submarine
-
-                               categories.urb4302 + -- Strategic Missile Defense
-                               categories.urb0304 + -- Quantum Gateway
-                               categories.urb2305 + -- Nuclear Missile Launcher
-                               categories.url0304 + -- Mobile Heavy Artillery
-                               categories.url0301 + -- Sub Commander
-                               categories.urb3104 + -- Omni Detection System
-                               categories.urb0303 + -- T3 Navy factory
-                               categories.urs0302 + -- Battleship
-                               categories.urs0305 + -- T3 Mobile Sonar
-                               categories.urb2302 + -- Long Range Heavy Artillery
-                               categories.urs0304 + -- Strategic Missile Submarine
-
-                               categories.uaa0304 + -- Strategic bomber
-                               categories.uea0304 + -- Strategic bomber
-                               categories.ura0304 +  -- Strategic bomber
-
-                               categories.EXPERIMENTAL)
-
-    ScenarioFramework.AddRestriction(Cybran, categories.ueb4302 + -- Strategic Missile Defense
-                                 categories.ueb0304 + -- Quantum Gateway
-                                 categories.ueb2305 + -- Nuclear Missile Launcher
-                                 categories.uel0304 + -- Mobile Heavy Artillery
-                                 categories.uel0301 + -- Sub Commander
-                                 categories.ueb3104 + -- Omni Detection System
-                                 categories.ueb0303 + -- T3 Navy factory
-                                 categories.ues0302 + -- Battleship
-                                 categories.ues0305 + -- T3 Mobile Sonar
-                                 categories.ues0401 + -- Submersible Aircraft Carrier
-                                 categories.ueb2302 + -- Long Range Heavy Artillery
-                                 categories.ueb4301 + -- Heavy Shield Generator
-                                 categories.uel0401 + -- Experimental Mobile Factory
-                                 categories.ues0304 + -- Strategic Missile Submarine
-
-                                 categories.uab4302 + -- Strategic Missile Defense
-                                 categories.uab0304 + -- Quantum Gateway
-                                 categories.uab2305 + -- Nuclear Missile Launcher
-                                 categories.ual0304 + -- Mobile Heavy Artillery
-                                 categories.ual0301 + -- Sub Commander
-                                 categories.uab3104 + -- Omni Detection System
-                                 categories.uab0303 + -- T3 Navy factory
-                                 categories.uas0302 + -- Battleship
-                                 categories.uas0305 + -- T3 Mobile Sonar
-                                 categories.uab2302 + -- Long Range Heavy Artillery
-                                 categories.uab4301 + -- Heavy Shield Generator
-                                 categories.uas0304 + -- Strategic Missile Submarine
-
-                                 categories.urb4302 + -- Strategic Missile Defense
-                                 categories.urb0304 + -- Quantum Gateway
-                                 categories.urb2305 + -- Nuclear Missile Launcher
-                                 categories.url0304 + -- Mobile Heavy Artillery
-                                 categories.url0301 + -- Sub Commander
-                                 categories.urb3104 + -- Omni Detection System
-                                 categories.urb0303 + -- T3 Navy factory
-                                 categories.urs0302 + -- Battleship
-                                 categories.urs0305 + -- T3 Mobile Sonar
-                                 categories.urb2302 + -- Long Range Heavy Artillery
-                                 categories.urs0304 + -- Strategic Missile Submarine
-
-                                 categories.uaa0304 + -- Strategic bomber
-                                 categories.uea0304 + -- Strategic bomber
-                                 categories.ura0304 + -- Strategic bomber
-
-                                 categories.EXPERIMENTAL)
-
+    
     -- Commader
     ScenarioFramework.RestrictEnhancements({'TacticalNukeMissile',
                                             'Teleporter'})
