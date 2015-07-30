@@ -295,10 +295,9 @@ function OnStart(self)
                     categories.xrl0305 +   -- Cybran Brick
                     categories.dra0202 +   -- Cybran FIghter Bomber
                     categories.drl0204 +   -- Cybran Rocket Bot
-                    categories.xrl0403)    -- Cybran Amphibious Mega Bot
+                    categories.drlk001 +   -- Cybran T3 Mobile AA
+                    categories.xrl0403 +   -- Cybran Amphibious Mega Bot
 
-    -- Adjust buildable categories for UEF in case Player captures them
-                ScenarioFramework.AddRestriction(uef,
                     categories.ueb2302 +  -- Long Range Heavy Artillery
                     categories.ueb4301 +  -- T3 Heavy Shield Generator
                     categories.uel0401 +  -- Experimental Mobile Factory
@@ -315,10 +314,9 @@ function OnStart(self)
                     categories.xel0209 +  -- UEF Sparky
                     categories.xea0306 +  -- UEF Heavy Air Transport
                     categories.xeb2402 +  -- UEF Sub-Orbital Defense System
-                    categories.ues0304)   -- Strategic Missile Submarine
+                    categories.delk002 +  -- UEF T3 Mobile AA
+                    categories.ues0304 +  -- Strategic Missile Submarine
 
-    -- Adjust buildable categories for Aeon in case Player captures them
-                ScenarioFramework.AddRestriction(aeon,
                     categories.uab0304 + -- Quantum Gate
                     categories.ual0301 + -- Sub Commander
                     categories.xal0305 + -- Aeon Sniper Bot
@@ -333,6 +331,7 @@ function OnStart(self)
                     categories.xab3301 + -- Aeon Quantum Optics Device
                     categories.xab2307 + -- Aeon Rapid Fire Artillery
                     categories.xaa0305 + -- Aeon AA Gunship
+                    categories.dalk003 + -- Aeon M3 Mobile AA
                     categories.uas0304)  -- Strategic Missile Submarine
             end
         end
