@@ -109,7 +109,7 @@ function SpawnPlayer()
     end
     
     -- Turn off those stupid massfabs
-    local massFabs = ArmyBrains[player]:GetListOfUnits(categories.urb1303, false)
+    local massFabs = ArmyBrains[player]:GetListOfUnits(categories.MASSFABRICATION , false)
     for k, v in massFabs do
         v:ToggleScriptBit('RULEUTC_ProductionToggle')
     end
