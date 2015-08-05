@@ -291,21 +291,15 @@ function FlashViz(object)
     vizmarker:AttachBoneTo(-1,object,-1)
 end
 
-
 function PlayTaunt()
-    local num = Random(2,8)
-    if num == 2 then
-        ScenarioFramework.Dialogue(OpStrings.TAUNT1)
-    else
-        ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
-    end
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, TauntTimer)
+    local num = Random(1, 8)
+    ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
 end
 
-
-
-
-
+function TauntLoop()
+    PlayTaunt()
+    ScenarioFramework.CreateTimerTrigger(TauntLoop, TauntTimer)
+end
 
 -- === INTRO NIS === #
 function IntroNIS()
@@ -390,7 +384,7 @@ function StartMission1()
     ScenarioInfo.VarTable['M1BomberEscortNoTBombersEnable'] = false
 
     ScenarioFramework.CreateTimerTrigger(M1ObjectiveReminder, ObjectiveReminderTimer)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, TauntTimer)
+    ScenarioFramework.CreateTimerTrigger(TauntLoop, TauntTimer)
 end
 
 -- When player sees naval base ... reveal objective (if needed) and spit dialogue
@@ -684,10 +678,10 @@ function StartMission2()
     -- ScenarioFramework.RemoveRestriction(Cybran, categories.ura0304)
 
     -- === M2 Misc Triggers === #
-    ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt1, M2GaugeTaunt1Timer)
-    ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt2, M2GaugeTaunt2Timer)
-    ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt3, M2GaugeTaunt3Timer)
-    ScenarioFramework.CreateTimerTrigger(M2GaugeTaunt4, M2GaugeTaunt4Timer)
+    ScenarioFramework.CreateTimerTrigger(PlayTaunt, M2GaugeTaunt1Timer)
+    ScenarioFramework.CreateTimerTrigger(PlayTaunt, M2GaugeTaunt2Timer)
+    ScenarioFramework.CreateTimerTrigger(PlayTaunt, M2GaugeTaunt3Timer)
+    ScenarioFramework.CreateTimerTrigger(PlayTaunt, M2GaugeTaunt4Timer)
 
     -- === M2 Objective Triggers === #
     -- NW Node
@@ -1177,50 +1171,6 @@ function M2SWNodeCaptured(unit, captor)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2SWNodeCaptured, ScenarioInfo.SWNode)
     ScenarioInfo.SWNode:SetReclaimable(false)
-end
-
--- Enemy taunts player
-function M2GaugeTaunt1()
-    -- LOG('*DEBUG: GAUGE TAUNT')
-    local num = Random(2,8)
-    if num == 2 then
-        ScenarioFramework.Dialogue(OpStrings.TAUNT1)
-    else
-        ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
-    end
-end
-
--- Enemy taunts player
-function M2GaugeTaunt2()
-    -- LOG('*DEBUG: GAUGE TAUNT')
-    local num = Random(2,8)
-    if num == 2 then
-        ScenarioFramework.Dialogue(OpStrings.TAUNT1)
-    else
-        ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
-    end
-end
-
--- Enemy taunts player
-function M2GaugeTaunt3()
-    -- LOG('*DEBUG: GAUGE TAUNT')
-    local num = Random(2,8)
-    if num == 2 then
-        ScenarioFramework.Dialogue(OpStrings.TAUNT1)
-    else
-        ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
-    end
-end
-
--- Enemy taunts player
-function M2GaugeTaunt4()
-    -- LOG('*DEBUG: GAUGE TAUNT')
-    local num = Random(2,8)
-    if num == 2 then
-        ScenarioFramework.Dialogue(OpStrings.TAUNT1)
-    else
-        ScenarioFramework.Dialogue(OpStrings['TAUNT'..num])
-    end
 end
 
 function M2WinOperation()
