@@ -68,6 +68,137 @@ local ReminderSubsequentTime1           =   300
 local ReminderInitialTime2              =   600
 local ReminderSubsequentTime2           =   600
 
+local REMINDERS = {
+    M1P1 = {
+        CompletionFlag = "M1P1Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M01_050
+            },
+            {
+                Dialogue = OpStrings.A01_M01_055
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M1P2 = {
+        CompletionFlag = "M1P2Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M01_065
+            },
+            {
+                Dialogue = OpStrings.A01_M01_070
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M2P1 = {
+        CompletionFlag = "M2P1Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M02_020
+            },
+            {
+                Dialogue = OpStrings.A01_M02_025
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M3P2 = {
+        CompletionFlag = "M3P2Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M03_030
+            },
+            {
+                Dialogue = OpStrings.A01_M03_020
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M4P1 = {
+        CompletionFlag = "M4P1Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M04_020
+            },
+            {
+                Dialogue = OpStrings.A01_M04_030
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M5P1 = {
+        CompletionFlag = "M5P1Complete",
+        Delay = ReminderSubsequentTime1,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime1,
+                Dialogue = OpStrings.A01_M05_020
+            },
+            {
+                Dialogue = OpStrings.A01_M05_025
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M6P1 = {
+        CompletionFlag = "M6P1Complete",
+        Delay = ReminderSubsequentTime2,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime2,
+                Dialogue = OpStrings.A01_M06_030
+            },
+            {
+                Dialogue = OpStrings.A01_M06_035
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    },
+    M7P3 = {
+        CompletionFlag = "M7P3Complete",
+        Delay = ReminderSubsequentTime2,
+        Reminders = {
+            {
+                Delay = ReminderInitialTime2,
+                Dialogue = OpStrings.A01_M07_170
+            },
+            {
+                Dialogue = OpStrings.A01_M07_175
+            },
+            {
+                Dialogue = OpStrings.A01_M01_060
+            }
+        }
+    }
+}
+
  ---
 local M4_OffmapAir_Counter    = 0
 local M4_OffmapAir_Patrol     = 1
@@ -185,7 +316,7 @@ function M1_BeginningDialogue()
 end
 
 function M1_BeginningObjectives()
-    ScenarioFramework.CreateTimerTrigger(M1P2Reminder1, ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M1P2)
 
     -- Primary Objective 1
     ScenarioInfo.M1Objectives = Objectives.CreateGroup('Mission1', M2_StartDelay)
@@ -215,7 +346,7 @@ function M1_BeginningObjectives()
 end
 
 function M1_SecondObjective()
-    ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M1P1)
 
     -- Primary Objective 2
     BuildCategories1b()
@@ -258,7 +389,7 @@ function M2_Start()
 end
 
 function M2_BuildFactoryObj()
-    ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M2P1)
     -- Primary Objective 1
     local m2Objectives = Objectives.CreateGroup('Mission2', M3_StartDelay)
     ScenarioInfo.M2P1 = Objectives.ArmyStatCompare(
@@ -347,7 +478,7 @@ function M3_BuildGunboatsObjective()
    )
 
     -- Second Half
-    ScenarioFramework.CreateTimerTrigger(M3P2Reminder1 ,ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M3P2)
     ScenarioInfo.M3P2 = Objectives.KillOrCapture(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -386,7 +517,7 @@ function M4_Start()
 end
 
 function M4_BuildSubsObj()
-    ScenarioFramework.CreateTimerTrigger(M4P1Reminder1 ,ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M4P1)
 
     local m4Objectives = Objectives.CreateGroup('Mission4', M5_StartDelay)
     ScenarioInfo.M4P1 = Objectives.ArmyStatCompare(
@@ -455,7 +586,7 @@ function M5_Start()
 end
 
 function M5_DestroyUEFSubsObj()
-    ScenarioFramework.CreateTimerTrigger(M5P1Reminder1 ,ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M5P1)
     local m5Objectives = Objectives.CreateGroup('Mission5', M6_StartDelay)
     ScenarioInfo.M5P1 = Objectives.KillOrCapture(
         'primary',                      -- type
@@ -521,7 +652,7 @@ function M6_ResourceBaseObj()
 end
 
 function M6_ResourceBaseUnits()
-    ScenarioFramework.CreateTimerTrigger(M6P1Reminder1 ,ReminderInitialTime1)
+    ScenarioFramework.StartReminders(REMINDERS.M6P1)
 
     -- Resource Base
     ScenarioInfo.M6_ObjectiveUnits = ScenarioUtils.CreateArmyGroup('UEF', 'M6_UEFBase_Objective')
@@ -1294,161 +1425,6 @@ function SetGroupFlags(group)
     end
 end
 
- --- Reminders
- --- 1
-function M1P1Reminder1()
-    if not ScenarioInfo.M1P1Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_050)
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M1P1Reminder2()
-    if not ScenarioInfo.M1P1Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_055)
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M1P1Reminder3()
-    if not ScenarioInfo.M1P1Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060) -- general
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- --- 1
-function M1P2Reminder1()
-    if not ScenarioInfo.M1P2Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_065)
-        ScenarioFramework.CreateTimerTrigger(M1P2Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M1P2Reminder2()
-    if not ScenarioInfo.M1P2Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_070)
-        ScenarioFramework.CreateTimerTrigger(M1P2Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M1P2Reminder3()
-    if not ScenarioInfo.M1P2Complete then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060) -- general
-        ScenarioFramework.CreateTimerTrigger(M1P2Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- --- 2
-function M2P1Reminder1()
-    if(not ScenarioInfo.M2P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M02_020)
-        ScenarioFramework.CreateTimerTrigger(M2P1Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M2P1Reminder2()
-    if(not ScenarioInfo.M2P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M02_025)
-        ScenarioFramework.CreateTimerTrigger(M2P1Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M2P1Reminder3()
-    if(not ScenarioInfo.M2P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- ---  3
-function M3P2Reminder1()
-    if(not ScenarioInfo.M3P2Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M03_030)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M3P2Reminder2()
-    if(not ScenarioInfo.M3P2Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M03_020)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M3P2Reminder3()
-    if(not ScenarioInfo.M3P2Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- --- 4
-function M4P1Reminder1()
-    if(not ScenarioInfo.M4P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M04_020)
-        ScenarioFramework.CreateTimerTrigger(M4P1Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M4P1Reminder2()
-    if(not ScenarioInfo.M4P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M04_030)
-        ScenarioFramework.CreateTimerTrigger(M4P1Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M4P1Reminder3()
-    if(not ScenarioInfo.M4P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M4P1Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- --- 5
-function M5P1Reminder1()
-    if(not ScenarioInfo.M5P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M05_020)
-        ScenarioFramework.CreateTimerTrigger(M5P1Reminder2, ReminderSubsequentTime1)
-    end
-end
-
-function M5P1Reminder2()
-    if(not ScenarioInfo.M5P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M05_025)
-        ScenarioFramework.CreateTimerTrigger(M5P1Reminder3, ReminderSubsequentTime1)
-    end
-end
-
-function M5P1Reminder3()
-    if(not ScenarioInfo.M5P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M5P1Reminder1, ReminderSubsequentTime1)
-    end
-end
-
- --- 6
-function M6P1Reminder1()
-    if(not ScenarioInfo.M6P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M06_030)
-        ScenarioFramework.CreateTimerTrigger(M6P1Reminder2, ReminderSubsequentTime2)
-    end
-end
-
-function M6P1Reminder2()
-    if(not ScenarioInfo.M6P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M06_035)
-        ScenarioFramework.CreateTimerTrigger(M6P1Reminder3, ReminderSubsequentTime2)
-    end
-end
-
-function M6P1Reminder3()
-    if(not ScenarioInfo.M6P1Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M6P1Reminder1, ReminderSubsequentTime2)
-    end
-end
-
  --- 7
 function M7P2Reminder1()
     if(not ScenarioInfo.M7P2Complete) then
@@ -1456,7 +1432,7 @@ function M7P2Reminder1()
         ScenarioFramework.CreateTimerTrigger(M7P2Reminder2, ReminderSubsequentTime2)
     end
     if ScenarioInfo.M7P2Complete == true and ScenarioInfo.M7P3Complete == false then
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder1, ReminderSubsequentTime2)
+        ScenarioFramework.StartReminders(REMINDERS.M7P3)
     end
 end
 
@@ -1466,7 +1442,7 @@ function M7P2Reminder2()
         ScenarioFramework.CreateTimerTrigger(M7P2Reminder3, ReminderSubsequentTime2)
     end
     if ScenarioInfo.M7P2Complete == true and ScenarioInfo.M7P3Complete == false then
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder1, ReminderSubsequentTime2)
+        ScenarioFramework.StartReminders(REMINDERS.M7P3)
     end
 end
 
@@ -1476,28 +1452,7 @@ function M7P2Reminder3()
         ScenarioFramework.CreateTimerTrigger(M7P2Reminder1, ReminderSubsequentTime2)
     end
     if ScenarioInfo.M7P2Complete == true and ScenarioInfo.M7P3Complete == false then
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder1, ReminderSubsequentTime2)
-    end
-end
- --- 7
-function M7P3Reminder1()
-    if(not ScenarioInfo.M7P3Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M07_170)
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder2, ReminderSubsequentTime2)
-    end
-end
-
-function M7P3Reminder2()
-    if(not ScenarioInfo.M7P3Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M07_175)
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder3, ReminderSubsequentTime2)
-    end
-end
-
-function M7P3Reminder3()
-    if(not ScenarioInfo.M7P3Complete) then
-        ScenarioFramework.Dialogue(OpStrings.A01_M01_060)
-        ScenarioFramework.CreateTimerTrigger(M7P3Reminder1, ReminderSubsequentTime2)
+        ScenarioFramework.StartReminders(REMINDERS.M7P3)
     end
 end
 
@@ -1620,7 +1575,7 @@ function BuildCategories7_AirFact()
 end
 
 function PlayerCommanderDies_Lose(unit)
-    ScenarioFramework.PlayerDeath(unit, OpStrings.A01_D01_010, {})
+    ScenarioFramework.PlayerDeath(unit, OpStrings.A01_D01_010)
 end
 
 --- Returns true iff all secondary objectives have been completed
