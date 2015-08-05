@@ -16,9 +16,6 @@ local OpStrings = import('/maps/SCCA_Coop_E06/SCCA_Coop_E06_Strings.lua')
 local ScenarioStrings = import('/lua/scenariostrings.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
--- local BaseManager = import('/lua/ai/opai/basemanager.lua')
-
-
 
 -- === GLOBAL VARIABLES === #
 ScenarioInfo.Player = 1
@@ -351,7 +348,7 @@ function CreatePlayer()
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
 
     -- spawn coop players too
-    ScenarioInfo.CoopCDR = {}
+    ScenarioInfo.CoopCDR = {ScenarioInfo.PlayerCDR}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
@@ -1833,33 +1830,30 @@ function EndMission3()
     WinGame()
 end
 
-
-
-
 -- === WIN LOSS FUNCTIONS === #
 function WinGame()
     ScenarioInfo.OpComplete = true
-    local secondaries = true
-    -- local bonus = Objectives.IsComplete(ScenarioInfo.KillBonus) and Objectives.IsComplete(ScenarioInfo.ExperimentalBonus)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
 function PlayerCommanderDestroyed(unit)
--- ScenarioFramework.EndOperationCamera(unit)
-    ScenarioFramework.CDRDeathNISCamera(unit)
-    ScenarioInfo.CDRDeath = true
-    if not ScenarioInfo.BlackSunDestroyed then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.Dialogue(OpStrings.E06_D01_010, false, true)
-        ScenarioFramework.Dialogue(ScenarioStrings.CDRKilled, LoseGame, true)
+    -- Abnormally, you don't necessarily _lose_ if you're killed on this mission: so long as Black
+    -- Sun survives.
+
+    -- Are all the ACUs dead?
+    for k, commander in ScenarioInfo.CoopCDR do
+        if not commander.Dead then
+            -- _Somebody_ is still alive
+            return
+        end
     end
+
+    -- Everyone is dead, but is Black Sun?
+    if ScenarioInfo.BlackSunDestroyed then
+        return
+    end
+
+    ScenarioFramework.PlayerDeath(unit, OpStrings.E06_D01_010)
 end
 
 function AikoDestroyed()
@@ -1886,6 +1880,6 @@ function BlackSunCannonDestroyed(unit)
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.FlushDialogueQueue()
         ScenarioFramework.Dialogue(OpStrings.E06_M02_110, false, true)
-        ScenarioFramework.Dialogue(ScenarioStrings.PObjFail, LoseGame, true)
+        ScenarioFramework.Dialogue(ScenarioStrings.PObjFail, ScenarioFramework.PlayerLose, true)
     end
 end

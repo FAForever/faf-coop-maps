@@ -417,15 +417,8 @@ function PlayerLose()
     end
 end
 
-function PlayerKilled()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.PlayerCDR )
-
-        ScenarioFramework.Dialogue(OpStrings.C06_D01_010, StartKillGame, true)
-    end
+function PlayerKilled(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C06_D01_010)
 end
 
 function StartKillGame()

@@ -144,18 +144,8 @@ function PlayerWin()
     ScenarioFramework.Dialogue(OpStrings.E01_M07_130, StartKillGame, true)
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR)
-
--- Player destroyed
-        local unit = ScenarioInfo.PlayerCDR
-        ScenarioFramework.CDRDeathNISCamera(unit)
-
-        ScenarioFramework.Dialogue(OpStrings.E01_D01_010, StartKillGame, true)
-    end
+function PlayerLose(unit)
+    ScenarioFramework.PlayerDeath(unit, OpStrings.E01_D01_010)
 end
 
 function StartKillGame()

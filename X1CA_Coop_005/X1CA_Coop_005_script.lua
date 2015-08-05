@@ -200,44 +200,7 @@ function PlayerWin()
 end
 
 function PlayerDeath()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        if(ScenarioInfo.M2S1.Active) then
-            ScenarioInfo.M2S1:ManualResult(true)
-        end
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-       )
-    end
-end
-
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.BrackmanCrab)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        if(ScenarioInfo.M2S1.Active) then
-            ScenarioInfo.M2S1:ManualResult(true)
-        end
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ScenarioFramework.Dialogue(OpStrings.X05_M03_130, nil, true)
-        ScenarioFramework.Dialogue(OpStrings.X05_M03_135, KillGame, true)
-    end
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
 function KillGame()
@@ -1828,7 +1791,8 @@ function StartMission3()
     ScenarioInfo.M3P2:AddResultCallback(
         function(result)
             if(not result and not ScenarioInfo.OpEnded) then
-                PlayerLose()
+                ScenarioFramework.Dialogue(OpStrings.X05_M03_130, nil, true)
+                ScenarioFramework.PlayerLose(OpStrings.X05_M03_135, AssignedObjectives)
             end
         end
    )

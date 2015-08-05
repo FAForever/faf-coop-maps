@@ -640,7 +640,7 @@ function York18Destroyed()
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('York_18_Attack'), camInfo)
 
     ScenarioInfo.M1P1Obj:ManualResult(false)
-    PlayerLose(OpStrings.C03_M01_100)
+    ScenarioFramework.PlayerLose(OpStrings.C03_M01_100)
 end
 
 -- End the Operation if the quantum gate is destroyed
@@ -658,12 +658,11 @@ function M1GateDestroyed(unit)
     }
     ScenarioFramework.OperationNISCamera(unit, camInfo)
 
-    PlayerLose(OpStrings.C03_M01_090)
+    ScenarioFramework.PlayerLose(OpStrings.C03_M01_090)
 end
 
 function York18Damaged()
     M1York18Undamaged = false
-    -- print ('debug: YORK18 FIRST BLDG DESTROYED')
 end
 
 function M1York18InitialAttackDefeated()
@@ -1011,7 +1010,7 @@ function M2TruckDead(unit)
             ScenarioFramework.OperationNISCamera(unit, camInfo)
 
             ScenarioInfo.M2P3Obj:ManualResult(false)
-            PlayerLose(OpStrings.C03_M02_160)
+            ScenarioFramework.PlayerLose(OpStrings.C03_M02_160)
         end
     elseif (ScenarioInfo.M2BrackmanTrucksDestroyed + ScenarioInfo.M2BrackmanTrucksThroughGate) > 14  then
         -- last truck destoryed, but we've got enough already
@@ -1236,19 +1235,11 @@ end
 -- === WIN/LOSE === #
 
 function OnCommanderDeath(unit)
-    -- ! If your Commander dies, you lose
-    -- print('Commander Died')
--- ScenarioFramework.EndOperationCamera(unit, false)
-    ScenarioFramework.CDRDeathNISCamera(unit)
-    PlayerLose(OpStrings.C03_D01_010)
-
+    ScenarioFramework.PlayerDeath(unit, OpStrings.C03_D01_010)
 end
 
 function PlayerWin()
-    -- print('debug:Operation Complete')
     -- ScenarioFramework.Dialogue(ScenarioStrings.BObjComp)
-
--- ScenarioFramework.EndOperationCamera(ScenarioInfo.UefCDR, false)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.UefCDR)
 
     ScenarioInfo.M1P5Obj:ManualResult(true) -- complete the gate obj
@@ -1256,16 +1247,6 @@ function PlayerWin()
     ScenarioFramework.Dialogue(OpStrings.C03_M03_050,false,true)
     ScenarioInfo.M3P1Complete = true
     ScenarioFramework.Dialogue(ScenarioStrings.OperationSuccessDialogue, WinGame, true)
-
-end
-
-function PlayerLose(dialogueTable)
-    ScenarioFramework.EndOperationSafety({ScenarioInfo.Gate})
-    if (dialogueTable) then
-        ScenarioFramework.Dialogue(dialogueTable, LoseGame, true)
-    else
-        ForkThread(LoseGame)
-    end
 end
 
 function WinGame()
@@ -1275,10 +1256,3 @@ function WinGame()
 
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
-
-function LoseGame()
-    WaitSeconds(10)
-    ScenarioInfo.OpComplete = false
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
-end
-

@@ -972,7 +972,7 @@ function M2P2Done(result)
     if not result and ScenarioInfo.MissionNumber == 2 then
         -- Let the player know what happened (too many buildings lost) and end the game
         ScenarioFramework.Dialogue(OpStrings.A02_M02_150, false, true)
-        PlayerLose()
+        ScenarioFramework.PlayerLose()
     end
 end
 
@@ -1305,13 +1305,8 @@ function AddTechMission3()
     -- if needed, add tech that the Cybran get here as well
 end
 
-function PlayerCommanderDied()
--- player dead
--- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-    -- Let the player know what happened and end the game
-    ScenarioFramework.Dialogue(OpStrings.A02_D01_010, false, true)
-    PlayerLose()
+function PlayerCommanderDied(commander)
+    ScenarioFramework.PlayerDeath(commander, OpStrings.A02_D01_010)
 end
 
 function PlayRandomTaunt()
@@ -1413,20 +1408,6 @@ function PlayerWin()
         -- Celebration dialogue
         ScenarioFramework.Dialogue(OpStrings.A02_M03_100, WinGame, true)
     end
-end
-
-function PlayerLose()
-    if not ScenarioInfo.OpEnded then
-        -- Turn all units neutral
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.Dialogue(ScenarioStrings.OpFail, LoseGame, true)
-    end
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 
 function WinGame()

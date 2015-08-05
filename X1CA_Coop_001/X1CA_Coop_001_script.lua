@@ -405,38 +405,13 @@ function PlayerWin()
     )
 end
 
-function PlayerDeath()
-    -- TODO: need death VO
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-        )
-    end
+function PlayerDeath(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        KillGame()
-    end
+--- Returns true iff all secondary objectives have been completed
+function SecondaryObjectivesComplete()
+    return Objectives.IsComplete(ScenarioInfo.M1S1)
 end
 
 function KillGame()
@@ -452,15 +427,6 @@ end
 -- Intro NIS
 -----------
 function IntroNISPart1()
-    for _, player in ScenarioInfo.HumanPlayers do
-        WARN(player)
-        WARN(ArmyBrains[player])
-    end
-    for k, player in ArmyBrains do
-        WARN(k)
-        WARN(player)
-    end
-
     ScenarioInfo.NISShield = ScenarioInfo.UnitNames[UEF]['Player_NIS_Shield']
     ScenarioInfo.NISGate = ScenarioInfo.UnitNames[UEF]['Player_Quantum_Gate']
 
@@ -1344,9 +1310,8 @@ function StartMission2()
     )
     ScenarioInfo.M2P1:AddResultCallback(
         function(result)
-            if(result == false) then
-                ScenarioFramework.Dialogue(VoiceOvers.CivvyDefenseFailed, nil, true)
-                PlayerLose()
+            if not result then
+                ScenarioFramework.PlayerLose(VoiceOvers.CivvyDefenseFailed, AssignedObjectives)
             end
         end
     )

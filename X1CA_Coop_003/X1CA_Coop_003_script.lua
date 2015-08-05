@@ -324,26 +324,8 @@ function PlayerWin()
     end
 end
 
-function PlayerDeath()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.Dialogue(OpStrings.X03_DB01_030, nil, true)
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-        )
-    end
+function PlayerDeath(deadPlayer)
+    ScenarioFramework.PlayerDeath(deadPlayer, OpStrings.X03_DB01_030, AssignedObjectives)
 end
 
 function PlayerLosePrincess()
@@ -374,8 +356,7 @@ end
 function KillGame()
     ForkThread(
         function()
-            local secondaries = true -- Objectives.IsComplete(ScenarioInfo.M2S1Aeon) and Objectives.IsComplete(ScenarioInfo.M4S1Cybran)
-            ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
+            ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
         end
     )
 end
@@ -384,14 +365,6 @@ end
 -- Intro NIS
 -----------
 function IntroNIS()
-
-    -- Show all of the naval factories to the north
-    -- for num,unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Naval_Base_Area')) do
-    -- if EntityCategoryContains( categories.FACTORY * categories.NAVAL, unit ) then
-    --    ScenarioFramework.CreateVisibleAreaLocation( 1, unit:GetPosition(), 1, ArmyBrains[Player] )
-    -- end
-    -- end
-
     -- Show the north base buildings
     local NorthVisMarker = ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'M1_North_Vis_Marker' ), 0, ArmyBrains[Player] )
 

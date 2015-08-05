@@ -1162,57 +1162,12 @@ function ControlCenterCapturedByEnemy()
     ScenarioInfo.M2P1Objective:ManualResult(false)
 
     ScenarioFramework.Dialogue(OpStrings.A06_M02_130, false, true)
-    PlayerLose()
+    ScenarioFramework.PlayerLose()
 end
 
-function PlayerCommanderDied()
--- Player death cam
--- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-
-    -- Let the player know what happened
-    ScenarioFramework.Dialogue(OpStrings.A06_D01_010, false, true)
-    PlayerLose()
+function PlayerCommanderDied(unit)
+    ScenarioFramework.PlayerDeath(unit, OpStrings.A06_D01_010)
 end
-
--- function M1B1Complete()
--- if(not ScenarioInfo.M3P1Objective) or(ScenarioInfo.M3P1Objective and ScenarioInfo.M3P1Objective.Active) then
---    ScenarioInfo.M1B1Objective = Objectives.Basic(
---        'bonus',
---        'incomplete',
---        OpStrings.M1B1Text,
---        LOCF(OpStrings.M1B1Detail, M1B1KillAmount),
---        Objectives.GetActionIcon('kill'),
---        {
---        }
---   )
---    ScenarioInfo.M1B1Objective:ManualResult(true)
--- end
--- end
-
--- function M1B2UnitBuilt()
--- if not ScenarioInfo.M1B2UnitsBuilt then
---    ScenarioInfo.M1B2UnitsBuilt = 1
--- else
---    ScenarioInfo.M1B2UnitsBuilt = ScenarioInfo.M1B2UnitsBuilt + 1
--- end
--- if ScenarioInfo.M1B2UnitsBuilt == 3 then
---    M1B2Complete()
--- end
--- end
-
--- function M1B2Complete()
--- ScenarioInfo.M1B2Objective = Objectives.Basic(
---    'bonus',
---    'incomplete',
---    OpStrings.M1B2Text,
---    OpStrings.M1B2Detail,
---    Objectives.GetActionIcon('build'),
---    {
---    }
--- )
--- ScenarioInfo.M1B2Objective:ManualResult(true)
--- end
 
 function RandomAikoTaunt()
     local randomIndex = Random(1, table.getn(TauntTableAiko))
@@ -1305,20 +1260,6 @@ function PlayerWin()
     end
 end
 
-function PlayerLose()
-    if not ScenarioInfo.OpEnded then
-        -- Turn everything neutral
-        ScenarioFramework.EndOperationSafety()
-
-        ScenarioFramework.Dialogue(ScenarioStrings.OpFail, LoseGame, true)
-    end
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
-end
 
 function WinGame()
     ScenarioInfo.OpComplete = true

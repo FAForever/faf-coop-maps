@@ -243,7 +243,6 @@ end
 
 -- === Mission 1 Functions === #
 function StartMission1()
-    LOG('debugMatt:Difficulty == '..Difficulty )
     ScenarioInfo.MissionNumber = 1
     --SetArmyUnitCap ('Player', 300)
     ScenarioFramework.Dialogue(OpStrings.E04_M01_010)
@@ -268,7 +267,6 @@ function StartMission1()
     ScenarioInfo.M1ResearchGroup = ScenarioUtils.CreateArmyGroup('Cybran_Research', 'M1_Science_Buildings')
 
     -- === (above) Formerly in OnPopualte  === #
-
 
     -- Define Tech Restrictions
     for _, player in ScenarioInfo.HumanPlayers do
@@ -327,10 +325,8 @@ function StartMission1()
     ScenarioInfo.M1P2:AddResultCallback(M1OnLabCaptured)
     objGroup1:AddObjective(ScenarioInfo.M1P2)
 
-
     -- objective Prompts
     ScenarioFramework.CreateTimerTrigger(M1OnObjectivePrompt1, M1FirstPromptTimer)
-
 
     -- set some timers
     ScenarioFramework.CreateTimerTrigger(M1OnGaugeTimer1, M1GaugeTimer1)    -- 3min
@@ -340,7 +336,6 @@ function StartMission1()
 end
 
 function M1OnAirAttackTimer ()
-    LOG('debugMatt:M1CybranAirAttackGo = true' )
     ScenarioInfo.VarTable['M1CybranAirAttackGo'] = true
 
     -- after the first time  swap in new value
@@ -349,19 +344,16 @@ end
 
 function M1StartAirAttackTimer ()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M1CybranAirAttackGo = false' )
     ScenarioInfo.VarTable['M1CybranAirAttackGo'] = false
     ScenarioFramework.CreateTimerTrigger(M1OnAirAttackTimer, M1AirAttackTimer)
 end
 
 function M1OnTankAttackTimer ()
-    LOG('debugMatt:M1CybranTankAttackGo = true' )
     ScenarioInfo.VarTable['M1CybranTankAttackGo'] = true
 end
 
 function M1StartTankAttackTimer ()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M1CybrantankAttackGo = false' )
     ScenarioInfo.VarTable['M1CybranTankAttackGo'] = false
     ScenarioFramework.CreateTimerTrigger(M1OnTankAttackTimer, M1TankAttackTimer)
 end
@@ -393,9 +385,8 @@ function M1OnObjectivePrompt2()
 end
 
 function M1OnExpansionBaseDestroyed()
-    LOG('debugMatt:Base Destroyed' )
     ScenarioFramework.Dialogue(OpStrings.E04_M01_040)
--- expansion base destroyed cam
+    -- expansion base destroyed cam
     local camInfo = {
         blendTime = 1.0,
         holdTime = 4,
@@ -407,12 +398,10 @@ function M1OnExpansionBaseDestroyed()
     ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), camInfo)
 end
 
-
 function M1OnLabCaptured(success, units)
-    LOG("debugMatt:M1OnLabCapture: result ",success)
     if (success) then
         ScenarioFramework.Dialogue(OpStrings.E04_M01_050)
--- labs captured cam
+        -- labs captured cam
         local camInfo = {
             blendTime = 1.0,
             holdTime = 4,
@@ -423,7 +412,7 @@ function M1OnLabCaptured(success, units)
         }
         ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition('York18_Cam'), camInfo)
     else
-        PlayerLose(OpStrings.E04_M01_060)
+        ScenarioFramework.PlayerLose(OpStrings.E04_M01_060)
 -- labs destroyed cam
 --    ScenarioFramework.EndOperationCameraLocation(ScenarioUtils.MarkerToPosition('York18_Cam'))
         local camInfo = {
@@ -557,8 +546,6 @@ function StartMission2()
     ScenarioInfo.VarTable['M2CybranAirAttackGo']        = true
     ScenarioInfo.VarTable['M2CybranGunshipAttackGo']    = true
     ScenarioInfo.VarTable['M2CybranTorpedoPlaneGo']     = true
-
-
 end
 
 function M2RandomTaunt()
@@ -568,25 +555,21 @@ function M2RandomTaunt()
 end
 
 function M2OnAirAttackTimer()
-    LOG('debugMatt:M2CybranAirAttackGo = true' )
     ScenarioInfo.VarTable['M2CybranAirAttackGo'] = true
 end
 
 function M2StartAirAttackTimer()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M2CybranAirAttackGo = false' )
     ScenarioInfo.VarTable['M2CybranAirAttackGo'] = false
     ScenarioFramework.CreateTimerTrigger(M2OnAirAttackTimer, M2AirAttackTimer)
 end
 
 function M2OnTankAttackTimer()
-    LOG('debugMatt:M2CybranTankAttackGo = true' )
     ScenarioInfo.VarTable['M2CybranTankAttackGo'] = true
 end
 
 function M2StartTankAttackTimer()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M2CybrantankAttackGo = false' )
     ScenarioInfo.VarTable['M2CybranTankAttackGo'] = false
     ScenarioFramework.CreateTimerTrigger(M2OnTankAttackTimer, M2TankAttackTimer)
 
@@ -595,25 +578,21 @@ function M2StartTankAttackTimer()
 end
 
 function M2OnGunshipAttackTimer()
-    LOG('debugMatt:M2CybranGunshipAttackGo = true' )
     ScenarioInfo.VarTable['M2CybranGunshipAttackGo'] = true
 end
 
 function M2OnTorpedoPlaneTimer()
-    LOG('debugMatt:M2OnTopedoPlaneTimer = true' )
     ScenarioInfo.VarTable['M2CybranTorpedoPlaneGo'] = true
 end
 
 function M2StartGunshipAttackTimer()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M2CybranGunshipAttackGo = false' )
     ScenarioInfo.VarTable['M2CybranGunshipAttackGo'] = false
     ScenarioFramework.CreateTimerTrigger(M2OnGunshipAttackTimer, M2GunshipAttackTimer)
 end
 
 function M2StartTorpedoPlaneTimer()
     -- Called from SCCA_Coop_E04_EditorFunctions
-    LOG('debugMatt:M2StartTorpedoPlaneTimer = false' )
     ScenarioInfo.VarTable['M2CybranTorpedoPlaneGo'] = false
     ScenarioFramework.CreateTimerTrigger(M2OnTorpedoPlaneTimer, M2TorpedoPlaneTimer)
 end
@@ -824,8 +803,7 @@ function M2OnTruckEscaped(result)
         ScenarioFramework.FakeTeleportUnit(unit,true)
 
     else
-        LOG('debugMatt:Mission 2 FAILED')
-        PlayerLose(OpStrings.E04_M02_120) -- lose after dialog
+        ScenarioFramework.PlayerLose(OpStrings.E04_M02_120) -- lose after dialog
         for k,unit in ScenarioInfo.M2EscapeTruck:GetPlatoonUnits() do
             if not unit:IsDead() then
 -- NIS of truck destroyed cam
@@ -1303,30 +1281,14 @@ end
 
 -- === Win/Lose === #
 function PlayerWin()
-    LOG('debugMatt:Operation Complete')
     ScenarioFramework.EndOperationSafety()
 
     ScenarioFramework.Dialogue(OpStrings.E04_M03_130,false, true)
     ScenarioFramework.Dialogue(OpStrings.E04_M03_140, WinGame, true)
-
 end
 
-function PlayerLose(dialogueTable)
-    ScenarioFramework.FlushDialogueQueue()
-    ScenarioFramework.EndOperationSafety()
-    if (dialogueTable) then
-        ScenarioFramework.Dialogue(dialogueTable, LoseGame, true)
-    else
-        ForkThread(LoseGame)
-    end
-end
-
-function OnCommanderDeath()
-    -- ! If your Commander dies, you lose
-    -- print('Commander Died')
-    PlayerLose(OpStrings.E04_D01_010)
--- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, false)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+function OnCommanderDeath(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.E04_D01_010)
 end
 
 function WinGame()
@@ -1334,13 +1296,5 @@ function WinGame()
     ScenarioInfo.OpComplete = true
     local secondaries = Objectives.IsComplete(ScenarioInfo.M3S1)
 
-    --LOG ('debug matt: comleted mission '..'SCCA_Coop_E04'..ScenarioInfo.Options.Difficulty,secondaries)
-
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end

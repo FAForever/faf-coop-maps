@@ -313,31 +313,8 @@ function PlayerWin()
    )
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-
-        if(ScenarioInfo.M2S1) then
-            if(ScenarioInfo.ControlCenterPossession == Player) then
-                ScenarioInfo.M2S1:ManualResult(true)
-            else
-                ScenarioInfo.M2S1:ManualResult(false)
-            end
-        end
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ScenarioFramework.Dialogue(OpStrings.X06_M01_140, KillGameLose, true)
-    end
-end
-
-function KillGameLose()
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete)
+function PlayerLose(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.X06_M01_140, AssignedObjectives)
 end
 
 function KillGameWin()
@@ -437,7 +414,7 @@ function IntroMission1NIS()
 
                 for index, coopACU in ScenarioInfo.CoopCDR do
                     ScenarioFramework.PauseUnitDeath(coopACU)
-                    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
+                    ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, coopACU)
                 end
             end)
 

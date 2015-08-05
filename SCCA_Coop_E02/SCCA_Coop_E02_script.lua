@@ -21,8 +21,6 @@ local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_strings.lua')
-local Weather = import('/lua/weather.lua')
-
 
 -----------------
 -- Debug Variables
@@ -1948,15 +1946,14 @@ function TruckDied()
         if not ScenarioInfo.OpEnded then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_170, false, true)
             ScenarioInfo.M2P2:ManualResult(false)
-            PlayerLose()
+            ScenarioFramework.PlayerLose()
         end
     else
-
         -- check to see if this is the last truck Matt 12/11/06
         if M2TrucksAllAccountedFor() then
             BeginMission3()
-        -- skip truck death dialog if we're done
-        -- $ This would be cleaner with the values at the top of the script...
+            -- skip truck death dialog if we're done
+            -- $ This would be cleaner with the values at the top of the script...
         elseif (Difficulty == 2 and ScenarioInfo.TrucksKilled == 2) or
            (Difficulty == 3 and ScenarioInfo.TrucksKilled == 1) then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_080)
@@ -1967,8 +1964,6 @@ function TruckDied()
                (Difficulty == 3 and ScenarioInfo.TrucksKilled == 3) then
             ScenarioFramework.Dialogue(OpStrings.E02_M03_100)
         end
-
-
     end
 end
 
@@ -2172,17 +2167,8 @@ function AddTechMission3()
     )
 end
 
-function PlayerCommanderDied()
--- player destroyed
--- ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-
-    -- Let the player know what happened
-    -- And end the game
-    if not ScenarioInfo.OpEnded then
-        ScenarioFramework.Dialogue(OpStrings.E02_D01_010, false, true)
-        PlayerLose()
-    end
+function PlayerCommanderDied(unit)
+    ScenarioFramework.PlayerDeath(unit, OpStrings.E02_D01_010)
 end
 
 function ResearchFacilityDied()
@@ -2197,7 +2183,7 @@ function ResearchFacilityDied()
         elseif ScenarioInfo.MissionNumber == 1 and ScenarioInfo.M1P3 then
             ScenarioInfo.M1P3:ManualResult(false)
         end
-        PlayerLose()
+        ScenarioFramework.PlayerLose()
     end
 end
 
@@ -2285,36 +2271,6 @@ function M3P2Reminder()
     end
 end
 
--- function KilledBonus()
--- ScenarioInfo.M1H1 = Objectives.Basic(
---    'bonus',
---    'incomplete',
---    OpStrings.M1H1Text,
---    OpStrings.M1H1Detail,
---    Objectives.GetActionIcon('kill'),
---    {
---        #Area = 'Research_Area',
---        #MarkArea = true,
---    }
--- )
--- ScenarioInfo.M1H1:ManualResult(true)
--- end
---
--- function EnergyBonus()
--- ScenarioInfo.M1H2 = Objectives.Basic(
---    'bonus',
---    'incomplete',
---    OpStrings.M1H2Text,
---    LOCF(OpStrings.M1H2Detail, BonusEnergyAmount),
---    Objectives.GetActionIcon('build'),
---    {
---        #Area = 'Research_Area',
---        #MarkArea = true,
---    }
--- )
--- ScenarioInfo.M1H2:ManualResult(true)
--- end
-
 ----------
 -- End Game
 ----------
@@ -2327,45 +2283,6 @@ function PlayerWin()
         -- And end the game
         ScenarioFramework.Dialogue(OpStrings.E02_M04_150, WinGame, true)
     end
-end
-
--- function Final_NIS()
--- # Show the entire Aeon base area
--- ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('Aeon_Base'), 20, ArmyBrains[Player])
---
--- # Play the video after a brief delay
--- ForkThread(PlayNIS4Video)
---
--- # Start things off
--- Cinematics.EnterNISMode()
---
--- # Show the base from a nice angle
--- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_1'))
---
--- # Move the camera around the base
--- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Ending_2'), 9)
---
--- # Let the player absorb what they're seeing
--- WaitSeconds(5)
---
--- # And we're done
--- Cinematics.ExitNISMode()
--- ScenarioFramework.EndOperation('SCCA_Coop_E02', true, ScenarioInfo.Options.Difficulty, false, false, false)
--- end
-
-function PlayerLose()
-    if not ScenarioInfo.OpEnded then
-        -- Turn everything neutral
-        ScenarioFramework.EndOperationSafety()
-
-        ScenarioFramework.Dialogue(ScenarioStrings.OpFail, LoseGame, true)
-    end
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 
 function WinGame()

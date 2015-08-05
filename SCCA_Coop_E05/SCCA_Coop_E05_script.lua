@@ -572,7 +572,7 @@ function M1AssignP1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result,unit)
             if not result then
-                PlayerLose(OpStrings.E05_M01_070)
+                ScenarioFramework.PlayerLose(OpStrings.E05_M01_070)
             end
         end
    )
@@ -1249,7 +1249,7 @@ function StartMission2()
     ScenarioInfo.M2P1:AddResultCallback(
         function(result, unit)
             if not result then
-                PlayerLose(OpStrings.E05_M01_070)
+                ScenarioFramework.PlayerLose(OpStrings.E05_M01_070)
             end
         end
    )
@@ -1513,7 +1513,7 @@ function CheckM3P1(unit)
         -- You'll never get enough trucks. You fail.
         ScenarioInfo.M3P1:ManualResult(false)
         ScenarioInfo.MissionFailed = true
-        PlayerLose(OpStrings.E05_M03_180)
+        ScenarioFramework.PlayerLose(OpStrings.E05_M03_180)
     end
 end
 
@@ -1969,7 +1969,7 @@ function TruckKilled(unit)
     if (not ScenarioInfo.OpEnded and (ScenarioInfo.PotentialUEFTrucks + ScenarioInfo.NumUEFTrucksAlive + ScenarioInfo.NumUEFTrucksThroughGate) < ScenarioInfo.RequiredUEFTrucks) then -- You'll never get enough trucks. You fail.
         ScenarioInfo.M3P2:ManualResult(false)
         ScenarioInfo.MissionFailed = true
-        PlayerLose(OpStrings.E05_M03_170)
+        ScenarioFramework.PlayerLose(OpStrings.E05_M03_170)
 
 -- too many trucks died cam
 --    ScenarioFramework.EndOperationCamera(unit, false)
@@ -2195,10 +2195,7 @@ end
 -- === Win/Lose === #
 -- ! If your Commander dies, you lose
 function CommanderDied(unit)
-    PlayerLose(OpStrings.E05_D01_010)
--- ScenarioFramework.EndOperationCamera(unit, false)
-    ScenarioFramework.CDRDeathNISCamera(unit)
-
+    ScenarioFramework.PlayerDeath(unit, OpStrings.E05_D01_010)
 end
 
 function PlayerWin()
@@ -2206,18 +2203,6 @@ function PlayerWin()
         ScenarioInfo.PlayerHasWon = true
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.Dialogue(OpStrings.E05_M03_190, WinGame, true)
-    end
-end
-
-
-function PlayerLose(dialogueTable)
-    ScenarioInfo.MissionFailed = true
-    ScenarioFramework.FlushDialogueQueue()
-    ScenarioFramework.EndOperationSafety()
-    if (dialogueTable) then
-        ScenarioFramework.Dialogue(dialogueTable, LoseGame, true)
-    else
-        ForkThread(LoseGame)
     end
 end
 
@@ -2248,8 +2233,3 @@ function WinGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
-end

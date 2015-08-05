@@ -682,8 +682,8 @@ function M1P3ResultCallback(result)
     else
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.Dialogue(OpStrings.A05_M01_150, LoseGame, true)
--- colony not defended
+        ScenarioFramework.Dialogue(OpStrings.A05_M01_150, ScenarioFramework.PlayerLose, true)
+        -- colony not defended
         local camInfo = {
             blendTime = 2.5,
             holdTime = nil,
@@ -717,16 +717,6 @@ function M1ObjectiveReminder()
         end
     end
 end
-
-
-
-
-
-
-
-
-
-
 
 -- === MISSION TWO FUNCTIONS === #
 function StartMission2()
@@ -1267,22 +1257,8 @@ function M3ObjectiveReminder()
     end
 end
 
-
-
-
-
-
-
-
-
--- === WIN LOSS FUNCTIONS === #
 function PlayerCDRDestroyed(unit)
-    ScenarioFramework.EndOperationSafety()
-    ScenarioFramework.FlushDialogueQueue()
--- ScenarioFramework.EndOperationCamera(unit)
-    ScenarioFramework.CDRDeathNISCamera(unit)
-
-    ScenarioFramework.Dialogue(OpStrings.A05_D01_010, LoseGame, true)
+    ScenarioFramework.PlayerDeath(unit, OpStrings.A05_D01_010)
 end
 
 function WinGame()
@@ -1291,10 +1267,4 @@ function WinGame()
     local secondaries = Objectives.IsComplete(ScenarioInfo.M1P1Obj) and Objectives.IsComplete(ScenarioInfo.M1P2Obj) and Objectives.IsComplete(ScenarioInfo.M2S2Obj)
     local bonus = Objectives.IsComplete(ScenarioInfo.BonusArtillery) and Objectives.IsComplete(ScenarioInfo.BonusAir)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
-end
-
-function LoseGame()
-    ScenarioInfo.OpComplete = false
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end

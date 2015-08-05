@@ -143,18 +143,8 @@ function PlayerWin()
     end
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(KillGame)
-    end
+function PlayerLose(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)|
 end
 
 function KillGame()

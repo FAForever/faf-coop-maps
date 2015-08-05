@@ -160,9 +160,6 @@ end
 --------------
 
 function BeginOperation()
-    for i = 2, table.getn(ArmyBrains) do
-    end
-
     SetArmyUnitCap(1, 300)
     SetArmyUnitCap(3, 500)
 
@@ -1622,31 +1619,17 @@ function BuildCategories7_AirFact()
     )
 end
 
- --- win/lose functions
-
 function PlayerCommanderDies_Lose(unit)
-    if not ScenarioInfo.OperationEnding then
-        ScenarioInfo.OperationEnding = true
-        ScenarioFramework.FlushDialogueQueue()
--- player death
---    ScenarioFramework.EndOperationCamera(unit)
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
-        ScenarioFramework.CDRDeathNISCamera(unit)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.Dialogue(OpStrings.A01_D01_010, KillGame_Fail, true)
-    end
+    ScenarioFramework.PlayerDeath(unit, OpStrings.A01_D01_010, {})
+end
+
+--- Returns true iff all secondary objectives have been completed
+function SecondaryObjectivesComplete()
+    return Objectives.IsComplete(ScenarioInfo.M7S1) and Objectives.IsComplete(ScenarioInfo.M7S2)
 end
 
 function KillGame_Win()
     ScenarioInfo.OpComplete = true
     WaitSeconds(8.0)
-    local secondaries = Objectives.IsComplete(ScenarioInfo.M7S1) and Objectives.IsComplete(ScenarioInfo.M7S2)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
-end
-
-function KillGame_Fail()
-    ScenarioInfo.OpComplete = false
-    ScenarioFramework.Dialogue(ScenarioStrings.OpFail, false, true)
-    WaitSeconds(9.0)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, SecondaryObjectivesComplete())
 end

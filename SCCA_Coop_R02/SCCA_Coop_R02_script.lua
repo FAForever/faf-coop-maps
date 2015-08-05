@@ -2469,22 +2469,7 @@ function M3Complete()
 end
 
 function PlayerCDRKilled(unit)
-    if not ScenarioInfo.OperationEnding then
-        ScenarioInfo.OperationEnding = true
-        PlayerLose(OpStrings.C02_D02_010)
---    ScenarioFramework.EndOperationCamera(unit, false)
-        ScenarioFramework.CDRDeathNISCamera(unit)
-    end
-end
-
-function PlayerLose(dialogueTable)
-    ScenarioFramework.FlushDialogueQueue()
-    ScenarioFramework.EndOperationSafety()
-    if (dialogueTable) then
-        ScenarioFramework.Dialogue(dialogueTable, LoseGame, true)
-    else
-        ForkThread(LoseGame)
-    end
+    ScenarioFramework.PlayerDeath(unit, OpStrings.C02_D02_010)
 end
 
 function WinGame()
@@ -2492,12 +2477,6 @@ function WinGame()
     ScenarioInfo.OpComplete = true
     local secondaries = Objectives.IsComplete(ScenarioInfo.M3S1)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
-end
-
-function LoseGame()
-    WaitSeconds(5)
-    ScenarioInfo.OpComplete = false
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
 end
 
 function TechRevealedNISCamera(unit)

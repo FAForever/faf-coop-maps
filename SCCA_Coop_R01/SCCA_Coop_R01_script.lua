@@ -1502,16 +1502,8 @@ end
 
 --- Failure functions
 
-function PlayerCDRKilled()
-    if not ScenarioInfo.OperationEnding then
-        ScenarioInfo.OperationEnding = true
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.FlushDialogueQueue()
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, true)
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-
-        ScenarioFramework.Dialogue(OpStrings.C01_D01_010, KillGame_Fail, true )
-    end
+function PlayerCDRKilled(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C01_D01_010)
 end
 
 function KillGame_Win()
@@ -1520,15 +1512,7 @@ function KillGame_Win()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
-function KillGame_Fail()
-    ScenarioInfo.OpComplete = false
-        WaitSeconds(10.0)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, false)
-end
-
-
 --- Build alterations
-
 function BuildCategories1()
     -- Start by restricting all
     for _, player in ScenarioInfo.HumanPlayers do

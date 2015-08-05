@@ -190,19 +190,8 @@ function PlayerWin()
     end
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        if(ScenarioInfo.ErisCDR and not ScenarioInfo.ErisCDR:IsDead()) then
-            ScenarioInfo.ErisCDR:SetCanTakeDamage(true)
-            ScenarioInfo.ErisCDR:SetCanBeKilled(true)
-        end
--- player died
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.Dialogue(OpStrings.A03_D01_010, StartKillGame, true)
-    end
+function PlayerLose(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.A03_D01_010)
 end
 
 function StartKillGame()

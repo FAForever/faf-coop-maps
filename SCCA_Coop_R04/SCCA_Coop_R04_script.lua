@@ -1208,7 +1208,7 @@ function M3BaseDamaged()
         }
         ScenarioInfo.DisableM3BaseDamagedTriggers = true
         if ScenarioInfo.M3BaseDamageWarnings == 2 then
--- Mainfram destroyed cam values
+            -- Mainfram destroyed cam values
             camInfo.blendTime = 2.5
             camInfo.holdTime = nil
             camInfo.orientationOffset[1] = math.pi
@@ -1217,9 +1217,7 @@ function M3BaseDamaged()
             -- Detonate the mainframe
             ScenarioInfo.Mainframe:Kill()
             -- player loses
-            ScenarioFramework.Dialogue( OpStrings.C04_M03_050, false, true )
-            PlayerLose()
-            -- LOG( 'Player lost because they attacked the Aeon base 3 times before all nodes were captured in mission 3.' )
+            ScenarioFramework.PlayerLose(OpStrings.C04_M03_050)
         elseif ScenarioInfo.M3BaseDamageWarnings == 1 then
             -- strong warning
             ScenarioFramework.Dialogue( OpStrings.C04_M03_040 )
@@ -1494,17 +1492,8 @@ function AddTechMission3()
     )
 end
 
-function PlayerCommanderDied()
--- Spin the camera around the explosion
--- ScenarioFramework.EndOperationCamera( ScenarioInfo.PlayerCDR, true )
-    ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.PlayerCDR )
-
-    -- Let the player know what happened
-    -- And end the game
-    ScenarioFramework.Dialogue( OpStrings.C04_D01_010, false, true )
-    PlayerLose()
-
-    -- LOG( 'Player lost because their commander died.' )
+function PlayerCommanderDied(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C04_D01_010)
 end
 
 function NodeDied(unit)
@@ -1544,60 +1533,21 @@ function NodeDied(unit)
         camInfo.zoomVal = 40
     end
     ScenarioFramework.OperationNISCamera( unit, camInfo )
-
-    ScenarioFramework.Dialogue( OpStrings.C04_M01_110, false, true )
-    PlayerLose()
-
-    -- LOG( 'Player lost because a node was destroyed.' )
-    -- LOG( 'Node 1 alive: ', not ScenarioInfo.Node1:IsDead() )
-    -- LOG( 'Node 2 alive: ', not ScenarioInfo.Node2:IsDead() )
-    -- LOG( 'Node 3 alive: ', not ScenarioInfo.Node3:IsDead() )
-    -- LOG( 'Node 4 alive: ', not ScenarioInfo.Node4:IsDead() )
+    ScenarioFramework.PlayerLose(OpStrings.C04_M01_110)
 end
 
 -- Signal the Attack Manager that it is allowed to take existing platoons and attack with them
 function LaunchAirAttack()
-    -- LOG( 'Air Attack Launched' )
     ScenarioInfo.VarTable['LaunchAirAttack'] = true
 end
 
--- Signal the Attack Manager that it is allowed to take existing platoons and attack with them
 function LaunchNavalAttack()
-    -- LOG( 'Naval Attack Launched' )
     ScenarioInfo.VarTable['LaunchNavalAttack'] = true
 end
 
--- Signal the Attack Manager that it is allowed to take existing platoons and attack with them
 function LaunchLandAttack()
-    -- LOG( 'Land Attack Launched' )
     ScenarioInfo.VarTable['LaunchLandAttack'] = true
 end
-
--- function M1B1Complete()
--- ScenarioInfo.M1B1Objective = Objectives.Basic(
---    'bonus',
---    'incomplete',
---    OpStrings.M1B1Text,
---    LOCF( OpStrings.M1B1Detail, M1B1BuildAmount ),
---    Objectives.GetActionIcon('build'),
---    {
---    }
--- )
--- ScenarioInfo.M1B1Objective:ManualResult(true)
--- end
-
--- function M1B2Complete()
--- ScenarioInfo.M1B2Objective = Objectives.Basic(
---    'bonus',
---    'incomplete',
---    OpStrings.M1B2Text,
---    LOCF( OpStrings.M1B2Detail, M1B2KillAmount ),
---    Objectives.GetActionIcon('kill'),
---    {
---    }
--- )
--- ScenarioInfo.M1B2Objective:ManualResult(true)
--- end
 
 function AdjustForDifficulty( string_in )
     local string_out = string_in
@@ -1702,19 +1652,6 @@ function PlayerWin()
         -- Computer voice saying op complete
         ScenarioFramework.Dialogue( ScenarioStrings.OperationSuccessDialogue, WinGame, true )
     end
-end
-
-function PlayerLose()
-    if not ScenarioInfo.OpEnded then
-        -- Turn units neutral
-        ScenarioFramework.EndOperationSafety()
-        ScenarioFramework.Dialogue( ScenarioStrings.OpFail, LoseGame, true )
-    end
-end
-
-function LoseGame()
-    WaitSeconds(5)
-    ScenarioFramework.EndOperation( 'SCCA_Coop_R04', false, ScenarioInfo.Options.Difficulty, false, false, false )
 end
 
 function WinGame()

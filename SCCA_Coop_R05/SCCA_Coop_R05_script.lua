@@ -1495,31 +1495,17 @@ function M3_Hex5Destroyed()
     end
 end
 
-function PlayerCDRKilled()
-  if not ScenarioInfo.OperationEnding then
-        ScenarioInfo.OperationEnding = true
-        ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.EndOperationSafety()
---    ScenarioFramework.EndOperationCamera( ScenarioInfo.PlayerCommander, true )
-        ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.PlayerCommander )
-        ScenarioFramework.Dialogue( OpStrings.C05_D01_010, false, true )
-        ScenarioFramework.Dialogue(ScenarioStrings.OpFail, KillGame_Fail, true)
-    end
-end
-
-function KillGame_Fail()
-    WaitSeconds(7.0)
-    ScenarioFramework.EndOperation('SCCA_Coop_R05', false, ScenarioInfo.Options.Difficulty, false, false )
+function PlayerCDRKilled(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C05_D01_010)
 end
 
 function KillGame_Win()
     WaitSeconds(7.0)
     local secondaries = Objectives.IsComplete(ScenarioInfo.M1S1) and Objectives.IsComplete(ScenarioInfo.M2S1) and Objectives.IsComplete(ScenarioInfo.M3S1)
-    ScenarioFramework.EndOperation('SCCA_Coop_R05', true, ScenarioInfo.Options.Difficulty, true, secondaries )
+    ScenarioFramework.EndOperation(true, true, secondaries)
 end
 
  --- Build Category functions
-
 function M1_BuildCategories()
     local tblArmy = ListArmies()
     for _, player in Players do
