@@ -695,6 +695,9 @@ function IntroNISPart2()
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), 40 )
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), 40 )
         ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), 40 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'M3_Order_CounterAir_6' ), 50 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 40 )
+        ScenarioFramework.ClearIntel( ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 40 )
     end
     
     for k, unit in NIS1Over90PostConversion do
