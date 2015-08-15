@@ -1519,7 +1519,7 @@ function BuildCategories1()
          ScenarioFramework.AddRestriction(player, categories.ALLUNITS)
     end
 
-    ScenarioFramework.RemoveRestrictionForAllHumans(player, categories.urb1103) -- Mass
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.urb1103) -- Mass
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering', -- 1
                                             'CloakingGenerator',
                                             'CoolingUpgrade',
@@ -1559,7 +1559,7 @@ end
 
 function BuildCategories4b()
     -- For Hard difficulty, unlock AA turrets earlier
-    ScenarioFramework.RemoveRestrictionForAllHumans(player, categories.urb2104)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.urb2104)
 end
 
 function BuildCategories5()
