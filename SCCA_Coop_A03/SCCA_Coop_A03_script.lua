@@ -137,6 +137,7 @@ function OnStart(self)
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.uab0202 +    -- T2 Air Factory
+        categories.zab9502 +    -- T2 Support Air Factory
         categories.ual0208 +    -- T2 Engineer
         categories.uaa0204 +    -- T2 Torpedo Bomber
         categories.uab1201 +    -- T2 Power Generator
@@ -522,6 +523,7 @@ function IntroMission2()
     -- Adjust buildable categories for player
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.uab0203 +    -- T2 Naval Factory
+        categories.zab9503 +    -- T2 Support Naval Factory
         categories.uas0201 +    -- Destroyer
         categories.uaa0203      -- T2 Gunship
     )

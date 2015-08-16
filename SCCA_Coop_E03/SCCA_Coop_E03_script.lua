@@ -111,12 +111,14 @@ function OnStart(self)
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.ueb0201 + categories.uab0201 +    -- T2 Land Factory
+        categories.zeb9501 + categories.zab9501 +    -- T2 Support Land Factory
         categories.uel0208 + categories.ual0208 +    -- T2 Engineer
         categories.uel0202 + categories.ual0202 +    -- Heavy Tank
         categories.uel0111 + categories.ual0111 +    -- Mobile Missile Launcher
         categories.uel0205 + categories.ual0205 +    -- Mobile AA Flak
         categories.uel0307 + categories.ual0307 +    -- Mobile Sheild Generator
         categories.ueb0202 + categories.uab0202 +    -- T2 Air Factory
+        categories.zeb9502 + categories.zab9502 +    -- T2 Support Air Factory
         categories.uea0203 + categories.uaa0203 +    -- Gunship
         categories.uea0204 + categories.uaa0204 +    -- Torpedo Bomber
         categories.ueb1202 + categories.uab1202 +    -- T2 Mass Extractor
@@ -763,6 +765,7 @@ function IntroMission4()
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.ueb5202 + categories.uab5202 +  -- Air Staging Platform
         categories.ueb0203 + categories.uab0203 +  -- T2 Naval Factory
+        categories.zeb9503 + categories.zab9503 +  -- T2 Support Naval Factory
         categories.ues0201 + categories.uas0201 +  -- Destroyer
         categories.ues0202 + categories.uas0202    -- Cruiser
     )

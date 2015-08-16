@@ -746,7 +746,7 @@ function StartMission2()
     SetAlliance(AeonAriel, Colonies, 'Neutral')
 
     -- Allow player to build awesomeness
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab0301 + categories.ueb0301)
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab0301 + categories.zab9601 + categories.ueb0301 + categories.zeb9601)
     ScenarioFramework.RemoveRestriction(UEF, categories.uel0303 + categories.uel0304)
 
     -- UEF Setup
