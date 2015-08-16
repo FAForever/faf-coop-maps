@@ -634,16 +634,18 @@ function StartMission2()
     -- === Buildable Categories === #
     -- Player
     ScenarioFramework.RemoveRestrictionForAllHumans(
-        categories.uab0302 +
-        categories.uab4201 +
-        categories.uab2303 +
-        categories.uaa0304 +
-        categories.uab4202 +
-        categories.urb0302 +
-        categories.urb4201 +
-        categories.urb2303 +
-        categories.ura0304 +
-        categories.urb4202
+        categories.uab0302 +  -- Aeon T3 Air Factory
+        categories.zab9602 +  -- Aeon T3 Support Air Factory
+        categories.uab4201 +  -- Aeon T2 Tactical Missile Defense
+        categories.uab2303 +  -- Aeon T2 Artillery Installation
+        categories.uaa0304 +  -- Aeon T3 Strategic Bomber
+        categories.uab4202 +  -- Aeon T2 Shield Generator
+        categories.urb0302 +  -- Cybran T3 Air Factory
+        categories.zrb9602 +  -- Cybran Support T3 Air Factory
+        categories.urb4201 +  -- Cybran T2 Tactical Missile Defense
+        categories.urb2303 +  -- Cybran T2 Artillery Installation
+        categories.ura0304 +  -- Cybran T3 Strategic Bomber
+        categories.urb4202    -- Cybran T2 Shield Generator
     )
 
     -- Cybran

@@ -1286,6 +1286,7 @@ end
 function AddTechMission2()
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.uab0202 + -- T2 Air Factory
+        categories.zab9502 + -- T2 Support Air Factory
         categories.uaa0107 + -- T1 Transport
         categories.uaa0204   -- Torpedo Bomber
     )

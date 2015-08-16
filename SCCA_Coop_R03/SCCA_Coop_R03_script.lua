@@ -157,7 +157,7 @@ local M2OffScreenTransportAttackDelay = 30
 -- Mission 1 Cybran T2 Land Tech Allowance: Heavy Tank, Mobile Flak,  T2 Engineer, Amphibious Tank, Mobile Missile Launcher
 -- Mission 1 Cybran Building Tech Allowance: T2 Anti-Air Flak Cannon, T2 Heavy Gun Tower, Long Range Radar
 -- Mission 1 Cybran Naval Tech Allowance: Attack Submarine, Frigate
-local M1CybranT1LandTechAllowance = categories.urb0201
+local M1CybranT1LandTechAllowance = categories.urb0201 + categories.zrb9501
 local M1CybranT2LandTechAllowance = categories.url0202 + categories.url0205 + categories.url0208 + categories.url0203 + categories.url0111
 local M1CybranBuildingTechAllowance = categories.urb2204 + categories.urb2301 + categories.urb3201
 local M1CybranNavalTechAllowance = categories.urs0203 + categories.urs0103
@@ -166,7 +166,7 @@ local M1CybranNavalTechAllowance = categories.urs0203 + categories.urs0103
 -- Mission 1 UEF T2 Land Tech Allowance: T2 Engineer, Medium Tank, Mobile Flak, Heavy Tank, Amphibious Tank, Mobile Missile Launcher
 -- Mission 1 UEF Building Tech Allowance: T2 Anti-Air Flak Cannon, T2 Heavy Gun Tower, Long Range Radar
 -- Mission 1 UEF Naval Tech Allowance: Attack Submarine, Frigate
-local M1UEFT1LandTechAllowance = categories.ueb0201
+local M1UEFT1LandTechAllowance = categories.ueb0201 + categories.zeb9501
 local M1UEFT2LandTechAllowance = categories.uel0208 + categories.uel0201 + categories.uel0205 + categories.uel0202 + categories.uel0203 + categories.uel0111
 local M1UEFBuildingTechAllowance = categories.ueb2204 + categories.ueb2301 + categories.ueb3201
 local M1UEFNavalTechAllowance = categories.ues0203 + categories.ues0103
@@ -181,12 +181,12 @@ local M2UEFBuildingTechAllowance = categories.ueb1202 + categories.ueb1201
 
 -- Mission 3 Cybran Building Tech Allowance: T2 Air Factory
 -- Mission 3 Cybran Air Tech Allowance: Gunship
-local M3CybranBuildingTechAllowance = categories.urb0202
+local M3CybranBuildingTechAllowance = categories.urb0202 + categories.zrb9502
 local M3CybranAirTechAllowance = categories.ura0203
 
 -- Mission 3 UEF Building Tech Allowance: T2 Air Factory
 -- Mission 3 UEF Air Tech Allowance: Gunship
-local M3UEFBuildingTechAllowance = categories.ueb0202
+local M3UEFBuildingTechAllowance = categories.ueb0202 + categories.zeb9502
 local M3UEFAirTechAllowance = categories.uea0203
 
 -- ##### Starter Functions ######

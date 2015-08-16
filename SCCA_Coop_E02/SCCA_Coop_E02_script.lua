@@ -2149,8 +2149,10 @@ function AddTechMission15()
         categories.uel0208 +  -- T2 Engineer
         categories.ueb1202 +  -- T2 Mass Extractor
         categories.ueb0202 +  -- T2 Air Factory
+        categories.zeb9502 +  -- T2 Support Air Factory
         categories.uea0203 +  -- Gunship
         categories.ueb0201 +  -- T2 Land Factory
+        categories.zeb9501 +  -- T2 Support Land Factory
         categories.uel0205    -- Mobile AA Flak
     )
 end

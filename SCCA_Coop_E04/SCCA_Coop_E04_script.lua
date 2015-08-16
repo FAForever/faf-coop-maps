@@ -271,7 +271,7 @@ function StartMission1()
     -- Define Tech Restrictions
     for _, player in ScenarioInfo.HumanPlayers do
         -- prevent all units from building t3 units, except t3 air factories, spy planes
-        ScenarioFramework.AddRestriction(player, categories.TECH3 - categories.ueb0302 - categories.urb0302 -  categories.uea0302 - categories.ura0302)
+        ScenarioFramework.AddRestriction(player, categories.TECH3 - categories.ueb0302 - categories.zeb9602 - categories.urb0302 - categories.zrb9602 -  categories.uea0302 - categories.ura0302)
         -- prevent building t2 restricted units
         ScenarioFramework.AddRestriction(player, M1UEFTech2NotAllowed)
         -- prevent building cybran t2 restricted units, should the player capture cybran engineers

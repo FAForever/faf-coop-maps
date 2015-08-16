@@ -250,8 +250,8 @@ function OnPopulate(scen)
         -- Restrictions
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.EXPERIMENTAL +
-                                      categories.ueb2302 +
-                                      categories.ueb4301 +
+                                      categories.ueb2302 +  -- UEF T3 Artillery
+                                      categories.ueb4301 +  -- UEF T3 Heavy Shield
                                       categories.dea0202 +  -- UEF Fighter Bomber
                                       categories.del0204 +  -- UEF Gatling Bot
                                       categories.xeb2306 +  -- UEF Heavy Point Defense
@@ -295,7 +295,7 @@ function OnPopulate(scen)
                                       categories.dra0202 + -- Cybran FIghter Bomber
                                       categories.drl0204 + -- Cybran Rocket Bot
                                       categories.drlk001 + -- Cybran T3 Mobile AA
-                                      categories.ues0304 )
+                                      categories.ues0304 ) -- UEF T3 Strategic Missile Submarine
     end
 
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.ues0401)

@@ -231,10 +231,10 @@ local M1JanusSafeRadius = 20
 -- Mission 1 Land Tech Allowance: Heavy Tank, Mobile Flak
 -- Mission 1 Building Tech Allowance: T2 Land Factory
 local M1CybranLandTechAllowance = categories.url0202 + categories.url0205
-local M1CybranBuildingTechAllowance = categories.urb0201
+local M1CybranBuildingTechAllowance = categories.urb0201 + categories.zrb9501
 
 local M1AeonLandTechAllowance = categories.ual0202 + categories.ual0205 + categories.ual0208
-local M1AeonBuildingTechAllowance = categories.uab0201
+local M1AeonBuildingTechAllowance = categories.uab0201 + categories.zab9501
 
 -- Mission 2 Building Tech Allowance: T2 Heavy Gun Tower + T2 Anti-Air Flak Cannon
 -- Mission 2 Land Tech Allowance: T2 Engineer
