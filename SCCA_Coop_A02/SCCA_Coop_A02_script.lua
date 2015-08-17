@@ -296,6 +296,18 @@ function OnStart(self)
          ScenarioFramework.AddRestriction(player, categories.TECH2 +
                                       categories.TECH3 +
                                       categories.EXPERIMENTAL +
+                                      categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+                                      categories.daa0206 + -- Aeon Mercy
+                                      categories.xal0203 + -- Aeon Assault Tank (Blaze)
+                                      categories.xas0204 + -- Aeon Submarine Hunter
+                                      categories.xrl0302 +   -- Cybran Mobile Bomb
+                                      categories.xra0105 +   -- Cybran Light Gunship
+                                      categories.xrs0204 +   -- Cybran Sub Killer
+                                      categories.xrs0205 +   -- Cybran Counter-Intelligence Boat
+                                      categories.xrb0104 +   -- Cybran Engineering Station 1
+                                      categories.xrb0204 +   -- Cybran Engineering Station 2
+                                      categories.xrb0304 +   -- Cybran Engineering Station 3
+                                      categories.dra0202 +   -- Cybran Fighter Bomber
                                       categories.uaa0107 ) -- t1 transport
     end
 
