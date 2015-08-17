@@ -136,6 +136,27 @@ function OnPopulate(scenario)
                                       categories.uab4201 + categories.urb4201 +
                                       categories.uab4202 + categories.urb4202 +
                                       categories.uab4203 + categories.urb4203 +
+                                      categories.xrl0302 + -- Cybran Mobile Bomb
+                                      categories.xra0105 + -- Cybran Light Gunship
+                                      categories.xrs0204 + -- Cybran Sub Killer
+                                      categories.xrs0205 + -- Cybran Counter-Intelligence Boat
+                                      categories.xrb0104 + -- Cybran Engineering Station 1
+                                      categories.xrb0204 + -- Cybran Engineering Station 2
+                                      categories.xrb0304 + -- Cybran Engineering Station 3
+                                      categories.dra0202 + -- Cybran FIghter Bomber
+                                      categories.drl0204 + -- Cybran Rocket Bot
+                                      categories.xal0305 + -- Aeon Sniper Bot
+                                      categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+                                      categories.xal0203 + -- Aeon Assault Tank (Blaze)
+                                      categories.xab1401 + -- Aeon Quantum Resource Generator
+                                      categories.xas0204 + -- Aeon Submarine Hunter
+                                      categories.xaa0306 + -- Aeon Torpedo Bomber
+                                      categories.xas0306 + -- Aeon Missile Ship
+                                      categories.xab3301 + -- Aeon Quantum Optics Device
+                                      categories.xab2307 + -- Aeon Rapid Fire Artillery
+                                      categories.xaa0305 + -- Aeon AA Gunship
+                                      categories.daa0206 + -- Aeon Mercy
+                                      categories.dal0310 + -- Aeon Shield Disruptor
                                       categories.uab2303 + categories.urb2303 )
     end
     -- Cybran Locking
