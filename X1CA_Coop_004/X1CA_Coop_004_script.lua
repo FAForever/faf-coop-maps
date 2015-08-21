@@ -144,7 +144,7 @@ function PlayerWin()
 end
 
 function PlayerLose(deadCommander)
-    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)|
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
 function KillGame()
