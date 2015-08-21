@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_A05/SCCA_Coop_A05_script.lua
+-- **  File     :  /maps/scca_coop_a05.v0007/SCCA_Coop_A05_script.lua
 -- **  Author(s):  Drew Staltman
 -- **
 -- **  Summary  :
@@ -262,6 +262,34 @@ function StartMission1()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, (categories.NAVAL * categories.TECH3) +
                                       categories.EXPERIMENTAL +
+
+                                      categories.xal0305 + -- Aeon Sniper Bot
+                                      categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+                                      categories.daa0206 + -- Aeon Mercy
+                                      categories.dal0310 + -- Aeon Shield Disruptor
+                                      categories.xal0203 + -- Aeon Assault Tank (Blaze)
+                                      categories.xab1401 + -- Aeon Quantum Resource Generator
+                                      categories.xas0204 + -- Aeon Submarine Hunter
+                                      categories.xaa0306 + -- Aeon Torpedo Bomber
+                                      categories.xas0306 + -- Aeon Missile Ship
+                                      categories.xab3301 + -- Aeon Quantum Optics Device
+                                      categories.xab2307 + -- Aeon Rapid Fire Artillery
+                                      categories.xaa0305 + -- Aeon AA Gunship
+                                      categories.dalk003 + -- Aeon M3 Mobile AA
+
+                                      categories.del0204 +  -- UEF Gatling Bot
+                                      categories.xeb2306 +  -- UEF Heavy Point Defense
+                                      categories.xel0305 +  -- UEF Percival
+                                      categories.xel0306 +  -- UEF Mobile Missile Platform
+                                      categories.xes0102 +  -- UEF Torpedo Boat
+                                      categories.xes0205 +  -- UEF Shield Boat
+                                      categories.xes0307 +  -- UEF Battlecruiser
+                                      categories.xeb0104 +  -- UEF Engineering Station 1
+                                      categories.xeb0204 +  -- UEF Engineering Station 2
+                                      categories.xel0209 +  -- UEF Sparky
+                                      categories.xea0306 +  -- UEF Heavy Air Transport
+                                      categories.xeb2402 +  -- UEF Sub-Orbital Defense System
+                                      categories.delk002 +  -- UEF T3 Mobile AA
      
                                       categories.uab4302 +
                                       categories.uab0301 +

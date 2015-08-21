@@ -136,6 +136,18 @@ function OnStart(self)
     end
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+        categories.daa0206 + -- Aeon Mercy
+        categories.xal0203 + -- Aeon Assault Tank (Blaze)
+        categories.xas0204 + -- Aeon Submarine Hunter
+
+        categories.del0204 +  -- UEF Gatling Bot
+        categories.xes0102 +  -- UEF Torpedo Boat
+        categories.xes0205 +  -- UEF Shield Boat
+        categories.xeb0104 +  -- UEF Engineering Station 1
+        categories.xeb0204 +  -- UEF Engineering Station 2
+        categories.xel0209 +  -- UEF Sparky
+
         categories.uab0202 +    -- T2 Air Factory
         categories.zab9502 +    -- T2 Support Air Factory
         categories.ual0208 +    -- T2 Engineer
