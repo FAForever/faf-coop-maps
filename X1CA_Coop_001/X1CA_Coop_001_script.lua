@@ -2266,6 +2266,9 @@ function IntroMission4()
 
             -- Naval Defense
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M4_Naval_Patrol1_D' .. Difficulty, 'NoFormation')
+            for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+                IssueDive({v})
+            end
             ScenarioFramework.PlatoonPatrolChain(units, 'M4_Seraph_Naval_Chain')
 
             -- Land Attacks
@@ -2414,6 +2417,9 @@ function M4CounterAttack()
     trigger = {14, 12, 10}
     if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval1_Destro', 'AttackFormation', 5)
+        for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+            IssueDive({v})
+        end
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
@@ -2421,6 +2427,9 @@ function M4CounterAttack()
     trigger = {20, 18, 16}
     if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval2_Cruiser', 'AttackFormation', 5)
+        for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+            IssueDive({v})
+        end
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
@@ -2428,6 +2437,9 @@ function M4CounterAttack()
     trigger = {26, 24, 22}
     if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval3_Destro', 'AttackFormation', 5)
+        for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+            IssueDive({v})
+        end
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 

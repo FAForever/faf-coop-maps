@@ -796,6 +796,11 @@ function IntroMission2NIS()
 
     -- Spawn Seraphim group "M2_NIS_Units", tell them to aggressive move to M2_NIS_Seraphim_Destination
     local SeraphimUnits = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_NIS_Units')
+    for k, v in SeraphimUnits do
+        if(v:GetUnitId() == 'xss0201') then
+            IssueDive({v})
+        end
+    end
     IssueAggressiveMove(SeraphimUnits, ScenarioUtils.MarkerToPosition('M2_NIS_Seraphim_Destination'))
 
     -- Spawn Fletcher group "M2_NIS_Units", tell them to kill enemy units
@@ -1383,6 +1388,9 @@ function M2SeraphimCounterattack()
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Init_NavalAttack_2_D' .. Difficulty, 'GrowthFormation')
     for k, v in units:GetPlatoonUnits() do
+        if(v:GetUnitId() == 'xss0201') then
+            IssueDive({v})
+        end
         ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_Init_NavalAttack_Chain')
     end
 end
@@ -1697,11 +1705,17 @@ function IntroMission3()
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalWest_Def_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_Seraph_NavalWest_Def_Chain')
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalEast_Def_D' .. Difficulty, 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M3_Seraph_NavalEast_Def_Chain')
             end
 
@@ -2098,9 +2112,15 @@ function M3SeraphimCounterattack()
         for i = 1, num do
             if(i < 3) then
                 units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavWest_Adapt_' .. i, 'GrowthFormation')
+                for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+                    IssueDive({v})
+                end
                 ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_Naval_West1_Attack_Chain')
             elseif (i >= 3 and i < 5) then
                 units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavEast_Adapt_' .. i, 'GrowthFormation')
+                for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+                    IssueDive({v})
+                end
                 ScenarioFramework.PlatoonPatrolChain(units, 'M3_Seraph_Naval_East_Attack_Chain')
             end
         end
