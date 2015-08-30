@@ -135,6 +135,9 @@ function OnPopulate()
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M1_Seraph_MidFleet_General_D' .. Difficulty, 'AttackFormation')
     for k, v in units:GetPlatoonUnits() do
+        if(v:GetUnitId() == 'xss0201') then
+            IssueDive({v})
+        end
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Sub_Patrol_Chain')
     end
 
@@ -199,6 +202,9 @@ function OnPopulate()
     -- Middle Battleship
     ScenarioInfo.M1MiddleBattleship = ScenarioUtils.CreateArmyGroup('Seraphim', 'M1_Seraph_Battleship_Mid_D' .. Difficulty)
     for k, v in ScenarioInfo.M1MiddleBattleship do
+        if(v:GetUnitId() == 'xss0201') then
+            IssueDive({v})
+        end
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_2_Patrol_Chain')
     end
     ScenarioFramework.CreateArmyStatTrigger(M1MiddleBattleshipAttack, ArmyBrains[Player], 'M1MiddleBattleshipAttack',
@@ -389,6 +395,11 @@ function IntroNIS()
     WaitSeconds(2)
 
     local NISUnits1 = ScenarioUtils.CreateArmyGroup('Seraphim', 'Initial_NIS')
+    for k, v in NISUnits1 do
+        if(v:GetUnitId() == 'xss0201') then
+            IssueDive({v})
+        end
+    end
     local NISUnits2 = ScenarioUtils.CreateArmyGroup('Rhiza', 'Initial_NIS')
 
     WaitSeconds(1)
@@ -694,11 +705,17 @@ function IntroMission2()
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_NorthBase_NavalDef_N_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_MainNorth_NavalDef_North_Chain')
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_NorthBase_NavalDef_S_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_MainNorth_NavalDef_South_Chain')
             end
 
@@ -709,19 +726,31 @@ function IntroMission2()
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_SouthBase_NavalDef_W_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_MainSouth_NavalDef_West_Chain')
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_SouthBase_NavalDef_E_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolChain({v}, 'M2_Seraph_MainSouth_NavalDef_East_Chain')
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_MidNaval_Patrol_D' .. Difficulty, 'AttackFormation')
+            for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+                IssueDive({v})
+            end
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_Patrol_MidNaval_Chain')
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Subs_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_Exper_NavalDef' .. Random(1,2) .. '_Chain')))
             end
 
@@ -732,6 +761,9 @@ function IntroMission2()
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_North_AirMain_1_Chain')
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitNaval_Attack_D' .. Difficulty, 'AttackFormation')
+            for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
+                IssueDive({v})
+            end
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_South_NavalMain_1_Chain')
 
             --------------------------
@@ -1435,21 +1467,33 @@ function IntroMission3()
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalMid_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalMid_Chain')))
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalSouth_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSouth_Chain')))
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalNW_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalNW_Chain')))
             end
 
             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Seraph_NavalSW_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
+                if(v:GetUnitId() == 'xss0201') then
+                    IssueDive({v})
+                end
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_NavalSW_Chain')))
             end
 
