@@ -35,8 +35,8 @@ function SeraphimM4NorthMainBaseAI()
     -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphNorth_Start_Eng_D' .. Difficulty)
     SeraphimM4NorthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_North_Base_Main', 'Seraphim_M3_North_Base_Marker', 60, {M3_North_Base_Main = 100,})
-    SeraphimM4NorthMainBase:StartNonZeroBase({28, 24})
-    -- SeraphimM4NorthMainBase:SetBuild('Defenses', false)
+    SeraphimM4NorthMainBase:StartNonZeroBase({{3, 7, 11}, {2, 6, 10}})
+    SeraphimM4NorthMainBase:SetBuild('Defenses', false)
 
     SeraphimM4NorthMainBaseLandAttacks()
 end
@@ -108,10 +108,8 @@ function SeraphimM4SouthMainBaseAI()
     -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphSouth_Start_Eng_D' .. Difficulty)
     SeraphimM4SouthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_South_Base_Main', 'Seraphim_M3_South_Base_Marker', 50, {M3_South_Base_Main = 100,})
-    SeraphimM4SouthMainBase:StartNonZeroBase({30, 24})
-    SeraphimM4SouthMainBase:SetMaximumConstructionEngineers(2)
-    SeraphimM4SouthMainBase:SetConstructionAlwaysAssist(true)
-    -- SeraphimM4SouthMainBase:SetBuild('Defenses', false)
+    SeraphimM4SouthMainBase:StartNonZeroBase({{3, 7, 11}, {2, 6, 10}})
+    SeraphimM4SouthMainBase:SetBuild('Defenses', false)
 
     SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_One_D2', 90)
     SeraphimM4SouthMainBase:AddBuildGroup('M3_Seraph_Forward_Two_D2', 80)
@@ -186,15 +184,11 @@ function SeraphimM4AirMainBaseAI()
     ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphAir_Start_Eng_D' .. Difficulty)
     SeraphimM4AirMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
-    SeraphimM4AirMainBase:StartNonZeroBase({28, 24})        -- ({{5, 9, 28}, {4, 8, 20}})
+    SeraphimM4AirMainBase:StartNonZeroBase({{2, 5, 9}, {2, 5, 9}})
     SeraphimM4AirMainBase:SetActive('AirScouting', true)
     SeraphimM4AirMainBase:SetBuild('Defenses', false)
-    SeraphimM4AirMainBase:SetBuild('Shields', true)
 
-    SeraphimM4AirMainBase:SetMaximumConstructionEngineers(4)
-    SeraphimM4AirMainBase:SetConstructionAlwaysAssist(true)
-
-    -- SeraphimM4AirMainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalLand')
+    SeraphimM4AirMainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalLand')
     SeraphimM4AirMainBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalAir')
     SeraphimM4AirMainBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'SeraphimM4AirMainBase_ExperimentalNaval')
     SeraphimM4AirMainBase:AddReactiveAI('Nuke', 'AirRetaliation', 'SeraphimM4AirMainBase_Nuke')
@@ -384,8 +378,8 @@ function SeraphimM4ForwardOneAI()
     -- Seraphim M4 Forward 1
     -----------------------
     SeraphimM4ForwardOne:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_One', 'Seraphim_M3_Forward_One_Base_Marker', 30, {M3_Seraph_Forward_One = 100,})
-    SeraphimM4ForwardOne:StartNonZeroBase({6, 4})
-    -- SeraphimM4ForwardOne:SetBuild('Defenses', false)
+    SeraphimM4ForwardOne:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
+    SeraphimM4ForwardOne:SetBuild('Defenses', false)
 
     SeraphimM4ForwardOneLandAttacks()
 end
@@ -456,7 +450,7 @@ function SeraphimM4ForwardTwoAI()
     -- Seraphim M4 Forward 2
     -----------------------
     SeraphimM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_Two', 'Seraphim_M3_Forward_Two_Base_Marker', 30, {M3_Seraph_Forward_Two = 100,})
-    SeraphimM4ForwardTwo:StartNonZeroBase({10, 8})
+    SeraphimM4ForwardTwo:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     SeraphimM4ForwardTwo:SetBuild('Defenses', false)
 
     SeraphimM4ForwardTwoLandAttacks()
@@ -528,7 +522,7 @@ function SeraphimM4NavalBaseAI()
     -- Seraphim M4 Naval Base
     ------------------------
     SeraphimM4NavalBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Naval_Base', 'M3_Naval_Base_Marker', 60, {M3_Naval_Base = 100,})
-    SeraphimM4NavalBase:StartNonZeroBase({{1, 3, 6}, {1, 3, 6}})
+    SeraphimM4NavalBase:StartNonZeroBase({{1, 3, 4}, {1, 3, 4}})
     SeraphimM4NavalBase:SetBuild('Defenses', false)
 
     SeraphimM4NavalBaseNavalAttacks()
