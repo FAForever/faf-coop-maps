@@ -65,21 +65,6 @@ function FortClarkeLandAttacks()
     -- Fort Clarke Op AI, Land Attacks
     ---------------------------------
 
-    -- sends 1 fatboy
-    opai = FortClarke:AddOpAI('UEF_Fatboy',
-        {
-            Amount = 1,
-            KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
-            },
-            MaxAssist = 8,
-            Retry = true,
-            WaitSecondsAfterDeath = 180,
-        }
-    )
-
     -- sends [siege bots, mobile shields, mobile missile platforms]
     local template = {
         'HeavyLandAttack1',
