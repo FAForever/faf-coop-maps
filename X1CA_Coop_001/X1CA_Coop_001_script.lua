@@ -563,7 +563,7 @@ function IntroNISPart2()
     elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonAllyColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player)
     end
 
     if(LeaderFaction == 'cybran') then
