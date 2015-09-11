@@ -28,16 +28,7 @@ function FletcherM2BaseAI()
     ------------------
     -- Fletcher M2 Base
     ------------------
-    FletcherM2Base:Initialize(
-        ArmyBrains[Fletcher],
-        'M2_Fletcher_Base',
-        'M2_Fletcher_Base_Marker',
-        170,
-        {
-            M2_Fletcher_Base_D2 = 100,
-            M2_Fletcher_InitStructure = 100,
-        }
-    )
+    FletcherM2Base:InitializeDifficultyTables(ArmyBrains[Fletcher], 'M2_Fletcher_Base', 'M2_Fletcher_Base_Marker', 170, {M2_Fletcher_Base = 100,})
     FletcherM2Base:StartNonZeroBase({{5, 10, 14}, {5, 9, 12}})
     FletcherM2Base:SetActive('AirScouting', true)
 
