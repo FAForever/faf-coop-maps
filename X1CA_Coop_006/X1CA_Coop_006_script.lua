@@ -623,11 +623,6 @@ function M2Fletcher()
         ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
     end
-
-    ---------------------
-    -- Fletcher Naval Base
-    ---------------------
-    -- ScenarioUtils.CreateArmyGroup('Fletcher', 'M2_Fletcher_InitStructure')
 end
 
 function M2Order()
