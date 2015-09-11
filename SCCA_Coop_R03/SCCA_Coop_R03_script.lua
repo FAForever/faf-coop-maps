@@ -573,9 +573,9 @@ function M3P1Reminder3()
 end
 
 function GiveMission1Tech()
-    -- No one should be able to build any T3 units
+    -- No one should be able to build any T3 units and FA Units
     for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.TECH3)
+         ScenarioFramework.AddRestriction(player, categories.TECH3 + categories.PRODUCTFA)
     end
     ScenarioFramework.AddRestriction(UEF, categories.TECH3)
     -- Most T2 units are not buildable at the start of this mission

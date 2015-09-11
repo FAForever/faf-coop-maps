@@ -274,6 +274,8 @@ function StartMission1()
         ScenarioFramework.AddRestriction(player, categories.TECH3 - categories.ueb0302 - categories.zeb9602 - categories.urb0302 - categories.zrb9602 -  categories.uea0302 - categories.ura0302)
         -- prevent building t2 restricted units
         ScenarioFramework.AddRestriction(player, M1UEFTech2NotAllowed)
+        -- prevent bulding FA units
+        scenarioframework:AddRestriction(player, categories.PRODUCTFA)
         -- prevent building cybran t2 restricted units, should the player capture cybran engineers
         ScenarioFramework.AddRestriction(player, M1CybranTech2NotAllowed)
     end

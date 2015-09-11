@@ -285,59 +285,21 @@ function OnStart(self)
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy == player then
                 ScenarioFramework.AddRestriction(player,
+                    categories.PRODUCTFA + -- All FA Units
                     categories.urb2305 +   -- Strategic Missile Launcher
                     categories.urb4302 +   -- Strategic Missile Defense
                     categories.url0402 +   -- Spider Bot
                     categories.urs0304 +   -- Strategic Missile Submarine
-                    categories.xrl0302 +   -- Cybran Mobile Bomb
-                    categories.xra0105 +   -- Cybran Light Gunship
-                    categories.xrs0204 +   -- Cybran Sub Killer
-                    categories.xrs0205 +   -- Cybran Counter-Intelligence Boat
-                    categories.xrb2308 +   -- Cybran Torpedo Ambushing System
-                    categories.xrb0104 +   -- Cybran Engineering Station 1
-                    categories.xrb0204 +   -- Cybran Engineering Station 2
-                    categories.xrb0304 +   -- Cybran Engineering Station 3
-                    categories.xrb3301 +   -- Cybran Perimeter Monitoring System
-                    categories.xra0305 +   -- Cybran Heavy Gunship
-                    categories.xrl0305 +   -- Cybran Brick
-                    categories.dra0202 +   -- Cybran FIghter Bomber
-                    categories.drl0204 +   -- Cybran Rocket Bot
                     categories.drlk001 +   -- Cybran T3 Mobile AA
-                    categories.xrl0403 +   -- Cybran Amphibious Mega Bot
 
                     categories.ueb2302 +  -- Long Range Heavy Artillery
                     categories.ueb4301 +  -- T3 Heavy Shield Generator
                     categories.uel0401 +  -- Experimental Mobile Factory
-                    categories.dea0202 +  -- UEF Fighter Bomber
-                    categories.del0204 +  -- UEF Gatling Bot
-                    categories.xeb2306 +  -- UEF Heavy Point Defense
-                    categories.xel0305 +  -- UEF Percival
-                    categories.xel0306 +  -- UEF Mobile Missile Platform
-                    categories.xes0102 +  -- UEF Torpedo Boat
-                    categories.xes0205 +  -- UEF Shield Boat
-                    categories.xes0307 +  -- UEF Battlecruiser
-                    categories.xeb0104 +  -- UEF Engineering Station 1
-                    categories.xeb0204 +  -- UEF Engineering Station 2
-                    categories.xel0209 +  -- UEF Sparky
-                    categories.xea0306 +  -- UEF Heavy Air Transport
-                    categories.xeb2402 +  -- UEF Sub-Orbital Defense System
                     categories.delk002 +  -- UEF T3 Mobile AA
                     categories.ues0304 +  -- Strategic Missile Submarine
 
                     categories.uab0304 + -- Quantum Gate
                     categories.ual0301 + -- Sub Commander
-                    categories.xal0305 + -- Aeon Sniper Bot
-                    categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
-                    categories.daa0206 + -- Aeon Mercy
-                    categories.dal0310 + -- Aeon Shield Disruptor
-                    categories.xal0203 + -- Aeon Assault Tank (Blaze)
-                    categories.xab1401 + -- Aeon Quantum Resource Generator
-                    categories.xas0204 + -- Aeon Submarine Hunter
-                    categories.xaa0306 + -- Aeon Torpedo Bomber
-                    categories.xas0306 + -- Aeon Missile Ship
-                    categories.xab3301 + -- Aeon Quantum Optics Device
-                    categories.xab2307 + -- Aeon Rapid Fire Artillery
-                    categories.xaa0305 + -- Aeon AA Gunship
                     categories.dalk003 + -- Aeon M3 Mobile AA
                     categories.uas0304)  -- Strategic Missile Submarine
             end
