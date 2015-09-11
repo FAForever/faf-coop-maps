@@ -130,6 +130,7 @@ function OnStart(self)
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, ((categories.TECH2 + categories.TECH3) * categories.AEON) +     -- T2 & T3 Aeon
                                      (categories.TECH3 * categories.UEF) +                           -- T3 UEF
+                                     categories.PRODUCTFA +                                          -- All FA Units
                                      categories.uea0204 +                                            -- UEF Torpedo Bomber
                                      categories.uel0203 +                                            -- UEF Amphibious Tank
                                      categories.ues0202)                                             -- UEF Cruiser

@@ -367,6 +367,7 @@ function OnStart(self)
                                       categories.ual0401 + -- Giant Assault Bot
                                       categories.uas0401 + -- Submersible Battleship
                                       categories.uas0304 + -- Strategic Missile Submarine
+                                      categories.PRODUCTFA + -- All FA Units
                                       categories.uaa0310 ) -- Death Saucer
     end
 

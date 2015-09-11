@@ -296,6 +296,7 @@ function OnStart(self)
          ScenarioFramework.AddRestriction(player, categories.TECH2 +
                                       categories.TECH3 +
                                       categories.EXPERIMENTAL +
+                                      categories.PRODUCTFA + -- All FA Units
                                       categories.uaa0107 ) -- t1 transport
     end
 

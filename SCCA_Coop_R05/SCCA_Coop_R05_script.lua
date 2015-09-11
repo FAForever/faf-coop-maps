@@ -1512,6 +1512,7 @@ function M1_BuildCategories()
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy == player then
                 ScenarioFramework.AddRestriction(player,
+                         categories.PRODUCTFA + -- All FA Units
                          categories.urb0303 + -- T3 Naval Factory
                          categories.urb2302 + -- Long Range Heavy Artillery
                          categories.url0301 + -- Sub Commander
@@ -1525,21 +1526,6 @@ function M1_BuildCategories()
                          categories.urs0304 + -- Strategic Missile Submarine
                          categories.ura0401 + -- Exp. T4 gunship
                          categories.urb4207 + -- Final T2 Shield upgrade
-
-                         categories.xrl0302 + -- Cybran Mobile Bomb
-                         categories.xra0105 + -- Cybran Light Gunship
-                         categories.xrs0204 + -- Cybran Sub Killer
-                         categories.xrs0205 + -- Cybran Counter-Intelligence Boat
-                         categories.xrb2308 + -- Cybran Torpedo Ambushing System
-                         categories.xrb0104 + -- Cybran Engineering Station 1
-                         categories.xrb0204 + -- Cybran Engineering Station 2
-                         categories.xrb0304 + -- Cybran Engineering Station 3
-                         categories.xrb3301 + -- Cybran Perimeter Monitoring System
-                         categories.xra0305 + -- Cybran Heavy Gunship
-                         categories.xrl0305 + -- Cybran Brick
-                         categories.xrl0403 + -- Cybran Amphibious Mega Bot
-                         categories.dra0202 + -- Cybran FIghter Bomber
-                         categories.drl0204 + -- Cybran Rocket Bot
                          categories.drlk001 + -- Cybran T3 Mobile AA
 
                          categories.ueb0302 + -- T3 Naval Factory
@@ -1551,20 +1537,6 @@ function M1_BuildCategories()
                          categories.ueb4302 + -- T3 Strategic Missile Defense
                          categories.ueb2305 + -- Strategic Missile Launcher
                          categories.ues0304 + -- Strategic Missile Submarine
-
-                         categories.xeb2306 + -- UEF Heavy Point Defense
-                         categories.xel0305 + -- UEF Percival
-                         categories.xel0306 + -- UEF Mobile Missile Platform
-                         categories.xes0102 + -- UEF Torpedo Boat
-                         categories.xes0205 + -- UEF Shield Boat
-                         categories.xes0307 + -- UEF Battlecruiser
-                         categories.xeb0104 + -- UEF Engineering Station 1
-                         categories.xeb0204 + -- UEF Engineering Station 2
-                         categories.xea0306 + -- UEF Heavy Air Transport
-                         categories.xeb2402 + -- UEF Sub-Orbital Defense System
-                         categories.dea0202 + -- UEF Fighter Bomber
-                         categories.del0204 + -- UEF Gatling Bot
-                         categories.xel0209 + -- UEF Sparky
                          categories.delk002 + -- UEF T3 Mobile AA
 
                          categories.urb2108 + -- Tactical Missile Launcher

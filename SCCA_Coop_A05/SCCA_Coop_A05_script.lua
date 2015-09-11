@@ -262,6 +262,7 @@ function StartMission1()
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, (categories.NAVAL * categories.TECH3) +
                                       categories.EXPERIMENTAL +
+                                      categories.PRODUCTFA + -- All FA Units
      
                                       categories.uab4302 +
                                       categories.uab0301 +

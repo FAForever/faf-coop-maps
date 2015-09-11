@@ -132,6 +132,7 @@ function OnPopulate(scenario)
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH3 +
                                       categories.EXPERIMENTAL +
+                                      categories.PRODUCTFA + -- All FA Units
                                       categories.ual0307 +
                                       categories.uab4201 + categories.urb4201 +
                                       categories.uab4202 + categories.urb4202 +

@@ -648,9 +648,9 @@ function TrackIntialJanusThread(unit)
 end
 
 function M1GiveTech()
-    -- No one should be able to build any T3 units
+    -- No one should be able to build any T3 units and FA Units
     for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.TECH3)
+         ScenarioFramework.AddRestriction(player, categories.TECH3 + categories.PRODUCTFA)
     end
     ScenarioFramework.AddRestriction(CybranJanus, categories.TECH3)
     ScenarioFramework.AddRestriction(Aeon, categories.TECH3)
