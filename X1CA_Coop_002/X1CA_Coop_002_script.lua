@@ -1536,7 +1536,7 @@ function LaunchOrderNukes()
 
     WaitSeconds(1.2)
     if(not ScenarioInfo.M4OrderCenterNuke:IsDead()) then
---   IssueNuke({ScenarioInfo.M4OrderCenterNuke}, ScenarioUtils.MarkerToPosition('QAI_M4_Middle_Base'))
+        IssueNuke({ScenarioInfo.M4OrderCenterNuke}, ScenarioUtils.MarkerToPosition('QAI_M4_Middle_Base'))
     end
 
     WaitSeconds(0.7)
@@ -1553,7 +1553,7 @@ function LaunchQAINukes()
 
     WaitSeconds(1)
     if(not ScenarioInfo.M4QAICenterNuke:IsDead()) then
---   IssueNuke({ScenarioInfo.M4QAICenterNuke}, ScenarioUtils.MarkerToPosition('Order_M4_Middle_Base'))
+        IssueNuke({ScenarioInfo.M4QAICenterNuke}, ScenarioUtils.MarkerToPosition('Order_M4_Middle_Base'))
     end
 
     WaitSeconds(1)
@@ -1563,7 +1563,7 @@ function LaunchQAINukes()
 
     WaitSeconds(0.6)
     if(not ScenarioInfo.M4QAIMainNuke:IsDead()) then
---   IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition('M4_Nuke_Exchange_Order'))
+        IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition('M4_Nuke_Exchange_Order'))
     end
 end
 
