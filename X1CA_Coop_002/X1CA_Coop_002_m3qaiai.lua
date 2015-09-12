@@ -26,7 +26,7 @@ function QAIM3NavalBaseAI()
     -------------------
     -- QAI M3 Naval Base
     -------------------
-    QAIM3NavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 60, {M3_QAI_Naval_Base = 100})
+    QAIM3NavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 100, {M3_QAI_Naval_Base = 100})
     QAIM3NavalBase:StartNonZeroBase({{2,4,6}, {1, 2, 3}})
     QAIM3NavalBase:SetBuild('Defenses', false)
 
@@ -41,16 +41,33 @@ function QAIM3NavalBaseNavalAttacks()
     ----------------------------------------
 
     -- Naval Attack
-    opai = QAIM3NavalBase:AddOpAI('NavalFleet', 'M3_NavalFleet',
+    opai = QAIM3NavalBase:AddNavalAI('M3_NavalAttack1',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M3_QAI_NavalAttack_Destro_Chain'
+                PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M3_QAI_NavalAttack_2_Chain'},
             },
+            MaxFrigates = 10,
+            MinFrigates = 10,
             Priority = 100,
         }
     )
-    opai:SetChildCount(1)
-    opai:SetChildActive('All', false)
-    opai:SetChildActive('Destroyer', true)
+    opai:SetChildActive('T3', false)
+    opai:SetLockingStyle('None')
+
+    opai = QAIM3NavalBase:AddNavalAI('M3_NavalAttack2',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M3_QAI_NavalAttack_2_Chain'},
+            },
+            MaxFrigates = 20,
+            MinFrigates = 20,
+            Priority = 110,
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T3', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 8, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 end
