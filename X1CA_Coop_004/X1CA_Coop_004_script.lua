@@ -51,6 +51,13 @@ local NukeHandles = {}
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
+-------------
+-- Debug only!
+-------------
+local SkipNIS1 = false
+local SkipNIS2 = false
+local SkipNIS3 = false
+
 ----------------
 -- Taunt Managers
 ----------------
@@ -127,7 +134,9 @@ function OnStart(self)
         )
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    if not SkipNIS1 then
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    end
 
     ForkThread(IntroMission1NIS)
 end
@@ -156,69 +165,79 @@ end
 -- Intro NIS
 -----------
 function IntroMission1NIS()
-    Cinematics.EnterNISMode()
+    if not SkipNIS1 then
+        Cinematics.EnterNISMode()
 
-    -- Let slower machines catch up before we get going
-    WaitSeconds(NIS1InitialDelay)
+        -- Let slower machines catch up before we get going
+        WaitSeconds(NIS1InitialDelay)
 
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_010, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_010, nil, true)
 
-    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_1'), 15, ArmyBrains[Player])
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
-    WaitSeconds(2)
-
-    -- Dostya begins constructing a building
-    -- If we need her to build another, add
-    -- 'Dostya_build_target_2'
-    -- to the function
-
-    -- Spawn Dostya for NIS
-    -- ScenarioInfo.DostyaCDR = ScenarioUtils.CreateArmyUnit('Dostya', 'Dostya')
-    ScenarioInfo.DostyaCDR = ScenarioFramework.EngineerBuildUnits('Dostya', 'Dostya', 'Dostya_build_target_1')
-    ScenarioInfo.DostyaCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.DostyaCDR:SetCustomName(LOC '{i Dostya}')
-    ScenarioInfo.DostyaCDR:SetCanBeKilled(false)
-    ScenarioFramework.CreateUnitDeathTrigger(DostyaDeath, ScenarioInfo.DostyaCDR)
-
-    -- "I am detecting an enemy base two clicks north of my position. I will advance and attack in 10 minutes. Dostya out."
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_020, nil, true)
-    -- "Roger. HQ out"
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_028, nil, true)
-
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 10)
-    WaitSeconds(1)
-
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3_2'), 3)
-
-    -- Spawn in player
-    ForkThread(SpawnPlayer)
-
-    -- Play dialog: HQ: You're going to have concerns of your own, Commander.
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_023, nil, true)
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
-    -- WaitSeconds(1)
-
-    -- ScenarioFramework.CreateVisibleAreaLocation(15, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_2'), 14, ArmyBrains[Player])
-    local tempVisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 0, ArmyBrains[Player])
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 5)
-    -- The enemy is west
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_024, nil, true)
-    -- Kill 'em
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_026, nil, true)
-
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 8)
-    WaitSeconds(1)
-    ForkThread(function()
+        ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_1'), 15, ArmyBrains[Player])
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
         WaitSeconds(2)
-        tempVisMarker:Destroy()
-        WaitSeconds(4)
-        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 50)
-    end)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 4)
-    WaitSeconds(1)
-    Cinematics.ExitNISMode()
+
+        -- Dostya begins constructing a building
+        -- If we need her to build another, add
+        -- 'Dostya_build_target_2'
+        -- to the function
+
+        -- Spawn Dostya for NIS
+        -- ScenarioInfo.DostyaCDR = ScenarioUtils.CreateArmyUnit('Dostya', 'Dostya')
+        ScenarioInfo.DostyaCDR = ScenarioFramework.EngineerBuildUnits('Dostya', 'Dostya', 'Dostya_build_target_1')
+        ScenarioInfo.DostyaCDR:PlayCommanderWarpInEffect()
+        ScenarioInfo.DostyaCDR:SetCustomName(LOC '{i Dostya}')
+        ScenarioInfo.DostyaCDR:SetCanBeKilled(false)
+        ScenarioFramework.CreateUnitDeathTrigger(DostyaDeath, ScenarioInfo.DostyaCDR)
+
+        -- "I am detecting an enemy base two clicks north of my position. I will advance and attack in 10 minutes. Dostya out."
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_020, nil, true)
+        -- "Roger. HQ out"
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_028, nil, true)
+
+        WaitSeconds(1)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 10)
+        WaitSeconds(1)
+
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3_2'), 3)
+
+        -- Spawn in player
+        ForkThread(SpawnPlayer)
+
+        -- Play dialog: HQ: You're going to have concerns of your own, Commander.
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_023, nil, true)
+        WaitSeconds(1)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
+        -- WaitSeconds(1)
+
+        -- ScenarioFramework.CreateVisibleAreaLocation(15, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_2'), 14, ArmyBrains[Player])
+        local tempVisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 0, ArmyBrains[Player])
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 5)
+        -- The enemy is west
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_024, nil, true)
+        -- Kill 'em
+        ScenarioFramework.Dialogue(OpStrings.X04_M01_026, nil, true)
+
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 8)
+        WaitSeconds(1)
+        ForkThread(function()
+            WaitSeconds(2)
+            tempVisMarker:Destroy()
+            WaitSeconds(4)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 50)
+        end)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 4)
+        WaitSeconds(1)
+        Cinematics.ExitNISMode()
+    else
+        ForkThread( SpawnPlayer )
+        ScenarioInfo.DostyaCDR = ScenarioUtils.CreateArmyUnit('Dostya', 'Dostya')
+        ScenarioInfo.DostyaCDR:PlayCommanderWarpInEffect()
+        ScenarioInfo.DostyaCDR:SetCustomName(LOC '{i Dostya}')
+        #ScenarioInfo.DostyaCDR:SetCanTakeDamage(false)
+        ScenarioInfo.DostyaCDR:SetCanBeKilled(false)
+        ScenarioFramework.CreateUnitDeathTrigger(DostyaDeath, ScenarioInfo.DostyaCDR)
+    end
 
     IntroMission1()
 end
@@ -482,32 +501,34 @@ function IntroMission2NIS()
     -- Show the jammer
     local visMarker = ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioInfo.Jammer:GetPosition(), 2, ArmyBrains[Player])
 
-    Cinematics.EnterNISMode()
-    ScenarioFramework.Dialogue(OpStrings.X04_M02_002, nil, true)
-    WaitSeconds(2)
-    ScenarioFramework.Dialogue(OpStrings.X04_M02_003, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 6)
-    WaitSeconds(1)
-    ScenarioFramework.Dialogue(OpStrings.X04_M02_004, nil, true)
+    if not SkipNIS2 then
+        Cinematics.EnterNISMode()
+        ScenarioFramework.Dialogue(OpStrings.X04_M02_002, nil, true)
+        WaitSeconds(2)
+        ScenarioFramework.Dialogue(OpStrings.X04_M02_003, nil, true)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 6)
+        WaitSeconds(1)
+        ScenarioFramework.Dialogue(OpStrings.X04_M02_004, nil, true)
 
-    local fakeMarker = {
-        ['zoom'] = FLOAT(65.1),
-        ['canSetCamera'] = BOOLEAN(true),
-        ['canSyncCamera'] = BOOLEAN(true),
-        ['color'] = STRING('ff808000'),
-        ['editorIcon'] = STRING('/textures/editor/marker_mass.bmp'),
-        ['type'] = STRING('Camera Info'),
-        ['prop'] = STRING('/env/common/props/markers/M_Camera_prop.bp'),
-        ['orientation'] = VECTOR3(-3.08869, 0.92, 0),
-        ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
-    }
+        local fakeMarker = {
+            ['zoom'] = FLOAT(65.1),
+            ['canSetCamera'] = BOOLEAN(true),
+            ['canSyncCamera'] = BOOLEAN(true),
+            ['color'] = STRING('ff808000'),
+            ['editorIcon'] = STRING('/textures/editor/marker_mass.bmp'),
+            ['type'] = STRING('Camera Info'),
+            ['prop'] = STRING('/env/common/props/markers/M_Camera_prop.bp'),
+            ['orientation'] = VECTOR3(-3.08869, 0.92, 0),
+            ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
+        }
 
-    -- Snap back to the commander's position, wherever he is
-    Cinematics.CameraMoveToMarker(fakeMarker, 0)
-    WaitSeconds(2)
+        -- Snap back to the commander's position, wherever he is
+        Cinematics.CameraMoveToMarker(fakeMarker, 0)
+        WaitSeconds(2)
 
-    Cinematics.ExitNISMode()
+        Cinematics.ExitNISMode()
+    end
 
     -- visMarker:Destroy()
 
@@ -825,26 +846,30 @@ function PreAttackDostya()
 end
 
 function AttackDostya()
-    local units = nil
+    if not SkipNIS3 then
+        local units = nil
 
-    IssueMove({ ScenarioInfo.DostyaCDR }, ScenarioUtils.MarkerToPosition('Dostya_Destination'))
+        IssueMove({ ScenarioInfo.DostyaCDR }, ScenarioUtils.MarkerToPosition('Dostya_Destination'))
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2DostyaAttackAir', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'DostyaAttackChain')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2DostyaAttackAir', 'GrowthFormation')
+        ScenarioFramework.PlatoonPatrolChain(units, 'DostyaAttackChain')
 
-    units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2DostyaAttackLandEast')
-    ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
+        units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2DostyaAttackLandEast')
+        ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
 
-    units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2DostyaAttackLandWest')
-    ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
+        units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2DostyaAttackLandWest')
+        ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
 
-    -- Hex5
-    ScenarioInfo.Hex5 = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Hex5')
-    ScenarioInfo.Hex5:SetCustomName(LOC '{i Hex5}')
-    ScenarioInfo.Hex5:SetCanTakeDamage(false)
-    ScenarioFramework.CreateTimerTrigger(Hex5Vanish, 60)
+        -- Hex5
+        ScenarioInfo.Hex5 = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Hex5')
+        ScenarioInfo.Hex5:SetCustomName(LOC '{i Hex5}')
+        ScenarioInfo.Hex5:SetCanTakeDamage(false)
+        ScenarioFramework.CreateTimerTrigger(Hex5Vanish, 60)
 
-    ForkThread(IntroMission3NIS)
+        ForkThread(IntroMission3NIS)
+    else
+        ForkThread(IntroMission3)
+    end
 end
 
 function IntroMission3NIS()
