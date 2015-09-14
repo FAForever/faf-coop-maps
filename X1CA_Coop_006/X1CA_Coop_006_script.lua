@@ -16,7 +16,6 @@ local M2SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua'
 local M3SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m3seraphimai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_strings.lua')
-local Op3Strings = import('/maps/X1CA_Coop_006/X1CA_003_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
