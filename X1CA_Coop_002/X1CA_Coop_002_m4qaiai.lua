@@ -234,33 +234,6 @@ function QAIM4MainBaseLandAttacks()
     -- QAI M4 Main Base Op AI, Land Attacks
     --------------------------------------
 
-    -- builds monkey defense
-    opai = QAIM4MainBase:AddOpAI('UNIT_666',
-        {
-            Amount = 3,
-            KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'RandomPatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M4_Main_Base_East_Def_Chain',
-            },
-            MaxAssist = 6,
-            Retry = true,
-        }
-    )
-
-    -- sends 6, 10, 20 [siege bots, light tanks, heavy tanks] to order base
-    quantity = {6, 12, 18}
-    opai = QAIM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Order_1',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M4_QAI_AttackOrder_Land2_Chain',
-            },
-            Priority = 180,
-        }
-    )
-    opai:SetChildQuantity({'SiegeBots', 'HeavyTanks', 'LightTanks'}, quantity[Difficulty])
-
     -- sends 6, 10, 20 [light tanks, heavy tanks]
     quantity = {6, 10, 20}
     opai = QAIM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack1',
@@ -401,7 +374,7 @@ function QAIM4MainBaseLandAttacks()
                 PlatoonData = {
                     PatrolChain = 'M4_Main_Base_NW_Def_Chain',
                 },
-                Priority = 160,
+                Priority = 100,
             }
         )
         opai:SetChildQuantity({'HeavyTanks'}, quantity[Difficulty])
@@ -416,7 +389,7 @@ function QAIM4MainBaseLandAttacks()
                 PlatoonData = {
                     PatrolChain = 'M4_Main_Base_NW_Def_Chain',
                 },
-                Priority = 160,
+                Priority = 100,
             }
         )
         opai:SetChildQuantity({'MobileMissiles'}, quantity[Difficulty])
@@ -506,14 +479,14 @@ function QAIM4NavalBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
-        
+
     local Temp = {
         'QAIBattleshipTemp1',
         'NoPlan',
-        { 'urs0302', 1, 1, 'Attack', 'AttackFormation' },   # Battleship
-        { 'urs0201', 1, 2, 'Attack', 'AttackFormation' },   # Destroyer
-        { 'xrs0205', 1, 1, 'Attack', 'AttackFormation' },   # Stealth Boat
-        { 'xrs0204', 1, 4, 'Attack', 'AttackFormation' }    # Sub Hunter
+        { 'urs0302', 1, 1, 'Attack', 'AttackFormation' },   -- Battleship
+        { 'urs0201', 1, 2, 'Attack', 'AttackFormation' },   -- Destroyer
+        { 'xrs0205', 1, 1, 'Attack', 'AttackFormation' },   -- Stealth Boat
+        { 'xrs0204', 1, 4, 'Attack', 'AttackFormation' }    -- Sub Hunter
     }
     local Builder = {
         BuilderName = 'QAIBattleshipBuilder1',
@@ -537,10 +510,10 @@ function QAIM4NavalBaseNavalAttacks()
     Temp = {
         'QAIBattleshipTemp2',
         'NoPlan',
-        { 'urs0302', 1, 3, 'Attack', 'AttackFormation' },   # Battleship
-        { 'urs0202', 1, 2, 'Attack', 'AttackFormation' },   # Cruiser
-        { 'xrs0205', 1, 2, 'Attack', 'AttackFormation' },   # Stealth Boat
-        { 'xrs0204', 1, 7, 'Attack', 'AttackFormation' }    # Sub Hunter
+        { 'urs0302', 1, 3, 'Attack', 'AttackFormation' },   -- Battleship
+        { 'urs0202', 1, 2, 'Attack', 'AttackFormation' },   -- Cruiser
+        { 'xrs0205', 1, 2, 'Attack', 'AttackFormation' },   -- Stealth Boat
+        { 'xrs0204', 1, 7, 'Attack', 'AttackFormation' }    -- Sub Hunter
     }
     Builder = {
         BuilderName = 'QAIBattleshipBuilder2',
@@ -567,11 +540,8 @@ function QAIM4NorthBaseAI()
     -------------------
     -- QAI M4 North Base
     -------------------
-    QAIM4NorthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_QAI_North_Base = 100})
-    QAIM4NorthBase:StartNonZeroBase(7)
-    QAIM4NorthBase:SetMaximumConstructionEngineers(5)
-
-    QAIM4NorthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
+    QAIM4NorthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_North_Base = 100})
+    QAIM4NorthBase:StartNonZeroBase()
 
     QAIM4NorthBaseLandAttacks()
 end
@@ -596,7 +566,7 @@ function QAIM4NorthBaseLandAttacks()
     opai:SetChildActive('MobileShields', false)
     opai:RemoveChildren('MobileShields')
     opai:SetChildCount(1)
-    opai:SetLockingStyle('BuildTimer', {LockTimer = 2})
+    opai:SetLockingStyle('None')
 end
 
 function QAIM4CenterBaseAI()
@@ -604,12 +574,8 @@ function QAIM4CenterBaseAI()
     --------------------
     -- QAI M4 Center Base
     --------------------
-    QAIM4CenterBase:Initialize(ArmyBrains[QAI], 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_QAI_Middle_Base = 100})
-    QAIM4CenterBase:StartNonZeroBase(9)
-
-    QAIM4CenterBase:AddBuildGroup('M4_QAI_North_Base', 90)
-    QAIM4CenterBase:AddBuildGroup('M4_QAI_South_Base', 90)
-    QAIM4CenterBase:SetMaximumConstructionEngineers(4)
+    QAIM4CenterBase:Initialize(ArmyBrains[QAI], 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_Middle_Base = 100})
+    QAIM4CenterBase:StartNonZeroBase()
 
     QAIM4CenterBaseAirAttacks()
     QAIM4CenterBaseLandAttacks()
@@ -632,19 +598,7 @@ function QAIM4CenterBaseAirAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity('Gunships', 6)
-    opai:SetLockingStyle('None')
-
-    opai = QAIM4CenterBase:AddOpAI('AirAttacks', 'M4_AirAttack_Center2',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
-            PlatoonData = {
-                Location = 'Order_M4_Middle_Base',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity('Bombers', 8)
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
 end
 
@@ -656,7 +610,7 @@ function QAIM4CenterBaseLandAttacks()
     ----------------------------------------
 
      -- Land Attack
-    opai = QAIM4CenterBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Center_1',
+    opai = QAIM4CenterBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Center',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -665,19 +619,9 @@ function QAIM4CenterBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity('HeavyTanks', 8)
-    opai:SetLockingStyle('None')
-
-    opai = QAIM4CenterBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Center_2',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
-            PlatoonData = {
-                Location = 'Order_M4_Middle_Base',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity('MobileMissiles', 6)
+    opai:SetChildActive('MobileShields', false)
+    opai:RemoveChildren('MobileShields')
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
 end
 
@@ -686,10 +630,8 @@ function QAIM4SouthBaseAI()
     -------------------
     -- QAI M4 South Base
     -------------------
-    QAIM4SouthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_QAI_South_Base = 100})
-    QAIM4SouthBase:StartNonZeroBase(7)
-
-    QAIM4SouthBase:AddBuildGroup('M4_QAI_Middle_Base', 90)
+    QAIM4SouthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_South_Base = 100})
+    QAIM4SouthBase:StartNonZeroBase()
 
     QAIM4SouthBaseAirAttacks()
     QAIM4SouthBaseLandAttacks()
@@ -713,7 +655,7 @@ function QAIM4SouthBaseAirAttacks()
         }
     )
     opai:SetChildCount(1)
-    opai:SetLockingStyle('BuildTimer', {LockTimer = 2})
+    opai:SetLockingStyle('None')
 end
 
 function QAIM4SouthBaseLandAttacks()
@@ -736,5 +678,5 @@ function QAIM4SouthBaseLandAttacks()
     opai:SetChildActive('MobileShields', false)
     opai:RemoveChildren('MobileShields')
     opai:SetChildCount(1)
-    opai:SetLockingStyle('BuildTimer', {LockTimer = 2})
+    opai:SetLockingStyle('None')
 end

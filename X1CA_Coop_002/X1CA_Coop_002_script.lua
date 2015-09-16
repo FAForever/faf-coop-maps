@@ -29,7 +29,6 @@ local Utilities = import('/lua/utilities.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local EffectUtilities = import('/lua/EffectUtilities.lua')
 
-local Triggers = import('/lua/scenariotriggers.lua')
 local SPAIFileName = '/Lua/Scenarioplatoonai.lua'
 local ScriptFile = '/maps/X1CA_Coop_002/X1CA_Coop_002_script.lua'
 
@@ -66,7 +65,6 @@ ScenarioInfo.HumanPlayers = {}
 -- Taunt Managers
 ----------------
 local CeleneTM = TauntManager.CreateTauntManager('CeleneTM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
-local CeleneM4TM = TauntManager.CreateTauntManager('CeleneM2TM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 local QAITM = TauntManager.CreateTauntManager('QAITM', '/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
 
 local LeaderFaction
@@ -87,6 +85,7 @@ function OnPopulate()
     elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player)
     end
+    
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetCybranEvilColor(QAI)
     ScenarioFramework.SetAeonAlly1Color(Loyalist)
@@ -94,8 +93,8 @@ function OnPopulate()
 
     -- Unit Cap
     SetArmyUnitCap(Order, 400)
-    SetArmyUnitCap(QAI, 630)
-    SetArmyUnitCap(Loyalist, 370)
+    SetArmyUnitCap(QAI, 430) --630
+    SetArmyUnitCap(Loyalist, 170) --370
 
     -- Walls
     ScenarioUtils.CreateArmyGroup('Loyalist', 'M1_Walls')
@@ -150,8 +149,6 @@ function OnPopulate()
     -- Loyalist M1 AI
     ----------------
     M1LoyalistAI.LoyalistM1MainBaseAI()
-    ScenarioFramework.CreateArmyStatTrigger(M1LoyalistAI.LoyalistNewEngCount, ArmyBrains[Loyalist], 'LoyalistNewEngCount',
-        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uab1301}})
     ScenarioUtils.CreateArmyGroup('Loyalist', 'M1_Loy_WreckedBase', true)
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
@@ -161,7 +158,6 @@ function OnStart()
     --------------------
     -- Build Restrictions
     --------------------
-
     for _, player in ScenarioInfo.HumanPlayers do
         ScenarioFramework.AddRestriction(player,
             categories.xal0305 + -- Aeon Sniper Bot
@@ -201,8 +197,6 @@ function OnStart()
         )
     end
 
-    ScenarioFramework.AddRestriction(Loyalist, categories.ual0105) -- Aeon T1 Engineer
-
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
 
     ForkThread(IntroNIS)
@@ -228,12 +222,10 @@ function FinalNIS()
     local M1VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Vis_5_1' ), 0, ArmyBrains[Player] )
 
     -- Make sure that nobody fires on each other
-
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, QAI, 'Ally')
         SetAlliance(QAI, player, 'Ally')
     end
-
     SetAlliance(Loyalist, QAI, 'Ally')
     SetAlliance(QAI, Loyalist, 'Ally')
 
@@ -318,13 +310,16 @@ function IntroNIS()
     Cinematics.ExitNISMode()
 
     if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Aeon_ACU')
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEF_ACU')
     elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Cybran_ACU')
     end
+
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
+    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
     
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -345,18 +340,12 @@ function IntroNIS()
             WaitSeconds(0.5)
         end
     end
-    
-    
-    
-    --ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
-    
+
     for index, coopACU in ScenarioInfo.CoopCDR do
         ScenarioFramework.PauseUnitDeath(coopACU)
         ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
     end
-    
+
     IntroMission1()
 end
 
@@ -376,7 +365,6 @@ function IntroMission1()
             end
         end
     end
-
 
     if(LeaderFaction == 'uef') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_020)
@@ -473,7 +461,7 @@ end
 
 function M1Subplot()
     if(LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X02_M01_090, AssignBonus_ConstructShield)
+        ScenarioFramework.Dialogue(OpStrings.X02_M01_090)
     elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_100)
     end
@@ -510,45 +498,6 @@ function M1AssignSecondary()
     table.insert(AssignedObjectives, ScenarioInfo.M1S1)
     ScenarioFramework.Dialogue(OpStrings.X02_M01_151)
     ScenarioFramework.CreateTimerTrigger(M1S1Reminder1, 1200)
-end
-
-function AssignBonus_ConstructShield()
-    ---------------------------------------------
-    -- Secondary Objective 2 - Construct 2 shields
-    ---------------------------------------------
-    ScenarioInfo.M1S2 = Objectives.CategoriesInArea(
-        'secondary',            -- type
-        'incomplete',             -- complete
-        OpStrings.X02_M01_OBJ_020_020,    -- title
-        OpStrings.X02_M01_OBJ_020_025,    -- description
-        'Build',            -- action
-        {                -- target
-            MarkArea= true,
-            Requirements = {
-                {
-                    Area = 'M1_LoyalistBase_Area',
-                    Category = (categories.STRUCTURE * categories.SHIELD),
-                    CompareOp = '>=',
-                    Value = 1,
-                    ArmyIndex = Player,
-                },
-                {
-                    Area = 'M1_LoyalistBase_Area',
-                    Category = (categories.STRUCTURE * categories.SHIELD),
-                    CompareOp = '>=',
-                    Value = 2,
-                    ArmyIndex = Player,
-                },
-            },
-        }
-    )
-    ScenarioInfo.M1S2:AddResultCallback(
-        function(result)
-            if(result) then
-            end
-        end
-    )
-    table.insert(AssignedObjectives, ScenarioInfo.M1S2)
 end
 
 -----------
@@ -705,23 +654,6 @@ function IntroMission2()
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource')
             ScenarioUtils.CreateArmyGroup('Loyalist', 'M2_Loyalist_Base_Resource2')
 
-            ----------------
-            -- Loyalist ACUs
-            ----------------
-            ScenarioInfo.LoyalistDana = ScenarioUtils.CreateArmyUnit('Loyalist', 'LoyPlayer_East')
-            ScenarioInfo.LoyalistDana:SetCustomName('Dana')
-            ScenarioInfo.LoyalistDana:CreateEnhancement('T3Engineering')
-            ScenarioInfo.LoyalistDana:CreateEnhancement('ResourceAllocationAdvanced')
-            ScenarioInfo.LoyalistDana:CreateEnhancement('HeatSink')
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistDana)
-
-            ScenarioInfo.LoyalistSascha = ScenarioUtils.CreateArmyUnit('Loyalist', 'LoyPlayer_West')
-            ScenarioInfo.LoyalistSascha:SetCustomName('Sascha')
-            ScenarioInfo.LoyalistSascha:CreateEnhancement('T3Engineering')
-            ScenarioInfo.LoyalistSascha:CreateEnhancement('ResourceAllocationAdvanced')
-            ScenarioInfo.LoyalistSascha:CreateEnhancement('HeatSink')
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.LoyalistSascha)
-
             ----------------------
             -- Objective Structures
             ----------------------
@@ -839,8 +771,6 @@ function StartMission2()
     table.insert(AssignedObjectives, ScenarioInfo.M2P1)
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, 900)
 
-    ScenarioFramework.Dialogue(OpStrings.X02_M02_190, SecondaryDefendLoyalists)
-
     if(LeaderFaction == 'aeon') then
         ScenarioFramework.CreateTimerTrigger(M2RevealAeonSecondary, 60)
     end
@@ -851,58 +781,10 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2PingEventNotification, 600)
     SetupCeleneM2Taunt()
     SetupQAIM2Taunt()
-
+    
     -- Heavy point defense
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xeb2306, "uef", 60, OpStrings.X02_M01_210)
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrl0302, "cybran", 90, OpStrings.X02_M01_200)
-end
-
-function SecondaryDefendLoyalists()
-    ------------------------------------------------
-    -- Secondary Objective 1 - protect the Loyalists
-    ------------------------------------------------
-    ScenarioInfo.M2S1 = Objectives.Protect(
-        'secondary',                            -- type
-        'incomplete',                           -- complete
-        OpStrings.X02_M02_OBJ_020_030,          -- title
-        OpStrings.X02_M02_OBJ_020_035,          -- description
-        {                                       -- target
-            Units = {ScenarioInfo.LoyalistSascha, ScenarioInfo.LoyalistDana},
-            -- ShowProgress = true,
-            -- PercentProgress = true,
-            -- ShowFaction = 'UEF',
-        }
-    )
-    ScenarioInfo.M2S1:AddResultCallback(
-        function(result)
-            if(not result and not ScenarioInfo.OpEnded and ScenarioInfo.M2S1.Active and ScenarioInfo.LoyalistDana:IsDead() and ScenarioInfo.LoyalistSascha:IsDead()) then
-                ScenarioInfo.M2S1:ManualResult(false)
-                ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
-            end
-        end
-    )
-    table.insert(AssignedObjectives, ScenarioInfo.M2S1)
-    ScenarioFramework.CreateUnitDeathTrigger(SaschaKilled, ScenarioInfo.LoyalistSascha)
-    ScenarioFramework.CreateUnitDeathTrigger(DanaKilled, ScenarioInfo.LoyalistDana)
-end
-
-function SaschaKilled()
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.LoyalistSascha, 5)
-    ScenarioInfo.SaschaDead = true
-    M2S1Failed()
-end
-
-function DanaKilled()
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.LoyalistDana, 5)
-    ScenarioInfo.DanaDead = true
-    M2S1Failed()
-end
-
-function M2S1Failed()
-    if(not ScenarioInfo.OpEnded and ScenarioInfo.M2S1.Active and ScenarioInfo.LoyalistDana:IsDead() and ScenarioInfo.LoyalistSascha:IsDead()) then
-        ScenarioInfo.M2S1:ManualResult(false)
-        ScenarioFramework.Dialogue(OpStrings.X02_M02_200)
-    end
 end
 
 function M2RevealAeonSecondary()
@@ -1073,7 +955,7 @@ function StartMission3()
 
     ScenarioFramework.CreateTimerTrigger(M3PrincessReveal, 60)
 
-    -- In case any dialogue is queueing up, turn off Celenes taunt manager early, ahead of the flip.
+    --In case any dialogue is queueing up, turn off Celene's taunt manager early, ahead of the flip.
     CeleneTM:Activate(false)
 end
 
@@ -1091,7 +973,6 @@ function EndMission3()
     for _, player in ScenarioInfo.HumanPlayers do
         SetAlliance(player, Order, 'Ally')
     end
-    
     SetAlliance(Loyalist, Order, 'Ally')
     SetAlliance(QAI, Order, 'Enemy')
     ScenarioInfo.OrderAlly = true
@@ -1130,7 +1011,7 @@ function IntroMission4()
                 WaitSeconds(0.2)
             end
 
-            -- If we used debug commands to get here already, dont run this function again
+            -- If we used debug commands to get here already, don't run this function again
             if ScenarioInfo.MissionNumber == 4 then
                 return
             end
@@ -1146,20 +1027,8 @@ function IntroMission4()
                 ScenarioInfo.M3P1:ManualResult(true)
             end
 
-            if(ScenarioInfo.M2S1.Active) then
-                ScenarioInfo.M2S1:ManualResult(true)
-            end
-
-            --------------------------
-            -- M4 Loyalist Transport AI
-            --------------------------
-            M1LoyalistAI.LoyalistM4TransportAttacks()
-            SetArmyUnitCap(Loyalist, 480)
-
-            --------------------------
-            -- M4 Loyalist Expansion AI
-            --------------------------
-            ScenarioFramework.CreateTimerTrigger(M2LoyalistAI.LoyalistM2ExpansionBaseAI, 90)
+            SetArmyUnitCap(Order, 600)
+            SetArmyUnitCap(QAI, 830)
 
             -------------
             -- M4 Order AI
@@ -1168,19 +1037,6 @@ function IntroMission4()
             M4OrderAI.OrderM4NorthBaseAI()
             M4OrderAI.OrderM4CenterBaseAI()
             M4OrderAI.OrderM4SouthBaseAI()
-
-            --------------------
-            -- Order Celene ACU
-            --------------------
-            ScenarioInfo.OrderACU = ScenarioUtils.CreateArmyUnit('Order', 'M4_Order_Commander')
-            ScenarioInfo.OrderACU:SetCustomName(LOC '{i Celene}')
-            ScenarioInfo.OrderACU:CreateEnhancement('T3Engineering')
-            ScenarioInfo.OrderACU:CreateEnhancement('Shield')
-            ScenarioInfo.OrderACU:CreateEnhancement('ShieldHeavy')
-            ScenarioInfo.OrderACU:CreateEnhancement('EnhancedSensors')
-            ScenarioInfo.OrderACU:SetCanBeKilled(false)
-
-            ScenarioFramework.CreateUnitDamagedTrigger(CeleneWarp, ScenarioInfo.OrderACU, .8)
 
             -----------------------
             -- Order Initial Patrols
@@ -1437,15 +1293,6 @@ function IntroMission4()
     )
 end
 
-function CeleneWarp()
-    ScenarioFramework.Dialogue(OpStrings.X02_M03_215)
-    ForkThread(
-        function()
-            ScenarioFramework.FakeTeleportUnit(ScenarioInfo.OrderACU, true)
-        end
-    )
-end
-
 function IntroMission4NIS()
 
     -- WaitSeconds(15)
@@ -1510,9 +1357,6 @@ function StartMission4()
          end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M4P1)
--- ScenarioFramework.Dialogue(OpStrings.X02_M03_016)
--- WaitSeconds(3)
--- ScenarioFramework.Dialogue(OpStrings.X02_M03_010)
 
     ScenarioFramework.CreateTimerTrigger(M4P1Reminder1, 900)
     if(LeaderFaction == 'cybran') then
@@ -1568,21 +1412,9 @@ function LaunchQAINukes()
 end
 
 function NukeResponse()
--- ScenarioFramework.Dialogue(OpStrings.X02_M03_015)
-    ScenarioFramework.Dialogue(OpStrings.X02_M03_016)
-    WaitSeconds(3)
-    ScenarioFramework.Dialogue(OpStrings.X02_M03_010)
-    SetArmyUnitCap(Order, 600)
-    SetArmyUnitCap(Loyalist, 400)
+    ScenarioFramework.Dialogue(OpStrings.X02_M03_015)
 
-    ScenarioFramework.CreateTimerTrigger( CeleneDial_WillNotStopMeForever, 600 )
-
-    SetupCeleneM4Taunt()
     SetupQAIM4Taunt()
-end
-
-function CeleneDial_WillNotStopMeForever()
-    ScenarioFramework.Dialogue(OpStrings.TAUNT7)
 end
 
 function StartM4S2Cybran()
@@ -1737,14 +1569,6 @@ function SetupCeleneM2Taunt()
         CeleneTM:AddUnitKilledTaunt('TAUNT17', ScenarioInfo.UnitNames[Order]['M2_Order_TauntUnit'])
         CeleneTM:AddUnitsKilledTaunt('TAUNT18', ArmyBrains[Order], categories.STRUCTURE * categories.TECH3, 2)
     end
-end
-
-function SetupCeleneM4Taunt()
-
-    CeleneM4TM:AddDamageTaunt('X02_M03_190', ScenarioInfo.QAICommander, .15)
-    CeleneM4TM:AddUnitsKilledTaunt('X02_M03_200', ArmyBrains[QAI], categories.EXPERIMENTAL * categories.LAND, 3)
-    CeleneM4TM:AddUnitsKilledTaunt('X02_M03_210', ArmyBrains[QAI], categories.MOBILE, 100)
-
 end
 
 function SetupQAIM2Taunt()

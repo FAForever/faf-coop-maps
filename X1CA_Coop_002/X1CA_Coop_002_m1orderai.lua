@@ -34,7 +34,7 @@ function OrderM1MainBaseAI()
     --------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_MainBase_InitEng_D' .. Difficulty)
     OrderM1MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M1_Order_MainBase', 'Order_M1_Order_MainBase_Marker', 70, {M1_Order_MainBase = 100})
-    OrderM1MainBase:StartNonZeroBase({{3, 9, 18}, {3, 8, 16}})
+    OrderM1MainBase:StartNonZeroBase({{3, 7, 15}, {3, 6, 14}})
     OrderM1MainBase:SetActive('AirScouting', true)
     OrderM1MainBase:SetActive('LandScouting', true)
     OrderM1MainBase:SetBuild('Defenses', false)
@@ -77,36 +77,6 @@ function OrderM1MainBaseAirAttacks()
     -------------------------------------
     -- Order Main Base Op AI, Air Atttacks
     -------------------------------------
-
-    -- sends 4, 6, 8 [gunships, interceptors] Mass
-    for i = 1, 2 do
-    quantity = {4, 6, 8}
-    opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttackMass1' .. i,
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M1_Order_MassArea_Chain',
-            },
-            Priority = 101,
-        }
-    )
-    opai:SetChildQuantity({'Gunships', 'Bombers'}, quantity[Difficulty])
-    end
-
-    -- sends 4, 6, 8 [gunships, interceptors] basic
-    for i = 1, 2 do
-    quantity = {4, 6, 8}
-    opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirAttackBasic1' .. i,
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'Order_M1_Attack_Chain', 'Order_M1_Attack2_Chain', 'Order_M1_Attack3_Chain', 'Order_M1_Attack4_Chain'},
-            },
-            Priority = 101,
-        }
-    )
-    opai:SetChildQuantity({'Gunships', 'Interceptors'}, quantity[Difficulty])
-    end
 
     -- sends 3, 4, 6 [bombers] if player has >= 12, 8, 5 AA
     quantity = {3, 4, 6}
@@ -321,34 +291,10 @@ function OrderM1MainBaseAirAttacks()
                 PlatoonData = {
                     PatrolChain = 'M1_Order_BasePatrol_Air_Chain',
                 },
-                Priority = 130,
+                Priority = 100,
             }
         )
-        opai:SetChildQuantity('Interceptors', 4)
-
-        opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirDefense2' .. i,
-            {
-                MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-                PlatoonData = {
-                    PatrolChain = 'M1_Order_BasePatrol_Air_Chain',
-                },
-                Priority = 140,
-            }
-        )
-        opai:SetChildQuantity('CombatFighters', 4)
-    end
-
-    for i = 1, 3 do
-        opai = OrderM1MainBase:AddOpAI('AirAttacks', 'M1_AirDefense3' .. i,
-            {
-                MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
-                PlatoonData = {
-                    PatrolChain = 'M1_Order_BasePatrol_Air_Chain',
-                },
-                Priority = 150,
-            }
-        )
-        opai:SetChildQuantity('AirSuperiority', 1)
+        opai:SetChildQuantity('Interceptors', 2)
     end
 end
 
@@ -360,21 +306,6 @@ function OrderM1MainBaseLandAttacks()
     -------------------------------------
     -- Order Main Base Op AI, Land Attacks
     -------------------------------------
-
-    -- sends basic attack with shields
-    opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandAttackBasic',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'Order_M1_Attack_Chain', 'Order_M1_Attack2_Chain', 'Order_M1_Attack3_Chain', 'Order_M1_Attack4_Chain'},
-            },
-            Priority = 105,
-        }
-    )
-    opai:SetChildQuantity({'MobileShields', 'HeavyTanks', 'MobileAntiAir'}, 9)
-    opai:SetLockingStyle('BuildTimer', {LockTimer = 45})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Loyalist', 1, categories.uab1301})
 
     -- sends 4, 5, 10 [light bots]
     quantity = {4, 5, 10}
@@ -612,46 +543,19 @@ function OrderM1MainBaseLandAttacks()
             {'default_brain', ArmyBrains[Player], ArmyBrains[Loyalist], trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
-    -- sends 1, 1, 2 [Siege Bots] if player has >= 90, 55, 35 MOBILE LAND units
-    quantity = {1, 1, 2}
-    trigger = {90, 55, 35}
-    opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandAttack14',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'Order_M1_Attack_Chain', 'Order_M1_Attack2_Chain', 'Order_M1_Attack3_Chain', 'Order_M1_Attack4_Chain'},
-            },
-            Priority = 160,
-        }
-    )
-    opai:SetChildQuantity({'SiegeBots'}, quantity[Difficulty])
-    opai:AddBuildCondition(AIFileName, 'BrainsGreaterThanOrEqualNumCategory',
-        {'default_brain', ArmyBrains[Player], ArmyBrains[Loyalist], trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.ual0001 - categories.uel0001 - categories.url0001})
-
     -- Land Defense
-    for i = 1, 2 do
+    for i = 1, 3 do
         opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_LandDefense' .. i,
             {
-                MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+                MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChain = {'M1_Order_BasePatrol_' .. i .. '_Chain'},
+                    PatrolChains = {'M1_Order_BasePatrol_1_Chain', 'M1_Order_BasePatrol_2_Chain'},
                 },
-                Priority = 250,
+                Priority = 100,
             }
         )
         opai:SetChildQuantity({'LightBots', 'HeavyTanks'}, 4)
     end
-
-    opai = OrderM1MainBase:AddOpAI('BasicLandAttack', 'M1_OrderFrontLandDefenseHeavy',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M1_Order_BasePatrol_2_Chain',
-            },
-            Priority = 1120,
-        }
-    )
-    opai:SetChildQuantity({'SiegeBots', 'HeavyTanks', 'LightTanks'}, 6)
 end
 
 function OrderM1ResourceBaseAI()
