@@ -2722,7 +2722,7 @@ function M1S1Reminder1()
     if not ScenarioInfo.M1S1.Active then
         return
     end
-    ScenarioFramework.Dialogue(VoiceOvers.ArtilleryReminder)
+    ScenarioFramework.Dialogue(VoiceOvers.ArtilleryReminder1)
     ScenarioFramework.CreateTimerTrigger(M1S1Reminder2, 1800)
 end
 
