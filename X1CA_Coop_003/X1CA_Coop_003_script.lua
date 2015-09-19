@@ -99,6 +99,10 @@ function OnPopulate()
     SetArmyUnitCap(Rhiza, 280)
     SetArmyUnitCap(Princess, 250)
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Rhiza):SetResourceSharing(false)
+    GetArmyBrain(Princess):SetResourceSharing(false)
+
     -- Crystals
     ScenarioUtils.CreateArmyGroup('Crystals', 'M1_Crystals')
 

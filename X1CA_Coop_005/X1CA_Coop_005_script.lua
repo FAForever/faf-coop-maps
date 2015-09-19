@@ -99,6 +99,9 @@ function OnPopulate(scenario)
     SetArmyUnitCap(Hex5, 800)
     SetArmyUnitCap(QAI, 900)
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Fletcher):SetResourceSharing(false)
+
     ------------
     -- M1 Hex5 AI
     ------------

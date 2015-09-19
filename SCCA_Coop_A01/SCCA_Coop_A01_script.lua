@@ -241,6 +241,9 @@ function OnStart(self)
     ScenarioFramework.SetUEFColor(3)
     ScenarioFramework.SetUEFColor(4)
     ScenarioFramework.SetAeonAllyColor(5)
+
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Rhiza):SetResourceSharing(false)
 end
 
 function M1_UnitsForStart()
