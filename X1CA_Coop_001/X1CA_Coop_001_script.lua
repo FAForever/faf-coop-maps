@@ -908,7 +908,9 @@ function StartMission1()
 end
 
 function M1SubPlot()
-    if ScenarioInfo.MissionNumber == 1 then
+    if (LeaderFaction == 'cybran' and ScenarioInfo.MissionNumber == 1) then
+        return
+    elseif ScenarioInfo.MissionNumber == 1 then
         ScenarioFramework.Dialogue(VoiceOvers.MoveInland)
     end
 end
@@ -2644,6 +2646,9 @@ function DeathNIS(unit)
 end
 
 function M4Subplot()
+    if LeaderFaction == 'cybran' then
+        return
+    end
     ScenarioFramework.Dialogue(VoiceOvers.M4Subplot)
 end
 
