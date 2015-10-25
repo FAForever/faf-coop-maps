@@ -96,6 +96,7 @@ function M1RhizaBaseLandAttacks()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
             { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 10, categories.ual0309}},
         },
         LocationType = 'M1_Rhiza_Base',
@@ -117,6 +118,9 @@ function M1RhizaBaseLandAttacks()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
@@ -186,6 +190,9 @@ function M1RhizaBaseAirAttacks()
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
@@ -371,6 +378,9 @@ function M1RhizaBaseNavalAttacks()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
@@ -388,6 +398,9 @@ function M1RhizaBaseNavalAttacks()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M1_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
         PlatoonData = {
             PatrolChain = 'M1_Rhiza_SubDef_Chain',

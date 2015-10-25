@@ -77,6 +77,9 @@ function CustomBuilders()
         PlatoonType = 'Land',
         RequiresConstruction = false,
         LocationType = 'M2_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Rhiza_LandDef_Chain',
@@ -99,6 +102,7 @@ function CustomBuilders()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
             { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 30, categories.ual0309}},
         },
         LocationType = 'M2_Rhiza_Base',
@@ -123,6 +127,7 @@ function CustomBuilders()
         PlatoonType = 'Air',
         RequiresConstruction = true,
         BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
             { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 19, categories.ual0309}},
         },
         LocationType = 'M2_Rhiza_Base',
@@ -141,6 +146,7 @@ function CustomBuilders()
         PlatoonType = 'Air',
         RequiresConstruction = true,
         BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
             { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.uaa0104}},
         },
         LocationType = 'M2_Rhiza_Base',
@@ -164,6 +170,9 @@ function CustomBuilders()
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'M2_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {ThisFile, 'RhizaNavalAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( Air1Builder )
@@ -186,6 +195,7 @@ function CustomBuilders()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
             { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 23, categories.ual0309}},
         },
         LocationType = 'M2_Rhiza_Base',
@@ -206,6 +216,9 @@ function CustomBuilders()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {ThisFile, 'RhizaNavalAI'},
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( Navy1Builder )
@@ -223,6 +236,9 @@ function CustomBuilders()
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'M2_Rhiza_Base',
+        BuildConditions = {
+            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Rhiza_NavalDef_Chain',
