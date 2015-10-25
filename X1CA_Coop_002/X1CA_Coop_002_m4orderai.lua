@@ -19,7 +19,6 @@ local Order = 2
 ---------------
 -- Base Managers
 ---------------
-local OrderM2SupportBase = BaseManager.CreateBaseManager()
 local OrderM4MainBase = BaseManager.CreateBaseManager()
 local OrderM4NorthBase = BaseManager.CreateBaseManager()
 local OrderM4CenterBase = BaseManager.CreateBaseManager()
@@ -30,8 +29,8 @@ function OrderM4MainBaseAI()
     --------------------
     -- Order M4 Main Base
     --------------------
-    OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 120, {M4_Order_Main_Base = 100})
-    OrderM4MainBase:StartNonZeroBase({{12, 8, 4}, {9, 6, 3}})
+    OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 50, {M4_Order_Main_Base = 100})
+    OrderM4MainBase:StartNonZeroBase({{5, 2, 2}, {4, 2, 2}})
 
 -- OrderM4MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM4MainBase_ExperimentalLand')
 -- OrderM4MainBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'OrderM4MainBase_ExperimentalAir')
@@ -51,11 +50,11 @@ function OrderM4MainBaseAirAttacks()
     ---------------------------------------
 
     -- sends [bombers]
-    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks1',
+    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_AirAttacks1',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M4_Order_Air_Attack1_Chain',
+                PatrolChains = {'M4_Order_Air_Attack1_Chain', 'M4_Order_Air_Attack2_Chain'},
             },
             Priority = 100,
         }
@@ -63,11 +62,11 @@ function OrderM4MainBaseAirAttacks()
     opai:SetChildQuantity('Bombers', 8)
 
     -- sends [interceptors]
-    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks2',
+    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_AirAttacks2',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M4_Order_Air_Attack1_Chain',
+                PatrolChains = {'M4_Order_Air_Attack1_Chain', 'M4_Order_Air_Attack2_Chain'},
             },
             Priority = 100,
         }
@@ -75,56 +74,29 @@ function OrderM4MainBaseAirAttacks()
     opai:SetChildQuantity('Interceptors', 8)
 
     -- sends [gunships, combat fighters]
-    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks3',
+    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_AirAttacks3',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M4_Order_Air_Attack2_Chain',
+                PatrolChains = {'M4_Order_Air_Attack1_Chain', 'M4_Order_Air_Attack2_Chain'},
             },
             Priority = 100,
         }
     )
-    opai:SetChildQuantity({'Gunships', 'CombatFighters'}, 8)
-
-    -- sends [combat fighters]
-    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks4',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M4_Order_Air_Attack2_Chain',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity('CombatFighters', 6)
-
-    -- sends [gunships, bombers]
-    opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirAttacks5',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
-            PlatoonData = {
-                PatrolChain = 'M4_Order_Air_Attack1_Chain',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity({'Gunships', 'Bombers'}, 8)
-
-
-
+    opai:SetChildQuantity({'Gunships', 'CombatFighters'}, 10)
 
     -- Air Defense
-    for i = 1, 6 do
-        opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_Order_AirDefense' .. i,
+    for i = 1, 2 do
+        opai = OrderM4MainBase:AddOpAI('AirAttacks', 'M4_AirDefense' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
                 PlatoonData = {
                     PatrolChain = 'M4_Order_Air_Defense_Chain',
                 },
-                Priority = 110,
+                Priority = 100,
             }
         )
-        opai:SetChildQuantity('AirSuperiority', 1)
+        opai:SetChildQuantity('AirSuperiority', 3)
     end
 end
 
@@ -135,22 +107,8 @@ function OrderM4MainBaseLandAttacks()
     -- Order M4 Main Base Op AI, Land Attacks
     ----------------------------------------
 
-    -- sends collosus
-    opai = OrderM4MainBase:AddOpAI('M4_Order_Colos',
-        {
-            Amount = 1,
-            KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'M4_Order_Land_Attack1_Chain', 'M4_Order_Land_Attack2_Chain'},
-            },
-            MaxAssist = 4,
-            Retry = true,
-        }
-    )
-
     -- sends [light artillery]
-    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack1',
+    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -162,7 +120,7 @@ function OrderM4MainBaseLandAttacks()
     opai:SetChildQuantity('LightArtillery', 4)
 
     -- sends [light bots]
-    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack2',
+    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -171,10 +129,10 @@ function OrderM4MainBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity('LightBots', 4)
+    opai:SetChildQuantity({'LightBots'}, 6)
 
     -- sends [light tanks]
-    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack3',
+    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -183,10 +141,10 @@ function OrderM4MainBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity('LightTanks', 6)
+    opai:SetChildQuantity({'LightTanks'}, 8)
 
     -- sends [heavy tanks]
-    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack4',
+    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -195,11 +153,11 @@ function OrderM4MainBaseLandAttacks()
             Priority = 90,
         }
     )
-    opai:SetChildQuantity('HeavyTanks', 4)
+    opai:SetChildQuantity({'HeavyTanks'}, 6)
     opai:SetLockingStyle('None')
 
     -- sends [light artillery, mobile missiles]
-    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack5',
+    opai = OrderM4MainBase:AddOpAI('BasicLandAttack', 'M4_LandAttack5',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
@@ -208,7 +166,7 @@ function OrderM4MainBaseLandAttacks()
             Priority = 90,
         }
     )
-    opai:SetChildQuantity({'LightArtillery', 'MobileMissiles'}, 4)
+    opai:SetChildQuantity({'LightArtillery', 'MobileMissiles'}, 6)
     opai:SetLockingStyle('None')
 end
 
@@ -217,26 +175,21 @@ function OrderM4NorthBaseAI()
     ---------------------
     -- Order M4 North Base
     ---------------------
-    OrderM4NorthBase:Initialize(ArmyBrains[Order], 'M4_Order_NorthBase', 'Order_M4_North_Base', 60, {M4_Order_North_Base = 100})
-    OrderM4NorthBase:StartNonZeroBase({10, 7})
+    OrderM4NorthBase:Initialize(ArmyBrains[Order], 'M4_North_Base', 'Order_M4_North_Base', 40, {M4_North_Base = 100})
+    OrderM4NorthBase:StartNonZeroBase()
 
     OrderM4NorthBaseLandAttacks()
 end
 
 function OrderM4NorthBaseLandAttacks()
     local opai = nil
-    local units = {}
-    local quantity = {}
 
     -----------------------------------------
     -- Order M4 North Base Op AI, Land Attacks
     -----------------------------------------
 
-    -- Land Attacks
-    for i = 1, 3 do
-    units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-    quantity = {6, 8, 6}
-    opai = OrderM4NorthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttacks_North' .. i,
+    -- Land Attack
+    opai = OrderM4NorthBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_North',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -245,9 +198,10 @@ function OrderM4NorthBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity(units[i], quantity[i])
+    opai:SetChildActive('MobileShields', false)
+    opai:RemoveChildren('MobileShields')
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
-    end
 end
 
 function OrderM4CenterBaseAI()
@@ -255,12 +209,8 @@ function OrderM4CenterBaseAI()
     ----------------------
     -- Order M4 Center Base
     ----------------------
-    OrderM4CenterBase:Initialize(ArmyBrains[Order], 'M4_Order_MiddleBase', 'Order_M4_Middle_Base', 60, {M4_Order_Middle_Base = 100})
-    OrderM4CenterBase:StartNonZeroBase({15, 7})
-
-    OrderM4CenterBase:AddBuildGroup('M4_Order_North_Base', 90)
-    OrderM4CenterBase:AddBuildGroup('M4_Order_South_Base', 90)
-    OrderM4CenterBase:SetMaximumConstructionEngineers(8)
+    OrderM4CenterBase:Initialize(ArmyBrains[Order], 'M4_Middle_Base', 'Order_M4_Middle_Base', 40, {M4_Middle_Base = 100})
+    OrderM4CenterBase:StartNonZeroBase()
 
     OrderM4CenterBaseAirAttacks()
     OrderM4CenterBaseLandAttacks()
@@ -274,7 +224,7 @@ function OrderM4CenterBaseAirAttacks()
     -----------------------------------------
 
     -- Air Attack
-    opai = OrderM4CenterBase:AddOpAI('AirAttacks', 'M4_Order_AirAttack_Center_1',
+    opai = OrderM4CenterBase:AddOpAI('AirAttacks', 'M4_AirAttack_Center',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -283,19 +233,8 @@ function OrderM4CenterBaseAirAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity('Gunships', 4)
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
-
-    opai = OrderM4CenterBase:AddOpAI('AirAttacks', 'M4_Order_AirAttack_Center_2',
-        {
-            MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
-            PlatoonData = {
-                Location = 'QAI_M4_Middle_Base',
-            },
-            Priority = 110,
-        }
-    )
-    opai:SetChildQuantity({'Gunships', 'Bombers'}, 8)
 end
 
 function OrderM4CenterBaseLandAttacks()
@@ -305,25 +244,8 @@ function OrderM4CenterBaseLandAttacks()
     -- Order M4 Center Base Op AI, Land Attacks
     ------------------------------------------
 
-    ---- Land Attack
-    -- opai = OrderM4CenterBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_Center',
-        -- {
-            -- MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
-            -- PlatoonData = {
-                -- Location = 'QAI_M4_Middle_Base',
-            -- },
-            -- Priority = 100,
-        -- }
-    -- )
-    -- opai:SetChildrenActive({'MobileShields', 'HeavyBots'}, false)
-    -- opai:RemoveChildren({'MobileShields', 'HeavyBots'})
-    -- opai:SetChildCount(1)
-    -- opai:SetLockingStyle('None')
-
-    for i = 1, 3 do
-    local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-    local quantity = {3, 4, 4}
-    opai = OrderM4CenterBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_Center' .. i,
+    -- Land Attack
+    opai = OrderM4CenterBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_Center',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -332,9 +254,10 @@ function OrderM4CenterBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity(units[i], quantity[i])
+    opai:SetChildActive('MobileShields', false)
+    opai:RemoveChildren('MobileShields')
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
-    end
 end
 
 function OrderM4SouthBaseAI()
@@ -342,8 +265,8 @@ function OrderM4SouthBaseAI()
     ---------------------
     -- Order M4 South Base
     ---------------------
-    OrderM4SouthBase:Initialize(ArmyBrains[Order], 'M4_Order_SouthBase', 'Order_M4_South_Base', 60, {M4_Order_South_Base = 100})
-    OrderM4SouthBase:StartNonZeroBase({8, 4})
+    OrderM4SouthBase:Initialize(ArmyBrains[Order], 'M4_South_Base', 'Order_M4_South_Base', 40, {M4_South_Base = 100})
+    OrderM4SouthBase:StartNonZeroBase()
 
     OrderM4SouthBaseAirAttacks()
     OrderM4SouthBaseLandAttacks()
@@ -357,7 +280,7 @@ function OrderM4SouthBaseAirAttacks()
     ----------------------------------------
 
     -- Air Attack
-    opai = OrderM4SouthBase:AddOpAI('AirAttacks', 'M4_Order_AirAttack_South',
+    opai = OrderM4SouthBase:AddOpAI('AirAttacks', 'M4_AirAttack_South',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -366,7 +289,6 @@ function OrderM4SouthBaseAirAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildActive('StratBombers', false)
     opai:SetChildCount(1)
     opai:SetLockingStyle('None')
 end
@@ -378,25 +300,8 @@ function OrderM4SouthBaseLandAttacks()
     -- Order M4 South Base Op AI, Land Attacks
     -----------------------------------------
 
-    ---- Land Attack
-    -- opai = OrderM4SouthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_South',
-        -- {
-            -- MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
-            -- PlatoonData = {
-                -- Location = 'QAI_M3_South_Base',
-            -- },
-            -- Priority = 100,
-        -- }
-    -- )
-    -- opai:SetChildActive('HeavyBots', false)
-    -- opai:RemoveChildren({'HeavyBots'})
-    -- opai:SetChildCount(1)
-    -- opai:SetLockingStyle('None')
-
-    for i = 1, 3 do
-    local units = {{'Siegebots', 'HeavyTanks', 'LightTanks'}, {'MobileMissiles', 'LightArtillery'}, {'MobileFlak', 'LightBots'}}
-    local quantity = {3, 4, 4}
-    opai = OrderM4SouthBase:AddOpAI('BasicLandAttack', 'M4_Order_LandAttack_South' .. i,
+    -- Land Attack
+    opai = OrderM4SouthBase:AddOpAI('BasicLandAttack', 'M4_LandAttack_South',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
@@ -405,7 +310,8 @@ function OrderM4SouthBaseLandAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity(units[i], quantity[i])
+    opai:SetChildActive('MobileShields', false)
+    opai:RemoveChildren('MobileShields')
+    opai:SetChildCount(1)
     opai:SetLockingStyle('None')
-    end
 end

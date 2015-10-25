@@ -28,8 +28,8 @@ OPERATION_NAME = '<LOC OPNAME_X02>Operation: Dawn'
 BriefingData = {
   {phase = 0, character = '<LOC Date>Date', text = '<LOC X02_B01_000_010>01-August-3847'},
   {phase = 1, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_001_010>Covert Aeon Loyalists infiltrated the Order over a year ago. Their efforts have provided us with important intelligence, and they have also assisted us in spreading the word and truth of the Princess.'},
-  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01Coop_002_010>However, the entire Loyalist network is now in grave peril.'},
-  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01Coop_002_020>QAI has been using Copernicus as a staging ground for attacks into Coalition space. In an effort to stem those attacks, a group of Loyalists launched a secret operation against QAI\'s position.'},
+  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_010>However, the entire Loyalist network is now in grave peril.'},
+  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_020>QAI has been using Copernicus as a staging ground for attacks into Coalition space. In an effort to stem those attacks, a group of Loyalists launched a secret operation against QAI\'s position.'},
   {phase = 3, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_003_010>The operation ended in failure. QAI knew the attack was coming, and it captured three Loyalist leaders. We know from past OPs that QAI will implant them with AI chips. If that happens, our entire covert network will be in grave peril.'},
   {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_010>The importance of this operation cannot be understated, Commander. It is now obvious that our security protocols have been breached. There is simply no other way our enemies could\'ve known both the secret location of Fort Clarke and about our covert actions on this planet.'},
   {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_020>This situation must be dealt with before it spirals out of control.'},
@@ -269,12 +269,6 @@ X02_M01_OBJ_020_010 = '<LOC X02_M01_OBJ_020_010>Eliminate the Order Resource Bas
 -- Secondary Objectives
 X02_M01_OBJ_020_015 = '<LOC X02_M01_OBJ_020_015>Destroy the marked generators to disrupt the Order\'s shield defenses at their forward position.'
 
--- secondary objectives
-X02_M01_OBJ_020_020 = '<LOC X02_M01_OBJ_020_020>Shield the Loyalist'
-
--- secondary objectives
-X02_M01_OBJ_020_025 = '<LOC X02_M01_OBJ_020_025>Make sure the Loyalist survives! Construct 2 shield structures to cover her base.'
-
 
 
 --------------------------------
@@ -465,12 +459,6 @@ X02_M02_OBJ_020_010 = '<LOC X02_M02_OBJ_020_010>Destroy Order Defenses'
 -- Secondary Objectives
 X02_M02_OBJ_020_020 = '<LOC X02_M02_OBJ_020_020>Destroy the defenses protecting Rhys so that Mathea and the Loyalists can capture him.'
 
--- Secondary Objectives
-X02_M02_OBJ_020_030 = '<LOC X02_M02_OBJ_020_030>Protect the Loyalist Commanders.'
-
--- Secondary Objectives
-X02_M02_OBJ_020_035 = '<LOC X02_M02_OBJ_020_035>There are two Loyalist Commanders, Sascha and Dana, operating to the south of the prison. They are under attack however. Defend their positions!'
-
 
 
 --------------------------------
@@ -520,7 +508,7 @@ X02_M03_021 = {
 
 -- OBJ Reminder, Brackmans Translator / Actor: Brackman/ Update: 07/06/2007 / VO Ready
 X02_M03_022 = {
-  {text = '<LOC X02_M03_022_010>[{i Brackman}]: Please destroy QAI\'s ACU, my child. We must get our hands on the Seraphim ACU. ', vid = 'X02_Brackman_M03_04906.sfd', bank = 'X02_VO', cue = 'X02_Brackman_M03_04906', faction = 'Cybran'},
+  {text = '<LOC X02_M03_022_010>[{i Brackman}]: Please destroy QAI, my child. We must get our hands on the Seraphim ACU. ', vid = 'X02_Brackman_M03_04906.sfd', bank = 'X02_VO', cue = 'X02_Brackman_M03_04906', faction = 'Cybran'},
 }
 
 -- M3 PO1 Capture Seraphim sACU (Part II) Gate Captured / Actor: Brackman / Update: 07/06/2007 / VO Ready
@@ -710,7 +698,7 @@ TAUNT1 = {
 
 -- Celene On attacking experimental 02 / Actor: Celene / Update: 07/10/2007 / VO Cut
 TAUNT2 = {
-  {text = '<LOC X02_T01Coop_002_010>[{i Celene}]: I will destroy that experimental before you even finish it!', vid = 'X02_Celene_T01_04783.sfd', bank = 'X02_VO', cue = 'X02_Celene_T01_04783', faction = 'Aeon'},
+  {text = '<LOC X02_T01_002_010>[{i Celene}]: I will destroy that experimental before you even finish it!', vid = 'X02_Celene_T01_04783.sfd', bank = 'X02_VO', cue = 'X02_Celene_T01_04783', faction = 'Aeon'},
 }
 
 -- Celene On attacking experimental 03 / Actor: Celene / Update: 07/10/2007 / VO Cut

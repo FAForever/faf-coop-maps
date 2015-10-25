@@ -188,7 +188,7 @@ function OrderM2NorthBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2})
     end
 
-    -- Maintains 12 Combat Fighters
+    -- Maintains 8 Combat Fighters
     for i = 1, 2 do
         opai = OrderM2NorthBase:AddOpAI('AirAttacks', 'M2_AirDefense2_' .. i,
             {
@@ -199,68 +199,8 @@ function OrderM2NorthBaseAirAttacks()
                 Priority = 100,
             }
         )
-        opai:SetChildQuantity({'CombatFighters'}, 6)
-        -- opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2})
-    end
-end
-
-function LoyEastSiege(platoon)
-    local moveNum = false
-    while(true) do
-        if(ScenarioInfo.MissionNumber < 4) then
-            if(not moveNum) then
-                moveNum = 1
-                IssueStop(platoon:GetPlatoonUnits())
-                IssueClearCommands(platoon:GetPlatoonUnits())
-                for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Loyalist_Base_East_EngineerChain')
-                    end
-                end
-            end
-        elseif(ScenarioInfo.MissionNumber == 4) then
-            if(not moveNum or moveNum ~= 2) then
-                moveNum = 2
-                IssueStop(platoon:GetPlatoonUnits())
-                IssueClearCommands(platoon:GetPlatoonUnits())
-                for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Order_Land_Attack' .. Random(1, 2) .. '_Chain')
-                    end
-                end
-            end
-        end
-        WaitSeconds(10)
-    end
-end
-
-function LoyWestSiege(platoon)
-    local moveNum = false
-    while(true) do
-        if(ScenarioInfo.MissionNumber < 4) then
-            if(not moveNum) then
-                moveNum = 1
-                IssueStop(platoon:GetPlatoonUnits())
-                IssueClearCommands(platoon:GetPlatoonUnits())
-                for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Loyalist_Base_West_EngineerChain')
-                    end
-                end
-            end
-        elseif(ScenarioInfo.MissionNumber == 4) then
-            if(not moveNum or moveNum ~= 2) then
-                moveNum = 2
-                IssueStop(platoon:GetPlatoonUnits())
-                IssueClearCommands(platoon:GetPlatoonUnits())
-                for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Order_Land_Attack' .. Random(1, 2) .. '_Chain')
-                    end
-                end
-            end
-        end
-        WaitSeconds(10)
+        opai:SetChildQuantity({'CombatFighters'}, 4)
+        opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2})
     end
 end
 
@@ -272,29 +212,6 @@ function OrderM2NorthBaseLandAttacks()
     -----------------------------------------
     -- Order M2 North Base Op AI, Land Attacks
     -----------------------------------------
-
-    for i = 1, 2 do
-    -- sends 6 [mobile shields, heavy tanks, anti air]
-    opai = OrderM2NorthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyEast' .. i,
-        {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyEastSiege'},
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity({'MobileShields', 'HeavyTanks', 'MobileAntiAir'}, 9)
-
-    -- sends 6 [heavy tanks, light tanks]
-    opai = OrderM2NorthBase:AddOpAI('BasicLandAttack', 'M2_LandAttack_LoyWest' .. i,
-        {
-            MasterPlatoonFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua', 'LoyWestSiege'},
-            PlatoonData = {
-                Location = 'M2_Loyalist_Base_West_Marker',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, 6)
-    end
 
     -- sends 2, 2, 4 [light artillery]
     quantity = {2, 2, 4}
