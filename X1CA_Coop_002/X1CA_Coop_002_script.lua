@@ -96,6 +96,9 @@ function OnPopulate()
     SetArmyUnitCap(QAI, 430) --630
     SetArmyUnitCap(Loyalist, 170) --370
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Loyalist):SetResourceSharing(false)
+
     -- Walls
     ScenarioUtils.CreateArmyGroup('Loyalist', 'M1_Walls')
 
@@ -976,6 +979,9 @@ function EndMission3()
     SetAlliance(Loyalist, Order, 'Ally')
     SetAlliance(QAI, Order, 'Enemy')
     ScenarioInfo.OrderAlly = true
+
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Order):SetResourceSharing(false)
 
     if(ScenarioInfo.ColossusAttack and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.ColossusAttack)) then
         ScenarioInfo.ColossusAttack:Stop()

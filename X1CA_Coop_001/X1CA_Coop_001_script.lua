@@ -270,6 +270,10 @@ function OnPopulate(scenario)
     SetArmyUnitCap(UEF, 1500)
     SetArmyUnitCap(Civilians, 500)
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(UEF):SetResourceSharing(false)
+    GetArmyBrain(Civilians):SetResourceSharing(false)
+
     -- Walls
     ScenarioUtils.CreateArmyGroup('Civilians', 'Walls')
     ScenarioUtils.CreateArmyGroup('UEF', 'BaseWalls', true) -- True as final arg means they spawn dead

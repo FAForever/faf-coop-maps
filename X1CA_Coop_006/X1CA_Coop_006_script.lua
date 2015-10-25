@@ -109,6 +109,9 @@ function OnPopulate(scenario)
     -- Unit cap
     SetArmyUnitCap(Seraphim, 1000)
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Rhiza):SetResourceSharing(false)
+
     ------------------------------
     -- Rhiza's units for the player
     ------------------------------
