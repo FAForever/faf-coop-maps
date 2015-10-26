@@ -169,6 +169,17 @@ function OnStart(self)
     ScenarioFramework.SetAeonColor(Player)
     ScenarioFramework.SetUEFColor(uef)
     ScenarioFramework.SetAeonAllyColor(eris)
+    local colors = {
+        ['Coop1'] = {47, 79, 79}, 
+        ['Coop2'] = {46, 139, 87}, 
+        ['Coop3'] = {102, 255, 204}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
@@ -217,6 +228,7 @@ function IntroMission1()
     -- Player CDR
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -226,6 +238,7 @@ function IntroMission1()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

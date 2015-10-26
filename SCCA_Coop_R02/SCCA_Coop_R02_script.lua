@@ -271,6 +271,17 @@ function OnPopulate(scenario)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetAeonColor(FakeAeon)
     ScenarioFramework.SetAeonColor(Civilian)
+    local colors = {
+        ['Coop1'] = {183, 101, 24}, 
+        ['Coop2'] = {255, 135, 62}, 
+        ['Coop3'] = {255, 191, 128}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- ScenarioFramework.SetCybranAllyColor(CybranJanus)
     -- ScenarioFramework.SetCybranAllyColor(FakeJanus)
@@ -333,6 +344,7 @@ function StartMission1()
     -- Player stuff
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -342,6 +354,7 @@ function StartMission1()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

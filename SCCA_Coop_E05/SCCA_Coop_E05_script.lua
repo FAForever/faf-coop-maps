@@ -195,6 +195,17 @@ function OnPopulate(scenario)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetNeutralColor(City)
+    local colors = {
+        ['Coop1'] = {67, 110, 238}, 
+        ['Coop2'] = {97, 109, 126}, 
+        ['Coop3'] = {255, 255, 255}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- ! Player Bases
     ScenarioInfo.PlayerBase = ScenarioUtils.CreateArmyGroup('Player', 'Player_Main_Base_D'..ScenarioInfo.Difficulty)
@@ -428,6 +439,7 @@ function CreatePlayer()
     -- ! Player Commander and his Death Trigger
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -437,6 +449,7 @@ function CreatePlayer()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
             ScenarioFramework.PauseUnitDeath(ScenarioInfo.CoopCDR[coop])

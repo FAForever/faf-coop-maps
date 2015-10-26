@@ -203,6 +203,17 @@ function OnStart(self)
     ScenarioFramework.SetCybranColor(ScenarioInfo.Cybran)
     ScenarioFramework.SetCybranAllyColor(ScenarioInfo.CybranResearch) -- SetNeutralColor
     -- ScenarioFramework.SetNeutralColor(ScenarioInfo.CybranResearch) #
+    local colors = {
+        ['Coop1'] = {67, 110, 238}, 
+        ['Coop2'] = {97, 109, 126}, 
+        ['Coop3'] = {255, 255, 255}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- moved here per drew
     ArmyBrains[ScenarioInfo.Cybran]:PBMRemoveBuildLocation(nil, 'MAIN')
@@ -215,6 +226,7 @@ end
 function Intro_NIS()
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -224,6 +236,7 @@ function Intro_NIS()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

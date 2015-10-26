@@ -199,6 +199,17 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranAllyColor(CybranCloaked)
     ScenarioFramework.SetCybranNeutralColor(BrackmanBase)
     ScenarioFramework.SetCybranNeutralColor(Civilian)
+    local colors = {
+        ['Coop1'] = {183, 101, 24}, 
+        ['Coop2'] = {255, 135, 62}, 
+        ['Coop3'] = {255, 191, 128}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- Initial player bombers
     local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Player' ,'M1_Bombers', 'AttackFormation')
@@ -249,7 +260,7 @@ function IntroSequenceThread()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Gate_Area'), 2)
 
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
     ScenarioInfo.PlayerCDR:SetReclaimable(false)
@@ -270,7 +281,7 @@ function IntroSequenceThread()
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))
             coop = coop + 1

@@ -90,6 +90,17 @@ function OnPopulate()
     ScenarioFramework.SetCybranEvilColor(QAI)
     ScenarioFramework.SetAeonAlly1Color(Loyalist)
     ScenarioFramework.SetAeonAlly2Color(OrderNeutral)
+    local colors = {
+        ['Coop1'] = {250, 250, 0}, 
+        ['Coop2'] = {255, 255, 255}, 
+        ['Coop3'] = {97, 109, 126}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- Unit Cap
     SetArmyUnitCap(Order, 400)
@@ -323,6 +334,7 @@ function IntroNIS()
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
     
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -339,6 +351,7 @@ function IntroNIS()
                 ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
             end
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

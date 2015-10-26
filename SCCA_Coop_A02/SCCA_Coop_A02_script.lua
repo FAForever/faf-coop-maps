@@ -290,6 +290,17 @@ function OnStart(self)
     ScenarioFramework.SetCybranColor(Cybran)
     -- ScenarioFramework.SetCybranColor(NeutralCybran)
     ScenarioFramework.SetAeonColor(Player)
+    local colors = {
+        ['Coop1'] = {47, 79, 79}, 
+        ['Coop2'] = {46, 139, 87}, 
+        ['Coop3'] = {102, 255, 204}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- Take away units that the player shouldn't have access to
     for _, player in ScenarioInfo.HumanPlayers do
@@ -392,6 +403,7 @@ function CreatePlayer()
     -- Create some of the key units and save handles to them
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -401,6 +413,7 @@ function CreatePlayer()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

@@ -263,6 +263,17 @@ function OnPopulate(scenario)
     WARN(Civilians)
     WARN(ScenarioInfo.Civilian)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
+    local colors = {
+        ['Coop1'] = {250, 250, 0}, 
+        ['Coop2'] = {255, 255, 255}, 
+        ['Coop3'] = {97, 109, 126}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- Unit Cap
     SetArmyUnitCap(Seraphim, 1000)
@@ -651,7 +662,7 @@ function IntroNISPart2()
 
     local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('CDRWarp'))
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
-    --ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
@@ -668,6 +679,7 @@ function IntroNISPart2()
             end
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
             ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(2)
         end

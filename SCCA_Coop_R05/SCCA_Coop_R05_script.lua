@@ -140,6 +140,17 @@ function OnStart(self)
     ScenarioFramework.SetUEFColor(2)
     ScenarioFramework.SetCybranAllyColor(3)
     ScenarioFramework.SetUEFAllyColor(4)
+    local colors = {
+        ['Coop1'] = {183, 101, 24}, 
+        ['Coop2'] = {255, 135, 62}, 
+        ['Coop3'] = {255, 191, 128}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
     ScenarioFramework.SetPlayableArea( ScenarioUtils.AreaToRect('M1_PlayableArea'), false )
 
     ForkThread(IntroSequenceThread)
@@ -159,27 +170,28 @@ end
 
 function CreateCommander_Thread()
     ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit ( 'Player', 'M1_PlayerCDR' )
--- ForkThread(NameCDRThread)
+    ScenarioInfo.PlayerCommander:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCommander:SetCustomName(ArmyBrains[Player].Nickname)
+
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Coop1 then
-            ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )
+            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )
+            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
---            ScenarioInfo.PlayerCommander:SetCustomName(LOC '{i CDR_Player}')
         end
     end
 
     ScenarioFramework.PauseUnitDeath( ScenarioInfo.PlayerCommander )
     for index, coopACU in ScenarioInfo.CoopCDR do
         ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, coopACU)
+        ScenarioFramework.CreateUnitDeathTrigger(PlayerCDRKilled, coopACU)
     end
     ScenarioFramework.CreateUnitDeathTrigger( PlayerCDRKilled, ScenarioInfo.PlayerCommander )
---    ScenarioInfo.PlayerCommander:PlayCommanderWarpInEffect()
-    ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCommander )
 end
 
 function M1UnitsForStart()
@@ -311,10 +323,6 @@ function M1_GeneratorProgressTaunt()
     if M1_GeneratorsDestroyed == 3 then
         ScenarioFramework.Dialogue(OpStrings.TAUNT4)
     end
-end
-
-function NameCDRThread()
-    ScenarioInfo.PlayerCommander:SetCustomName(LOC '{i CDR_Player}')
 end
 
 function M1_PromptObjectiveDialogue()

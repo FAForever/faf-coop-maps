@@ -317,6 +317,17 @@ function OnStart(self)
     ScenarioFramework.SetAeonColor(aeon)
     ScenarioFramework.SetUEFColor(uef)
     ScenarioFramework.SetUEFColor(blackSun)
+    local colors = {
+        ['Coop1'] = {183, 101, 24}, 
+        ['Coop2'] = {255, 135, 62}, 
+        ['Coop3'] = {255, 191, 128}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
 end
@@ -429,13 +440,17 @@ function IntroMission1()
 
     -- Player CDR
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player')
+    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[player].Nickname)
+
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Coop1 then
-            ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
---            ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
+            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
+            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
@@ -447,9 +462,6 @@ function IntroMission1()
         ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, coopACU)
     end
     ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, ScenarioInfo.PlayerCDR)
-
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
--- ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
 
     -- Jericho strut
     local cmd = IssueMove({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('JerichoDestination'))
