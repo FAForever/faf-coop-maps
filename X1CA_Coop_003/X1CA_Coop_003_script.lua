@@ -1000,7 +1000,7 @@ function StartMission2()
     local bombers = {}
     for k, v in ScenarioInfo.ExperimentalEngineers do
         if(v and not v:IsDead()) then
-            table.insert(bombers, v:GetUnitBeingBuilt())
+            table.insert(bombers, v.UnitBeingBuilt)
         end
     end
 
@@ -1071,7 +1071,7 @@ function M2RhizaCleanupDialogue()
 end
 
 function M2ExperimentalEngineerDeath(unit)
-    local bomber = unit:GetUnitBeingBuilt()
+    local bomber = unit.UnitBeingBuilt
     if(bomber and not bomber:IsDead()) then
         bomber:Kill()
         ScenarioInfo.NumBombersDestroyed = ScenarioInfo.NumBombersDestroyed + 1

@@ -1259,7 +1259,7 @@ function M3_UEFGunshipVirusThread()
     -- Clear any gunships that factories may be building
     local uefFactories = ArmyBrains[UEF]:GetListOfUnits(categories.FACTORY * categories.AIR, false)
     for k,v in uefFactories do
-        if (not v:IsDead()) and v:GetUnitBeingBuilt() and not v:GetUnitBeingBuilt():IsDead() and EntityCategoryContains(categories.uea0203 + categories.uea0305, v:GetUnitBeingBuilt()) then
+        if (not v:IsDead()) and v.UnitBeingBuilt and not v.UnitBeingBuilt:IsDead() and EntityCategoryContains(categories.uea0203 + categories.uea0305, v.UnitBeingBuilt) then
             IssueClearCommands({v})
         end
     end

@@ -1002,7 +1002,7 @@ end
 
 function M2CreateCruiserDeathTrigger()
     WaitSeconds(0.1)
-    ScenarioInfo.Cruiser = ScenarioInfo.SouthNavalFactory:GetUnitBeingBuilt()
+    ScenarioInfo.Cruiser = ScenarioInfo.SouthNavalFactory.UnitBeingBuilt
     ScenarioFramework.CreateUnitDestroyedTrigger(M2CruiserDeath, ScenarioInfo.Cruiser)
 end
 

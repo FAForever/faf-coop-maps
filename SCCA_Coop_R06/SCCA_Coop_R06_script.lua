@@ -611,8 +611,8 @@ end
 
 function CzarEngineerDefeated()
     if(not ScenarioInfo.CzarFullyBuilt) then
-        if(ScenarioInfo.CzarEngineer:GetUnitBeingBuilt()) then
-            ScenarioInfo.CzarEngineer:GetUnitBeingBuilt():Kill()
+        if(ScenarioInfo.CzarEngineer.UnitBeingBuilt) then
+            ScenarioInfo.CzarEngineer.UnitBeingBuilt:Kill()
         end
     end
 end
