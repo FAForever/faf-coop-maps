@@ -470,6 +470,17 @@ function OnStart(self)
 
     ScenarioFramework.SetCybranColor(Player)
     ScenarioFramework.SetAeonColor(Aeon)
+    local colors = {
+        ['Coop1'] = {183, 101, 24}, 
+        ['Coop2'] = {255, 135, 62}, 
+        ['Coop3'] = {255, 191, 128}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     -- Setting some variables for Mission 2
     ScenarioInfo.VarTable['EnableWave1'] = false
@@ -579,41 +590,37 @@ function BeginMission1()
 
     -- Player commander unit
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit( 'Player', 'Commander' )
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCDR )
+    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
+    ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
+
+    IssueMove({ ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_1' ))
+    IssueMove({ ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_2' ))
+    WaitSeconds(1.8)
+
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
+            ScenarioFramework.FakeGateInUnit( ScenarioInfo.CoopCDR[coop] )
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_1' ))
             IssueMove({ ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_2' ))
             coop = coop + 1
-            WaitSeconds(0.5)
+            WaitSeconds(1.8)
         end
     end
-
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     for index, coopACU in ScenarioInfo.CoopCDR do
         ScenarioFramework.PauseUnitDeath(coopACU)
         ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, coopACU)
     end
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
-
-    -- ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCDR )
--- ForkThread(NameCDRThread)
-
-    IssueMove({ ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_1' ))
-    IssueMove({ ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition( 'M1_Commander_Walk_2' ))
 end
 
 function OpeningDialogue()
     ScenarioFramework.Dialogue( OpStrings.C04_M01_010 )
-end
-
-function NameCDRThread()
-    WaitSeconds(2)
-    ScenarioInfo.PlayerCDR:SetCustomName(LOC '{i CDR_Player}')
 end
 
 function Dialogue_M1_1()

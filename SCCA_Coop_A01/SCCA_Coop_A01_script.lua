@@ -244,6 +244,18 @@ function OnStart(self)
 
     -- Disable friendly AI sharing resources to players
     GetArmyBrain(Rhiza):SetResourceSharing(false)
+
+    local colors = {
+        ['Coop1'] = {47, 79, 79}, 
+        ['Coop2'] = {46, 139, 87}, 
+        ['Coop3'] = {102, 255, 204}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 end
 
 function M1_UnitsForStart()
@@ -273,6 +285,7 @@ function CreateCommander()
     -- Player Commander
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -282,6 +295,7 @@ function CreateCommander()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end

@@ -124,6 +124,17 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranAllyColor(Civilian)
     ScenarioFramework.SetCybranAllyColor(Nodes)
     ScenarioFramework.SetCybranNeutralColor(NexusDefense)
+    local colors = {
+        ['Coop1'] = {47, 79, 79}, 
+        ['Coop2'] = {46, 139, 87}, 
+        ['Coop3'] = {102, 255, 204}
+    }
+    local tblArmy = ListArmies()
+    for army, color in colors do
+        if tblArmy[ScenarioInfo[army]] then
+            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+        end
+    end
 
     local plat
 
@@ -301,6 +312,7 @@ end
 function IntroNIS()
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -310,6 +322,7 @@ function IntroNIS()
         if iArmy >= ScenarioInfo.Coop1 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
+            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
