@@ -9,7 +9,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local OpScript = import ('/maps/SCCA_A02/SCCA_A02_script.lua')
+local OpScript = import ('/maps/SCCA_Coop_A02/SCCA_Coop_A02_script.lua')
 
 --------------------------------------------------------------------------------------------------------------
 -- function: M2ResetNorthAttack = AddFunction   doc = "Prevent continual attacks"
