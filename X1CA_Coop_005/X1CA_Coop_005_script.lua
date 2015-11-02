@@ -213,7 +213,7 @@ function PlayerWin()
     end
 end
 
-function PlayerDeath()
+function PlayerDeath(deadCommander)
     ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
