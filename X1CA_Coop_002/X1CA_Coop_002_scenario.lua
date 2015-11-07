@@ -8,7 +8,7 @@ ScenarioInfo = {
     -- Do not manually edit. Ever. Controlled by deployment script:
     map_version = 3,
     size = {1024, 1024},
-    map = '/maps/X1CA_Coop_002/X1CA_Coop_002.scmap',
+    map = '/maps/X1CA_002/X1CA_002.scmap',
     save = '/maps/X1CA_Coop_002/X1CA_Coop_002_save.lua',
     script = '/maps/X1CA_Coop_002/X1CA_Coop_002_script.lua',
     norushradius = 0.000000,
