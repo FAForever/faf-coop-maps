@@ -30,8 +30,8 @@ local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
 local Coop3 = ScenarioInfo.Coop3
-local arnold = ScenarioInfo.Arnold
-local cybran = ScenarioInfo.Cybran
+local Arnold = ScenarioInfo.Arnold
+local Cybran = ScenarioInfo.Cybran
 local eastResearch = ScenarioInfo.EastResearch
 
 ScenarioInfo.PowerGenDestroyed = 0
@@ -102,8 +102,8 @@ function OnStart(self)
                                             'Teleporter'})
     -- Army Colors
     ScenarioFramework.SetUEFColor(Player)
-    ScenarioFramework.SetUEFAllyColor(arnold)
-    ScenarioFramework.SetCybranColor(cybran)
+    ScenarioFramework.SetUEFAllyColor(Arnold)
+    ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetUEFNeutralColor(eastResearch)
     local colors = {
         ['Coop1'] = {67, 110, 238}, 
@@ -135,7 +135,7 @@ function KillBase()
             local cybranUnits = {}
             if(units) then
                 for k, v in units do
-                    if(not v:IsDead() and v:GetAIBrain() == ArmyBrains[cybran]) then
+                    if(not v:IsDead() and v:GetAIBrain() == ArmyBrains[Cybran]) then
                         table.insert(cybranUnits, v)
                     end
                 end
@@ -417,7 +417,7 @@ function ArnoldFlyover()
     WaitSeconds(10)
     KillFlyover()
     --ScenarioFramework.CreateAreaTrigger(KillFlyover, ScenarioUtils.AreaToRect('FlyoverDeath'), categories.UEF,
-      -- true, false, ArmyBrains[arnold], table.getn(ScenarioInfo.Flyover:GetPlatoonUnits()))
+      -- true, false, ArmyBrains[Arnold], table.getn(ScenarioInfo.Flyover:GetPlatoonUnits()))
 end
 
 function KillFlyover()
@@ -665,7 +665,7 @@ function IntroMission6()
     ScenarioInfo.MissionNumber = 6
 
     -- Turn off airbase builders
-    for k, v in ArmyBrains[cybran]:GetPlatoonsList() do
+    for k, v in ArmyBrains[Cybran]:GetPlatoonsList() do
         if(v.BuilderName == 'AirBase_Engineers_D' .. ScenarioInfo.Options.Difficulty) then
             v.PlatoonData.MaintainBaseTemplate = false
         end
@@ -814,8 +814,8 @@ function IntroMission7()
     ScenarioInfo.CybranCDR:SetCustomName(LOC '{i CDR_Leopard_11}')
     ScenarioInfo.CybranCDR:CreateEnhancement('CoolingUpgrade')
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.CybranCDR)
-    local cdrPlatoon = ArmyBrains[cybran]:MakePlatoon('','')
-    ArmyBrains[cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
+    local cdrPlatoon = ArmyBrains[Cybran]:MakePlatoon('','')
+    ArmyBrains[Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
     cdrPlatoon:ForkAIThread(CDRAI)
     cdrPlatoon.CDRData = {}
     cdrPlatoon.CDRData.LeashPosition = 'Cybran_MainBase'
@@ -945,12 +945,12 @@ function LRAAttack()
         IssueClearCommands({ScenarioInfo.LightArtillery})
         local cmd = nil
         local num = Random(1,25)
-        local targets = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE, ScenarioUtils.AreaToRect('Target' .. num), ArmyBrains[cybran])
+        local targets = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE, ScenarioUtils.AreaToRect('Target' .. num), ArmyBrains[Cybran])
         if(targets and table.getn(targets) >= 1) then
             cmd = IssueAttack({ScenarioInfo.LightArtillery}, targets[1])
         else
             for i = 1, 25 do
-                targets = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE, ScenarioUtils.AreaToRect('Target' .. i), ArmyBrains[cybran])
+                targets = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE, ScenarioUtils.AreaToRect('Target' .. i), ArmyBrains[Cybran])
                 if(targets and table.getn(targets) >= 1) then
                     cmd = IssueAttack({ScenarioInfo.LightArtillery}, targets[1])
                     break

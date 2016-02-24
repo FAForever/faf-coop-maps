@@ -186,6 +186,15 @@ ScenarioInfo.Coop2 = 5
 ScenarioInfo.Coop3 = 6
 ScenarioInfo.HumanPlayers = {}
 
+local Player = ScenarioInfo.Player
+local Cybran = ScenarioInfo.Cybran
+local CybranResearch = ScenarioInfo.CybranResearch
+local Coop1 = ScenarioInfo.Coop1
+local Coop2 = ScenarioInfo.Coop2
+local Coop3 = ScenarioInfo.Coop3
+
+
+
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
@@ -199,10 +208,10 @@ function OnStart(self)
     -- Setting Playable area
     ScenarioFramework.SetPlayableArea(ScenarioUtils.AreaToRect('M1_Playable_Area'), false)
 
-    ScenarioFramework.SetUEFColor(ScenarioInfo.Player)
-    ScenarioFramework.SetCybranColor(ScenarioInfo.Cybran)
-    ScenarioFramework.SetCybranAllyColor(ScenarioInfo.CybranResearch) -- SetNeutralColor
-    -- ScenarioFramework.SetNeutralColor(ScenarioInfo.CybranResearch) #
+    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetCybranColor(Cybran)
+    ScenarioFramework.SetCybranAllyColor(CybranResearch) -- SetNeutralColor
+    -- ScenarioFramework.SetNeutralColor(CybranResearch) #
     local colors = {
         ['Coop1'] = {67, 110, 238}, 
         ['Coop2'] = {97, 109, 126}, 
@@ -216,10 +225,10 @@ function OnStart(self)
     end
 
     -- moved here per drew
-    ArmyBrains[ScenarioInfo.Cybran]:PBMRemoveBuildLocation(nil, 'MAIN')
-    ArmyBrains[ScenarioInfo.Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), 50, 'Cybran_M1_Base')
-    ArmyBrains[ScenarioInfo.Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_Base'), 40, 'Cybran_M2_Base')
-    ArmyBrains[ScenarioInfo.Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_T2_Airbase'), 30, 'Cybran_M2_T2_Airbase')
+    ArmyBrains[Cybran]:PBMRemoveBuildLocation(nil, 'MAIN')
+    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), 50, 'Cybran_M1_Base')
+    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_Base'), 40, 'Cybran_M2_Base')
+    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_T2_Airbase'), 30, 'Cybran_M2_T2_Airbase')
     ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', Intro_NIS)
 end
 
@@ -271,9 +280,9 @@ function StartMission1()
 
     -- append difficulty info to make new master base maintenance template
 
-    AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'M1_Expansion_Base_Maintenance')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M1_Expansion_Base_Premade_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M1_Expansion_Base_Constructed_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
+    AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M1_Expansion_Base_Maintenance')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M1_Expansion_Base_Premade_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M1_Expansion_Base_Constructed_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
 
 
     -- spawn research targets
@@ -315,7 +324,7 @@ function StartMission1()
             Requirements = {
                 {
                     Area = 'M1_Expansion_Base',
-                    ArmyIndex = ScenarioInfo.Cybran,
+                    ArmyIndex = Cybran,
                     Category = (categories.FACTORY + categories.ENGINEER),
                     CompareOp = '==',
                     Value = 0,
@@ -332,7 +341,7 @@ function StartMission1()
         OpStrings.M1P2Title,
         OpStrings.M1P2Description,
         {
-            Units = ScenarioInfo.M1ResearchGroup,
+            Units = M1ResearchGroup,
             NumRequired = M1P2LabCapturedRequired,
             FlashVisible = true,
         }
@@ -457,7 +466,7 @@ function M1OnBaseTimer()
     LOG('debugMatt: Cybran Offensive Go!')
     ScenarioInfo.VarTable['M1CybranOffensive'] = true
     -- also start expanding base
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M1_Expansion_Base_Phase2_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M1_Expansion_Base_Phase2_D'..Difficulty), 'M1_Expansion_Base_Maintenance')
 end
 
 function M1Success()
@@ -488,11 +497,11 @@ function StartMission2()
     -- ScenarioFramework.CreateUnitDeathTrigger(M2OnCybranLeaderDeath, ScenarioInfo.CybranCDR)
 
     -- Overcharge manager
-    local cdrPlatoon = ArmyBrains[ScenarioInfo.Cybran]:MakePlatoon(' ', ' ')
-    ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
+    local cdrPlatoon = ArmyBrains[Cybran]:MakePlatoon(' ', ' ')
+    ArmyBrains[Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
     --import('/lua/ai/AIBehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
     cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
-    ArmyBrains[ScenarioInfo.Cybran]:DisbandPlatoon(cdrPlatoon)
+    ArmyBrains[Cybran]:DisbandPlatoon(cdrPlatoon)
 
     -- Outer defense
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Outer_Defense_D'..Difficulty)
@@ -502,13 +511,13 @@ function StartMission2()
 
     -- append difficulty info to make new master base maintenance template
 
-    AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'M2_Base_Maintenance')
+    AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Cybran], 'Cybran', 'M2_Base_Maintenance')
     -- Im maintaining difficulty across all levels in this base, but for easy, I only use it to build the
     -- TML when the timer ticks
     if (Difficulty > 1) then
         LOG('Debugmatt: difficulty'..Difficulty)
-        AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M2_Base_Premade_D'..Difficulty), 'M2_Base_Maintenance')
-        AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M2_Base_Constructed_D'..Difficulty), 'M2_Base_Maintenance')
+        AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M2_Base_Premade_D'..Difficulty), 'M2_Base_Maintenance')
+        AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M2_Base_Constructed_D'..Difficulty), 'M2_Base_Maintenance')
     end
 
 
@@ -666,7 +675,7 @@ end
 
 function M2OnCybranLeaderDeath(result,unit)
     LOG('debugMatt:Cybran Commander Destroyed')
-    ScenarioFramework.KillBaseInArea(ArmyBrains[ScenarioInfo.Cybran],{'M2_Cybran_Base_a','M2_Cybran_Base_b'})
+    ScenarioFramework.KillBaseInArea(ArmyBrains[Cybran],{'M2_Cybran_Base_a','M2_Cybran_Base_b'})
     ScenarioFramework.Dialogue(OpStrings.E04_M02_110)
     ScenarioFramework.CDRDeathNISCamera(unit, 7)
 
@@ -705,7 +714,7 @@ function M2UnlockCybranTML()
     -- Cybrans now start building TML
     -- Start timer for AntiMissle prompt
     ScenarioFramework.CreateTimerTrigger(M2OnAMDTimer, M2AMDTimer)
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('M2_TMLs'), 'M2_Base_Maintenance')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran], 'Cybran', ('M2_TMLs'), 'M2_Base_Maintenance')
 end
 
 function M2OnLabCaptured()
@@ -766,7 +775,7 @@ function M2OnTruckFoundTimer()
 
     -- this trigger is to start the attack timer after they move.
     ScenarioFramework.CreateAreaTrigger(M2OnTruckMoveOut, ScenarioUtils.AreaToRect('M2_Truck_Start'),
-    (categories.OPERATION), true, true, ArmyBrains[ScenarioInfo.Player], 1, true)
+        (categories.OPERATION), true, true, ArmyBrains[Player], 1, true)
 
 
 -- NIS of Truck Spawned
@@ -1038,7 +1047,7 @@ function M3OnRadarTimer(result)
             for k, spider in ScenarioInfo.M3SpiderbotPlatoon:GetPlatoonUnits() do
                 if EntityCategoryContains(categories.url0402, spider) then
                     spider:ToggleScriptBit('RULEUTC_StealthToggle')
-                    ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[ScenarioInfo.Player], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[ScenarioInfo.Cybran])
+                    ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[Player], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
                     break
                 end
             end
@@ -1050,7 +1059,7 @@ function M3OnRadarTimer(result)
             for k, lab in brackmansLabGroup do
                 -- instead of damage, lets try LOS
                 -- ScenarioFramework.CreateUnitDamagedTrigger(M3OnBrackmanLabDamaged, lab)
-                ScenarioFramework.CreateArmyIntelTrigger(M3OnBrackmanLabSpotted, ArmyBrains[ScenarioInfo.Player], 'LOSNow', lab, true, categories.ALLUNITS, true, ArmyBrains[ScenarioInfo.Cybran])
+                ScenarioFramework.CreateArmyIntelTrigger(M3OnBrackmanLabSpotted, ArmyBrains[Player], 'LOSNow', lab, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
             end
 
             -- ... and base defense. Spawn shields as separate group, so we can give them an upgraded shield
@@ -1113,7 +1122,7 @@ function M3OnBrackmanLabSpotted ()
 
     -- turn on escape trigger
     ScenarioInfo.M3EscapedEngineerTrigger = ScenarioFramework.CreateAreaTrigger(M3OnEngineerAtGate, ScenarioUtils.AreaToRect('M2_Escape_Area'),
-        (categories.url0309), true, false, ArmyBrains[ScenarioInfo.Cybran], 1, true)
+        (categories.url0309), true, false, ArmyBrains[Cybran], 1, true)
 
     ScenarioFramework.Dialogue(OpStrings.E04_M03_110)
         ScenarioInfo.M3S1 = Objectives.KillOrCapture(
@@ -1145,7 +1154,7 @@ end
 function M3OnBrackmanLabDestroyed (result, unit)
     LOG('debugMatt:Brackmans lab destroyed!')
     ScenarioFramework.Dialogue(OpStrings.E04_M03_100)
-    ScenarioFramework.KillBaseInArea(ArmyBrains[ScenarioInfo.Cybran],{'M3_Brackman_Base'})
+    ScenarioFramework.KillBaseInArea(ArmyBrains[Cybran],{'M3_Brackman_Base'})
 
 -- set the camera up for brackman lab destroyed and op not over
     local camInfo = {
@@ -1178,10 +1187,10 @@ function M3FrenzySpawnPlatoon()
     end
 
 
-    local frenzyPlatoon = ArmyBrains[ScenarioInfo.Cybran]:MakePlatoon(' ', ' ')
+    local frenzyPlatoon = ArmyBrains[Cybran]:MakePlatoon(' ', ' ')
     for i = 1,M3FrenzyPlatoonCount do
         local tempUnits = ScenarioUtils.CreateArmyGroup('Cybran', groupName)
-        ArmyBrains[ScenarioInfo.Cybran]:AssignUnitsToPlatoon(frenzyPlatoon, tempUnits, 'Attack', 'AttackFormation')
+        ArmyBrains[Cybran]:AssignUnitsToPlatoon(frenzyPlatoon, tempUnits, 'Attack', 'AttackFormation')
     end
 
     local spawnpoint = ScenarioUtils.MarkerToPosition('M3_Spawn_Point_' .. Random(1, 3)..'_'..Random(1, 4))
@@ -1199,7 +1208,7 @@ function M3OnEngineerAtGate()
     IssueMove(ScenarioInfo.M3EngineersPlatoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('M3_Engineer_Escape_Spot'))
 
     ScenarioInfo.M3EscapedEngineerTeleportTrigger = ScenarioFramework.CreateAreaTrigger(M3OnEngineerEscaped, ScenarioUtils.AreaToRect('M3_Engineer_Teleport'),
-        (categories.url0309), false, false, ArmyBrains[ScenarioInfo.Cybran], 1, true)
+        (categories.url0309), false, false, ArmyBrains[Cybran], 1, true)
 end
 
 function M3OnEngineerEscaped(units)
