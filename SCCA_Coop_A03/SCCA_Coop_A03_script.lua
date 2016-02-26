@@ -39,8 +39,8 @@ local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
 local Coop3 = ScenarioInfo.Coop3
-local uef = ScenarioInfo.UEF
-local eris = ScenarioInfo.Eris
+local UEF = ScenarioInfo.UEF
+local Eris = ScenarioInfo.Eris
 
 -- Dialogue Timers
 local M1VOTimer1 = 120
@@ -122,7 +122,7 @@ function OnPopulate(scenario)
 
     -- Give UEF vision of player base
     ScenarioInfo.UEFViz = ScenarioFramework.CreateVisibleAreaLocation(100,
-        ScenarioUtils.MarkerToPosition('Player'), 0, ArmyBrains[uef])
+        ScenarioUtils.MarkerToPosition('Player'), 0, ArmyBrains[UEF])
 end
 
 function OnStart(self)
@@ -150,7 +150,7 @@ function OnStart(self)
         categories.uab3202      -- T2 Sonar
     )
 
-    ScenarioFramework.AddRestriction(uef, categories.TECH3 +    -- T3
+    ScenarioFramework.AddRestriction(UEF, categories.TECH3 +    -- T3
                              categories.uea0204 +  -- Torpedo Bomber
                              categories.uel0203 +  -- Amphibious Tank
                              categories.ues0202)   -- Cruiser
@@ -162,13 +162,13 @@ function OnStart(self)
                                             'ShieldHeavy',
                                             'Teleporter'})
 
-    SetIgnorePlayableRect(uef, true)
-    SetIgnorePlayableRect(eris, true)
+    SetIgnorePlayableRect(UEF, true)
+    SetIgnorePlayableRect(Eris, true)
 
     -- Army colors
     ScenarioFramework.SetAeonColor(Player)
-    ScenarioFramework.SetUEFColor(uef)
-    ScenarioFramework.SetAeonAllyColor(eris)
+    ScenarioFramework.SetUEFColor(UEF)
+    ScenarioFramework.SetAeonAllyColor(Eris)
     local colors = {
         ['Coop1'] = {47, 79, 79}, 
         ['Coop2'] = {46, 139, 87}, 
@@ -279,28 +279,28 @@ function StartMission1()
         end
     end
 
-    platoon = ArmyBrains[eris]:MakePlatoon('', '')
+    platoon = ArmyBrains[Eris]:MakePlatoon('', '')
     for k, v in ScenarioInfo.ErisLandPatrol:GetPlatoonUnits() do
         if(not v:IsDead()) then
             currentHealth = v:GetHealth()
             originalHealth = v:GetBlueprint().Defense.Health
             unit = ScenarioFramework.GiveUnitToArmy(v, Player)
             unit:AdjustHealth(unit, currentHealth - originalHealth)
-            ArmyBrains[eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
+            ArmyBrains[Eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
     end
     platoon.PlatoonData = {}
     platoon.PlatoonData.PatrolChain = 'PlayerBase_Chain'
     ScenarioPlatoonAI.PatrolThread(platoon)
 
-    platoon = ArmyBrains[eris]:MakePlatoon('', '')
+    platoon = ArmyBrains[Eris]:MakePlatoon('', '')
     for k, v in ScenarioInfo.ErisNavyPatrol:GetPlatoonUnits() do
         if(not v:IsDead()) then
             currentHealth = v:GetHealth()
             originalHealth = v:GetBlueprint().Defense.Health
             unit = ScenarioFramework.GiveUnitToArmy(v, Player)
             unit:AdjustHealth(unit, currentHealth - originalHealth)
-            ArmyBrains[eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
+            ArmyBrains[Eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
     end
     platoon.PlatoonData = {}
@@ -370,7 +370,7 @@ function ErisLeaves()
         IssueTransportLoad({ScenarioInfo.ErisCDR}, ScenarioInfo.Transport)
         IssueTransportUnload({ScenarioInfo.Transport}, ScenarioUtils.MarkerToPosition('ErisDeath'))
         ScenarioFramework.CreateAreaTrigger(KillEris, ScenarioUtils.AreaToRect('ErisDeath'), categories.AEON,
-            true, false, ArmyBrains[eris], 11)
+            true, false, ArmyBrains[Eris], 11)
 
         ScenarioInfo.Escort:MoveToLocation(ScenarioUtils.MarkerToPosition('ErisDeath'), false)
     end
@@ -432,7 +432,7 @@ function FirstWave()
         ScenarioFramework.CreateTimerTrigger(FirstWave, AirWaveDelay)
     else
         ScenarioFramework.CreateAreaTrigger(FirstWaveDefeated, ScenarioUtils.AreaToRect('M1Area'), categories.ALLUNITS,
-            true, true, ArmyBrains[uef])
+            true, true, ArmyBrains[UEF])
     end
 end
 
@@ -442,7 +442,7 @@ function FirstWaveDefeated()
 
     -- Set up trigger to kill transports used in following waves
     ScenarioInfo.DestroyTrigger = ScenarioFramework.CreateAreaTrigger(DestroyUnit, ScenarioUtils.AreaToRect('ErisDeath'), categories.UEF,
-        false, false, ArmyBrains[uef])
+        false, false, ArmyBrains[UEF])
 end
 
 function FirstWaveDefeatedDialogue()
@@ -465,7 +465,7 @@ function SecondWave()
             local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Land_D' .. i, 'AttackFormation')
             local transport = ScenarioUtils.CreateArmyGroup('UEF', 'M1Wave' .. ScenarioInfo.SecondWave .. '_Transport_D' .. i)
             ScenarioFramework.AttachUnitsToTransports(landPlatoon:GetPlatoonUnits(), transport)
-            IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[uef], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
+            IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[UEF], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
             IssueMove(transport, ScenarioUtils.MarkerToPosition('ErisDeath'))
             landPlatoon.PlatoonData = {}
             landPlatoon.PlatoonData.PatrolChain = 'ErisLand_Chain'
@@ -475,7 +475,7 @@ function SecondWave()
         ScenarioFramework.CreateTimerTrigger(SecondWave, LandWaveDelay)
     else
         ScenarioFramework.CreateAreaTrigger(SecondWaveDefeated, ScenarioUtils.AreaToRect('M1Area'), categories.ALLUNITS,
-            true, true, ArmyBrains[uef])
+            true, true, ArmyBrains[UEF])
     end
 end
 
@@ -507,7 +507,7 @@ function ThirdWave()
                 local landPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Land_D' .. i, 'AttackFormation')
                 local transport = ScenarioUtils.CreateArmyGroup('UEF', 'M1Wave' .. ScenarioInfo.ThirdWave .. '_Transport_D' .. i)
                 ScenarioFramework.AttachUnitsToTransports(landPlatoon:GetPlatoonUnits(), transport)
-                IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[uef], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
+                IssueTransportUnload(transport, ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(ArmyBrains[UEF], ScenarioUtils.ChainToPositions('ErisLand_Chain'), 2))
                 IssueMove(transport, ScenarioUtils.MarkerToPosition('ErisDeath'))
                 landPlatoon.PlatoonData = {}
                 landPlatoon.PlatoonData.PatrolChain = 'ErisLand_Chain'
@@ -518,7 +518,7 @@ function ThirdWave()
         ScenarioFramework.CreateTimerTrigger(ThirdWave, NavalWaveDelay)
     else
         ScenarioFramework.CreateAreaTrigger(ThirdWaveDefeated, ScenarioUtils.AreaToRect('M1Area'), categories.ALLUNITS,
-            true, true, ArmyBrains[uef])
+            true, true, ArmyBrains[UEF])
     end
 end
 
@@ -571,8 +571,8 @@ function IntroMission2()
     ScenarioUtils.CreateArmyGroup('UEF', 'NavalBasePreBuilt_D' .. ScenarioInfo.Options.Difficulty)
     local navyPatrol = ScenarioUtils.CreateArmyGroup('UEF', 'NavalBasePatrol_D' .. ScenarioInfo.Options.Difficulty)
     for k, v in navyPatrol do
-        local platoon = ArmyBrains[uef]:MakePlatoon('','')
-        ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
+        local platoon = ArmyBrains[UEF]:MakePlatoon('','')
+        ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'NavyBaseSea_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -585,8 +585,8 @@ function IntroMission2()
     ScenarioInfo.ArnoldCDR:CreateEnhancement('HeavyAntiMatterCannon')
     ScenarioInfo.ArnoldCDR:CreateEnhancement('Shield')
     ScenarioFramework.CreateUnitDamagedTrigger(ArnoldDamaged1, ScenarioInfo.ArnoldCDR, .5)
-    ScenarioInfo.CDRPlatoon = ArmyBrains[uef]:MakePlatoon('','')
-    ArmyBrains[uef]:AssignUnitsToPlatoon(ScenarioInfo.CDRPlatoon, {ScenarioInfo.ArnoldCDR}, 'Attack', 'AttackFormation')
+    ScenarioInfo.CDRPlatoon = ArmyBrains[UEF]:MakePlatoon('','')
+    ArmyBrains[UEF]:AssignUnitsToPlatoon(ScenarioInfo.CDRPlatoon, {ScenarioInfo.ArnoldCDR}, 'Attack', 'AttackFormation')
     ScenarioInfo.CDRPlatoon:ForkAIThread(CDRAINavy)
     ScenarioInfo.CDRPlatoon.CDRData = {}
     ScenarioInfo.CDRPlatoon.CDRData.LeashPosition = 'UEFNavyBase'
@@ -625,7 +625,7 @@ function StartMission2()
             Requirements = {
                 {
                     Area = 'LandBase',
-                    ArmyIndex = uef,
+                    ArmyIndex = UEF,
                     Category = categories.UEF * categories.STRUCTURE - categories.WALL,
                     CompareOp = '==',
                     Value = 0,
@@ -664,7 +664,7 @@ function StartMission2()
             Requirements = {
                 {
                     Area = 'AirBase',
-                    ArmyIndex = uef,
+                    ArmyIndex = UEF,
                     Category = categories.UEF * categories.STRUCTURE - categories.WALL,
                     CompareOp = '==',
                     Value = 0,
@@ -703,7 +703,7 @@ function StartMission2()
             Requirements = {
                 {
                     Area = 'NavalBase',
-                    ArmyIndex = uef,
+                    ArmyIndex = UEF,
                     Category = categories.UEF * categories.STRUCTURE - categories.WALL,
                     CompareOp = '==',
                     Value = 0,
@@ -889,8 +889,8 @@ function IntroMission3()
     -- Naval Patrol
     local navalPatrol = ScenarioUtils.CreateArmyGroup('UEF', 'MainBaseNavyPatrol_D' .. ScenarioInfo.Options.Difficulty)
     for k, v in navalPatrol do
-        local platoon = ArmyBrains[uef]:MakePlatoon('', '')
-        ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
+        local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
+        ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'MainBaseNaval_Chain'
         platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
@@ -939,12 +939,12 @@ function StartMission3()
             IssueClearCommands({ScenarioInfo.ArnoldCDR})
             ScenarioInfo.CDRPlatoon:StopAI()
             for _, player in ScenarioInfo.HumanPlayers do
-                        SetAlliance(player, uef, 'Neutral')
-                        SetAlliance(uef, player, 'Neutral')
+                        SetAlliance(player, UEF, 'Neutral')
+                        SetAlliance(UEF, player, 'Neutral')
             end
             local units = ArmyBrains[Player]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
-            units = ArmyBrains[uef]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
+            units = ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
             PlayerWin()
         end
