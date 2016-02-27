@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Freedom',
-    description = 'Campaign Map: Not Intended for Multiplayer Play',
+    name = 'Cybran Mission 6 - Freedom',
+    description = 'Your Mission is to seize control of Black Sun and upload QAI\'s data-core directly into it\'s Control Center. Firing the weapon will then release both the Quantum Virus and the Liberation Matrix. The Gates will shut down. Everyone, everywhere will be free. There will be peace.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

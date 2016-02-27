@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Unlock',
-    description = 'Campaign Map: Not Intended for Multiplayer Play',
+    name = 'Cybran Mission 5 - Unlock',
+    description = 'Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes. We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probabillity the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

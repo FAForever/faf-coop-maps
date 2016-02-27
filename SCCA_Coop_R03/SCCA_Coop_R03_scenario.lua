@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Defrag',
+    name = 'Cybran Mission 3 - Defrag',
     description = 'The Aeon will defeat the UEF within 22 days. Secondary calculations show there is a 54.229 percent chance the UEF will fire Black Sun before they fall to the Aeon. Either outcome signals the end of the Cybran Nation.\nTime is against us. Perhaps Dr. Sweeney will be able to offer us some guidance. No doubt that the UEF misses one of its top scientists, but he\'s our guest now.',
     type = 'campaign_coop',
     starts = true,

@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Metal Shark',
+    name = 'UEF Mission 3 - Metal Shark',
     description = 'We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.\nColonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here.',
     type = 'campaign_coop',
     starts = true,

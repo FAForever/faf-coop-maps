@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Vanilla Campain - Mission 6',
+    name = 'Aeon Mission 6 - Beginnings',
     description = 'Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.',
     type = 'campaign_coop',
     starts = true,

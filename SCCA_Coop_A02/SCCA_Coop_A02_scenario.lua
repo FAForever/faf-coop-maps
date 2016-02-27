@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Vanilla Campain - Mission 2',
+    name = 'Aeon Mission 2 - Machine Purge',
     description = 'This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans.\nZeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory.\nYou will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population.\nLeave none alive.',
     type = 'campaign_coop',
     starts = true,

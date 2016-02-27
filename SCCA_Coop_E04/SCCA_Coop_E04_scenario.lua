@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Vaccine',
+    name = 'UEF Mission 4 - Vaccine',
     description = 'We have an emergency. Our techs have determined the Cybrans are behind the recent problems with our Gates.\nSomehow, they managed to hack into the Quantum Gate Network and install a virus.\nIt\'s spreading throughout the entire system, and the Cybrans could use it to shut down specific Gates. If that happens, they will have us cornered and isolated.\nIntel has managed to decrypt a number of virus-related transmissions, and they are originating from Minerva.',
     type = 'campaign_coop',
     starts = true,

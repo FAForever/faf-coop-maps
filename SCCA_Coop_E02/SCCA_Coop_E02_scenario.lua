@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Snow Blind',
+    name = 'UEF Mission 2 - Snow Blind',
     description = 'While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.',
     type = 'campaign_coop',
     starts = true,

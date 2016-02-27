@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Artifact',
+    name = 'Cybran Mission 2 - Artifact',
     description = 'I have a special mission for you. Oh yes. QAI needs to accelerate its development of the Quantum Virus. Must finish before Black Sun is deployed. QAI requires a specific piece of Seraphim technology, a Quantum Interface Device. Its...core is Seraphim tech. Amazing technology. Oh yes. The Seraphim were the precursors to the Aeon.',
     type = 'campaign_coop',
     starts = true,
