@@ -106,6 +106,7 @@ function OnPopulate()
     end
 
     -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(1000)
     SetArmyUnitCap(Seraphim, 750)
     SetArmyUnitCap(Rhiza, 280)
     SetArmyUnitCap(Princess, 250)

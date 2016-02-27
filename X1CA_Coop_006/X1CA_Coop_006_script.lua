@@ -118,6 +118,7 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
+    ScenarioFramework.SetSharedUnitCap(1000)
     SetArmyUnitCap(Seraphim, 1000)
 
     -- Disable friendly AI sharing resources to players

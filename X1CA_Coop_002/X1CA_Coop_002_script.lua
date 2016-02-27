@@ -103,6 +103,7 @@ function OnPopulate()
     end
 
     -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(1000)
     SetArmyUnitCap(Order, 400)
     SetArmyUnitCap(QAI, 430) --630
     SetArmyUnitCap(Loyalist, 170) --370
