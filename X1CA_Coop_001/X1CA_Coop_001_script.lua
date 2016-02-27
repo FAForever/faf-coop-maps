@@ -258,9 +258,6 @@ function OnPopulate(scenario)
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFAlly1Color(UEF)
-    WARN("CIVVIES")
-    WARN(Civilians)
-    WARN(ScenarioInfo.Civilian)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
     local colors = {
         ['Coop1'] = {250, 250, 0}, 
@@ -275,6 +272,7 @@ function OnPopulate(scenario)
     end
 
     -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(1000)
     SetArmyUnitCap(Seraphim, 1000)
     SetArmyUnitCap(Order, 1000)
     SetArmyUnitCap(UEF, 1500)
