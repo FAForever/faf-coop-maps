@@ -4686,7 +4686,7 @@ Scenario = {
                                 Orientation = { 0.000000, 5.497787, 0.000000 },
                             },
                             ['UNIT_5305'] = {
-                                type = 'ueb0301',
+                                type = 'zeb9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 450.500000, 25.000000, 628.500000 },
@@ -4994,7 +4994,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_5311'] = {
-                                type = 'ueb0302',
+                                type = 'zeb9602',
                                 orders = '',
                                 platoon = '',
                                 Position = { 450.500000, 25.000000, 604.500000 },
@@ -5106,7 +5106,7 @@ Scenario = {
                                 Orientation = { 0.000000, 3.926991, 0.000000 },
                             },
                             ['UNIT_5307'] = {
-                                type = 'ueb0301',
+                                type = 'zeb9601',
                                 orders = '',
                                 platoon = '',
                                 Position = { 450.500000, 25.000000, 614.500000 },
