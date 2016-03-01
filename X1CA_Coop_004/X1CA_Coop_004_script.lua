@@ -10,7 +10,6 @@
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local M1SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m1seraphimai.lua')
-local M2DostyaAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m2dostyaai.lua')
 local M2SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m2seraphimai.lua')
 local M3SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
@@ -92,8 +91,8 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
-    SetArmyUnitCap(Dostya, 400)
-    SetArmyUnitCap(Seraphim, 700)
+    SetArmyUnitCap(Dostya, 200)
+    SetArmyUnitCap(Seraphim, 800)
 
     ----------------
     -- M1 Seraphim AI
@@ -289,6 +288,7 @@ function IntroMission1()
 end
 
 function StartMission1()
+    ForkThread(CheatEconomy)
 
     local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.AIRSTAGINGPLATFORM + categories.FACTORY + categories.MASSEXTRACTION, false)
     ---------------------------------------------
@@ -325,24 +325,6 @@ function StartMission1()
 
     -- A single taunt from Oum, for M1
     SetupOumEoshiM1Taunt()
-end
-
-function SecondaryOBJ1()
-    ScenarioInfo.M1S1 = Objectives.CategoriesInArea(
-        'secondary',                    -- type
-        'incomplete',                   -- status
-        OpStrings.X04_M01_OBJ_010_050,  -- title
-        OpStrings.X04_M01_OBJ_010_055,  -- description
-        'kill',
-        {                               -- target
-            MarkUnits = true,
-            Requirements = {
-                {Area = 'SeraphForwardNorthArea', Category = categories.FACTORY, CompareOp = '<=', Value = 0, ArmyIndex = Seraphim},
-                {Area = 'SeraphForwardSouthArea', Category = categories.FACTORY, CompareOp = '<=', Value = 0, ArmyIndex = Seraphim},
-            },
-        }
-   )
-    table.insert(AssignedObjectives, ScenarioInfo.M1S1)
 end
 
 function DostyaBeginMissionDialogue()
@@ -428,12 +410,6 @@ function IntroMission2()
             M2SeraphimAI.SeraphimM2LowerAI()
             M2SeraphimAI.SeraphimM2UpperAI()
 
-            --------------
-            -- M2 Dostya AI
-            --------------
-            M2DostyaAI.DostyaBaseAI()
-            M2DostyaAI.DostyaAirbaseAI()
-
             --------------------------
             -- Seraphim Initial Patrols
             --------------------------
@@ -473,15 +449,9 @@ function IntroMission2()
             -------------
             -- Dostya Base
             -------------
---       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Base')
---       ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Wreckage', true)
-
-        ---------------------
-        -- Dostya ACU Upgrades
-        ---------------------
-        ScenarioInfo.DostyaCDR:CreateEnhancement('T3Engineering')
-        ScenarioInfo.DostyaCDR:CreateEnhancement('MicrowaveLaserGenerator')
-        ScenarioInfo.DostyaCDR:CreateEnhancement('ResourceAllocation')
+            ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Base')
+            ScenarioUtils.CreateArmyGroup('Dostya', 'M2_Dostya_Base_Defenders')
+            ScenarioUtils.CreateArmyGroup('Dostya', 'Dostya_Wreckage', true)
 
             ScenarioFramework.Dialogue(OpStrings.X04_M02_001, IntroMission2NIS)
         end
@@ -490,8 +460,7 @@ end
 
 function IntroMission2NIS()
 
-    ScenarioFramework.SetPlayableArea('DostyaDeath')
--- ScenarioFramework.SetPlayableArea('M2Area', false)
+    ScenarioFramework.SetPlayableArea('M2Area', false)
     -- Show the jammer
     local visMarker = ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioInfo.Jammer:GetPosition(), 2, ArmyBrains[Player])
 
@@ -778,7 +747,7 @@ function StartMission2()
     -- An expansion on the jammer topic by Rhiza, intended to be post NIS.
     -- Delayed a tad here, so we dont get things to back-to-back
     ScenarioFramework.CreateTimerTrigger(M2OpeningMoreInfoDialogue, 6)
-    ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 120)
+    ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 300)
 
     if(LeaderFaction == 'cybran') then
         ScenarioFramework.CreateTimerTrigger(M2PingEvent, 600)
@@ -798,10 +767,10 @@ end
 
 function DostyaAirAttack()
     if(ScenarioInfo.MissionNumber == 2) then
---   local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Dostya', 'M2_Dostya_AirAttack_' .. Random(1, 3) .. '_D' .. Difficulty, 'GrowthFormation')
---   ScenarioFramework.PlatoonPatrolChain(units, 'M2_Dostya_AirAttack_' .. Random(1, 2) .. '_Chain')
---
---   ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 60)
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Dostya', 'M2_Dostya_AirAttack_' .. Random(1, 3) .. '_D' .. Difficulty, 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(units, 'M2_Dostya_AirAttack_' .. Random(1, 2) .. '_Chain')
+
+    ScenarioFramework.CreateTimerTrigger(DostyaAirAttack, 300)
     end
 end
 
@@ -861,7 +830,7 @@ function AttackDostya()
 end
 
 function IntroMission3NIS()
--- ScenarioFramework.SetPlayableArea('DostyaDeath')
+    ScenarioFramework.SetPlayableArea('DostyaDeath')
 
     ScenarioInfo.NIS3_VisMarker = ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioInfo.DostyaCDR:GetPosition(), 0, ArmyBrains[Player])
     Cinematics.EnterNISMode()
@@ -938,8 +907,6 @@ function KillDostya()
         ScenarioInfo.DostyaCDR:SetCanBeKilled(true)
         ScenarioInfo.DostyaCDR:Kill()
     end
-
-    M2DostyaAI.DisableBase()
 end
 
 function DostyaDeath()
@@ -977,11 +944,6 @@ function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
     SetArmyUnitCap(Seraphim, 900)
-
-    ----------------
-    -- M3 Dostya AI
-    ----------------
-    M2DostyaAI.DostyaExperimentals()
 
     ----------------
     -- M3 Seraphim AI
@@ -1126,6 +1088,16 @@ function IntroMission3()
     ScenarioUtils.CreateArmyGroup('SeraphimSecondary', 'M3_Secondary_DefenseSwap_D' .. Difficulty)
 
     StartMission3()
+end
+
+function CheatEconomy()
+    ArmyBrains[Seraphim]:GiveStorage('MASS', 10000)
+    ArmyBrains[Seraphim]:GiveStorage('ENERGY', 300000)
+    while(true) do
+        ArmyBrains[Seraphim]:GiveResource('MASS', 10000)
+        ArmyBrains[Seraphim]:GiveResource('ENERGY', 250000)
+        WaitSeconds(1)
+    end
 end
 
 function M3Experimentals()
@@ -1560,7 +1532,7 @@ function StartMission3()
         OpStrings.X04_M03_OBJ_010_010,  -- title
         OpStrings.X04_M03_OBJ_010_020,  -- description
         {                               -- target
-            Timer = 2400,
+            Timer = 1200,
             ExpireResult = 'complete',
         }
    )
@@ -1578,9 +1550,9 @@ function StartMission3()
         {{StatType = 'Units_Active', CompareType = 'LessThanOrEqual', Value = 0, Category = categories.xsb2305 + categories.FACTORY}})
 
     -- Play update at 15, 10, and ~5 minutes
-    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown3, 2160)
-    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown2, 1620)
-    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown1, 1200)
+    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown3, 900)
+    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown2, 600)
+    ScenarioFramework.CreateTimerTrigger(M3RecallCountdown1, 330)
 
     if(Difficulty > 1) then
         ScenarioFramework.CreateTimerTrigger(Experimental1Attack, 1134)  -- ESE
@@ -1593,9 +1565,9 @@ function StartMission3()
     ScenarioFramework.CreateTimerTrigger(Experimental6Attack, 1150)  -- SE
     ScenarioFramework.CreateTimerTrigger(Experimental8Attack, 1140)  -- S
     ScenarioFramework.CreateTimerTrigger(Experimental9Attack, 1055)  -- W
-    ScenarioFramework.CreateTimerTrigger(M3PreNukeDialogue, 2370)    -- this should slightly preceed the nuke launch
-    ScenarioFramework.CreateTimerTrigger(M3LaunchNukes, 2378)
-    ScenarioFramework.CreateTimerTrigger(OutroNIS, 2395)
+    ScenarioFramework.CreateTimerTrigger(M3PreNukeDialogue, 1170)    -- this should slightly preceed the nuke launch
+    ScenarioFramework.CreateTimerTrigger(M3LaunchNukes, 1178)
+    ScenarioFramework.CreateTimerTrigger(OutroNIS, 1195)
 
     if(Difficulty == 2) then
         ScenarioFramework.CreateTimerTrigger(D2ExperimentalAttack1, 300)
