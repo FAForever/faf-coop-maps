@@ -60,10 +60,6 @@ local M2AttacksBecomeLargeSizedAfter = 5
 local M3AttacksBecomeMediumSizedAfter = 2 -- currently unused
 local M3AttacksBecomeLargeSizedAfter = 5 -- currently unused
 
--- What should the player's army unit cap be in each mission?
-local M1ArmyCap = 300
-local M2ArmyCap = 400
-local M3ArmyCap = 500
 
 -- This is a bit complicated:
 -- Route 1 is the west-most route to the player
@@ -258,9 +254,6 @@ local AllyResearch = ScenarioInfo.AllyResearch
 local AllyCivilian = ScenarioInfo.AllyCivilian
 local AeonNeutral = ScenarioInfo.AeonNeutral
 
--- How many units can the Aeon army have at maximum?
-local AeonUnitCap = 900
-
 -- How often should we check the health of the research building to
 -- see if we should give warnings about its health level
 local CheckResearchFacilityHealthInterval = 10
@@ -434,7 +427,7 @@ end
 
 function OnStart(self)
     -- This override will make sure that the Aeon army doesn't run into the unit cap
-    SetArmyUnitCap(Aeon, AeonUnitCap)
+    SetArmyUnitCap(Aeon, 900)
 
     -- Restrict the map
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
@@ -863,6 +856,7 @@ end
 function BeginMission1()
     ScenarioInfo.VarTable['Mission1'] = true
 
+    ScenarioFramework.SetSharedUnitCap(300)
 
     -- Bonus Objective 1
     -- ScenarioFramework.CreateArmyUnitCategoryVeterancyTrigger(KilledBonus, ArmyBrains[ Player ], categories.uea0203, BonusVeterancyLevelNeeded)
@@ -1498,6 +1492,7 @@ function BeginMission2()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
     ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
 
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- Unlock the T2 land factory
     AddTechMission2()
@@ -1980,6 +1975,7 @@ function TruckDied()
 end
 
 function BeginMission3()
+    ScenarioFramework.SetSharedUnitCap(660)
 
     -- Set the playable area
     ScenarioFramework.SetPlayableArea(Rect(0, 0, 512, 512))

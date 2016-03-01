@@ -136,6 +136,9 @@ function OnStart(self)
 
     SetIgnorePlayableRect(Aeon, true)
 
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(300)
+
     -- Army Colors
     ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetAeonColor(Aeon)
@@ -571,6 +574,7 @@ end
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- Arnold's black box
     ScenarioInfo.ArnoldBox = ScenarioUtils.CreateArmyUnit('Arnold', 'Arnold_Black_Box')
@@ -709,6 +713,7 @@ end
 function IntroMission4()
     ScenarioInfo.MissionNumber = 4
 
+    ScenarioFramework.SetSharedUnitCap(660)
 
     -- Aeon Base
     ScenarioUtils.CreateArmyGroup('Aeon', 'M4_Aeon_ArtileryIsland')

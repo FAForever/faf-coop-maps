@@ -335,6 +335,7 @@ function OnPopulate(scenario)
     ScenarioInfo.Gate:SetUnSelectable(true)
 
     -- ! Set army unit caps
+    ScenarioFramework.SetSharedUnitCap(720)
     SetArmyUnitCap(Aeon, 500)
     SetArmyUnitCap(City, 125)
 
