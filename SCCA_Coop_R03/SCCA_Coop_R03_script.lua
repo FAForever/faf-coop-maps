@@ -312,9 +312,7 @@ end
 function StartMission1()
     -- Begin scenario Scripting
     -- Initial dialog from Ops
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap (player, 300)
-    end
+    ScenarioFramework.SetSharedUnitCap(300)
     SetupM1Triggers()
     GiveMission1Tech()
     ScenarioFramework.CreateTimerTrigger(InitialBerryTaunt, M1BerryInitialTauntDelay)
@@ -807,9 +805,7 @@ end
 
 function StartMission2()
     ScenarioInfo.MissionNumber = 2
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap (player, 400)
-    end
+    ScenarioFramework.SetSharedUnitCap(480)
     -- ! Expand the map area
     ScenarioFramework.SetPlayableArea('M2_PlayableArea')
 
@@ -1165,9 +1161,7 @@ end
 -- === MISSION 3 FUNCTIONS === #
 
 function StartMission3()
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap (player, 500)
-    end
+    ScenarioFramework.SetSharedUnitCap(660)
     for k, truck in ScenarioInfo.EscapeConvoy do
         truck:Destroy() -- clean up convoy
     end

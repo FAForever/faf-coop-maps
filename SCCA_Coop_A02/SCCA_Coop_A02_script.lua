@@ -69,14 +69,6 @@ local TauntTable = {
 -- Local Tuning Variables
 ------------------------
 
--- What should the player's army unit cap be in each mission?
-local M1ArmyCap = 300
-local M2ArmyCap = 400
-local M3ArmyCap = 500
-
--- The computer's unit cap
-local CybranUnitCap = 1000
-
 -- How many of these are on the map (for a bonus objective)
 -- local NumberOfHydrocarbonSpots = 13
 
@@ -282,7 +274,7 @@ function OnStart(self)
     ScenarioInfo.Extractor2 = ScenarioUtils.CreateArmyUnit('Cybran', 'Extractor2')
 
     -- This override will make sure that the Cybran army doesn't run into the unit cap
-    SetArmyUnitCap(Cybran, CybranUnitCap)
+    SetArmyUnitCap(Cybran, 1000)
 
     SetIgnorePlayableRect(Cybran, true)
     SetIgnorePlayableRect(NeutralCybran, true)
@@ -330,6 +322,7 @@ function OnStart(self)
     ScenarioInfo.VarTable['Mission1'] = true
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(300)
 
     -- ScenarioInfo.Mission1ObjectiveGroup = Objectives.CreateGroup('Mission 1 Objectives', EndMission1)
 
@@ -693,6 +686,7 @@ function BeginMission2()
     AddTechMission2()
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- ScenarioInfo.Mission2ObjectiveGroup = Objectives.CreateGroup('Mission 2 Objectives')
 
@@ -1042,6 +1036,7 @@ end
 function BeginMission3()
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(660)
 
     -- Spawn the bases
     ScenarioInfo.WestBase = ScenarioUtils.CreateArmyGroup('Cybran', AdjustForDifficulty('M3_West_Base'))

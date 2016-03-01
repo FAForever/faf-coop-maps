@@ -109,12 +109,6 @@ local M3ArmyCap = 500
 -- How many units need to be killed for bonus objective #1?
 -- local M1B1KillAmount = 300 # more than this number
 
--- The computer's unit cap
-local CybranUnitCap = 1000
-local AeonUnitCap = 1000
-local UEFUnitCap = 1000
-local NeutralUnitCap = 1000
-
 if Difficulty == 1 then
     ScenarioInfo.VarTable['M2EngineerCount'] = 8
     ScenarioInfo.VarTable['M2SpiderbotEngineerCount'] = 1
@@ -344,10 +338,10 @@ function OnStart(self)
     end
 
     -- This override will make sure that the Cybran army doesn't run into the unit cap
-    SetArmyUnitCap(Cybran, CybranUnitCap)
-    SetArmyUnitCap(Aeon, AeonUnitCap)
-    SetArmyUnitCap(UEF, UEFUnitCap)
-    SetArmyUnitCap(Neutral, NeutralUnitCap)
+    SetArmyUnitCap(Cybran, 1000)
+    SetArmyUnitCap(Aeon, 1000)
+    SetArmyUnitCap(UEF, 1000)
+    SetArmyUnitCap(Neutral, 1000)
 
     SetIgnorePlayableRect(UEF, true)
     SetIgnorePlayableRect(Cybran, true)
@@ -385,6 +379,7 @@ function OnStart(self)
     -- If needed, take away units that the computer shouldn't have access to
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- The control center that the player will be attempting to capture
     ScenarioInfo.BlackSunControlCenter = ScenarioUtils.CreateArmyUnit('Neutral', 'Black_Sun_Control_Center')
@@ -723,6 +718,7 @@ function BeginMission2()
     AddTechMission2()
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(660)
 
     ScenarioInfo.Mission2ObjectiveGroup = Objectives.CreateGroup('Mission 2 Objectives', EndMission2)
 
@@ -964,6 +960,7 @@ end
 function BeginMission3()
 
     -- Set the maximum number of units that the player is allowed to have
+    ScenarioFramework.SetSharedUnitCap(720)
 
     -- Create the wreckage of the UEF base that was "defeated" during mission 2
     ScenarioUtils.CreateArmyGroup('UEF', 'M3_Wreckage', true)

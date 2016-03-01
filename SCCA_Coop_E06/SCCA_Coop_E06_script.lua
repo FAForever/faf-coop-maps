@@ -124,6 +124,7 @@ function OnPopulate(scen)
     ScenarioFramework.SetUEFAllyColor(Component)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetAeonColor(Aeon)
+
     local colors = {
         ['Coop1'] = {67, 110, 238}, 
         ['Coop2'] = {97, 109, 126}, 
@@ -135,7 +136,6 @@ function OnPopulate(scen)
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
-
     -- Player Army
     ScenarioUtils.CreateArmyGroup('Player', 'Naval_Base')
     ScenarioUtils.CreateArmyGroup('Player', 'Black_Sun_Defenses')
@@ -271,6 +271,9 @@ function OnPopulate(scen)
     end
 
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.ues0401)
+
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(720)
 
     -- NIS Units
         -- Components
@@ -1061,22 +1064,12 @@ function EndMission2()
     end
 end
 
-
-
-
-
-
-
-
-
-
 -- === MISSION 3 FUNCTIONS === #
 function StartMission3()
     if ScenarioInfo.MissionNumber ~= 3 then
         for k,v in ScenarioInfo.BlackSunCannon do
             v:SetWorkProgress(.01)
         end
-        SetArmyUnitCap(1, 500)
         ScenarioFramework.SetPlayableArea('M2_Playable_Area_2')
         ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
         ScenarioInfo.MissionNumber = 3

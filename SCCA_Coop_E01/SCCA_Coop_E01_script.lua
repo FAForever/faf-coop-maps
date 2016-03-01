@@ -100,6 +100,9 @@ function OnStart(self)
                                             'TacticalMissile',
                                             'TacticalNukeMissile',
                                             'Teleporter'})
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(300)
+
     -- Army Colors
     ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetUEFAllyColor(Arnold)
@@ -525,6 +528,9 @@ end
 -----------
 function IntroMission5()
     ScenarioInfo.MissionNumber = 5
+
+    ScenarioFramework.SetSharedUnitCap(480)
+
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.uel0101 + -- Land Scout
         categories.uel0103 + -- Mobile Light Artillery
@@ -758,6 +764,9 @@ end
 -----------
 function IntroMission7()
     ScenarioInfo.MissionNumber = 7
+
+    ScenarioFramework.SetSharedUnitCap(660)
+
     ScenarioFramework.Dialogue(OpStrings.E01_M06_020)
 
     ScenarioFramework.RemoveRestrictionForAllHumans(

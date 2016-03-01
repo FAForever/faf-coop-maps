@@ -208,12 +208,10 @@ function BeginOperation()
     -- Dialogue (build cats with dialogue after delay)
     ScenarioInfo.MissionNumber = 1
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 250)
-    end
+    ScenarioFramework.SetSharedUnitCap(300)
 
-    SetArmyUnitCap(2, 700)
-    SetArmyUnitCap(3, 700)
+    SetArmyUnitCap(Aeon, 500)
+    SetArmyUnitCap(UEF, 500)
 
     ScenarioFramework.CreateTimerTrigger(BeginningObjectives, 10)
     ScenarioFramework.CreateTimerTrigger(BeginningDialogue, 7)
@@ -626,12 +624,8 @@ function BeginPart2()
     ScenarioUtils.CreateArmyGroup('Wreckage_Holding' ,'Part2_UEF_Wreckage', true)
 
     ScenarioInfo.MissionNumber = 6
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 400)
-    end
 
-    SetArmyUnitCap(2, 500)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- Create units, objs
     Part2CreateSymbionts()
@@ -849,11 +843,7 @@ end
 --------------
 
 function BeginPart3()
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 500)
-    end
-    SetArmyUnitCap(2, 500)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(660)
     ScenarioInfo.MissionNumber = 7
 
     -- Pause slightly before we assign obj's and do dialogue etc.

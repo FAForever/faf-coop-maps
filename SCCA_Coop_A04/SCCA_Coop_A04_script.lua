@@ -268,7 +268,7 @@ function BPlayerBuildBombers()
 end
 
 function OnStart(self)
-    SetArmyUnitCap(1, 300)
+    ScenarioFramework.SetSharedUnitCap(300)
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
     ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', IntroNIS, 4)
 end
@@ -344,7 +344,7 @@ function StartMission1()
     -- Set stuff up
     ScenarioInfo.MissionNumber = 1
     ScenarioFramework.Dialogue(OpStrings.A04_M01_010, M1RevealNexusObjective)
-    --SetArmyUnitCap('Player', 400)
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- === Spawn units === #
     local blockadeDestroyers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_Destroyer_Blockade_D'..DiffLevel,
@@ -636,7 +636,7 @@ end
 
 -- === MISSION TWO FUNCTIONS === #
 function StartMission2()
-    SetArmyUnitCap(1, 500)
+    ScenarioFramework.SetSharedUnitCap(660)
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
     ScenarioFramework.Dialogue(OpStrings.A04_M02_010, M2RevealCaptureMainframe)
@@ -769,7 +769,6 @@ end
 function M2MainframeCaptured(unit, captor)
     ScenarioInfo.Mainframe = unit
     ScenarioInfo.MainframeCaptured = true
-    SetArmyUnitCap('Player', 500)
     ScenarioFramework.CreateUnitDeathTrigger(M2MainframeDestroyed, ScenarioInfo.Mainframe)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2MainframeDestroyed, ScenarioInfo.Mainframe)
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2MainframeCaptured, ScenarioInfo.Mainframe)
