@@ -24702,7 +24702,7 @@ Scenario = {
                                 Orientation = { 0.000000, 1.474803, 0.000000 },
                             },
                             ['UNIT_1458'] = {
-                                type = 'uab1302',
+                                type = 'uab1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 90.500000, 21.000000, 812.500000 },
@@ -24765,7 +24765,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1460'] = {
-                                type = 'uab1302',
+                                type = 'uab1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 65.500000, 21.000000, 882.500000 },
@@ -24849,14 +24849,14 @@ Scenario = {
                                 Orientation = { 0.000000, -2.748893, 0.000000 },
                             },
                             ['UNIT_1461'] = {
-                                type = 'uab1302',
+                                type = 'uab1202',
                                 orders = '',
                                 platoon = '',
                                 Position = { 69.500000, 21.000000, 916.500000 },
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1457'] = {
-                                type = 'uab1302',
+                                type = 'uab1202',
                                 orders = '',
                                 platoon = '',
                                 Position = { 71.500000, 21.000000, 877.500000 },
@@ -24919,7 +24919,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_2041'] = {
-                                type = 'uab0201',
+                                type = 'zab9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 79.500000, 21.000000, 852.500000 },
@@ -25052,7 +25052,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_2057'] = {
-                                type = 'uab0201',
+                                type = 'zab9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 132.500000, 21.000000, 889.500000 },
@@ -25367,7 +25367,7 @@ Scenario = {
                                 Orientation = { 0.000000, 2.984513, 0.000000 },
                             },
                             ['UNIT_2056'] = {
-                                type = 'uab0201',
+                                type = 'zab9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 148.500000, 21.000000, 889.500000 },
@@ -25409,7 +25409,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_2079'] = {
-                                type = 'uab0201',
+                                type = 'zab9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 202.500000, 21.000000, 827.500000 },
@@ -25423,7 +25423,7 @@ Scenario = {
                                 Orientation = { 0.000000, -2.644173, 0.000000 },
                             },
                             ['UNIT_1459'] = {
-                                type = 'uab1302',
+                                type = 'uab1202',
                                 orders = '',
                                 platoon = '',
                                 Position = { 147.500000, 21.000000, 875.500000 },
@@ -25472,7 +25472,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1455'] = {
-                                type = 'uab1302',
+                                type = 'uab1202',
                                 orders = '',
                                 platoon = '',
                                 Position = { 135.500000, 21.000000, 848.500000 },
@@ -25584,7 +25584,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.951204, 0.000000 },
                             },
                             ['UNIT_2070'] = {
-                                type = 'uab0201',
+                                type = 'zab9501',
                                 orders = '',
                                 platoon = '',
                                 Position = { 189.500000, 21.000000, 841.500000 },
@@ -25605,7 +25605,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1462'] = {
-                                type = 'uab1302',
+                                type = 'uab1202',
                                 orders = '',
                                 platoon = '',
                                 Position = { 128.500000, 21.000000, 914.500000 },
@@ -25661,7 +25661,7 @@ Scenario = {
                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                             },
                             ['UNIT_1456'] = {
-                                type = 'uab1302',
+                                type = 'uab1103',
                                 orders = '',
                                 platoon = '',
                                 Position = { 56.500000, 21.000000, 855.500000 },
@@ -26713,7 +26713,7 @@ Scenario = {
                                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                                             },
                                                             ['UNIT_108'] = {
-                                                                type = 'uab1302',
+                                                                type = 'uab1202',
                                                                 orders = '',
                                                                 platoon = '',
                                                                 Position = { 133.500000, 21.000000, 930.500000 },
@@ -26734,7 +26734,7 @@ Scenario = {
                                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                                             },
                                                             ['UNIT_1031'] = {
-                                                                type = 'uab1302',
+                                                                type = 'uab1202',
                                                                 orders = '',
                                                                 platoon = '',
                                                                 Position = { 160.500000, 21.000000, 951.500000 },
