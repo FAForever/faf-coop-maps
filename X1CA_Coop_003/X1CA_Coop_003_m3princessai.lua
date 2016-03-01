@@ -32,8 +32,13 @@ function PrincessBaseAI()
     -- Princess Base
     ---------------
     PrincessBase:InitializeDifficultyTables(ArmyBrains[Princess], 'M3_Princess_Base', 'Princess_Base', 150, {M3_Princess_Base = 100})
-    PrincessBase:StartNonZeroBase({12, 4})
-    PrincessBase:SetMaximumConstructionEngineers(8)
+    PrincessBase:StartNonZeroBase({8, 4})
+    PrincessBase:SetMaximumConstructionEngineers(4)
+
+    ForkThread(function()
+        WaitSeconds(1)
+        PrincessBase:AddBuildGroup('M3_Princess_Support_Factories', 100, true)
+    end)
 
     PrincessBase:AddBuildGroupDifficulty('M3_Princess_Defense', 90)
 

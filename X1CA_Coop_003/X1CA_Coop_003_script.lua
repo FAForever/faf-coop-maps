@@ -232,8 +232,6 @@ function OnPopulate()
     -------------
     M1RhizaAI.M1RhizaBaseAI()
 
-    ForkThread(CheatEcoRhiza)
-
     -----------------------
     -- Rhiza Initial Patrols
     -----------------------
@@ -261,16 +259,6 @@ function OnPopulate()
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
 end 
-
-function CheatEcoRhiza()
-    ArmyBrains[3]:GiveStorage('MASS', 10000)
-    ArmyBrains[3]:GiveStorage('ENERGY', 10000)
-    while(true) do
-        ArmyBrains[3]:GiveResource('MASS', 10000)
-        ArmyBrains[3]:GiveResource('ENERGY', 10000)
-        WaitSeconds(1)
-    end
-end
 
 function OnStart()
     --------------------

@@ -242,6 +242,11 @@ function SeraphimM3SouthBaseAI()
     SeraphimM3SouthBase:SetActive('AirScouting', true)
     SeraphimM3SouthBase:SetBuild('Defenses', false)
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3SouthBase:AddBuildGroup('M3_South_Base_Support_Factories', 100, true)
+    end)
+
     SeraphimM3SouthBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM3SouthBase_ExperimentalLand')
     SeraphimM3SouthBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM3SouthBase_ExperimentalAir')
     SeraphimM3SouthBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'SeraphimM3SouthBase_ExperimentalNaval')

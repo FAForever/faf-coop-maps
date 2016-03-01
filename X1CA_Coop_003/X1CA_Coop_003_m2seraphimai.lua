@@ -32,7 +32,7 @@ function SeraphimM2NorthBaseAI()
     -- Seraphim M2 North Base
     ------------------------
     SeraphimM2NorthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_North_Base', 'Seraphim_M2_North_Base', 220, {M2_Seraph_North_Base = 100})
-    SeraphimM2NorthBase:StartNonZeroBase({{5, 9, 14}, {4, 8, 13}})
+    SeraphimM2NorthBase:StartNonZeroBase({{4, 8, 13}, {4, 8, 13}})
     SeraphimM2NorthBase:SetActive('AirScouting', true)
     SeraphimM2NorthBase:SetBuildAllStructures(false)
 
@@ -101,6 +101,7 @@ function ExperimentalFinished(unit)
 end
 
 function SeraphimM2NorthBaseExperimentals()
+    --[[
     local opai = nil
 
     local NorthYthPatrol = {
@@ -123,6 +124,7 @@ function SeraphimM2NorthBaseExperimentals()
             Retry = true,
         }
     )
+    ]]--
 
     -- number of engineers to use
     local engineers = 6
@@ -518,7 +520,7 @@ function SeraphimM2SouthBaseAI()
     -- Seraphim M2 South Base
     ------------------------
     SeraphimM2SouthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_South_Base', 'Seraphim_M2_South_Base', 150, {M2_Seraph_South_Base = 100})
-    SeraphimM2SouthBase:StartNonZeroBase({{8, 12, 16}, {6, 9, 12}})
+    SeraphimM2SouthBase:StartNonZeroBase({{3, 7, 11}, {3, 6, 9}})
     SeraphimM2SouthBase:SetActive('AirScouting', true)
     SeraphimM2SouthBase:SetBuild('Defenses', false)
 
@@ -530,7 +532,7 @@ function SeraphimM2SouthBaseAI()
 
     SeraphimM2SouthBaseAirAttacks()
     SeraphimM2SouthBaseNavalAttacks()
-    SeraphimM2SouthBaseExperimentals()
+    --SeraphimM2SouthBaseExperimentals()
 end
 
 function SeraphimM2SouthBaseExperimentals()

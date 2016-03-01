@@ -29,10 +29,15 @@ function SeraphimM1NorthBaseAI()
     -- Seraphim M1 North Base
     ------------------------
     SeraphimM1NorthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M1_North_Base', 'Seraphim_M1_North_Base', 200, {M1_North_Base = 100})
-    SeraphimM1NorthBase:StartNonZeroBase({{12, 19, 28}, {10, 16, 24}})
+    SeraphimM1NorthBase:StartNonZeroBase({{6, 10, 14}, {5, 9, 12}})
     SeraphimM1NorthBase:SetMaximumConstructionEngineers(4)
     SeraphimM1NorthBase:SetActive('AirScouting', true)
     SeraphimM1NorthBase:SetBuild('Defenses', false)
+
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM1NorthBase:AddBuildGroupDifficulty('M1_North_Base_Support_Factories', 100, true)
+    end)
 
     SeraphimM1NorthBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM1NorthBase_ExperimentalLand')
     SeraphimM1NorthBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM1NorthBase_ExperimentalAir')
