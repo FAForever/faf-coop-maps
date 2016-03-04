@@ -496,7 +496,7 @@ function Hex5M1BaseLandAttacks()
             Priority = 140,
         }
     )
-    opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
+    opai:SetChildQuantity('HeavyMobileAntiAir', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
 
