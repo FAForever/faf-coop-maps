@@ -395,16 +395,12 @@ function IntroMission1NIS()
             ForkThread(function()
                 WaitSeconds(1)
                 if (LeaderFaction == 'aeon') then
-                    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerLose)
                 elseif (LeaderFaction == 'cybran') then
-                    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerLose)
                 elseif (LeaderFaction == 'uef') then
-                    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                 end
-                ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-                ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
-                ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-                ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, ScenarioInfo.PlayerCDR)
 
                 -- spawn coop players too
                 ScenarioInfo.CoopCDR = {}
@@ -414,22 +410,15 @@ function IntroMission1NIS()
                     if iArmy >= ScenarioInfo.Coop1 then
                         factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
                         if (factionIdx == 1) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
                         elseif (factionIdx == 2) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerLose)
                         else
-                            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerLose)
                         end
-                        ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-                        ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
                         coop = coop + 1
                         WaitSeconds(0.5)
                     end
-                end
-
-                for index, coopACU in ScenarioInfo.CoopCDR do
-                    ScenarioFramework.PauseUnitDeath(coopACU)
-                    ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, coopACU)
                 end
             end)
 
@@ -608,15 +597,13 @@ function M2Fletcher()
     --------------
     -- Fletcher ACU
     --------------
-    ScenarioInfo.FletcherACU = ScenarioUtils.CreateArmyUnit('Fletcher', 'Fletcher')
-    ScenarioInfo.FletcherACU:SetCustomName(LOC '{i Fletcher}')
+    ScenarioInfo.FletcherACU = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', false, LOC '{i Fletcher}', true)
     if(Difficulty > 1) then
         ScenarioInfo.FletcherACU:CreateEnhancement('DamageStablization')
         ScenarioInfo.FletcherACU:CreateEnhancement('HeavyAntiMatterCannon')
         ScenarioInfo.FletcherACU:CreateEnhancement('Shield')
         ScenarioInfo.FletcherACU:CreateEnhancement('ShieldGeneratorField')
     end
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.FletcherACU)
 
     --------------------------
     -- Fletcher Initial Patrols
@@ -649,15 +636,13 @@ function M2Order()
     -----------
     -- Order ACU
     -----------
-    ScenarioInfo.OrderACU = ScenarioUtils.CreateArmyUnit('Order', 'M2_Order_Vedetta')
-    ScenarioInfo.OrderACU:SetCustomName(LOC '{i Vendetta}')
+    ScenarioInfo.OrderACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_Vedetta', false, LOC '{i Vendetta}', true)
     if(Difficulty > 1) then
         ScenarioInfo.OrderACU:CreateEnhancement('Shield')
         ScenarioInfo.OrderACU:CreateEnhancement('ShieldHeavy')
         ScenarioInfo.OrderACU:CreateEnhancement('HeatSink')
         ScenarioInfo.OrderACU:CreateEnhancement('CrysalisBeam')
     end
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.OrderACU)
 
     -----------------------
     -- Order Initial Patrols
@@ -696,14 +681,8 @@ function M2Rhiza()
     -----------
     -- Rhiza ACU
     -----------
-    ScenarioInfo.RhizaACU = ScenarioUtils.CreateArmyUnit('Rhiza', 'M2_Rhiza')
-    ScenarioInfo.RhizaACU:SetCustomName(LOC '{i Rhiza}')
-    ScenarioInfo.RhizaACU:CreateEnhancement('Shield')
-    ScenarioInfo.RhizaACU:CreateEnhancement('ShieldHeavy')
-    ScenarioInfo.RhizaACU:CreateEnhancement('HeatSink')
-    ScenarioInfo.RhizaACU:CreateEnhancement('AdvancedEngineering')
-    ScenarioInfo.RhizaACU:CreateEnhancement('T3Engineering')
--- ScenarioInfo.RhizaACU:CreateEnhancement('CrysalisBeam')
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, false, 
+        {'Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering', 'HeatSink'})
     ScenarioInfo.RhizaACU:SetCanBeKilled(false)
     ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
 
@@ -726,7 +705,7 @@ function M2Rhiza()
     end
 
     -- Wreckage
--- ScenarioUtils.CreateArmyGroup('Rhiza', 'M2_Wreckage', true)
+    -- ScenarioUtils.CreateArmyGroup('Rhiza', 'M2_Wreckage', true)
 end
 
 function RhizaNavyPing(platoon)
@@ -737,7 +716,6 @@ function RhizaNavyPing(platoon)
     ScenarioInfo.RhizaTempestPing:AddCallback(RhizaTempestPingActivate)
 
     ScenarioFramework.CreateUnitDestroyedTrigger(RhizaTempestDead, ScenarioInfo.RhizaTempest)
-
 end
 
 function RhizaTempestPingActivate(location)
@@ -1669,14 +1647,12 @@ function IntroMission3()
             ----------------
             -- Seth-Iavow CDR
             ----------------
-            ScenarioInfo.Tau = ScenarioUtils.CreateArmyUnit('Seraphim', 'Tau')
-            ScenarioInfo.Tau:SetCustomName(LOC '{i SethIavow}')
+            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i SethIavow}', true)
             if(Difficulty > 1) then
                 ScenarioInfo.Tau:CreateEnhancement('DamageStabilization')
                 ScenarioInfo.Tau:CreateEnhancement('RateOfFire')
                 ScenarioInfo.Tau:CreateEnhancement('BlastAttack')
             end
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.Tau)
 
             --------------------------
             -- Seraphim Initial Patrols

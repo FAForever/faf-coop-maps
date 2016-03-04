@@ -264,17 +264,12 @@ function IntroMission1NIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 4)
 
     if (LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerDeath)
     end
-
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -284,22 +279,15 @@ function IntroMission1NIS()
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
             elseif (factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
             end
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
-    end
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
     end
 
     ScenarioFramework.Dialogue(OpStrings.X05_M01_012, nil, true)
@@ -350,20 +338,11 @@ function StartMission1()
                     WaitSeconds(0.2)
                 end
                 -- Warp in and buff Fletcher
-                ScenarioInfo.FletcherCDR = ScenarioUtils.CreateArmyUnit('Fletcher', 'Fletcher')
-                ScenarioInfo.FletcherCDR:CreateEnhancement('ResourceAllocation')
-                ScenarioInfo.FletcherCDR:CreateEnhancement('T3Engineering')
-                ScenarioInfo.FletcherCDR:CreateEnhancement('LeftPod')
-                ScenarioInfo.FletcherCDR:CreateEnhancement('RightPod')
+                ScenarioInfo.FletcherCDR = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', 'Warp', LOC '{i Fletcher}', false, false, 
+                    {'ResourceAllocation', 'AdvancedEngineering', 'T3Engineering', 'LeftPod', 'RightPod'})
                 ScenarioInfo.FletcherCDR:SetCanBeKilled(false)
-                ScenarioInfo.FletcherCDR:PlayCommanderWarpInEffect()
                 ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
                 FletcherTM:AddTauntingCharacter(ScenarioInfo.FletcherCDR)
-                ScenarioInfo.FletcherCDR:SetCustomName(LOC '{i Fletcher}')
-                WaitSeconds(2.5)
-                ScenarioInfo.FletcherCDR:ShowBone('Left_Upgrade', true)
-                ScenarioInfo.FletcherCDR:ShowBone('Right_Upgrade', true)
-                ScenarioInfo.FletcherCDR:ShowBone('Back_Upgrade_B01', true)
                 IntroMission2()
             end
         end
@@ -542,18 +521,9 @@ function IntroMission2()
             ------
             -- Hex5
             ------
-            ScenarioInfo.Hex5CDR = ScenarioUtils.CreateArmyUnit('Hex5', 'Hex5_Unit')
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.Hex5CDR)
-            if(Difficulty > 1) then
-                ScenarioInfo.Hex5CDR:CreateEnhancement('CloakingGenerator')
-                if(Difficulty == 3) then
-                    ScenarioInfo.Hex5CDR:CreateEnhancement('StealthGenerator')
-                    -- ScenarioInfo.Hex5CDR:AddKills(2000)
-                end
-            end
-            ScenarioInfo.Hex5CDR:CreateEnhancement('MicrowaveLaserGenerator')
-            ScenarioInfo.Hex5CDR:CreateEnhancement('CoolingUpgrade')
-            ScenarioInfo.Hex5CDR:SetCustomName(LOC '{i Hex5}')
+            ScenarioInfo.Hex5CDR = ScenarioFramework.SpawnCommander('Hex5', 'Hex5_Unit', false, LOC '{i Hex5}', true, false, 
+                {'MicrowaveLaserGenerator', 'CoolingUpgrade', 'StealthGenerator', 'CloakingGenerator'})
+            ScenarioInfo.Hex5CDR:SetVeterancy(Difficulty)
             Hex5TM:AddTauntingCharacter(ScenarioInfo.Hex5CDR)
             ScenarioFramework.CreateArmyStatTrigger(EconomyDestroyed, ArmyBrains[Hex5], 'EconomyDestroyed',
                 {{StatType = 'Units_Active', CompareType = 'LessThanOrEqual', Value = 0, Category = categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3}})
@@ -698,10 +668,8 @@ end
 
 function EconomyDestroyed()
     if(ScenarioInfo.Hex5CDR and not ScenarioInfo.Hex5CDR:IsDead()) then
+        ScenarioInfo.Hex5CDR:CreateEnhancement('StealthGeneratorRemove')
         ScenarioInfo.Hex5CDR:CreateEnhancement('CloakingGeneratorRemove')
-        if(Difficulty == 3) then
-            ScenarioInfo.Hex5CDR:CreateEnhancement('StealthGeneratorRemove')
-        end
     end
 end
 

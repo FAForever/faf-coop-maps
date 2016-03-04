@@ -322,17 +322,12 @@ function IntroNIS()
     Cinematics.ExitNISMode()
 
     if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Aeon_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Aeon_ACU', 'Warp', true, true, PlayerDeath)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEF_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEF_ACU', 'Warp', true, true, PlayerDeath)
     elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Cybran_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
     end
-
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
     
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -342,22 +337,15 @@ function IntroNIS()
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
             elseif(factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
             end
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
-    end
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
     end
 
     IntroMission1()
@@ -1283,12 +1271,8 @@ function IntroMission4()
             ScenarioInfo.SeraphimGate:SetCustomName(LOC '{i Seraphim_Gate}')
 
             -- QAI Commander
-            ScenarioInfo.QAICommander = ScenarioUtils.CreateArmyUnit('QAI', 'M4_QAI_Commander')
-            ScenarioInfo.QAICommander:SetCustomName(LOC '{i QAI}')
-            ScenarioInfo.QAICommander:CreateEnhancement('T3Engineering')
-            ScenarioInfo.QAICommander:CreateEnhancement('StealthGenerator')
-            ScenarioInfo.QAICommander:CreateEnhancement('MicrowaveLaserGenerator')
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.QAICommander)
+            ScenarioInfo.QAICommander = ScenarioFramework.SpawnCommander('QAI', 'M4_QAI_Commander', false, LOC '{i QAI}', true, false, 
+                {'StealthGenerator', 'MicrowaveLaserGenerator', 'AdvancedEngineering', 'T3Engineering'})
 
             -- Czar
             if(LeaderFaction == 'aeon') then

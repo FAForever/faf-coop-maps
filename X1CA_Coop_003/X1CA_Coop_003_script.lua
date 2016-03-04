@@ -245,13 +245,8 @@ function OnPopulate()
     end
 
     -- Rhiza
-    ScenarioInfo.RhizaACU = ScenarioUtils.CreateArmyUnit('Rhiza', 'Rhiza')
-    ScenarioInfo.RhizaACU:SetCustomName(LOC '{i Rhiza}')
-    if(true) then
-        ScenarioInfo.RhizaACU:CreateEnhancement('Shield')
-        ScenarioInfo.RhizaACU:CreateEnhancement('T3Engineering')
-        ScenarioInfo.RhizaACU:CreateEnhancement('EnhancedSensors')
-    end
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'Rhiza', false, LOC '{i Rhiza}', false, false,
+        {'Shield', 'AdvancedEngineering', 'T3Engineering', 'EnhancedSensors'})
     ScenarioInfo.RhizaACU:SetCanBeKilled(false)
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.RhizaACU}, 'M1_Rhiza_Base_EngineerChain')
     ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
@@ -430,17 +425,12 @@ function IntroNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
 
     if (LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerDeath)
     end
-
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -450,22 +440,15 @@ function IntroNIS()
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
             elseif (factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
             end
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
-    end
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
     end
 
     WaitSeconds(2)
@@ -1478,25 +1461,16 @@ function IntroMission3()
             ---------------
             -- Seraphim ACUs
             ---------------
-            ScenarioInfo.NorthACU = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraphim_ACU_North')
-            ScenarioInfo.NorthACU:SetCustomName(LOC '{i ZanAishahesh}')
-            ScenarioInfo.NorthACU:CreateEnhancement('BlastAttack')
-            ScenarioInfo.NorthACU:CreateEnhancement('DamageStabilization')
-            ScenarioInfo.NorthACU:CreateEnhancement('DamageStabilizationAdvanced')
-            ScenarioInfo.NorthACU:CreateEnhancement('RateOfFire')
+            ScenarioInfo.NorthACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_North', false, LOC '{i ZanAishahesh}', false, NorthACUDestroyed, 
+                {'BlastAttack', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
             ScenarioInfo.NorthACU:SetCapturable(false)
             ScenarioInfo.NorthACU:SetReclaimable(false)
-            ScenarioFramework.CreateUnitDestroyedTrigger(NorthACUDestroyed, ScenarioInfo.NorthACU)
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.NorthACU}, 'M3_SeraphNorth_CDRPatrol_Chain')
             ZanNorthTM:AddTauntingCharacter(ScenarioInfo.NorthACU)
             PrincNorthTM:AddTauntingCharacter(ScenarioInfo.NorthACU)
 
-            ScenarioInfo.WestACU = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraphim_ACU_South')
-            ScenarioInfo.WestACU:SetCustomName(LOC '{i ThelUuthow}')
-            ScenarioInfo.WestACU:CreateEnhancement('BlastAttack')
-            ScenarioInfo.WestACU:CreateEnhancement('DamageStabilization')
-            ScenarioInfo.WestACU:CreateEnhancement('DamageStabilizationAdvanced')
-            ScenarioInfo.WestACU:CreateEnhancement('RateOfFire')
+            ScenarioInfo.WestACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_South', false, LOC '{i ThelUuthow}', false, false,
+                {'BlastAttack', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
             ScenarioInfo.WestACU:SetCanBeKilled(false)
             ScenarioInfo.WestACU:SetCapturable(false)
             ScenarioInfo.WestACU:SetReclaimable(false)

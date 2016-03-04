@@ -581,11 +581,11 @@ function IntroNISPart2()
     end
 
     if(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Gate', true, true, PlayerDeath)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Gate', true, true, PlayerDeath)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Gate', true, true, PlayerDeath)
     end
 
     -- Give the special NIS units to the player
@@ -660,8 +660,6 @@ function IntroNISPart2()
     ScenarioFramework.PlatoonPatrolChain(platoon, 'Player_Start_NavalPatrol_Chain')
 
     local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('CDRWarp'))
-    ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
@@ -670,15 +668,13 @@ function IntroNISPart2()
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Gate', true, true, PlayerDeath)
             elseif(factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Gate', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Gate', true, true, PlayerDeath)
             end
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
-            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(2)
         end
@@ -728,14 +724,6 @@ function IntroNISPart2()
         end
     end
 
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
-
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, coopACU)
-    end
     IntroMission1()
 end
 
@@ -1487,11 +1475,8 @@ function IntroMission3()
             M3OrderAI.OrderM3ExpansionBaseAI()
 
             -- Order CDR
-            ScenarioInfo.OrderCDR = ScenarioUtils.CreateArmyUnit('Order', 'Order_ACU')
-            ScenarioInfo.OrderCDR:SetCustomName(LOC '{i Gari}')
-            ScenarioInfo.OrderCDR:CreateEnhancement('ResourceAllocationAdvanced')
-            ScenarioInfo.OrderCDR:CreateEnhancement('EnhancedSensors')
-            ScenarioInfo.OrderCDR:CreateEnhancement('T3Engineering')
+            ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, false, 
+                {'ResourceAllocationAdvanced', 'EnhancedSensors', 'AdvancedEngineering' ,'T3Engineering'})
 
             -----------------------
             -- Order Initial Patrols
@@ -2317,8 +2302,8 @@ function IntroMission4()
             M4CounterAttack()
 
             -- CDR
-            ScenarioInfo.SeraphimCDR = ScenarioUtils.CreateArmyUnit('Seraphim', 'Seraphim_CDR')
-            ScenarioInfo.SeraphimCDR:SetCustomName(LOC '{i ShunUllevash}')
+            ScenarioInfo.SeraphimCDR = ScenarioFramework.SpawnCommander('Seraphim', 'Seraphim_CDR', false, LOC '{i ShunUllevash}', false, M4SeraphCDRDeadDialogue, 
+                {'AdvancedEngineering', 'T3Engineering', 'RegenAura', 'DamageStabilization'})
             for i =1, 6 do
                 IssuePatrol({ScenarioInfo.SeraphimCDR}, ScenarioUtils.MarkerToPosition( 'M4_Seraph_CDRPatrol_' .. i ) )
             end
@@ -2618,7 +2603,6 @@ function RevealM4P2()
     end
 
     -- Seraph CDR death dialogue, reminders
-    ScenarioFramework.CreateUnitDeathTrigger(M4SeraphCDRDeadDialogue, ScenarioInfo.SeraphimCDR)
     ScenarioFramework.CreateTimerTrigger(M4P2Reminder1, 900)
 
     -- Nuke M3 Town (if civ structures are present)

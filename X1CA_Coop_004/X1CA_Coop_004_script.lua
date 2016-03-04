@@ -236,16 +236,12 @@ end
 function SpawnPlayer()
     WaitSeconds(1.5)
     if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'AeonPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerLose)
     elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'CybranPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerLose)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'UEFPlayer')
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
     end
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, ScenarioInfo.PlayerCDR)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -255,22 +251,15 @@ function SpawnPlayer()
         if iArmy >= ScenarioInfo.Coop1 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'UEFPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
             elseif(factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'AeonPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerLose)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'CybranPlayer')
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerLose)
             end
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             coop = coop + 1
             WaitSeconds(0.5)
         end
-    end
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, coopACU)
     end
 end
 
@@ -821,8 +810,7 @@ function AttackDostya()
     ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
 
     -- Hex5
-    ScenarioInfo.Hex5 = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Hex5')
-    ScenarioInfo.Hex5:SetCustomName(LOC '{i Hex5}')
+    ScenarioInfo.Hex5 = ScenarioFramework.SpawnCommander('Seraphim', 'M2_Hex5', false, LOC '{i Hex5}')
     ScenarioInfo.Hex5:SetCanTakeDamage(false)
     ScenarioFramework.CreateTimerTrigger(Hex5Vanish, 60)
 
