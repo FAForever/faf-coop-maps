@@ -86,7 +86,7 @@ function OnPopulate()
     elseif(LeaderFaction == 'uef') then
         ScenarioFramework.SetUEFPlayerColor(Player)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonAllyColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player)
     end
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonAlly1Color(Rhiza)
