@@ -219,7 +219,7 @@ end
 
 function KillGame()
     UnlockInput()
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
 -----------

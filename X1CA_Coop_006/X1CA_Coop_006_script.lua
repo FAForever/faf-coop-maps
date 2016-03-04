@@ -331,7 +331,7 @@ function PlayerLose(deadCommander)
 end
 
 function KillGameWin()
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
 -----------
