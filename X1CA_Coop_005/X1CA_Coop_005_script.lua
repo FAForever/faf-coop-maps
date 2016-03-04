@@ -526,6 +526,14 @@ function IntroMission2()
             ScenarioFramework.CreateArmyStatTrigger(   M2FletcherAI.FletcherBaseLandAttacks, ArmyBrains[Fletcher], '2+T3LandFacs',
                 {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0301}})
 
+            ForkThread(function()
+                WaitSeconds(2)
+                ArmyBrains[Fletcher]:GiveStorage('ENERGY', 20000)
+                ArmyBrains[Fletcher]:GiveStorage('MASS', 10000)
+                WaitSeconds(2)
+                ArmyBrains[Fletcher]:GiveResource('MASS', 10000)
+            end)
+           
             ------------
             -- M2 Hex5 AI
             ------------
