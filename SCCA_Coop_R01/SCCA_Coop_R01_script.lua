@@ -36,7 +36,7 @@ ScenarioInfo.Wreckage_Holding   = 7
 ScenarioInfo.Coop1 = 8
 ScenarioInfo.Coop2 = 9
 ScenarioInfo.Coop3 = 10
-ScenarioInfo.HumanPlayers = {}
+
 local Player                = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2

@@ -184,7 +184,6 @@ ScenarioInfo.CybranResearch = 3
 ScenarioInfo.Coop1 = 4
 ScenarioInfo.Coop2 = 5
 ScenarioInfo.Coop3 = 6
-ScenarioInfo.HumanPlayers = {}
 
 local Player = ScenarioInfo.Player
 local Cybran = ScenarioInfo.Cybran

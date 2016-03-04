@@ -31,7 +31,7 @@ ScenarioInfo.Neutral = 5
 ScenarioInfo.Coop1 = 6
 ScenarioInfo.Coop2 = 7
 ScenarioInfo.Coop3 = 8
-ScenarioInfo.HumanPlayers = {}
+
 ScenarioInfo.VarTable = {}
 ScenarioInfo.M1CityBuildingsAlive = 0
 ScenarioInfo.M1CityBuildingsTotal = 0

@@ -37,8 +37,6 @@ local StartM3InsteadOfM1 = false
 
 ScenarioInfo.Difficulty = ScenarioInfo.Options.Difficulty or 2
 
-
-
 -- === Tuning Variables === #
     -- For timing variables, the units are seconds
     -- For tables, the format is {easy number, medium number, hard number}
@@ -132,7 +130,7 @@ ScenarioInfo.Cybran = 4
 ScenarioInfo.Coop1 = 5
 ScenarioInfo.Coop2 = 6
 ScenarioInfo.Coop3 = 7
-ScenarioInfo.HumanPlayers = {}
+
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2

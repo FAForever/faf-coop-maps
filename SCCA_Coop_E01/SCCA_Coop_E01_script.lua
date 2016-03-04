@@ -25,14 +25,14 @@ ScenarioInfo.EastResearch = 4
 ScenarioInfo.Coop1 = 5
 ScenarioInfo.Coop2 = 6
 ScenarioInfo.Coop3 = 7
-ScenarioInfo.HumanPlayers = {}
+
 local Player = ScenarioInfo.Player
 local Coop1 = ScenarioInfo.Coop1
 local Coop2 = ScenarioInfo.Coop2
 local Coop3 = ScenarioInfo.Coop3
 local Arnold = ScenarioInfo.Arnold
 local Cybran = ScenarioInfo.Cybran
-local eastResearch = ScenarioInfo.EastResearch
+local EastResearch = ScenarioInfo.EastResearch
 
 ScenarioInfo.PowerGenDestroyed = 0
 
@@ -104,7 +104,7 @@ function OnStart(self)
     ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetUEFAllyColor(Arnold)
     ScenarioFramework.SetCybranColor(Cybran)
-    ScenarioFramework.SetUEFNeutralColor(eastResearch)
+    ScenarioFramework.SetUEFNeutralColor(EastResearch)
     local colors = {
         ['Coop1'] = {67, 110, 238}, 
         ['Coop2'] = {97, 109, 126}, 
@@ -758,6 +758,7 @@ end
 -----------
 function IntroMission7()
     ScenarioInfo.MissionNumber = 7
+
     ScenarioFramework.Dialogue(OpStrings.E01_M06_020)
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
@@ -821,7 +822,7 @@ function IntroMission7()
     cdrPlatoon.CDRData.LeashPosition = 'Cybran_MainBase'
     cdrPlatoon.CDRData.LeashRadius = 35
     cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
-
+ 
     ScenarioUtils.CreateArmyGroup('Cybran', 'MainBaseStructures_D' .. ScenarioInfo.Options.Difficulty)
 
     -- Research Attack
@@ -857,9 +858,9 @@ function StartMission7()
    )
     ScenarioInfo.M7P1:AddResultCallback(
         function()
---        ScenarioFramework.EndOperationCamera(ScenarioInfo.CybranCDR)
+            -- ScenarioFramework.EndOperationCamera(ScenarioInfo.CybranCDR)
 
--- enemy CDR destroyed
+            -- enemy CDR destroyed
             ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.CybranCDR)
 
             ForkThread(KillBase)
@@ -886,8 +887,8 @@ end
 
 function RDAlly()
     for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(eastResearch, player, 'Ally')
-        SetAlliance(player, eastResearch, 'Ally')
+        SetAlliance(player, EastResearch, 'Ally')
+        SetAlliance(EastResearch, player, 'Ally')
     end
 end
 
@@ -911,9 +912,9 @@ function AssignSO1()
     ScenarioInfo.M7S1:AddResultCallback(
         function(result)
             if(result) then
---            ScenarioFramework.MidOperationCamera(ScenarioInfo.LightArtillery, true, 3)
+                --  ScenarioFramework.MidOperationCamera(ScenarioInfo.LightArtillery, true, 3)
 
--- Artillery Activated
+                -- Artillery Activated
                 local unit = ScenarioInfo.LightArtillery
                 local camInfo = {
                     blendTime = 1.0,

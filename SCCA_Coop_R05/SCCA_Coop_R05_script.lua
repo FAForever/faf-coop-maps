@@ -31,7 +31,6 @@ ScenarioInfo.FauxUEF        = 4
 ScenarioInfo.Coop1            = 5
 ScenarioInfo.Coop2            = 6
 ScenarioInfo.Coop3            = 7
-ScenarioInfo.HumanPlayers = {}
 
 local Player                = ScenarioInfo.Player
 local UEF                   = ScenarioInfo.UEF

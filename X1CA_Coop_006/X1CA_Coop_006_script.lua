@@ -37,7 +37,7 @@ ScenarioInfo.OptionZero = 7
 ScenarioInfo.Coop1 = 8
 ScenarioInfo.Coop2 = 9
 ScenarioInfo.Coop3 = 10
-ScenarioInfo.HumanPlayers = {}
+
 ScenarioInfo.ControlCenterPossession = 0
 ScenarioInfo.NukesLaunched = 0
 ScenarioInfo.NukesAllowed = {1, 3, 4}

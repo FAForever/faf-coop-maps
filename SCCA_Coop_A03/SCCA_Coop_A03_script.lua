@@ -24,7 +24,7 @@ ScenarioInfo.Eris = 3
 ScenarioInfo.Coop1 = 4
 ScenarioInfo.Coop2 = 5
 ScenarioInfo.Coop3 = 6
-ScenarioInfo.HumanPlayers = {}
+
 ScenarioInfo.FirstWave = 1
 ScenarioInfo.SecondWave = 4
 ScenarioInfo.ThirdWave = 7
