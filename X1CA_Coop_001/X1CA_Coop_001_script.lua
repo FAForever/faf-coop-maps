@@ -635,12 +635,6 @@ function IntroNISPart2()
             ScenarioFramework.GiveUnitToArmy( v, Player )
         end
     end
-    
-    -- Turn off those stupid massfabs
-    local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.ueb1303, false)
-    for k, v in massFabs do
-        v:ToggleScriptBit('RULEUTC_ProductionToggle')
-    end
 
     -- Set the gate back to being unkillable
     if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then

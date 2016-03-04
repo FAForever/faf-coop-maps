@@ -277,12 +277,6 @@ function OnPopulate(scenario)
                 end
             end
         end
-    
-    -- Turn off those stupid massfabs
-    local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.MASSFABRICATION , false)
-    for k, v in massFabs do
-        v:ToggleScriptBit('RULEUTC_ProductionToggle')
-    end
 
     -- ! Aeon Bases
     -- ! Spawn Main base, make a new template for Main base engineers to maintain

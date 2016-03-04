@@ -107,12 +107,6 @@ function SpawnPlayer()
     for i = 1, 4 do
         airPatrol:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol' .. i))
     end
-    
-    -- Turn off those stupid massfabs
-    local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.MASSFABRICATION , false)
-    for k, v in massFabs do
-        v:ToggleScriptBit('RULEUTC_ProductionToggle')
-    end
 end
 
 function SpawnUEF()

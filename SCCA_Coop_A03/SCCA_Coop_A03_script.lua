@@ -306,12 +306,6 @@ function StartMission1()
     platoon.PlatoonData = {}
     platoon.PlatoonData.PatrolChain = 'Navy_Chain'
     ScenarioPlatoonAI.PatrolThread(platoon)
-    
-    -- Turn off massfabs
-    local massFabs = ArmyBrains[Player]:GetListOfUnits(categories.MASSFABRICATION, false)
-    for k, v in massFabs do
-        v:ToggleScriptBit('RULEUTC_ProductionToggle')
-    end
 
     -- After 2 minutes
     ScenarioFramework.CreateTimerTrigger(M1Dialogue1, M1VOTimer1)
