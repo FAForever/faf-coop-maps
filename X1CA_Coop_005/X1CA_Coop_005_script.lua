@@ -520,9 +520,6 @@ function IntroMission2()
             ScenarioFramework.CreateArmyStatTrigger(M2T3FactoryBuilt, ArmyBrains[Fletcher], 'M2T3FactoryBuilt',
                 {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.uel0309}})
 
-            ScenarioFramework.CreateArmyStatTrigger(M2FletcherAI.NewEngineerCount, ArmyBrains[Fletcher], 'NewEngCount',
-                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 17, Category = categories.ueb1301}})
-
             ScenarioFramework.CreateArmyStatTrigger(   M2FletcherAI.M2FletcherBaseAirAttacks, ArmyBrains[Fletcher], '2+T3AirFacs',
                 {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0302}})
 

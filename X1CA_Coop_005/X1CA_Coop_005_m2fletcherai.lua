@@ -85,19 +85,12 @@ function FletcherBaseAI()
              M1_Fletcher_FACT3 = 5,    -- 675
          }
     )
--- FletcherBase:StartEmptyBase({60, 48})
-    FletcherBase:StartEmptyBase(60)
+    FletcherBase:StartEmptyBase(35)
     FletcherBase:SetConstructionAlwaysAssist(true)
     FletcherBase:SetMaximumConstructionEngineers(5)
 
     FletcherBase:SetActive('AirScouting', true)
     FletcherBase:SetActive('LandScouting', true)
-
-end
-
-function NewEngineerCount()
-    FletcherBase:SetEngineerCount({60, 48})
-    FletcherBase:SetMaximumConstructionEngineers(5)
 end
 
 function FletcherBaseLandAttacks()
