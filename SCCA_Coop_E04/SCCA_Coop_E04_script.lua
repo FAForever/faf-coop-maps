@@ -340,7 +340,7 @@ function StartMission1()
         OpStrings.M1P2Title,
         OpStrings.M1P2Description,
         {
-            Units = M1ResearchGroup,
+            Units = ScenarioInfo.M1ResearchGroup,
             NumRequired = M1P2LabCapturedRequired,
             FlashVisible = true,
         }
