@@ -182,7 +182,7 @@ function StartCamera()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('StartCameraArea'), .65)
     WaitSeconds(.25)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('CameraArea_1'), 3)
-    ScenarioFramework.Dialogue(OpStrings.C01_M01_010)
+    ScenarioFramework.Dialogue(OpStrings.C01_M01_010, false, true)
     ScenarioFramework.CreateTimerTrigger(SecondCamera, 2.5)
 end
 
