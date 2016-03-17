@@ -8996,17 +8996,21 @@ Scenario = {
                 ['Component'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
             },
-            Units = {
-                ['Commander'] = GROUP {
-                    orders = '',
-                    platoon = '',
-                    Units = {
-                        ['Player_CDR'] = {
-                            type = 'uel0001',
-                            orders = '',
-                            platoon = '',
-                            Position = { 434.500000, 18.402344, 684.500000 },
-                            Orientation = { 0.000000, 0.750492, 0.000000 },
+            ['Units'] = GROUP {
+                orders = '',
+                platoon = '',
+                Units = {
+                    ['Commander'] = GROUP {
+                        orders = '',
+                        platoon = '',
+                        Units = {
+                            ['Player_CDR'] = {
+                                type = 'uel0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 434.500000, 18.402344, 684.500000 },
+                                Orientation = { 0.000000, 0.750492, 0.000000 },
+                            },
                         },
                     },
                 },
@@ -9035,17 +9039,21 @@ Scenario = {
                 ['Component'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
             },
-            Units = {
-                ['Commander'] = GROUP {
-                    orders = '',
-                    platoon = '',
-                    Units = {
-                        ['Player_CDR'] = {
-                            type = 'uel0001',
-                            orders = '',
-                            platoon = '',
-                            Position = { 434.500000, 18.402344, 684.500000 },
-                            Orientation = { 0.000000, 0.750492, 0.000000 },
+            ['Units'] = GROUP {
+                orders = '',
+                platoon = '',
+                Units = {
+                    ['Commander'] = GROUP {
+                        orders = '',
+                        platoon = '',
+                        Units = {
+                            ['Player_CDR'] = {
+                                type = 'uel0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 434.500000, 18.402344, 684.500000 },
+                                Orientation = { 0.000000, 0.750492, 0.000000 },
+                            },
                         },
                     },
                 },
