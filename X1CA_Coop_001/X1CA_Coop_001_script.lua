@@ -2020,7 +2020,7 @@ end
 function TruckNIS()
     local watchCommands = {}
     ScenarioFramework.Dialogue(VoiceOvers.TruckNotification)
-    ScenarioFramework.Dialogue(VoiceOvers.TruckThread, nil, false, ScenarioInfo.OrderCDR)
+    ScenarioFramework.Dialogue(VoiceOvers.AeonTruckThreat, nil, false, ScenarioInfo.OrderCDR)
     ScenarioInfo.AllowTruckWarning = true
     ScenarioInfo.M2TruckWarningDialogue = 0
     for i = 1, MaxTrucks do
