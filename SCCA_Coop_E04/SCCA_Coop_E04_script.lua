@@ -265,7 +265,6 @@ end
 -- === Mission 1 Functions === #
 function StartMission1()
     ScenarioInfo.MissionNumber = 1
-    --SetArmyUnitCap ('Player', 300)
     ScenarioFramework.Dialogue(OpStrings.E04_M01_010)
 
     -- === Formerly in OnPopualte === #
@@ -859,7 +858,6 @@ end
 
 function StartMission3()
     ScenarioInfo.MissionNumber = 3
-    SetArmyUnitCap ('Player', 500)
 
     -- Setting Playable area
     -- In this mission, we dont resize until the player builds 3 towers
