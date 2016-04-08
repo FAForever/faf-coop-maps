@@ -1076,7 +1076,6 @@ function StartMission3()
         for k,v in ScenarioInfo.BlackSunCannon do
             v:SetWorkProgress(.01)
         end
-        SetArmyUnitCap(1, 500)
         ScenarioFramework.SetPlayableArea('M2_Playable_Area_2')
         ScenarioFramework.Dialogue(ScenarioStrings.MapExpansion)
         ScenarioInfo.MissionNumber = 3
