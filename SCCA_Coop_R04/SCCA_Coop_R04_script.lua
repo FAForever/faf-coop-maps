@@ -19,6 +19,9 @@ local OpStrings = import ('/maps/SCCA_Coop_R04/SCCA_Coop_R04_strings.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 local Weather = import('/lua/weather.lua')
 
+-- used to simulate the EMP charge
+local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
+
 ------------------------
 -- Local Tuning Variables
 ------------------------
@@ -66,6 +69,10 @@ local M1NavalAttackDelay = { 600, 600, 360 }
 -- When the Aeon commander's health drops below what
 -- amount will she teleport away?
 local AeonCommanderHealthThreshold = 0.20 -- 20%
+
+-- When the Aeon commander's health drops below this value,
+-- she immediatly blows up QAI
+local AeonCommanderHealthThresholdBeforeBlastingQAI = 0.5 -- 50%
 
 -- How long to delay between reminders
 local M1P1InitialReminderDelay = 900000
@@ -177,6 +184,8 @@ ScenarioInfo.M1CommanderDeathHasBeenCalled = false
 ScenarioInfo.Node3Captured = false
 ScenarioInfo.Node4Captured = false
 ScenarioInfo.AllNodesCaptured = false
+ScenarioInfo.EMPFired = false
+ScenarioInfo.MainFrameIsAlive = true
 ScenarioInfo.M3BaseDamageWarnings = 0
 ScenarioInfo.DisableM3BaseDamagedTriggers = false
 ScenarioInfo.AeonCommanderDead = false
@@ -261,6 +270,8 @@ local AeonM3NEPatrolNaval01Route = {
     ScenarioUtils.MarkerToPosition( 'M3_NE_Patrol_5' ),
     ScenarioUtils.MarkerToPosition( 'M3_NE_Patrol_6' ),
 }
+
+
 
 -- ##### Starter Functions ######
 function OnPopulate(scenario)
@@ -469,6 +480,7 @@ function OnStart(self)
 
     ScenarioFramework.SetCybranColor(Player)
     ScenarioFramework.SetAeonColor(Aeon)
+	ScenarioFramework.SetCybranNeutralColor(Civilian)
     local colors = {
         ['Coop1'] = {183, 101, 24}, 
         ['Coop2'] = {255, 135, 62}, 
@@ -769,7 +781,7 @@ function BeginMission2()
         X = pos[1],
         Z = pos[2],
         Radius = 50,
-        LifeTime = 0.2,
+        LifeTime = 2.0,
         Omni = false,
         Vision = true,
         Radar = false,
@@ -826,28 +838,64 @@ end
 function M2SpawnAttackers()
     -- Spawn the Aeon attackers
     local AeonAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Attackers' ))
-    -- IssueAggressiveMove( AeonAttackers, ScenarioUtils.MarkerToPosition( 'Node_2' ))
-    IssuePatrol( AeonAttackers, ScenarioUtils.MarkerToPosition( 'Node_2' ))
-    IssuePatrol( AeonAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
-    IssuePatrol( AeonAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
-    IssuePatrol( AeonAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
-
     local NextAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Attackers' ))
-    -- IssueAggressiveMove( NextAttackers, ScenarioUtils.MarkerToPosition( 'Node_2' ))
-    IssuePatrol( NextAttackers, ScenarioUtils.MarkerToPosition( 'Node_2' ))
-    IssuePatrol( NextAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
-    IssuePatrol( NextAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
-    IssuePatrol( NextAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
-
-    local AirAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Air_Attackers' ))
-    IssuePatrol( AirAttackers, ScenarioUtils.MarkerToPosition( 'Node_2' ))
-    IssuePatrol( AirAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
-    IssuePatrol( AirAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
-    IssuePatrol( AirAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
-
-    for k, unit in NextAttackers do
+	
+	for k, unit in NextAttackers do
         table.insert( AeonAttackers, unit )
     end
+	
+	ForkThread(M2StartFirstLandAttack, AeonAttackers)
+	
+	-- Spawn sea units
+	local SeaAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Sea_Attackers' ))
+	local NextSeaAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Sea_Attackers' ))
+	
+	for k, unit in NextSeaAttackers do
+        table.insert( SeaAttackers, unit )
+    end
+	
+	IssueAggressiveMove( SeaAttackers, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ) )
+
+	-- Spawn air units
+    local AirAttackers = ScenarioUtils.CreateArmyGroup( 'Aeon', AdjustForDifficulty( 'M2_Initial_Air_Attackers' ))
+	
+	-- Dispatch air units onto several attack/patrol paths for more fun:
+	-- bombers have 3 alternative attack moves, scouts/interceptors 2 alternative patrol paths
+	local i_AttackPoint=1
+	local i_PatrolPath=1
+	for k, unit in AirAttackers do
+		if EntityCategoryContains(categories.BOMBER, unit) then -- If unit is a bomber
+			if i_AttackPoint == 1 then
+				IssueAggressiveMove( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ) )
+				i_AttackPoint = 2
+			elseif i_AttackPoint == 2 then
+				IssueAggressiveMove( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ) )
+				i_AttackPoint = 3
+			else
+				IssueAggressiveMove( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ) )
+				i_AttackPoint = 1
+			end
+		
+		else -- If unit is a scout/interceptor
+			if i_PatrolPath == 1 then
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
+				i_PatrolPath = 2
+			else
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
+				IssuePatrol( {unit}, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
+				i_PatrolPath = 1
+			end
+		end
+	end
+
+    
+	for k, unit in SeaAttackers do
+        table.insert( AeonAttackers, unit )
+    end
+	
     for k, unit in AirAttackers do
         table.insert( AeonAttackers, unit )
     end
@@ -856,7 +904,57 @@ function M2SpawnAttackers()
     ScenarioFramework.CreateGroupDeathTrigger( M2BaseSaved, AeonAttackers )
 
     -- let 5 seconds pass before we reveal everything so that shots will be in the air, etc.
-    ScenarioFramework.CreateTimerTrigger( CivilianAllyWithPlayer, 5 )
+	-- Kaskouy: reduced to 1 second to give the player more time to react (a small delay is still
+	-- necessary though, so that the player doesn't see the attackers pop "magically")
+    ScenarioFramework.CreateTimerTrigger( CivilianAllyWithPlayer, 1 )
+end
+
+function M2StartFirstLandAttack(unitGroup)
+	local tbl_entities
+	local nb_entities = 0
+	
+	-- First, make the attackers advance towards west (if they are given the attack order directly,
+	-- lots of them will get stuck because of the hill in front of the base)
+	IssueMove( unitGroup, ScenarioUtils.MarkerToPosition( 'M2_Land_Attack_Dest_Point1' ))
+	
+	-- Wait for attackers having passed the hill
+	while true do
+		tbl_entities = GetUnitsInRect( ScenarioUtils.AreaToRect( 'M2_StartLand_Attack_Area' ) )
+		nb_entities = 0
+		if tbl_entities then
+			for k, entity in tbl_entities do
+				if EntityCategoryContains(categories.LAND, entity) and entity:GetAIBrain() == ArmyBrains[Aeon] then
+					nb_entities = nb_entities + 1
+				end
+			end
+		end
+		
+		if nb_entities >= 5 then
+			break
+		end
+		
+		WaitSeconds(1)
+	end
+	
+	-- Wait a bit more again...
+	WaitSeconds(3)
+	
+	-- Get the surviving units (some may have died because of the cybran defenses)
+	local currentUnitGroup = {}
+	for k, v in unitGroup do
+		if not v:IsDead() then
+			table.insert(currentUnitGroup, v)
+		end
+	end
+	
+	-- Cancel move order, and make them attack. Now this is going to hurt!!!
+	if( table.getn(currentUnitGroup) > 0 ) then
+		IssueClearCommands(currentUnitGroup)
+		IssuePatrol( currentUnitGroup, ScenarioUtils.MarkerToPosition( 'Node_2' ))
+		IssuePatrol( currentUnitGroup, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_07' ))
+		IssuePatrol( currentUnitGroup, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_08' ))
+		IssuePatrol( currentUnitGroup, ScenarioUtils.MarkerToPosition( 'M3_Air_Attack_11' ))
+	end
 end
 
 function CivilianAllyWithPlayer()
@@ -1056,8 +1154,8 @@ function BeginMission3()
     ScenarioInfo.AeonCommanderM3:CreateEnhancement('Teleporter')
     ScenarioInfo.AeonCommanderM3:SetDoNotTarget(true) -- prevent auto-targetting until the EMP goes off
     ScenarioFramework.CreateUnitDeathTrigger( EnemyCommanderDied, ScenarioInfo.AeonCommanderM3 )
-    -- Delay the explosion so that we can catch it on camera
-    ScenarioFramework.PauseUnitDeath( ScenarioInfo.AeonCommanderM3 )
+    -- Don't delay the explosion for now, as killing the commander would trigger the main frame destruction
+    -- ScenarioFramework.PauseUnitDeath( ScenarioInfo.AeonCommanderM3 ) -- 
 
     IssuePatrol({ ScenarioInfo.AeonCommanderM3 }, ScenarioUtils.MarkerToPosition( 'Aeon_Patrol_Air_M3_1' ))
     IssuePatrol({ ScenarioInfo.AeonCommanderM3 }, ScenarioUtils.MarkerToPosition( 'Aeon_Patrol_Air_M3_2' ))
@@ -1127,6 +1225,9 @@ function BeginMission3()
     for k, unit in ScenarioInfo.M3_Base do
         ScenarioFramework.CreateUnitDamagedTrigger( M3BaseDamaged, unit )
     end
+	
+	-- include com in units that should not be attacked
+	ScenarioFramework.CreateUnitDamagedTrigger( M3BaseDamaged, ScenarioInfo.AeonCommanderM3 )
 
     AddTechMission3()
     ScenarioInfo.MissionNumber = 3
@@ -1182,50 +1283,103 @@ function BeginMission3()
     ScenarioFramework.CreateTimerTrigger( M3P1Reminder, M3P1InitialReminderDelay )
 end
 
-function M3BaseDamaged()
-    if not ScenarioInfo.DisableM3BaseDamagedTriggers then
--- base mainframe camera settings
-        local camInfo = {
-            blendTime = 1.0,
-            holdTime = 4,
-            orientationOffset = { -2.78, 0.8, 0 },
-            positionOffset = { 0, 4, 0 },
-            zoomVal = 45,
-        }
-        ScenarioInfo.DisableM3BaseDamagedTriggers = true
-        if ScenarioInfo.M3BaseDamageWarnings == 2 then
-            -- Mainfram destroyed cam values
-            camInfo.blendTime = 2.5
-            camInfo.holdTime = nil
-            camInfo.orientationOffset[1] = math.pi
-            camInfo.spinSpeed = 0.03
-            camInfo.overrideCam = true
-            -- Detonate the mainframe
-            ScenarioInfo.Mainframe:Kill()
-            -- player loses
-            ScenarioFramework.PlayerLose(OpStrings.C04_M03_050)
-        elseif ScenarioInfo.M3BaseDamageWarnings == 1 then
-            -- strong warning
-            ScenarioFramework.Dialogue( OpStrings.C04_M03_040 )
-        else
-            -- weak warning
-            ScenarioFramework.Dialogue( OpStrings.C04_M03_030 )
-        end
-        ScenarioFramework.OperationNISCamera( ScenarioInfo.Mainframe, camInfo )
-        -- Show the mainframe camera
-        ScenarioInfo.M3BaseDamageWarnings = ScenarioInfo.M3BaseDamageWarnings + 1
-        ForkThread( EnableM3BaseDamagedTriggersAfterDelay )
-    end
+function M3BaseDamaged(unit)
+	-- No more threatening if main frame is already dead, or EMP has been fired!
+	if ScenarioInfo.MainFrameIsAlive and not ScenarioInfo.EMPFired then
+		
+		local playerWarned = false
+		local health    = ScenarioInfo.AeonCommanderM3:GetHealth()
+		local maxHealth = ScenarioInfo.AeonCommanderM3:GetMaxHealth()
+		local AeonComHealthPercent = health / maxHealth
+		
+		-- In case player tries to kill the aeon com without having captured all nodes: If com health is too low, detonate main frame immediatly!
+		if AeonComHealthPercent < AeonCommanderHealthThresholdBeforeBlastingQAI then
+			-- Disable warnings, as they have no sense anymore
+			ScenarioInfo.DisableM3BaseDamagedTriggers = true
+			-- Destroy main frame (and lose)
+			ForkThread( DetonateMainFrame )
+			-- Mark Main frame as dead to stop any form of warning (Actually it's still alive now, but not for long!)
+			ScenarioInfo.MainFrameIsAlive = false
+		end
+		
+		if not ScenarioInfo.DisableM3BaseDamagedTriggers then
+			ScenarioInfo.DisableM3BaseDamagedTriggers = true
+			if ScenarioInfo.M3BaseDamageWarnings == 2 then
+				-- Destroy main frame (and lose)
+				ForkThread( DetonateMainFrame )
+			else
+				if ScenarioInfo.M3BaseDamageWarnings == 1 then
+					-- strong warning
+					ScenarioFramework.Dialogue( OpStrings.C04_M03_040 )
+				else
+					-- weak warning
+					ScenarioFramework.Dialogue( OpStrings.C04_M03_030 )
+				end
+				
+				-- camera settings
+				local camInfo = {
+					blendTime = 1.0,
+					holdTime = 4,
+					orientationOffset = { -2.78, 0.8, 0 },
+					positionOffset = { 0, 4, 0 },
+					zoomVal = 45,
+					vizRadius = 10,
+				}
+				
+				-- Show the attack
+				ScenarioFramework.OperationNISCamera( unit, camInfo )
+				ScenarioInfo.M3BaseDamageWarnings = ScenarioInfo.M3BaseDamageWarnings + 1
+				playerWarned = true
+			end
+		end
+		
+		-- Reenable trigger function for this unit
+		ForkThread( EnableM3BaseDamagedTriggersAfterDelay, unit, playerWarned)
+	end
 end
 
-function EnableM3BaseDamagedTriggersAfterDelay()
-    WaitSeconds( ReenableM3BaseDamageTriggersDelay )
-    for k, unit in ScenarioInfo.M3_Base do
-        if not unit:IsDead() then
-            ScenarioFramework.CreateUnitDamagedTrigger( M3BaseDamaged, unit )
-        end
-    end
-    ScenarioInfo.DisableM3BaseDamagedTriggers = false
+function EnableM3BaseDamagedTriggersAfterDelay(unit, playerWarned)
+	if not unit:IsDead() then
+		ScenarioFramework.CreateUnitDamagedTrigger( M3BaseDamaged, unit )
+	end
+	
+	if playerWarned then
+		WaitSeconds( ReenableM3BaseDamageTriggersDelay )
+		ScenarioInfo.DisableM3BaseDamagedTriggers = false
+	end
+end
+
+function DetonateMainFrame()
+	
+	-- Mainfram destroyed cam values
+	local camInfo = {
+            blendTime = 2.0,
+            holdTime = nil,
+            orientationOffset = { math.pi, 0.8, 0 },
+            positionOffset = { 0, 4, 0 },
+			spinSpeed = 0.03,
+            zoomVal = 45,
+			overrideCam = true,
+			vizRadius = 30,
+        }
+		
+	-- "Do not attack" objective failed
+	ScenarioInfo.M3P4Objective:ManualResult( false )
+	
+	while ScenarioInfo.DialogueLock do
+		WaitTicks(1)
+	end
+	
+	-- Zoom on main frame
+	ScenarioFramework.OperationNISCamera( ScenarioInfo.Mainframe, camInfo )
+	
+	-- Wait for the camera move, and detonate main frame
+	WaitSeconds(3)
+	ScenarioInfo.Mainframe:Kill()
+	
+	-- player loses
+	WaitSeconds(1)
+    ScenarioFramework.PlayerLose(OpStrings.C04_M03_050)
 end
 
 function M3LaunchAttackReoccurring()
@@ -1368,6 +1522,9 @@ function EMPTriggered()
             Units = { ScenarioInfo.AeonCommanderM3 },
         }
     )
+	
+	-- Now it's legitimate to kill commander, delay the explosion so we can watch it on camera
+	ScenarioFramework.PauseUnitDeath( ScenarioInfo.AeonCommanderM3 )
 
     ScenarioInfo.M3P4Objective:ManualResult( true )
     -- If the player doesn't complete the objective soon, remind him that it's important
@@ -1392,21 +1549,22 @@ function EMPTriggered()
     -- Spawn the effect
     local myproj = ScenarioInfo.Mainframe:CreateProjectile('/projectiles/CIFEMPFluxWarhead02/CIFEMPFluxWarhead02_proj.bp', 0, 0, 0, nil, nil, nil):SetCollision(false)
     -- This effect is a neutered nuke, so set the damage to zero
-    myproj.NukeOuterRingDamage = 1
-    myproj.NukeOuterRingRadius = 1
-    myproj.NukeOuterRingTicks = 1
-    myproj.NukeOuterRingTotalTime = 1
-    myproj.NukeInnerRingDamage = 1
-    myproj.NukeInnerRingRadius = 1
-    myproj.NukeInnerRingTicks = 1
-    myproj.NukeInnerRingTotalTime = 1
-    myproj:CreateNuclearExplosion()
+    myproj.InnerRing = NukeDamage()
+	myproj.InnerRing:OnCreate(1, 1, 1, 1)
+	myproj.OuterRing = NukeDamage()
+	myproj.OuterRing:OnCreate(1, 1, 1, 1)
+	
+	-- Do nuke effect
+	myproj:ForkThread(myproj.EffectThread)
+	
+	-- BOOM!!!
+	myproj:OnImpact('Terrain', nil)
 
     -- set off the EMP -- all Aeon units in the base get stunned
-    -- except for air units, which just die
+    -- except for air units and shields, which just die
     local AeonUnits = GetUnitsInRect( ScenarioUtils.AreaToRect( 'Aeon_Base_M3' ))
     for k, unit in AeonUnits do
-        if EntityCategoryContains( categories.AEON * categories.AIR, unit ) or EntityCategoryContains( categories.AEON * categories.uab4202, unit ) then
+        if EntityCategoryContains( categories.AEON * categories.AIR - categories.STRUCTURE, unit ) or EntityCategoryContains( categories.AEON * categories.uab4202, unit ) then
             unit:Kill()
         elseif EntityCategoryContains( categories.AEON - categories.uab5101, unit ) then
             unit:SetStunned( StunDuration[ Difficulty ])
@@ -1419,6 +1577,7 @@ function EMPTriggered()
 
     -- Allow the player to attack the main base now
     ScenarioInfo.DisableM3BaseDamagedTriggers = true
+	ScenarioInfo.EMPFired = true
 
     -- Turn auto-targetting back on
     ScenarioInfo.AeonCommanderM3:SetDoNotTarget(false)
@@ -1441,22 +1600,26 @@ function Dialogue_M3_5()
 end
 
 function EnemyCommanderDied()
--- Spin the camera around the explosion
--- ScenarioFramework.EndOperationCamera( ScenarioInfo.AeonCommanderM3, true )
-    ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.AeonCommanderM3 )
 
-    -- Aeon commander's death cry
-    ScenarioFramework.Dialogue( OpStrings.C04_M03_095, false, true )
+	ScenarioInfo.AeonCommanderDead = true
+	
+	-- Skip this if EMP has not been fired (in this case, the aeon destroys main frame and player loses)
+	if ScenarioInfo.EMPFired then
+		-- Spin the camera around the explosion
+		-- ScenarioFramework.EndOperationCamera( ScenarioInfo.AeonCommanderM3, true )
+		ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.AeonCommanderM3 )
 
-    ScenarioInfo.AeonCommanderDead = true
+		-- Aeon commander's death cry
+		ScenarioFramework.Dialogue( OpStrings.C04_M03_095, false, true )
 
-    -- Stop the reminder text from playing
-    ScenarioInfo.M3P3Complete = true
+		-- Stop the reminder text from playing
+		ScenarioInfo.M3P3Complete = true
 
-    if ScenarioInfo.AllNodesCaptured then
-        ScenarioFramework.Dialogue( ScenarioStrings.PObjComp )
-        PlayerWin()
-    end
+		if ScenarioInfo.AllNodesCaptured then
+			ScenarioFramework.Dialogue( ScenarioStrings.PObjComp )
+			PlayerWin()
+		end
+	end
 end
 
 function AddTechMission2()
@@ -1644,5 +1807,5 @@ function WinGame()
     WaitSeconds(5)
     -- local bonus = Objectives.IsComplete( ScenarioInfo.M1B1Objective ) and Objectives.IsComplete( ScenarioInfo.M1B2Objective )
     local secondary = Objectives.IsComplete( ScenarioInfo.M2S1Objective )
-    ScenarioFramework.EndOperation( 'SCCA_Coop_R04', true, ScenarioInfo.Options.Difficulty, true, secondary ) -- , bonus )
+    ScenarioFramework.EndOperation(true, true, secondary )
 end
