@@ -1,12 +1,7 @@
-
-
-
-
 # ----------------------------
 # Mission 1
 # Rescue Civilians
 #-----------------------------
-
 M1_West_Base_View = {
   {text = '[UEF]: Commander, several civilians have been kidnapped by the Cybrans. Our scouts were able to trace them back to this base. They\'re preparing for battle, so you\'ll have to fight your way through their defenses.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
@@ -35,16 +30,13 @@ M1_Too_Slow = {
   {text = '[UEF]: We just received new intel. The kidnapped civilians are being held in a different prison more to the east.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
-
 # ----------------------------
 # Mission 2
 # Rescue Civilians with Spider
 #-----------------------------
-
 M2_Main_Objective = {
   {text = '[UEF]: Free the kidnapped civilians by capturing the Cybran Prison.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
-
 
 M2_Prison_Captured = {
   {text = '[UEF]: You\'ve succesfully captured the prison.', vid = '', bank = '', cue = '', faction = 'UEF'},
@@ -82,11 +74,9 @@ M2_Experimentals_Destroyed = {
   {text = '[UEF]: Good work, Commander. Destroying the experimentals has given you some more time. Now hurry up and rescue the civilians before more experimentals arrive.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
-
 # ----------------------------
 # End Game
 #-----------------------------
-
 PlayerWin = {
   {text = '[UEF]: The civilians are safe. Congratulations commander.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }

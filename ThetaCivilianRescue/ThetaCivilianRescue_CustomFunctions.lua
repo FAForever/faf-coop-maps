@@ -1,29 +1,28 @@
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+
 -----------------
 -- Drop Functions
 -----------------
-
 function DropUnits(units, DropLocation, TransportDestination, attackChain, indestructibleTransport)
-	local brain = 'Cybran'
+    local brain = 'Cybran'
     local landUnits = {}
     local allTransports = {}
-	
-	
+    
     ForkThread(
         function()
-			local allUnits
-			if type(units) == 'string' then
-				allUnits = ScenarioUtils.CreateArmyGroup(brain, units)
-			else
-				allUnits = units
-			end
+            local allUnits
+            if type(units) == 'string' then
+                allUnits = ScenarioUtils.CreateArmyGroup(brain, units)
+            else
+                allUnits = units
+            end
 
             for _, unit in allUnits do
                 if EntityCategoryContains( categories.TRANSPORTATION, unit ) then
-					if indestructibleTransport then
-						unit:SetCanTakeDamage(false);
-					end
+                    if indestructibleTransport then
+                        unit:SetCanTakeDamage(false);
+                    end
                     table.insert(allTransports, unit )
                 else
                     table.insert(landUnits, unit )
@@ -42,21 +41,15 @@ function DropUnits(units, DropLocation, TransportDestination, attackChain, indes
                 while (not unit:IsDead() and unit:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
-                if (unit and not unit:IsDead()) then
-                    --IssuePatrol(unit, ScenarioUtils.ChainToPositions(attackChain))
-					
-                end
             end
-			ScenarioFramework.GroupPatrolChain(landUnits,attackChain)
+            ScenarioFramework.GroupPatrolChain(landUnits,attackChain)
         end
     )
 end
 
-
 function DestroyUnit(unit)
     unit:Destroy()
 end
-
 
 -- Retruns the units in <area> of <cat>
 function GetAllCatUnitsInArea(cat, area)
@@ -72,9 +65,19 @@ function GetAllCatUnitsInArea(cat, area)
     return result
 end
 
------------------------------------------------------------------------------------------------------
---MADE BY SPEED2
+function CreateFocusACUTrigger( unit, cdr, distance, timeBeforeFocus )
+    local focusACU = function() 
+            LOG('*DEBUG: focustriggered')
+            WaitSeconds(timeBeforeFocus)
+            IssueClearCommands({unit})
+            IssueAttack({unit},cdr)
+        end
+    ScenarioFramework.CreateUnitDistanceTrigger( focusACU, unit, cdr, distance )
+end
 
+-----------------------------
+--ALL BELOW IS MADE BY SPEED2
+-----------------------------
 function CreateMultipleAreaTrigger(callbackFunction, rectangles, category, onceOnly, invert, number, requireBuilt)
     return ForkThread(AreaTriggerThread, callbackFunction, rectangles, category, onceOnly, invert, number, requireBuilt)
 end
@@ -147,15 +150,4 @@ function AreaTriggerThread(callbackFunction, rectangleTable, category, onceOnly,
         end
         WaitTicks(1)
     end
-end
------------------------------------------------------------------------------------------------------
-
-function CreateFocusACUTrigger( unit, cdr, distance, timeBeforeFocus )
-	local focusACU = function() 
-			LOG('*DEBUG: focustriggered')
-			WaitSeconds(timeBeforeFocus)
-			IssueClearCommands({unit})
-			IssueAttack({unit},cdr)
-		end
-	ScenarioFramework.CreateUnitDistanceTrigger( focusACU, unit, cdr, distance )
 end
