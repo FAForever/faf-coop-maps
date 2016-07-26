@@ -247,7 +247,6 @@ function StartMission1()
         {
             Units = {ScenarioInfo.M1_Cybran_Prison},
             FlashVisible = true,
-            Category = categories.urc1101,
         }
     )
     ScenarioInfo.M1P1:AddResultCallback(
@@ -378,7 +377,6 @@ function StartMission2()
         'Capture this Cybran prison to free the kidnapped civilians.',  -- description
         {
             Units = {ScenarioInfo.M2_Cybran_Prison},
-            Category = categories.urc1901,
         }
     )
     ScenarioInfo.M2P1:AddResultCallback(
