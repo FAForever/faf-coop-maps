@@ -27,7 +27,7 @@ local MMLPlatoon
 function CybranM1WestBaseAI()
     CybranM1WestBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M1_Cybran_West_Base', 'M1_Cybran_West_Base_Marker', 80, {M1_Cybran_West_Base = 100})
     local extraEngies = ScenarioInfo.NumberOfPlayers * Difficulty
-    CybranM1WestBase:StartNonZeroBase({{8 + extraEngies, 12 + extraEngies, 16 + extraEngies}, {6 + extraEngies, 8 + extraEngies, 10 + extraEngies}})
+    CybranM1WestBase:StartNonZeroBase({{6 + extraEngies, 9 + extraEngies, 12 + extraEngies}, {4 + extraEngies, 6 + extraEngies, 8 + extraEngies}})
     
     ForkThread(function()
         WaitSeconds(1)
@@ -46,10 +46,9 @@ function CybranM1WestBaseAI()
         end
     end)
     
-    --CybranM1WestBase:SetActive('LandScouting', true)
     CybranM1WestBase:SetActive('AirScouting', true)
-    
-    CybranM1WestBaseLandAttacks() --needed to prevent wrong priorities caused by different patrol make
+
+    CybranM1WestBaseLandAttacks()
     CybranM1WestBaseAirAttacks()
 end
 
@@ -187,7 +186,7 @@ function CybranM1WestBaseAirAttacks()
     local trigger = {}
 
     quantity = {4, 6, 8}
-    trigger = {30, 25, 20}
+    trigger = {40, 30, 20}
     opai = CybranM1WestBase:AddOpAI('AirAttacks', 'M1_WestAirAttack1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

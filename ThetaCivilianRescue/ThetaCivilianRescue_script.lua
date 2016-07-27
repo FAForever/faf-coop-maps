@@ -331,7 +331,6 @@ end
 
 function PrematureMission2()
     if ScenarioInfo.MissionNumber == 1 then
-        ScenarioInfo.M1P1:ManualResult(false)
         ScenarioFramework.Dialogue(OpStrings.M1_Too_Slow, IntroMission2, true)
     end
 end
@@ -526,9 +525,6 @@ end
 function planPrematureMonkeyLord()
     if ScenarioInfo.NumberOfPlayers >= 3 then
         TCRUtil.CreateMultipleAreaTrigger(prematureMonkeylord, {'M2_Forward_Defenses_1', 'M2_Forward_Defenses_2'} , categories.DEFENSE * categories.CYBRAN - categories.WALL, true, true, 0)
-    else
-        TCRUtil.CreateMultipleAreaTrigger(prematureMonkeylord, {'M2_InFronOfBase_1', 'M2_InFronOfBase_2'} , categories.DEFENSE * categories.CYBRAN - categories.WALL, true, true, 10)
-        --TCRUtil.CreateAreaTrigger(prematureMonkeylord, 'M2_Area', categories.MOBILE * categories.TECH2 * categories.UEF - categories.ENGINEER, true, false, prematureMonkeyUnitCount[ScenarioInfo.NumberOfPlayers])
     end
 end
 

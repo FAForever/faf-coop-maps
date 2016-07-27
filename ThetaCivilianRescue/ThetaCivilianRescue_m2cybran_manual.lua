@@ -30,15 +30,16 @@ end
 -- Drop units at start
 ----------------------
 function CybranM2EastBaseUnitDrops()
-    TCRUtil.DropUnits('Rhino_1_D' .. Difficulty, 'M1_Forward_S1_Patrol_Chain_0', 'Transport_End_Point', 'M1_Forward_S1_Patrol_Chain')
-    TCRUtil.DropUnits('Loya_3_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Chain_3_0', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_3')
-    TCRUtil.DropUnits('Loya_4_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Chain_4_0', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_4')
     
-    if Objectives.IsComplete(ScenarioInfo.M1S1) then
+    if not (ScenarioInfo.M1P1) or Objectives.IsComplete(ScenarioInfo.M1P1) then
+        TCRUtil.DropUnits('Rhino_1_D' .. Difficulty, 'M2_Cybran_Drop_Rhino_1_Alternative', 'Transport_End_Point', 'M1_Forward_S1_Patrol_Chain')
         TCRUtil.DropUnits('Rhino_2_D' .. Difficulty, 'M2_Cybran_Drop_Rhino_Chain_2_0', 'Transport_End_Point', 'M2_Cybran_Drop_Rhino_Chain_2')
         TCRUtil.DropUnits('Loya_5_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Chain_5_0', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_5')
     else
-        TCRUtil.DropUnits('Rhino_2_D' .. Difficulty, 'M2_Cybran_Drop_Rhino_Alternative', 'Transport_End_Point', 'M1_Forward_S1_Patrol_Chain')
+        TCRUtil.DropUnits('Rhino_1_D' .. Difficulty, 'M1_Forward_S1_Patrol_Chain_0', 'Transport_End_Point', 'M1_Forward_S1_Patrol_Chain')
+        TCRUtil.DropUnits('Loya_3_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Chain_3_0', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_3')
+        TCRUtil.DropUnits('Loya_4_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Chain_4_0', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_4')
+        TCRUtil.DropUnits('Rhino_2_D' .. Difficulty, 'M2_Cybran_Drop_Rhino_2_Alternative', 'Transport_End_Point', 'M1_Forward_S1_Patrol_Chain')
         TCRUtil.DropUnits('Loya_5_D' .. Difficulty, 'M2_Cybran_Drop_Loya_Alternative', 'Transport_End_Point', 'M2_Cybran_Drop_Loya_Chain_4')
     end
 end
