@@ -3,15 +3,15 @@
 # Rescue Civilians
 #-----------------------------
 M1_West_Base_View = {
-  {text = '[UEF]: Commander, several civilians have been kidnapped by the Cybrans. Our scouts were able to trace them back to this base. They\'re preparing for battle, so you\'ll have to fight your way through their defenses.', vid = 'ThetaMission_UEF_Blue.sfd', bank = 'TCR_VO', cue = 'M1_West_Base_View', faction = 'UEF'},
+  {text = '[UEF]: Commander, several civilians have been kidnapped by the Cybrans. Our scouts were able to trace them back to this base. They\'re preparing for battle, so you\'ll have to fight your way through their defenses.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M1_Main_Objective = {
-  {text = '[UEF]: We suspect the civilians are being held in this prison. Your main objective is to take control of the prison and free them.', vid = 'ThetaMission_UEF_Blue.sfd', bank = 'TCR_VO', cue = 'M1_Main_Objective', faction = 'UEF'},
+  {text = '[UEF]: We suspect the civilians are being held in this prison. Your main objective is to take control of the prison and free them.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M1_Destroy_Forward_Defenses = {
-  {text = '[UEF]:  Destroy the Cybran forward defenses to secure the area.', vid = '', bank = 'X01_VO', cue = 'X01_HQ_M01_04229', faction = 'UEF'},
+  {text = '[UEF]:  Destroy the Cybran forward defenses to secure the area.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M1_Forward_Defenses_Destroyed = {
