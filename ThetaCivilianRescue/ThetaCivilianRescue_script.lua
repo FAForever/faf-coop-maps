@@ -45,7 +45,7 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 
 local M1MapExpandDelay = {30*60, 25*60, 20*60} --30*60, 25*60, 20*60
 local M2SpawnMonkeylordTime = {60*60, 45*60, 35*60} --60*60, 45*60, 35*60
-local M2SpawnExperimentalsTime = {20*60, 10*60, 5*60} --20*60, 10*60, 5*60
+local M2SpawnExperimentalsTime = {30*60, 20*60, 10*60} --30*60, 20*60, 10*60
 local prematureMonkeyUnitCount = {125,100,75,50} --{125,100,75,50}
 local killedExp = 0
 local prematureMonkeylordPreparationTime = 60 --60
@@ -535,7 +535,7 @@ function prematureMonkeylord()
     end
     
     ScenarioFramework.Dialogue(OpStrings.M2_Scared_Cybran, nil, true)
-    if not (ScenarioInfo.M2S2 == nil) then
+    if ScenarioInfo.M2S2 then
         ScenarioInfo.M2S2:ManualResult(true)
     end
     
@@ -564,7 +564,7 @@ function prematureMonkeylord()
 end
 
 function SpawnExperimental()
-    if (not ScenarioInfo.hasMonkeylordSpawned) and (math.floor(GetGameTimeSeconds()) >= M2SpawnMonkeylordTime[Difficulty]) then
+    if (not ScenarioInfo.hasMonkeylordSpawned) then
         ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming, nil, true)
         M2CybranManual.DropExperimental(KilledExperimentals)
         ScenarioInfo.hasMonkeylordSpawned = true

@@ -19,7 +19,7 @@ M1_Forward_Defenses_Destroyed = {
 }
 
 M1_Prison_Captured = {
-  {text = '[UEF]: You\'ve succesfully captured the prison, but we couldn\'t find any of the kidnapped civilians inside.', vid = '', bank = '', cue = '', faction = 'UEF'},
+  {text = '[UEF]: You\'ve succesfully captured the prison, but we couldn\'t find all of the kidnapped civilians inside. Some are still missing.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 M1_Base_Destroyed = {
@@ -27,7 +27,7 @@ M1_Base_Destroyed = {
 }
 
 M1_Too_Slow = {
-  {text = '[UEF]: We just received new intel. The kidnapped civilians are being held in a different prison more to the east.', vid = '', bank = '', cue = '', faction = 'UEF'},
+  {text = '[UEF]: We just received new intel. Some of the kidnapped civilians were transferred to a different prison more to the east.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 # ----------------------------
