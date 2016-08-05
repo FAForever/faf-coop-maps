@@ -569,6 +569,7 @@ function SpawnExperimental()
         M2CybranManual.DropExperimental(KilledExperimentals)
         ScenarioInfo.hasMonkeylordSpawned = true
     else
+        ScenarioFramework.Dialogue(OpStrings.M2_Time_Is_Up, nil, true)
         M2CybranManual.DropExperimental(KilledExperimentals)
     end
 end
