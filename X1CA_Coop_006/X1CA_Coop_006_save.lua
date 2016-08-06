@@ -7883,7 +7883,7 @@ Scenario = {
     --[[                                                                           ]]--
     next_army_id = '11',
     next_group_id = '903',
-    next_unit_id = '4855',
+    next_unit_id = '4859',
     Armies = 
     {
         --[[                                                                           ]]--
@@ -17734,7 +17734,7 @@ Scenario = {
                                                                 type = 'xsb4201',
                                                                 orders = '',
                                                                 platoon = '',
-                                                                Position = { 476.500000, 17.976563, 608.500000 },
+                                                                Position = { 474.500000, 17.939453, 610.500000 },
                                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                                             },
                                                             ['UNIT_2849'] = {
@@ -17916,13 +17916,6 @@ Scenario = {
                                                                 orders = '',
                                                                 platoon = '',
                                                                 Position = { 447.500000, 17.402344, 621.500000 },
-                                                                Orientation = { 0.000000, 0.000000, 0.000000 },
-                                                            },
-                                                            ['UNIT_4603'] = {
-                                                                type = 'xsb1106',
-                                                                orders = '',
-                                                                platoon = '',
-                                                                Position = { 433.500000, 18.089844, 651.500000 },
                                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                                             },
                                                             ['UNIT_4604'] = {
@@ -18111,6 +18104,34 @@ Scenario = {
                                                                 orders = '',
                                                                 platoon = '',
                                                                 Position = { 468.500000, 18.083984, 644.500000 },
+                                                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                                            },
+                                                            ['UNIT_4855'] = {
+                                                                type = 'xsb1301',
+                                                                orders = '',
+                                                                platoon = '',
+                                                                Position = { 479.500000, 18.048828, 611.500000 },
+                                                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                                            },
+                                                            ['UNIT_4856'] = {
+                                                                type = 'xsb1301',
+                                                                orders = '',
+                                                                platoon = '',
+                                                                Position = { 485.500000, 18.058594, 603.500000 },
+                                                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                                            },
+                                                            ['UNIT_4857'] = {
+                                                                type = 'xsb1301',
+                                                                orders = '',
+                                                                platoon = '',
+                                                                Position = { 428.500000, 18.173828, 658.500000 },
+                                                                Orientation = { 0.000000, 0.000000, 0.000000 },
+                                                            },
+                                                            ['UNIT_4858'] = {
+                                                                type = 'xsb1301',
+                                                                orders = '',
+                                                                platoon = '',
+                                                                Position = { 436.500000, 18.199219, 654.500000 },
                                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                                             },
                                                         },
