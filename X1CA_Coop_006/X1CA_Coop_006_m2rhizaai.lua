@@ -91,28 +91,6 @@ function CustomBuilders()
     -- ###############
     -- AIR PLATOONS #
     -- ###############
-
-    local EngineerAirTemp = {
-        'EngineerAirTemp',
-        'NoPlan',
-        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerAirBuilder = {
-        BuilderName = 'EngineerAirBuilder',
-        PlatoonTemplate = EngineerAirTemp,
-        InstanceCount = 5,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 19, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerAirBuilder )
-
     local AirTemplateTRANSPORTS = {
         'AirTemplateTRANSPORTS',
         'NoPlan',
@@ -159,28 +137,6 @@ function CustomBuilders()
     -- ###############
     -- SEA PLATOONS #
     -- ###############
-
-    local EngineerSeaTemp = {
-        'EngineerSeaTemp',
-        'NoPlan',
-        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerSeaBuilder = {
-        BuilderName = 'EngineerSeaBuilder',
-        PlatoonTemplate = EngineerSeaTemp,
-        InstanceCount = 10,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Sea',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 23, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerSeaBuilder )
-
     local NavalFleettemp1 = {
         'NavalFleettemp1',
         'NoPlan',
