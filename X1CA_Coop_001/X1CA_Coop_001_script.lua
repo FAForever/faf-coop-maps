@@ -2101,7 +2101,9 @@ function TruckDestroyed()
         return
     end
 
-    ScenarioFramework.Dialogue(VoiceOvers[TruckLost .. tostring(ScenarioInfo.TrucksDestroyed)])
+    if ScenarioInfo.TrucksDestroyed <= 3 then
+        ScenarioFramework.Dialogue(VoiceOvers['TruckLost' .. tostring(ScenarioInfo.TrucksDestroyed)])
+    end
 end
 
 function TruckRescued(unit)
