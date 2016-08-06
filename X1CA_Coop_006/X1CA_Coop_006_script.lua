@@ -490,23 +490,7 @@ function StartMission1()
             {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.EXPERIMENTAL}})
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M01_120)
-
-    ScenarioFramework.CreateTimerTrigger(RhizaNavalStrikeForces, 300)
 end
-
---------------------------------------------------------------------------------------
-
-function RhizaNavalStrikeForces()
-    if(ScenarioInfo.MissionNumber == 1) then
-        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'NavalStrikeForce', 'GrowthFormation')
-        for k, v in units:GetPlatoonUnits() do
-            ScenarioFramework.PlatoonPatrolChain({v}, 'M1_Rhiza_NavalStrikeForce_Chain')
-        end
-        ScenarioFramework.CreateTimerTrigger(RhizaNavalStrikeForces, 240)
-    end
-end
-
---------------------------------------------------------------------------------------
 
 function M1Subplot()
     if(LeaderFaction == 'uef' and ScenarioInfo.MissionNumber == 1) then

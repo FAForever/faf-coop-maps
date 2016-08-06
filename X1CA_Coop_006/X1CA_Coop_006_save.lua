@@ -69,13 +69,6 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 744.5, 17.8223, 424.5 ),
                 },
-                ['M1_Rhiza_NavalStrikeForce_3'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
-                    ['position'] = VECTOR3( 636, 15.5, 391 ),
-                },
                 ['M1_Seraph_Base_AirDef_4'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -4252,13 +4245,6 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 794.5, 17.9688, 396.5 ),
                 },
-                ['M1_Rhiza_NavalStrikeForce_5'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
-                    ['position'] = VECTOR3( 586, 15.5, 309 ),
-                },
                 ['Cam_1_4'] = {
                     ['zoom'] = FLOAT( 35.888367 ),
                     ['canSetCamera'] = BOOLEAN( true ),
@@ -5138,13 +5124,6 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 493.5, 17.1875, 920.5 ),
                 },
-                ['M1_Rhiza_NavalStrikeForce_1'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
-                    ['position'] = VECTOR3( 410, 15.5, 134 ),
-                },
                 ['M2_Order_AirAttack_1_2'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -5867,13 +5846,6 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 719.5, 16, 267.5 ),
                 },
-                ['M1_Rhiza_NavalStrikeForce_4'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
-                    ['position'] = VECTOR3( 521, 15.5, 474 ),
-                },
                 ['M2_Order_AirDef_1'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
@@ -5922,13 +5894,6 @@ Scenario = {
                     ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
                     ['position'] = VECTOR3( 615.5, 18, 467.5 ),
-                },
-                ['M1_Rhiza_NavalStrikeForce_2'] = {
-                    ['color'] = STRING( 'ff800080' ),
-                    ['type'] = STRING( 'Blank Marker' ),
-                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
-                    ['orientation'] = VECTOR3( 0, 0.00195599, 0 ),
-                    ['position'] = VECTOR3( 607, 15.5, 240 ),
                 },
                 ['M1_Seraph_Base_AirAttack_2_5'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -6648,15 +6613,6 @@ Scenario = {
                 "M1_Fletcher_Orbital_7",
                 "M1_Fletcher_Orbital_8",
                 "M1_Fletcher_Orbital_9",
-            },
-        },
-        ['M1_Rhiza_NavalStrikeForce_Chain'] = {
-            Markers = {
-                "M1_Rhiza_NavalStrikeForce_1",
-                "M1_Rhiza_NavalStrikeForce_2",
-                "M1_Rhiza_NavalStrikeForce_3",
-                "M1_Rhiza_NavalStrikeForce_4",
-                "M1_Rhiza_NavalStrikeForce_5",
             },
         },
         ['M1_Seraph_Base_AirAttack_1_Chain'] = {
@@ -11067,68 +11023,6 @@ Scenario = {
                         orders = '',
                         platoon = '',
                         Units = {
-                            ['NavalStrikeForce'] = GROUP {
-                                orders = '',
-                                platoon = '',
-                                Units = {
-                                    ['RhizaM1Submarine1'] = {
-                                        type = 'uas0204',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 382.000000, 15.500000, 128.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Submarine2'] = {
-                                        type = 'uas0204',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 385.000000, 15.500000, 128.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Destroyer4'] = {
-                                        type = 'uas0201',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 394.000000, 15.500000, 122.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Cruiser'] = {
-                                        type = 'uas0202',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 395.000000, 15.500000, 136.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Submarine3'] = {
-                                        type = 'uas0204',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 389.000000, 15.500000, 128.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Destroyer3'] = {
-                                        type = 'uas0201',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 381.000000, 15.500000, 132.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Destroyer2'] = {
-                                        type = 'uas0201',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 388.000000, 15.500000, 125.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                    ['RhizaM1Destroyer1'] = {
-                                        type = 'uas0201',
-                                        orders = '',
-                                        platoon = '',
-                                        Position = { 385.000000, 15.500000, 128.000000 },
-                                        Orientation = { 0.000000, 0.314159, 0.000000 },
-                                    },
-                                },
-                            },
                             ['M1_Rhiza_GiftMobile'] = GROUP {
                                 orders = '',
                                 platoon = '',
