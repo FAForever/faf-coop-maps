@@ -88,27 +88,6 @@ function CustomBuilders()
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( PrebuiltLandBuilder )
 
-    local EngineerLandTemp = {
-        'EngineerLandTemp',
-        'NoPlan',
-        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerLandBuilder = {
-        BuilderName = 'EngineerLandBuilder',
-        PlatoonTemplate = EngineerLandTemp,
-        InstanceCount = 20,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 30, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
-
     -- ###############
     -- AIR PLATOONS #
     -- ###############
