@@ -34,12 +34,13 @@ function SeraphimM1BaseAI()
     SeraphimM1Base:SetBuild('Defenses', false)
     SeraphimM1Base:SetSupportACUCount(1)
 
-    ForkThread(
-        function()
-            WaitSeconds(1)
-            SeraphimM1Base:AddBuildGroupDifficulty('M1_Seraph_BaseExpanded', 90, false)
-        end
-    )
+    ForkThread(function()
+        WaitSeconds(1)
+        -- Support factories
+        SeraphimM1Base:AddBuildGroup('M1_Seraph_Base_Support_Factories', 100, true)
+        -- Rest of the base
+        SeraphimM1Base:AddBuildGroupDifficulty('M1_Seraph_BaseExpanded', 90)
+    end)
 
     SeraphimM1BaseAirAttacks()
     SeraphimM1BaseLandAttacks()

@@ -30,24 +30,20 @@ function RhizaM2BaseAI()
     ---------------
     -- Rhiza M2 Base
     ---------------
-    RhizaM2Base:Initialize(
-        ArmyBrains[Rhiza],
-        'M2_Rhiza_Base',
-        'M2_Rhiza_Base_Marker',
-        150,
-        {
-            Rhiza_Main_Base = 100,
-            M2_Wreckage = 95,
-        }
-    )
+    RhizaM2Base:Initialize(ArmyBrains[Rhiza], 'M2_Rhiza_Base', 'M2_Rhiza_Base_Marker', 150, {Rhiza_Main_Base = 100})
+    RhizaM2Base:StartNonZeroBase({{20, 16, 12}, {17, 14, 10}})
 
-    RhizaM2Base:StartNonZeroBase({30, 26})    -- ({30, 26}) ({13, 13})
-    RhizaM2Base:SetMaximumConstructionEngineers(3)
+    -- Support factories, spawned a bit later
+    ForkThread(function()
+        WaitSeconds(1)
+        RhizaM2Base:AddBuildGroup('M2_Rhiza_Base_Support_Factories', 100, true)
+    end)
 
-    RhizaM2Base:SetActive('LandScouting', true)
+    -- Spawn wrecked basee and rebuild it
+    RhizaM2Base:SpawnGroupAsWreckage('M2_Wreckage')
+    RhizaM2Base:AddBuildGroup('M2_Wreckage', 95)
+
     RhizaM2Base:SetActive('AirScouting', true)
-
-    ArmyBrains[Rhiza]:PBMSetCheckInterval(5)
 
     RhizaM2BaseAirAttacks()
     RhizaM2BaseLandAttacks()

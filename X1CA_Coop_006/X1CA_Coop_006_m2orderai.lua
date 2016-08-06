@@ -31,7 +31,10 @@ function OrderM2BaseAI()
     OrderM2Base:StartNonZeroBase({{6, 11, 23}, {6, 10, 20}})
     OrderM2Base:SetActive('AirScouting', true)
 
-    ArmyBrains[Order]:PBMSetCheckInterval(3)
+    ForkThread(function()
+        WaitSeconds(1)
+        OrderM2Base:AddBuildGroup('M2_Order_MainBase_Support_Factories', 100, true)
+    end)
 
     OrderM2BaseAirAttacks()
     OrderM2BaseLandAttacks()

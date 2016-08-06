@@ -33,6 +33,11 @@ function SeraphimM2BaseAI()
     SeraphimM2Base:SetConstructionAlwaysAssist(true)
     SeraphimM2Base:SetActive('AirScouting', true)
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM2Base:AddBuildGroup('M2_Seraph_Base_Support_Factories', 100, true)
+    end)
+
     SeraphimM2BaseAirAttacks()
     SeraphimM2BaseLandAttacks()
     SeraphimM2BaseNavalAttacks()

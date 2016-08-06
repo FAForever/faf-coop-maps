@@ -34,6 +34,11 @@ function SeraphimM3BaseAI()
     SeraphimM3Base:SetActive('AirScouting', true)
     SeraphimM3Base:SetActive('LandScouting', true)
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3Base:AddBuildGroup('M3_Seraph_Base_Support_Factories', 100, true)
+    end)
+
     SeraphimM3Base:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM3Base_ExperimentalLand')
     SeraphimM3Base:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM3Base_ExperimentalAir')
     SeraphimM3Base:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'SeraphimM3Base_ExperimentalNaval')
@@ -541,6 +546,11 @@ function SeraphimM3WestBaseAI()
     SeraphimM3WestBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_West', 'M3_Seraph_Naval_West', 100, {M3_Seraph_Naval_West = 100})
     SeraphimM3WestBase:StartNonZeroBase({{3, 4, 6}, {3, 3, 5}})
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3WestBase:AddBuildGroup('M3_Seraph_Naval_West_Support_Factories', 100, true)
+    end)
+
     SeraphimM3WestNavalAttacks()
 end
 
@@ -635,6 +645,11 @@ function SeraphimM3EastBaseAI()
     -----------------------------
     SeraphimM3EastBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_East', 'M3_Seraph_Naval_East', 100, {M3_Seraph_Naval_East = 100})
     SeraphimM3EastBase:StartNonZeroBase({{2, 3, 5}, {2, 3, 4}})
+
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3EastBase:AddBuildGroup('M3_Seraph_Naval_East_Support_Factories', 100, true)
+    end)
 
     SeraphimM3EastNavalAttacks()
 end
