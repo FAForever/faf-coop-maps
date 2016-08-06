@@ -636,6 +636,43 @@ function SeraphimM3WestNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {35, 40, 45}
+    minQuantity = {35, 40, 45}
+    trigger = {8, 7, 6}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 140,
+        }
+    )
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 50, 75, 100 frigate power of [all] if player has >= 5, 4, 3 T3 boats
+    maxQuantity = {50, 75, 100}
+    minQuantity = {50, 75, 100}
+    trigger = {5, 4, 3}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
 end
 
 function SeraphimM3EastBaseAI()
@@ -736,4 +773,41 @@ function SeraphimM3EastNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {35, 40, 45}
+    minQuantity = {35, 40, 45}
+    trigger = {8, 7, 6}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 140,
+        }
+    )
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 50, 75, 100 frigate power of [all] if player has >= 5, 4, 3 T3 boats
+    maxQuantity = {50, 75, 100}
+    minQuantity = {50, 75, 100}
+    trigger = {5, 4, 3}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
 end
