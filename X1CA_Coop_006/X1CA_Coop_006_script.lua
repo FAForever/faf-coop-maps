@@ -603,11 +603,17 @@ function M2Fletcher()
     end
 
     -- TODO: make orbital attack player on hard
-    local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
-    if(orbital[1] and not orbital[1]:IsDead()) then
-        local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
-        ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
+    if Difficulty == 3 then
+        ForkThread(function()
+            -- Wait for satellite to be launched
+            WaitSeconds(5)
+            local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
+            if(orbital[1] and not orbital[1]:IsDead()) then
+                local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
+                ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
+                ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
+            end
+        end)
     end
 end
 
