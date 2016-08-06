@@ -1622,9 +1622,9 @@ function IntroMission3()
             M3SeraphimAI.SeraphimM3EastBaseAI()
 
             ----------------
-            -- Seth-Iavow CDR
+            -- Thel-Uuthow CDR
             ----------------
-            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i SethIavow}', true)
+            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i ThelUuthow}', true)
             if(Difficulty > 1) then
                 ScenarioInfo.Tau:CreateEnhancement('DamageStabilization')
                 ScenarioInfo.Tau:CreateEnhancement('RateOfFire')
