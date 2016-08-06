@@ -665,10 +665,8 @@ function M2Rhiza()
     -----------
     -- Rhiza ACU
     -----------
-    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, false, 
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, RhizaDies, 
         {'Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering', 'HeatSink'})
-    ScenarioInfo.RhizaACU:SetCanBeKilled(false)
-    ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
 
     -----------------------
     -- Rhiza Initial Patrols
@@ -712,13 +710,8 @@ function RhizaTempestDead()
     ScenarioInfo.RhizaTempestPing:Destroy()
 end
 
-function RhizaWarp()
-    ScenarioFramework.Dialogue(Op3Strings.X03_M03_235)
-    ForkThread(
-        function()
-            ScenarioFramework.FakeTeleportUnit(ScenarioInfo.RhizaACU, true)
-        end
-   )
+function RhizaDies()
+    ScenarioFramework.Dialogue(OpStrings.X06_M02_270)
     M2RhizaAI.DisableBase()
 end
 
