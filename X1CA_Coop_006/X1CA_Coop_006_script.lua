@@ -1632,7 +1632,7 @@ function IntroMission3()
             ----------------
             ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i ThelUuthow}', true)
             if(Difficulty > 1) then
-                ScenarioInfo.Tau:CreateEnhancement('DamageStabilization')
+                ScenarioInfo.Tau:CreateEnhancement('DamageStabilizationAdvanced')
                 ScenarioInfo.Tau:CreateEnhancement('RateOfFire')
                 ScenarioInfo.Tau:CreateEnhancement('BlastAttack')
             end
