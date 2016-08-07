@@ -83,6 +83,7 @@ local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/
 
 local LeaderFaction
 local LocalFaction
+local tblArmy
 
 ---------
 -- Startup
@@ -90,6 +91,7 @@ local LocalFaction
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
+    tblArmy = ListArmies()
 
     -- Army Colors
     if(LeaderFaction == 'cybran') then
@@ -110,7 +112,6 @@ function OnPopulate(scenario)
         ['Coop2'] = {255, 255, 255}, 
         ['Coop3'] = {97, 109, 126}
     }
-    local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
@@ -186,9 +187,17 @@ function sACURhizaAI(unit)
         WaitSeconds(.5)
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
-    for k, v in ScenarioInfo.RhizaPlayerBase do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+
+    if tblArmy[ScenarioInfo.Coop1] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+        for k, v in ScenarioInfo.RhizaPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Coop1)
+        end
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        for k, v in ScenarioInfo.RhizaPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Player)
+        end
     end
 end
 
@@ -201,7 +210,11 @@ function RhizaColossusAI()
         end
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
+    if tblArmy[ScenarioInfo.Coop1] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+    end
 end
 
 function sACUFletcherAI(unit)
@@ -210,9 +223,16 @@ function sACUFletcherAI(unit)
         WaitSeconds(.5)
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
-    for k, v in ScenarioInfo.FletcherPlayerBase do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+    if tblArmy[ScenarioInfo.Coop2] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+        for k, v in ScenarioInfo.FletcherPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Coop2)
+        end
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        for k, v in ScenarioInfo.FletcherPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Player)
+        end
     end
 end
 
@@ -266,9 +286,14 @@ function FletcherTransportAI()
         end
         v:Destroy()
     end
-
-    for k, unit in allUnits do
-        ScenarioFramework.GiveUnitToArmy(unit, Player)
+    if tblArmy[ScenarioInfo.Coop2] then
+        for k, unit in allUnits do
+            ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+        end
+    else
+        for k, unit in allUnits do
+            ScenarioFramework.GiveUnitToArmy(unit, Player)
+        end
     end
 end
 
@@ -402,22 +427,16 @@ function IntroMission1NIS()
                     ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                 end
 
-                -- spawn coop players too
-                ScenarioInfo.CoopCDR = {}
+                -- Spawn Coop3
                 local tblArmy = ListArmies()
-                coop = 1
-                for iArmy, strArmy in pairs(tblArmy) do
-                    if iArmy >= ScenarioInfo.Coop1 then
-                        factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-                        if (factionIdx == 1) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
-                        elseif (factionIdx == 2) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerLose)
-                        else
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerLose)
-                        end
-                        coop = coop + 1
-                        WaitSeconds(0.5)
+                if tblArmy[ScenarioInfo.Coop3] then
+                    factionIdx = GetArmyBrain('Coop3'):GetFactionIndex()
+                    if (factionIdx == 1) then
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'UEFPlayer', 'Warp', true, true, PlayerLose)
+                    elseif (factionIdx == 2) then
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'AeonPlayer', 'Warp', true, true, PlayerLose)
+                    else
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'CybranPlayer', 'Warp', true, true, PlayerLose)
                     end
                 end
             end)
