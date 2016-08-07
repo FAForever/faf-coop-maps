@@ -30,7 +30,7 @@ function RhizaM2BaseAI()
     ---------------
     -- Rhiza M2 Base
     ---------------
-    RhizaM2Base:Initialize(ArmyBrains[Rhiza], 'M2_Rhiza_Base', 'M2_Rhiza_Base_Marker', 150, {Rhiza_Main_Base = 100})
+    RhizaM2Base:InitializeDifficultyTables(ArmyBrains[Rhiza], 'M2_Rhiza_Base', 'M2_Rhiza_Base_Marker', 150, {M2_Rhiza_Base = 100})
     RhizaM2Base:StartNonZeroBase({{20, 16, 12}, {17, 14, 10}})
 
     -- Support factories, spawned a bit later
