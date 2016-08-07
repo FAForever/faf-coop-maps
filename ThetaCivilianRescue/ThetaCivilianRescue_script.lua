@@ -147,7 +147,8 @@ function mainRestrictions()
                 - categories.ueb1202 -- T2 mass
                 - categories.ueb1201 -- T2 power
                 - categories.ueb5202 -- T2 airstaging
-                - categories.ueb3201) -- T2 radar
+                - categories.ueb3201 -- T2 radar
+                - categories.ueb2204) -- T2 flak
 end
 
 function cybranRestrictions()
