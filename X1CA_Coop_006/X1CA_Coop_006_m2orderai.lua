@@ -525,7 +525,7 @@ function OrderM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    -- sends 35, 40, 45 frigate power of [all] if player has >= 3, 2, 1 T3 boats
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 3, 2, 1 T3/T4 boats
     maxQuantity = {35, 40, 45}
     minQuantity = {35, 40, 45}
     trigger = {3, 2, 1}
@@ -543,9 +543,9 @@ function OrderM2BaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
 
-    -- sends 2, 3, 4 Battleships if player has >= 5, 4, 3 T3 boats
+    -- sends 2, 3, 4 Battleships if player has >= 5, 4, 3 T3/T4 boats
     maxQuantity = {50, 75, 100}
     minQuantity = {50, 75, 100}
     trigger = {5, 4, 3}
@@ -565,7 +565,7 @@ function OrderM2BaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
 
     -- Naval Defense
     maxQuantity = {6, 9, 12}

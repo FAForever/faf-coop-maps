@@ -657,7 +657,7 @@ function SeraphimM3WestNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    -- sends 75, 100, 125 frigate power of [all] if player has >= 6, 5, 4 T3 boats
+    -- sends 75, 100, 125 frigate power of [all] if player has >= 6, 5, 4 T3/T4 boats
     maxQuantity = {75, 100, 125}
     minQuantity = {75, 100, 125}
     trigger = {6, 5, 4}
@@ -676,7 +676,28 @@ function SeraphimM3WestNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
+
+    -- sends 3, 4, 5 Sub Hunters if player has >= 2, 2, 1 Atlantis + Tempest
+    maxQuantity = {150, 200, 250}
+    minQuantity = {150, 200, 250}
+    trigger = {2, 2, 1}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Submarine'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ues0401 + categories.uas0401})
 end
 
 function SeraphimM3EastBaseAI()
@@ -798,7 +819,7 @@ function SeraphimM3EastNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    -- sends 50, 75, 100 frigate power of [all] if player has >= 7, 6, 5 T3 boats
+    -- sends 50, 75, 100 frigate power of [all] if player has >= 7, 6, 5 T3/T4 boats
     maxQuantity = {50, 75, 100}
     minQuantity = {50, 75, 100}
     trigger = {7, 6, 5}
@@ -817,5 +838,26 @@ function SeraphimM3EastNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
+
+    -- sends 2, 3, 4 Sub Hunters if player has >= 2, 2, 1 Atlantis + Tempest
+    maxQuantity = {100, 150, 200}
+    minQuantity = {100, 150, 200}
+    trigger = {2, 2, 1}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Submarine'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ues0401 + categories.uas0401})
 end
