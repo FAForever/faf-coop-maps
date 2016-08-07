@@ -119,7 +119,7 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
-    SetArmyUnitCap(Seraphim, 1000)
+    SetArmyUnitCap(Seraphim, 500)
 
     -- Disable friendly AI sharing resources to players
     GetArmyBrain(Rhiza):SetResourceSharing(false)
@@ -486,11 +486,15 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ForkThread(IntroMission2PreNIS)
+                IntroMission2PreNIS()
             end
         end
    )
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
+
+    -- Continue to other part even if objective isn't finished yet
+    local Delay = {25, 20, 15}
+    ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 60)
 
     if(false and Difficulty ==3) then
         WaitSeconds(10)
@@ -550,7 +554,7 @@ function IntroMission2()
             SetArmyUnitCap(Rhiza, 520)
             SetArmyUnitCap(Fletcher, 575)
             SetArmyUnitCap(Order, 575)
-            SetArmyUnitCap(Seraphim, 560)
+            SetArmyUnitCap(Seraphim, 800)
 
             M2Fletcher()
             M2Order()
@@ -775,7 +779,12 @@ function M2Seraphim()
 end
 
 function IntroMission2PreNIS()
-    ScenarioFramework.Dialogue(OpStrings.X06_M02_010, IntroMission2, true)
+    ForkThread(function()
+        if not ScenarioInfo.M1Finished then
+            ScenarioInfo.M1Finished = true
+            ScenarioFramework.Dialogue(OpStrings.X06_M02_010, IntroMission2, true)
+        end
+    end)
 end
 
 function IntroMission2NIS()
@@ -1072,6 +1081,10 @@ function StartMission2()
    )
     table.insert(AssignedObjectives, ScenarioInfo.M2P2)
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, 1060)
+
+    -- Continue to other part even if objective isn't finished yet
+    local Delay = {30, 25, 20}
+    ScenarioFramework.CreateTimerTrigger(M2EndMission, Delay[Difficulty] * 60)
 
     local m2Objectives = Objectives.CreateGroup('M2Primaries', M2EndMission, 2)
     m2Objectives:AddObjective(ScenarioInfo.M2P1)
@@ -1617,8 +1630,11 @@ function M2EndMission()
     -- Wait for the death spin around the enemy commander to finish
     ForkThread(
         function()
-            WaitSeconds(6)
-            IntroMission3()     -- TODO: remove this call, and use the dialogue above for it, when new dialogue is added
+            if not ScenarioInfo.M2Finished then
+                ScenarioInfo.M2Finished = true
+                WaitSeconds(6)
+                IntroMission3()     -- TODO: remove this call, and use the dialogue above for it, when new dialogue is added
+            end
         end
    )
 end
@@ -1637,7 +1653,7 @@ function IntroMission3()
             ScenarioInfo.MissionNumber = 3
 
             -- Unit caps
-            SetArmyUnitCap(Seraphim, 1000)
+            SetArmyUnitCap(Seraphim, 1200)
 
             ----------------
             -- M3 Seraphim AI
