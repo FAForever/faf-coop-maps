@@ -442,7 +442,7 @@ function OrderM2BaseNavalAttacks()
             PlatoonData = {
                 PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
-            EnableTypes = {'Frigate'},
+            EnabledTypes = {'Frigate'},
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 100,
@@ -459,7 +459,7 @@ function OrderM2BaseNavalAttacks()
             PlatoonData = {
                 PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
-            EnableTypes = {'Frigate', 'Submarine'},
+            EnabledTypes = {'Frigate', 'Submarine'},
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 110,
@@ -506,47 +506,64 @@ function OrderM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    -- sends 35, 40, 45 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
-    maxQuantity = {35, 40, 45}
-    minQuantity = {35, 40, 45}
+    -- sends 14, 17, 20 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {14, 17, 20}
+    minQuantity = {14, 17, 20}
     trigger = {8, 7, 6}
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack5',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M2_Order_NavalAttack_2_Chain',
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 140,
-            Overrides = {
-                CORE_TO_CRUISERS = 0.3,
-                CORE_TO_SUBS = 1,
-            },
         }
     )
+    opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
 
-    -- sends 50, 75, 100 frigate power of [all] if player has >= 5, 4, 3 T3 boats
-    maxQuantity = {50, 75, 100}
-    minQuantity = {50, 75, 100}
-    trigger = {5, 4, 3}
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 3, 2, 1 T3 boats
+    maxQuantity = {35, 40, 45}
+    minQuantity = {35, 40, 45}
+    trigger = {3, 2, 1}
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack6',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M2_Order_NavalAttack_1_Chain',
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 150,
-            Overrides = {
-                CORE_TO_CRUISERS = 4,
-                CORE_TO_SUBS = 2,
-            },
         }
     )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+
+    -- sends 2, 3, 4 Battleships if player has >= 5, 4, 3 T3 boats
+    maxQuantity = {50, 75, 100}
+    minQuantity = {50, 75, 100}
+    trigger = {5, 4, 3}
+    opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 160,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
 
