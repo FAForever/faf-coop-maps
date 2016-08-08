@@ -4,6 +4,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local TCRUtil = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_CustomFunctions.lua')
+local ThisFile = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_m1cybranai.lua'
 
 ---------
 -- Locals
@@ -63,10 +64,7 @@ function CybranM1WestBaseLandAttacks()
     for i = 1,2 do
         opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack1_' .. i,
             {
-                MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-                PlatoonData = {
-                    PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3', 'M1_Cybran_Land_Attack_Chain_4'},
-                },
+                MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
                 Priority = 110,
             }
         )
@@ -93,10 +91,7 @@ function CybranM1WestBaseLandAttacks()
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'M1_Cybran_West_Base',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-                PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3','M1_Cybran_Land_Attack_Chain_4'},
-        },
+        PlatoonAIFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
     }
     ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
     
@@ -123,10 +118,7 @@ function CybranM1WestBaseLandAttacks()
             { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
             {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER}},
         },
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-                PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3','M1_Cybran_Land_Attack_Chain_4'},
-        },
+        PlatoonAIFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
     }
     ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
     
@@ -135,10 +127,7 @@ function CybranM1WestBaseLandAttacks()
     trigger = {20, 15, 10}
     opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack4',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3', 'M1_Cybran_Land_Attack_Chain_4'},
-            },
+            MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
             Priority = 120,
         }
     )
@@ -151,10 +140,7 @@ function CybranM1WestBaseLandAttacks()
     trigger = {10, 5, 2}
     opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack5',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-            PlatoonData = {
-                PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3', 'M1_Cybran_Land_Attack_Chain_4'},
-            },
+            MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
             Priority = 130,
         }
     )
@@ -167,10 +153,7 @@ function CybranM1WestBaseLandAttacks()
         trigger = {20, 15, 10, 6}
         opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack6',
             {
-                MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-                PlatoonData = {
-                    PatrolChains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3'},
-                },
+                MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
                 Priority = 130,
             }
         )
@@ -214,4 +197,32 @@ function CybranM1WestBaseAirAttacks()
     opai:SetChildQuantity({'Interceptors'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain', 'Player', trigger[Difficulty], categories.AIR})
+end
+
+
+-------------------------------------------
+-- Function that picks land patrols for AI
+-------------------------------------------
+function M1EastBaseLandPlatoonAI(platoon)
+    local rand = Random(1, 4)
+    local chains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3', 'M1_Cybran_Land_Attack_Chain_4'}
+    local pickedChain = chains[rand]
+    
+    LOG('*DEBUG: pickedChain = ' .. pickedChain)
+    platoon:Stop()
+    if rand <= 2 then
+        ScenarioFramework.PlatoonPatrolChain(platoon, pickedChain)
+    else
+        PlatoonPatrolInsideAreaRoute( platoon, pickedChain )
+    end
+end
+
+-- only move outside of the map and start patrolling when inside. (Depends on amount of markers in chain)
+-- Attack move to edge of map so units don't run away when base is under assault.
+function PlatoonPatrolInsideAreaRoute( platoon, chain )
+    
+    ScenarioFramework.PlatoonAttackChain(platoon, chain .. '_Go_Outside')
+    ScenarioFramework.PlatoonMoveChain(platoon, chain .. '_Go_Back_Inside')
+    ScenarioFramework.PlatoonPatrolChain(platoon, chain .. '_Patrol')
+    
 end
