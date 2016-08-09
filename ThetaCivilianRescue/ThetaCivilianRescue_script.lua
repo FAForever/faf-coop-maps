@@ -158,7 +158,7 @@ end
 ------------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
-    LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
+    --LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
     -------------------
     -- Cybran West Base
     -------------------
@@ -251,7 +251,7 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                LOG('*DEBUG: M1P1')
+                --LOG('*DEBUG: M1P1')
                 if ScenarioInfo.MissionNumber == 1 then
                     ScenarioFramework.Dialogue(OpStrings.M1_Prison_Captured, IntroMission2, true)
                 end
@@ -287,7 +287,7 @@ function StartMission1()
     )
     ScenarioInfo.M1S1:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M1S1')
+            --LOG('*DEBUG: M1S1')
             if(result) then
                 ScenarioFramework.Dialogue(OpStrings.M1_Base_Destroyed, nil, true)
             end
@@ -321,7 +321,7 @@ function StartMission1()
         )
         ScenarioInfo.M1S2:AddResultCallback(
             function(result)
-                LOG('*DEBUG: M1S2')
+                --LOG('*DEBUG: M1S2')
                 if(result) then
                     ScenarioFramework.Dialogue(OpStrings.M1_Forward_Defenses_Destroyed, nil, true)
                 end
@@ -339,7 +339,7 @@ end
 
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
-    LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
+    --LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
     
     ScenarioFramework.SetPlayableArea('M2_Area', true)
     
@@ -383,7 +383,7 @@ function StartMission2()
     )
     ScenarioInfo.M2P1:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M2P1')
+            --LOG('*DEBUG: M2P1')
             if(result) then
                 if ScenarioInfo.MissionNumber == 2 then
                     ScenarioFramework.Dialogue(OpStrings.M2_Prison_Captured, PlayerWin, true)
@@ -417,7 +417,7 @@ function StartMission2()
     )
     ScenarioInfo.M2S1:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M2S1')
+            --LOG('*DEBUG: M2S1')
             if(result) then
                 ScenarioFramework.Dialogue(OpStrings.M2_Base_Destroyed, nil, true)
             end
@@ -461,7 +461,7 @@ function StartMission2()
         )
         ScenarioInfo.M2S3:AddResultCallback(
             function(result)
-                LOG('*DEBUG: M2S3')
+                --LOG('*DEBUG: M2S3')
                 if(result) then
                     ScenarioFramework.Dialogue(OpStrings.M2_Forward_Defenses_1_Destroyed, nil, true)
                 end
@@ -491,7 +491,7 @@ function StartMission2()
             )
             ScenarioInfo.M2S4:AddResultCallback(
                 function(result)
-                    LOG('*DEBUG: M2S4')
+                    --LOG('*DEBUG: M2S4')
                     if(result) then
                         ScenarioFramework.Dialogue(OpStrings.M2_Forward_Defenses_2_Destroyed, nil, true)
                     end
@@ -521,7 +521,7 @@ function M2S2MonkeylordObjective(MonkeylordTime)
     )
     ScenarioInfo.M2S2:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M2S2')
+            --LOG('*DEBUG: M2S2')
             if (not result) then
                 SpawnMonkeyLord()
             end
@@ -563,7 +563,7 @@ function prematureMonkeylord()
     )
     ScenarioInfo.M2S2_1:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M2S2_1')
+            --LOG('*DEBUG: M2S2_1')
             if (not result) then
                 SpawnMonkeyLord()
             end
@@ -579,7 +579,7 @@ function SpawnMonkeyLord()
 end
     
 function SpawnExperimental()
-    LOG('*DEBUG: SpawnExperimentals')
+    --LOG('*DEBUG: SpawnExperimentals')
     if (not ScenarioInfo.hasMonkeylordSpawned) then
         ScenarioInfo.hasMonkeylordSpawned = true
         ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming, nil, true)
@@ -626,7 +626,7 @@ function KilledExperimentals()
     )
     ScenarioInfo.M2SX:AddResultCallback(
         function(result)
-            LOG('*DEBUG: M2SX')
+            --LOG('*DEBUG: M2SX')
             if (not result) then
                 SpawnExperimental()
             end

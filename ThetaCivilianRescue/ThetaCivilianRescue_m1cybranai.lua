@@ -208,7 +208,7 @@ function M1EastBaseLandPlatoonAI(platoon)
     local chains = {'M1_Cybran_Land_Attack_Chain_1', 'M1_Cybran_Land_Attack_Chain_2','M1_Cybran_Land_Attack_Chain_3', 'M1_Cybran_Land_Attack_Chain_4'}
     local pickedChain = chains[rand]
     
-    LOG('*DEBUG: pickedChain = ' .. pickedChain)
+    --LOG('*DEBUG: pickedChain = ' .. pickedChain)
     platoon:Stop()
     if rand <= 2 then
         ScenarioFramework.PlatoonPatrolChain(platoon, pickedChain)
