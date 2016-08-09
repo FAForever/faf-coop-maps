@@ -1086,7 +1086,7 @@ function StartMission3()
 
     -- Unlock le nukes
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab2305 + categories.ueb2305)
-    ScenarioFramework.RemoveRestriction(AeonAriel, categories.uaa0304)
+    ScenarioFramework.RemoveRestriction(AeonAriel, categories.uaa0304 + categories.ual0303)
 
     ScenarioFramework.CreateTimerTrigger(M3ArielTaunt1, M3ArielTaunt1Timer)
 
