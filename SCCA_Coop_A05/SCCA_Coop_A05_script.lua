@@ -795,7 +795,6 @@ function StartMission2()
 
     -- delay his death
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.BlakeUnit)
-    ScenarioFramework.CreateUnitDestroyedTrigger(M2BlakeDestroyed, ScenarioInfo.BlakeUnit)
 
     plat.PlatoonData.AssistFactories = true
     plat.PlatoonData.LocationType = 'WestBase'
@@ -883,6 +882,7 @@ function M2OpenNorthArtillery()
     if not ScenarioInfo.NorthArtilleryPiece:IsDead() then
         ScenarioFramework.GiveUnitToArmy(ScenarioInfo.NorthArtilleryPiece, UEF)
     end
+    ScenarioFramework.CreateAreaTrigger(M2NorthArtilleryDefeated, 'North_Artillery_Area', categories.uel0309 + categories.ueb2302, true, true, ArmyBrains[UEF])
 end
 
 -- Reveal to the player that artillyer and Blake needed a good thumpin
@@ -904,11 +904,31 @@ function M2RevealObjectives()
            )
     ScenarioInfo.M2P1Obj:AddResultCallback(M2ArtilleryDestroyed)
 
-    ScenarioFramework.CreateAreaTrigger(M2NorthArtilleryDefeated, 'North_Artillery_Area', categories.uel0309 + categories.ueb2302, true, true, ArmyBrains[UEF])
+    
     ScenarioFramework.CreateAreaTrigger(M2MiddleArtilleryDefeated, 'Middle_Artillery_Area', categories.uel0309 + categories.ueb2302, true, true, ArmyBrains[UEF])
     ScenarioFramework.CreateAreaTrigger(M2SouthArtilleryDefeated, 'South_Artillery_Area', categories.uel0309 + categories.ueb2302, true, true, ArmyBrains[UEF])
 
-    ScenarioInfo.M2P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description, Objectives.GetActionIcon('kill'), { Units = { ScenarioInfo.BlakeUnit, } })
+    ScenarioInfo.M2P2Obj = Objectives.Kill(
+        'primary',
+        'incomplete',
+        OpStrings.M2P2Title,
+        OpStrings.M2P2Description,
+        { 
+            Units = {ScenarioInfo.BlakeUnit},
+        }
+    )
+    ScenarioInfo.M2P2Obj:AddResultCallback(
+        function(result)
+            if result then
+                if not ScenarioInfo.M2BlakeDestroyedBool then
+                    ScenarioInfo.M2BlakeDestroyedBool = true
+                else
+                    return
+                end
+                ScenarioFramework.Dialogue(OpStrings.A05_M02_110, M2CheckObjectives)
+            end
+        end
+    )
 end
 
 function M2NorthArtilleryDefeated()
@@ -972,17 +992,6 @@ function M2ArtilleryBuilt(builder, unit)
             ScenarioFramework.Dialogue(OpStrings.A05_M02_050)
         end
     end
-end
-
--- Blake go boom
-function M2BlakeDestroyed()
-
--- UEF commander destroyed camera
--- ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.BlakeUnit, 7)
-
-    ScenarioInfo.M2BlakeDestroyedBool = true
-    ScenarioInfo.M2P2Obj:ManualResult(true)
-    ScenarioFramework.Dialogue(OpStrings.A05_M02_110, M2CheckObjectives)
 end
 
 -- Blake will do stuff to hinder things for the player, somehow
