@@ -11,6 +11,7 @@ local ThisFile = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_m1cybranai.lua'
 ---------
 local Cybran = 2
 local Difficulty = ScenarioInfo.Options.Difficulty
+local WaitForAttackSeconds = {120,60,0}
 
 ----------------
 -- Base Managers
@@ -49,8 +50,11 @@ function CybranM1WestBaseAI()
     
     CybranM1WestBase:SetActive('AirScouting', true)
 
-    CybranM1WestBaseLandAttacks()
-    CybranM1WestBaseAirAttacks()
+    ForkThread(function()
+        WaitSeconds(WaitForAttackSeconds[Difficulty])
+        CybranM1WestBaseLandAttacks()
+        CybranM1WestBaseAirAttacks()
+    end)
 end
 
 function CybranM1WestBaseLandAttacks()
@@ -124,7 +128,7 @@ function CybranM1WestBaseLandAttacks()
     
     --Small HeavyTanks patrol starting from X amount of units.
     quantity = {2, 3, 4}
-    trigger = {20, 15, 10}
+    trigger = {30, 20, 10}
     opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack4',
         {
             MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
@@ -137,7 +141,7 @@ function CybranM1WestBaseLandAttacks()
     
     --Big HeavyTanks patrol starting from X amount of units.
     quantity = {6, 8, 10}
-    trigger = {10, 5, 2}
+    trigger = {12, 6, 2}
     opai = CybranM1WestBase:AddOpAI('BasicLandAttack', 'M1_WestLandAttack5',
         {
             MasterPlatoonFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
