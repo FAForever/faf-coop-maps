@@ -84,8 +84,6 @@ function OnPopulate(scenario)
     
 end
 
-
-
 function OnStart(self)
     ScenarioUtils.CreateArmyGroup('Player', 'signature', true)
 
@@ -580,7 +578,6 @@ function SpawnMonkeyLord()
     end
 end
     
-
 function SpawnExperimental()
     LOG('*DEBUG: SpawnExperimentals')
     if (not ScenarioInfo.hasMonkeylordSpawned) then
