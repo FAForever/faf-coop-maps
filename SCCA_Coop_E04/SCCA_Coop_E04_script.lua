@@ -862,10 +862,8 @@ end
 
 function StartMission3()
     ScenarioInfo.MissionNumber = 3
-<<<<<<< 51179527de7c688ef62bb1f1cf025fc62ef54d30
-=======
+
     ScenarioFramework.SetSharedUnitCap(660)
->>>>>>> Unit cap for vanilla missions
 
     -- Setting Playable area
     -- In this mission, we dont resize until the player builds 3 towers
