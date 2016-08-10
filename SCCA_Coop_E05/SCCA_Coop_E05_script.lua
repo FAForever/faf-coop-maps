@@ -1519,7 +1519,6 @@ function CybranBaseDestroyed(marker)
     -- Todo Addmarker: remove marker from base?
 
     Objectives.UpdateBasicObjective(ScenarioInfo.M3S1, 'progress', LOCF(OpStrings.M3S1Progress, ScenarioInfo.CybranBasesDestroyed))
-    Objectives.UpdateObjective(OpStrings.X03_M03_OBJ_010_010, 'Progress', '(1/2)', ScenarioInfo.M3P1.Tag )
 
     -- ! If 5 have been destroyed, then complete M3S1, and play an NIS at the marker passed in
     if ScenarioInfo.CybranBasesDestroyed >= 5 then
