@@ -31,7 +31,10 @@ function OrderM2BaseAI()
     OrderM2Base:StartNonZeroBase({{6, 11, 23}, {6, 10, 20}})
     OrderM2Base:SetActive('AirScouting', true)
 
-    ArmyBrains[Order]:PBMSetCheckInterval(3)
+    ForkThread(function()
+        WaitSeconds(1)
+        OrderM2Base:AddBuildGroup('M2_Order_MainBase_Support_Factories', 100, true)
+    end)
 
     OrderM2BaseAirAttacks()
     OrderM2BaseLandAttacks()
@@ -439,7 +442,7 @@ function OrderM2BaseNavalAttacks()
             PlatoonData = {
                 PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
-            EnableTypes = {'Frigate'},
+            EnabledTypes = {'Frigate'},
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 100,
@@ -456,7 +459,7 @@ function OrderM2BaseNavalAttacks()
             PlatoonData = {
                 PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
             },
-            EnableTypes = {'Frigate', 'Submarine'},
+            EnabledTypes = {'Frigate', 'Submarine'},
             MaxFrigates = maxQuantity[Difficulty],
             MinFrigates = minQuantity[Difficulty],
             Priority = 110,
@@ -502,6 +505,67 @@ function OrderM2BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 14, 17, 20 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {14, 17, 20}
+    minQuantity = {14, 17, 20}
+    trigger = {8, 7, 6}
+    opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 140,
+        }
+    )
+    opai:SetChildActive('T3', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 3, 2, 1 T3/T4 boats
+    maxQuantity = {35, 40, 45}
+    minQuantity = {35, 40, 45}
+    trigger = {3, 2, 1}
+    opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
+
+    -- sends 2, 3, 4 Battleships if player has >= 5, 4, 3 T3/T4 boats
+    maxQuantity = {50, 75, 100}
+    minQuantity = {50, 75, 100}
+    trigger = {5, 4, 3}
+    opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 160,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
 
     -- Naval Defense
     maxQuantity = {6, 9, 12}

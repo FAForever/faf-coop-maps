@@ -30,24 +30,20 @@ function RhizaM2BaseAI()
     ---------------
     -- Rhiza M2 Base
     ---------------
-    RhizaM2Base:Initialize(
-        ArmyBrains[Rhiza],
-        'M2_Rhiza_Base',
-        'M2_Rhiza_Base_Marker',
-        150,
-        {
-            Rhiza_Main_Base = 100,
-            M2_Wreckage = 95,
-        }
-    )
+    RhizaM2Base:InitializeDifficultyTables(ArmyBrains[Rhiza], 'M2_Rhiza_Base', 'M2_Rhiza_Base_Marker', 150, {M2_Rhiza_Base = 100})
+    RhizaM2Base:StartNonZeroBase({{20, 16, 12}, {17, 14, 10}})
 
-    RhizaM2Base:StartNonZeroBase({30, 26})    -- ({30, 26}) ({13, 13})
-    RhizaM2Base:SetMaximumConstructionEngineers(3)
+    -- Support factories, spawned a bit later
+    ForkThread(function()
+        WaitSeconds(1)
+        RhizaM2Base:AddBuildGroup('M2_Rhiza_Base_Support_Factories', 100, true)
+    end)
 
-    RhizaM2Base:SetActive('LandScouting', true)
+    -- Spawn wrecked basee and rebuild it
+    RhizaM2Base:SpawnGroupAsWreckage('M2_Wreckage')
+    RhizaM2Base:AddBuildGroup('M2_Wreckage', 95)
+
     RhizaM2Base:SetActive('AirScouting', true)
-
-    ArmyBrains[Rhiza]:PBMSetCheckInterval(5)
 
     RhizaM2BaseAirAttacks()
     RhizaM2BaseLandAttacks()
@@ -88,52 +84,9 @@ function CustomBuilders()
     }
     ArmyBrains[Rhiza]:PBMAddPlatoon( PrebuiltLandBuilder )
 
-    local EngineerLandTemp = {
-        'EngineerLandTemp',
-        'NoPlan',
-        { 'ual0309', 1, 1, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerLandBuilder = {
-        BuilderName = 'EngineerLandBuilder',
-        PlatoonTemplate = EngineerLandTemp,
-        InstanceCount = 20,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 30, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
-
     -- ###############
     -- AIR PLATOONS #
     -- ###############
-
-    local EngineerAirTemp = {
-        'EngineerAirTemp',
-        'NoPlan',
-        { 'ual0309', 1, 8, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerAirBuilder = {
-        BuilderName = 'EngineerAirBuilder',
-        PlatoonTemplate = EngineerAirTemp,
-        InstanceCount = 5,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 19, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerAirBuilder )
-
     local AirTemplateTRANSPORTS = {
         'AirTemplateTRANSPORTS',
         'NoPlan',
@@ -180,28 +133,6 @@ function CustomBuilders()
     -- ###############
     -- SEA PLATOONS #
     -- ###############
-
-    local EngineerSeaTemp = {
-        'EngineerSeaTemp',
-        'NoPlan',
-        { 'ual0309', 1, 4, 'Attack', 'GrowthFormation' },    -- Engineers
-    }
-    local EngineerSeaBuilder = {
-        BuilderName = 'EngineerSeaBuilder',
-        PlatoonTemplate = EngineerSeaTemp,
-        InstanceCount = 10,
-        PlatoonAIPlan = 'DisbandAI',
-        Priority = 5115,
-        PlatoonType = 'Sea',
-        RequiresConstruction = true,
-        BuildConditions = {
-            { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 23, categories.ual0309}},
-        },
-        LocationType = 'M2_Rhiza_Base',
-    }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerSeaBuilder )
-
     local NavalFleettemp1 = {
         'NavalFleettemp1',
         'NoPlan',

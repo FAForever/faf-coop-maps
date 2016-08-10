@@ -83,6 +83,7 @@ local RhizaTM = TauntManager.CreateTauntManager('RhizaTM', '/maps/X1CA_Coop_006/
 
 local LeaderFaction
 local LocalFaction
+local tblArmy
 
 ---------
 -- Startup
@@ -90,6 +91,7 @@ local LocalFaction
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
+    tblArmy = ListArmies()
 
     -- Army Colors
     if(LeaderFaction == 'cybran') then
@@ -110,7 +112,6 @@ function OnPopulate(scenario)
         ['Coop2'] = {255, 255, 255}, 
         ['Coop3'] = {97, 109, 126}
     }
-    local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
@@ -118,7 +119,7 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
-    SetArmyUnitCap(Seraphim, 1000)
+    SetArmyUnitCap(Seraphim, 500)
 
     -- Disable friendly AI sharing resources to players
     GetArmyBrain(Rhiza):SetResourceSharing(false)
@@ -186,9 +187,17 @@ function sACURhizaAI(unit)
         WaitSeconds(.5)
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
-    for k, v in ScenarioInfo.RhizaPlayerBase do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+
+    if tblArmy[ScenarioInfo.Coop1] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+        for k, v in ScenarioInfo.RhizaPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Coop1)
+        end
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        for k, v in ScenarioInfo.RhizaPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Player)
+        end
     end
 end
 
@@ -201,7 +210,11 @@ function RhizaColossusAI()
         end
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
+    if tblArmy[ScenarioInfo.Coop1] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+    end
 end
 
 function sACUFletcherAI(unit)
@@ -210,9 +223,16 @@ function sACUFletcherAI(unit)
         WaitSeconds(.5)
     end
     WaitSeconds(1)
-    ScenarioFramework.GiveUnitToArmy(unit, Player)
-    for k, v in ScenarioInfo.FletcherPlayerBase do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+    if tblArmy[ScenarioInfo.Coop2] then
+        ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+        for k, v in ScenarioInfo.FletcherPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Coop2)
+        end
+    else
+        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        for k, v in ScenarioInfo.FletcherPlayerBase do
+            ScenarioFramework.GiveUnitToArmy(v, Player)
+        end
     end
 end
 
@@ -266,9 +286,14 @@ function FletcherTransportAI()
         end
         v:Destroy()
     end
-
-    for k, unit in allUnits do
-        ScenarioFramework.GiveUnitToArmy(unit, Player)
+    if tblArmy[ScenarioInfo.Coop2] then
+        for k, unit in allUnits do
+            ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+        end
+    else
+        for k, unit in allUnits do
+            ScenarioFramework.GiveUnitToArmy(unit, Player)
+        end
     end
 end
 
@@ -402,22 +427,16 @@ function IntroMission1NIS()
                     ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                 end
 
-                -- spawn coop players too
-                ScenarioInfo.CoopCDR = {}
+                -- Spawn Coop3
                 local tblArmy = ListArmies()
-                coop = 1
-                for iArmy, strArmy in pairs(tblArmy) do
-                    if iArmy >= ScenarioInfo.Coop1 then
-                        factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-                        if (factionIdx == 1) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
-                        elseif (factionIdx == 2) then
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerLose)
-                        else
-                            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerLose)
-                        end
-                        coop = coop + 1
-                        WaitSeconds(0.5)
+                if tblArmy[ScenarioInfo.Coop3] then
+                    factionIdx = GetArmyBrain('Coop3'):GetFactionIndex()
+                    if (factionIdx == 1) then
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'UEFPlayer', 'Warp', true, true, PlayerLose)
+                    elseif (factionIdx == 2) then
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'AeonPlayer', 'Warp', true, true, PlayerLose)
+                    else
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'CybranPlayer', 'Warp', true, true, PlayerLose)
                     end
                 end
             end)
@@ -467,11 +486,15 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ForkThread(IntroMission2PreNIS)
+                IntroMission2PreNIS()
             end
         end
    )
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
+
+    -- Continue to other part even if objective isn't finished yet
+    local Delay = {25, 20, 15}
+    ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 60)
 
     if(false and Difficulty ==3) then
         WaitSeconds(10)
@@ -490,23 +513,7 @@ function StartMission1()
             {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.EXPERIMENTAL}})
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M01_120)
-
-    ScenarioFramework.CreateTimerTrigger(RhizaNavalStrikeForces, 300)
 end
-
---------------------------------------------------------------------------------------
-
-function RhizaNavalStrikeForces()
-    if(ScenarioInfo.MissionNumber == 1) then
-        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Rhiza', 'NavalStrikeForce', 'GrowthFormation')
-        for k, v in units:GetPlatoonUnits() do
-            ScenarioFramework.PlatoonPatrolChain({v}, 'M1_Rhiza_NavalStrikeForce_Chain')
-        end
-        ScenarioFramework.CreateTimerTrigger(RhizaNavalStrikeForces, 240)
-    end
-end
-
---------------------------------------------------------------------------------------
 
 function M1Subplot()
     if(LeaderFaction == 'uef' and ScenarioInfo.MissionNumber == 1) then
@@ -547,7 +554,7 @@ function IntroMission2()
             SetArmyUnitCap(Rhiza, 520)
             SetArmyUnitCap(Fletcher, 575)
             SetArmyUnitCap(Order, 575)
-            SetArmyUnitCap(Seraphim, 560)
+            SetArmyUnitCap(Seraphim, 800)
 
             M2Fletcher()
             M2Order()
@@ -619,11 +626,17 @@ function M2Fletcher()
     end
 
     -- TODO: make orbital attack player on hard
-    local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
-    if(orbital[1] and not orbital[1]:IsDead()) then
-        local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
-        ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
+    if Difficulty == 3 then
+        ForkThread(function()
+            -- Wait for satellite to be launched
+            WaitSeconds(5)
+            local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
+            if(orbital[1] and not orbital[1]:IsDead()) then
+                local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
+                ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
+                ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
+            end
+        end)
     end
 end
 
@@ -681,10 +694,8 @@ function M2Rhiza()
     -----------
     -- Rhiza ACU
     -----------
-    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, false, 
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, RhizaDies, 
         {'Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering', 'HeatSink'})
-    ScenarioInfo.RhizaACU:SetCanBeKilled(false)
-    ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
 
     -----------------------
     -- Rhiza Initial Patrols
@@ -728,13 +739,8 @@ function RhizaTempestDead()
     ScenarioInfo.RhizaTempestPing:Destroy()
 end
 
-function RhizaWarp()
-    ScenarioFramework.Dialogue(Op3Strings.X03_M03_235)
-    ForkThread(
-        function()
-            ScenarioFramework.FakeTeleportUnit(ScenarioInfo.RhizaACU, true)
-        end
-   )
+function RhizaDies()
+    ScenarioFramework.Dialogue(OpStrings.X06_M02_270)
     M2RhizaAI.DisableBase()
 end
 
@@ -773,7 +779,12 @@ function M2Seraphim()
 end
 
 function IntroMission2PreNIS()
-    ScenarioFramework.Dialogue(OpStrings.X06_M02_010, IntroMission2, true)
+    ForkThread(function()
+        if not ScenarioInfo.M1Finished then
+            ScenarioInfo.M1Finished = true
+            ScenarioFramework.Dialogue(OpStrings.X06_M02_010, IntroMission2, true)
+        end
+    end)
 end
 
 function IntroMission2NIS()
@@ -1070,6 +1081,10 @@ function StartMission2()
    )
     table.insert(AssignedObjectives, ScenarioInfo.M2P2)
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, 1060)
+
+    -- Continue to other part even if objective isn't finished yet
+    local Delay = {30, 25, 20}
+    ScenarioFramework.CreateTimerTrigger(M2EndMission, Delay[Difficulty] * 60)
 
     local m2Objectives = Objectives.CreateGroup('M2Primaries', M2EndMission, 2)
     m2Objectives:AddObjective(ScenarioInfo.M2P1)
@@ -1615,8 +1630,11 @@ function M2EndMission()
     -- Wait for the death spin around the enemy commander to finish
     ForkThread(
         function()
-            WaitSeconds(6)
-            IntroMission3()     -- TODO: remove this call, and use the dialogue above for it, when new dialogue is added
+            if not ScenarioInfo.M2Finished then
+                ScenarioInfo.M2Finished = true
+                WaitSeconds(6)
+                IntroMission3()     -- TODO: remove this call, and use the dialogue above for it, when new dialogue is added
+            end
         end
    )
 end
@@ -1635,7 +1653,7 @@ function IntroMission3()
             ScenarioInfo.MissionNumber = 3
 
             -- Unit caps
-            SetArmyUnitCap(Seraphim, 1000)
+            SetArmyUnitCap(Seraphim, 1200)
 
             ----------------
             -- M3 Seraphim AI
@@ -1645,11 +1663,11 @@ function IntroMission3()
             M3SeraphimAI.SeraphimM3EastBaseAI()
 
             ----------------
-            -- Seth-Iavow CDR
+            -- Thel-Uuthow CDR
             ----------------
-            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i SethIavow}', true)
+            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i ThelUuthow}', true)
             if(Difficulty > 1) then
-                ScenarioInfo.Tau:CreateEnhancement('DamageStabilization')
+                ScenarioInfo.Tau:CreateEnhancement('DamageStabilizationAdvanced')
                 ScenarioInfo.Tau:CreateEnhancement('RateOfFire')
                 ScenarioInfo.Tau:CreateEnhancement('BlastAttack')
             end

@@ -34,6 +34,11 @@ function SeraphimM3BaseAI()
     SeraphimM3Base:SetActive('AirScouting', true)
     SeraphimM3Base:SetActive('LandScouting', true)
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3Base:AddBuildGroup('M3_Seraph_Base_Support_Factories', 100, true)
+    end)
+
     SeraphimM3Base:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'SeraphimM3Base_ExperimentalLand')
     SeraphimM3Base:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'SeraphimM3Base_ExperimentalAir')
     SeraphimM3Base:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'SeraphimM3Base_ExperimentalNaval')
@@ -541,6 +546,11 @@ function SeraphimM3WestBaseAI()
     SeraphimM3WestBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_West', 'M3_Seraph_Naval_West', 100, {M3_Seraph_Naval_West = 100})
     SeraphimM3WestBase:StartNonZeroBase({{3, 4, 6}, {3, 3, 5}})
 
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3WestBase:AddBuildGroup('M3_Seraph_Naval_West_Support_Factories', 100, true)
+    end)
+
     SeraphimM3WestNavalAttacks()
 end
 
@@ -626,6 +636,68 @@ function SeraphimM3WestNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {60, 65, 70}
+    minQuantity = {60, 65, 70}
+    trigger = {10, 9, 8}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 140,
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 75, 100, 125 frigate power of [all] if player has >= 6, 5, 4 T3/T4 boats
+    maxQuantity = {75, 100, 125}
+    minQuantity = {75, 100, 125}
+    trigger = {6, 5, 4}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
+
+    -- sends 3, 4, 5 Sub Hunters if player has >= 2, 2, 1 Atlantis + Tempest
+    maxQuantity = {150, 200, 250}
+    minQuantity = {150, 200, 250}
+    trigger = {2, 2, 1}
+    opai = SeraphimM3WestBase:AddNavalAI('M3_WestNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Seraph_Naval_West1_Attack_Chain', 'M3_Seraph_Naval_West2_Attack_Chain'},
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Submarine'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ues0401 + categories.uas0401})
 end
 
 function SeraphimM3EastBaseAI()
@@ -635,6 +707,11 @@ function SeraphimM3EastBaseAI()
     -----------------------------
     SeraphimM3EastBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Naval_East', 'M3_Seraph_Naval_East', 100, {M3_Seraph_Naval_East = 100})
     SeraphimM3EastBase:StartNonZeroBase({{2, 3, 5}, {2, 3, 4}})
+
+    ForkThread(function()
+        WaitSeconds(1)
+        SeraphimM3EastBase:AddBuildGroup('M3_Seraph_Naval_East_Support_Factories', 100, true)
+    end)
 
     SeraphimM3EastNavalAttacks()
 end
@@ -721,4 +798,66 @@ function SeraphimM3EastNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 35, 40, 45 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
+    maxQuantity = {35, 40, 45}
+    minQuantity = {35, 40, 45}
+    trigger = {8, 7, 6}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 140,
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+
+    -- sends 50, 75, 100 frigate power of [all] if player has >= 7, 6, 5 T3/T4 boats
+    maxQuantity = {50, 75, 100}
+    minQuantity = {50, 75, 100}
+    trigger = {7, 6, 5}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Battleship'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2})
+
+    -- sends 2, 3, 4 Sub Hunters if player has >= 2, 2, 1 Atlantis + Tempest
+    maxQuantity = {100, 150, 200}
+    minQuantity = {100, 150, 200}
+    trigger = {2, 2, 1}
+    opai = SeraphimM3EastBase:AddNavalAI('M3_EastNavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Seraph_Naval_East_Attack_Chain',
+            },
+            MaxFrigates = maxQuantity[Difficulty],
+            MinFrigates = minQuantity[Difficulty],
+            Priority = 150,
+            EnabledTypes = {'Submarine'},
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T2', false)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ues0401 + categories.uas0401})
 end
