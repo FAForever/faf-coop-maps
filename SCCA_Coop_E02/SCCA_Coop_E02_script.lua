@@ -1994,7 +1994,6 @@ function BeginMission3()
 
     -- Track when the commander dies for the primary objective
     for k, unit in EnemyCommanderPlatoon:GetPlatoonUnits() do
-        ScenarioFramework.CreateUnitDeathTrigger(EnemyCommanderDied, unit)
         -- Delay the explosion so that we can catch it on camera
         ScenarioFramework.PauseUnitDeath(unit)
     end
@@ -2058,17 +2057,31 @@ function BeginMission3()
             MarkUnits = true,
         }
    )
-    ScenarioInfo.M3P2 = Objectives.Basic(
+    ScenarioInfo.M3P2 = Objectives.Kill(
         'primary',
         'incomplete',
         OpStrings.M3P2Text,
         OpStrings.M3P2Detail,
-        Objectives.GetActionIcon('kill'),
         {
-            Units = EnemyCommanderPlatoon:GetPlatoonUnits(),
-            MarkUnits = true,
+            Units = EnemyCommanderPlatoon:GetPlatoonUnits()
         }
    )
+    ScenarioInfo.M3P2:AddResultCallback(
+        function(result)
+            if result then
+                -- enemy aeon cdr destroyed
+                ScenarioFramework.CDRDeathNISCamera(EnemyCommanderPlatoon:GetPlatoonUnits()[1])
+
+                -- Aeon commander's death cry
+                ScenarioFramework.Dialogue(OpStrings.E02_M04_130, false, true)
+
+                ScenarioInfo.M3P1:ManualResult(true)
+                ScenarioInfo.M3P2Complete = true
+
+                PlayerWin()
+            end
+        end
+    )
     ScenarioInfo.M3S1 = Objectives.Basic(
         'secondary',
         'incomplete',
@@ -2137,21 +2150,6 @@ function EnemyFactoriesDestroyed()
 
     -- Congratulate player
     ScenarioFramework.Dialogue(OpStrings.E02_M04_070)
-end
-
-function EnemyCommanderDied(unit)
--- enemy aeon cdr destroyed
--- ScenarioFramework.EndOperationCamera(unit, true)
-    ScenarioFramework.CDRDeathNISCamera(unit)
-
-    -- Aeon commander's death cry
-    ScenarioFramework.Dialogue(OpStrings.E02_M04_130, false, true)
-
-    ScenarioInfo.M3P1:ManualResult(true)
-    ScenarioInfo.M3P2:ManualResult(true)
-    ScenarioInfo.M3P2Complete = true
-
-    PlayerWin()
 end
 
 function AddTechMission15()
