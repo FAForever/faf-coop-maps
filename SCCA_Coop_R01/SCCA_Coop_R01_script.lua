@@ -473,6 +473,9 @@ function M1_BeginPart2()
    )
     ScenarioInfo.M4P2:AddResultCallback(M1_ShowCapturedRadar)
     ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M4P2)
+
+    -- Temporarily unrestrict UEF T2 Radar, due to new restriction system
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb3201) -- UEF T2 Radar
 end
 
 function M1_RadarPatrolDestroyed()
@@ -505,6 +508,11 @@ function M1_ShowCapturedRadar(result, units)
             zoomVal = 35,
         }
         ScenarioFramework.OperationNISCamera(radar, camInfo)
+
+        -- Restrict UEF T2 Radar again, so player can't build them everywhere
+        for _, player in ScenarioInfo.HumanPlayers do
+            ScenarioFramework.AddRestriction(player, categories.ueb3201) -- UEF T2 Radar
+        end
     end
 end
 
