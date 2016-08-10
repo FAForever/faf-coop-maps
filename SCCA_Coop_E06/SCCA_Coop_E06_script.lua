@@ -124,6 +124,7 @@ function OnPopulate(scen)
     ScenarioFramework.SetUEFAllyColor(Component)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetAeonColor(Aeon)
+
     local colors = {
         ['Coop1'] = {67, 110, 238}, 
         ['Coop2'] = {97, 109, 126}, 
@@ -135,7 +136,6 @@ function OnPopulate(scen)
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
-
     -- Player Army
     ScenarioUtils.CreateArmyGroup('Player', 'Naval_Base')
     ScenarioUtils.CreateArmyGroup('Player', 'Black_Sun_Defenses')
@@ -271,6 +271,9 @@ function OnPopulate(scen)
     end
 
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.ues0401)
+
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(720)
 
     -- NIS Units
         -- Components
@@ -1060,15 +1063,6 @@ function EndMission2()
         StartMission3()
     end
 end
-
-
-
-
-
-
-
-
-
 
 -- === MISSION 3 FUNCTIONS === #
 function StartMission3()

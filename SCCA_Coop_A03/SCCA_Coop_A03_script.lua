@@ -165,6 +165,9 @@ function OnStart(self)
     SetIgnorePlayableRect(UEF, true)
     SetIgnorePlayableRect(Eris, true)
 
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(300)
+
     -- Army colors
     ScenarioFramework.SetAeonColor(Player)
     ScenarioFramework.SetUEFColor(UEF)
@@ -532,6 +535,9 @@ end
 -----------
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
+
+    ScenarioFramework.SetSharedUnitCap(480)
+
     ScenarioInfo.UEFViz:Destroy()
 
     -- Adjust buildable categories for player
@@ -868,6 +874,8 @@ end
 -----------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
+
+    ScenarioFramework.SetSharedUnitCap(660)
 
     -- Adjust buildable categories for player
     ScenarioFramework.RemoveRestrictionForAllHumans(categories.uas0202)  -- Cruiser

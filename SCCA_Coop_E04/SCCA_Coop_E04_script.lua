@@ -265,6 +265,7 @@ end
 -- === Mission 1 Functions === #
 function StartMission1()
     ScenarioInfo.MissionNumber = 1
+    ScenarioFramework.SetSharedUnitCap(300)
     ScenarioFramework.Dialogue(OpStrings.E04_M01_010)
 
     -- === Formerly in OnPopualte === #
@@ -477,6 +478,9 @@ end
 -- === Mission 2 Functions === #
 function StartMission2()
     ScenarioInfo.MissionNumber = 2
+
+    ScenarioFramework.SetSharedUnitCap(480)
+
     ScenarioFramework.Dialogue(OpStrings.E04_M02_010)
 
     -- Setting Playable area
@@ -858,6 +862,8 @@ end
 
 function StartMission3()
     ScenarioInfo.MissionNumber = 3
+
+    ScenarioFramework.SetSharedUnitCap(660)
 
     -- Setting Playable area
     -- In this mission, we dont resize until the player builds 3 towers

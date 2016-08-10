@@ -308,11 +308,11 @@ end
 --------------
 
 function BeginOperation()
-    SetArmyUnitCap(1, 300)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(300)
+    SetArmyUnitCap(UEF, 500)
 
-    SetArmyUnitCap(2, 300)
-    SetArmyUnitCap(4, 300)
+    SetArmyUnitCap(Rhiza, 300)
+    SetArmyUnitCap(FauxUEF, 300)
 
     ScenarioInfo.MissionNumber = 1
     ScenarioFramework.CreateUnitDestroyedTrigger(PlayerCommanderDies_Lose, ScenarioInfo.PlayerCDR)
@@ -710,7 +710,7 @@ function M7_StartDelay()
 end
 
 function M7_BeginMission()
-    SetArmyUnitCap(1, 500)
+    ScenarioFramework.SetSharedUnitCap(660)
 
     if ScenarioInfo.Difficulty < 3 then
         M7_AirPatrolThresh = 3
