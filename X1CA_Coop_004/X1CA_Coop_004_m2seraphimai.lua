@@ -185,7 +185,7 @@ function SeraphimM2LowerLandAttacks()
     -- Land Defense
     -- Maintains 16, 24, 28 Heavy Tanks
     quantity = {4, 6, 7}
-    for i = 1, 4 do
+    for i = 1, 2 do
         opai = SeraphimM2Lower:AddOpAI('BasicLandAttack', 'M2_LandDefense1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -200,7 +200,7 @@ function SeraphimM2LowerLandAttacks()
 
     -- Maintains 12, 18, 21 Mobile Flak
     quantity = {4, 6, 7}
-    for i = 1, 3 do
+    for i = 1, 2 do
         opai = SeraphimM2Lower:AddOpAI('BasicLandAttack', 'M2_LandDefense2_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
