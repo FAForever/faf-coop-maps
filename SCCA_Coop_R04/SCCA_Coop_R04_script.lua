@@ -26,11 +26,6 @@ local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
 -- Local Tuning Variables
 ------------------------
 
--- What should the player's army unit cap be in each mission?
-local M1ArmyCap = 1000
-local M2ArmyCap = 1000
-local M3ArmyCap = 1000
-
 -- For the first bonus objective, how many units does the player need to build
 -- local M1B1BuildAmount = 300 # more than this number
 -- local M1B2KillAmount = 50 # more than this number
@@ -547,7 +542,7 @@ function BeginMission1()
     ScenarioInfo.VarTable['Mission1'] = true
 
     -- Set the maximum number of units that the player is allowed to have
-    SetArmyUnitCap( Player, M1ArmyCap )
+    ScenarioFramework.SetSharedUnitCap(300)
 
     -- Delay opening dialogue a bit, so the player commander is fully in.
     ScenarioFramework.CreateTimerTrigger( OpeningDialogue, 5)
@@ -756,7 +751,7 @@ function BeginMission2()
     ScenarioFramework.Dialogue( ScenarioStrings.MapExpansion )
 
     -- Set the maximum number of units that the player is allowed to have
-    SetArmyUnitCap( Player, M2ArmyCap )
+    ScenarioFramework.SetSharedUnitCap(480)
 
     -- Create the Civilian Base
     ScenarioInfo.CivilianBase = ScenarioUtils.CreateArmyGroup( 'Civilian', 'Civilian_Base' )
@@ -1147,7 +1142,7 @@ function BeginMission3()
     ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Mainframe:GetPosition(), 10, ArmyBrains[Player] )
 
     -- Set the maximum number of units that the player is allowed to have
-    SetArmyUnitCap( Player, M3ArmyCap )
+    ScenarioFramework.SetSharedUnitCap(660))
 
     ScenarioInfo.AeonCommanderM3 = ScenarioUtils.CreateArmyUnit( 'Aeon', 'M3_Commander' )
     ScenarioInfo.AeonCommanderM3:CreateEnhancement('AdvancedEngineering')

@@ -194,8 +194,8 @@ function CreateCommander_Thread()
 end
 
 function M1UnitsForStart()
-    SetArmyUnitCap( 2, 900)
-    SetArmyUnitCap( 1, 300)
+    SetArmyUnitCap(UEF, 900)
+    ScenarioFramework.SetSharedUnitCap(480)
 
     for i = 2, table.getn(ArmyBrains) do
         SetIgnorePlayableRect(i, true)
@@ -458,7 +458,7 @@ end
 --------------
 
 function BeginMission2()
-    SetArmyUnitCap( 1, 400)
+    ScenarioFramework.SetSharedUnitCap(660)
     M2_CreateUnitsForMission()
     M2_BuildCategories()
     ScenarioInfo.MissionNumber = 2
@@ -1012,7 +1012,7 @@ end
 --------------
 
 function BeginMission3()
-    SetArmyUnitCap( 1, 500)
+    ScenarioFramework.SetSharedUnitCap(720)
     M3_CreateUnitsForMission()
     ScenarioInfo.MissionNumber = 3
     ScenarioFramework.SetPlayableArea( ScenarioUtils.AreaToRect('M3_PlayableArea') )

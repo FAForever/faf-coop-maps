@@ -198,7 +198,7 @@ function OnPopulate(scenario)
 end
 
 function OnStart(self)
-    SetArmyUnitCap(1, 300)
+    ScenarioFramework.SetSharedUnitCap(480)
     ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', IntroNIS)
 end
 
@@ -735,7 +735,7 @@ end
 -- === MISSION TWO FUNCTIONS === #
 function StartMission2()
     local plat = {}
-    SetArmyUnitCap(1, 400)
+    ScenarioFramework.SetSharedUnitCap(660)
     ScenarioInfo.MissionNumber = 2
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
 
@@ -1070,7 +1070,7 @@ end
 function StartMission3()
     -- Setup and stuff
     ScenarioInfo.MissionNumber = 3
-    SetArmyUnitCap(1, 500)
+    ScenarioFramework.SetSharedUnitCap(720)
     ScenarioFramework.SetPlayableArea('M3_Playable_Area')
     ScenarioFramework.Dialogue(OpStrings.A05_M03_010, M3P1ObjectiveDialogue)
     ScenarioInfo.VarTable['M1EnableArielAir'] = true

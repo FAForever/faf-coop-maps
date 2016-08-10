@@ -335,11 +335,9 @@ end
 -- === MISSION 1 ============================================================= #
 ----------------------------------------------------------------------------- #
 function StartMission1()
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 300)
-    end
-    SetArmyUnitCap(2, 400)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(300)
+    SetArmyUnitCap(Aeon, 400)
+    SetArmyUnitCap(CybranJanus, 500)
 
     -- Player stuff
     ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
@@ -1714,11 +1712,8 @@ function StartMission2()
     ScenarioFramework.Dialogue(OpStrings.C02_M02_010)
     ScenarioFramework.SetPlayableArea('M2_Playable_Area')
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 400)
-    end
-    SetArmyUnitCap(2, 500)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(480)
+    SetArmyUnitCap(Aeon, 500)
 
     ScenarioInfo.MissionNumber = 2
 
@@ -2103,11 +2098,7 @@ end
 -- === MISSION 3 ============================================================= #
 ----------------------------------------------------------------------------- #
 function StartMission3()
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetArmyUnitCap(player, 500)
-    end
-    SetArmyUnitCap(2, 500)
-    SetArmyUnitCap(3, 500)
+    ScenarioFramework.SetSharedUnitCap(660)
 
     ScenarioFramework.Dialogue(OpStrings.C02_M03_010)
     ScenarioFramework.SetPlayableArea('M3_Playable_Area')

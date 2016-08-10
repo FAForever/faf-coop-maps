@@ -301,7 +301,7 @@ function OnStart(self)
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
 
-    SetArmyUnitCap(Player, 300)
+    ScenarioFramework.SetSharedUnitCap(480)
     SetArmyUnitCap(aeon, 600)
     SetArmyUnitCap(uef, 800)
 
@@ -666,7 +666,7 @@ end
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
 
-    SetArmyUnitCap(Player, 400)
+    ScenarioFramework.SetSharedUnitCap(660)
 
     ForkThread(M2MobileFactoriesThread)
 
@@ -1088,7 +1088,7 @@ end
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
-    SetArmyUnitCap(Player, 500)
+    ScenarioFramework.SetSharedUnitCap(720)
     if(ScenarioInfo.Options.Difficulty == 3) then
         ScenarioUtils.CreateArmyGroup('UEF', 'HLRA_D3')
     end
