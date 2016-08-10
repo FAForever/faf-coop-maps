@@ -46,7 +46,6 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local M1MapExpandDelay = {30*60, 25*60, 20*60} --30*60, 25*60, 20*60
 local M2SpawnMonkeylordTime = {60*60, 45*60, 35*60} --60*60, 45*60, 35*60
 local M2SpawnExperimentalsTime = {30*60, 20*60, 10*60} --30*60, 20*60, 10*60
-local prematureMonkeyUnitCount = {125,100,75,50} --{125,100,75,50}
 local killedExp = 0
 local prematureMonkeylordPreparationTime = 60 --60
 
@@ -84,8 +83,6 @@ function OnPopulate(scenario)
     
     
 end
-
-
 
 function OnStart(self)
     ScenarioUtils.CreateArmyGroup('Player', 'signature', true)
@@ -148,7 +145,8 @@ function mainRestrictions()
                 - categories.ueb1202 -- T2 mass
                 - categories.ueb1201 -- T2 power
                 - categories.ueb5202 -- T2 airstaging
-                - categories.ueb3201) -- T2 radar
+                - categories.ueb3201 -- T2 radar
+                - categories.ueb2204) -- T2 flak
 end
 
 function cybranRestrictions()
@@ -160,6 +158,7 @@ end
 ------------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
+    --LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
     -------------------
     -- Cybran West Base
     -------------------
@@ -252,6 +251,7 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
+                --LOG('*DEBUG: M1P1')
                 if ScenarioInfo.MissionNumber == 1 then
                     ScenarioFramework.Dialogue(OpStrings.M1_Prison_Captured, IntroMission2, true)
                 end
@@ -287,6 +287,7 @@ function StartMission1()
     )
     ScenarioInfo.M1S1:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M1S1')
             if(result) then
                 ScenarioFramework.Dialogue(OpStrings.M1_Base_Destroyed, nil, true)
             end
@@ -320,6 +321,7 @@ function StartMission1()
         )
         ScenarioInfo.M1S2:AddResultCallback(
             function(result)
+                --LOG('*DEBUG: M1S2')
                 if(result) then
                     ScenarioFramework.Dialogue(OpStrings.M1_Forward_Defenses_Destroyed, nil, true)
                 end
@@ -337,6 +339,7 @@ end
 
 function IntroMission2()
     ScenarioInfo.MissionNumber = 2
+    --LOG('*DEBUG: Mission' .. ScenarioInfo.MissionNumber)
     
     ScenarioFramework.SetPlayableArea('M2_Area', true)
     
@@ -380,6 +383,7 @@ function StartMission2()
     )
     ScenarioInfo.M2P1:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M2P1')
             if(result) then
                 if ScenarioInfo.MissionNumber == 2 then
                     ScenarioFramework.Dialogue(OpStrings.M2_Prison_Captured, PlayerWin, true)
@@ -413,6 +417,7 @@ function StartMission2()
     )
     ScenarioInfo.M2S1:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M2S1')
             if(result) then
                 ScenarioFramework.Dialogue(OpStrings.M2_Base_Destroyed, nil, true)
             end
@@ -424,7 +429,7 @@ function StartMission2()
     
     -- Make TimeTrigger in case the player never scouts
     secondsUntilMonkeylord = M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()) + 2 -- add 2 just to make sure there are no race issues, possibly unnecessary
-    ScenarioFramework.CreateTimerTrigger(SpawnExperimental, secondsUntilMonkeylord)
+    ScenarioFramework.CreateTimerTrigger(SpawnMonkeyLord, secondsUntilMonkeylord)
     
     if Difficulty >= 3 then
         planPrematureMonkeyLord()
@@ -456,6 +461,7 @@ function StartMission2()
         )
         ScenarioInfo.M2S3:AddResultCallback(
             function(result)
+                --LOG('*DEBUG: M2S3')
                 if(result) then
                     ScenarioFramework.Dialogue(OpStrings.M2_Forward_Defenses_1_Destroyed, nil, true)
                 end
@@ -485,6 +491,7 @@ function StartMission2()
             )
             ScenarioInfo.M2S4:AddResultCallback(
                 function(result)
+                    --LOG('*DEBUG: M2S4')
                     if(result) then
                         ScenarioFramework.Dialogue(OpStrings.M2_Forward_Defenses_2_Destroyed, nil, true)
                     end
@@ -501,7 +508,7 @@ function M2S2MonkeylordObjective(MonkeylordTime)
     ------------------------------------------------------------------------------
     ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Detected, nil, true)
     
-    secondsUntilMonkeylord = M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds())
+    secondsUntilMonkeylord = math.max(1, M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()))
     ScenarioInfo.M2S2 = Objectives.Timer(
         'secondary',                      -- type
         'incomplete',                   -- complete
@@ -514,8 +521,9 @@ function M2S2MonkeylordObjective(MonkeylordTime)
     )
     ScenarioInfo.M2S2:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M2S2')
             if (not result) then
-                SpawnExperimental()
+                SpawnMonkeyLord()
             end
         end
     )
@@ -555,22 +563,33 @@ function prematureMonkeylord()
     )
     ScenarioInfo.M2S2_1:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M2S2_1')
             if (not result) then
-                SpawnExperimental()
+                SpawnMonkeyLord()
             end
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S2_1)
 end
 
-function SpawnExperimental()
+function SpawnMonkeyLord()
     if (not ScenarioInfo.hasMonkeylordSpawned) then
+        SpawnExperimental()
+    end
+end
+    
+function SpawnExperimental()
+    --LOG('*DEBUG: SpawnExperimentals')
+    if (not ScenarioInfo.hasMonkeylordSpawned) then
+        ScenarioInfo.hasMonkeylordSpawned = true
         ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming, nil, true)
         M2CybranManual.DropExperimental(KilledExperimentals)
-        ScenarioInfo.hasMonkeylordSpawned = true
     else
-        ScenarioFramework.Dialogue(OpStrings.M2_Time_Is_Up, nil, true)
-        M2CybranManual.DropExperimental(KilledExperimentals)
+        if (math.floor(GetGameTimeSeconds()) > (M2SpawnMonkeylordTime[Difficulty] + M2SpawnExperimentalsTime[Difficulty] - 60)) then
+            --Don't allow spawning of experimentals before the first megalith can spawn.
+            ScenarioFramework.Dialogue(OpStrings.M2_Time_Is_Up, nil, true)
+            M2CybranManual.DropExperimental(KilledExperimentals)
+        end
     end
 end
 
@@ -607,6 +626,7 @@ function KilledExperimentals()
     )
     ScenarioInfo.M2SX:AddResultCallback(
         function(result)
+            --LOG('*DEBUG: M2SX')
             if (not result) then
                 SpawnExperimental()
             end

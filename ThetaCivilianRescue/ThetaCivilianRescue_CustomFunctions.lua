@@ -67,7 +67,7 @@ end
 
 function CreateFocusACUTrigger( unit, cdr, distance, timeBeforeFocus )
     local focusACU = function() 
-            LOG('*DEBUG: focustriggered')
+            --LOG('*DEBUG: focustriggered')
             WaitSeconds(timeBeforeFocus)
             IssueClearCommands({unit})
             IssueAttack({unit},cdr)
