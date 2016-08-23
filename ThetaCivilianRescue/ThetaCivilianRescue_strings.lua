@@ -87,7 +87,7 @@ M2_Monkeylord_Is_Coming = {
 
 --[<no view> You killed the experimental and a new timer has started, showing how long it'll take untill the next experimentals spawn.]--
 M2_Experimental_Destroyed = {
-  {text = '[UEF]: Good work, Commander. Destroying the experimental has given you some more time. Now hurry up and rescue the civilians before more experimentals arrive.', vid = 'spinUEFBlue_8sec.sfd', bank = '', cue = '17M2_Experimental_Destroyed', faction = 'UEF'},
+  {text = '[UEF]: Good work, Commander. Destroying the experimental has given you some more time. Now hurry up and rescue the civilians before more experimentals arrive.', vid = 'spinUEFBlue_8sec.sfd', bank = 'TCR_VO', cue = '17M2_Experimental_Destroyed', faction = 'UEF'},
 }
 
 --[<no view> You killed all the experimentals and a new timer has started, showing how long it'll take untill the next experimentals spawn.]--
