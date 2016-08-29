@@ -91,7 +91,9 @@ function OnStart(self)
     -- Build Restrictions
         ScenarioFramework.AddRestriction(player, mainRestrictions())
         
-        ScenarioFramework.AddRestriction(player, cybranRestrictions())
+        ScenarioFramework.AddRestriction(player, cybranAddedRestrictions())
+        
+        ScenarioFramework.RemoveRestriction(player, cybranRemovedRestrictions())
     
     end
     
@@ -119,22 +121,6 @@ function OnStart(self)
     end
 end
 
-function RemoveAllRestrictions()
-    -- Build Restrictions
-
-    for _, player in ScenarioInfo.HumanPlayers do
-    -- Build Restrictions
-        ScenarioFramework.RemoveRestriction(player, mainRestrictions())
-        
-        ScenarioFramework.RemoveRestriction(player, cybranRestrictions())
-    
-    end
-    
-    -- Lock off cdr upgrades
-    ScenarioFramework.RestrictEnhancements({})
-    
-end
-
 function mainRestrictions()
     return (categories.TECH2 
                 + categories.TECH3 
@@ -149,8 +135,13 @@ function mainRestrictions()
                 - categories.ueb2204) -- T2 flak
 end
 
-function cybranRestrictions()
-    return (categories.Cybran * (categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL))
+function cybranRemovedRestrictions()
+    return (categories.CYBRAN * categories.STRUCTURE )
+end
+function cybranAddedRestrictions()
+    return (categories.CYBRAN * categories.TECH2 * categories.ENGINEER
+            + categories.url0306 -- no stealth
+            )
 end
 
 ------------
