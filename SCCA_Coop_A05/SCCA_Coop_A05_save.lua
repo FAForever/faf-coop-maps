@@ -800,7 +800,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
-                    ['position'] = VECTOR3( 59.5, 22.0078, 373.5 ),
+                    ['position'] = VECTOR3( 60.5, 22.0078, 373.5 ),
                 },
                 ['UEF_M2_Attack_3'] = {
                     ['color'] = STRING( 'ff800080' ),
@@ -1348,7 +1348,7 @@ Scenario = {
                     ['type'] = STRING( 'Mass' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Mass_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
-                    ['position'] = VECTOR3( 77.8248, 21.9936, 389.261 ),
+                    ['position'] = VECTOR3( 77.5, 21.9961, 389.5 ),
                 },
                 ['Ariel_M3_Attack_Chain_7'] = {
                     ['color'] = STRING( 'ff800080' ),
