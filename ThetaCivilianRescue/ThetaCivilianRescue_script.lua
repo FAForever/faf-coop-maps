@@ -85,6 +85,8 @@ function OnPopulate(scenario)
 end
 
 function OnStart(self)
+    ScenarioFramework.SetPlayableArea('M1_Area', false)
+    
     ScenarioUtils.CreateArmyGroup('Player', 'signature', true)
 
     for _, player in ScenarioInfo.HumanPlayers do
@@ -108,6 +110,10 @@ function OnStart(self)
                                             'TacticalMissile',
                                             'TacticalNukeMissile',
                                             'Teleporter'})
+    
+    if not SkipNIS1 then
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Start_Location'), 0)
+    end
     
     if Debug then
         Utilities.UserConRequest('SallyShears')
@@ -171,9 +177,6 @@ function IntroMission1()
 end
 
 function IntroMission1NIS()
-
-    ScenarioFramework.SetPlayableArea('M1_Area', false)
-
     if not SkipNIS1 then
     
         WaitSeconds(2)
