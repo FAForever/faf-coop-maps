@@ -63,13 +63,13 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     
     -- Sets Army Colors
-    ScenarioFramework.SetUEFPlayerColor(Player)
+    ScenarioFramework.SetUEFColor(Player)
     ScenarioFramework.SetCybranPlayerColor(Cybran)
     local colors = {
-        ['Coop1'] = {81, 82, 241}, --SetUEFAlly1Color
-        ['Coop2'] = {133, 148, 255}, --SetUEFAlly2Color
-        ['Coop3'] = {71, 114, 148} --SetUEFAllyColor
-        }   
+        ['Coop1'] = {67, 110, 238}, 
+        ['Coop2'] = {97, 109, 126}, 
+        ['Coop3'] = {255, 255, 255}
+    }
     local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
