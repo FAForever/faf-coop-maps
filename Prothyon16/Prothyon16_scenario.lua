@@ -1,6 +1,6 @@
 version = 3
 ScenarioInfo = {
-    name = 'Prothyon - 16 BETA',
+    name = 'Prothyon - 16 Beta',
     description = "Prothyon - 16 is a secret UEF facillity for training new ACU pilots. Your task today is to provide a demonstration to our newest recruits by fighting against a training AI.",
     type = 'campaign_coop',
     starts = true,
