@@ -289,6 +289,10 @@ function DisbandSACUPlatoon()
             if EntityCategoryContains( categories.SUBCOMMANDER, unit ) then
                 ArmyBrains[UEF]:DisbandPlatoon(platoon)
                 LOG('speed2 >>> sACU platoon disband')
+
+                -- Put into a platoon to make sure the base manager won't grab it again
+                local plat = ArmyBrains[UEF]:MakePlatoon('', '')
+                ArmyBrains[UEF]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
             end
         end
     end
