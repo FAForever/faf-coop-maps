@@ -23,12 +23,7 @@ function UEFM1WestBaseAI()
     UEFM1WestBase:SetActive('AirScouting', true)
     UEFM1WestBase:SetActive('LandScouting', true)
 
-    ForkThread(
-        function()
-            WaitSeconds(1)
-            UEFM1WestBase:AddBuildGroup('M1_WestBaseExtended', 90, false)
-        end
-    )
+    UEFM1WestBase:AddBuildGroup('M1_WestBaseExtended', 90, false)
 
     UEFM1WestBaseAirAttacks()
     UEFM1WestBaseLandAttacks()

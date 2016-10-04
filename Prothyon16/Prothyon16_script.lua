@@ -60,6 +60,7 @@ local ReminderTaunts = {
 --------------
 -- Debug only!
 --------------
+local Debug = false
 local SkipNIS1 = false
 local SkipNIS2 = false
 local SkipNIS3 = false
@@ -84,7 +85,9 @@ local RequiredTrucks = 15
 -- Startup
 ----------
 function OnPopulate(scenario)
+    -- Spawning clouds on the map
     Weather.CreateWeather()
+
     ScenarioUtils.InitializeScenarioArmies()
 
     -- Sets Army Colors
@@ -93,11 +96,13 @@ function OnPopulate(scenario)
     SetArmyColor('UEFAlly', 71, 134, 226)
     SetArmyColor('Objective', 71, 134, 226)
     ScenarioFramework.SetSeraphimColor(Seraphim)
+
     local colors = {
         ['Coop1'] = {47, 79, 79}, 
         ['Coop2'] = {46, 139, 87}, 
         ['Coop3'] = {102, 255, 204}
     }
+
     local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
@@ -112,36 +117,39 @@ function OnPopulate(scenario)
     -- Spawn Player initial base
     ScenarioUtils.CreateArmyGroup('Player', 'Starting Base')
 
-    -------------
-    -- M1 UEF AI
-    -------------
+    ------
+    -- UEF
+    ------
+    -- UEF Bases
     M1UEFAI.UEFM1WestBaseAI()
     M1UEFAI.UEFM1EastBaseAI()
+
+    -- This will make AI to assembly platoons faster (qeue up new units). Default value is 15. Use this only for small bases!!
     ArmyBrains[UEF]:PBMSetCheckInterval(6)
+
+    -- Slight delay for giving resources, else they are not given
     ForkThread(function()
-        WaitSeconds(2) -- Slight delay else resource are not given
+        WaitSeconds(2)
         ArmyBrains[UEF]:GiveResource('MASS', 4000)
         ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
     end)
 
     -- Walls
-    ScenarioInfo.M1_Walls = ScenarioUtils.CreateArmyGroup('UEF', 'M1_Walls')
+    ScenarioUtils.CreateArmyGroup('UEF', 'M1_Walls')
 
-    ------------------
     -- Initial Patrols
-    ------------------
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'EastBaseAirDef_D' .. Difficulty, 'GrowthFormation')
-    for k, v in units:GetPlatoonUnits() do
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'EastBaseAirDef_D' .. Difficulty, 'GrowthFormation')
+    for k, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_East_Base_Air_Defence_Chain')))
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'EastBaseLandDef_D' .. Difficulty, 'GrowthFormation')
-    for k, v in units:GetPlatoonUnits() do
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'EastBaseLandDef_D' .. Difficulty, 'GrowthFormation')
+    for k, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_East_Defence_Chain1')
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'WestBaseAirDef_D' .. Difficulty, 'GrowthFormation')
-    for k, v in units:GetPlatoonUnits() do
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'WestBaseAirDef_D' .. Difficulty, 'GrowthFormation')
+    for k, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_WestBase_Air_Def_Chain')))
     end
 
@@ -177,10 +185,6 @@ function OnStart(scenario)
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player, categories.TECH2 + categories.TECH3 + categories.EXPERIMENTAL)
     end
-
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.SERAPHIM * (categories.TECH3 + categories.EXPERIMENTAL))
-    end
     
     -- Lock off cdr upgrades
     for _, player in ScenarioInfo.HumanPlayers do
@@ -197,8 +201,12 @@ function OnStart(scenario)
                                             	'Teleporter'})
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    -- Set up initial camera
+    if not SkipNIS1 then
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    end
 
+    -- ForkThread is needed here since we are using WaitSecond() inside IntroMission1NIS function.
     ForkThread(IntroMission1NIS)
 end
 
@@ -206,53 +214,50 @@ end
 -- End Game
 -----------
 function PlayerWin()
-    if(not ScenarioInfo.OpEnded) then
+    if not ScenarioInfo.OpEnded then
         ScenarioInfo.OpComplete = true
         ScenarioFramework.Dialogue(OpStrings.PlayerWin, KillGame, true)
     end
 end
 
-function PlayerLoseToAI()
+function PlayerLoseToAI(commander)
+    -- Stop both player's and UEF army base. No explosion during this end, just voice over with failed training exercise.
     if(not ScenarioInfo.OpEnded) and (ScenarioInfo.MissionNumber <= 3) then
-        IssueClearCommands({ScenarioInfo.PlayerCDR})
+        -- Stop ACU
+        IssueClearCommands({commander})
+
+        -- Make sure no one will fire anymore
         for _, player in ScenarioInfo.HumanPlayers do
             SetAlliance(player, UEF, 'Neutral')
             SetAlliance(UEF, player, 'Neutral')
         end
+
+        -- Stop all units
         local units = ArmyBrains[Player]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
         IssueClearCommands(units)
+
         units = ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
         IssueClearCommands(units)
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+
+        -- Look at ACU
+        ScenarioFramework.CDRDeathNISCamera(commander)
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
+
+        -- Mark objectives as failed
         for k, v in AssignedObjectives do
             if(v and v.Active) then
                 v:ManualResult(false)
             end
         end
+
+        -- Play dialogue and end game
         ScenarioFramework.Dialogue(OpStrings.PlayerLoseToAI, KillGame, true)
     end
 end
 
-function PlayerDeath()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-       )
-    end
+function PlayerDeath(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
 function PlayerLose()
@@ -260,11 +265,13 @@ function PlayerLose()
         ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
+
         for k, v in AssignedObjectives do
             if(v and v.Active) then
                 v:ManualResult(false)
             end
         end
+        
         WaitSeconds(3)
         ScenarioFramework.Dialogue(OpStrings.sACUDie, KillGame, true)
     end
@@ -284,6 +291,7 @@ function IntroMission1NIS()
     if not SkipNIS1 then
         Cinematics.EnterNISMode()
 
+        -- Vision for players
         local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M1_Vis_1_1'), 0, ArmyBrains[Player])
         local VisMarker1_2 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M1_Vis_1_2'), 0, ArmyBrains[Player])
         local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('M1_Vis_1_3'), 0, ArmyBrains[Player])
@@ -303,17 +311,23 @@ function IntroMission1NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
         WaitSeconds(3)
 
+        -- ForkThread so ACU are spawned while other code is executed
         ForkThread(function()
+            -- This ForkThread will make all ACU's spawn at the same time
             ForkThread(function()
+                -- Spawn ACU without any effect and name it
                 ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', false, true)
 
+                -- End the mission if player nearly dies
                 ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.PlayerCDR, .99)
+                -- Make sure that player won't die during the first part of the mission
                 ScenarioInfo.PlayerCDR:SetCanBeKilled(false)
 
-                ScenarioInfo.Transport = ScenarioUtils.CreateArmyUnit('Player', 'Transport')
+                -- Spawn transport, drop ACU to targer location
+                local transport = ScenarioUtils.CreateArmyUnit('Player', 'Transport')
 
-                IssueTransportLoad({ScenarioInfo.PlayerCDR}, ScenarioInfo.Transport)
-                IssueTransportUnload({ScenarioInfo.Transport}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
+                IssueTransportLoad({ScenarioInfo.PlayerCDR}, transport)
+                IssueTransportUnload({transport}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
 
                 WaitSeconds(8)
 
@@ -321,15 +335,15 @@ function IntroMission1NIS()
                     WaitSeconds(.5)
                 end
 
-                IssueMove({ScenarioInfo.Transport}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
+                IssueMove({transport}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
                 IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Walk_1'))
 
                 WaitSeconds(1)
 
-                while(not ScenarioInfo.Transport:IsDead() and ScenarioInfo.Transport:IsUnitState('Moving')) do
+                while(not transport:IsDead() and transport:IsUnitState('Moving')) do
                     WaitSeconds(.5)
                 end
-                ScenarioInfo.Transport:Destroy()
+                transport:Destroy()
             end)
 
             -- spawn coop players too
@@ -338,7 +352,7 @@ function IntroMission1NIS()
             coop = 1
             for iArmy, strArmy in pairs(tblArmy) do
                 if iArmy >= ScenarioInfo.Coop1 then
-                    ForkThread(createAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
+                    ForkThread(CreateAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
                     coop = coop + 1
                 end
             end
@@ -351,9 +365,13 @@ function IntroMission1NIS()
         ForkThread(
             function()
                 WaitSeconds(2)
+
+                -- No more vision
                 VisMarker1_1:Destroy()
                 VisMarker1_2:Destroy()
                 VisMarker1_3:Destroy()
+
+                -- Clear intel so players need to scout the base
                 if Difficulty == 3 then
                     WaitSeconds(2)
                     ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_1_1'), 40)
@@ -370,19 +388,18 @@ function IntroMission1NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 2)
 
         Cinematics.ExitNISMode()
-			
     else
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
-
+        -- This part is similart to above, just not moving camera around, for debugging.
         ForkThread(function()
             ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', false, true)
+
             ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.PlayerCDR, .99)
             ScenarioInfo.PlayerCDR:SetCanBeKilled(false)
 
-            ScenarioInfo.Transport = ScenarioUtils.CreateArmyUnit('Player', 'Transport')
+            local transport = ScenarioUtils.CreateArmyUnit('Player', 'Transport')
 
-            IssueTransportLoad({ScenarioInfo.PlayerCDR}, ScenarioInfo.Transport)
-            IssueTransportUnload({ScenarioInfo.Transport}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
+            IssueTransportLoad({ScenarioInfo.PlayerCDR}, transport)
+            IssueTransportUnload({transport}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
 
             WaitSeconds(8)
 
@@ -390,15 +407,15 @@ function IntroMission1NIS()
                 WaitSeconds(.5)
             end
 
-            IssueMove({ScenarioInfo.Transport}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
+            IssueMove({transport}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
             IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Walk_1'))
 
             WaitSeconds(1)
 
-            while(not ScenarioInfo.Transport:IsDead() and ScenarioInfo.Transport:IsUnitState('Moving')) do
+            while(not transport:IsDead() and transport:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
-            ScenarioInfo.Transport:Destroy()
+            transport:Destroy()
         end)
 
         -- spawn coop players too
@@ -407,7 +424,7 @@ function IntroMission1NIS()
     	coop = 1
     	for iArmy, strArmy in pairs(tblArmy) do
         	if iArmy >= ScenarioInfo.Coop1 then
-                ForkThread(createAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
+                ForkThread(CreateAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
             	coop = coop + 1
         	end
     	end
@@ -418,15 +435,15 @@ function IntroMission1NIS()
     IntroMission1()
 end
 
-function createAndMoveCDRByTransport(brain, coop, position)
+function CreateAndMoveCDRByTransport(brain, coop, position)
     ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(brain, 'Commander', false, true)
     ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.CoopCDR[coop], .99)
     ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(false)
 
-    ScenarioInfo.Transport[coop] = ScenarioUtils.CreateArmyUnit(brain, 'Transport')
+    local transport = ScenarioUtils.CreateArmyUnit(brain, 'Transport')
 
-    IssueTransportLoad({ScenarioInfo.CoopCDR[coop]}, ScenarioInfo.Transport[coop])
-    IssueTransportUnload({ScenarioInfo.Transport[coop]}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
+    IssueTransportLoad({ScenarioInfo.CoopCDR[coop]}, transport)
+    IssueTransportUnload({transport}, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
 
     WaitSeconds(8)
 
@@ -434,19 +451,15 @@ function createAndMoveCDRByTransport(brain, coop, position)
         WaitSeconds(.5)
     end
 
-    IssueMove({ScenarioInfo.Transport[coop]}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
+    IssueMove({transport}, ScenarioUtils.MarkerToPosition('Transport_Delete'))
     IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Walk_1'))
 
     WaitSeconds(1)
 
-    while(not ScenarioInfo.Transport[coop]:IsDead() and ScenarioInfo.Transport[coop]:IsUnitState('Moving')) do
+    while(not transport:IsDead() and transport:IsUnitState('Moving')) do
         WaitSeconds(.5)
     end
-    ScenarioInfo.Transport[coop]:Destroy()
-end
-
-function KillTransport()
-    ScenarioInfo.Transport:Destroy()
+    transport:Destroy()
 end
 
 ------------
@@ -491,10 +504,11 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ForkThread(UEFBattleships)
-                ForkThread(UEFFlyover)
-                ScenarioFramework.Dialogue(OpStrings.base2killed, IntroMission2, true)
-                -- IntroMission2()
+                if not Debug then
+                    ScenarioFramework.Dialogue(OpStrings.base2killed, IntroMission2, true)
+                else
+                    IntroMission2()
+                end
             end
         end
     )
@@ -502,7 +516,6 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, 15*60)
 
     -- Feedback dialogue when the first base is destroyed
-    ScenarioInfo.M1BaseDialoguePlayer = false
     ScenarioFramework.CreateAreaTrigger(M1FirstBaseDestroyed, 'M1_UEF_WestBase_Area',
         categories.UEF * categories.FACTORY, true, true, ArmyBrains[UEF])
 
@@ -522,7 +535,6 @@ function StartMission1()
     ScenarioInfo.M1S1:AddResultCallback(
         function(result)
             if(result) then
-                LOG('speed2 >>> Economy Tech Centre captured')
                 ScenarioFramework.PlayUnlockDialogue()
                 for _, player in ScenarioInfo.HumanPlayers do
                     ScenarioFramework.RemoveRestriction(player, categories.TECH2 * categories.STRUCTURE 
@@ -564,23 +576,23 @@ function StartMission1()
     ScenarioInfo.M1S2:AddResultCallback(
         function(result)
             if(result) then
-                LOG('speed2 >>> Tech Centre captured')
+                -- "Schematics downloaded voice over"
                 ScenarioFramework.PlayUnlockDialogue()
+
                 for _, player in ScenarioInfo.HumanPlayers do
                      ScenarioFramework.RemoveRestriction(player, categories.TECH2 * categories.LAND)
-                                                                                -- - categories.uel0111    -- MML
-                                                                                -- - categories.uel0205    -- Mobile Flak
-                                                                                -- - categories.uel0307))  -- Mobile Shield
                 end
             end
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M1S2)
+
+    -- Voice reminder for objective after 20 minutes
     ScenarioFramework.CreateTimerTrigger(M1S2Reminder, 20*60)
 end
 
 function M1FirstBaseDestroyed()
-    if ScenarioInfo.M1BaseDialoguePlayer == false and ScenarioInfo.M1P1.Active then
+    if not ScenarioInfo.M1BaseDialoguePlayer and ScenarioInfo.M1P1.Active then
         ScenarioInfo.M1BaseDialoguePlayer = true
         ScenarioFramework.Dialogue(OpStrings.base1killed)
         ScenarioFramework.CreateTimerTrigger(M1P1Reminder3, 20*60)
@@ -596,8 +608,11 @@ function IntroMission2()
     ---------
     -- UEF AI
     ---------
+    -- UEF Bases
     M2UEFAI.UEFM2SouthBaseAI()
     M2UEFAI.UEFM2T1BaseAI()
+
+    -- Fill the storages
     ArmyBrains[UEF]:GiveResource('MASS', 4000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 8000)
 
@@ -623,6 +638,7 @@ function IntroMission2()
         ScenarioFramework.GroupPatrolChain({v}, 'M2_SouthBase_Land_Def_Chain2')
     end
 
+    -- Spawn some engies for reclaiming, putting them inside a platoon so the BaseManager won't steal them
     for i = 1, 6 do
         ScenarioInfo.Engineer = ScenarioUtils.CreateArmyUnit('UEF', 'M2_SouthBase_Engi' .. i)
         local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
@@ -673,10 +689,13 @@ end
 
 function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Area', false)
+
     if not SkipNIS2 then
         Cinematics.EnterNISMode()
-        Cinematics.SetInvincible( 'M2_Area' )
+        -- Make sure that some accidental death won't happen
+        Cinematics.SetInvincible('M2_Area')
 
+        -- Vision for players
         local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M2_Vis_1'), 0, ArmyBrains[Player])
         local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M2_Vis_2'), 0, ArmyBrains[Player])
         local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M2_Vis_3'), 0, ArmyBrains[Player])
@@ -693,9 +712,12 @@ function IntroMission2NIS()
         ForkThread(
             function()
                 WaitSeconds(1)
+
+                -- Remove vision
                 VisMarker2_1:Destroy()
                 VisMarker2_2:Destroy()
                 VisMarker2_3:Destroy()
+
                 if Difficulty == 3 then
                     WaitSeconds(1)
                     ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M2_Vis_1'), 50)
@@ -707,7 +729,7 @@ function IntroMission2NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
         WaitSeconds(2)
         
-        Cinematics.SetInvincible( 'M2_Area', true )
+        Cinematics.SetInvincible('M2_Area', true)
         Cinematics.ExitNISMode()
     end
 
@@ -716,7 +738,6 @@ function IntroMission2NIS()
 end
 
 function M2InitialAirAttack()
-
     -- If player > 100 units, spawns Bombers for every 20 land units, up to 6 groups
     local num = 0
     for _, player in ScenarioInfo.HumanPlayers do
@@ -785,16 +806,23 @@ function StartMission2()
     ScenarioInfo.M2P1:AddResultCallback(
         function(result)
             if(result) then
-                ScenarioFramework.Dialogue(OpStrings.airbase1, IntroMission3)
-                -- IntroMission3()
+                if not Debug then
+                    ScenarioFramework.Dialogue(OpStrings.airbase1, IntroMission3)
+                else
+                    IntroMission3()
+                end
             end
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2P1)
+
+    -- Voice reminder for objective after 15 minutes
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, 15*60)
 
     -- Secondary Objectives
+    -- Kill titan patrol, once player spots them
     ScenarioFramework.CreateArmyIntelTrigger(M2SecondaryTitans, ArmyBrains[Player], 'LOSNow', false, true, categories.uel0303, true, ArmyBrains[UEF])
+    -- Capture another tech centre
     ScenarioFramework.Dialogue(OpStrings.airhqtechcentre, M2SecondaryCaptureTech)
 end
 
@@ -815,15 +843,14 @@ function M2SecondaryCaptureTech()
     ScenarioInfo.M2S1:AddResultCallback(
         function(result)
             if(result) then
+                -- "Schematics downloaded voice over"
                 ScenarioFramework.PlayUnlockDialogue()
-                LOG('speed2 >>> Tech Centre captured')
+
                 for _, player in ScenarioInfo.HumanPlayers do
                     ScenarioFramework.RemoveRestriction(player, categories.TECH2 * categories.AIR)
-                                                                                -- + categories.uel0111    -- MML
-                                                                                -- + categories.uel0205    -- Mobile Flak
-                                                                                -- + categories.uel0307)   -- Mobile Shield
                     ScenarioFramework.RemoveRestriction(player, (categories.TECH2 * categories.NAVAL * categories.STRUCTURE) + categories.DESTROYER)
                 end
+
                 ScenarioFramework.RestrictEnhancements({'ResourceAllocation',
                                                         'T3Engineering',
                                                         'Shield',
@@ -834,12 +861,15 @@ function M2SecondaryCaptureTech()
         end
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S1)
+
     ScenarioFramework.CreateTimerTrigger(M2S1Reminder, 20*60)
 end
 
 function M2SecondaryTitans()
     ScenarioFramework.Dialogue(OpStrings.titankill)
+
     local units = ScenarioFramework.GetCatUnitsInArea(categories.uel0303, 'M2_Area', ArmyBrains[UEF])
+
     --------------------------------------
     -- Secondary Objective 4 - Kill Titans
     --------------------------------------
@@ -865,16 +895,15 @@ end
 
 function UEFBattleships()
     WaitSeconds(60)
+
     ScenarioFramework.Dialogue(OpStrings.unitmove)
+
     ScenarioInfo.Battleships = ScenarioUtils.CreateArmyGroupAsPlatoon('UEFAlly', 'Battleships', 'AttackFormation')
     ScenarioInfo.Battleships.PlatoonData = {}
     ScenarioInfo.Battleships.PlatoonData.MoveRoute = {'BattleshipsDeath'}
     ScenarioPlatoonAI.MoveToThread(ScenarioInfo.Battleships)
+    
     WaitSeconds(5)
-    KillBattleships()
-end
-
-function KillBattleships()
     ScenarioInfo.Battleships:Destroy()
 end
 
@@ -1180,143 +1209,139 @@ end
 -- Mission 5
 ------------
 function IntroMission5()
-    ForkThread(
-        function()
-            -- No invincible ACU anymore
-            ScenarioInfo.PlayerCDR:SetCanBeKilled(true)
-            ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
+    ScenarioInfo.MissionNumber = 5
 
-            coop = 1
-            for iArmy, strArmy in pairs(ListArmies()) do
-                if iArmy >= ScenarioInfo.Coop1 then
-                    ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(true)
-                    -- ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.CoopCDR[coop])
-                    coop = coop + 1
-                end
-            end
-            
-            ---------
-            -- UEF AI
-            ---------
-            M5UEFAI.UEFM5IslandBaseAI()
-            
-            ArmyBrains[UEF]:GiveResource('MASS', 8000)
-            ArmyBrains[UEF]:GiveResource('ENERGY', 30000)
+    -- No invincible ACU anymore
+    ScenarioInfo.PlayerCDR:SetCanBeKilled(true)
+    -- Set up trigger if player dies
+    ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.PlayerCDR)
 
-            ScenarioInfo.UEFSACU = ScenarioUtils.CreateArmyUnit('UEF', 'M5_UEF_Island_sACU')
-            ScenarioInfo.UEFSACU:SetCustomName( "sCDR Morax" )
-            ScenarioInfo.UEFSACU:CreateEnhancement('AdvancedCoolingUpgrade')
-            ScenarioInfo.UEFSACU:CreateEnhancement('HighExplosiveOrdnance')
-            ScenarioInfo.UEFSACU:CreateEnhancement('Shield')
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.UEFSACU)
-
-            --------------
-            -- UEF Ally AI
-            --------------
-
-            M5UEFALLYAI.UEFAllyM5BaseAI()
-            M5UEFALLYAI.UEFAllyM5GateBaseAI()
-
-            ScenarioUtils.CreateArmyGroup('UEFAlly', 'M5_Island_Defences_Buildings')
-
-            --------------
-            -- Seraphim AI
-            --------------
-            M5SeraphimAI.SeraphimM5MainBaseAI()
-            M5SeraphimAI.SeraphimM5IslandMiddleBaseAI()
-            M5SeraphimAI.SeraphimM5IslandWestBaseAI()
-
-            ArmyBrains[Seraphim]:GiveResource('MASS', 15000)
-            ArmyBrains[Seraphim]:GiveResource('ENERGY', 30000)
-
-            ScenarioInfo.M5SeraBase = ScenarioFramework.GetCatUnitsInArea(categories.FACTORY + categories.TECH2 * categories.ECONOMIC + categories.TECH3 * categories.ECONOMIC, 'M5_Sera_Main_Base_Area', ArmyBrains[Seraphim])
-
-            ------------------
-            -- Initial Patrols
-            ------------------
-            -- Seraphim
-            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
-            for k, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Main_Base_Air_Def_Chain')))
-            end
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_West_DefGroup', 'GrowthFormation')
-            for k, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Island_West_AirDef_Chain')))
-            end
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Middle_DefGroup', 'GrowthFormation')
-            for k, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Island_Middle_AirDef_Chain')))
-            end
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Attack_UEF', 'AttackFormation')
-            for k, v in EntityCategoryFilterDown(categories.xss0201, units:GetPlatoonUnits()) do
-                IssueDive({v})
-            end
-                ScenarioFramework.PlatoonPatrolChain(units, 'M5_UEF_Island_Naval_Defense_Chain1')
-
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Attack_UEF2', 'GrowthFormation')
-                ScenarioFramework.PlatoonPatrolChain(units, 'M5_Sera_Init_Attack_UEF')
-            for i = 1, 3 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Air_Attack_UEF' .. i, 'AttackFormation')
-                ScenarioFramework.PlatoonPatrolChain(units, 'M5_Sera_Init_Attack_UEF')
-            end
-            
-            -- UEF
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Init_UEF_Air', 'GrowthFormation')
-            for k, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_UEF_Island_Air_Defense_Chain')))
-            end
-            for i = 1, 2 do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Init_UEF_Naval_' .. i, 'AttackFormation')
-                ScenarioFramework.PlatoonPatrolChain(units, 'M5_UEF_Island_Naval_Defense_Chain' ..i)
-            end
-            
-            ScenarioInfo.MissionNumber = 5
-
-            ---------------
-            -- Seraphim ACU
-            ---------------
-            ScenarioInfo.SeraACU = ScenarioUtils.CreateArmyUnit('Seraphim', 'M5_Sera_ACU')
-            ScenarioInfo.SeraACU:SetCustomName("Zottoo-Zithutin")
-            ScenarioInfo.SeraACU:CreateEnhancement('AdvancedEngineering')
-            ScenarioInfo.SeraACU:CreateEnhancement('DamageStabilization')
-            ScenarioInfo.SeraACU:CreateEnhancement('DamageStabilizationAdvanced')
-            ScenarioInfo.SeraACU:CreateEnhancement('RateOfFire')
-            ScenarioInfo.SeraACU:SetCanBeKilled(false)
-            ScenarioInfo.SeraACU:SetCapturable(false)
-            ScenarioInfo.SeraACU:SetReclaimable(false)
-            ScenarioFramework.CreateUnitDamagedTrigger(SeraACUWarp, ScenarioInfo.SeraACU, .8)
-            ZottooWestTM:AddTauntingCharacter(ScenarioInfo.SeraACU)
-
-            -----------------------
-            -- Objective Structures
-            -----------------------
-            ScenarioInfo.M5_Other_Buildings = ScenarioUtils.CreateArmyGroup('Objective', 'M5_Other_Buildings')
-            for k,v in ScenarioInfo.M5_Other_Buildings do
-                v:SetCapturable(false)
-                v:SetReclaimable(false)
-            end
-            -- No more invincible civilian buildings
-            for k,v in ScenarioInfo.M1_Other_Buildings do
-                v:SetCanTakeDamage(true)
-                v:SetCanBeKilled(true)
-            end
-            for k,v in ScenarioInfo.M2_Other_Buildings do
-                v:SetCanTakeDamage(true)
-                v:SetCanBeKilled(true)
-            end
-            for k,v in ScenarioInfo.UEFGate do
-                v:SetCanTakeDamage(true)
-                v:SetCanBeKilled(true)
-            end
-
-            -----------
-            -- Wreckage
-            -----------
-            ScenarioUtils.CreateArmyGroup('UEFAlly', 'M5_Wrecks', true)
-            
-            ForkThread(IntroMission5NIS)
+    coop = 1
+    for iArmy, strArmy in pairs(ListArmies()) do
+        if iArmy >= ScenarioInfo.Coop1 then
+            ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(true)
+            -- ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.CoopCDR[coop])
+            coop = coop + 1
         end
-    )
+    end
+    
+    ---------
+    -- UEF AI
+    ---------
+    -- Island base with sACU
+    M5UEFAI.UEFM5IslandBaseAI()
+    
+    -- Fill the storages
+    ArmyBrains[UEF]:GiveResource('MASS', 8000)
+    ArmyBrains[UEF]:GiveResource('ENERGY', 30000)
+
+    -- Spawn sACU
+    ScenarioInfo.UEFSACU = ScenarioFramework.SpawnCommander('UEF', 'M5_UEF_Island_sACU', false, 'sCDR Morax', true, false,
+        {'AdvancedCoolingUpgrade', 'HighExplosiveOrdnance', 'Shield'})
+
+    --------------
+    -- UEF Ally AI
+    --------------
+    -- Start unit production from the civilian bases
+    M5UEFALLYAI.UEFAllyM5BaseAI()
+    M5UEFALLYAI.UEFAllyM5GateBaseAI()
+
+    ScenarioUtils.CreateArmyGroup('UEFAlly', 'M5_Island_Defences_Buildings')
+
+    --------------
+    -- Seraphim AI
+    --------------
+    M5SeraphimAI.SeraphimM5MainBaseAI()
+    M5SeraphimAI.SeraphimM5IslandMiddleBaseAI()
+    M5SeraphimAI.SeraphimM5IslandWestBaseAI()
+
+    ArmyBrains[Seraphim]:GiveResource('MASS', 15000)
+    ArmyBrains[Seraphim]:GiveResource('ENERGY', 30000)
+
+    ScenarioInfo.M5SeraBase = ScenarioFramework.GetCatUnitsInArea(categories.FACTORY + categories.TECH2 * categories.ECONOMIC + categories.TECH3 * categories.ECONOMIC, 'M5_Sera_Main_Base_Area', ArmyBrains[Seraphim])
+
+    ------------------
+    -- Initial Patrols
+    ------------------
+    -- Seraphim
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Main_Base_Air_Def_Chain')))
+    end
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_West_DefGroup', 'GrowthFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Island_West_AirDef_Chain')))
+    end
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Middle_DefGroup', 'GrowthFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Island_Middle_AirDef_Chain')))
+    end
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Attack_UEF', 'AttackFormation')
+    for _, v in EntityCategoryFilterDown(categories.xss0201, platoon:GetPlatoonUnits()) do
+        IssueDive({v})
+    end
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M5_UEF_Island_Naval_Defense_Chain1')
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Attack_UEF2', 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M5_Sera_Init_Attack_UEF')
+    for i = 1, 3 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Air_Attack_UEF' .. i, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M5_Sera_Init_Attack_UEF')
+    end
+    
+    -- UEF
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Init_UEF_Air', 'GrowthFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_UEF_Island_Air_Defense_Chain')))
+    end
+
+    for i = 1, 2 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Init_UEF_Naval_' .. i, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M5_UEF_Island_Naval_Defense_Chain' ..i)
+    end
+
+    ---------------
+    -- Seraphim ACU
+    ---------------
+    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('Seraphim', 'M5_Sera_ACU', false, 'Zottoo-Zithutin', false, false,
+        {'AdvancedEngineering', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
+    ScenarioInfo.SeraACU:SetCanBeKilled(false)
+    ScenarioInfo.SeraACU:SetCapturable(false)
+    ScenarioInfo.SeraACU:SetReclaimable(false)
+    ScenarioFramework.CreateUnitDamagedTrigger(SeraACUWarp, ScenarioInfo.SeraACU, .8)
+    ZottooWestTM:AddTauntingCharacter(ScenarioInfo.SeraACU)
+
+    -----------------------
+    -- Objective Structures
+    -----------------------
+    ScenarioInfo.M5_Other_Buildings = ScenarioUtils.CreateArmyGroup('Objective', 'M5_Other_Buildings')
+    for _, v in ScenarioInfo.M5_Other_Buildings do
+        v:SetCapturable(false)
+        v:SetReclaimable(false)
+    end
+    -- No more invincible civilian buildings
+    for _, v in ScenarioInfo.M1_Other_Buildings do
+        v:SetCanTakeDamage(true)
+        v:SetCanBeKilled(true)
+    end
+    for _, v in ScenarioInfo.M2_Other_Buildings do
+        v:SetCanTakeDamage(true)
+        v:SetCanBeKilled(true)
+    end
+    for _, v in ScenarioInfo.UEFGate do
+        v:SetCanTakeDamage(true)
+        v:SetCanBeKilled(true)
+    end
+
+    -----------
+    -- Wreckage
+    -----------
+    ScenarioUtils.CreateArmyGroup('UEFAlly', 'M5_Wrecks', true)
+    
+    ForkThread(IntroMission5NIS)
 end
 
 function IntroMission5NIS()
