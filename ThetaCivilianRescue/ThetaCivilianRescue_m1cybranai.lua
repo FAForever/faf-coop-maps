@@ -44,7 +44,7 @@ function CybranM1WestBaseAI()
         CybranM1WestBase:AddBuildGroupDifficulty('M1_Cybran_West_Base_Defenses', 90, false)
         
         if ScenarioInfo.NumberOfPlayers >= 3 then
-            CybranM1WestBase:AddBuildGroupDifficulty('M1_Forward_Defenses', 100, true)
+            CybranM1WestBase:SpawnGroup('M1_Forward_Defenses_D' .. Difficulty)
         end
     end)
     
