@@ -109,8 +109,8 @@ function CybranM2EastBaseLandAttacks()
             RequiresConstruction = true,
             LocationType = 'M2_Cybran_East_Base',
             BuildConditions = {
-               { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE}},
+                {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                    {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='}},
             },
             PlatoonAIFunction = {ThisFile, 'M2WestBaseLandPlatoonAI'},
         }
@@ -149,19 +149,19 @@ function CybranM2EastBaseAirAttacks()
     opai:SetChildQuantity({'CombatFighters'}, quantity[Difficulty])
 
     quantity = {2, 4, 6}
-    trigger = {20, 15, 10}
+    trigger = {200, 125, 75}
     opai = CybranM2EastBase:AddOpAI('AirAttacks', 'M2_EastAirAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {'M2_Cybran_Air_Attack_Chain_1', 'M2_Cybran_Air_Attack_Chain_2','M2_Cybran_Air_Attack_Chain_3'},
             },
-            Priority = 100,
+            Priority = 110,
         }
     )
     opai:SetChildQuantity({'AirSuperiority'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.TECH2 * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 end
 
 -------------------------------------------
@@ -217,6 +217,6 @@ function ExtraAADefense()
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileStealth'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 end
