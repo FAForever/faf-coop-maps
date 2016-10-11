@@ -57,7 +57,7 @@ function CarrierAI(platoon)
                     end, i)
                 end             
             else
-                error('*Carrier AI ERROR: Less mvoe positions than carriers', 2)
+                error('*Carrier AI ERROR: Less move positions than carriers', 2)
             end
         else
             error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)

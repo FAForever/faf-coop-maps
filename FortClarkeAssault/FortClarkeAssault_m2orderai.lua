@@ -57,8 +57,8 @@ function OrderM2MainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'UEF', 20, categories.AIR * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'UEF'}, 20, categories.AIR * categories.MOBILE, '>='})
 
     -- Air Defense
     quantity = {8, 7, 6}
@@ -286,8 +286,8 @@ function OrderM2NavalBaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'UEF', 5, categories.NAVAL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'UEF'}, 5, categories.NAVAL, '>='})
 
     opai = OrderM2NavalBase:AddNavalAI('M2_NavalAttack2',
         {
@@ -303,8 +303,8 @@ function OrderM2NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'UEF', 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'UEF'}, 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     opai = OrderM2NavalBase:AddNavalAI('M2_NavalAttack3',
         {
@@ -320,8 +320,8 @@ function OrderM2NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'UEF', 10, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'UEF'}, 10, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     opai = OrderM2NavalBase:AddNavalAI('M2_NavalAttack4',
         {
@@ -335,8 +335,8 @@ function OrderM2NavalBaseNavalAttacks()
             Priority = 130,
         }
     )
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'UEF', 3, categories.BATTLESHIP})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'UEF'}, 3, categories.BATTLESHIP, '>='})
 
     -- Naval Defense
     opai = OrderM2NavalBase:AddNavalAI('M2_Order_NavalDefense_1',
@@ -417,6 +417,8 @@ function M2OrderCarriers()
         PlatoonData = {
             MoveChain = 'M2_Order_Carrier_Chain',
             Location = 'AircraftCarrier',
+            Marker = 'M2_Order_AirCraft_Carrier_Marker_',
+            Radius = 40,
         },
     }
     ArmyBrains[Order]:PBMAddPlatoon( Builder )
@@ -437,8 +439,8 @@ function M2OrderCarriers()
         RequiresConstruction = true,
         LocationType = 'AircraftCarrier1',
         BuildConditions = {
-            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-                {'default_brain', 'UEF', trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'UEF'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='}},
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Naval_Base'} },
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
@@ -487,8 +489,8 @@ function M2OrderCarriers()
             RequiresConstruction = true,
             LocationType = 'AircraftCarrier2',
             BuildConditions = {
-                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-                    {'default_brain', 'UEF', trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3}},
+                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                    {'default_brain', {'UEF'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='}},
                 { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Naval_Base'} },
             },
             PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
@@ -507,8 +509,8 @@ function M2OrderCarriers()
             RequiresConstruction = true,
             LocationType = 'AircraftCarrier2',
             BuildConditions = {
-                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-                    {'default_brain', 'Cybran', trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3}},
+                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                    {'default_brain', {'Cybran'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='}},
                 { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Naval_Base'} },
             },
             PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
