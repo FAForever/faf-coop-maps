@@ -213,7 +213,7 @@ function Hex5M2BaseAirAttacks()
         )
         opai:SetChildQuantity('Gunships', 8)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
+            {'default_brain', {'Fletcher'}, 20, categories.LAND, '>='})
 
         opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks_Fletcher_2' .. i,
             {
@@ -226,7 +226,7 @@ function Hex5M2BaseAirAttacks()
         )
         opai:SetChildQuantity('Interceptors', 12)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', 'Fletcher', 20, categories.AIR, '>='})
+            {'default_brain', {'Fletcher'}, 20, categories.AIR, '>='})
     end
 
     -- Air Defense
@@ -390,7 +390,7 @@ function Hex5M2BaseLandAttacks()
         )
         opai:SetChildQuantity({'HeavyTanks'}, 8)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
+            {'default_brain', {'Fletcher'}, 20, categories.LAND, '>='})
 
         opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack_Fletcher2_' .. i,
             {
@@ -403,7 +403,7 @@ function Hex5M2BaseLandAttacks()
         )
         opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 8)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
+            {'default_brain', {'Fletcher'}, 20, categories.LAND, '>='})
     end
 
     -- Land Defense
