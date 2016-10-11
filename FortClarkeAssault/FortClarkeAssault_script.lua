@@ -86,7 +86,7 @@ function OnPopulate(scenario)
     local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
-            ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
+            SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
 
@@ -229,23 +229,23 @@ function IntroMission1NIS()
             ScenarioInfo.CoopCDR = {}
             local tblArmy = ListArmies()
             if tblArmy[ScenarioInfo.Coop1] then
-                ScenarioInfo.CoopCDR1 = ScenarioFramework.SpawnCommander('Coop1', 'Commander', 'Warp', true, true)
+                ScenarioInfo.CoopCDR1 = ScenarioFramework.SpawnCommander('Coop1', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Coop2] then
-                ScenarioInfo.CoopCDR2 = ScenarioFramework.SpawnCommander('Coop2', 'Commander', 'Warp', true, true)
+                ScenarioInfo.CoopCDR2 = ScenarioFramework.SpawnCommander('Coop2', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(5)
 
-            ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true)
+            ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true, PlayerDeath)
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Coop3] then
-                ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'Commander', 'Warp', true, true)
+                ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'Commander', 'Warp', true, true, PlayerDeath)
             end
         end)
 
@@ -260,7 +260,7 @@ function IntroMission1NIS()
         Cinematics.ExitNISMode()
     else
         DropReinforcements('Seraphim', 'Player', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true, PlayerDeath)
 
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
@@ -268,7 +268,7 @@ function IntroMission1NIS()
         coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy >= ScenarioInfo.Coop1 then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true)
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
                 DropReinforcements('Seraphim', strArmy, 'NIS_Bots_' .. strArmy ..'_D' .. Difficulty, 'NIS_Drop_' .. strArmy, 'NIS_Transport_Death')
                 coop = coop + 1
                 WaitSeconds(0.5)
@@ -578,7 +578,7 @@ function M1SendPercies1(unit)
         WaitSeconds(270 - 30 * Difficulty)
 
         if ScenarioInfo.MissionNumber == 1 then
-            for _, unit in unitsTable do
+            for k, _ in unitsTable do
                 ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, unit, 'M1_South_Base_Marker', 40)
                 table.remove(unitsTable, k)
             end
@@ -605,7 +605,7 @@ function M1SendPercies2(unit)
         WaitSeconds(280 - 30 * Difficulty)
         
         if ScenarioInfo.MissionNumber == 1 then
-            for _, unit in unitsTable do
+            for k, _ in unitsTable do
                 ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, unit, 'M1_North_Base_Marker', 40)
                 table.remove(unitsTable, k)
             end
@@ -701,8 +701,12 @@ function IntroMission2()
     M2OrderAI.OrderM2MainBaseAI()
     M2OrderAI.OrderM2NavalBaseAI()
     M2OrderAI.OrderM2ExpansionBaseAI()
-    --M2OrderAI.M2OrderCarriers() -- Only for Testing
-    ScenarioFramework.CreateTimerTrigger(M2OrderAI.M2OrderCarriers, 2 * Difficulty * 60)
+
+    if Debug then
+        M2OrderAI.M2OrderCarriers() -- Only for Testing
+    else
+        ScenarioFramework.CreateTimerTrigger(M2OrderAI.M2OrderCarriers, 2 * Difficulty * 60)
+    end
     ArmyBrains[Order]:PBMSetCheckInterval(5)
 
     -- Order CDR
@@ -1471,7 +1475,6 @@ function PlayerWin()
 end
 
 function PlayerDeath()
-    if Dubug then return end
     if (not ScenarioInfo.OpEnded) then
         ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
         ScenarioFramework.EndOperationSafety()
@@ -1488,21 +1491,6 @@ function PlayerDeath()
                 KillGame()
             end
        )
-    end
-end
-
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for _, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        WaitSeconds(3)
-        ScenarioFramework.Dialogue(OpStrings.sACUDie, KillGame, true)
     end
 end
 

@@ -46,10 +46,20 @@
 
 
 
+-----------
+-- Win/Lose
+-----------
+PlayerWin = {
+  {text = '[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+}
+
+
+
 -- PO1 Factory West Destroyed / Actor:  / Update: 24/2/2016 / VO TODO
 BaseDestroyed = {
   {text = '[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
+
 
 
 ------------

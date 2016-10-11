@@ -72,8 +72,8 @@ function FortClarkeAirAttacks()
         }
     )
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.EXPERIMENTAL * categories.LAND})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.LAND, '>='})
 
     quantity = {8, 12, 16}
     opai = FortClarke:AddOpAI('AirAttacks', 'M3_Fort_Clarke_AirAttack4',
@@ -99,8 +99,8 @@ function FortClarkeAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Air Defense
     for i = 1, 3 do
@@ -479,8 +479,7 @@ function UEFM3BaseLandAttacks()
     })
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 5, categories.uea0104})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 5, categories.uea0104})
 
     opai = UEFM3Base:AddOpAI('BasicLandAttack', 'M2_UEF_TransportAttack_1',
         {
@@ -529,8 +528,8 @@ function UEFM3BaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     --opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack2',
         {
@@ -552,8 +551,8 @@ function UEFM3BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack3',
         {
@@ -575,8 +574,8 @@ function UEFM3BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
 end
 
 function M3UEFBattleshipsAttacks()
@@ -603,8 +602,8 @@ function M3UEFBattleshipsAttacks()
         }
     )
     --opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.BATTLESHIP})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
 
     -- Sends 3 Battleships and Cruisers if player has more than {6, 5, 4} Battleships
     trigger = {6, 5, 4}
@@ -624,8 +623,8 @@ function M3UEFBattleshipsAttacks()
         }
     )
     --opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.BATTLESHIP})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
     
     -- Sends 3 Battleships if Player has no naval.
     opai = UEFM3BaseNaval:AddNavalAI('M3_UEF_Base_BattleshipAttack_3',
@@ -641,8 +640,8 @@ function M3UEFBattleshipsAttacks()
         }
     )
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainLessThanOrEqualNumCategory', {'default_brain', 'Player', 0, categories.NAVAL * categories.FACTORY})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainLessThanOrEqualNumCategory',
+        {'default_brain', {'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY, '>='})
 
     ------------------
     -- Nuke Submarines
@@ -664,7 +663,7 @@ function M3UEFBattleshipsAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 3, categories.STRUCTURE * categories.NUKE})
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 3, categories.STRUCTURE * categories.NUKE, '>='})
     ]]--
 end
 
