@@ -68,6 +68,6 @@ function QAIM3NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 8, (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 8, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 end

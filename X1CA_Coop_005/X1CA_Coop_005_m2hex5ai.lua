@@ -114,8 +114,8 @@ function Hex5M2BaseAirAttacks()
     else
         opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     end
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 4, 8, 12 [air superiority] if player has >= 60, 40, 40 mobile air
     quantity = {4, 8, 12}
@@ -130,8 +130,8 @@ function Hex5M2BaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 4, 8, 12 [air superiority] if player has >= 50, 30, 30 gunships
     quantity = {4, 8, 12}
@@ -146,8 +146,8 @@ function Hex5M2BaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 4, 12, 16 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {4, 12, 16}
@@ -162,8 +162,8 @@ function Hex5M2BaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 4, 8, 12 [air superiority] if player has >= 1 strat bomber
     quantity = {4, 8, 12}
@@ -177,8 +177,8 @@ function Hex5M2BaseAirAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 8, 16, 24 [bombers, gunships] if player has >= 450, 400, 300 units, ([heavy gunships] on hard)
     quantity = {8, 16, 24}
@@ -197,8 +197,8 @@ function Hex5M2BaseAirAttacks()
     else
         opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     end
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- To attack Fletcher
     for i = 1, 2 do
@@ -212,8 +212,8 @@ function Hex5M2BaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Gunships', 8)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.LAND})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
 
         opai = Hex5M2Base:AddOpAI('AirAttacks', 'M2_AirAttacks_Fletcher_2' .. i,
             {
@@ -225,8 +225,8 @@ function Hex5M2BaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', 12)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.AIR})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', 'Fletcher', 20, categories.AIR, '>='})
     end
 
     -- Air Defense
@@ -311,8 +311,8 @@ function Hex5M2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileShields'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 4, 6, 10 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
     quantity = {4, 6, 10}
@@ -327,8 +327,8 @@ function Hex5M2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileShields'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 6, 10, 20 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
     quantity = {6, 10, 20}
@@ -343,8 +343,8 @@ function Hex5M2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'SiegeBots', 'HeavyBots'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 6, 8, 10 [mobile flak] if player has >= 1 strat bomber
     quantity = {6, 8, 10}
@@ -358,8 +358,8 @@ function Hex5M2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.uaa0304 + categories.uea0304 + categories.ura0304})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 6, 9, 15 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
     quantity = {6, 9, 15}
@@ -374,8 +374,8 @@ function Hex5M2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'MobileHeavyArtillery', 'MobileMissiles', 'LightArtillery'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- To attack Fletcher
     for i = 1, 2 do
@@ -389,8 +389,8 @@ function Hex5M2BaseLandAttacks()
             }
         )
         opai:SetChildQuantity({'HeavyTanks'}, 8)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.LAND})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
 
         opai = Hex5M2Base:AddOpAI('BasicLandAttack', 'M2_LandAttack_Fletcher2_' .. i,
             {
@@ -402,8 +402,8 @@ function Hex5M2BaseLandAttacks()
             }
         )
         opai:SetChildQuantity({'MobileMissiles', 'LightArtillery'}, 8)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Fletcher', 20, categories.LAND})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', 'Fletcher', 20, categories.LAND, '>='})
     end
 
     -- Land Defense
