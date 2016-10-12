@@ -115,8 +115,8 @@ function SeraphimM5MainBaseAirAttacks()
 	        }
 	    )
 	    opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-	    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+	    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 	end
 
     -- Builds platoon of 10 Interceptors 4 times if Player has more than 70 mobile air
@@ -139,8 +139,8 @@ function SeraphimM5MainBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     end
 
     -- Builds platoon of 10 TorpedoBombers 4 times if Player has more than 10 T2 Naval Units
@@ -159,8 +159,8 @@ function SeraphimM5MainBaseAirAttacks()
 	        }
 	    )
 	    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
-	    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.TECH2})
+	    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
 	end
 
     -- sends 10 [torpedo bombers] at Player CDR
@@ -645,8 +645,8 @@ function SeraphimM5IslandWestBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     -- Builds platoon of 24 Interceptors 2 times if Player has more than 40 mobile air
@@ -663,8 +663,8 @@ function SeraphimM5IslandWestBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     end
 
     for i = 1, 2 do
@@ -680,8 +680,8 @@ function SeraphimM5IslandWestBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     end
 
     -- Air Defense
@@ -777,8 +777,8 @@ function SeraphimM5IslandWestBaseLandAttacks()
             }
         )
         opai:SetChildQuantity({'AmphibiousTanks', 'MobileFlak'}, quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.TECH2})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
     end
 
     quantity = {12, 16, 20}
@@ -878,8 +878,8 @@ function SeraphimM5IslandWestBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.TECH2})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
 
     quantity = {15, 17, 19}
     trigger = {11, 7, 3}
@@ -901,8 +901,8 @@ function SeraphimM5IslandWestBaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.TECH2})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
 
     opai = SeraphimM5IslandWestBase:AddNavalAI('M5_Sera_West_NavalAttack_Player_3',
         {
@@ -921,8 +921,8 @@ function SeraphimM5IslandWestBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainLessThanOrEqualNumCategory',
-        {'default_brain', 'Player', 0, categories.NAVAL * categories.FACTORY})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY, '<='})
 
     opai = SeraphimM5IslandWestBase:AddNavalAI('M5_Sera_West_NavalAttack_Player_4',
         {
@@ -941,8 +941,8 @@ function SeraphimM5IslandWestBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainLessThanOrEqualNumCategory',
-        {'default_brain', 'Player', 0, categories.NAVAL * categories.FACTORY + categories.uel0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY + categories.uel0203, '<='})
 end
 
 ---------------------------------

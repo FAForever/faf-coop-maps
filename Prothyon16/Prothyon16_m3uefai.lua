@@ -111,8 +111,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR, '>='})
 
     -- sends 12 [bombers] if player has >= 20 land units
     quantity = {6, 8, 10}
@@ -133,8 +133,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='})
 
     -- sends 10 interceptors
     quantity = {6, 8, 10}
@@ -174,8 +174,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Bombers', 'Interceptors'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR + categories.dea0202})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR + categories.dea0202, '>='})
 
     -- sends 8 [gunships, interceptors] if player has >= 8 AA + Janus
     quantity = {10, 12, 16}
@@ -196,8 +196,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ANTIAIR + categories.dea0202})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR + categories.dea0202, '>='})
 
     -- sends 12 [gunships, interceptors] if player has >= 8 AA
     quantity = {16, 20, 24}
@@ -218,8 +218,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- sends 20 [interceptors] if player has >= 10 mobile air
     quantity = {12, 16, 20}
@@ -240,8 +240,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 12 [gunships] if player has >= 10 T2/T3 structures
     quantity = {8, 10, 12}
@@ -262,8 +262,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.TECH2 * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.MOBILE, '>='})
 
     -- sends 20 [gunships] if player has >= 75, 60, 40 mobile land units
     quantity = {12, 16, 20}
@@ -284,8 +284,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 25 [interceptors] if player has >= 50 mobile air units
     quantity = {15, 20, 25}
@@ -306,8 +306,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 10 [interceptors, gunships] if player has >= 20 gunships
     quantity = {6, 8, 10}
@@ -328,8 +328,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.uea0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uea0203, '>='})
 
     -- sends 30 [interceptors,] if player has >= 25 air units
     quantity = {20, 25, 30}
@@ -350,8 +350,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR + categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR + categories.MOBILE, '>='})
 
     -- sends 10 [gunships] if player has >= 10 T2 units
     quantity = {6, 8, 10}
@@ -372,8 +372,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.TECH2})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2, '>='})
 
     quantity = {6, 8, 10}
     trigger = {34, 26, 20}
@@ -393,8 +393,8 @@ function UEFM3AirBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.TECH2})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2, '>='})
 
     -- sends 10 [torpedo bombers] at Player CDR
     --[[ -- much desync maybe
@@ -462,8 +462,8 @@ function UEFM3AirBaseLandAttacks()
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL}) 
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}) 
 
     -- sends 10 [hover tanks] if player has >=  25 units
     quantity = {8, 8, 10}
@@ -478,8 +478,8 @@ function UEFM3AirBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     opai:SetLockingStyle('None')
 
     -- Drops
@@ -635,8 +635,8 @@ function UEFM3AirBaseLandAttacks()
     })
     opai:SetChildQuantity('T1Engineers', 10)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.FACTORY * categories.NAVAL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.NAVAL, '>='})
 end
 
 -------------------
@@ -696,8 +696,8 @@ function UEFM3SouthNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainGreaterThanOrEqualNumCategory', {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
     
     if (Difficulty == 3) then
         opai = UEFM3SouthNavalBase:AddNavalAI('M2_T2_NavalAttack_2',
@@ -717,8 +717,8 @@ function UEFM3SouthNavalAttacks()
             }
         )
         opai:SetChildActive('T3', false)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', 20, categories.NAVAL * categories.MOBILE + categories.uel0203})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
     end
 
     trigger = {50, 40, 30}
@@ -738,8 +738,8 @@ function UEFM3SouthNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.dea0202 + categories.uea0203 + categories.uea0204 + categories.uea0103})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.dea0202 + categories.uea0203 + categories.uea0204 + categories.uea0103, '>='})
     
     opai = UEFM3SouthNavalBase:AddNavalAI('M2_T2_NavalAttack_4',
         {
@@ -758,8 +758,8 @@ function UEFM3SouthNavalAttacks()
     )
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 4, categories.NAVAL * categories.MOBILE + categories.uel0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 4, categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
 end
 
 ------------------
@@ -797,8 +797,8 @@ function UEFM3WestNavalAttacks()
     )
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
 
     trigger = {18, 14, 10}
     opai = UEFM3WestNavalBase:AddNavalAI('M2_T2_NavalAttack_1_4',
@@ -818,8 +818,8 @@ function UEFM3WestNavalAttacks()
     )
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
 
     if (Difficulty == 3) then
         opai = UEFM3WestNavalBase:AddNavalAI('M2_T2_NavalAttack_1_5',
@@ -839,8 +839,8 @@ function UEFM3WestNavalAttacks()
         )
         opai:SetChildActive('T2', false)
         opai:SetChildActive('T3', false)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', 20, categories.NAVAL * categories.MOBILE + categories.uel0203})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE + categories.uel0203, '>='})
     end
 
     -- Defense

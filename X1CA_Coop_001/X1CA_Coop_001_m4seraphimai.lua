@@ -578,8 +578,8 @@ function SeraphimM4NavalBaseNavalAttacks()
             Priority = 110,
         }
     )
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
     trigger = {5, 3, 2}
@@ -595,8 +595,8 @@ function SeraphimM4NavalBaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     trigger = {6, 5, 4}
@@ -612,8 +612,8 @@ function SeraphimM4NavalBaseNavalAttacks()
         }
     )
     opai:SetChildActive('T3', false)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 20 - 50 frigate power if player has >= 5, 4, 3 T3 boats
     trigger = {5, 4, 3}
@@ -628,8 +628,8 @@ function SeraphimM4NavalBaseNavalAttacks()
             Priority = 140,
         }
     )
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Naval Defense
     for i = 1, 2 do

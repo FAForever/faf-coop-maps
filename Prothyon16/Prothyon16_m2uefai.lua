@@ -69,8 +69,8 @@ function UEFM2SouthBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('CombatFighters', 3)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', 10, categories.STRUCTURE * categories.ANTIAIR})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 10, categories.STRUCTURE * categories.ANTIAIR, '>='})
     end
 
     -- Defenses
@@ -170,8 +170,8 @@ function UEFM2SouthBaseLandAttacks()
         RequiresConstruction = true,
         LocationType = 'M2_South_Base',
         BuildConditions = {
-            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},       
         PlatoonData = {
@@ -203,8 +203,8 @@ function UEFM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightArtillery', 'MobileMissiles'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE, '>='})
 
     -- sends 8, 8 [light artillery, mobile missiles] if player has >= 25 units
     quantity = {8, 12, 16}
@@ -224,8 +224,8 @@ function UEFM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightArtillery', 'MobileMissiles'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE, '>='})
 
     if (Difficulty == 3) then
         local Temp = {
@@ -243,8 +243,8 @@ function UEFM2SouthBaseLandAttacks()
             RequiresConstruction = true,
             LocationType = 'M2_South_Base',
             BuildConditions = {
-                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', 20, categories.STRUCTURE * categories.TECH2}},
+                { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                    {'default_brain', {'HumanPlayers'}, 20, categories.STRUCTURE * categories.TECH2, '>='}},
             },
             PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},       
             PlatoonData = {
@@ -277,8 +277,8 @@ function UEFM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'HeavyTanks', 'MobileShields'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.LAND})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.LAND, '>='})
 
     -- sends 12 [mobile flak] if player has >= 40 mobile air units
     quantity = {8, 10, 12}
@@ -298,8 +298,8 @@ function UEFM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- sends 20 [heavy tanks] if player has >= 50 DF/IF
     quantity = {8, 10, 12}
@@ -319,8 +319,8 @@ function UEFM2SouthBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND + categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND + categories.MOBILE, '>='})
 
     -- Land Defenses
     -- maintains 2 groups of 8 heavy tanks
@@ -411,8 +411,8 @@ function UEFM2T1BaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.AIR + categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR + categories.MOBILE, '>='})
     end
 
     -- Defenses
@@ -539,8 +539,8 @@ function UEFM2T1BaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileAntiAir', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- Land Defenses
     -- maintains 2 groups of 6, 6 LightTanks and artillery

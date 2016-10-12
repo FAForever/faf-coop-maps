@@ -142,8 +142,8 @@ function UEFM1EastBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='})
 
     -- Builds platoon of 8 Bombers
     quantity = {4, 6, 8}
@@ -158,8 +158,8 @@ function UEFM1EastBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='})
 
     -- Builds platoon of 8 Interceptor when Player has 10+ air units
     quantity = {6, 7, 8}
@@ -174,8 +174,8 @@ function UEFM1EastBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Builds platoon of 12 Interceptor when Player has 20+ air units
     quantity = {6, 9, 12}
@@ -190,8 +190,8 @@ function UEFM1EastBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Builds platoon of 12 Interceptor when Player has 2+ Transports
     quantity = {6, 9, 12}
@@ -205,8 +205,8 @@ function UEFM1EastBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 2, categories.uea0107})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 2, categories.uea0107, '>='})
 
     -- Air Defense
     -- Maintains 6/9/12 Interceptors
@@ -291,8 +291,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE, '>='})
 
 
     -- Builds platoon of 6/8/10 T1 Tanks
@@ -308,8 +308,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE, '>='})
 
     -- Builds platoon of 3/3/4 T1 Tanks and 3/3/4 T1 Arties
     quantity = {6, 6, 8}
@@ -324,8 +324,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightTanks', 'LightArtillery'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE, '>='})
 
     -- sends 8/10/12 [light tanks]
     quantity = {8, 10, 12}
@@ -340,8 +340,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DIRECTFIRE + categories.INDIRECTFIRE, '>='})
 
     -- sends 8/10/12 [light artillery] if player has >= 80/70/60 units
     quantity = {8, 10, 12}
@@ -356,8 +356,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- sends 10 [mobile aa] if player has >= 6 planes
     quantity = {6, 8, 10}
@@ -372,8 +372,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileAntiAir', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.MOBILE * categories.AIR})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 16 [light tanks]
     quantity = {10, 12, 16}
@@ -388,8 +388,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- sends 16 [light artillery] if player has >= 20 units
     quantity = {10, 12, 16}
@@ -404,8 +404,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- sends 20 [light artillery, tanks] if player has >= 30 units
     quantity = {12, 16, 20}
@@ -420,8 +420,8 @@ function UEFM1EastBaseLandAttacks()
         }
     )
     opai:SetChildQuantity({'LightArtillery', 'LightTanks'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     ---------------
     -- Land Defense

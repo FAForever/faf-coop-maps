@@ -94,8 +94,8 @@ function SeraphimM6IslandBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('TorpedoBombers', 12)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 20, categories.NAVAL * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 20, categories.NAVAL * categories.MOBILE, '>='})
     end
 
     for i = 1, 3 do
@@ -109,8 +109,8 @@ function SeraphimM6IslandBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('Interceptors', 30)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 50, categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 50, categories.AIR * categories.MOBILE, '>='})
     end
 
     for i = 1, 3 do
@@ -124,8 +124,8 @@ function SeraphimM6IslandBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('CombatFighters', 20)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 70, categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+        {'default_brain', {'HumanPlayers'}, 70, categories.AIR * categories.MOBILE, '>='})
     end
 
 	--------------
@@ -203,8 +203,8 @@ function SeraphimM6IslandBaseT3AirAttacks()
             }
         )
         opai:SetChildQuantity('AirSuperiority', 12)
-        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 85, categories.AIR * categories.MOBILE})
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 85, categories.AIR * categories.MOBILE, '>='})
     end
 
     for i = 1, 3 do
