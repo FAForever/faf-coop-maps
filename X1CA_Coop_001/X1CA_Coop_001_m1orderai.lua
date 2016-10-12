@@ -303,7 +303,7 @@ function OrderM1WestBaseAirAttacks()
         opai:SetLockingStyle('None')
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}{'HumanPlayers'}r[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 end
 
 function OrderM1EastBaseAI()
