@@ -1526,8 +1526,7 @@ function M3CounterAttack()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Naval_Counter', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_NavalAttack_Chain')
 
-    -- associated warning VO played elsewhere, X01_M02_281
-    local colossus = ScenarioUtils.CreateArmyUnit('Order', 'M3_Order_Colos')
+    local colossus = ScenarioUtils.CreateArmyUnit('Order', 'M3_Order_Colos') --associated warning VO played elsewhere, X01_M02_281
     local platoon = ArmyBrains[Order]:MakePlatoon('', '')
     ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {colossus}, 'Attack', 'AttackFormation')
     if(Difficulty < 3) then
@@ -1536,269 +1535,252 @@ function M3CounterAttack()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'Order_M1_LandAttack_Chain')
     end
 
-    -- Because we're evil, we now spawn various groups of units and send them to attack various
-    -- categories of the humans' stuff. Based on how many of each thing the humans have and the
-    -- difficulty level, we tune our attack.
-    -- Muwhaha.
-    local function LaunchAttack(attack)
-        for _, player in ScenarioInfo.HumanPlayers do
-            local targets = ArmyBrains[player]:GetListOfUnits(attack.target, false)
-
-            -- Limit the amount of the targets we actually go after according to difficulty.
-            local squadsToSend = attack.quantity[Difficulty]
-            if squadsToSend < table.getn(targets) then
-                squadsToSend = table.getn(targets)
+    -- sends gunships at mass extractors on the beach, up to 2, 4, 6 if < 400 units, up to 4, 6, 10 if >= 400 units
+    local extractors = ScenarioFramework.GetListOfHumanUnits(categories.MASSEXTRACTION, 'M3_IslandMass_South_Area')
+    local num = table.getn(extractors)
+    local total = 0
+    quantity = {2, 4, 6}
+    if(num > 0) then
+        if(table.getn(ArmyBrains[Player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false)) < 400) then
+            if(num > quantity[Difficulty]) then
+                num = quantity[Difficulty]
             end
-
-            -- Send the attacks.
-            for i = 1, squadsToSend do
-                local units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', attack.unit, 'GrowthFormation')
-
-                -- Order to attack the target and then enter a patrol.
-                IssueAttack(units:GetPlatoonUnits(), targets[i])
+        else
+            quantity = {4, 6, 10}
+            if(num > quantity[Difficulty]) then
+                num = quantity[Difficulty]
+            end
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Main_Adapt_3Gunship_D' .. Difficulty, 'GrowthFormation')
+            IssueAttack(units:GetPlatoonUnits(), extractors[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+            total = total + 1
+        end
+    end
+    if(total < quantity[Difficulty]) then
+        extractors = ScenarioFramework.GetListOfHumanUnits(categories.MASSEXTRACTION, 'M3_IslandMass_North_Area')
+        num = table.getn(extractors)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+            for i = 1, num do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Main_Adapt_3Gunship_D' .. Difficulty, 'GrowthFormation')
+                IssueAttack(units:GetPlatoonUnits(), extractors[i])
                 ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
-
-                -- If specified, spawn the guard units (which are ordered to guard the first group
-                -- while they carry out their attack).
-                if attack.guardGroup then
-                    local guards = ScenarioUtils.CreateArmyGroup('Order', attack.guardGroup)
-                    IssueGuard(guards, units:GetPlatoonUnits()[1])
-                end
             end
         end
     end
 
-    --- If the humans have more than a threshold number of units in a certain category, launch the
-    -- described patrol.
-    local function LaunchConditionalPatrol(patrol)
-        -- Count up the human units of the category of interest.
-        local humanUnitCount = 0
-        for _, player in ScenarioInfo.HumanPlayers do
-            humanUnitCount = humanUnitCount + table.getn(ArmyBrains[player]:GetListOfUnits(patrol.triggerCategory, false))
+    -- sends aa gunships at each SCU, up to [2, 5, 7]
+    quantity = {2, 5, 7}
+    local scus = ScenarioFramework.GetListOfHumanUnits(categories.SUBCOMMANDER)
+    num = table.getn(scus)
+    if(num > 0) then
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
         end
-
-        -- Abort if the threshold is not reached.
-        if humanUnitCount < patrol.thresholdQuantities[Difficulty] then
-            return
-        end
-
-        -- Send the patrol!
-        for i = 1, patrol.patrolQuantities[Difficulty] do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', patrol.patrolUnit, 'GrowthFormation', 5)
-            ScenarioFramework.PlatoonPatrolChain(units, patrol.patrolChain)
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_T3AAGunship', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), scus[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
         end
     end
 
-    local numHumanUnits = 0
-
-    -- Count up the number of units the humans have.
-    for _, player in ScenarioInfo.HumanPlayers do
-        numHumanUnits = numHumanUnits + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
+    -- sends aa gunships at every other shield, up to [1, 3, 10]
+    quantity = {1, 3, 10}
+    local shields = ScenarioFramework.GetListOfHumanUnits(categories.SHIELD * categories.STRUCTURE)
+    num = table.getn(shields)
+    if(num > 0) then
+        num = math.ceil(num/2)
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_T3AAGunship', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), shields[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+        end
     end
 
-    -- Convert it to a quantity of gunship squads to send.
-    local MexGunshipQty
-    if numHumanUnits > 400 then
-        MexGunshipQty = {8, 12, 20}
-    else
-        MexGunshipQty = {8, 9, 12}
+    -- sends strat bombers at each battleship, up to [1, 3, 5]
+    quantity = {1, 3, 5}
+    local battleships = ScenarioFramework.GetListOfHumanUnits(categories.BATTLESHIP)
+    num = table.getn(battleships)
+    if(num > 0) then
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), battleships[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+        end
     end
 
-    local attacks = {
-        -- Go after the mass extractors.
-        {
-            target = categories.MASSEXTRACTION,
-            unit = 'M2_Main_Adapt_3Gunship_D' .. Difficulty,
-            quantity = MexGunshipQty
-        },
-        -- Send AA gunships to each SCU
-        {
-            target = categories.SUBCOMMANDER,
-            unit = 'M2_Main_Adapt_T3AAGunship',
-            quantity = {2, 5, 7}
-        },
-        -- Send AA gunships to each shield
-        {
-            target = categories.SHIELD * categories.STRUCTURE,
-            unit = 'M2_Main_Adapt_T3AAGunship',
-            quantity = {1, 3, 10}
-        },
-        -- Send strat bombers at each battleship
-        {
-            target = categories.BATTLESHIP,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {1, 3, 5}
-        },
-        -- Send strat bombers at each Mavor, with some fighter cover.
-        {
-            target = categories.ueb2401,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {1, 2, 3},
-            guardGroup = 'M2_Main_Adapt_StratGuards'
-        },
-        -- Send strat bombers to each fatboy.
-        {
-            target = categories.uel0401,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {2, 5, 8},
-        },
-        -- Send ASF to each Czar.
-        {
-            target = categories.uaa0310,
-            unit = 'M2_Main_Adapt_AirSup',
-            quantity = {2, 5, 7},
-        },
-        -- Send strat bombers at each hlra, with some fighter cover.
-        {
-            target = categories.TECH3 * categories.ARTILLERY * categories.STRUCTURE,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {1, 2, 3},
-            guardGroup = 'M2_Main_Adapt_StratGuards'
-        },
-        -- Send strat bombers to each nuke, with some fighter cover.
-        {
-            target = categories.NUKE * categories.STRUCTURE,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {2, 5, 7},
-            guardGroup = 'M2_Main_Adapt_StratGuards'
-        },
-        -- Send gunships to each fatboy.
-        {
-            target = categories.uel0401,
-            unit = 'M2_Main_Adapt_Gunship',
-            quantity = {2, 5, 8},
-        },
-        -- Send strat bombers to each spiderbot.
-        {
-            target = categories.url0402,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {2, 5, 8},
-            guardGroup = 'M2_Main_Adapt_StratGuards'
-        },
-        -- Send strat bombers to each colossus.
-        {
-            target = categories.ual0401,
-            unit = 'M2_Main_Adapt_Bomber',
-            quantity = {2, 5, 8},
-            guardGroup = 'M2_Main_Adapt_StratGuards'
-        },
-        -- Send ASF to each Soul Ripper.
-        {
-            target = categories.ura0401,
-            unit = 'M2_Main_Adapt_AirSup',
-            quantity = {2, 5, 7},
-        },
-    }
+    -- Structure Experimentals, up to 2, 5, 7
+    quantity = {2, 5, 7}
+    total = 0
 
-    local conditionalPatrols = {
-        -- sends air superiority if player has more than [60, 40, 20] t2/t3 planes.
-        {
-            triggerCategory = (categories.AIR * categories.MOBILE) - categories.TECH1,
-            thresholdQuantities = {60, 40, 20},
-            patrolUnit = 'M2_Main_Adapt_AirSup',
-            patrolChain = 'M3_OrderCounter_WestAir_Chain',
-            patrolQuantities = {2, 5, 7}
-        },
-        -- sends gunships if player has more than [70, 50, 30] t2/t3 land.
-        {
-            triggerCategory = (categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION,
-            thresholdQuantities = {40, 25, 15},
-            patrolUnit = 'M2_Main_Adapt_Gunship',
-            patrolChain = 'M3_OrderCounter_WestAir_Chain',
-            patrolQuantities = {2, 5, 7}
-        },
-        -- sends gunships if player has more than [475, 450, 425] units.
-        {
-            triggerCategory = categories.ALLUNITS - categories.WALL,
-            thresholdQuantities = {475, 450, 425},
-            patrolUnit = 'M2_Main_Adapt_Gunship',
-            patrolChain = 'M3_OrderCounter_WestAir_Chain',
-            patrolQuantities = {1, 2, 3}
-        },
-        -- sends destroyers if player has [15, 10, 5] T2 boats
-        {
-            triggerCategory = (categories.NAVAL * categories.MOBILE) - categories.TECH1,
-            thresholdQuantities = {15, 10, 5},
-            patrolUnit = 'M2_Adapt_Naval_Destro',
-            patrolChain = 'M3_Order_Adapt_NavalAttack_Chain',
-            patrolQuantities = {1, 1, 1}
-        },
-        -- sends destroyers if player has [5, 3, 1] T3 boats
-        {
-            triggerCategory = categories.NAVAL * categories.MOBILE * categories.TECH3,
-            thresholdQuantities = {5, 3, 1},
-            patrolUnit = 'M2_Adapt_Naval_Destro',
-            patrolChain = 'M3_Order_Adapt_NavalAttack_Chain',
-            patrolQuantities = {1, 1, 1}
-        },
-        -- sends cruisers if player has [24, 20, 16] T2 boats
-        {
-            triggerCategory = (categories.NAVAL * categories.MOBILE) - categories.TECH1,
-            thresholdQuantities = {24, 20, 16},
-            patrolUnit = 'M2_Adapt_Naval_Cruiser',
-            patrolChain = 'M3_Order_Adapt_NavalAttack_Chain',
-            patrolQuantities = {1, 1, 1}
-        },
-        -- sends cruisers if player has T3 boats or [6, 4, 2] T3 boats
-        {
-            triggerCategory = categories.NAVAL * categories.MOBILE * categories.TECH3,
-            thresholdQuantities = {6, 4 ,2},
-            patrolUnit = 'M2_Adapt_Naval_Cruiser',
-            patrolChain = 'M3_Order_Adapt_NavalAttack_Chain',
-            patrolQuantities = {1, 1, 1}
-        },
-        -- sends torpedo bombers if player has [20, 10, 5] navy
-        {
-            triggerCategory = categories.NAVAL,
-            thresholdQuantities = {20, 10, 5},
-            patrolUnit = 'M2_Main_Adapt_Torpedo',
-            patrolChain = 'M3_Order_Torpedo_Patrol_Chain',
-            patrolQuantities = {1, 1, 1}
-        },
-        -- sends torpedo bombers for every [20, 15, 10] T1 boats.
-        {
-            triggerCategory = categories.NAVAL * categories.MOBILE * categories.TECH1,
-            thresholdQuantities = {20, 15, 10},
-            patrolUnit = 'M2_Main_Adapt_Torpedo',
-            patrolChain = 'M3_Order_Torpedo_Patrol_Chain',
-            patrolQuantities = {1, 2, 3}
-        },
-        -- sends torpedo bombers for every [14, 10, 6] T2 boats
-        {
-            triggerCategory = categories.NAVAL * categories.MOBILE * categories.TECH2,
-            thresholdQuantities = {14, 10, 6},
-            patrolUnit = 'M2_Main_Adapt_Torpedo',
-            patrolChain = 'M3_Order_Torpedo_Patrol_Chain',
-            patrolQuantities = {1, 2, 3}
-        },
-        -- sends torpedo bombers if player for every [3, 2, 1] T3 boats
-        {
-            triggerCategory = categories.NAVAL * categories.MOBILE * categories.TECH3,
-            thresholdQuantities = {3, 2, 1},
-            patrolUnit = 'M2_Main_Adapt_Torpedo',
-            patrolChain = 'M3_Order_Torpedo_Patrol_Chain',
-            patrolQuantities = {1, 2, 3}
-        }
-    }
-
-    for k, v in attacks do
-        LaunchAttack(v)
+    -- sends [1, 2, 3] strat bomber groups at each mavor
+    local exp = ScenarioFramework.GetListOfHumanUnits(categories.ueb2401)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
+        end
+        for i = 1, num do
+            for j = 1, Difficulty do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Order', 'M2_Main_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
+            end
+            total = total + 1
+        end
     end
 
-    for k, v in conditionalPatrols do
-        LaunchConditionalPatrol(v)
+    -- sends [1, 2, 3] strat bomber groups at each hlra
+    if(total < quantity[Difficulty]) then
+        exp = ScenarioFramework.GetListOfHumanUnits(categories.TECH3 * categories.ARTILLERY * categories.STRUCTURE)
+        num = table.getn(exp)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+        end
+        for i = 1, num do
+            for j = 1, Difficulty do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Order', 'M2_Main_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
+            end
+            total = total + 1
+        end
+    end
+
+    -- sends 1 strat bomber group at each nuke
+    if(total < quantity[Difficulty]) then
+        exp = ScenarioFramework.GetListOfHumanUnits(categories.NUKE * categories.STRUCTURE)
+        num = table.getn(exp)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), exp[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+            local guards = ScenarioUtils.CreateArmyGroup('Order', 'M2_Main_Adapt_StratGuards')
+            IssueGuard(guards, units:GetPlatoonUnits()[1])
+        end
+    end
+
+    -- Mobile Land Experimentals, up to 2, 5, 8
+    quantity = {2, 5, 8}
+    total = 0
+
+    -- sends strat bombers and gunships at each fatboy
+    exp = ScenarioFramework.GetListOfHumanUnits(categories.uel0401)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), exp[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Gunship', 'GrowthFormation', 5)
+            IssueAttack(units:GetPlatoonUnits(), exp[i])
+            ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+            total = total + 1
+        end
+    end
+
+    -- sends strat bombers at each spiderbot
+    if(total < quantity[Difficulty]) then
+        exp = ScenarioFramework.GetListOfHumanUnits(categories.url0402)
+        num = table.getn(exp)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+            for i = 1, num do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Order', 'M2_Main_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
+                total = total + 1
+            end
+        end
+    end
+
+    -- sends [1, 2, 3] strat bomber groups at each colossus
+    if(total < quantity[Difficulty]) then
+        exp = ScenarioFramework.GetListOfHumanUnits(categories.ual0401)
+        num = table.getn(exp)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+            for i = 1, num do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Bomber', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Order', 'M2_Main_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
+            end
+        end
     end
 
     -- Mobile Air Experimentals, up to 2, 5, 7
     quantity = {2, 5, 7}
     total = 0
 
-    -- sends transport attacks for every other T2/T3 tower, up to [2, 6, 10]
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1, false))
+    -- sends air superiority at each czar
+    exp = ScenarioFramework.GetListOfHumanUnits(categories.uaa0310)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > quantity[Difficulty]) then
+            num = quantity[Difficulty]
+        end
+        for i = 1, num do
+            for j = 1, 2 do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_AirSup', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+            end
+            total = total + 1
+        end
     end
 
+    -- sends air superiority at each soul ripper
+    if(total < quantity[Difficulty]) then
+        exp = ScenarioFramework.GetListOfHumanUnits(categories.ura0401)
+        num = table.getn(exp)
+        if(num > 0) then
+            if(num > quantity[Difficulty] - total) then
+                num = quantity[Difficulty] - total
+            end
+            for i = 1, num do
+                for j = 1, 2 do
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_AirSup', 'GrowthFormation', 5)
+                    IssueAttack(units:GetPlatoonUnits(), exp[i])
+                    ScenarioFramework.PlatoonPatrolChain(units, 'M1_Order_E_AirAttack_1_Chain')
+                end
+            end
+        end
+    end
+
+    -- sends transport attacks for every other T2/T3 tower, up to [2, 6, 10]
+    num = GetNumOfHumanUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1)
     quantity = {2, 6, 10}
     if(num > 0) then
         num = math.ceil(num/2)
@@ -1818,13 +1800,49 @@ function M3CounterAttack()
         end
     end
 
-    -- sends amphibious attack for each naval factory, up to 1, 3, 5
-    quantity = {1, 3, 5}
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.NAVAL * categories.FACTORY, false))
+    -- sends air superiority if player has more than [60, 40, 20] t2/t3 planes, up to 5, 1 group per 30, 20, 10
+    num = GetNumOfHumanUnits((categories.AIR * categories.MOBILE) - categories.TECH1)
+    quantity = {60, 40, 20}
+    trigger = {30, 20, 10}
+    if(num > quantity[Difficulty]) then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_AirSup', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_OrderCounter_WestAir_Chain')
+        end
     end
 
+    -- sends gunships if player has more than [70, 50, 30] t2/t3 land, up to 7, 1 group per 40, 25, 15
+    num = GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION)
+    quantity = {70, 50, 30}
+    trigger = {40, 25, 15}
+    if(num > quantity[Difficulty]) then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 7) then
+            num = 7
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Gunship', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_OrderCounter_WestAir_Chain')
+        end
+    end
+
+    -- sends gunships if player has more than [475, 450, 425] units
+    num = GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    quantity = {475, 450, 425}
+    if(num > quantity[Difficulty]) then
+        for i = 1, Difficulty do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Gunship', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_OrderCounter_WestAir_Chain')
+        end
+    end
+
+    -- sends amphibious attack for each naval factory, up to 1, 3, 5
+    quantity = {1, 3, 5}
+    num = GetNumOfHumanUnits(categories.NAVAL * categories.FACTORY)
     if(num > 0) then
         if(num > quantity[Difficulty]) then
             num = quantity[Difficulty]
@@ -1832,6 +1850,76 @@ function M3CounterAttack()
         for i = 1, num do
             units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Xport_Amphib_D' .. Difficulty, 'AttackFormation', 5)
             ScenarioFramework.PlatoonAttackWithTransports(units, 'M3_Order_AmphibLanding_Chain', 'M3_Order_AmphibAttack_Chain', false)
+        end
+    end
+
+    -- sends destroyers if player has [15, 10, 5] T2/T3 boats or [5, 3, 1] T3 boats
+    local t2limits = {15, 10, 5}
+    local t3limits = {5, 3, 1}
+    if(GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
+       GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Destro', 'AttackFormation', 5)
+        ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Adapt_NavalAttack_Chain')
+    end
+
+    -- sends cruisers if player has [24, 20, 16] T2/T3 boats or [6, 4, 2] T3 boats
+    t2limits = {24, 20, 16}
+    t3limits = {6, 4 ,2}
+    if(GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
+       GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Cruiser', 'AttackFormation', 5)
+        ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Adapt_NavalAttack_Chain')
+    end
+
+    -- sends torpedo bombers if player has [20, 10, 5] navy
+    quantity = {20, 10, 5}
+    if(GetNumOfHumanUnits(categories.NAVAL) > quantity[Difficulty]) then
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Torpedo', 'GrowthFormation', 5)
+        ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Torpedo_Patrol_Chain')
+    end
+
+    -- sends torpedo bombers for every [20, 15, 10] T1 boats, up to 1, 2, 3
+    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH1)
+    quantity = {20, 15, 10}
+    trigger = {1, 2, 3}
+    if(num > quantity[Difficulty]) then
+        num = math.ceil(num/quantity[Difficulty])
+        if(num > trigger[Difficulty]) then
+            num = trigger[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Torpedo', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Torpedo_Patrol_Chain')
+        end
+    end
+
+    -- sends torpedo bombers for every [14, 10, 6] T2 boats, up to 1, 2, 3
+    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH2)
+    quantity = {14, 10, 6}
+    trigger = {1, 2, 3}
+    if(num > quantity[Difficulty]) then
+        num = math.ceil(num/quantity[Difficulty])
+        if(num > trigger[Difficulty]) then
+            num = trigger[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Torpedo', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Torpedo_Patrol_Chain')
+        end
+    end
+
+    -- sends torpedo bombers if player for every [3, 2, 1] T3 boats, up to 1, 2, 3
+    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3)
+    quantity = {3, 2, 1}
+    trigger = {1, 2, 3}
+    if(num > quantity[Difficulty]) then
+        num = math.ceil(num/quantity[Difficulty])
+        if(num > trigger[Difficulty]) then
+            num = trigger[Difficulty]
+        end
+        for i = 1, num do
+            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Torpedo', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Torpedo_Patrol_Chain')
         end
     end
 
@@ -1854,7 +1942,7 @@ function M3CounterAttack()
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('Order_M1_West_Bluffs_Patrol_3'), false)
 
     -- "Good job beating mission 2"
-    ScenarioFramework.Dialogue(VoiceOvers.CivvyDefenseSucceeded, Mission3NIS)
+    ScenarioFramework.Dialogue(OpStrings.X01_M02_039, Mission3NIS)
 end
 
 function StartMission3()
