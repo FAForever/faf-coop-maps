@@ -10204,9 +10204,9 @@ Scenario = {
                                 {'default_brain', 2 },
                                 {'default_brain','2'}
                             },
-                            [2] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanNumCategory',
-                                {'default_brain','Player', 100 , categories.ALLUNITS },
-                                {'default_brain','Player','100','categories.ALLUNITS'}
+                            [2] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                                {'default_brain', {'HumanPlayers'}, 100 , categories.ALLUNITS, '>'},
+                                {'default_brain', {'HumanPlayers'},'100','categories.ALLUNITS',  '>'}
                             },
                         },
                         PlatoonData = {
@@ -10308,9 +10308,9 @@ Scenario = {
                             {'default_platoon'}
                         },
                         BuildConditions = {
-                            [0] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanNumCategory',
-                                {'default_brain','EastResearch', 30 , categories.ueb2101 },
-                                {'default_brain','EastResearch','30','categories.ueb2101'}
+                            [0] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                                {'default_brain',{'EastResearch'}, 30 , categories.ueb2101, '>'},
+                                {'default_brain',{'EastResearch'},'30','categories.ueb2101', '>'}
                             },
                         },
                         PlatoonData = {
