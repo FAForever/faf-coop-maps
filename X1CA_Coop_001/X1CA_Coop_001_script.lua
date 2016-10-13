@@ -1093,10 +1093,7 @@ function IntroMission2()
 
             -- Player has > 65, 50, 35 T2/T3 planes, 1 group AA for every 15
             local trigger = {65, 50, 35}
-            local num = 0
-            for _, player in ScenarioInfo.HumanPlayers do
-                num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.AIR) - categories.TECH1, false))
-            end
+            local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1)
 
             if(num > trigger[Difficulty]) then
                 num = num - trigger[Difficulty]
@@ -1118,10 +1115,8 @@ function IntroMission2()
             end
 
             -- Player has >= 1 air experimental
-            local num = 0
-            for _, player in ScenarioInfo.HumanPlayers do
-                num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.EXPERIMENTAL, false))
-            end
+            num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.EXPERIMENTAL)
+
             if (num >= 1) then
                 local numGroups = {3, 4, 5}
                 for i = 1, numGroups[Difficulty] do
@@ -1138,10 +1133,7 @@ function IntroMission2()
 
             -- Player has > 15, 30, 45 T2/T3 mobile land
             trigger = {45, 30, 15}
-            local num = 0
-            for _, player in ScenarioInfo.HumanPlayers do
-                num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.LAND) - categories.CONSTRUCTION - categories.TECH1, false))
-            end
+            num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.LAND) - categories.CONSTRUCTION - categories.TECH1)
 
             if(num > trigger[Difficulty]) then
                 num = num - trigger[Difficulty]
@@ -1162,10 +1154,8 @@ function IntroMission2()
             end
 
             -- Player has >= 1 land experimental
-            local num = 0
-            for _, player in ScenarioInfo.HumanPlayers do
-                num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.LAND * categories.EXPERIMENTAL, false))
-            end
+            num = ScenarioFramework.GetNumOfHumanUnits(categories.LAND * categories.EXPERIMENTAL)
+
             if (num >= 1) then
                 local numGroups = {3, 4, 5}
                 for i = 1, numGroups[Difficulty] do
@@ -1541,7 +1531,7 @@ function M3CounterAttack()
     local total = 0
     quantity = {2, 4, 6}
     if(num > 0) then
-        if(table.getn(ArmyBrains[Player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false)) < 400) then
+        if ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL) < 400 then
             if(num > quantity[Difficulty]) then
                 num = quantity[Difficulty]
             end
@@ -2403,7 +2393,7 @@ function M4CounterAttack()
 
     -- sends gunships if player has > [60, 40, 20] T2/T3 land units, 1 group per 10, up to 10 groups, plus 3 transport groups
     trigger = {60, 40, 20}
-    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.LAND) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player]))
+    num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.LAND) - categories.TECH1, 'M3_North_Area')
     if(num > trigger[Difficulty]) then
         num = math.ceil(num/10)
         if(num > 10) then
@@ -2428,7 +2418,7 @@ function M4CounterAttack()
 
     -- sends air superiority if player has > [80, 60, 40] T2/T3 air units, 1 group per 15, up to 6 groups
     trigger = {80, 60, 40}
-    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.AIR) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player]))
+    num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1, 'M3_North_Area')
     if(num > trigger[Difficulty]) then
         num = math.ceil(num/15)
         if(num > 6) then
@@ -2441,7 +2431,7 @@ function M4CounterAttack()
     end
 
     -- sends air superiority at air experimentals, 3 groups each, up to 4 experimentals
-    local exp = ScenarioFramework.GetCatUnitsInArea(categories.AIR * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player])
+    local exp = ScenarioFramework.GetListOfHumanUnits(categories.AIR * categories.EXPERIMENTAL, 'M3_North_Area')
     num = table.getn(exp)
     if(num > 0) then
         if(num > 4) then
@@ -2457,7 +2447,7 @@ function M4CounterAttack()
     end
 
     -- sends strat bombers at land experimentals, 3 groups each, up to 4 experimentals
-    exp = ScenarioFramework.GetCatUnitsInArea(categories.LAND * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player])
+    exp = ScenarioFramework.GetListOfHumanUnits(categories.LAND * categories.EXPERIMENTAL, 'M3_North_Area')
     num = table.getn(exp)
     if(num > 0) then
         if(num > 4) then
@@ -2475,62 +2465,58 @@ function M4CounterAttack()
     end
 
     -- sends strat bombers at mavor anywhere, 3 groups each, up to 2 mavors
-    for _, player in ScenarioInfo.HumanPlayers do
-        local exp = ArmyBrains[player]:GetListOfUnits(categories.ueb2401, false)
-        num = table.getn(exp)
-        if(num > 0) then
-            if(num > 2) then
-                num = 2
-            end
-            for i = 1, num do
-                for j = 1, 3 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_StratBombers', 'GrowthFormation', 5)
-                    IssueAttack(units:GetPlatoonUnits(), exp[i])
-                    ScenarioFramework.PlatoonPatrolChain(units, 'M4_Seraph_AirCounter_2_Chain')
-                    local guards = ScenarioUtils.CreateArmyGroup('Seraphim', 'M4_Seraph_Adapt_StratGuards')
-                    IssueGuard(guards, units:GetPlatoonUnits()[1])
-                end
+    exp = ScenarioFramework.GetListOfHumanUnits(categories.ueb2401)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > 2) then
+            num = 2
+        end
+        for i = 1, num do
+            for j = 1, 3 do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_StratBombers', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M4_Seraph_AirCounter_2_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Seraphim', 'M4_Seraph_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
             end
         end
     end
 
     -- sends naval is player has > [14, 12, 10] T2/T3 navy
     trigger = {14, 12, 10}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) > trigger[Difficulty] then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval1_Destro', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
     -- sends naval is player has > [20, 18, 16] T2/T3 navy
     trigger = {20, 18, 16}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) > trigger[Difficulty] then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval2_Cruiser', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
     -- sends naval is player has > [26, 24, 22] T2/T3 navy
     trigger = {26, 24, 22}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) > trigger[Difficulty] then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval3_Destro', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
     -- sends strat bombers at battleships, 2 groups each, up to 5 battleships
-    for _, player in ScenarioInfo.HumanPlayers do
-        local exp = ArmyBrains[player]:GetListOfUnits(categories.BATTLESHIP, false)
-        num = table.getn(exp)
-        if(num > 0) then
-            if(num > 5) then
-                num = 5
-            end
-            for i = 1, num do
-                for j = 1, 2 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_StratBombers', 'GrowthFormation', 5)
-                    IssueAttack(units:GetPlatoonUnits(), exp[i])
-                    ScenarioFramework.PlatoonPatrolChain(units, 'M4_Seraph_AirCounter_2_Chain')
-                    local guards = ScenarioUtils.CreateArmyGroup('Seraphim', 'M4_Seraph_Adapt_StratGuards')
-                    IssueGuard(guards, units:GetPlatoonUnits()[1])
-                end
+    exp = ScenarioFramework.GetListOfHumanUnits(categories.BATTLESHIP)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            for j = 1, 2 do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_StratBombers', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M4_Seraph_AirCounter_2_Chain')
+                local guards = ScenarioUtils.CreateArmyGroup('Seraphim', 'M4_Seraph_Adapt_StratGuards')
+                IssueGuard(guards, units:GetPlatoonUnits()[1])
             end
         end
     end
