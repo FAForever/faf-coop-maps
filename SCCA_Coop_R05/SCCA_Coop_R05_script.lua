@@ -24,22 +24,22 @@ local Utilities = import('/lua/utilities.lua')
 -- Globals
 ---------
 
-ScenarioInfo.Player         = 1
+ScenarioInfo.Player1         = 1
 ScenarioInfo.UEF            = 2
 ScenarioInfo.Hex5           = 3
 ScenarioInfo.FauxUEF        = 4
-ScenarioInfo.Coop1            = 5
-ScenarioInfo.Coop2            = 6
-ScenarioInfo.Coop3            = 7
+ScenarioInfo.Player2            = 5
+ScenarioInfo.Player3            = 6
+ScenarioInfo.Player4            = 7
 
-local Player                = ScenarioInfo.Player
+local Player1                = ScenarioInfo.Player1
 local UEF                   = ScenarioInfo.UEF
 local Hex5                  = ScenarioInfo.Hex5
 local FauxUEF               = ScenarioInfo.FauxUEF
-local Coop1                    = ScenarioInfo.Coop1
-local Coop2                    = ScenarioInfo.Coop2
-local Coop3                    = ScenarioInfo.Coop3
-local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, ScenarioInfo.Coop3}
+local Player2                    = ScenarioInfo.Player2
+local Player3                    = ScenarioInfo.Player3
+local Player4                    = ScenarioInfo.Player4
+local Players = {ScenarioInfo.Player1, ScenarioInfo.Player2, ScenarioInfo.Player3, ScenarioInfo.Player4}
 
  -- reminder timers:
 local Reminder_M1P1_Initial            = 2000
@@ -140,9 +140,9 @@ function OnStart(self)
     ScenarioFramework.SetCybranAllyColor(3)
     ScenarioFramework.SetUEFAllyColor(4)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -168,15 +168,15 @@ function IntroSequenceThread()
 end
 
 function CreateCommander_Thread()
-    ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit ( 'Player', 'M1_PlayerCDR' )
+    ScenarioInfo.PlayerCommander = ScenarioUtils.CreateArmyUnit ( 'Player1', 'M1_PlayerCDR' )
     ScenarioInfo.PlayerCommander:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCommander:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCommander:SetCustomName(ArmyBrains[Player1].Nickname)
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -291,13 +291,13 @@ function BeginOperation()
     -- Dialogue and Objective timers/assign
     ScenarioFramework.CreateTimerTrigger (M1_PromptObjectiveDialogue, 1100 )
     ScenarioFramework.CreateTimerTrigger (M1_PromptNavalDialogue, 360 )
-    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player], 'Radar', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
-    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player], 'Sonar', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
-    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player], 'LOSNow', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
-    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player], 'Omni', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
+    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player1], 'Radar', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
+    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player1], 'Sonar', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
+    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player1], 'LOSNow', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
+    ScenarioFramework.CreateArmyIntelTrigger( M1_PromptNavalDialogue, ArmyBrains[Player1], 'Omni', false, true, categories.NAVAL, true, ArmyBrains[UEF] )
 
     -- Intel trigger for LOS on player
-    ScenarioFramework.CreateArmyIntelTrigger( M1_UEFSpotsPlayer, ArmyBrains[UEF], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Player] )
+    ScenarioFramework.CreateArmyIntelTrigger( M1_UEFSpotsPlayer, ArmyBrains[UEF], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Player1] )
 
     -- TIMING FRAMEWORK for mission. 3 major types of attacks, with the first transitioning in in two steps.
     if Difficulty == 3 then
@@ -313,7 +313,7 @@ function BeginOperation()
     end
 
     -- Taunt when 5th naval unit killed
-    ScenarioFramework.CreateArmyStatTrigger( M1_NavalProgressTaunt, ArmyBrains[Player], 'TauntTrigger',
+    ScenarioFramework.CreateArmyStatTrigger( M1_NavalProgressTaunt, ArmyBrains[Player1], 'TauntTrigger',
         {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = 4, Category = categories.NAVAL * categories.UEF, },} ) -- 5 uef naval
 end
 
@@ -761,8 +761,8 @@ end
 
 function M2_UncloakHex5()
     ScenarioInfo.M2_Hex5_Commander:DisableIntel('CloakField')
-    SetAlliance( Player, Hex5, 'Ally' )
-    SetAlliance( Hex5, Player, 'Ally' )
+    SetAlliance( Player1, Hex5, 'Ally' )
+    SetAlliance( Hex5, Player1, 'Ally' )
 
 -- Now that Hex5 has been uncloaked enroute to his landing area, kick off the NIS
     WaitSeconds(2)
@@ -788,7 +788,7 @@ function M2_Hex5UnloadCheckThread()
     WaitSeconds(3)
 
     -- Once Hex5 is in the area and uncloaked etc, create a trigger to see if the player CDR is present.
-    ScenarioFramework.CreateAreaTrigger( M2_DownloadToCommander, ScenarioUtils.AreaToRect('M2_Hex5Area'), categories.url0001, true, false, ArmyBrains[Player], 1, false)
+    ScenarioFramework.CreateAreaTrigger( M2_DownloadToCommander, ScenarioUtils.AreaToRect('M2_Hex5Area'), categories.url0001, true, false, ArmyBrains[Player1], 1, false)
 end
 
 function M2_DownloadToCommander()
@@ -853,8 +853,8 @@ function M2_ActivateHex5CloakThread()
     -- Pause before we reenable the cloak, so we see the transport begin moving first (purely for effect)
     WaitSeconds(3)
     -- Set Hex5 back to neutral, so we lose line-of-site
-    SetAlliance( Player, Hex5, 'Neutral' )
-    SetAlliance( Hex5, Player, 'Neutral' )
+    SetAlliance( Player1, Hex5, 'Neutral' )
+    SetAlliance( Hex5, Player1, 'Neutral' )
     ScenarioInfo.M2_Hex5_Commander:EnableIntel('CloakField')
 end
 
@@ -1055,7 +1055,7 @@ function BeginMission3()
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, Reminder_M3P1_Initial)
 
     -- Trigger to detect land units of player at UEF backbase
-    ScenarioFramework.CreateAreaTrigger( M3_PlayerAtUEFBackBase, ScenarioUtils.AreaToRect('M3_UEFBackBaseArea'), categories.LAND, true, false, ArmyBrains[Player], 1, false)
+    ScenarioFramework.CreateAreaTrigger( M3_PlayerAtUEFBackBase, ScenarioUtils.AreaToRect('M3_UEFBackBaseArea'), categories.LAND, true, false, ArmyBrains[Player1], 1, false)
 
     -- Destroy Hex5's offmap generator from M2
     if not ScenarioInfo.Hex5_Offmap_Generator:IsDead() then
@@ -1066,7 +1066,7 @@ function BeginMission3()
     ScenarioFramework.CreateTimerTrigger (M3_GodwynThreat1, 60)
 
     -- If player gets near the souther prison colony, explain what it is
-    ScenarioFramework.CreateAreaTrigger( M2_ColonyDialogue, ScenarioUtils.AreaToRect('M3_PrisonColonyArea'), categories.ALLUNITS, true, false, ArmyBrains[Player], 1, false)
+    ScenarioFramework.CreateAreaTrigger( M2_ColonyDialogue, ScenarioUtils.AreaToRect('M3_PrisonColonyArea'), categories.ALLUNITS, true, false, ArmyBrains[Player1], 1, false)
 end
 
 function M3_CreateUnitsForMission()

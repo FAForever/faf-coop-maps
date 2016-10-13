@@ -164,13 +164,13 @@ local M3P3ReoccuringReminderDelay = 600
 -- ### Global variables
 ScenarioInfo.MissionNumber = 1
 
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.Civilian = 3
 ScenarioInfo.Neutral = 4
-ScenarioInfo.Coop1 = 5
-ScenarioInfo.Coop2 = 6
-ScenarioInfo.Coop3 = 7
+ScenarioInfo.Player2 = 5
+ScenarioInfo.Player3 = 6
+ScenarioInfo.Player4 = 7
 
 ScenarioInfo.VarTable = {}
 ScenarioInfo.FirstAirAttackSent = false
@@ -195,15 +195,15 @@ local Difficulty1_Suffix = '_D1'
 local Difficulty2_Suffix = '_D2'
 local Difficulty3_Suffix = '_D3'
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local Civilian = ScenarioInfo.Civilian
 local Neutral = ScenarioInfo.Neutral
 
-local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, ScenarioInfo.Coop3}
+local Players = {ScenarioInfo.Player1, ScenarioInfo.Player2, ScenarioInfo.Player3, ScenarioInfo.Player4}
 
 local TauntTable = {
     OpStrings.TAUNT1,
@@ -341,7 +341,7 @@ function OnPopulate(scenario)
 
     -- Create some of the key units and save handles to them
 
-    local Gate = ScenarioUtils.CreateArmyUnit( 'Player', 'Gate' )
+    local Gate = ScenarioUtils.CreateArmyUnit( 'Player1', 'Gate' )
     -- Gate:SetCanBeKilled(false)
     Gate:SetReclaimable(false)
     Gate:SetCapturable(false)
@@ -349,14 +349,14 @@ function OnPopulate(scenario)
     -- Spawn the player's base
     local maxHealth
     local newHealth
-    local tempGroup = ScenarioUtils.CreateArmyGroup( 'Player', 'Initial_Factories' )
+    local tempGroup = ScenarioUtils.CreateArmyGroup( 'Player1', 'Initial_Factories' )
     for k, unit in tempGroup do
         maxHealth = unit:GetMaxHealth()
         newHealth = maxHealth * ( Random( PlayerBaseMinHealthPercentage, PlayerBaseMaxHealthPercentage ) / 100 )
         unit:SetHealth( unit, newHealth )
     end
 
-    tempGroup = ScenarioUtils.CreateArmyGroup( 'Player', 'Initial_Defenses' )
+    tempGroup = ScenarioUtils.CreateArmyGroup( 'Player1', 'Initial_Defenses' )
     for k, unit in tempGroup do
         if Random(1, 100) < PlayerBaseChanceOfDefensesKilled then
             unit:Kill()
@@ -367,7 +367,7 @@ function OnPopulate(scenario)
         end
     end
 
-    tempGroup = ScenarioUtils.CreateArmyGroup( 'Player', 'Initial_Economy' )
+    tempGroup = ScenarioUtils.CreateArmyGroup( 'Player1', 'Initial_Economy' )
     for k, unit in tempGroup do
         maxHealth = unit:GetMaxHealth()
         newHealth = maxHealth * ( Random( PlayerBaseMinHealthPercentage, PlayerBaseMaxHealthPercentage ) / 100 )
@@ -460,26 +460,26 @@ function OnStart(self)
     end
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
-    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node1:GetPosition(), 10, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node1:GetPosition(), 10, ArmyBrains[Player1] )
 
-    SetAlliance( Player, Aeon, 'Enemy' )
+    SetAlliance( Player1, Aeon, 'Enemy' )
     SetAlliance( Civilian, Aeon, 'Enemy' )
-    SetAlliance( Player, Civilian, 'Neutral' )
+    SetAlliance( Player1, Civilian, 'Neutral' )
     SetAlliance( Neutral, Aeon, 'Neutral' )
-    SetAlliance( Neutral, Player, 'Neutral' )
+    SetAlliance( Neutral, Player1, 'Neutral' )
     SetAlliance( Neutral, Civilian, 'Neutral' )
 
     SetIgnorePlayableRect( Aeon, true )
     SetIgnorePlayableRect( Civilian, true )
     SetIgnorePlayableRect( Neutral, true )
 
-    ScenarioFramework.SetCybranColor(Player)
+    ScenarioFramework.SetCybranColor(Player1)
     ScenarioFramework.SetAeonColor(Aeon)
 	ScenarioFramework.SetCybranNeutralColor(Civilian)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -571,12 +571,12 @@ function BeginMission1()
         }
     )
 
-    local numCurrentUnits = table.getn( ArmyBrains[ Player ]:GetListOfUnits( categories.ALLUNITS, false ))
+    local numCurrentUnits = table.getn( ArmyBrains[ Player1 ]:GetListOfUnits( categories.ALLUNITS, false ))
 
-    -- ScenarioFramework.CreateArmyStatTrigger( M1B1Complete, ArmyBrains[Player], 'B1Trigger',
+    -- ScenarioFramework.CreateArmyStatTrigger( M1B1Complete, ArmyBrains[Player1], 'B1Trigger',
     -- {{ StatType = 'Units_History', CompareType = 'GreaterThan', Value = numCurrentUnits + M1B1BuildAmount, Category = categories.CYBRAN, },} )
 
-    -- ScenarioFramework.CreateArmyStatTrigger( M1B2Complete, ArmyBrains[Player], 'B2Trigger',
+    -- ScenarioFramework.CreateArmyStatTrigger( M1B2Complete, ArmyBrains[Player1], 'B2Trigger',
     -- {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThan', Value = M1B2KillAmount, Category = categories.ARTILLERY, },} )
 
     ScenarioFramework.Dialogue( ScenarioStrings.NewPObj )
@@ -595,8 +595,8 @@ function BeginMission1()
     ScenarioFramework.CreateTimerTrigger( M1LaunchNavalAttackReoccurring, M1NavalAttackInitialDelay[ Difficulty ] )
 
     -- Player commander unit
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit( 'Player', 'Commander' )
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit( 'Player1', 'Commander' )
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
     ScenarioFramework.FakeGateInUnit( ScenarioInfo.PlayerCDR )
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
     ScenarioFramework.CreateUnitDeathTrigger(PlayerCommanderDied, ScenarioInfo.PlayerCDR)
@@ -609,7 +609,7 @@ function BeginMission1()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioFramework.FakeGateInUnit( ScenarioInfo.CoopCDR[coop] )
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -763,7 +763,7 @@ function BeginMission2()
         ScenarioFramework.CreateUnitDeathTrigger( M2CivilianBuildingDestroyed, unit )
     end
 
-    -- ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node2:GetPosition(), 10, ArmyBrains[Player] )
+    -- ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node2:GetPosition(), 10, ArmyBrains[Player1] )
 
     AddTechMission2()
     ScenarioInfo.MissionNumber = 2
@@ -787,7 +787,7 @@ function BeginMission2()
     vizmarker:AttachBoneTo( -1, ScenarioInfo.Node2, -1 )
 
     -- Create area trigger for the player's units that will cause the attackers to spawn in
-    ScenarioFramework.CreateAreaTrigger( M2SpawnAttackers, ScenarioUtils.AreaToRect( 'M2_Trigger_Attack_Area' ), categories.ALLUNITS, true, false, ArmyBrains[Player], 1 )
+    ScenarioFramework.CreateAreaTrigger( M2SpawnAttackers, ScenarioUtils.AreaToRect( 'M2_Trigger_Attack_Area' ), categories.ALLUNITS, true, false, ArmyBrains[Player1], 1 )
 
     -- The distress call comes in
     ScenarioFramework.Dialogue( OpStrings.C04_M02_010 )
@@ -953,7 +953,7 @@ function M2StartFirstLandAttack(unitGroup)
 end
 
 function CivilianAllyWithPlayer()
-    SetAlliance( Player, Civilian, 'Ally' )
+    SetAlliance( Player1, Civilian, 'Ally' )
 end
 
 function M2LaunchAttackReoccurring()
@@ -1003,13 +1003,13 @@ function M2BaseSaved()
 
     -- Give ally base buildings to the player
     for k, unit in ScenarioInfo.CivilianBase do
-        if not unit:IsDead() and unit:GetArmy() ~= Player then
-            ScenarioFramework.GiveUnitToArmy( unit, Player )
+        if not unit:IsDead() and unit:GetArmy() ~= Player1 then
+            ScenarioFramework.GiveUnitToArmy( unit, Player1 )
         end
     end
 
-    if (ScenarioInfo.Node2:GetArmy() ~= Player) then
-        ScenarioInfo.Node2 = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.Node2, Player )
+    if (ScenarioInfo.Node2:GetArmy() ~= Player1) then
+        ScenarioInfo.Node2 = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.Node2, Player1 )
         ScenarioFramework.CreateUnitDeathTrigger( NodeDied, ScenarioInfo.Node2 )
         ScenarioFramework.CreateUnitReclaimedTrigger( NodeDied, ScenarioInfo.Node2 )
     end
@@ -1137,12 +1137,12 @@ function BeginMission3()
     ScenarioFramework.Dialogue( ScenarioStrings.MapExpansion )
 
     -- Show the location of the nodes and mainframe
-    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node3:GetPosition(), 10, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node4:GetPosition(), 10, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Mainframe:GetPosition(), 10, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node3:GetPosition(), 10, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Node4:GetPosition(), 10, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 5, ScenarioInfo.Mainframe:GetPosition(), 10, ArmyBrains[Player1] )
 
     -- Set the maximum number of units that the player is allowed to have
-    ScenarioFramework.SetSharedUnitCap(660))
+    ScenarioFramework.SetSharedUnitCap(660)
 
     ScenarioInfo.AeonCommanderM3 = ScenarioUtils.CreateArmyUnit( 'Aeon', 'M3_Commander' )
     ScenarioInfo.AeonCommanderM3:CreateEnhancement('AdvancedEngineering')

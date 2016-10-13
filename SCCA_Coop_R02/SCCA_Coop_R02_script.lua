@@ -13,15 +13,15 @@
 ----------------------------------------------------------------------------- #
 ScenarioInfo.MissionNumber  = 1
 
-ScenarioInfo.Player         = 1
+ScenarioInfo.Player1         = 1
 ScenarioInfo.Aeon           = 2
 ScenarioInfo.CybranJanus    = 3
 ScenarioInfo.Civilian       = 4
 ScenarioInfo.FakeAeon       = 5
 ScenarioInfo.FakeJanus      = 6
-ScenarioInfo.Coop1 = 7
-ScenarioInfo.Coop2 = 8
-ScenarioInfo.Coop3 = 9
+ScenarioInfo.Player2 = 7
+ScenarioInfo.Player3 = 8
+ScenarioInfo.Player4 = 9
 
 ScenarioInfo.M1P3Given      = false
 ScenarioInfo.M1P4Given      = false
@@ -75,10 +75,10 @@ local MissionTexture = '/textures/ui/common/missions/mission.dds'
 local Objectives = ScenarioFramework.Objectives
 local EffectTemplate = import('/lua/EffectTemplates.lua')
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local CybranJanus = ScenarioInfo.CybranJanus
 local Civilian = ScenarioInfo.Civilian
@@ -267,14 +267,14 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
-    ScenarioFramework.SetCybranColor(Player)
+    ScenarioFramework.SetCybranColor(Player1)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetAeonColor(FakeAeon)
     ScenarioFramework.SetAeonColor(Civilian)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -340,16 +340,16 @@ function StartMission1()
     SetArmyUnitCap(CybranJanus, 500)
 
     -- Player stuff
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -571,7 +571,7 @@ function M1SetupTriggers()
     ScenarioFramework.CreateUnitDeathTrigger(M1P3Complete, ScenarioInfo.CivilianTempleSE)
 
     -- Spot the temple in the northeast
-    ScenarioFramework.CreateArmyIntelTrigger(M1P2Activate, ArmyBrains[Player], 'LOSNow', ScenarioInfo.CivilianTempleNE, true, categories.ALLUNITS, true, ArmyBrains[Civilian])
+    ScenarioFramework.CreateArmyIntelTrigger(M1P2Activate, ArmyBrains[Player1], 'LOSNow', ScenarioInfo.CivilianTempleNE, true, categories.ALLUNITS, true, ArmyBrains[Civilian])
 
     -- Reminders
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, M1P1Reminder1Delay)
@@ -1174,7 +1174,7 @@ function M1JanusFirstTechReturnHome(PickupPoint)
         airPlatoon.PlatoonData.Location = PickupPoint
         airPlatoon:ForkAIThread(PatrolAtLocation)
 
-        if ArmyBrains[Player]:GetCurrentUnits(categories.AIR * categories.MOBILE) > 0 then
+        if ArmyBrains[Player1]:GetCurrentUnits(categories.AIR * categories.MOBILE) > 0 then
             airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Tech1_Response_AirOnly', 'AttackChevron')
             RandomizeLocationsInPlatoon(airPlatoon, 10)
             airPlatoon.PlatoonData.Location = PickupPoint
@@ -1781,7 +1781,7 @@ function M2SetupTriggers()
     -- Start it after a certain time...
     ScenarioFramework.CreateTimerTrigger(M2AeonOffscreenNavalAssaultPrepare, M2AeonOffscreenNavalAssaultDelay)
     -- ...or start it when the player has two frigates near the Aeon Naval base.
-    ScenarioFramework.CreateAreaTrigger(M2AeonOffscreenNavalAssaultPrepare, ScenarioUtils.AreaToRect('M2_Aeon_Naval_Base_Rear_Area'), categories.urs0103, true, false, ArmyBrains[Player], 2, false)
+    ScenarioFramework.CreateAreaTrigger(M2AeonOffscreenNavalAssaultPrepare, ScenarioUtils.AreaToRect('M2_Aeon_Naval_Base_Rear_Area'), categories.urs0103, true, false, ArmyBrains[Player1], 2, false)
 
     ScenarioFramework.CreateAreaTrigger(M2AeonNavalBaseDestroyed, ScenarioUtils.AreaToRect('M2_Aeon_Naval_Base_Area'), categories.ALLUNITS - M2JanusDoesntNeedTheseGone, true, true, ArmyBrains[Aeon], 1, false)
 
@@ -1957,7 +1957,7 @@ function M2OffscreenLaunchAttack()
         attackGrid = ScenarioUtils.ChainToPositions('M3_Attack_Grid')
     end
 
-    ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation(ArmyBrains[Aeon], ArmyBrains[Player], 'enemy', attackGrid, 64)
+    ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation(ArmyBrains[Aeon], ArmyBrains[Player1], 'enemy', attackGrid, 64)
     ScenarioInfo.M2OffscreenAirPlatoon.PlatoonData.Location = ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location
 
     -- ScenarioFramework.CreateTimerTrigger(M2OffscreenPrepareForAttack, M2AeonOffscreenAttackRepeatDelay) #Doesnt actually do anything
@@ -2317,7 +2317,7 @@ end
 
 function M3P1Complete()
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
-    ScenarioFramework.CreateUnitNearTypeTrigger(M3PlayerReachedGate, ScenarioInfo.M3Gate, ArmyBrains[Player], categories.url0001, 2)
+    ScenarioFramework.CreateUnitNearTypeTrigger(M3PlayerReachedGate, ScenarioInfo.M3Gate, ArmyBrains[Player1], categories.url0001, 2)
     ScenarioFramework.KillBaseInArea(ArmyBrains[CybranJanus], 'Mach_BaseDestroy_Area')
     ScenarioInfo.JanusDead = true
 
