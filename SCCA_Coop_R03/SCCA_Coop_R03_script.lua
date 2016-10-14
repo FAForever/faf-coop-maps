@@ -210,6 +210,9 @@ function OnPopulate(scenario)
         end
     end
 
+    -- Don't share resources to players
+    GetArmyBrain(CybranCloaked):SetResourceSharing(false)
+
     -- Initial player bombers
     local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Player' ,'M1_Bombers', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(intialBombers, 'InitialBomber_Chain')
