@@ -29,23 +29,23 @@ local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Rhiza = 3
 ScenarioInfo.Princess = 4
 ScenarioInfo.Crystals = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 ScenarioInfo.NumBombersDestroyed = 0
 
 --------
 -- Locals
 --------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Seraphim = ScenarioInfo.Seraphim
 local Rhiza = ScenarioInfo.Rhiza
 local Princess = ScenarioInfo.Princess
@@ -82,20 +82,20 @@ function OnPopulate()
 
     -- Army Colors
     if(LeaderFaction == 'cybran') then
-        ScenarioFramework.SetCybranPlayerColor(Player)
+        ScenarioFramework.SetCybranPlayerColor(Player1)
     elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player)
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonPlayerColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player1)
     end
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonAlly1Color(Rhiza)
     ScenarioFramework.SetAeonAlly2Color(Princess)
     ScenarioFramework.SetNeutralColor(Crystals)
     local colors = {
-        ['Coop1'] = {250, 250, 0}, 
-        ['Coop2'] = {255, 255, 255}, 
-        ['Coop3'] = {97, 109, 126}
+        ['Player2'] = {250, 250, 0}, 
+        ['Player3'] = {255, 255, 255}, 
+        ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -195,7 +195,7 @@ function OnPopulate()
         end
     end
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1EastCarrier}, 'M1_Seraph_MidPatrol_East' .. Random(1,2) .. '_Chain')
-    ScenarioFramework.CreateAreaTrigger(M1EastCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_East'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+    ScenarioFramework.CreateAreaTrigger(M1EastCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_East'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
 
     -- West Carrier
     ScenarioInfo.M1WestCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M1_Seraph_West_AC')
@@ -209,14 +209,14 @@ function OnPopulate()
         end
     end
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1WestCarrier}, 'M1_Seraph_MidPatrol_West' .. Random(1,2) .. '_Chain')
-    ScenarioFramework.CreateAreaTrigger(M1WestCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_West'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+    ScenarioFramework.CreateAreaTrigger(M1WestCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_West'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
 
     -- Middle Battleship
     ScenarioInfo.M1MiddleBattleship = ScenarioUtils.CreateArmyGroup('Seraphim', 'M1_Seraph_Battleship_Mid_D' .. Difficulty)
     for k, v in ScenarioInfo.M1MiddleBattleship do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_2_Patrol_Chain')
     end
-    ScenarioFramework.CreateArmyStatTrigger(M1MiddleBattleshipAttack, ArmyBrains[Player], 'M1MiddleBattleshipAttack',
+    ScenarioFramework.CreateArmyStatTrigger(M1MiddleBattleshipAttack, ArmyBrains[Player1], 'M1MiddleBattleshipAttack',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 15, Category = categories.TECH3 - categories.ENGINEER}})
 
     -- North Battleship
@@ -224,7 +224,7 @@ function OnPopulate()
     for k, v in ScenarioInfo.M1NorthBattleship do
         ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_1_Patrol_Chain')
     end
-    ScenarioFramework.CreateArmyStatTrigger(M1NorthBattleshipAttack, ArmyBrains[Player], 'M1NorthBattleshipAttack',
+    ScenarioFramework.CreateArmyStatTrigger(M1NorthBattleshipAttack, ArmyBrains[Player1], 'M1NorthBattleshipAttack',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 30, Category = categories.TECH3 - categories.ENGINEER}})
 
     -------------
@@ -364,13 +364,13 @@ end
 -----------
 function IntroNIS()
     -- Show the north base buildings
-    local NorthVisMarker = ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'M1_North_Vis_Marker' ), 0, ArmyBrains[Player] )
+    local NorthVisMarker = ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'M1_North_Vis_Marker' ), 0, ArmyBrains[Player1] )
 
     Cinematics.EnterNISMode()
 
     -- I'm not sure that the player can really see these ships much with the current pan speed we're using
     -- So, commenting out for now
-    -- local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player])
+    -- local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS1_VisMarker'), 25, ArmyBrains[Player1])
 
     -- Turn off her shields for more visibility during the NIS
     local AllShieldUnits = ArmyBrains[Rhiza]:GetListOfUnits(categories.SHIELD, false)
@@ -426,11 +426,11 @@ function IntroNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
 
     if (LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Warp', true, true, PlayerDeath)
     elseif (LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Warp', true, true, PlayerDeath)
     end
 
     -- spawn coop players too
@@ -438,7 +438,7 @@ function IntroNIS()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
@@ -570,7 +570,7 @@ function M1EastCarrierRelease()
                     end
                 end
                 WaitSeconds(30)
-                ScenarioFramework.CreateMultipleAreaTrigger(M1EastCarrierLoad, {ScenarioUtils.AreaToRect('M1_Mid_Area_East'), ScenarioUtils.AreaToRect('M1_Mid_Area_West')}, categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player])
+                ScenarioFramework.CreateMultipleAreaTrigger(M1EastCarrierLoad, {ScenarioUtils.AreaToRect('M1_Mid_Area_East'), ScenarioUtils.AreaToRect('M1_Mid_Area_West')}, categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player1])
             end
         end
     )
@@ -586,7 +586,7 @@ function M1EastCarrierLoad()
             end
         end
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1EastCarrier}, 'M1_Seraph_MidPatrol_East' .. Random(1,2) .. '_Chain')
-        ScenarioFramework.CreateAreaTrigger(M1EastCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_East'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+        ScenarioFramework.CreateAreaTrigger(M1EastCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_East'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
     end
 end
 
@@ -605,7 +605,7 @@ function M1WestCarrierRelease()
                     end
                 end
                 WaitSeconds(30)
-                ScenarioFramework.CreateMultipleAreaTrigger(M1WestCarrierLoad, {ScenarioUtils.AreaToRect('M1_Mid_Area_West'), ScenarioUtils.AreaToRect('M1_Mid_Area_East')}, categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player])
+                ScenarioFramework.CreateMultipleAreaTrigger(M1WestCarrierLoad, {ScenarioUtils.AreaToRect('M1_Mid_Area_West'), ScenarioUtils.AreaToRect('M1_Mid_Area_East')}, categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player1])
             end
         end
     )
@@ -621,7 +621,7 @@ function M1WestCarrierLoad()
             end
         end
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1WestCarrier}, 'M1_Seraph_MidPatrol_West' .. Random(1,2) .. '_Chain')
-        ScenarioFramework.CreateAreaTrigger(M1WestCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_West'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+        ScenarioFramework.CreateAreaTrigger(M1WestCarrierRelease, ScenarioUtils.AreaToRect('M1_Mid_Area_West'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
     end
 end
 
@@ -738,7 +738,7 @@ function IntroMission2()
                 end
             end
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2NorthCarrier}, 'M2_Seraph_Carrier_North_Chain')
-            ScenarioFramework.CreateAreaTrigger(M2NorthCarrierRelease, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+            ScenarioFramework.CreateAreaTrigger(M2NorthCarrierRelease, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
 
             -- South Carrier
             ScenarioInfo.M2SouthCarrier = ScenarioUtils.CreateArmyUnit('Seraphim', 'M2_Seraph_South_Carrier')
@@ -752,7 +752,7 @@ function IntroMission2()
                 end
             end
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2SouthCarrier}, 'M2_Seraph_Carrier_South_Chain')
-            ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+            ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
 
             -------------------
             -- Experimental Base
@@ -842,7 +842,7 @@ function M2NorthCarrierRelease()
                     end
                 end
                 WaitSeconds(30)
-                ScenarioFramework.CreateAreaTrigger(M2NorthCarrierLoad, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player])
+                ScenarioFramework.CreateAreaTrigger(M2NorthCarrierLoad, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player1])
             end
         end
     )
@@ -858,7 +858,7 @@ function M2NorthCarrierLoad()
             end
         end
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2NorthCarrier}, 'M2_Seraph_Carrier_North_Chain')
-        ScenarioFramework.CreateAreaTrigger(M2NorthCarrierRelease, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+        ScenarioFramework.CreateAreaTrigger(M2NorthCarrierRelease, ScenarioUtils.AreaToRect('M2_NorthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
     end
 end
 
@@ -877,7 +877,7 @@ function M2SouthCarrierRelease()
                     end
                 end
                 WaitSeconds(30)
-                ScenarioFramework.CreateAreaTrigger(M2SouthCarrierLoad, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player])
+                ScenarioFramework.CreateAreaTrigger(M2SouthCarrierLoad, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, true, ArmyBrains[Player1])
             end
         end
     )
@@ -893,7 +893,7 @@ function M2SouthCarrierLoad()
             end
         end
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2SouthCarrier}, 'M2_Seraph_Carrier_South_Chain')
-        ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player], 10, false)
+        ScenarioFramework.CreateAreaTrigger(M2SouthCarrierRelease, ScenarioUtils.AreaToRect('M2_SouthBase_Carrier_Area'), categories.AIR * categories.MOBILE, true, false, ArmyBrains[Player1], 10, false)
     end
 end
 
@@ -907,8 +907,8 @@ function IntroMission2NIS()
 
     ForkThread(ShieldToggle, AllShieldUnits, false, false)
 
-    local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(75, ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 0, ArmyBrains[Player])
-    ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 0.1, ArmyBrains[Player])
+    local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(75, ScenarioUtils.MarkerToPosition('M2_Seraph_Exper_Base'), 0, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M2_Resource_Base'), 0.1, ArmyBrains[Player1])
 
     Cinematics.EnterNISMode()
     Cinematics.SetInvincible('M1_Playable_Area')
@@ -1169,7 +1169,7 @@ function M2OpticalPing()
 end
 
 function M2ActivateEye(location)
-    ScenarioFramework.CreateVisibleAreaLocation(45, location, 20, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(45, location, 20, ArmyBrains[Player1])
     ScenarioFramework.CreateTimerTrigger(M2OpticalPing, 240)
 
     ScenarioInfo.M2OpticalPing:Destroy()
@@ -1331,7 +1331,7 @@ function PriestReward(location)
 
     local radius = 15
 
-    ScenarioFramework.CreateVisibleAreaLocation(radius, location, 30, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(radius, location, 30, ArmyBrains[Player1])
 
     ForkThread(
         function()
@@ -1768,15 +1768,15 @@ end
 function SetupNorthM1Taunts()
     ZanNorthTM:AddUnitKilledTaunt('TAUNT22', ScenarioInfo.UnitNames[Seraphim]['M1_Seraph_West_AC'])
     ZanNorthTM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[Seraphim], categories.FACTORY * categories.AIR, 2)
-    ZanNorthTM:AddUnitsKilledTaunt('TAUNT28', ArmyBrains[Player], categories.STRUCTURE * categories.TECH3, 3)
-    ZanNorthTM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player], categories.TECH2 * categories.AIR, 40)
+    ZanNorthTM:AddUnitsKilledTaunt('TAUNT28', ArmyBrains[Player1], categories.STRUCTURE * categories.TECH3, 3)
+    ZanNorthTM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player1], categories.TECH2 * categories.AIR, 40)
 end
 
 function SetupWestM1Taunts()
     ThelWestTM:AddUnitKilledTaunt('TAUNT3', ScenarioInfo.UnitNames[Seraphim]['M1_Seraph_East_AC'])
     ThelWestTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Seraphim], categories.FACTORY * categories.NAVAL, 6)
     ThelWestTM:AddUnitsKilledTaunt('TAUNT7', ArmyBrains[Rhiza], categories.FACTORY * categories.AIR, 1)
-    ThelWestTM:AddUnitsKilledTaunt('TAUNT8', ArmyBrains[Player], categories.TECH2 * categories.NAVAL, 10)
+    ThelWestTM:AddUnitsKilledTaunt('TAUNT8', ArmyBrains[Player1], categories.TECH2 * categories.NAVAL, 10)
     ThelWestTM:AddDamageTaunt('TAUNT11', ScenarioInfo.PlayerCDR, .02)
 end
 
@@ -1788,8 +1788,8 @@ end
 
 function SetupNorthM2Taunts()
     ZanNorthTM:AddEnemiesKilledTaunt('TAUNT24', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 1)
-    ZanNorthTM:AddStartBuildTaunt('TAUNT27', ArmyBrains[Player], categories.EXPERIMENTAL, 1 )
-    ZanNorthTM:AddStartBuildTaunt('TAUNT3', ArmyBrains[Player], categories.EXPERIMENTAL, 2 )
+    ZanNorthTM:AddStartBuildTaunt('TAUNT27', ArmyBrains[Player1], categories.EXPERIMENTAL, 1 )
+    ZanNorthTM:AddStartBuildTaunt('TAUNT3', ArmyBrains[Player1], categories.EXPERIMENTAL, 2 )
     ZanNorthTM:AddUnitDestroyedTaunt('TAUNT33', ScenarioInfo.UnitNames[Seraphim]['M2_Taunt_Factory'])
     ZanNorthTM:AddUnitsKilledTaunt('TAUNT19', ArmyBrains[Seraphim], categories.NAVAL, 30)
     ZanNorthTM:AddUnitsKilledTaunt('TAUNT21', ArmyBrains[Seraphim], categories.MOBILE * categories.TECH3, 1)
@@ -1797,8 +1797,8 @@ end
 
 function SetupWestM2Taunts()
     ThelWestTM:AddEnemiesKilledTaunt('TAUNT12', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 2)
-    ThelWestTM:AddStartBuildTaunt('TAUNT14', ArmyBrains[Player], categories.EXPERIMENTAL, 4 )
-    ThelWestTM:AddStartBuildTaunt('TAUNT16', ArmyBrains[Player], categories.EXPERIMENTAL, 6 )
+    ThelWestTM:AddStartBuildTaunt('TAUNT14', ArmyBrains[Player1], categories.EXPERIMENTAL, 4 )
+    ThelWestTM:AddStartBuildTaunt('TAUNT16', ArmyBrains[Player1], categories.EXPERIMENTAL, 6 )
     ThelWestTM:AddUnitDestroyedTaunt('TAUNT18', ScenarioInfo.UnitNames[Seraphim]['M2_Taunt_Factory_2'])
     ThelWestTM:AddUnitsKilledTaunt('TAUNT7', ArmyBrains[Seraphim], categories.FACTORY * categories.AIR, 5)
 end
@@ -1857,26 +1857,26 @@ end
 
 function SetupNorthM3Taunts()
     ZanNorthTM:AddDamageTaunt('TAUNT22', ScenarioInfo.PlayerCDR, .02)
-    ZanNorthTM:AddStartBuildTaunt('TAUNT31', ArmyBrains[Player], categories.EXPERIMENTAL, 1 )
+    ZanNorthTM:AddStartBuildTaunt('TAUNT31', ArmyBrains[Player1], categories.EXPERIMENTAL, 1 )
     if(LeaderFaction == 'uef') then
-        ZanNorthTM:AddUnitsKilledTaunt('TAUNT25', ArmyBrains[Player], categories.STRUCTURE, 7)
+        ZanNorthTM:AddUnitsKilledTaunt('TAUNT25', ArmyBrains[Player1], categories.STRUCTURE, 7)
     elseif(LeaderFaction == 'cybran') then
-        ZanNorthTM:AddUnitsKilledTaunt('TAUNT27', ArmyBrains[Player], categories.STRUCTURE, 7)
+        ZanNorthTM:AddUnitsKilledTaunt('TAUNT27', ArmyBrains[Player1], categories.STRUCTURE, 7)
     elseif(LeaderFaction == 'aeon') then
-        ZanNorthTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Player], categories.STRUCTURE, 7)
+        ZanNorthTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Player1], categories.STRUCTURE, 7)
     end
 end
 
 function SetupWestM3Taunts()
     if(LeaderFaction == 'uef') then
-        ThelWestTM:AddUnitsKilledTaunt('TAUNT24', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
-        ThelWestTM:AddUnitsKilledTaunt('TAUNT26', ArmyBrains[Player], categories.TECH3, 2)
+        ThelWestTM:AddUnitsKilledTaunt('TAUNT24', ArmyBrains[Player1], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
+        ThelWestTM:AddUnitsKilledTaunt('TAUNT26', ArmyBrains[Player1], categories.TECH3, 2)
     elseif(LeaderFaction == 'cybran') then
-        ThelWestTM:AddUnitsKilledTaunt('TAUNT28', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
+        ThelWestTM:AddUnitsKilledTaunt('TAUNT28', ArmyBrains[Player1], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
     elseif(LeaderFaction == 'aeon') then
-        ThelWestTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
+        ThelWestTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player1], categories.NAVAL * (categories.TECH2 + categories.TECH3), 6)
     end
     ThelWestTM:AddUnitsKilledTaunt('TAUNT23', ArmyBrains[Seraphim], categories.FACTORY * categories.NAVAL, 3)
-    ThelWestTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player], categories.AIR, 30)
+    ThelWestTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player1], categories.AIR, 30)
     ThelWestTM:AddDamageTaunt('TAUNT32', ScenarioInfo.WestACU, .12)
 end

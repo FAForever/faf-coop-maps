@@ -5309,7 +5309,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -5320,11 +5320,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Loyalist'] = 'Ally',
                 ['Order'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['QAI'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5386,11 +5386,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Loyalist'] = 'Enemy',
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
                 ['QAI'] = 'Ally',
             },
             ['Units'] = GROUP {
@@ -12815,7 +12815,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -12826,11 +12826,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Loyalist'] = 'Ally',
                 ['Order'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['QAI'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -12881,7 +12881,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -12892,11 +12892,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Loyalist'] = 'Ally',
                 ['Order'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['QAI'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -12947,7 +12947,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -12958,9 +12958,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Loyalist'] = 'Ally',
                 ['Order'] = 'Enemy',
                 ['QAI'] = 'Enemy',
@@ -13161,12 +13161,12 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Loyalist'] = 'Enemy',
                 ['Order'] = 'Ally',
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -24672,11 +24672,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Order'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['QAI'] = 'Enemy',
             },
             ['Units'] = GROUP {

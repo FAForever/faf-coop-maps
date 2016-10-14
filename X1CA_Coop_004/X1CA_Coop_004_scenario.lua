@@ -12,8 +12,8 @@ ScenarioInfo = {
     save = '/maps/X1CA_Coop_004/X1CA_Coop_004_save.lua',
     script = '/maps/X1CA_Coop_004/X1CA_Coop_004_script.lua',
     norushradius = 0.000000,
-    norushoffsetX_Player = 0.000000,
-    norushoffsetY_Player = 0.000000,
+    norushoffsetX_Player1 = 0.000000,
+    norushoffsetY_Player1 = 0.000000,
     norushoffsetX_Dostya = 0.000000,
     norushoffsetY_Dostya = 0.000000,
     norushoffsetX_Seraphim = 0.000000,
@@ -23,7 +23,7 @@ ScenarioInfo = {
     Configurations = {
         ['standard'] = {
             teams = {
-                { name = 'FFA', armies = {'Player','Dostya','Seraphim','SeraphimSecondary', 'Coop1','Coop2','Coop3'} },
+                { name = 'FFA', armies = {'Player1','Dostya','Seraphim','SeraphimSecondary', 'Player2','Player3','Player4'} },
             },
             customprops = {
             },

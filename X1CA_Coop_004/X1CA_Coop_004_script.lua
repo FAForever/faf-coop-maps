@@ -24,21 +24,21 @@ local TauntManager = import('/lua/TauntManager.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Dostya = 2
 ScenarioInfo.Seraphim = 3
 ScenarioInfo.SeraphimSecondary = 4
-ScenarioInfo.Coop1 = 5
-ScenarioInfo.Coop2 = 6
-ScenarioInfo.Coop3 = 7
+ScenarioInfo.Player2 = 5
+ScenarioInfo.Player3 = 6
+ScenarioInfo.Player4 = 7
 
 --------
 -- Locals
 --------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Dostya = ScenarioInfo.Dostya
 local Seraphim = ScenarioInfo.Seraphim
 local SeraphimSecondary = ScenarioInfo.SeraphimSecondary
@@ -67,21 +67,21 @@ function OnPopulate(scenario)
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Army Colors
-    ScenarioFramework.SetCoalitionColor(Player)
+    ScenarioFramework.SetCoalitionColor(Player1)
     if(LeaderFaction == 'cybran') then
-        ScenarioFramework.SetCybranPlayerColor(Player)
+        ScenarioFramework.SetCybranPlayerColor(Player1)
     elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player)
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonPlayerColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player1)
     end
     ScenarioFramework.SetCybranAllyColor(Dostya)
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetSeraphimColor(SeraphimSecondary)
     local colors = {
-        ['Coop1'] = {250, 250, 0}, 
-        ['Coop2'] = {255, 255, 255}, 
-        ['Coop3'] = {97, 109, 126}
+        ['Player2'] = {250, 250, 0}, 
+        ['Player3'] = {255, 255, 255}, 
+        ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -174,7 +174,7 @@ function IntroMission1NIS()
 
     ScenarioFramework.Dialogue(OpStrings.X04_M01_010, nil, true)
 
-    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_1'), 15, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_1'), 15, ArmyBrains[Player1])
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
     WaitSeconds(2)
 
@@ -211,8 +211,8 @@ function IntroMission1NIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
     -- WaitSeconds(1)
 
-    -- ScenarioFramework.CreateVisibleAreaLocation(15, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_2'), 14, ArmyBrains[Player])
-    local tempVisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 0, ArmyBrains[Player])
+    -- ScenarioFramework.CreateVisibleAreaLocation(15, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_2'), 14, ArmyBrains[Player1])
+    local tempVisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 0, ArmyBrains[Player1])
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 5)
     -- The enemy is west
     ScenarioFramework.Dialogue(OpStrings.X04_M01_024, nil, true)
@@ -237,11 +237,11 @@ end
 function SpawnPlayer()
     WaitSeconds(1.5)
     if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerLose)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Warp', true, true, PlayerLose)
     elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerLose)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Warp', true, true, PlayerLose)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Warp', true, true, PlayerLose)
     end
 
     -- spawn coop players too
@@ -249,7 +249,7 @@ function SpawnPlayer()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
@@ -310,7 +310,7 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1BrickPingEvent, 1200)
 
     -- Dostya dialogue from offmap
-    ScenarioFramework.CreateArmyStatTrigger(M1DostyaFinished, ArmyBrains[Player], 'M1FactoriesKilled',
+    ScenarioFramework.CreateArmyStatTrigger(M1DostyaFinished, ArmyBrains[Player1], 'M1FactoriesKilled',
         {{StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 5, Category = categories.FACTORY}})
 
     -- A single taunt from Oum, for M1
@@ -452,7 +452,7 @@ function IntroMission2NIS()
 
     ScenarioFramework.SetPlayableArea('M2Area', false)
     -- Show the jammer
-    local visMarker = ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioInfo.Jammer:GetPosition(), 2, ArmyBrains[Player])
+    local visMarker = ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioInfo.Jammer:GetPosition(), 2, ArmyBrains[Player1])
 
     Cinematics.EnterNISMode()
     ScenarioFramework.Dialogue(OpStrings.X04_M02_002, nil, true)
@@ -732,7 +732,7 @@ function StartMission2()
     SetupOumEoshiTaunts()
 
     -- VO about jammer, when player is near it
-    ScenarioFramework.CreateUnitNearTypeTrigger(M2JammerSpottedDialogue, ScenarioInfo.Jammer, ArmyBrains[Player], categories.ALLUNITS, 30)
+    ScenarioFramework.CreateUnitNearTypeTrigger(M2JammerSpottedDialogue, ScenarioInfo.Jammer, ArmyBrains[Player1], categories.ALLUNITS, 30)
 
     -- An expansion on the jammer topic by Rhiza, intended to be post NIS.
     -- Delayed a tad here, so we dont get things to back-to-back
@@ -821,7 +821,7 @@ end
 function IntroMission3NIS()
     ScenarioFramework.SetPlayableArea('DostyaDeath')
 
-    ScenarioInfo.NIS3_VisMarker = ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioInfo.DostyaCDR:GetPosition(), 0, ArmyBrains[Player])
+    ScenarioInfo.NIS3_VisMarker = ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioInfo.DostyaCDR:GetPosition(), 0, ArmyBrains[Player1])
     Cinematics.EnterNISMode()
     WaitSeconds(1)
     NIS3Reinforcments()
@@ -1034,7 +1034,7 @@ function IntroMission3()
                         platoon:AttackTarget(v)
                     end
                 end
-                local artillery = ArmyBrains[Player]:GetListOfUnits(categories.ARTILLERY * categories.STRUCTURE, false)
+                local artillery = ArmyBrains[Player1]:GetListOfUnits(categories.ARTILLERY * categories.STRUCTURE, false)
                 if(table.getn(artillery) > 0) then
                     for k, v in artillery do
                         if(v and not v:IsDead()) then
@@ -1857,7 +1857,7 @@ end
 function SetupOumEoshiTaunts()
     OumEoshiTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Seraphim], categories.STRUCTURE * categories.TECH3, 15)       -- Seraph kills a a moderate number of structures
     OumEoshiTM:AddDamageTaunt('TAUNT4', ScenarioInfo.PlayerCDR, .75)                                                    -- Player CDR is reduced to 75% health
-    OumEoshiTM:AddIntelCategoryTaunt('X04_M03_057', ArmyBrains[Player], ArmyBrains[Seraphim], categories.xsl0401, 1)    -- Player sights exp bot
+    OumEoshiTM:AddIntelCategoryTaunt('X04_M03_057', ArmyBrains[Player1], ArmyBrains[Seraphim], categories.xsl0401, 1)    -- Player sights exp bot
     OumEoshiTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Seraphim], categories.xsb5202, 2)                               -- Seraph loses two air staging plats (focuses this taunt in M2)
 end
 

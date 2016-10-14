@@ -14,7 +14,7 @@ local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 --------
 -- Locals
 --------
-local Player = 1
+local Player1 = 1
 local Seraphim = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 
@@ -1158,7 +1158,7 @@ function SeraphimM3NorthAirAttacks()
 end
 
 function M3AttackCDRAI(platoon)
-    local commander = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local commander = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
     if(commander[1] and not commander[1]:IsDead()) then
         platoon:AttackTarget(commander[1])
     else
