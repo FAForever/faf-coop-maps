@@ -1172,7 +1172,7 @@ function M3_CreateUnitsForMission()
     cdrPlatoon.CDRData.LeashPosition = 'UEF_Commander_Leash'
     cdrPlatoon.CDRData.LeashRadius = 34
     ArmyBrains[UEF]:AssignUnitsToPlatoon( cdrPlatoon, {ScenarioInfo.M3_UEFMainBase_Commander}, 'Attack', 'AttackFormation' )
-    import('/lua/ai/AIBehaviors.lua').CommanderBehavior(platoon)
+    import('/lua/ai/AIBehaviors.lua').CommanderBehavior(cdrPlatoon)
     ArmyBrains[UEF]:DisbandPlatoon(cdrPlatoon)
 
      --- hard difficulty: air superiority patrols, aa patrols, a few engineers to guard CDR
