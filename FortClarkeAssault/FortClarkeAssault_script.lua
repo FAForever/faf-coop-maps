@@ -24,24 +24,24 @@ local Utilities = import('/lua/Utilities.lua')
 ----------
 -- Globals
 ----------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Order = 3
 ScenarioInfo.UEF = 4
 ScenarioInfo.Aeon = 5
 ScenarioInfo.Cybran = 6
 ScenarioInfo.Civilians = 7
-ScenarioInfo.Coop1 = 8
-ScenarioInfo.Coop2 = 9
-ScenarioInfo.Coop3 = 10
+ScenarioInfo.Player2 = 8
+ScenarioInfo.Player3 = 9
+ScenarioInfo.Player4 = 10
 
 ---------
 -- Locals
 ---------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local Cybran = ScenarioInfo.Cybran
 local Order = ScenarioInfo.Order
@@ -71,7 +71,7 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
 
     -- Sets Army Colors
-    ScenarioFramework.SetSeraphimColor(Player)
+    ScenarioFramework.SetSeraphimColor(Player1)
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFPlayerColor(UEF)
@@ -79,9 +79,9 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranPlayerColor(Cybran)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
     local colors = {
-        ['Coop1'] = {255, 200, 0}, 
-        ['Coop2'] = {189, 116, 16}, 
-        ['Coop3'] = {89, 133, 39}
+        ['Player2'] = {255, 200, 0}, 
+        ['Player3'] = {189, 116, 16}, 
+        ['Player4'] = {89, 133, 39}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -193,11 +193,11 @@ function IntroMission1NIS()
         Cinematics.EnterNISMode()
 
         -- Vision for NIS location
-        local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(110, 'M1_Vis_1_1', 0, ArmyBrains[Player])
-        local VisMarker1_2 = ScenarioFramework.CreateVisibleAreaLocation(110, 'M1_Vis_1_2', 0, ArmyBrains[Player])
+        local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(110, 'M1_Vis_1_1', 0, ArmyBrains[Player1])
+        local VisMarker1_2 = ScenarioFramework.CreateVisibleAreaLocation(110, 'M1_Vis_1_2', 0, ArmyBrains[Player1])
         -- Intel on enemy bases, since they're not shown during NIS
-        local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(15, 'M1_North_Base_Marker', 1, ArmyBrains[Player])
-        local VisMarker1_4 = ScenarioFramework.CreateVisibleAreaLocation(15, 'M1_Vis_1_4', 1, ArmyBrains[Player])
+        local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(15, 'M1_North_Base_Marker', 1, ArmyBrains[Player1])
+        local VisMarker1_4 = ScenarioFramework.CreateVisibleAreaLocation(15, 'M1_Vis_1_4', 1, ArmyBrains[Player1])
 
         ForkThread(NISUnits)
 
@@ -208,19 +208,19 @@ function IntroMission1NIS()
             local tblArmy = ListArmies()
             coop = 1
             for iArmy, strArmy in pairs(tblArmy) do
-                if iArmy >= ScenarioInfo.Coop1 then
+                if iArmy >= ScenarioInfo.Player2 then
                     DropReinforcements('Seraphim', strArmy, 'NIS_Bots_' .. strArmy ..'_D' .. Difficulty, 'NIS_Drop_' .. strArmy, 'NIS_Transport_Death')
                     coop = coop + 1
                 end
             end
             if Debug then
                 for i = 1, 3 do
-                    DropReinforcements('Seraphim', 'Player', 'NIS_Bots_Coop' .. i ..'_D' .. Difficulty, 'NIS_Drop_Coop' .. i, 'NIS_Transport_Death')
+                    DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Coop' .. i ..'_D' .. Difficulty, 'NIS_Drop_Coop' .. i, 'NIS_Transport_Death')
                 end
             end
             -- Units for player little later else units would die to ahwassa friendly-fire.
             WaitSeconds(3)
-            DropReinforcements('Seraphim', 'Player', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
+            DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
         end)
 
         ForkThread(function()
@@ -228,24 +228,24 @@ function IntroMission1NIS()
 
             ScenarioInfo.CoopCDR = {}
             local tblArmy = ListArmies()
-            if tblArmy[ScenarioInfo.Coop1] then
-                ScenarioInfo.CoopCDR1 = ScenarioFramework.SpawnCommander('Coop1', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player2] then
+                ScenarioInfo.Player2CRD = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(3)
 
-            if tblArmy[ScenarioInfo.Coop2] then
-                ScenarioInfo.CoopCDR2 = ScenarioFramework.SpawnCommander('Coop2', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player3] then
+                ScenarioInfo.Player3CRD = ScenarioFramework.SpawnCommander('Player3', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(5)
 
-            ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true, PlayerDeath)
+            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
 
             WaitSeconds(3)
 
-            if tblArmy[ScenarioInfo.Coop3] then
-                ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player4] then
+                ScenarioInfo.Player4CRD = ScenarioFramework.SpawnCommander('Player4', 'Commander', 'Warp', true, true, PlayerDeath)
             end
         end)
 
@@ -259,15 +259,15 @@ function IntroMission1NIS()
 
         Cinematics.ExitNISMode()
     else
-        DropReinforcements('Seraphim', 'Player', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true, PlayerDeath)
+        DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
+        ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
 
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
         local tblArmy = ListArmies()
         coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
-            if iArmy >= ScenarioInfo.Coop1 then
+            if iArmy >= ScenarioInfo.Player2 then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
                 DropReinforcements('Seraphim', strArmy, 'NIS_Bots_' .. strArmy ..'_D' .. Difficulty, 'NIS_Drop_' .. strArmy, 'NIS_Transport_Death')
                 coop = coop + 1
@@ -487,7 +487,7 @@ function StartMission1()
                 break
             end
         end
-        local Viz_Marker_Wreck = ScenarioFramework.CreateVisibleAreaLocation(10, ScenarioInfo.T4BomberWreck:GetPosition(), 0, ArmyBrains[Player])
+        local Viz_Marker_Wreck = ScenarioFramework.CreateVisibleAreaLocation(10, ScenarioInfo.T4BomberWreck:GetPosition(), 0, ArmyBrains[Player1])
 
         ScenarioInfo.M1S1 = Objectives.ReclaimProp(
             'secondary',                    -- type
@@ -516,8 +516,8 @@ function StartMission1()
     ScenarioInfo.M1Percies1Locked = false
     ScenarioInfo.M1Percies2Locked = false
 
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ScenarioInfo.PlayerCDR, 'M1_South_Base_Marker', 40)
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, ScenarioInfo.PlayerCDR, 'M1_North_Base_Marker', 40)
+    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ScenarioInfo.Player1CDR, 'M1_South_Base_Marker', 40)
+    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, ScenarioInfo.Player1CDR, 'M1_North_Base_Marker', 40)
 
     for _, ACU in ScenarioInfo.CoopCDR or {} do
         ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ACU, 'M1_South_Base_Marker', 40)
@@ -933,7 +933,7 @@ function EnableStealthOnAir()
     for _, spider in ScenarioInfo.M3SpiderbotPlatoon:GetPlatoonUnits() do
         if EntityCategoryContains(categories.url0402, spider) then
             spider:ToggleScriptBit('RULEUTC_StealthToggle')
-            ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[Player], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
+            ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[Player1], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
             break
         end
     end
@@ -1124,7 +1124,7 @@ function IntroMission3NIS()
     if not SkipNIS3 then
         Cinematics.EnterNISMode()
 
-        local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(60, 'M3_Vis_1', 0, ArmyBrains[Player])
+        local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(60, 'M3_Vis_1', 0, ArmyBrains[Player1])
 
         Cinematics.CameraMoveToMarker('Cam_3_1', 0)
         WaitSeconds(2)
@@ -1223,7 +1223,7 @@ function M3SeraphimReinforcements()
                 while v:IsUnitState('Moving') do
                     WaitSeconds(1)
                 end
-                ScenarioFramework.GiveUnitToArmy(v, 'Player')
+                ScenarioFramework.GiveUnitToArmy(v, 'Player1')
             end
             
             -- T3 Subs
@@ -1234,7 +1234,7 @@ function M3SeraphimReinforcements()
                 while v:IsUnitState('Moving') do
                     WaitSeconds(1)
                 end
-                ScenarioFramework.GiveUnitToArmy(v, 'Player')
+                ScenarioFramework.GiveUnitToArmy(v, 'Player1')
             end
         end
     )
@@ -1293,7 +1293,7 @@ function IntroMission4NIS()
     if not SkipNIS4 then
         Cinematics.EnterNISMode()
 
-        local VisMarker4_1 = ScenarioFramework.CreateVisibleAreaLocation(120, 'M4_Vis_1', 0, ArmyBrains[Player])
+        local VisMarker4_1 = ScenarioFramework.CreateVisibleAreaLocation(120, 'M4_Vis_1', 0, ArmyBrains[Player1])
 
         Cinematics.CameraMoveToMarker('Cam_4_1', 0)
         WaitSeconds(2)
@@ -1345,9 +1345,9 @@ function StartMisson4()
 
     -- Assign objective to kill coalition commander once one of them is spotted.
     ScenarioInfo.M4CommandersSpotted = false
-    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player], 'LOSNow', false, true, categories.uel0001, true, ArmyBrains[UEF])
-    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player], 'LOSNow', false, true, categories.ual0001, true, ArmyBrains[Aeon])
-    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player], 'LOSNow', false, true, categories.url0001, true, ArmyBrains[Cybran])
+    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player1], 'LOSNow', false, true, categories.uel0001, true, ArmyBrains[UEF])
+    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player1], 'LOSNow', false, true, categories.ual0001, true, ArmyBrains[Aeon])
+    ScenarioFramework.CreateArmyIntelTrigger(M4AssignSecondPrimary, ArmyBrains[Player1], 'LOSNow', false, true, categories.url0001, true, ArmyBrains[Cybran])
 end
 
 function M4NukeParty()
@@ -1476,7 +1476,7 @@ end
 
 function PlayerDeath()
     if (not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Player1CDR)
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
         for _, v in AssignedObjectives do
@@ -1510,7 +1510,7 @@ end
 -- Debug Functions
 ------------------
 function OnCtrlF3()
-    ScenarioInfo.Mega = ScenarioUtils.CreateArmyUnit('Player', 'UNIT_10263')
+    ScenarioInfo.Mega = ScenarioUtils.CreateArmyUnit('Player1', 'UNIT_10263')
 end
 
 function OnShiftF3()

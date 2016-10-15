@@ -1005,7 +1005,7 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
                     ['position'] = VECTOR3( 585.842, 64, 1651.83 ),
                 },
-                ['Player'] = {
+                ['Player1'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
@@ -3229,7 +3229,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/lua/ai/opai/defaultblankplanlist.lua',
@@ -5810,7 +5810,7 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['UEF'] = 'Enemy',
                 ['WarpComs'] = 'Ally',
             },
@@ -7754,7 +7754,7 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Ally',
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
                 ['SeraphimAlly'] = 'Enemy',
                 ['SeraphimAlly2'] = 'Enemy',
                 ['WarpComs'] = 'Enemy',
@@ -21214,7 +21214,7 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['SeraphimAlly'] = 'Ally',
                 ['UEF'] = 'Enemy',
                 ['WarpComs'] = 'Ally',
@@ -23713,7 +23713,7 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['SeraphimAlly'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -24135,7 +24135,7 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
                 ['SeraphimAlly'] = 'Enemy',
                 ['SeraphimAlly2'] = 'Enemy',
                 ['UEF'] = 'Ally',
@@ -30916,7 +30916,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '',
@@ -30928,9 +30928,9 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['SeraphimAlly'] = 'Ally',
                 ['SeraphimAlly2'] = 'Ally',
                 ['UEF'] = 'Enemy',
@@ -30970,7 +30970,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '',
@@ -30982,9 +30982,9 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['SeraphimAlly'] = 'Ally',
                 ['SeraphimAlly2'] = 'Ally',
                 ['UEF'] = 'Enemy',
@@ -31024,7 +31024,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '',

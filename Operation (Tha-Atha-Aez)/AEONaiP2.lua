@@ -2,8 +2,6 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
-
-local Player = 1
 local Aeon = 4
 
 local AeonNbase2 = BaseManager.CreateBaseManager()

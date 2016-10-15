@@ -6420,7 +6420,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -6431,9 +6431,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['Seraphim'] = 'Enemy',
                 ['UEF'] = 'Enemy',
                 ['UEFAlly'] = 'Ally',
@@ -8623,11 +8623,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Objective'] = 'Ally',
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
                 ['Seraphim'] = 'Enemy',
                 ['UEFAlly'] = 'Ally',
             },
@@ -20711,7 +20711,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -20722,9 +20722,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['Seraphim'] = 'Enemy',
                 ['UEF'] = 'Enemy',
                 ['UEFAlly'] = 'Ally',
@@ -20770,7 +20770,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -20781,9 +20781,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['Seraphim'] = 'Enemy',
                 ['UEF'] = 'Enemy',
                 ['UEFAlly'] = 'Ally',
@@ -20829,7 +20829,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/lua/ai/OpAI/DefaultBlankPlanlist.lua',
@@ -20840,9 +20840,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Seraphim'] = 'Enemy',
                 ['UEF'] = 'Enemy',
                 ['UEFAlly'] = 'Ally',
@@ -21086,11 +21086,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Objective'] = 'Enemy',
-                ['Player'] = 'Enemy',
+                ['Player1'] = 'Enemy',
                 ['UEF'] = 'Enemy',
                 ['UEFAlly'] = 'Enemy',
             },
@@ -31539,11 +31539,11 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Objective'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['Seraphim'] = 'Enemy',
                 ['UEF'] = 'Ally',
             },
