@@ -17,20 +17,20 @@ local ScenarioStrings = import('/lua/scenariostrings.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
 -- === GLOBAL VARIABLES === #
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.Civilian = 3
 ScenarioInfo.Nodes = 4
 ScenarioInfo.NexusDefense = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
 -- === LOCAL VARIABLES === #
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Cybran = ScenarioInfo.Cybran
 local Civilian = ScenarioInfo.Civilian
 local Nodes = ScenarioInfo.Nodes
@@ -119,15 +119,15 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
-    ScenarioFramework.SetAeonColor(Player)
+    ScenarioFramework.SetAeonColor(Player1)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetCybranAllyColor(Civilian)
     ScenarioFramework.SetCybranAllyColor(Nodes)
     ScenarioFramework.SetCybranNeutralColor(NexusDefense)
     local colors = {
-        ['Coop1'] = {47, 79, 79}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {47, 79, 79}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -162,11 +162,11 @@ function OnPopulate(scenario)
     -- === Player stuff === #
 
   -- ! No starting base for now
-  -- ScenarioUtils.CreateArmyGroup('Player', 'Base')
-  -- ScenarioUtils.CreateArmyGroup('Player', 'Land_Units')
-  -- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships', 'ChevronFormation')
+  -- ScenarioUtils.CreateArmyGroup('Player1', 'Base')
+  -- ScenarioUtils.CreateArmyGroup('Player1', 'Land_Units')
+  -- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Gunships', 'ChevronFormation')
   -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
-  -- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Interceptors', 'ChevronFormation')
+  -- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Interceptors', 'ChevronFormation')
   -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
 
@@ -189,7 +189,7 @@ function OnPopulate(scenario)
 
     -- Give intel to the middle naval factory in SW.
     local navFact = ScenarioInfo.UnitNames[Cybran]['M1_Cybran_Naval_Factory']
-    ScenarioFramework.CreateVisibleAreaLocation(2, navFact:GetPosition(), .5, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(2, navFact:GetPosition(), .5, ArmyBrains[Player1])
 
     -- ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Node_Walls')
     local nodeBaseUnits = ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Node_Base_D'..DiffLevel)
@@ -251,7 +251,7 @@ function OnPopulate(scenario)
     ScenarioInfo.SWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'SW_Node_Unit')
     ScenarioInfo.SWNode:SetCanTakeDamage(false)
     ScenarioInfo.SWNode:SetCanBeKilled(false)
-    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.SWNode:GetPosition(), .5, ArmyBrains[Player]) -- give intel on radar
+    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.SWNode:GetPosition(), .5, ArmyBrains[Player1]) -- give intel on radar
     ScenarioInfo.NWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'NW_Node_Unit')
     ScenarioInfo.NWNode:SetReclaimable(false)
     ScenarioInfo.SENode = ScenarioUtils.CreateArmyUnit('Nodes', 'SE_Node_Unit')
@@ -309,16 +309,16 @@ end
 
 -- === INTRO NIS === #
 function IntroNIS()
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -364,9 +364,9 @@ function StartMission1()
 
     -- === Misc Triggers === #
     -- Triggers to enable builders
-    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNexus, ArmyBrains[Player], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[NexusDefense])
-    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNavalBase, ArmyBrains[Player], 'LOSNow', false, true, categories.NAVAL, true, ArmyBrains[Cybran])
-    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNode, ArmyBrains[Player], 'LOSNow', ScenarioInfo.SWNode, true, categories.ALLUNITS, true, ArmyBrains[Nodes])
+    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNexus, ArmyBrains[Player1], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[NexusDefense])
+    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNavalBase, ArmyBrains[Player1], 'LOSNow', false, true, categories.NAVAL, true, ArmyBrains[Cybran])
+    ScenarioFramework.CreateArmyIntelTrigger(M1PlayerSeesNode, ArmyBrains[Player1], 'LOSNow', ScenarioInfo.SWNode, true, categories.ALLUNITS, true, ArmyBrains[Nodes])
     ScenarioFramework.CreateTimerTrigger(M1EnableBomberEscort, M1EnableBombersTimer)
     ScenarioFramework.CreateTimerTrigger(M1EnableLandAssault, M1EnableLandAssaultTimer)
     ScenarioFramework.CreateTimerTrigger(M1EnableArtilleryConstruction, M1EnableArtilleryTimer)
@@ -775,7 +775,7 @@ function M2MainframeCaptured(unit, captor)
     if not ScenarioInfo.PlayerCapturedMainframe then
         for num, unit in ScenarioInfo.MainframeDefenses do
             if not unit:IsDead() then
-                ScenarioFramework.GiveUnitToArmy(unit, Player)
+                ScenarioFramework.GiveUnitToArmy(unit, Player1)
             end
         end
         -- ScenarioInfo.M2P1Obj:ManualResult(true)
@@ -926,7 +926,7 @@ function M2AttackFive()
     local areaUnits = GetUnitsInRect(ScenarioUtils.AreaToRect('West_Lake_Area'))
     local navyCounter = 0
     for num, unit in areaUnits do
-        if unit:GetAIBrain() == ArmyBrains[Player] and EntityCategoryContains(categories.NAVAL, unit) then
+        if unit:GetAIBrain() == ArmyBrains[Player1] and EntityCategoryContains(categories.NAVAL, unit) then
             navyCounter = navyCounter + 1
         end
     end
@@ -1070,7 +1070,7 @@ function M2NWNodeCaptured(unit, captor)
         ScenarioFramework.Dialogue(OpStrings.A04_M02_030)
         for num, unit in ScenarioInfo.NWDefenses do
             if not unit:IsDead() then
-                ScenarioFramework.GiveUnitToArmy(unit, Player)
+                ScenarioFramework.GiveUnitToArmy(unit, Player1)
             end
         end
     end
@@ -1099,7 +1099,7 @@ function M2SENodeCaptured(unit, captor)
         ScenarioFramework.Dialogue(OpStrings.A04_M02_040)
         for num, unit in ScenarioInfo.SEDefenses do
             if not unit:IsDead() then
-                ScenarioFramework.GiveUnitToArmy(unit, Player)
+                ScenarioFramework.GiveUnitToArmy(unit, Player1)
             end
         end
     end

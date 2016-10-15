@@ -22,19 +22,19 @@ local Utilities = import('/lua/utilities.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player         = 1
+ScenarioInfo.Player1         = 1
 ScenarioInfo.Rhiza          = 2
 ScenarioInfo.UEF            = 3
 ScenarioInfo.FauxUEF        = 4
 ScenarioInfo.FauxRhiza      = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
-local Player                = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1                = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Rhiza                 = ScenarioInfo.Rhiza
 local UEF                   = ScenarioInfo.UEF
 local FauxUEF               = ScenarioInfo.FauxUEF
@@ -246,9 +246,9 @@ function OnStart(self)
     GetArmyBrain(Rhiza):SetResourceSharing(false)
 
     local colors = {
-        ['Coop1'] = {47, 79, 79}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {47, 79, 79}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -283,16 +283,16 @@ function CreateCommander()
 
     WaitSeconds(1)
     -- Player Commander
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -345,7 +345,7 @@ function M1_BeginningObjectives()
         OpStrings.M1P2Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player,
+            Army = ScenarioInfo.Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -374,7 +374,7 @@ function M1_SecondObjective()
         OpStrings.M1P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player,
+            Army = ScenarioInfo.Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -416,7 +416,7 @@ function M2_BuildFactoryObj()
         OpStrings.M2P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -464,7 +464,7 @@ function M3_BuildGunboatsObjective()
         LOCF(OpStrings.M3P1Detail, M3P1_BuildBoatValue, M3P1_BuildBoatValue),        -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M3P1_BuildBoatValue,
@@ -544,7 +544,7 @@ function M4_BuildSubsObj()
         OpStrings.M4P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,

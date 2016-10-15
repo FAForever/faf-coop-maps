@@ -2067,7 +2067,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
@@ -2078,9 +2078,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
                 ['Nexus_Defense'] = 'Enemy',
@@ -3010,7 +3010,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
@@ -3020,9 +3020,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
                 ['Nexus_Defense'] = 'Enemy',
@@ -3046,7 +3046,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
@@ -3056,9 +3056,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
                 ['Nexus_Defense'] = 'Enemy',
@@ -3082,7 +3082,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A04/SCCA_Coop_A04_playerplanlist.lua',
@@ -3092,9 +3092,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Civilian'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
                 ['Nexus_Defense'] = 'Enemy',
@@ -3133,10 +3133,10 @@ Scenario = {
             },
             Alliances = {
                 ['Cybran'] = 'Ally',
-                ['Player'] = 'Neutral',
-                ['Coop1'] = 'Neutral',
-                ['Coop2'] = 'Neutral',
-                ['Coop3'] = 'Neutral',
+                ['Player1'] = 'Neutral',
+                ['Player2'] = 'Neutral',
+                ['Player3'] = 'Neutral',
+                ['Player4'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -5023,10 +5023,10 @@ Scenario = {
             },
             Alliances = {
                 ['Civilian'] = 'Ally',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -15639,10 +15639,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',

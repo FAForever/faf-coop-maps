@@ -18,12 +18,12 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.UEF = 2
 ScenarioInfo.Eris = 3
-ScenarioInfo.Coop1 = 4
-ScenarioInfo.Coop2 = 5
-ScenarioInfo.Coop3 = 6
+ScenarioInfo.Player2 = 4
+ScenarioInfo.Player3 = 5
+ScenarioInfo.Player4 = 6
 
 ScenarioInfo.FirstWave = 1
 ScenarioInfo.SecondWave = 4
@@ -35,10 +35,10 @@ ScenarioInfo.VarTable = {}
 -- Misc Locals
 -------------
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local UEF = ScenarioInfo.UEF
 local Eris = ScenarioInfo.Eris
 
@@ -122,7 +122,7 @@ function OnPopulate(scenario)
 
     -- Give UEF vision of player base
     ScenarioInfo.UEFViz = ScenarioFramework.CreateVisibleAreaLocation(100,
-        ScenarioUtils.MarkerToPosition('Player'), 0, ArmyBrains[UEF])
+        ScenarioUtils.MarkerToPosition('Player1'), 0, ArmyBrains[UEF])
 end
 
 function OnStart(self)
@@ -169,13 +169,13 @@ function OnStart(self)
     ScenarioFramework.SetSharedUnitCap(300)
 
     -- Army colors
-    ScenarioFramework.SetAeonColor(Player)
+    ScenarioFramework.SetAeonColor(Player1)
     ScenarioFramework.SetUEFColor(UEF)
     ScenarioFramework.SetAeonAllyColor(Eris)
     local colors = {
-        ['Coop1'] = {47, 79, 79}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {47, 79, 79}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -198,7 +198,7 @@ function PlayerWin()
 -- Arnold Killed
 --    ScenarioFramework.EndOperationCamera(ScenarioInfo.ArnoldCDR)
         ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.ArnoldCDR)
-        ScenarioFramework.CreateVisibleAreaAtUnit(60, ScenarioInfo.ArnoldCDR, 0, ArmyBrains[Player])
+        ScenarioFramework.CreateVisibleAreaAtUnit(60, ScenarioInfo.ArnoldCDR, 0, ArmyBrains[Player1])
         CreateLightParticle(ScenarioInfo.ArnoldCDR, -1, -1, 60, 6000, 'glow_03', 'ramp_orange_02')
         CreateEmitterAtEntity(ScenarioInfo.ArnoldCDR, -1, '/effects/emitters/a3_end_nis_01_emit.bp')
         CreateEmitterAtEntity(ScenarioInfo.ArnoldCDR, -1, '/effects/emitters/a3_end_nis_02_emit.bp')
@@ -229,16 +229,16 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -255,7 +255,7 @@ function IntroMission1()
     end
     ScenarioFramework.CreateUnitDeathTrigger(PlayerLose, ScenarioInfo.PlayerCDR)
     WaitSeconds(2)
-    IssueMove({ScenarioInfo.ErisCDR}, ScenarioUtils.MarkerToPosition('Player'))
+    IssueMove({ScenarioInfo.ErisCDR}, ScenarioUtils.MarkerToPosition('Player1'))
     ScenarioFramework.Dialogue(OpStrings.A03_M01_010, StartMission1)
     WaitSeconds(10)
     ForkThread(ErisLeaves)
@@ -269,7 +269,7 @@ function StartMission1()
     local platoon = nil
     for k, v in ScenarioInfo.ErisBase do
         if(not v:IsDead()) then
-            unit = ScenarioFramework.GiveUnitToArmy(v, Player)
+            unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 
@@ -277,7 +277,7 @@ function StartMission1()
         if(not v:IsDead()) then
             currentHealth = v:GetHealth()
             originalHealth = v:GetBlueprint().Defense.Health
-            unit = ScenarioFramework.GiveUnitToArmy(v, Player)
+            unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
             unit:AdjustHealth(unit, currentHealth - originalHealth)
         end
     end
@@ -287,7 +287,7 @@ function StartMission1()
         if(not v:IsDead()) then
             currentHealth = v:GetHealth()
             originalHealth = v:GetBlueprint().Defense.Health
-            unit = ScenarioFramework.GiveUnitToArmy(v, Player)
+            unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
             unit:AdjustHealth(unit, currentHealth - originalHealth)
             ArmyBrains[Eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
@@ -301,7 +301,7 @@ function StartMission1()
         if(not v:IsDead()) then
             currentHealth = v:GetHealth()
             originalHealth = v:GetBlueprint().Defense.Health
-            unit = ScenarioFramework.GiveUnitToArmy(v, Player)
+            unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
             unit:AdjustHealth(unit, currentHealth - originalHealth)
             ArmyBrains[Eris]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
@@ -356,7 +356,7 @@ function ErisLeaves()
             v:SetCapturable(false)
             v:SetDoNotTarget(true)
         end
-        ScenarioInfo.Escort:MoveToLocation(ScenarioUtils.MarkerToPosition('Player'), false)
+        ScenarioInfo.Escort:MoveToLocation(ScenarioUtils.MarkerToPosition('Player1'), false)
         WaitSeconds(10)
         ScenarioInfo.Transport = ScenarioUtils.CreateArmyUnit('Eris', 'Transport')
         ScenarioInfo.Transport:SetCanTakeDamage(false)
@@ -944,7 +944,7 @@ function StartMission3()
                         SetAlliance(player, UEF, 'Neutral')
                         SetAlliance(UEF, player, 'Neutral')
             end
-            local units = ArmyBrains[Player]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
+            local units = ArmyBrains[Player1]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
             units = ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
