@@ -16,7 +16,7 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 --------
 -- Locals
 --------
-local Player = 1
+local Player1 = 1
 local Order = 2
 local Loyalist = 4
 local Difficulty = ScenarioInfo.Options.Difficulty

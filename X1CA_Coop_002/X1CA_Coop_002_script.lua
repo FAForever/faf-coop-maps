@@ -35,22 +35,22 @@ local ScriptFile = '/maps/X1CA_Coop_002/X1CA_Coop_002_script.lua'
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Order = 2
 ScenarioInfo.QAI = 3
 ScenarioInfo.Loyalist = 4
 ScenarioInfo.OrderNeutral = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
 --------
 -- Locals
 --------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Order = ScenarioInfo.Order
 local QAI = ScenarioInfo.QAI
 local Loyalist = ScenarioInfo.Loyalist
@@ -74,14 +74,14 @@ local LocalFaction
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
-    
+
     -- Army Colors
     if(LeaderFaction == 'cybran') then
-        ScenarioFramework.SetCybranPlayerColor(Player)
+        ScenarioFramework.SetCybranPlayerColor(Player1)
     elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player)
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonPlayerColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player1)
     end
     
     ScenarioFramework.SetAeonEvilColor(Order)
@@ -89,9 +89,9 @@ function OnPopulate()
     ScenarioFramework.SetAeonAlly1Color(Loyalist)
     ScenarioFramework.SetAeonAlly2Color(OrderNeutral)
     local colors = {
-        ['Coop1'] = {250, 250, 0}, 
-        ['Coop2'] = {255, 255, 255}, 
-        ['Coop3'] = {97, 109, 126}
+        ['Player2'] = {250, 250, 0}, 
+        ['Player3'] = {255, 255, 255}, 
+        ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -232,7 +232,7 @@ function FinalNIS()
     ScenarioFramework.EndOperationSafety()
     Cinematics.EnterNISMode()
 
-    local M1VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Vis_5_1' ), 0, ArmyBrains[Player] )
+    local M1VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Vis_5_1' ), 0, ArmyBrains[Player1] )
 
     -- Make sure that nobody fires on each other
     for _, player in ScenarioInfo.HumanPlayers do
@@ -307,9 +307,9 @@ function IntroNIS()
 
     Cinematics.EnterNISMode()
 
-    local M1VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Viz_1_1' ), 0, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Order_MainBase_Marker' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Resource_Base_Marker' ), 1, ArmyBrains[Player] )
+    local M1VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Viz_1_1' ), 0, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Order_MainBase_Marker' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Resource_Base_Marker' ), 1, ArmyBrains[Player1] )
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
     WaitSeconds(1)
@@ -323,11 +323,11 @@ function IntroNIS()
     Cinematics.ExitNISMode()
 
     if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Aeon_ACU', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', 'Warp', true, true, PlayerDeath)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEF_ACU', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEF_ACU', 'Warp', true, true, PlayerDeath)
     elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
     end
     
     -- spawn coop players too
@@ -335,7 +335,7 @@ function IntroNIS()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
@@ -711,10 +711,10 @@ function IntroMission2NIS()
     WaitSeconds(1)
 
     -- Show the prison
-    ScenarioFramework.CreateVisibleAreaLocation(4, ScenarioInfo.Prison:GetPosition(), 10, ArmyBrains[Player])
-    ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('M2_QAI_Base_Marker'), 10, ArmyBrains[Player])
-    -- ScenarioFramework.CreateVisibleAreaLocation( 60, ScenarioUtils.MarkerToPosition( 'Order_M2_North_Base_Marker' ), 10, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation(350, ScenarioInfo.Prison:GetPosition(), 1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(4, ScenarioInfo.Prison:GetPosition(), 10, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('M2_QAI_Base_Marker'), 10, ArmyBrains[Player1])
+    -- ScenarioFramework.CreateVisibleAreaLocation( 60, ScenarioUtils.MarkerToPosition( 'Order_M2_North_Base_Marker' ), 10, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation(350, ScenarioInfo.Prison:GetPosition(), 1, ArmyBrains[Player1])
 
     WaitSeconds(1)
     ScenarioFramework.Dialogue(OpStrings.X02_M02_010, nil, true)
@@ -865,7 +865,7 @@ function M2DestroyRadius(location)
     ScenarioInfo.M2PingUsed = true
     local radius = 10
 
-    ScenarioFramework.CreateVisibleAreaLocation(radius, location, 7, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(radius, location, 7, ArmyBrains[Player1])
 
     local orderEnemies = ArmyBrains[Order]:GetUnitsAroundPoint(categories.ALLUNITS, location, radius)
     local qaiEnemies = ArmyBrains[QAI]:GetUnitsAroundPoint(categories.ALLUNITS, location, radius)
@@ -1319,7 +1319,7 @@ function IntroMission4NIS()
     ForkThread( LaunchQAINukes )
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_2'), 8)
 
-    ScenarioFramework.CreateVisibleAreaLocation( 5000, ScenarioUtils.MarkerToPosition( 'QAI_M4_Middle_Base' ), 8, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 5000, ScenarioUtils.MarkerToPosition( 'QAI_M4_Middle_Base' ), 8, ArmyBrains[Player1] )
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_3'), 0)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_4'), 8)
@@ -1437,7 +1437,7 @@ function AssignM4S2Cybran()
             Area = 'Cybran_Secondary_Virus_End',
             MarkArea = true,
             Requirements = {
-                {Area = 'Cybran_Secondary_Virus_End', Category = categories.ENGINEER - categories.EXPERIMENTAL, CompareOp = '>=', Value = 1, ArmyIndex = Player},
+                {Area = 'Cybran_Secondary_Virus_End', Category = categories.ENGINEER - categories.EXPERIMENTAL, CompareOp = '>=', Value = 1, ArmyIndex = Player1},
             },
         }
     )
@@ -1553,11 +1553,11 @@ function SetupCeleneM1Taunt()
 end
 
 function SetupCeleneM2Taunt()
-    CeleneTM:AddStartBuildTaunt('TAUNT2', ArmyBrains[Player], categories.EXPERIMENTAL, 2 )          -- Celene responds to experimental
-    CeleneTM:AddStartBuildTaunt('TAUNT3', ArmyBrains[Player], categories.EXPERIMENTAL, 3 )          -- Celene responds to experimental
+    CeleneTM:AddStartBuildTaunt('TAUNT2', ArmyBrains[Player1], categories.EXPERIMENTAL, 2 )          -- Celene responds to experimental
+    CeleneTM:AddStartBuildTaunt('TAUNT3', ArmyBrains[Player1], categories.EXPERIMENTAL, 3 )          -- Celene responds to experimental
     CeleneTM:AddUnitKilledTaunt('TAUNT9', ScenarioInfo.UnitNames[Order]['M2_TauntUnit'])            -- taunt when an opening stream unit is killed
     CeleneTM:AddDamageTaunt('TAUNT12', ScenarioInfo.PlayerCDR, .01)                                 -- Player CDR touched
-    CeleneTM:AddUnitsKilledTaunt('TAUNT10', ArmyBrains[Player], categories.STRUCTURE, 10)           -- Player loses some structures
+    CeleneTM:AddUnitsKilledTaunt('TAUNT10', ArmyBrains[Player1], categories.STRUCTURE, 10)           -- Player loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT11', ArmyBrains[Order], categories.STRUCTURE, 18)            -- Order loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Loyalist], categories.STRUCTURE, 2)           -- Loyalist lose a structure, tuant relating to them
 
@@ -1577,9 +1577,9 @@ function SetupQAIM2Taunt()
     QAITM:AddUnitsKilledTaunt('TAUNT27', ArmyBrains[QAI], categories.STRUCTURE, 3)                  -- QAI loses some structures
 
     if(LeaderFaction == 'cybran') then                                     -- faction specific taunts, player loses some good stuff
-        QAITM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[Player], categories.MOBILE * categories.TECH3, 15)
+        QAITM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[Player1], categories.MOBILE * categories.TECH3, 15)
     elseif(LeaderFaction == 'aeon') then
-        QAITM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player], categories.MOBILE * categories.TECH3, 15)
+        QAITM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player1], categories.MOBILE * categories.TECH3, 15)
     end
 end
 
@@ -1588,11 +1588,11 @@ function SetupQAIM4Taunt()
     QAITM:AddDamageTaunt('TAUNT29', ScenarioInfo.PlayerCDR, .02)                                    -- Player CDR is touched
 
     if(LeaderFaction == 'uef') then                                        -- faction specific taunts, player gets hit a bit
-        QAITM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player], categories.STRUCTURE, 4)
+        QAITM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player1], categories.STRUCTURE, 4)
     elseif(LeaderFaction == 'cybran') then
-        QAITM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[Player], categories.STRUCTURE, 4)
+        QAITM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[Player1], categories.STRUCTURE, 4)
     elseif(LeaderFaction == 'aeon') then
-        QAITM:AddUnitsKilledTaunt('TAUNT34', ArmyBrains[Player], categories.STRUCTURE, 4)
+        QAITM:AddUnitsKilledTaunt('TAUNT34', ArmyBrains[Player1], categories.STRUCTURE, 4)
     end
     QAITM:AddDamageTaunt('TAUNT35', ScenarioInfo.QAICommander, .20)
 

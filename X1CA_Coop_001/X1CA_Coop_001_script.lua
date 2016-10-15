@@ -30,21 +30,21 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Seraphim = 2
 ScenarioInfo.Order = 3
 ScenarioInfo.UEF = 4
 ScenarioInfo.Civilians = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 --------
 -- Locals
 --------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Seraphim = ScenarioInfo.Seraphim
 local Order = ScenarioInfo.Order
 local UEF = ScenarioInfo.UEF
@@ -249,20 +249,20 @@ local RequiredTrucks = {6, 6, 6}
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
-
+    
     -- Build the faction-specific voiceover table.
     VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
 
     -- Army Colors
-    ScenarioFramework.SetUEFAlly1Color(Player)      -- starting base units are "originally" from the UEF, before being given to player
+    ScenarioFramework.SetUEFAlly1Color(Player1)      -- starting base units are "originally" from the UEF, before being given to player
     ScenarioFramework.SetSeraphimColor(Seraphim)
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetUEFAlly1Color(UEF)
     ScenarioFramework.SetUEFAlly2Color(Civilians)
     local colors = {
-        ['Coop1'] = {250, 250, 0}, 
-        ['Coop2'] = {255, 255, 255}, 
-        ['Coop3'] = {97, 109, 126}
+        ['Player2'] = {250, 250, 0}, 
+        ['Player3'] = {255, 255, 255}, 
+        ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -479,17 +479,17 @@ function IntroNISPart1()
 
     -- Vis markers near base, artillery, etc.
     local delay = 25 + NIS1InitialDelay
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_3' ), 35 + NIS1InitialDelay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), delay, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_1' ), delay, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_2' ), delay, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_3' ), 35 + NIS1InitialDelay, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_4' ), delay, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'M1_NIS_Vis_5' ), delay, ArmyBrains[Player1] )
 
     -- Grant intel on the enemy base locations
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Base_Marker' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Base_Marker' ), delay, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Base_Marker' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Base_Marker' ), delay, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_East_Bluffs_Patrol_3' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 30, ScenarioUtils.MarkerToPosition( 'Order_M1_West_Bluffs_Patrol_1' ), 1, ArmyBrains[Player1] )
 
     -- Let slower machines catch up before we get going
     WaitSeconds(NIS1InitialDelay)
@@ -571,30 +571,30 @@ end
 function IntroNISPart2()
     -- set faction color before spawning in player CDR
     if(LeaderFaction == 'cybran') then
-        ScenarioFramework.SetCybranPlayerColor(Player)
+        ScenarioFramework.SetCybranPlayerColor(Player1)
     elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player)
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonPlayerColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player1)
     end
 
     if(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Gate', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Gate', true, true, PlayerDeath)
     elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Gate', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Gate', true, true, PlayerDeath)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Gate', true, true, PlayerDeath)
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Gate', true, true, PlayerDeath)
     end
 
     -- Give the special NIS units to the player
     if ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir:IsDead() then
-        ScenarioInfo.NISAntiAir = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISAntiAir, Player )
+        ScenarioInfo.NISAntiAir = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISAntiAir, Player1 )
     end
     if ScenarioInfo.NISShield and not ScenarioInfo.NISShield:IsDead() then
-        ScenarioInfo.NISShield = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISShield, Player )
+        ScenarioInfo.NISShield = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISShield, Player1 )
     end
     if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
-        ScenarioInfo.NISGate = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISGate, Player )
+        ScenarioInfo.NISGate = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISGate, Player1 )
     end
 
     local NIS1Over90PostConversion = {}
@@ -602,14 +602,14 @@ function IntroNISPart2()
 
     for k, unit in ScenarioInfo.NIS1Over90 do
         if (unit and not unit:IsDead()) then
-            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player )
+            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player1 )
             table.insert( NIS1Over90PostConversion, tempUnit )
             tempUnit:SetCanBeKilled( false )
         end
     end
     for k, unit in ScenarioInfo.NIS1Over80 do
         if (unit and not unit:IsDead()) then
-            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player )
+            local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player1 )
             table.insert( NIS1Over80PostConversion, tempUnit )
             tempUnit:SetCanBeKilled( false )
         end
@@ -621,7 +621,7 @@ function IntroNISPart2()
 
     -- Give objective shield to player
     if(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead()) then
-        local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player)
+        local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player1)
         ScenarioInfo.M1ObjectiveShield = unit
         ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
     end
@@ -630,7 +630,7 @@ function IntroNISPart2()
     local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Player_Base_Area'))
     for k, v in units do
         if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF]) then
-            ScenarioFramework.GiveUnitToArmy( v, Player )
+            ScenarioFramework.GiveUnitToArmy( v, Player1 )
         end
     end
 
@@ -640,15 +640,15 @@ function IntroNISPart2()
     end
 
     -- Percivals back on patrol
-    local percivals = ArmyBrains[Player]:GetListOfUnits(categories.xel0305, false)
-    local percivalPlatoon = ArmyBrains[Player]:MakePlatoon(' ', ' ')
-    ArmyBrains[Player]:AssignUnitsToPlatoon( percivalPlatoon, percivals, 'Attack', 'AttackFormation' )
+    local percivals = ArmyBrains[Player1]:GetListOfUnits(categories.xel0305, false)
+    local percivalPlatoon = ArmyBrains[Player1]:MakePlatoon(' ', ' ')
+    ArmyBrains[Player1]:AssignUnitsToPlatoon( percivalPlatoon, percivals, 'Attack', 'AttackFormation' )
     ScenarioFramework.PlatoonPatrolChain(percivalPlatoon, 'Player_PercivalPatrol_Chain')
 
     -- Subs back on patrol
-    local subs = ArmyBrains[Player]:GetListOfUnits(categories.ues0203, false)
-    local platoon = ArmyBrains[Player]:MakePlatoon('', '')
-    ArmyBrains[Player]:AssignUnitsToPlatoon(platoon, subs, 'Attack', 'AttackFormation')
+    local subs = ArmyBrains[Player1]:GetListOfUnits(categories.ues0203, false)
+    local platoon = ArmyBrains[Player1]:MakePlatoon('', '')
+    ArmyBrains[Player1]:AssignUnitsToPlatoon(platoon, subs, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'Player_Start_NavalPatrol_Chain')
 
     local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('CDRWarp'))
@@ -657,7 +657,7 @@ function IntroNISPart2()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Gate', true, true, PlayerDeath)
@@ -1239,10 +1239,10 @@ function IntroMission2NIS()
     ScenarioFramework.Dialogue(VoiceOvers.CivvyMessage, nil, true) -- 9 sec
 
     -- Give intel on the enemy bases briefly, so the buildings are visible under fog
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_1' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_2' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_3' ), 1, ArmyBrains[Player] )
-    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_4' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_1' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_2' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_3' ), 1, ArmyBrains[Player1] )
+    ScenarioFramework.CreateVisibleAreaLocation( 50, ScenarioUtils.MarkerToPosition( 'M2_NIS_Vis_4' ), 1, ArmyBrains[Player1] )
     WaitSeconds(1)
 
     -- Sweep over the action northwards
@@ -1925,7 +1925,7 @@ function Mission3NIS()
     WaitSeconds(1)
 
     -- One vis marker with a huge radius will work for this
-    local M3VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M3_NIS_Vis_1' ), 0, ArmyBrains[Player] )
+    local M3VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M3_NIS_Vis_1' ), 0, ArmyBrains[Player1] )
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
     ScenarioFramework.Dialogue(VoiceOvers.AeonRevenge1, nil, true)
     WaitSeconds(1)
@@ -2315,7 +2315,7 @@ function M4CounterAttack()
 
     -- sends gunships if player has > [60, 40, 20] T2/T3 land units, 1 group per 10, up to 10 groups, plus 3 transport groups
     trigger = {60, 40, 20}
-    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.LAND) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player]))
+    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.LAND) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player1]))
     if(num > trigger[Difficulty]) then
         num = math.ceil(num/10)
         if(num > 10) then
@@ -2340,7 +2340,7 @@ function M4CounterAttack()
 
     -- sends air superiority if player has > [80, 60, 40] T2/T3 air units, 1 group per 15, up to 6 groups
     trigger = {80, 60, 40}
-    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.AIR) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player]))
+    num = table.getn(ScenarioFramework.GetCatUnitsInArea((categories.MOBILE * categories.AIR) - categories.TECH1, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player1]))
     if(num > trigger[Difficulty]) then
         num = math.ceil(num/15)
         if(num > 6) then
@@ -2353,7 +2353,7 @@ function M4CounterAttack()
     end
 
     -- sends air superiority at air experimentals, 3 groups each, up to 4 experimentals
-    local exp = ScenarioFramework.GetCatUnitsInArea(categories.AIR * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player])
+    local exp = ScenarioFramework.GetCatUnitsInArea(categories.AIR * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player1])
     num = table.getn(exp)
     if(num > 0) then
         if(num > 4) then
@@ -2369,7 +2369,7 @@ function M4CounterAttack()
     end
 
     -- sends strat bombers at land experimentals, 3 groups each, up to 4 experimentals
-    exp = ScenarioFramework.GetCatUnitsInArea(categories.LAND * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player])
+    exp = ScenarioFramework.GetCatUnitsInArea(categories.LAND * categories.EXPERIMENTAL, ScenarioUtils.AreaToRect('M3_North_Area'), ArmyBrains[Player1])
     num = table.getn(exp)
     if(num > 0) then
         if(num > 4) then
@@ -2408,21 +2408,21 @@ function M4CounterAttack()
 
     -- sends naval is player has > [14, 12, 10] T2/T3 navy
     trigger = {14, 12, 10}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if(table.getn(ArmyBrains[Player1]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval1_Destro', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
     -- sends naval is player has > [20, 18, 16] T2/T3 navy
     trigger = {20, 18, 16}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if(table.getn(ArmyBrains[Player1]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval2_Cruiser', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
     -- sends naval is player has > [26, 24, 22] T2/T3 navy
     trigger = {26, 24, 22}
-    if(table.getn(ArmyBrains[Player]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
+    if(table.getn(ArmyBrains[Player1]:GetListOfUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1, false)) > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval3_Destro', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
@@ -2463,7 +2463,7 @@ function IntroMission4NIS()
 
     -- give intel on the enemy base; this is off-camera and buried in the
     -- NIS script where cameras will not show what we're doing
-    ScenarioFramework.CreateVisibleAreaLocation( 130, ScenarioUtils.MarkerToPosition( 'M4_Ser_Incarna1_Patrol_2' ), 1, ArmyBrains[Player] )
+    ScenarioFramework.CreateVisibleAreaLocation( 130, ScenarioUtils.MarkerToPosition( 'M4_Ser_Incarna1_Patrol_2' ), 1, ArmyBrains[Player1] )
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_6'), 0)
     WaitSeconds(1)
@@ -2860,7 +2860,7 @@ function SetupFletcherTauntTriggers()
         FletcherTM:AddUnitsKilledTaunt('X01_M03_100', ArmyBrains[UEF], categories.STRUCTURE, 14)                -- Fletcher loses 14 structures, Aeon
     end
     FletcherTM:AddUnitKilledTaunt('TAUNT25', ScenarioInfo.UnitNames[Seraphim]['taunt_unit_1'])                  -- "You freaks..." when a particular outer-ring building is destroyed
-    FletcherTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Player], categories.EXPERIMENTAL, 1)                   -- Player loses exp, Sereaphim "hahaha"
+    FletcherTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Player1], categories.EXPERIMENTAL, 1)                   -- Player loses exp, Sereaphim "hahaha"
     FletcherTM:AddUnitsKilledTaunt('TAUNT26', ArmyBrains[UEF], categories.STRUCTURE, 16)                        -- "...I could use a hand"
     FletcherTM:AddUnitsKilledTaunt('X01_M03_260', ArmyBrains[Seraphim], categories.STRUCTURE, 10)
 end
@@ -2871,5 +2871,5 @@ function SetupSeraphimTauntTriggers()
     SeraphTM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[UEF], categories.MOBILE, 60)                           -- seraph taunt
     SeraphTM:AddUnitsKilledTaunt('TAUNT31', ArmyBrains[UEF], categories.MOBILE, 120)                           -- seraph taunt
     SeraphTM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[UEF], categories.ALLUNITS, 95)                         -- seraph taunt
-    SeraphTM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player], categories.TECH3, 15)                         -- seraph taunt
+    SeraphTM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player1], categories.TECH3, 15)                         -- seraph taunt
 end

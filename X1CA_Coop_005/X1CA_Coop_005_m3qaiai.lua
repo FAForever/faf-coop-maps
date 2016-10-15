@@ -15,7 +15,7 @@ local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 --------
 -- Locals
 --------
-local Player = 1
+local Player1 = 1
 local QAI = 4
 local AeonArmy = 5
 local UEFArmy = 6
@@ -1162,7 +1162,7 @@ function M3AttackMegalithLandAI(platoon)
 end
 
 function CDROnWater(category)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local unit = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
     local result = false
 
     if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Seabed') then
@@ -1175,7 +1175,7 @@ function CDROnWater(category)
 end
 
 function CDROnLand(category)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local unit = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
     local result = false
 
     if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Land') then
@@ -1188,7 +1188,7 @@ function CDROnLand(category)
 end
 
 function M3AttackCDRWaterAI(platoon)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local unit = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
     if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Seabed') then
         platoon:AttackTarget(unit[1])
     else
@@ -1197,7 +1197,7 @@ function M3AttackCDRWaterAI(platoon)
 end
 
 function M3AttackCDRLandAI(platoon)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local unit = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
     if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Land') then
         platoon:AttackTarget(unit[1])
     else

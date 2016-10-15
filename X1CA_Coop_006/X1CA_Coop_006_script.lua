@@ -27,16 +27,16 @@ local EffectUtilities = import('/lua/EffectUtilities.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Rhiza = 2
 ScenarioInfo.Fletcher = 3
 ScenarioInfo.Order = 4
 ScenarioInfo.Seraphim = 5
 ScenarioInfo.ControlCenter = 6
 ScenarioInfo.OptionZero = 7
-ScenarioInfo.Coop1 = 8
-ScenarioInfo.Coop2 = 9
-ScenarioInfo.Coop3 = 10
+ScenarioInfo.Player2 = 8
+ScenarioInfo.Player3 = 9
+ScenarioInfo.Player4 = 10
 
 ScenarioInfo.ControlCenterPossession = 0
 ScenarioInfo.NukesLaunched = 0
@@ -45,10 +45,10 @@ ScenarioInfo.NukesAllowed = {1, 3, 4}
 --------
 -- Locals
 --------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Rhiza = ScenarioInfo.Rhiza
 local Fletcher = ScenarioInfo.Fletcher
 local Order = ScenarioInfo.Order
@@ -95,11 +95,11 @@ function OnPopulate(scenario)
 
     -- Army Colors
     if(LeaderFaction == 'cybran') then
-        ScenarioFramework.SetCybranPlayerColor(Player)
+        ScenarioFramework.SetCybranPlayerColor(Player1)
     elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player)
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
-        ScenarioFramework.SetAeonPlayerColor(Player)
+        ScenarioFramework.SetAeonPlayerColor(Player1)
     end
     ScenarioFramework.SetAeonAlly1Color(Rhiza)
     ScenarioFramework.SetUEFAlly1Color(Fletcher)
@@ -108,9 +108,9 @@ function OnPopulate(scenario)
     ScenarioFramework.SetNeutralColor(ControlCenter)
     ScenarioFramework.SetNeutralColor(OptionZero)
     local colors = {
-        ['Coop1'] = {250, 250, 0}, 
-        ['Coop2'] = {255, 255, 255}, 
-        ['Coop3'] = {97, 109, 126}
+        ['Player2'] = {250, 250, 0}, 
+        ['Player3'] = {255, 255, 255}, 
+        ['Player4'] = {97, 109, 126}
     }
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
@@ -148,7 +148,7 @@ function OnPopulate(scenario)
         ScenarioInfo.UnitNames[Seraphim]['M1_Seraph_sACU_1']:CreateEnhancement('EngineeringThroughput')
     end
 
-    ScenarioFramework.CreateArmyStatTrigger(M1SeraphimAI.M1NavalFactoryBuilt, ArmyBrains[Player], 'M1NavalFactoryBuilt',
+    ScenarioFramework.CreateArmyStatTrigger(M1SeraphimAI.M1NavalFactoryBuilt, ArmyBrains[Player1], 'M1NavalFactoryBuilt',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.NAVAL}})
 
     --------------------------
@@ -189,15 +189,15 @@ function sACURhizaAI(unit)
     end
     WaitSeconds(1)
 
-    if tblArmy[ScenarioInfo.Coop1] then
-        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+    if tblArmy[ScenarioInfo.Player2] then
+        ScenarioFramework.GiveUnitToArmy(unit, Player2)
         for k, v in ScenarioInfo.RhizaPlayerBase do
-            ScenarioFramework.GiveUnitToArmy(v, Coop1)
+            ScenarioFramework.GiveUnitToArmy(v, Player2)
         end
     else
-        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        ScenarioFramework.GiveUnitToArmy(unit, Player1)
         for k, v in ScenarioInfo.RhizaPlayerBase do
-            ScenarioFramework.GiveUnitToArmy(v, Player)
+            ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 end
@@ -211,10 +211,10 @@ function RhizaColossusAI()
         end
     end
     WaitSeconds(1)
-    if tblArmy[ScenarioInfo.Coop1] then
-        ScenarioFramework.GiveUnitToArmy(unit, Coop1)
+    if tblArmy[ScenarioInfo.Player2] then
+        ScenarioFramework.GiveUnitToArmy(unit, Player2)
     else
-        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        ScenarioFramework.GiveUnitToArmy(unit, Player1)
     end
 end
 
@@ -224,15 +224,15 @@ function sACUFletcherAI(unit)
         WaitSeconds(.5)
     end
     WaitSeconds(1)
-    if tblArmy[ScenarioInfo.Coop2] then
-        ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+    if tblArmy[ScenarioInfo.Player3] then
+        ScenarioFramework.GiveUnitToArmy(unit, Player3)
         for k, v in ScenarioInfo.FletcherPlayerBase do
-            ScenarioFramework.GiveUnitToArmy(v, Coop2)
+            ScenarioFramework.GiveUnitToArmy(v, Player3)
         end
     else
-        ScenarioFramework.GiveUnitToArmy(unit, Player)
+        ScenarioFramework.GiveUnitToArmy(unit, Player1)
         for k, v in ScenarioInfo.FletcherPlayerBase do
-            ScenarioFramework.GiveUnitToArmy(v, Player)
+            ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 end
@@ -287,13 +287,13 @@ function FletcherTransportAI()
         end
         v:Destroy()
     end
-    if tblArmy[ScenarioInfo.Coop2] then
+    if tblArmy[ScenarioInfo.Player3] then
         for k, unit in allUnits do
-            ScenarioFramework.GiveUnitToArmy(unit, Coop2)
+            ScenarioFramework.GiveUnitToArmy(unit, Player3)
         end
     else
         for k, unit in allUnits do
-            ScenarioFramework.GiveUnitToArmy(unit, Player)
+            ScenarioFramework.GiveUnitToArmy(unit, Player1)
         end
     end
 end
@@ -328,7 +328,7 @@ function PlayerWin()
                 ScenarioFramework.Dialogue(OpStrings.X06_M03_105, nil, true)
 
                 if(ScenarioInfo.M2S1.Active) then
-                    if(ScenarioInfo.ControlCenterPossession == Player or ScenarioInfo.ControlCenterPossession == Rhiza) then
+                    if(ScenarioInfo.ControlCenterPossession == Player1 or ScenarioInfo.ControlCenterPossession == Rhiza) then
                         ScenarioInfo.M2S1:ManualResult(true)
                     else
                         ScenarioInfo.M2S1:ManualResult(false)
@@ -336,7 +336,7 @@ function PlayerWin()
                 end
 
                 Cinematics.EnterNISMode()
-                local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player])
+                local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player1])
 
                 WaitSeconds(1)
                 Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
@@ -401,8 +401,8 @@ function IntroMission1NIS()
                 ScenarioFramework.Dialogue(OpStrings.X06_M01_050, nil, true)
             end
 
-            ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M3_Seraph_LandAttack2_9'), 1, ArmyBrains[Player])
-            ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M2_Order_AirAttack_1_3'), 1, ArmyBrains[Player])
+            ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M3_Seraph_LandAttack2_9'), 1, ArmyBrains[Player1])
+            ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M2_Order_AirAttack_1_3'), 1, ArmyBrains[Player1])
 
             WaitSeconds(1)
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
@@ -421,23 +421,23 @@ function IntroMission1NIS()
             ForkThread(function()
                 WaitSeconds(1)
                 if (LeaderFaction == 'aeon') then
-                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'AeonPlayer', 'Warp', true, true, PlayerLose)
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Warp', true, true, PlayerLose)
                 elseif (LeaderFaction == 'cybran') then
-                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'CybranPlayer', 'Warp', true, true, PlayerLose)
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Warp', true, true, PlayerLose)
                 elseif (LeaderFaction == 'uef') then
-                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'UEFPlayer', 'Warp', true, true, PlayerLose)
+                    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                 end
 
-                -- Spawn Coop3
+                -- Spawn Player4
                 local tblArmy = ListArmies()
-                if tblArmy[ScenarioInfo.Coop3] then
-                    factionIdx = GetArmyBrain('Coop3'):GetFactionIndex()
+                if tblArmy[ScenarioInfo.Player4] then
+                    factionIdx = GetArmyBrain('Player4'):GetFactionIndex()
                     if (factionIdx == 1) then
-                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'UEFPlayer', 'Warp', true, true, PlayerLose)
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Player4', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                     elseif (factionIdx == 2) then
-                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'AeonPlayer', 'Warp', true, true, PlayerLose)
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Player4', 'AeonPlayer', 'Warp', true, true, PlayerLose)
                     else
-                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Coop3', 'CybranPlayer', 'Warp', true, true, PlayerLose)
+                        ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Player4', 'CybranPlayer', 'Warp', true, true, PlayerLose)
                     end
                 end
             end)
@@ -510,7 +510,7 @@ function StartMission1()
 
     ScenarioFramework.CreateTimerTrigger(M1Subplot, 360)
     if(Difficulty > 1) then
-        ScenarioFramework.CreateArmyStatTrigger(M1ExperimentalBuilt, ArmyBrains[Player], 'M1ExperimentalBuilt',
+        ScenarioFramework.CreateArmyStatTrigger(M1ExperimentalBuilt, ArmyBrains[Player1], 'M1ExperimentalBuilt',
             {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.EXPERIMENTAL}})
     end
     ScenarioFramework.Dialogue(OpStrings.X06_M01_120)
@@ -820,8 +820,8 @@ function IntroMission2NIS()
     WaitSeconds(1)
 
     -- Sneak these intel flashes into the NIS; the player should have intel on the enemy bases afterwards
-    ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player])
-    ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player1])
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
     WaitSeconds(1)
@@ -962,8 +962,8 @@ function IntroMission2NIS()
     end
     SetAlliance(Fletcher, Rhiza, 'Enemy')
 
-    ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player])
-    ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player1])
 
     StartMission2()
 end
@@ -998,7 +998,7 @@ function StartMission2()
     ScenarioFramework.Dialogue(OpStrings.X06_M02_050)
 
     -- Play Quantum Resource Generator VO when Order's is spotted
-    ScenarioFramework.CreateArmyIntelTrigger(M2ParagonSpotted , ArmyBrains[Player], 'LOSNow', false , true, categories.xab1401, true, ArmyBrains[Order])
+    ScenarioFramework.CreateArmyIntelTrigger(M2ParagonSpotted , ArmyBrains[Player1], 'LOSNow', false , true, categories.xab1401, true, ArmyBrains[Order])
 
     -------------------------------------
     -- Primary Objective 1 - Kill Fletcher
@@ -1433,7 +1433,7 @@ end
 function ControlCenterDestroyed()
     ScenarioFramework.Dialogue(OpStrings.X06_M02_210)
     if(ScenarioInfo.M2S1 and ScenarioInfo.M2S1.Active) then
-        if(ScenarioInfo.ControlCenterPossession == Player) then
+        if(ScenarioInfo.ControlCenterPossession == Player1) then
             ScenarioInfo.M2S1:ManualResult(true)
         else
             ScenarioInfo.M2S1:ManualResult(false)
@@ -1456,9 +1456,9 @@ function ControlCenterCaptured(newControlCenter, captor)
     ScenarioInfo.ControlCenterBldg:SetRegenRate(5)
     local army = captor:GetArmy()
 
-    if(ScenarioInfo.ControlCenterPossession == Player and not army == Player) then
+    if(ScenarioInfo.ControlCenterPossession == Player1 and not army == Player1) then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_160)
-    elseif(not ScenarioInfo.ControlCenterPossession == Player and not army == Player) then
+    elseif(not ScenarioInfo.ControlCenterPossession == Player1 and not army == Player1) then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_200)
     end
 
@@ -1507,8 +1507,8 @@ function ControlCenterCaptured(newControlCenter, captor)
         end
 
         M2OptionZeroRhizaNuke()
-    elseif(army == Player) then
-        ScenarioInfo.ControlCenterPossession = Player
+    elseif(army == Player1) then
+        ScenarioInfo.ControlCenterPossession = Player1
 
         -- Remove any old timers
         if(ScenarioInfo.NukeTimer) then
@@ -1601,7 +1601,7 @@ function M2OptionZeroRhizaNuke()
 end
 
 function M2OptionZeroPlayerNuke(location)
-    if(ScenarioInfo.ControlCenterPossession == Player and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == Player1 and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
         ScenarioInfo.NukePing:Destroy()
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.OptionZeroNuke}, location)
@@ -1619,7 +1619,7 @@ function NukeTimer()
     elseif(ScenarioInfo.ControlCenterPossession == Order) then
         M2OptionZeroOrderNuke()
         LOG('*DEBUG: Order ready to launch nuke')
-    elseif(ScenarioInfo.ControlCenterPossession == Player) then
+    elseif(ScenarioInfo.ControlCenterPossession == Player1) then
         ScenarioInfo.NukePing = PingGroups.AddPingGroup(OpStrings.X06_M01_OBJ_010_030, nil, 'attack', OpStrings.X06_M01_OBJ_010_040)
         ScenarioInfo.NukePing:AddCallback(M2OptionZeroPlayerNuke)
         LOG('*DEBUG: nuke timer fired, added nuke ping')
@@ -1782,9 +1782,9 @@ function IntroMission3NIS()
             ForkThread(RiftNISWave)
             ForkThread(Rift)
 
-            local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player])
-            local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_2'), 0, ArmyBrains[Player])
-            local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_3'), 0, ArmyBrains[Player])
+            local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player1])
+            local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_2'), 0, ArmyBrains[Player1])
+            local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_3'), 0, ArmyBrains[Player1])
 
             WaitSeconds(1)
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
@@ -2532,7 +2532,7 @@ function SetupFletcherTauntTriggers()
     FletcherTM:AddEnemiesKilledTaunt('TAUNT48', ArmyBrains[Fletcher], categories.ALLUNITS, 100)
 -- FletcherTM:AddEnemiesKilledTaunt('TAUNT50', ArmyBrains[Fletcher], categories.TECH3, 35)
     FletcherTM:AddEnemiesKilledTaunt('TAUNT48', ArmyBrains[Fletcher], categories.EXPERIMENTAL, 1)
-    FletcherTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Player], categories.UEF, 40)
+    FletcherTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Player1], categories.UEF, 40)
 
     if(LeaderFaction == 'uef') then
         FletcherTM:AddUnitsKilledTaunt('TAUNT36', ArmyBrains[Fletcher], categories.STRUCTURE * categories.DEFENSE, 2)
@@ -2570,8 +2570,8 @@ end
 function SetupRhizaTauntTriggers()
     RhizaTM:AddTauntingCharacter(ScenarioInfo.RhizaACU)
 
-    RhizaTM:AddUnitsKilledTaunt('TAUNT57', ArmyBrains[Player], categories.EXPERIMENTAL * categories.AIR, 2)
-    RhizaTM:AddUnitsKilledTaunt('TAUNT60', ArmyBrains[Player], categories.EXPERIMENTAL * categories.NAVAL, 2)
+    RhizaTM:AddUnitsKilledTaunt('TAUNT57', ArmyBrains[Player1], categories.EXPERIMENTAL * categories.AIR, 2)
+    RhizaTM:AddUnitsKilledTaunt('TAUNT60', ArmyBrains[Player1], categories.EXPERIMENTAL * categories.NAVAL, 2)
     RhizaTM:AddEnemiesKilledTaunt('TAUNT9', ArmyBrains[Seraphim], categories.xsb1301, 6)
 end
 
