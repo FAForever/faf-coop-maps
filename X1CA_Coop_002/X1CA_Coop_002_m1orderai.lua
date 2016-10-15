@@ -10,7 +10,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
-local AIFileName = '/maps/X1CA_Coop_002/X1CA_Coop_002_m1orderai.lua'
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 --------
@@ -95,7 +94,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ANTIAIR, '>='})
     end
 
@@ -116,7 +115,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
     end
 
@@ -153,7 +152,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.STRUCTURE - categories.WALL, '>='})
     end
 
@@ -174,7 +173,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE - categories.TECH1, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.STRUCTURE - categories.TECH1, '>='})
     end
 
@@ -195,7 +194,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
     end
 
@@ -279,7 +278,7 @@ function OrderM1MainBaseAirAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
@@ -355,7 +354,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
@@ -392,7 +391,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1, '>='})
     end
 
@@ -413,7 +412,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], (categories.DIRECTFIRE + categories.INDIRECTFIRE) - categories.TECH1, '>='})
     end
 
@@ -434,7 +433,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
@@ -455,7 +454,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
@@ -539,7 +538,7 @@ function OrderM1MainBaseLandAttacks()
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     else
-        opai:AddBuildCondition(AIFileName, 'BrainsCompareNumCategory',
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers', 'Loyalist'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
