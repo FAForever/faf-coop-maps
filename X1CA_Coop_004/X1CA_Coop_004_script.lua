@@ -20,6 +20,7 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
+local FactionData = import('/lua/factions.lua')
 
 ---------
 -- Globals
@@ -327,15 +328,25 @@ function M1UnitRevealTrigger()
 end
 
 function M1UnitReveal()
-    -- UEF Engineering Station 1-2
-    ScenarioFramework.UnrestrictWithVoiceover(categories.xeb0104, "uef", OpStrings.X04_M01_012)
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xeb0204)
-
-    -- Cybran Engineering Station 1-3
-    ScenarioFramework.Dialogue(OpStrings.X04_M01_013)
-    ScenarioFramework.UnrestrictWithVoiceover(categories.xrb0104, "cybran", OpStrings.X04_M01_013)
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrb0204)
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xrb0304)
+    -- Check if there are any uef or cybran players. Do dialogue for one of the factions.
+    local tblArmy = ListArmies()
+    for iArmy, strArmy in pairs(tblArmy) do
+        if ScenarioInfo.ArmySetup[strArmy].Human then
+            local index = ArmyBrains[iArmy]:GetFactionIndex()
+            local faction = FactionData.Factions[index].Key
+            if faction == "uef" then
+                ScenarioFramework.Dialogue(OpStrings.X04_M01_012)
+                break
+            end
+            if faction == "cybran" then
+                ScenarioFramework.Dialogue(OpStrings.X04_M01_013)
+                break
+            end
+        end
+    end
+    
+    -- UEF Engineering Station 1-2 and Cybran Engineering Station 1-3
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xeb0104 + categories.xeb0204 + categories.xrb0104 + categories.xrb0204 + categories.xrb0304)
 end
 
 function M1BrickPingEvent()
