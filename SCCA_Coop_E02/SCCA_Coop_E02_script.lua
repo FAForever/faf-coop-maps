@@ -186,14 +186,14 @@ local M3P2ReoccuringReminderDelay = 900
 -- ### Global variables
 ScenarioInfo.MissionNumber = 1
 
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.AllyResearch = 3
 ScenarioInfo.AllyCivilian = 4
 ScenarioInfo.AeonNeutral = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 ScenarioInfo.VarTable = {}
 ScenarioInfo.VarTable['BuildDefenseGunships'] = false
 ScenarioInfo.PreviousResearchHealthPercentage = 110
@@ -245,10 +245,10 @@ local SkipM1IntroNIS = true
 local SkipM2IntroNIS = true
 local SkipM3IntroNIS = true
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local AllyResearch = ScenarioInfo.AllyResearch
 local AllyCivilian = ScenarioInfo.AllyCivilian
@@ -437,15 +437,15 @@ function OnStart(self)
     SetIgnorePlayableRect(AllyResearch, true)
     SetIgnorePlayableRect(AllyCivilian, true)
 
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetAeonColor(AeonNeutral)
     ScenarioFramework.SetUEFAllyColor(AllyResearch)
     ScenarioFramework.SetUEFAllyColor(AllyCivilian)
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -487,16 +487,16 @@ function PreIntroNIS()
     ScenarioInfo.ResearchGroup = ScenarioUtils.CreateArmyGroup('AllyResearch', AdjustForDifficulty('Base'))
 
     -- Create some of the key units and save handles to them
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -703,7 +703,7 @@ function PreIntroNIS()
         Parameters = {
             Rectangle = { ScenarioUtils.AreaToRect('Research_Area'), },
             Category = categories.UEF * categories.ENGINEER,
-            Brain = ArmyBrains[Player],
+            Brain = ArmyBrains[Player1],
         },
     }
     ScenarioInfo.TriggerManager:AddTrigger(TriggerHandle)
@@ -731,7 +731,7 @@ function PreIntroNIS()
         Parameters = {
             StatName = 'Units_Active',
             Number = 1,
-            Brain = ArmyBrains[Player],
+            Brain = ArmyBrains[Player1],
             Category = categories.TRANSPORTATION,
         },
     }
@@ -760,7 +760,7 @@ function PreIntroNIS()
         Parameters = {
             StatName = 'Units_Active',
             Number = 1,
-            Brain = ArmyBrains[Player],
+            Brain = ArmyBrains[Player1],
             Category = categories.FACTORY * categories.AIR,
         },
     }
@@ -797,7 +797,7 @@ end
 function IntroNIS()
 
     -- This is a marker that happens to be located centrally, so I'm using it to expose the map during the NIS
-    ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point04'), 27, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('M1_Air_Patrol01_Point04'), 27, ArmyBrains[Player1])
 
     -- Now for the real NIS stuff: camera movements!
 
@@ -859,10 +859,10 @@ function BeginMission1()
     ScenarioFramework.SetSharedUnitCap(300)
 
     -- Bonus Objective 1
-    -- ScenarioFramework.CreateArmyUnitCategoryVeterancyTrigger(KilledBonus, ArmyBrains[ Player ], categories.uea0203, BonusVeterancyLevelNeeded)
+    -- ScenarioFramework.CreateArmyUnitCategoryVeterancyTrigger(KilledBonus, ArmyBrains[ Player1 ], categories.uea0203, BonusVeterancyLevelNeeded)
 
     -- Bonus Objective 2
-    -- ScenarioFramework.CreateArmyStatTrigger(EnergyBonus, ArmyBrains[ Player ], 'Generator',
+    -- ScenarioFramework.CreateArmyStatTrigger(EnergyBonus, ArmyBrains[ Player1 ], 'Generator',
     -- {{ StatType = 'Economy_TotalProduced_Energy', CompareType = 'GreaterThan', Value = BonusEnergyAmount }})
 
     -- Look at the commander
@@ -1225,12 +1225,12 @@ function CommanderArrived()
     -- Give ally base buildings to the player
     for k, unit in ScenarioInfo.ResearchGroup do
         if not unit:IsDead() then
-            ScenarioFramework.GiveUnitToArmy(unit, Player)
+            ScenarioFramework.GiveUnitToArmy(unit, Player1)
         end
     end
 
     local health = ScenarioInfo.ResearchFacility:GetHealth()
-    ScenarioInfo.ResearchFacility = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.ResearchFacility, Player)
+    ScenarioInfo.ResearchFacility = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.ResearchFacility, Player1)
     ScenarioInfo.ResearchFacility:SetReclaimable(false)
     ScenarioInfo.ResearchFacility:SetHealth(ScenarioInfo.ResearchFacility, health)
     -- Set up a trigger to go off if the (new) Research Facility dies
@@ -1553,13 +1553,13 @@ function BeginMission2()
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder, M2P1InitialReminderDelay)
 
     -- Detect when the player has helped the civilian base by getting land units there
-    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
-    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
-    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededTanks, false)
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededAntiAir, false)
+    -- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededGunships, false)
     ForkThread(M2ReinforcementWatch)
 
     -- Set up a trigger for when the player first sees an Aeon radar
-    ScenarioFramework.CreateArmyIntelTrigger(AeonRadarSpotted, ArmyBrains[Player], 'LOSNow', false, true, categories.RADAR, true, ArmyBrains[Aeon])
+    ScenarioFramework.CreateArmyIntelTrigger(AeonRadarSpotted, ArmyBrains[Player1], 'LOSNow', false, true, categories.RADAR, true, ArmyBrains[Aeon])
 
 
     -- These are the Aeon radar units
@@ -1578,9 +1578,9 @@ function BeginMission2()
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM2, M2PeriodicAttackPlayerInitialDelay[ Difficulty ])
 end
 
--- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
--- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
--- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededTanks, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededAntiAir, false)
+-- ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededGunships, false)
 function M2ReinforcementWatch()
     local tanks = 0
     local aa    = 0
@@ -1602,7 +1602,7 @@ function M2ReinforcementWatch()
         if units then
             for k,unit in units do
                 if not unit:IsDead() and not unit:IsBeingBuilt() then
-                    if (Player == unit:GetArmy()) then
+                    if (Player1 == unit:GetArmy()) then
                         if EntityCategoryContains(categories.DIRECTFIRE, unit) and (tanks < CivilianReinforcementsNeededTanks)then
                             tanks = tanks+1
                         elseif EntityCategoryContains(categories.ANTIAIR, unit) and (aa < CivilianReinforcementsNeededAntiAir) then
@@ -1656,9 +1656,9 @@ end
 --    end
 
         -- Check to see if all units are here right now (since the different triggers could go off at different times)
---    local Tanks = ScenarioFramework.NumCatUnitsInArea(categories.DIRECTFIRE, 'Civilian_Area', ArmyBrains[ Player ])
---    local Gunships = ScenarioFramework.NumCatUnitsInArea(categories.uea0203, 'Civilian_Area', ArmyBrains[ Player ])
---    local AntiAir = ScenarioFramework.NumCatUnitsInArea(categories.ANTIAIR, 'Civilian_Area', ArmyBrains[ Player ])
+--    local Tanks = ScenarioFramework.NumCatUnitsInArea(categories.DIRECTFIRE, 'Civilian_Area', ArmyBrains[ Player1 ])
+--    local Gunships = ScenarioFramework.NumCatUnitsInArea(categories.uea0203, 'Civilian_Area', ArmyBrains[ Player1 ])
+--    local AntiAir = ScenarioFramework.NumCatUnitsInArea(categories.ANTIAIR, 'Civilian_Area', ArmyBrains[ Player1 ])
 
 --    if  Gunships >= CivilianReinforcementsNeededGunships and
 --           Tanks >= CivilianReinforcementsNeededTanks and
@@ -1679,9 +1679,9 @@ end
 --    else
             -- Reset the triggers
 --        ScenarioInfo.ReinforceTriggerCalled = 0
---        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player], CivilianReinforcementsNeededTanks, false)
---        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player], CivilianReinforcementsNeededAntiAir, false)
---        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player], CivilianReinforcementsNeededGunships, false)
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.DIRECTFIRE, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededTanks, false)
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.ANTIAIR, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededAntiAir, false)
+--        ScenarioFramework.CreateAreaTrigger(CivilianFacilityReinforced, ScenarioUtils.AreaToRect('Civilian_Area'), categories.uea0203, true, false, ArmyBrains[Player1], CivilianReinforcementsNeededGunships, false)
 --    end
 -- end
 -- end
@@ -1697,7 +1697,7 @@ function AeonRadarSpotted()
         -- Reveal where they are
         for k, radar in ScenarioInfo.RadarStations do
             if not radar:IsDead() then
-                ScenarioFramework.CreateVisibleAreaLocation(5, radar:GetPosition(), 10, ArmyBrains[Player])
+                ScenarioFramework.CreateVisibleAreaLocation(5, radar:GetPosition(), 10, ArmyBrains[Player1])
             end
         end
 
@@ -1736,7 +1736,7 @@ function M2TrucksGettingSentNow()
     SendAntiTruck()
 
     -- Start watching for them arriving
-    ScenarioInfo.M2TruckAreaTrigger = ScenarioFramework.CreateAreaTrigger(TruckNearBase, 'Research_Area', categories.uec0001, false, false, ArmyBrains[Player])
+    ScenarioInfo.M2TruckAreaTrigger = ScenarioFramework.CreateAreaTrigger(TruckNearBase, 'Research_Area', categories.uec0001, false, false, ArmyBrains[Player1])
 
     -- Spawn the scouts and send them to their scouting positions
     -- Commented out per chrisT -Matt 11/29/06
@@ -1760,8 +1760,8 @@ function SendTruck()
         ScenarioInfo.CurrentTruckNumber = ScenarioInfo.CurrentTruckNumber + 1
 
         -- Spawn a truck
-        local Truck = ScenarioUtils.CreateArmyUnit('Player', 'Truck_' .. ScenarioInfo.CurrentTruckNumber)
-        -- ScenarioFramework.GiveUnitToArmy(Truck, Player)
+        local Truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_' .. ScenarioInfo.CurrentTruckNumber)
+        -- ScenarioFramework.GiveUnitToArmy(Truck, Player1)
         table.insert(ScenarioInfo.TruckList, Truck)
 
         -- add obj highlight to truck icon
@@ -1838,7 +1838,7 @@ function TruckNearBase(unit)
         ScenarioInfo.M2TruckAreaTrigger:Destroy()
         BeginMission3()
         if ScenarioInfo.Options.Difficulty == 1 and ScenarioInfo.TrucksActive > 0 then
-            ScenarioInfo.CleanupTrigger = ScenarioFramework.CreateAreaTrigger(TruckCleanup, 'Research_Area', categories.uec0001, false, false, ArmyBrains[Player])
+            ScenarioInfo.CleanupTrigger = ScenarioFramework.CreateAreaTrigger(TruckCleanup, 'Research_Area', categories.uec0001, false, false, ArmyBrains[Player1])
         end
     end
 end
@@ -2099,7 +2099,7 @@ function BeginMission3()
     ScenarioFramework.CreateTimerTrigger(Dialogue_M3_2, M3_Base_Hint_Dialogue_Delay)
 
     -- Taunt the player when the player first attacks the Aeon base
-    ScenarioFramework.CreateAreaTrigger(M3Taunt1, 'Aeon_Base_Area', categories.ALLUNITS, true, false, ArmyBrains[Player], 1, false)
+    ScenarioFramework.CreateAreaTrigger(M3Taunt1, 'Aeon_Base_Area', categories.ALLUNITS, true, false, ArmyBrains[Player1], 1, false)
 
     -- Start up the attacks against the player again
     ScenarioFramework.CreateTimerTrigger(AttackPlayerM3, M3PeriodicAttackPlayerInitialDelay[ Difficulty ])

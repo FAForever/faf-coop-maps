@@ -2947,10 +2947,10 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Neutral',
-                ['Player'] = 'Neutral',
-                ['Coop1'] = 'Neutral',
-                ['Coop2'] = 'Neutral',
-                ['Coop3'] = 'Neutral',
+                ['Player1'] = 'Neutral',
+                ['Player2'] = 'Neutral',
+                ['Player3'] = 'Neutral',
+                ['Player4'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -2980,7 +2980,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
@@ -2991,9 +2991,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Aeon'] = 'Enemy',
                 ['Black_Sun'] = 'Ally',
                 ['Component'] = 'Neutral',
@@ -8935,7 +8935,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
@@ -8945,9 +8945,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Aeon'] = 'Enemy',
                 ['Black_Sun'] = 'Ally',
                 ['Component'] = 'Neutral',
@@ -8978,7 +8978,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
@@ -8988,9 +8988,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Aeon'] = 'Enemy',
                 ['Black_Sun'] = 'Ally',
                 ['Component'] = 'Neutral',
@@ -9021,7 +9021,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_playerplanlist.lua',
@@ -9031,9 +9031,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Aeon'] = 'Enemy',
                 ['Black_Sun'] = 'Ally',
                 ['Component'] = 'Neutral',
@@ -9080,10 +9080,10 @@ Scenario = {
             Alliances = {
                 ['Aeon'] = 'Enemy',
                 ['Cybran'] = 'Neutral',
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -9704,10 +9704,10 @@ Scenario = {
             },
             Alliances = {
                 ['Aeon'] = 'Enemy',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -15500,10 +15500,10 @@ Scenario = {
                 ['Black_Sun'] = 'Enemy',
                 ['Component'] = 'Neutral',
                 ['Cybran'] = 'Enemy',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',

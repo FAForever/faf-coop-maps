@@ -16,7 +16,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 
 -- ##################
-local Player = ScenarioInfo.Player
+local Player1 = ScenarioInfo.Player1
 local Aeon = ScenarioInfo.Aeon
 local AllyResearch = ScenarioInfo.AllyResearch
 local AllyCivilian = ScenarioInfo.AllyCivilian
@@ -257,10 +257,10 @@ end
 -- end
 --
 -- local engineerNum = brain:GetCurrentUnits( categories.ENGINEER - categories.COMMAND )
--- local numAA = ArmyBrains[Player]:GetCurrentUnits( categories.ANTIAIR )
--- local numAir = ArmyBrains[Player]:GetCurrentUnits( categories.AIR * categories.MOBILE )
--- local numMobile = ArmyBrains[Player]:GetCurrentUnits( categories.MOBILE )
--- local numLand = ArmyBrains[Player]:GetCurrentUnits( categories.MOBILE * categories.LAND )
+-- local numAA = ArmyBrains[Player1]:GetCurrentUnits( categories.ANTIAIR )
+-- local numAir = ArmyBrains[Player1]:GetCurrentUnits( categories.AIR * categories.MOBILE )
+-- local numMobile = ArmyBrains[Player1]:GetCurrentUnits( categories.MOBILE )
+-- local numLand = ArmyBrains[Player1]:GetCurrentUnits( categories.MOBILE * categories.LAND )
 --
 -- if engineerNum < 1 and table.getn(landFactories) == brain:GetCurrentUnits(categories.FACTORY * categories.LAND) then
 --    AIBuildUnits.BuildPlatoonFactoryList( brain, EngineerPlatoon, 1, landFactories, EngineerPicker )
@@ -316,10 +316,10 @@ end
 -- function EngineerThread(platoon)
 -- while true do
 --    AIBuildStructures.PlatoonBuildFromList( ArmyBrains[Aeon], platoon, 'MainPower', 'MainFactories', 'MainExtractors', 'MainDefenses', 'MainExtras', 'MainFabricators' )
---    if ArmyBrains[Player]:GetCurrentUnits( categories.LAND * categories.MOBILE ) > 50 then
+--    if ArmyBrains[Player1]:GetCurrentUnits( categories.LAND * categories.MOBILE ) > 50 then
 --        AIBuildStructures.PlatoonBuildFromList( ArmyBrains[Aeon], platoon, 'DefensesLand' )
 --    end
---    if ArmyBrains[Player]:GetCurrentUnits( categories.AIR * categories.MOBILE ) > 75 then
+--    if ArmyBrains[Player1]:GetCurrentUnits( categories.AIR * categories.MOBILE ) > 75 then
 --        AIBuildStructures.PlatoonBuildFromList( ArmyBrains[Aeon], platoon, 'DefensesAir' )
 --    end
 --    local busy = false

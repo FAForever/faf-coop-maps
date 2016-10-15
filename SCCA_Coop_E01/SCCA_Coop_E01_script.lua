@@ -18,18 +18,18 @@ local Weather = import('/lua/weather.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Arnold = 2
 ScenarioInfo.Cybran = 3
 ScenarioInfo.EastResearch = 4
-ScenarioInfo.Coop1 = 5
-ScenarioInfo.Coop2 = 6
-ScenarioInfo.Coop3 = 7
+ScenarioInfo.Player2 = 5
+ScenarioInfo.Player3 = 6
+ScenarioInfo.Player4 = 7
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Arnold = ScenarioInfo.Arnold
 local Cybran = ScenarioInfo.Cybran
 local EastResearch = ScenarioInfo.EastResearch
@@ -104,14 +104,14 @@ function OnStart(self)
     ScenarioFramework.SetSharedUnitCap(300)
 
     -- Army Colors
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetUEFAllyColor(Arnold)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetUEFNeutralColor(EastResearch)
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -181,16 +181,16 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -220,7 +220,7 @@ function StartMission1Part1()
         OpStrings.OpE01_M1P2_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M1P1_MassRequired,
@@ -272,7 +272,7 @@ function StartMission1Part2()
         OpStrings.OpE01_M1P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M1P2_PowerRequired,
@@ -329,7 +329,7 @@ function StartMission2()
         OpStrings.OpE01_M2P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -393,7 +393,7 @@ function StartMission3()
         LOCF(OpStrings.OpE01_M3P1_Desc, M3P1_TanksRequired),    -- description
         'build',                                                -- action
         {                                                       -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M3P1_TanksRequired,
@@ -572,7 +572,7 @@ end
 
 function StartMission5()
     ScenarioFramework.CreateAreaTrigger(Leopard11Dialogue, ScenarioUtils.AreaToRect('Cybran_Air_Base'),
-        categories.ALLUNITS, true, false, ArmyBrains[Player], 1, false)
+        categories.ALLUNITS, true, false, ArmyBrains[Player1], 1, false)
 
     -- Primary Objective 1
     ScenarioInfo.M5P1 = Objectives.KillOrCapture(
@@ -734,7 +734,7 @@ function GiveTanks()
     end
     WaitSeconds(1)
     for k, v in ScenarioInfo.PlayerTanks do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+        ScenarioFramework.GiveUnitToArmy(v, Player1)
     end
 end
 
