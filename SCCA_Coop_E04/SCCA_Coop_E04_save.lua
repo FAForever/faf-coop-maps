@@ -5753,9 +5753,9 @@ Scenario = {
                                 {'default_brain','M2_AM_SUB_T2_Torpedo_Plane_Platoon','M2AMTorpedoPlanePlatoonsAllowed'},
                                 {'default_brain','M2_AM_SUB_T2_Torpedo_Plane_Platoon','M2AMTorpedoPlanePlatoonsAllowed'}
                             },
-                            [2] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-                                {'default_brain','Player', 1 , categories.NAVAL },
-                                {'default_brain','Player','1','categories.NAVAL'}
+                            [2] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                                {'default_brain',{'HumanPlayers'}, 1 , categories.NAVAL, '>=' },
+                                {'default_brain',{'HumanPlayers'},'1','categories.NAVAL', '>='}
                             },
                             [3] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
                                 {'default_brain','M2CybranTorpedoPlaneGo'},
@@ -6183,9 +6183,9 @@ Scenario = {
                                 {'default_brain', 1 },
                                 {'default_brain','1'}
                             },
-                            [1] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanNumCategory',
-                                {'default_brain','Player', 0 , categories.AIR },
-                                {'default_brain','Player','0','categories.AIR'}
+                            [1] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                                {'default_brain',{'HumanPlayers'}, 0 , categories.AIR, '>'},
+                                {'default_brain',{'HumanPlayers'},'0','categories.AIR', '>'}
                             },
                             [2] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
                                 {'default_brain','M1_AM_SUB_T1_Inteceptor_Platoon','M1AMSUBInterceptorsAllowed'},
@@ -6220,9 +6220,9 @@ Scenario = {
                                 {'default_brain', 2 },
                                 {'default_brain','2'}
                             },
-                            [1] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanNumCategory',
-                                {'default_brain','Player', 0 , categories.AIR },
-                                {'default_brain','Player','0','categories.AIR'}
+                            [1] = {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                                {'default_brain',{'HumanPlayers'}, 0 , categories.AIR, '>'},
+                                {'default_brain',{'HumanPlayers'},'0','categories.AIR', '>'}
                             },
                             [2] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
                                 {'default_brain','M2_AM_SUB_T1_Inteceptor_Platoon','M2AMSUBInterceptorsAllowed'},
