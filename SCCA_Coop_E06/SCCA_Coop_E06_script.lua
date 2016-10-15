@@ -18,20 +18,20 @@ local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 
 -- === GLOBAL VARIABLES === #
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.BlackSun = 2
 ScenarioInfo.Aeon = 3
 ScenarioInfo.Cybran = 4
 ScenarioInfo.Component = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
 -- === LOCAL VARIABLES === #
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local BlackSun = ScenarioInfo.BlackSun
 local Aeon = ScenarioInfo.Aeon
 local Cybran = ScenarioInfo.Cybran
@@ -119,16 +119,16 @@ function OnPopulate(scen)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetUEFAllyColor(BlackSun)
     ScenarioFramework.SetUEFAllyColor(Component)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetAeonColor(Aeon)
 
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -137,31 +137,31 @@ function OnPopulate(scen)
         end
     end
     -- Player Army
-    ScenarioUtils.CreateArmyGroup('Player', 'Naval_Base')
-    ScenarioUtils.CreateArmyGroup('Player', 'Black_Sun_Defenses')
-    ScenarioUtils.CreateArmyGroup('Player', 'West_Factory_Group')
-    ScenarioUtils.CreateArmyGroup('Player', 'Northern_Walls')
-    ScenarioUtils.CreateArmyGroup('Player', 'East_Factory_Group')
-    ScenarioUtils.CreateArmyGroup('Player', 'Middle_Power_Group')
-    ScenarioUtils.CreateArmyGroup('Player', 'Mass_Extractors')
-    ScenarioUtils.CreateArmyGroup('Player', 'Central_Structures')
-    ScenarioUtils.CreateArmyGroup('Player', 'Control_Center_Defenses')
-    ScenarioUtils.CreateArmyGroup('Player', 'NukeMeClumps')
-    ScenarioUtils.CreateArmyGroup('Player', 'SW_Energy')
-    ScenarioUtils.CreateArmyGroup('Player', 'Starting_Navy')
-    ScenarioUtils.CreateArmyGroup('Player', 'West_Naval_Defenses')
-    ScenarioInfo.AikoUnit = ScenarioUtils.CreateArmyUnit('Player', 'Aiko')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Naval_Base')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Black_Sun_Defenses')
+    ScenarioUtils.CreateArmyGroup('Player1', 'West_Factory_Group')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Northern_Walls')
+    ScenarioUtils.CreateArmyGroup('Player1', 'East_Factory_Group')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Middle_Power_Group')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Mass_Extractors')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Central_Structures')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Control_Center_Defenses')
+    ScenarioUtils.CreateArmyGroup('Player1', 'NukeMeClumps')
+    ScenarioUtils.CreateArmyGroup('Player1', 'SW_Energy')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Navy')
+    ScenarioUtils.CreateArmyGroup('Player1', 'West_Naval_Defenses')
+    ScenarioInfo.AikoUnit = ScenarioUtils.CreateArmyUnit('Player1', 'Aiko')
     ScenarioInfo.AikoUnit:SetCustomName(LOC '{i sCDR_Aiko}')
     ScenarioFramework.CreateUnitDestroyedTrigger(AikoDestroyed, ScenarioInfo.AikoUnit)
-    local group = ScenarioUtils.CreateArmyGroup('Player', 'Starting_Air_1')
+    local group = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Air_1')
     ScenarioFramework.GroupPatrolChain(group, 'Player_Base_Patrol_Chain')
-    local group = ScenarioUtils.CreateArmyGroup('Player', 'Starting_Air_2')
+    local group = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Air_2')
     ScenarioFramework.GroupPatrolChain(group, 'Player_Base_Patrol_Chain')
-    local group = ScenarioUtils.CreateArmyGroup('Player', 'Starting_Air_North')
+    local group = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Air_North')
     ScenarioFramework.GroupPatrolChain(group, 'Player_North_Patrol_Chain')
 
     -- Give Player Anti-Nukes
-    for num,unit in ArmyBrains[Player]:GetListOfUnits(categories.ueb4302, false) do
+    for num,unit in ArmyBrains[Player1]:GetListOfUnits(categories.ueb4302, false) do
         unit:GiveTacticalSiloAmmo(2)
     end
 
@@ -204,7 +204,7 @@ function OnPopulate(scen)
     ScenarioInfo.BlackSunControlCenter:SetCustomName(LOC '{i BlackSunControlTower}')
     ScenarioFramework.CreateUnitCapturedTrigger(false,M2BlackSunControlCenterCaptured,ScenarioInfo.BlackSunControlCenter)
 
-    ScenarioInfo.BlackSunCannon = ScenarioUtils.CreateArmyGroup('Player', 'Cannon')
+    ScenarioInfo.BlackSunCannon = ScenarioUtils.CreateArmyGroup('Player1', 'Cannon')
     for k,v in ScenarioInfo.BlackSunCannon do
         v:SetCustomName(LOC '{i BlackSunCannon}')
         v:SetReclaimable(false)
@@ -248,11 +248,11 @@ function OnPopulate(scen)
 
 
     -- Bonus Objectives
--- ScenarioFramework.CreateArmyStatTrigger(BPlayerBuiltExperimentals, ArmyBrains[Player], 'BonusExperimentalCounter', {
+-- ScenarioFramework.CreateArmyStatTrigger(BPlayerBuiltExperimentals, ArmyBrains[Player1], 'BonusExperimentalCounter', {
 --                                            { StatType = 'Units_History', CompareType = 'GreaterThanOrEqual', Value = M1B2ExperimentalNeeded, Category = categories.EXPERIMENTAL, },
 --                                        }
 --                                   )
--- ScenarioFramework.CreateArmyStatTrigger(BPlayerKill500Enemy, ArmyBrains[Player], 'BonusPlayerKillCount', {
+-- ScenarioFramework.CreateArmyStatTrigger(BPlayerKill500Enemy, ArmyBrains[Player1], 'BonusPlayerKillCount', {
 --                                            { StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = M1B1EnemiesKilled, Category = categories.ALLUNITS - categories.WALL, },
 --                                        }
 --                                   )
@@ -319,16 +319,16 @@ end
 
 function CreatePlayer()
     WaitSeconds(2.5)
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {ScenarioInfo.PlayerCDR}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -381,7 +381,7 @@ function IntroNIS()
 
     local newGroup = {}
     for k,v in ScenarioInfo.BlackSunEscorts do
-        table.insert(newGroup, ScenarioFramework.GiveUnitToArmy(v, Player))
+        table.insert(newGroup, ScenarioFramework.GiveUnitToArmy(v, Player1))
     end
     ForkThread(MoveEscorts, newGroup)
     -- ScenarioInfo.BlackSunEscorts:Patrol(ScenarioUtils.MarkerToPosition('INTRO_West_Island_Marker'))
@@ -411,7 +411,7 @@ function MoveComponents(unloadCmd)
             unit:SetCanTakeDamage(true)
             unit:SetCanBeKilled(true)
             if not unit:IsDead() then
-                ScenarioFramework.GiveUnitToArmy(unit, Player)
+                ScenarioFramework.GiveUnitToArmy(unit, Player1)
             end
         end
     end
@@ -473,8 +473,8 @@ function ComponentSighted()
 end
 
 function ComponentSightedThread()
-    ScenarioInfo.ComponentAreaTrigger = ScenarioFramework.CreateAreaTrigger(CheckComponent, 'Black_Sun_Component_Area', categories.ope6003, false, false, ArmyBrains[Player])
--- ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player)
+    ScenarioInfo.ComponentAreaTrigger = ScenarioFramework.CreateAreaTrigger(CheckComponent, 'Black_Sun_Component_Area', categories.ope6003, false, false, ArmyBrains[Player1])
+-- ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player1)
 -- #WaitTicks(1)
 -- ScenarioInfo.BlackSunComponent:SetCanTakeDamage(false)
 -- ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
@@ -484,7 +484,7 @@ function ComponentSightedThread()
     -- if ScenarioInfo.BlackSunComponent:IsDead() then
     -- LOG('*DEBUG: Component was dead')
     ScenarioInfo.BlackSunComponent = ScenarioUtils.CreateArmyUnit('Component', 'Black_Sun_Component_Unit')
-    ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player)
+    ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player1)
     Warp(ScenarioInfo.BlackSunComponent, ScenarioUtils.MarkerToPosition('INTRO_Component_Move'))
     ScenarioInfo.BlackSunComponent:SetCanTakeDamage(false)
     ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
@@ -667,7 +667,7 @@ end
 
 -- Warn player about Aeon base to the south east; create LOS intel trigger of new island
 function M2AeonBaseDialogue()
-    ScenarioFramework.CreateArmyIntelTrigger(M2AeonBaseSighted, ArmyBrains[Player], 'LOSNow', false, true,
+    ScenarioFramework.CreateArmyIntelTrigger(M2AeonBaseSighted, ArmyBrains[Player1], 'LOSNow', false, true,
                                              categories.STRUCTURE, true, ArmyBrains[Aeon])
     ScenarioInfo.M2P1Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description, Objectives.GetActionIcon('kill'),
         {
@@ -753,7 +753,7 @@ end
 -- Wait a number of seconds then fly in units and transfer them to the player.
 function M2TransferUnitsToPlayer()
     WaitSeconds(M2TransferUnitDelay)
-    while GetArmyUnitCostTotal(Player) > 425 do
+    while GetArmyUnitCostTotal(Player1) > 425 do
         WaitSeconds(10)
     end
     local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'M2_Transports', 'ChevronFormation')
@@ -765,7 +765,7 @@ function M2TransferUnitsToPlayer()
         if not ArmyBrains[BlackSun]:PlatoonExists(transports) then
             for k,v in units do
                 if not v:IsDead() then
-                    ScenarioFramework.GiveUnitToArmy(v, Player)
+                    ScenarioFramework.GiveUnitToArmy(v, Player1)
                 end
             end
             return
@@ -778,12 +778,12 @@ function M2TransferUnitsToPlayer()
 -- end
     for k,v in units do
         if not v:IsDead() then
-            ScenarioFramework.GiveUnitToArmy(v,Player)
+            ScenarioFramework.GiveUnitToArmy(v,Player1)
         end
     end
     for k,v in transports:GetPlatoonUnits() do
         if not v:IsDead() then
-            ScenarioFramework.GiveUnitToArmy(v, Player)
+            ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 end
@@ -1042,7 +1042,7 @@ function M2CheckCybranGroups()
     if ScenarioInfo.M2SpiderBotAttackPlatoonDestroyed and
         ScenarioInfo.M2CybranEscortsKilledCounter == ScenarioInfo.M2CaptureGroups and
         ScenarioInfo.M2CybranPassengersKilledCounter == ScenarioInfo.M2CaptureGroups and
-       (ScenarioInfo.BlackSunControlCenter:GetAIBrain() == ArmyBrains[Player] or
+       (ScenarioInfo.BlackSunControlCenter:GetAIBrain() == ArmyBrains[Player1] or
         ScenarioInfo.BlackSunControlCenter:GetAIBrain() == ArmyBrains[BlackSun])then
             EndMission2()
     end

@@ -19,20 +19,20 @@ local Cinematics = import('/lua/cinematics.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.Arnold = 3
-ScenarioInfo.Coop1 = 4
-ScenarioInfo.Coop2 = 5
-ScenarioInfo.Coop3 = 6
+ScenarioInfo.Player2 = 4
+ScenarioInfo.Player3 = 5
+ScenarioInfo.Player4 = 6
 
 -------------
 -- Misc locals
 -------------
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local Arnold = ScenarioInfo.Arnold
 
@@ -50,7 +50,7 @@ function OnPopulate(scenario)
     ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Player Base
-    local units = ScenarioUtils.CreateArmyGroup('Player', 'StartingUnits')
+    local units = ScenarioUtils.CreateArmyGroup('Player1', 'StartingUnits')
     for k, v in units do
         v:AdjustHealth(v, v:GetHealth() * (-.1 * (Random(2,5))))
     end
@@ -140,13 +140,13 @@ function OnStart(self)
     ScenarioFramework.SetSharedUnitCap(300)
 
     -- Army Colors
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetUEFAllyColor(Arnold)
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -221,16 +221,16 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -290,7 +290,7 @@ function StartMission1()
         OpStrings.M1S2Description,          -- description
         'build',                            -- action
         {                                   -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -335,7 +335,7 @@ end
 function M1FirstAirAttack()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.E03_M01_050)
-        ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled1, ArmyBrains[Player], 'M1EnemiesKilled1',
+        ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled1, ArmyBrains[Player1], 'M1EnemiesKilled1',
             {{StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.ALLUNITS}})
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_FirstAir_Attack', 'ChevronFormation')
         platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Spawn_Point' .. Random(1,5)), false)
@@ -370,7 +370,7 @@ end
 function M1EnemiesKilled1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.E03_M01_060)
-        ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled2, ArmyBrains[Player], 'M1EnemiesKilled2',
+        ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled2, ArmyBrains[Player1], 'M1EnemiesKilled2',
             {{StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 8, Category = categories.ALLUNITS}})
     end
 end
@@ -792,7 +792,7 @@ function IntroMission4()
 end
 
 function StartMission4()
-    ScenarioFramework.CreateAreaTrigger(M4IslandApproach, ScenarioUtils.AreaToRect('Aeon_Island_Area'), categories.ALLUNITS, true, false, ArmyBrains[Player], 1, false)
+    ScenarioFramework.CreateAreaTrigger(M4IslandApproach, ScenarioUtils.AreaToRect('Aeon_Island_Area'), categories.ALLUNITS, true, false, ArmyBrains[Player1], 1, false)
 
     -- After 4 minutes
     ScenarioFramework.CreateTimerTrigger(M4ErisTaunt1, 240)

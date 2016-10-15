@@ -123,18 +123,18 @@ local M3P3OngoingReminderTimer = 900
 -- === GLOBAL VARIABLES === #
 
     -- === Army Brains === #
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.City = 3
 ScenarioInfo.Cybran = 4
-ScenarioInfo.Coop1 = 5
-ScenarioInfo.Coop2 = 6
-ScenarioInfo.Coop3 = 7
+ScenarioInfo.Player2 = 5
+ScenarioInfo.Player3 = 6
+ScenarioInfo.Player4 = 7
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local City = ScenarioInfo.City
 local Cybran = ScenarioInfo.Cybran
@@ -189,14 +189,14 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetAeonColor(Aeon)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetNeutralColor(City)
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -206,18 +206,18 @@ function OnPopulate(scenario)
     end
 
     -- ! Player Bases
-    ScenarioInfo.PlayerBase = ScenarioUtils.CreateArmyGroup('Player', 'Player_Main_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF1Base = ScenarioUtils.CreateArmyGroup('Player', 'Player_RF1_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF2Base = ScenarioUtils.CreateArmyGroup('Player', 'Player_RF2_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF3Base = ScenarioUtils.CreateArmyGroup('Player', 'Player_RF3_Base_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.PlayerBase = ScenarioUtils.CreateArmyGroup('Player1', 'Player_Main_Base_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.PlayerRF1Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF1_Base_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.PlayerRF2Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF2_Base_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.PlayerRF3Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF3_Base_D'..ScenarioInfo.Difficulty)
     -- ! Player Anti Nuke, with some ammo
-    ScenarioInfo.PlayerAntiNuke = ScenarioUtils.CreateArmyUnit('Player', 'Anti_nuke')
+    ScenarioInfo.PlayerAntiNuke = ScenarioUtils.CreateArmyUnit('Player1', 'Anti_nuke')
     ScenarioInfo.PlayerAntiNuke:GiveTacticalSiloAmmo(1)
 
     -- ! Research Facilities
-    ScenarioInfo.ResearchFacility1 = ScenarioUtils.CreateArmyUnit('Player', 'ResearchFacility1')
-    ScenarioInfo.ResearchFacility2 = ScenarioUtils.CreateArmyUnit('Player', 'ResearchFacility2')
-    ScenarioInfo.ResearchFacility3 = ScenarioUtils.CreateArmyUnit('Player', 'ResearchFacility3')
+    ScenarioInfo.ResearchFacility1 = ScenarioUtils.CreateArmyUnit('Player1', 'ResearchFacility1')
+    ScenarioInfo.ResearchFacility2 = ScenarioUtils.CreateArmyUnit('Player1', 'ResearchFacility2')
+    ScenarioInfo.ResearchFacility3 = ScenarioUtils.CreateArmyUnit('Player1', 'ResearchFacility3')
     ScenarioInfo.ResearchFacility1:SetCustomName(LOC '{i E5_RF1Name}')
     ScenarioInfo.ResearchFacility2:SetCustomName(LOC '{i E5_RF2Name}')
     ScenarioInfo.ResearchFacility3:SetCustomName(LOC '{i E5_RF3Name}')
@@ -430,16 +430,16 @@ end
 function CreatePlayer()
     WaitSeconds(3)
     -- ! Player Commander and his Death Trigger
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -516,7 +516,7 @@ function StartMission1()
 
     -- ! Warn about Aeon, either timer or LOS
     ScenarioFramework.CreateTimerTrigger(AeonNukeWarning, M1AeonWarningDelay)
-    ScenarioFramework.CreateArmyIntelTrigger(AeonNukeWarning, ArmyBrains[Player], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Aeon])
+    ScenarioFramework.CreateArmyIntelTrigger(AeonNukeWarning, ArmyBrains[Player1], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Aeon])
 
 
     -- ! Arnold fires his first nuke after the M1AeonNukeAttackDelay
@@ -643,7 +643,7 @@ function FireAeonNuke()
     ScenarioFramework.CreateTimerTrigger(FirstNukeNIS, 5)
 
     -- ! The first time the player gets line of sight on a nuke launcher, play an Arnold taunt
-    ScenarioFramework.CreateArmyIntelTrigger(ForkArnoldTaunt, ArmyBrains[Player], 'LOSNow', false, true, categories.uab2305, true, ArmyBrains[Aeon])
+    ScenarioFramework.CreateArmyIntelTrigger(ForkArnoldTaunt, ArmyBrains[Player1], 'LOSNow', false, true, categories.uab2305, true, ArmyBrains[Aeon])
 
     -- WaitSeconds(AeonNukeTravelTime)
 end
@@ -999,7 +999,7 @@ end
 function AeonContinuedNukeAttacks()
     while not ScenarioInfo.AeonNukesDestroyed do
         local nukeSiloTable = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
-        local nukeTargetTable = ArmyBrains[Player]:GetListOfUnits(categories.STRUCTURE - categories.ECONOMIC, false)
+        local nukeTargetTable = ArmyBrains[Player1]:GetListOfUnits(categories.STRUCTURE - categories.ECONOMIC, false)
         local rndNuke = ScenarioFramework.GetRandomEntry(nukeSiloTable)
         local rndTarget = ScenarioFramework.GetRandomEntry(nukeTargetTable)
         IssueNuke({ rndNuke }, rndTarget)
@@ -1197,7 +1197,7 @@ function StartMission2()
         categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Aeon], 1)
 
     -- ! Mach taunts when you see his attacking units
-    ScenarioFramework.CreateArmyIntelTrigger(ForkMachTaunt, ArmyBrains[Player], 'LOSNow', false, true, categories.MOBILE, true, ArmyBrains[Cybran])
+    ScenarioFramework.CreateArmyIntelTrigger(ForkMachTaunt, ArmyBrains[Player1], 'LOSNow', false, true, categories.MOBILE, true, ArmyBrains[Cybran])
 
     -- ! Start attacks between Cybran and Aeon
     ScenarioInfo.VarTable['BuildCybranM2AeonAttack'] = true
@@ -1247,7 +1247,7 @@ end
 -- ! Arnold disappears instead of dying.
 function AeonCDRDamaged(instigator)
     local damagerArmy = instigator:GetArmy()
-    if (damagerArmy == Player) then
+    if (damagerArmy == Player1) then
         ScenarioFramework.Dialogue(OpStrings.E05_M03_140)
     end
 
@@ -1301,8 +1301,8 @@ function StartMission2Part2()
         end
 
         -- ! Show the LRA bases to the player
-        ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Cybran_LRA_Base_1'), 40, ArmyBrains[Player])
-        ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Cybran_LRA_Base_2'), 40, ArmyBrains[Player])
+        ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Cybran_LRA_Base_1'), 40, ArmyBrains[Player1])
+        ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Cybran_LRA_Base_2'), 40, ArmyBrains[Player1])
 
         -- ! The cybran army is revealed
         -- Cybran.SetArmyShowScore = true
@@ -1454,7 +1454,7 @@ function StartMission3()
    )
     -- ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M3P2)
     ScenarioFramework.M3GateTrigger = ScenarioFramework.CreateAreaTrigger(SendTruckThroughGate, ScenarioUtils.AreaToRect('CDR_Gate_Area'),
-        (categories.uec0001), false, false, ArmyBrains[ScenarioInfo.Player], 1, true)
+        (categories.uec0001), false, false, ArmyBrains[ScenarioInfo.Player1], 1, true)
 
 
     -- ! Assign M3S1: destroy all the Cybran bases
@@ -1635,7 +1635,7 @@ function CreateTruckGroupAtFacility1()
             WaitSeconds(4)
         end
 
-        ScenarioFramework.CreateAreaTrigger(RF1TrucksMoved, ScenarioUtils.AreaToRect('RF1_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player], 1)
+        ScenarioFramework.CreateAreaTrigger(RF1TrucksMoved, ScenarioUtils.AreaToRect('RF1_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player1], 1)
 
         -- ! If we make this truck group again, don't have as long a delay
         ScenarioInfo.M2TruckGroup1Delay = 60
@@ -1667,9 +1667,9 @@ function CreateTruckGroupAtFacility1()
 end
 
 function CreateTruckAtFacility1(n)
-    SetIgnoreArmyUnitCap(Player, true)
-    local truck = ScenarioUtils.CreateArmyUnit('Player', 'Truck1')
-    SetIgnoreArmyUnitCap(Player, false)
+    SetIgnoreArmyUnitCap(Player1, true)
+    local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck1')
+    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely
@@ -1716,7 +1716,7 @@ function CreateTruckGroupAtFacility2()
             WaitSeconds(4)
         end
 
-        ScenarioFramework.CreateAreaTrigger(RF2TrucksMoved, ScenarioUtils.AreaToRect('RF2_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player], 1)
+        ScenarioFramework.CreateAreaTrigger(RF2TrucksMoved, ScenarioUtils.AreaToRect('RF2_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player1], 1)
 
         -- ! If we make this truck group again, don't have as long a delay
         ScenarioInfo.M2TruckGroup2Delay = 60
@@ -1748,9 +1748,9 @@ function CreateTruckGroupAtFacility2()
 end
 
 function CreateTruckAtFacility2(n)
-    SetIgnoreArmyUnitCap(Player, true)
-    local truck = ScenarioUtils.CreateArmyUnit('Player', 'Truck2')
-    SetIgnoreArmyUnitCap(Player, false)
+    SetIgnoreArmyUnitCap(Player1, true)
+    local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck2')
+    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely
@@ -1797,7 +1797,7 @@ function CreateTruckGroupAtFacility3()
             WaitSeconds(4)
         end
 
-        ScenarioFramework.CreateAreaTrigger(RF3TrucksMoved, ScenarioUtils.AreaToRect('RF3_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player], 1)
+        ScenarioFramework.CreateAreaTrigger(RF3TrucksMoved, ScenarioUtils.AreaToRect('RF3_Truck_Area'), categories.uec0001, true, true, ArmyBrains[Player1], 1)
 
         -- ! If we make this truck group again, don't have as long a delay
         ScenarioInfo.M2TruckGroup3Delay = 60
@@ -1827,9 +1827,9 @@ function CreateTruckGroupAtFacility3()
 end
 
 function CreateTruckAtFacility3(n)
-    SetIgnoreArmyUnitCap(Player, true)
-    local truck = ScenarioUtils.CreateArmyUnit('Player', 'Truck3')
-    SetIgnoreArmyUnitCap(Player, false)
+    SetIgnoreArmyUnitCap(Player1, true)
+    local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck3')
+    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely

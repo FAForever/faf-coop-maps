@@ -178,19 +178,19 @@ local TauntTable = {
 -------------
 -- Army Brains
 -------------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.CybranResearch = 3
-ScenarioInfo.Coop1 = 4
-ScenarioInfo.Coop2 = 5
-ScenarioInfo.Coop3 = 6
+ScenarioInfo.Player2 = 4
+ScenarioInfo.Player3 = 5
+ScenarioInfo.Player4 = 6
 
-local Player = ScenarioInfo.Player
+local Player1 = ScenarioInfo.Player1
 local Cybran = ScenarioInfo.Cybran
 local CybranResearch = ScenarioInfo.CybranResearch
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 
 
 
@@ -207,14 +207,14 @@ function OnStart(self)
     -- Setting Playable area
     ScenarioFramework.SetPlayableArea(ScenarioUtils.AreaToRect('M1_Playable_Area'), false)
 
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetCybranAllyColor(CybranResearch) -- SetNeutralColor
     -- ScenarioFramework.SetNeutralColor(CybranResearch) #
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -232,16 +232,16 @@ function OnStart(self)
 end
 
 function Intro_NIS()
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -752,7 +752,7 @@ function M2OnTruckFoundTimer()
     ScenarioInfo.M3Gate.Trash:Add(vizmarker)
     vizmarker:AttachBoneTo(-1, ScenarioInfo.M3Gate, -1)
 
-    ScenarioInfo.M2EscapeTruck = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Escape_Truck', 'TravellingFormation')
+    ScenarioInfo.M2EscapeTruck = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Escape_Truck', 'TravellingFormation')
     for k,unit in ScenarioInfo.M2EscapeTruck:GetPlatoonUnits() do
         ScenarioFramework.PauseUnitDeath(unit)
     end
@@ -777,7 +777,7 @@ function M2OnTruckFoundTimer()
 
     -- this trigger is to start the attack timer after they move.
     ScenarioFramework.CreateAreaTrigger(M2OnTruckMoveOut, ScenarioUtils.AreaToRect('M2_Truck_Start'),
-        (categories.OPERATION), true, true, ArmyBrains[Player], 1, true)
+        (categories.OPERATION), true, true, ArmyBrains[Player1], 1, true)
 
 
 -- NIS of Truck Spawned
@@ -1050,7 +1050,7 @@ function M3OnRadarTimer(result)
             for k, spider in ScenarioInfo.M3SpiderbotPlatoon:GetPlatoonUnits() do
                 if EntityCategoryContains(categories.url0402, spider) then
                     spider:ToggleScriptBit('RULEUTC_StealthToggle')
-                    ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[Player], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
+                    ScenarioFramework.CreateArmyIntelTrigger(M3OnSpiderbotSpotted, ArmyBrains[Player1], 'LOSNow', spider, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
                     break
                 end
             end
@@ -1062,7 +1062,7 @@ function M3OnRadarTimer(result)
             for k, lab in brackmansLabGroup do
                 -- instead of damage, lets try LOS
                 -- ScenarioFramework.CreateUnitDamagedTrigger(M3OnBrackmanLabDamaged, lab)
-                ScenarioFramework.CreateArmyIntelTrigger(M3OnBrackmanLabSpotted, ArmyBrains[Player], 'LOSNow', lab, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
+                ScenarioFramework.CreateArmyIntelTrigger(M3OnBrackmanLabSpotted, ArmyBrains[Player1], 'LOSNow', lab, true, categories.ALLUNITS, true, ArmyBrains[Cybran])
             end
 
             -- ... and base defense. Spawn shields as separate group, so we can give them an upgraded shield
