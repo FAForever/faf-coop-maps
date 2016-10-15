@@ -1884,10 +1884,10 @@ Scenario = {
             },
             Alliances = {
                 ['FauxRhiza'] = 'Enemy',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Rhiza'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -3578,7 +3578,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
@@ -3589,9 +3589,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['FauxRhiza'] = 'Ally',
                 ['FauxUEF'] = 'Enemy',
                 ['Rhiza'] = 'Ally',
@@ -3628,7 +3628,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
@@ -3638,9 +3638,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['FauxRhiza'] = 'Ally',
                 ['FauxUEF'] = 'Enemy',
                 ['Rhiza'] = 'Ally',
@@ -3677,7 +3677,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
@@ -3687,9 +3687,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['FauxRhiza'] = 'Ally',
                 ['FauxUEF'] = 'Enemy',
                 ['Rhiza'] = 'Ally',
@@ -3726,7 +3726,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A01/SCCA_Coop_A01_playerplanlist.lua',
@@ -3736,9 +3736,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['FauxRhiza'] = 'Ally',
                 ['FauxUEF'] = 'Enemy',
                 ['Rhiza'] = 'Ally',
@@ -3790,10 +3790,10 @@ Scenario = {
             },
             Alliances = {
                 ['FauxRhiza'] = 'Enemy',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['Rhiza'] = 'Neutral',
             },
             ['Units'] = GROUP {
@@ -8916,10 +8916,10 @@ Scenario = {
             },
             Alliances = {
                 ['FauxUEF'] = 'Enemy',
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Rhiza'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -9011,10 +9011,10 @@ Scenario = {
             Alliances = {
                 ['FauxRhiza'] = 'Ally',
                 ['FauxUEF'] = 'Enemy',
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Neutral',
             },
             ['Units'] = GROUP {

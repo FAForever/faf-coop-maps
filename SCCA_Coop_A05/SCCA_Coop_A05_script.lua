@@ -19,20 +19,20 @@ local Behaviors = import('/lua/ai/OpAI/OpBehaviors.lua')
 
 
 -- === GLOBAL VARIABLES === #
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.AeonAriel = 2
 ScenarioInfo.UEF = 3
 ScenarioInfo.Colonies = 4
 ScenarioInfo.FakeUEF = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
 -- === LOCAL VARIABLES === #
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local AeonAriel = ScenarioInfo.AeonAriel
 local UEF = ScenarioInfo.UEF
 local Colonies = ScenarioInfo.Colonies
@@ -129,15 +129,15 @@ function OnPopulate(scenario)
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
-    ScenarioFramework.SetAeonColor(Player)
+    ScenarioFramework.SetAeonColor(Player1)
     ScenarioFramework.SetAeonNeutralColor(AeonAriel)
     ScenarioFramework.SetUEFColor(UEF)
     ScenarioFramework.SetUEFAllyColor(Colonies)
     ScenarioFramework.SetUEFColor(FakeUEF)
     local colors = {
-        ['Coop1'] = {165, 200, 102}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {165, 200, 102}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -148,27 +148,27 @@ function OnPopulate(scenario)
 
     -- === Create Units  === #
     -- Player
-    ScenarioInfo.RhizaUnit = ScenarioUtils.CreateArmyUnit('Player', 'Rhiza_Unit')
+    ScenarioInfo.RhizaUnit = ScenarioUtils.CreateArmyUnit('Player1', 'Rhiza_Unit')
     ScenarioInfo.RhizaUnit:SetCustomName(LOC '{i sCDR_Rhiza}')
     ScenarioFramework.CreateUnitDestroyedTrigger(RhizaDestroyed, ScenarioInfo.RhizaUnit)
     IssueMove({ ScenarioInfo.RhizaUnit }, ScenarioUtils.MarkerToPosition('Rhiza_MoveTo_Marker'))
-    ScenarioUtils.CreateArmyGroup('Player', 'Player_Base')
--- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Player_Base')
+-- local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Gunships')
 -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
--- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Gunships')
+-- plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Gunships')
 -- ScenarioFramework.PlatoonPatrolChain(plat, 'Player_Patrol_Chain')
 
-    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Air_Patrol', 'NoFormation')
+    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Air_Patrol', 'NoFormation')
     ScenarioFramework.PlatoonPatrolChain(airPatrol, 'Player_Air_Patrol_Chain')
-    local groundPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Ground_Patrol', 'AttackFormation')
+    local groundPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Ground_Patrol', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(groundPatrol, 'Player_Land_Patrol_Chain')
 
     -- Some activity in the player base
-    local trans1 = ScenarioUtils.CreateArmyUnit('Player', 'Start_Trans1')
-    local trans2 = ScenarioUtils.CreateArmyUnit('Player', 'Start_Trans2')
+    local trans1 = ScenarioUtils.CreateArmyUnit('Player1', 'Start_Trans1')
+    local trans2 = ScenarioUtils.CreateArmyUnit('Player1', 'Start_Trans2')
     IssueMove({ trans1 }, ScenarioUtils.MarkerToPosition('Start_TransMove_1'))
     IssueMove({ trans2 }, ScenarioUtils.MarkerToPosition('Start_TransMove_2'))
-    local eng1 = ScenarioInfo.UnitNames[Player]['Start_Engineer_1']
+    local eng1 = ScenarioInfo.UnitNames[Player1]['Start_Engineer_1']
     IssueMove({ eng1 }, ScenarioUtils.MarkerToPosition('Start_Eng_Moveto_1'))
 
     ScenarioFramework.RestrictEnhancements({ 'Teleporter', })
@@ -225,16 +225,16 @@ end
 
 -- === INTRO NIS === #
 function IntroNIS()
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_CDR_Unit')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR_Unit')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR_Unit')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -774,7 +774,7 @@ function StartMission2()
     ScenarioUtils.CreateArmyGroup('UEF', 'West_Base_South_Defenses_D'..DiffLevel)
     ScenarioInfo.WestArtillery = ScenarioUtils.CreateArmyGroup('UEF', 'West_Base_Artillery_D'..DiffLevel)
     for num, unit in ScenarioInfo.WestArtillery do
-        ScenarioFramework.CreateArmyIntelTrigger(M2PlayerSeesWestArtillery, ArmyBrains[Player], 'LOSNow', unit, true, categories.ALLUNITS, true, ArmyBrains[UEF])
+        ScenarioFramework.CreateArmyIntelTrigger(M2PlayerSeesWestArtillery, ArmyBrains[Player1], 'LOSNow', unit, true, categories.ALLUNITS, true, ArmyBrains[UEF])
     end
 
     ScenarioUtils.CreateArmyGroup('UEF' ,'Wreck_M2', true) -- Storing all wreckage in UEF army
@@ -810,7 +810,7 @@ function StartMission2()
 
     ScenarioFramework.CreateTimerTrigger(M2ShieldReminder, M2ShieldReminderTimer)
     ScenarioFramework.CreateTimerTrigger(M2ArielMessage, M2ArielMessageTimer)
-    ScenarioFramework.CreateArmyStatTrigger(EnableUEFT3Land, ArmyBrains[Player], 'T3LandUnitCounter',
+    ScenarioFramework.CreateArmyStatTrigger(EnableUEFT3Land, ArmyBrains[Player1], 'T3LandUnitCounter',
         {
             { StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 0, Category =(categories.LAND * categories.TECH3 * categories.MOBILE) - categories.ual0309, },
         }

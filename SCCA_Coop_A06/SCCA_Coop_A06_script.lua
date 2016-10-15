@@ -23,14 +23,14 @@ local Weather = import('/lua/weather.lua')
 -------------------------
 ScenarioInfo.MissionNumber = 1
 
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.UEF = 2
 ScenarioInfo.Cybran = 3
 ScenarioInfo.Aeon = 4
 ScenarioInfo.Neutral = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 
 ScenarioInfo.VarTable = {}
 ScenarioInfo.M1CityBuildingsAlive = 0
@@ -51,10 +51,10 @@ local Difficulty1_Suffix = '_D1'
 local Difficulty2_Suffix = '_D2'
 local Difficulty3_Suffix = '_D3'
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local UEF = ScenarioInfo.UEF
 local Cybran = ScenarioInfo.Cybran
 local Aeon = ScenarioInfo.Aeon
@@ -352,11 +352,11 @@ function OnStart(self)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetUEFColor(UEF)
     ScenarioFramework.SetUEFColor(Neutral)
-    ScenarioFramework.SetAeonColor(Player)
+    ScenarioFramework.SetAeonColor(Player1)
     local colors = {
-        ['Coop1'] = {47, 79, 79}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {47, 79, 79}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -389,7 +389,7 @@ function OnStart(self)
 
     -- Set up a trigger to go off if it dies
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M1ControlCenterCaptured, ScenarioInfo.BlackSunControlCenter)
-    ScenarioFramework.CreateArmyIntelTrigger(M1ControlCenterSpotted, ArmyBrains[Player], 'LOSNow', ScenarioInfo.BlackSunControlCenter, true, categories.ALLUNITS, true, ArmyBrains[ Neutral ])
+    ScenarioFramework.CreateArmyIntelTrigger(M1ControlCenterSpotted, ArmyBrains[Player1], 'LOSNow', ScenarioInfo.BlackSunControlCenter, true, categories.ALLUNITS, true, ArmyBrains[ Neutral ])
 
     -- Add the objective to kill the city buildings
     ScenarioInfo.M1P1Objective = Objectives.Capture(
@@ -445,16 +445,16 @@ end
 
 function CreatePlayer()
     -- Enter...the commander!
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)

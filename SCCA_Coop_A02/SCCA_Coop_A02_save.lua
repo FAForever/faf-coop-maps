@@ -1479,7 +1479,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
@@ -1490,9 +1490,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
                 ['NeutralCybran'] = 'Neutral',
             },
@@ -1521,7 +1521,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
@@ -1531,9 +1531,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
                 ['NeutralCybran'] = 'Neutral',
             },
@@ -1562,7 +1562,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
@@ -1572,9 +1572,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
                 ['NeutralCybran'] = 'Neutral',
             },
@@ -1603,7 +1603,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_A02/SCCA_Coop_A02_playerplanlist.lua',
@@ -1613,9 +1613,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Cybran'] = 'Enemy',
                 ['NeutralCybran'] = 'Neutral',
             },
@@ -1659,10 +1659,10 @@ Scenario = {
             },
             Alliances = {
                 ['Cybran'] = 'Neutral',
-                ['Coop1'] = 'Neutral',
-                ['Coop2'] = 'Neutral',
-                ['Coop3'] = 'Neutral',
-                ['Player'] = 'Neutral',
+                ['Player2'] = 'Neutral',
+                ['Player3'] = 'Neutral',
+                ['Player4'] = 'Neutral',
+                ['Player1'] = 'Neutral',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1834,10 +1834,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
                 ['NeutralCybran'] = 'Neutral',
             },
             ['Units'] = GROUP {

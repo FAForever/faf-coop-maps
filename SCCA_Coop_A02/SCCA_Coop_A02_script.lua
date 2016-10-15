@@ -21,12 +21,12 @@ local Weather = import('/lua/weather.lua')
 -------------------------
 -- Misc Global Definitions
 -------------------------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Cybran = 2
 ScenarioInfo.NeutralCybran = 3
-ScenarioInfo.Coop1 = 4
-ScenarioInfo.Coop2 = 5
-ScenarioInfo.Coop3 = 6
+ScenarioInfo.Player2 = 4
+ScenarioInfo.Player3 = 5
+ScenarioInfo.Player4 = 6
 
 ScenarioInfo.VarTable = {}
 ScenarioInfo.M1P1Complete = false
@@ -43,10 +43,10 @@ local Difficulty1_Suffix = '_D1'
 local Difficulty2_Suffix = '_D2'
 local Difficulty3_Suffix = '_D3'
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Cybran = ScenarioInfo.Cybran
 local NeutralCybran = ScenarioInfo.NeutralCybran
 
@@ -281,11 +281,11 @@ function OnStart(self)
 
     ScenarioFramework.SetCybranColor(Cybran)
     -- ScenarioFramework.SetCybranColor(NeutralCybran)
-    ScenarioFramework.SetAeonColor(Player)
+    ScenarioFramework.SetAeonColor(Player1)
     local colors = {
-        ['Coop1'] = {47, 79, 79}, 
-        ['Coop2'] = {46, 139, 87}, 
-        ['Coop3'] = {102, 255, 204}
+        ['Player2'] = {47, 79, 79}, 
+        ['Player3'] = {46, 139, 87}, 
+        ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -394,16 +394,16 @@ end
 
 function CreatePlayer()
     -- Create some of the key units and save handles to them
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -702,7 +702,7 @@ function BeginMission2()
         i = i + 1
         if i == 5 then
             i = 0
-            ScenarioFramework.CreateArmyIntelTrigger(M2SecretBaseSpotted, ArmyBrains[Player], 'LOSNow', unit, true, categories.ALLUNITS, true, ArmyBrains[ Cybran ])
+            ScenarioFramework.CreateArmyIntelTrigger(M2SecretBaseSpotted, ArmyBrains[Player1], 'LOSNow', unit, true, categories.ALLUNITS, true, ArmyBrains[ Cybran ])
         end
     end
 
