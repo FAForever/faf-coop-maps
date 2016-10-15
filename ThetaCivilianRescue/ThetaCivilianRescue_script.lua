@@ -22,22 +22,22 @@ local TCRUtil = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_CustomFunc
 ----------
 -- Globals
 ----------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Cybran = 2
-ScenarioInfo.Coop1 = 3
-ScenarioInfo.Coop2 = 4
-ScenarioInfo.Coop3 = 5
+ScenarioInfo.Player2 = 3
+ScenarioInfo.Player3 = 4
+ScenarioInfo.Player4 = 5
 
 ScenarioInfo.hasMonkeylordSpawned = false
 
 ---------
 -- Locals
 ---------
-local Player = ScenarioInfo.Player
+local Player1 = ScenarioInfo.Player1
 local Cybran = ScenarioInfo.Cybran
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 
 
 local AssignedObjectives = {}
@@ -63,12 +63,12 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     
     -- Sets Army Colors
-    ScenarioFramework.SetUEFColor(Player)
+    ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetCybranPlayerColor(Cybran)
     local colors = {
-        ['Coop1'] = {67, 110, 238}, 
-        ['Coop2'] = {97, 109, 126}, 
-        ['Coop3'] = {255, 255, 255}
+        ['Player2'] = {67, 110, 238}, 
+        ['Player3'] = {97, 109, 126}, 
+        ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -87,7 +87,7 @@ end
 function OnStart(self)
     ScenarioFramework.SetPlayableArea('M1_Area', false)
     
-    ScenarioUtils.CreateArmyGroup('Player', 'signature', true)
+    ScenarioUtils.CreateArmyGroup('Player1', 'signature', true)
 
     for _, player in ScenarioInfo.HumanPlayers do
     -- Build Restrictions
@@ -182,7 +182,7 @@ function IntroMission1NIS()
         WaitSeconds(2)
         Cinematics.EnterNISMode()
 
-        local VisMarker_West_Base = ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('NIS_M1_Vis_West_Base'), 0, ArmyBrains[Player])
+        local VisMarker_West_Base = ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('NIS_M1_Vis_West_Base'), 0, ArmyBrains[Player1])
         
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Start_Location'), 0)
         
@@ -213,13 +213,13 @@ function IntroMission1NIS()
 end
 
 function SpawnAllACUs()
-    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Warp', true, true, PlayerDeath)
+    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
     
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
             coop = coop + 1
             WaitSeconds(0.5)
@@ -419,7 +419,7 @@ function StartMission2()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M2S1)
     
-    ScenarioFramework.CreateArmyIntelTrigger(M2S2MonkeylordObjective, ArmyBrains[Player], 'LOSNow', nil, true, categories.urc1901, true, ArmyBrains[Cybran])
+    ScenarioFramework.CreateArmyIntelTrigger(M2S2MonkeylordObjective, ArmyBrains[Player1], 'LOSNow', nil, true, categories.urc1901, true, ArmyBrains[Cybran])
     
     -- Make TimeTrigger in case the player never scouts
     secondsUntilMonkeylord = M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()) + 2 -- add 2 just to make sure there are no race issues, possibly unnecessary

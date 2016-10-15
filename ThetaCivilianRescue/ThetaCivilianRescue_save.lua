@@ -1787,7 +1787,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/lua/ai/opai/defaultblankplanlist.lua',
@@ -1798,10 +1798,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Cybran'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -1825,7 +1825,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/lua/ai/opai/defaultblankplanlist.lua',
@@ -1836,9 +1836,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -2170,7 +2170,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/lua/ai/opai/defaultblankplanlist.lua',
@@ -2181,10 +2181,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -2208,7 +2208,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/lua/ai/opai/defaultblankplanlist.lua',
@@ -2219,10 +2219,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Cybran'] = 'Enemy',
-                ['Player'] = 'Ally',
+                ['Player1'] = 'Ally',
             },
             ['Units'] = GROUP {
                 orders = '',
@@ -2257,10 +2257,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
-                ['Player'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
+                ['Player1'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
