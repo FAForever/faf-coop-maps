@@ -12,27 +12,27 @@ local P2AEONAI = import('/maps/Operation (Tha-Atha-Aez)/AEONaiP2.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local OpStrings = import('/maps/Operation (Tha-Atha-Aez)/Operation (Tha-Atha-Aez)_strings.lua')
 
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.SeraphimAlly = 2
 ScenarioInfo.UEF = 3
 ScenarioInfo.Aeon = 4
 ScenarioInfo.WarpComs = 5
 ScenarioInfo.SeraphimAlly2 = 6
-ScenarioInfo.Coop1= 7
-ScenarioInfo.Coop2 = 8
-ScenarioInfo.Coop3 = 9
+ScenarioInfo.Player2 = 7
+ScenarioInfo.Player3 = 8
+ScenarioInfo.Player4 = 9
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
-local Player = ScenarioInfo.Player
+local Player1 = ScenarioInfo.Player1
 local SeraphimAlly = ScenarioInfo.SeraphimAlly
 local Aeon = ScenarioInfo.Aeon
 local UEF = ScenarioInfo.UEF
 local WarpComs = ScenarioInfo.WarpComs
 local SeraphimAlly2 = ScenarioInfo.SeraphimAlly2
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local AssignedObjectives = {}
 
 local timeAttackP2 = 480
@@ -43,14 +43,14 @@ local SkipNIS2 = false
 function OnPopulate() 
     ScenarioUtils.InitializeScenarioArmies()
    
-    ScenarioFramework.SetSeraphimColor(Player)
+    ScenarioFramework.SetSeraphimColor(Player1)
     ScenarioFramework.SetUEFPlayerColor(UEF)
     ScenarioFramework.SetNeutralColor (WarpComs)
     ScenarioFramework.SetAeonAlly1Color (Aeon)
     local colors = {
-        ['Coop1'] = {255, 200, 0}, 
-        ['Coop2'] = {189, 116, 16}, 
-        ['Coop3'] = {89, 133, 39},	
+        ['Player2'] = {255, 200, 0}, 
+        ['Player3'] = {189, 116, 16}, 
+        ['Player4'] = {89, 133, 39},	
     }
 	local tblArmy = ListArmies()
     for army, color in colors do
@@ -59,8 +59,8 @@ function OnPopulate()
         end
     end
      
-    ScenarioUtils.CreateArmyGroup('Player', 'Pintbase')
-    ScenarioUtils.CreateArmyGroup('Player', 'Pintbasewreak', true)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Pintbase')
+    ScenarioUtils.CreateArmyGroup('Player1', 'Pintbasewreak', true)
     ScenarioUtils.CreateArmyGroup('WarpComs', 'Gatebase1')
     ScenarioInfo.M1ObjectiveGate = ScenarioUtils.CreateArmyUnit('WarpComs', 'Gate1')
 
@@ -118,30 +118,30 @@ function IntroPart1()
  
     Cinematics.EnterNISMode()
   
-    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player', 'Commander', 'Gate', true, true, PlayerDeath)
+    ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Gate', true, true, PlayerDeath)
     
 	ForkThread(
         function()
             local tblArmy = ListArmies()
-            if tblArmy[ScenarioInfo.Coop1] then
-                ScenarioInfo.CoopCDR1 = ScenarioFramework.SpawnCommander('Coop1', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player2] then
+                ScenarioInfo.Player2CDR = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(3)
 
-            if tblArmy[ScenarioInfo.Coop2] then
-                ScenarioInfo.CoopCDR2 = ScenarioFramework.SpawnCommander('Coop2', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player3] then
+                ScenarioInfo.Player3CDR = ScenarioFramework.SpawnCommander('Player3', 'Commander', 'Warp', true, true, PlayerDeath)
             end
 
             WaitSeconds(3)
 
-            if tblArmy[ScenarioInfo.Coop3] then
-                ScenarioInfo.CoopCDR3 = ScenarioUtils.CreateArmyUnit('Coop3', 'Commander', 'Warp', true, true, PlayerDeath)
+            if tblArmy[ScenarioInfo.Player4] then
+                ScenarioInfo.Player4CDR = ScenarioUtils.CreateArmyUnit('Player4', 'Commander', 'Warp', true, true, PlayerDeath)
             end
         end
     )
 	
-    local cmd = IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('ComMove'))
+    local cmd = IssueMove({ScenarioInfo.Player1CDR}, ScenarioUtils.MarkerToPosition('ComMove'))
  
     ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
  
@@ -339,9 +339,9 @@ function Start2Mission2()
    
     Cinematics.EnterNISMode()
    
-    local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CaminfoP2_3', 0, ArmyBrains[Player])
-    local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP2_1', 0, ArmyBrains[Player])
-    local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP2_2', 0, ArmyBrains[Player])
+    local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CaminfoP2_3', 0, ArmyBrains[Player1])
+    local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP2_1', 0, ArmyBrains[Player1])
+    local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP2_2', 0, ArmyBrains[Player1])
    
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('CamP2_1'), 3)
     WaitSeconds(1)
@@ -671,10 +671,10 @@ function IntroMission4()
 	
     Cinematics.EnterNISMode()
 	
-	local VisMarker2_4 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP3_1', 0, ArmyBrains[Player])
-    local VisMarker2_5 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP3_2', 0, ArmyBrains[Player])
-	local VisMarker2_6 = ScenarioFramework.CreateVisibleAreaLocation(80, 'UEFVison1', 0, ArmyBrains[Player])
-	local VisMarker2_7 = ScenarioFramework.CreateVisibleAreaLocation(80, 'UEFVison2', 0, ArmyBrains[Player])
+	local VisMarker2_4 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP3_1', 0, ArmyBrains[Player1])
+    local VisMarker2_5 = ScenarioFramework.CreateVisibleAreaLocation(50, 'CamnfoP3_2', 0, ArmyBrains[Player1])
+	local VisMarker2_6 = ScenarioFramework.CreateVisibleAreaLocation(80, 'UEFVison1', 0, ArmyBrains[Player1])
+	local VisMarker2_7 = ScenarioFramework.CreateVisibleAreaLocation(80, 'UEFVison2', 0, ArmyBrains[Player1])
 
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('CamP3_1'), 3)
     WaitSeconds(2)
@@ -898,7 +898,7 @@ end
 function PlayerDeath()
     if Debug then return end
     if not ScenarioInfo.OpEnded then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Player1CDR)
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
 
@@ -920,7 +920,7 @@ end
 
 function PlayerLose()
     if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Player1CDR)
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
         
