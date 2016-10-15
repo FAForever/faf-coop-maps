@@ -18,25 +18,25 @@ local Weather = import('/lua/weather.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.UEF = 3
 ScenarioInfo.BlackSun = 4
-ScenarioInfo.Coop1 = 5
-ScenarioInfo.Coop2 = 6
-ScenarioInfo.Coop3 = 7
+ScenarioInfo.Player2 = 5
+ScenarioInfo.Player3 = 6
+ScenarioInfo.Player4 = 7
 
 ScenarioInfo.VarTable = {}
 
-local Player = ScenarioInfo.Player
+local Player1 = ScenarioInfo.Player1
 local aeon = ScenarioInfo.Aeon
 local uef = ScenarioInfo.UEF
 local blackSun = ScenarioInfo.BlackSun
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 
-local Players = {ScenarioInfo.Player, ScenarioInfo.Coop1, ScenarioInfo.Coop2, ScenarioInfo.Coop3}
+local Players = {ScenarioInfo.Player1, ScenarioInfo.Player2, ScenarioInfo.Player3, ScenarioInfo.Player4}
 
 local aikoTaunt = 1
 local arnoldTaunt = 9
@@ -66,10 +66,10 @@ end
 
 function SpawnPlayer()
     -- Player Base
-    ScenarioUtils.CreateArmyGroup('Player', 'Base_D' .. ScenarioInfo.Options.Difficulty)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Base_D' .. ScenarioInfo.Options.Difficulty)
 
     -- Jericho
-    ScenarioInfo.Jericho = ScenarioUtils.CreateArmyUnit('Player', 'Jericho')
+    ScenarioInfo.Jericho = ScenarioUtils.CreateArmyUnit('Player1', 'Jericho')
     ScenarioInfo.Jericho:SetCustomName(LOC '{i sCDR_Jericho}')
     ScenarioInfo.Jericho:CreateEnhancement('FocusConvertor')
     ScenarioInfo.Jericho:CreateEnhancement('NaniteMissileSystem')
@@ -77,7 +77,7 @@ function SpawnPlayer()
     ScenarioFramework.CreateUnitDeathTrigger(JerichoKilled, ScenarioInfo.Jericho)
 
     -- Player Engineers
-    local engineers = ScenarioUtils.CreateArmyGroup('Player', 'Engineers')
+    local engineers = ScenarioUtils.CreateArmyGroup('Player1', 'Engineers')
     for k, v in engineers do
         for i = 1, 3 do
             IssuePatrol({v}, ScenarioUtils.MarkerToPosition('Jericho_Patrol' .. i))
@@ -85,25 +85,25 @@ function SpawnPlayer()
     end
 
     -- Player Mobile Defense
-    local subs = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'Subs', 'AttackFormation')
+    local subs = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Subs', 'AttackFormation')
     subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
     subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
 
-    local sonar = ScenarioUtils.CreateArmyUnit('Player', 'MobileSonar')
+    local sonar = ScenarioUtils.CreateArmyUnit('Player1', 'MobileSonar')
     IssuePatrol({sonar}, ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
     IssuePatrol({sonar}, ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
 
-    local landPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'LandPatrol1', 'AttackFormation')
+    local landPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'LandPatrol1', 'AttackFormation')
     for i = 1, 4 do
         landPatrol1:Patrol(ScenarioUtils.MarkerToPosition('PlayerLand_Patrol' .. i))
     end
 
-    local landPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'LandPatrol2', 'AttackFormation')
+    local landPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'LandPatrol2', 'AttackFormation')
     for i = 1, 4 do
         landPatrol2:Patrol(ScenarioUtils.MarkerToPosition('PlayerLand_Patrol' .. i))
     end
 
-    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player', 'AirPatrol', 'ChevronFormation')
+    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'AirPatrol', 'ChevronFormation')
     for i = 1, 4 do
         airPatrol:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol' .. i))
     end
@@ -306,14 +306,14 @@ function OnStart(self)
     SetArmyUnitCap(uef, 800)
 
     -- Army colors
-    ScenarioFramework.SetCybranColor(Player)
+    ScenarioFramework.SetCybranColor(Player1)
     ScenarioFramework.SetAeonColor(aeon)
     ScenarioFramework.SetUEFColor(uef)
     ScenarioFramework.SetUEFColor(blackSun)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -341,7 +341,7 @@ function ControlCenterDestroyed()
     if(not ScenarioInfo.OpEnded) then
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = false
-        ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('ControlCenter'), 0, ArmyBrains[Player])
+        ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('ControlCenter'), 0, ArmyBrains[Player1])
 
         -- Control center destroyed cam
 --    ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
@@ -418,29 +418,29 @@ function IntroMission1()
         table.insert(airPlatoon, {air[i], 5, 5, 'attack', 'ChevronFormation'})
         table.insert(seaPlatoon, {sea[i], 5, 5, 'attack', 'AttackFormation'})
     end
-    local landFactories = ArmyBrains[Player]:GetListOfUnits(categories.urb0301, false)
-    local airFactories = ArmyBrains[Player]:GetListOfUnits(categories.urb0302, false)
-    local seaFactories = ArmyBrains[Player]:GetListOfUnits(categories.urb0303, false)
+    local landFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0301, false)
+    local airFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0302, false)
+    local seaFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0303, false)
     IssueClearFactoryCommands(landFactories)
     IssueClearFactoryCommands(airFactories)
     IssueClearFactoryCommands(seaFactories)
     IssueFactoryRallyPoint(landFactories, ScenarioUtils.MarkerToPosition('LandFactoryRally'))
     IssueFactoryRallyPoint(airFactories, ScenarioUtils.MarkerToPosition('AirFactoryRally'))
     IssueFactoryRallyPoint(seaFactories, ScenarioUtils.MarkerToPosition('SeaFactoryRally'))
-    ArmyBrains[Player]:BuildPlatoon(landPlatoon, landFactories, 1)
-    ArmyBrains[Player]:BuildPlatoon(airPlatoon, airFactories, 1)
-    ArmyBrains[Player]:BuildPlatoon(seaPlatoon, seaFactories, 1)
+    ArmyBrains[Player1]:BuildPlatoon(landPlatoon, landFactories, 1)
+    ArmyBrains[Player1]:BuildPlatoon(airPlatoon, airFactories, 1)
+    ArmyBrains[Player1]:BuildPlatoon(seaPlatoon, seaFactories, 1)
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -474,7 +474,7 @@ function IntroMission1()
 
     -- Cybran in Aeon LOS VO trigger
     ScenarioFramework.CreateArmyIntelTrigger(CybranSpotted, ArmyBrains[aeon], 'LOSNow',
-        false, true, categories.ALLUNITS, true, ArmyBrains[Player])
+        false, true, categories.ALLUNITS, true, ArmyBrains[Player1])
 
     -- UEF vs Aeon air attacks
     SpawnUEFAir()
@@ -792,7 +792,7 @@ function StartMission2()
         OpStrings.OpC06_M2P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -908,7 +908,7 @@ end
 
 function GateBuilt()
     -- Primary Objective 2
-    local gates = ArmyBrains[Player]:GetListOfUnits(categories.urb0304, false)
+    local gates = ArmyBrains[Player1]:GetListOfUnits(categories.urb0304, false)
     ScenarioInfo.M2P2 = Objectives.Basic(
         'primary',                          -- type
         'incomplete',                       -- complete
@@ -921,11 +921,11 @@ function GateBuilt()
     )
 
     -- Trigger will fire if all of the players gates are destroyed
-    ScenarioFramework.CreateArmyStatTrigger(GateDestroyed, ArmyBrains[Player], 'GateDestroyed',
+    ScenarioFramework.CreateArmyStatTrigger(GateDestroyed, ArmyBrains[Player1], 'GateDestroyed',
         {{StatType = 'Units_Active', CompareType = 'LessThan', Value = 1, Category = categories.urb0304}})
 
     -- Trigger will fire when CDR is near the gate
-    ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player],
+    ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
         categories.urb0304, 10)
 
     -- M2P2 Objective Reminder
@@ -938,7 +938,7 @@ function GateDestroyed()
         if(ScenarioInfo.CDRNearGate) then
             ScenarioInfo.CDRNearGate:Destroy()
         end
-        ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player],
+        ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
             categories.urb0304, 10)
         if(ScenarioInfo.DownloadTimer) then
             ScenarioFramework.ResetUITimer()
@@ -950,7 +950,7 @@ end
 function CDRNearGate()
     local position = ScenarioInfo.PlayerCDR:GetPosition()
     local rect = Rect(position[1] - 10, position[3] - 10, position[1] + 10, position[3] + 10)
-    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.url0001, true, true, ArmyBrains[Player])
+    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.url0001, true, true, ArmyBrains[Player1])
     ScenarioInfo.DownloadTimer = ScenarioFramework.CreateTimerTrigger(DownloadFinished, 120, true)
     ScenarioFramework.Dialogue(OpStrings.C06_M02_060)
 
@@ -969,7 +969,7 @@ function LeftGate()
         ScenarioInfo.DownloadTimer:Destroy()
 
         -- Trigger will fire when CDR is near the gate
-        ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player],
+        ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
             categories.urb0304, 10)
     end
 end
@@ -997,7 +997,7 @@ function DownloadFinished()
                 ScenarioFramework.Dialogue(OpStrings.C06_M02_130)
 
                 -- Make the control center not targetable, if killed by splash damage op fails
-                local unit = ArmyBrains[Player]:GetListOfUnits(categories.uec1902, false)
+                local unit = ArmyBrains[Player1]:GetListOfUnits(categories.uec1902, false)
                 ScenarioInfo.ControlCenter = unit[1]
                 ScenarioInfo.ControlCenter:SetDoNotTarget(true)
                 ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
@@ -1095,12 +1095,12 @@ function IntroMission3()
 
     -- Adjust buildable categories
     ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction(Player, categories.urb2305 +    -- Strategic Missile Launcher
+    ScenarioFramework.RemoveRestriction(Player1, categories.urb2305 +    -- Strategic Missile Launcher
                                    categories.urs0304)     -- Strategic Missile Submarine
 
     local tblArmy = ListArmies()
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioFramework.RemoveRestriction(iArmy,
                 categories.urb2305 +    -- Strategic Missile Launcher
                 categories.urs0304)     -- Strategic Missile Submarine
@@ -1118,7 +1118,7 @@ function StartMission3()
         v:GiveNukeSiloAmmo(5)
     end
     ScenarioFramework.CreateAreaTrigger(StartNukeAeon, ScenarioUtils.AreaToRect('UEFBaseArea'), categories.ALLUNITS,
-        true, false, ArmyBrains[Player], 1, false)
+        true, false, ArmyBrains[Player1], 1, false)
 
     -- Atlantis Assault
     ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. ScenarioInfo.Options.Difficulty, 'StaggeredChevronFormation')
@@ -1129,7 +1129,7 @@ function StartMission3()
         IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
         ScenarioInfo.AtlantisBoats:Patrol(ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
     end
-    ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[Player], categories.ALLUNITS, 80)
+    ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[Player1], categories.ALLUNITS, 80)
 
     -- After 4 minutes: Aiko VO
     ScenarioFramework.CreateTimerTrigger(M3AikoVO, 240)
@@ -1148,7 +1148,7 @@ function StartMission3()
     ScenarioInfo.M3P1:AddResultCallback(
         function(result)
             if(result) then
-                local unit = ArmyBrains[Player]:GetListOfUnits(categories.uec1901, false)
+                local unit = ArmyBrains[Player1]:GetListOfUnits(categories.uec1901, false)
 
                 -- Primary Objective 2
                 ScenarioInfo.M3P2 = Objectives.Basic(

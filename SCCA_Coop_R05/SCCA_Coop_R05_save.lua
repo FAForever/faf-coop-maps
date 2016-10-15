@@ -4976,7 +4976,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R05/SCCA_Coop_R05_playerplanlist.lua',
@@ -4987,9 +4987,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5257,7 +5257,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R05/SCCA_Coop_R05_playerplanlist.lua',
@@ -5268,9 +5268,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5304,7 +5304,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R05/SCCA_Coop_R05_playerplanlist.lua',
@@ -5315,9 +5315,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Player'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5351,7 +5351,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R05/SCCA_Coop_R05_playerplanlist.lua',
@@ -5362,9 +5362,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Player'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player1'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -5412,10 +5412,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
-                ['Player'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
+                ['Player1'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',

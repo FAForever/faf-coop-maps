@@ -26,21 +26,21 @@ ScenarioInfo.MissionNumber = 1
 
 ScenarioInfo.Difficulty = 1
 
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.UEF = 2
 ScenarioInfo.BrackmanBase = 3
 ScenarioInfo.Civilian = 4
 ScenarioInfo.CybranCloaked = 5
-ScenarioInfo.Coop1 = 6
-ScenarioInfo.Coop2 = 7
-ScenarioInfo.Coop3 = 8
+ScenarioInfo.Player2 = 6
+ScenarioInfo.Player3 = 7
+ScenarioInfo.Player4 = 8
 truckCam = false
 
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local UEF = ScenarioInfo.UEF
 local Civilian = ScenarioInfo.Civilian
 local CybranCloaked = ScenarioInfo.CybranCloaked
@@ -193,15 +193,15 @@ function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
 
-    ScenarioFramework.SetCybranColor(Player)
+    ScenarioFramework.SetCybranColor(Player1)
     ScenarioFramework.SetUEFColor(UEF)
     ScenarioFramework.SetCybranAllyColor(CybranCloaked)
     ScenarioFramework.SetCybranNeutralColor(BrackmanBase)
     ScenarioFramework.SetCybranNeutralColor(Civilian)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -211,14 +211,14 @@ function OnPopulate(scenario)
     end
 
     -- Initial player bombers
-    local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Player' ,'M1_Bombers', 'AttackFormation')
+    local intialBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1' ,'M1_Bombers', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(intialBombers, 'InitialBomber_Chain')
 
-    ScenarioInfo.M1AttackUnits = ScenarioUtils.CreateArmyGroup('Player', 'M1_Initial_Units')
+    ScenarioInfo.M1AttackUnits = ScenarioUtils.CreateArmyGroup('Player1', 'M1_Initial_Units')
     -- ! Spawn TEST units for degub - REMOVE
-    -- ScenarioInfo.M1TestUnits = ScenarioUtils.CreateArmyGroup('Player', 'TEST_UNITS')
+    -- ScenarioInfo.M1TestUnits = ScenarioUtils.CreateArmyGroup('Player1', 'TEST_UNITS')
     -- ! Spawn Quantum Gate
-    ScenarioInfo.Gate = ScenarioUtils.CreateArmyUnit('Player', 'Gate')
+    ScenarioInfo.Gate = ScenarioUtils.CreateArmyUnit('Player1', 'Gate')
     ScenarioInfo.Gate:SetCapturable(false)
     ScenarioInfo.Gate:SetReclaimable(false)
 
@@ -258,8 +258,8 @@ function IntroSequenceThread()
     Cinematics.EnterNISMode()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Gate_Area'), 2)
 
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Commander')
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
     ScenarioInfo.PlayerCDR:SetReclaimable(false)
@@ -278,7 +278,7 @@ function IntroSequenceThread()
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
             ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
@@ -901,11 +901,11 @@ function UEFCruiserKilled()
 end
 
 function M2SpawnTrucks()
-    local truck1 = ScenarioUtils.CreateArmyUnit('Player', 'Truck_1')
-    local truck2 = ScenarioUtils.CreateArmyUnit('Player', 'Truck_2')
-    local truck3 = ScenarioUtils.CreateArmyUnit('Player', 'Truck_3')
-    local truck4 = ScenarioUtils.CreateArmyUnit('Player', 'Truck_4')
-    local truck5 = ScenarioUtils.CreateArmyUnit('Player', 'Truck_5')
+    local truck1 = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_1')
+    local truck2 = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_2')
+    local truck3 = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_3')
+    local truck4 = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_4')
+    local truck5 = ScenarioUtils.CreateArmyUnit('Player1', 'Truck_5')
     ScenarioInfo.M2P3Obj:AddBasicUnitTarget (truck1)
     ScenarioInfo.M2P3Obj:AddBasicUnitTarget (truck2)
     ScenarioInfo.M2P3Obj:AddBasicUnitTarget (truck3)
@@ -969,7 +969,7 @@ function StartConvoy1()
     ScenarioFramework.Dialogue(OpStrings.C03_M02_070)
     -- Trigger for at gate, used for all trucks
     ScenarioFramework.M2GateTrigger = ScenarioFramework.CreateAreaTrigger(SendTruckThroughGate, ScenarioUtils.AreaToRect('M2_Gate_Delete_Area'),
-        (categories.urc0001), false, false, ArmyBrains[ScenarioInfo.Player], 1, true)
+        (categories.urc0001), false, false, ArmyBrains[ScenarioInfo.Player1], 1, true)
 
     -- Spawn First Convoy
     M2SpawnTrucks()
@@ -1182,7 +1182,7 @@ function StartMission3part2()
     ScenarioInfo.M3HiddenResearchFacility = ScenarioUtils.CreateArmyGroup('CybranCloaked', 'M3_Hidden_Research_Facility')
     ScenarioInfo.M3Omni = ScenarioUtils.CreateArmyUnit('CybranCloaked', 'M3_Omni')
     -- Hidden Cybran Research Facility spotted
-    ScenarioFramework.CreateArmyIntelTrigger(M3H1Achieved, ArmyBrains[Player], 'LOSNow', false, true, categories.urb3104, true, ArmyBrains[CybranCloaked])
+    ScenarioFramework.CreateArmyIntelTrigger(M3H1Achieved, ArmyBrains[Player1], 'LOSNow', false, true, categories.urb3104, true, ArmyBrains[CybranCloaked])
     -- Spawn in UEF main base structures
     ScenarioUtils.CreateArmyGroup('UEF', 'M3_Main_Base')
     ScenarioUtils.CreateArmyGroup('UEF', 'M3_Sea_Base')

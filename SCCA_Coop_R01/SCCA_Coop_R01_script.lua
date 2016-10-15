@@ -26,21 +26,21 @@ local Utilities = import('/lua/utilities.lua')
 ---------
 -- Globals
 ---------
-ScenarioInfo.Player = 1
+ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.UEF = 3
 ScenarioInfo.Symbiont = 4
 ScenarioInfo.Dostya = 5
 ScenarioInfo.FauxUEF = 6
 ScenarioInfo.Wreckage_Holding = 7
-ScenarioInfo.Coop1 = 8
-ScenarioInfo.Coop2 = 9
-ScenarioInfo.Coop3 = 10
+ScenarioInfo.Player2 = 8
+ScenarioInfo.Player3 = 9
+ScenarioInfo.Player4 = 10
 
-local Player = ScenarioInfo.Player
-local Coop1 = ScenarioInfo.Coop1
-local Coop2 = ScenarioInfo.Coop2
-local Coop3 = ScenarioInfo.Coop3
+local Player1 = ScenarioInfo.Player1
+local Player2 = ScenarioInfo.Player2
+local Player3 = ScenarioInfo.Player3
+local Player4 = ScenarioInfo.Player4
 local Aeon = ScenarioInfo.Aeon
 local UEF = ScenarioInfo.UEF
 local Symbiont = ScenarioInfo.Symbiont
@@ -134,9 +134,9 @@ function M1UnitsForStart()
     ScenarioFramework.SetUEFColor(6)
     ScenarioFramework.SetCybranNeutralColor(7)
     local colors = {
-        ['Coop1'] = {183, 101, 24}, 
-        ['Coop2'] = {255, 135, 62}, 
-        ['Coop3'] = {255, 191, 128}
+        ['Player2'] = {183, 101, 24}, 
+        ['Player3'] = {255, 135, 62}, 
+        ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -146,7 +146,7 @@ function M1UnitsForStart()
     end
 
     -- Create Dostya's group, name Dostya, move them out
-    ScenarioInfo.InitialVizArea = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('CommanderStartLocation'), 12, ArmyBrains[Player])
+    ScenarioInfo.InitialVizArea = ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('CommanderStartLocation'), 12, ArmyBrains[Player1])
     ScenarioInfo.Dostya_Group = ScenarioUtils.CreateArmyGroup('Dostya' ,'Dosta_IntialGroup')
     ScenarioInfo.Dostya_DostyaUnit = ScenarioInfo.UnitNames[Dostya]['M1_DostyaUnit']
     ScenarioInfo.Dostya_DostyaUnit:SetCustomName(LOC '{i CDR_Dostya}')
@@ -215,16 +215,16 @@ end
 
 function CreatePlayerCommander()
     -- CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'M1PlayerCDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'M1PlayerCDR')
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player].Nickname)
+    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'M1PlayerCDR')
             ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
             ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
@@ -269,7 +269,7 @@ function BeginningObjectives()
         OpStrings.M1P2Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player,
+            Army = ScenarioInfo.Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -297,7 +297,7 @@ function BeginningObjectivesB()
         OpStrings.M1P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player,
+            Army = ScenarioInfo.Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -355,7 +355,7 @@ function BuildFactory_Obj()
         OpStrings.M2P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -391,7 +391,7 @@ function M1_BuildBomberObjective()
         LOCF(OpStrings.M3P1Detail, M3P1_BomberBuildValue),  -- description
         'build',                        -- action
         {                               -- target
-            Army = Player,
+            Army = Player1,
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M3P1_BomberBuildValue,
@@ -430,7 +430,7 @@ function M1_BeginPart2()
         v:SetCanBeKilled(false)
         v:SetCanTakeDamage(false)
     end
-    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.M1UEFRadar:GetPosition(), .1, ArmyBrains[Player])
+    ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.M1UEFRadar:GetPosition(), .1, ArmyBrains[Player1])
 
 
     -- Defenders for it, with patrol and death triggers
@@ -528,7 +528,7 @@ function M1_CaptureRadarObj()
     -- Swap the power etc over to the player, once theyve captured the Radar.
     for k,v in ScenarioInfo.m1UEFRadarCamp do
         if not v:IsDead() then
-            ScenarioFramework.GiveUnitToArmy(v, Player)
+            ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 end
@@ -1158,14 +1158,14 @@ function BeginPart4()
     ScenarioFramework.CreateTimerTrigger(Part4_AllowAeonTaunts, 60)
 
     -- When the Aeon first spots the player, taunt. At 10, 30 , 60 Aeon units destroyed, taunts
-    ScenarioFramework.CreateArmyIntelTrigger(AeonSpotsPlayer, ArmyBrains[Aeon], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Player])
-    ScenarioFramework.CreateArmyStatTrigger(AeonTauntTenUnits, ArmyBrains[Player], 'Killed10AeonUnits',
+    ScenarioFramework.CreateArmyIntelTrigger(AeonSpotsPlayer, ArmyBrains[Aeon], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Player1])
+    ScenarioFramework.CreateArmyStatTrigger(AeonTauntTenUnits, ArmyBrains[Player1], 'Killed10AeonUnits',
         {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 16, Category = categories.AEON, },})
 
-    ScenarioFramework.CreateArmyStatTrigger(AeonTauntThirtyUnits, ArmyBrains[Player], 'Killed30AeonUnits',
+    ScenarioFramework.CreateArmyStatTrigger(AeonTauntThirtyUnits, ArmyBrains[Player1], 'Killed30AeonUnits',
         {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 30, Category = categories.AEON, },})
 
-    ScenarioFramework.CreateArmyStatTrigger(AeonTauntSixtyUnits, ArmyBrains[Player], 'Killed60AeonUnits',
+    ScenarioFramework.CreateArmyStatTrigger(AeonTauntSixtyUnits, ArmyBrains[Player1], 'Killed60AeonUnits',
         {{ StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 60, Category = categories.AEON, },})
 end
 
@@ -1240,7 +1240,7 @@ function Part4SpawnAeonUnits()
     ScenarioInfo.M3AeonBaseDef2:Patrol(ScenarioUtils.MarkerToPosition('M3AeonBasePatrolBack2'))
 
     -- Check how many air units the player has, then start spwaning the Aeon air defenders based on difficulty, and player air count.
-    ScenarioInfo.M3PlayerAirCount = ArmyBrains[Player]:GetCurrentUnits(categories.AIR)
+    ScenarioInfo.M3PlayerAirCount = ArmyBrains[Player1]:GetCurrentUnits(categories.AIR)
     -- On easy, no defenders present unless the player has a sizable force of air
     if ScenarioInfo.Difficulty == 2 then
         ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirMedium' ,'AttackChevron')
@@ -1342,7 +1342,7 @@ function Part4SwapTransferThread(platoon, unloadCommand)
     M2TransportsUnloaded = M2TransportsUnloaded + 1
     -- Swap each member of the platoon's Attack squad to the player.
     for k, v in platoon:GetSquadUnits('Attack') do
-        ScenarioFramework.GiveUnitToArmy(v, Player)
+        ScenarioFramework.GiveUnitToArmy(v, Player1)
     end
 end
 

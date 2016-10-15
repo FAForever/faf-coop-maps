@@ -1488,7 +1488,7 @@ Scenario = {
         --[[                                                                           ]]--
         --[[  Army                                                                     ]]--
         --[[                                                                           ]]--
-        ['Player'] =  
+        ['Player1'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
@@ -1499,9 +1499,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -2044,7 +2044,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop1'] =  
+        ['Player2'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
@@ -2054,9 +2054,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -2091,7 +2091,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop2'] =  
+        ['Player3'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
@@ -2101,9 +2101,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['Civilian'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -2138,7 +2138,7 @@ Scenario = {
                 },
             },
         },
-        ['Coop3'] =  
+        ['Player4'] =  
         {
             personality = '',
             plans = '/maps/SCCA_Coop_R03/SCCA_Coop_R03_playerplanlist.lua',
@@ -2148,9 +2148,9 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
                 ['Civilian'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
@@ -2199,10 +2199,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -3064,10 +3064,10 @@ Scenario = {
                 energy = 0,
             },
             Alliances = {
-                ['Player'] = 'Ally',
-                ['Coop1'] = 'Ally',
-                ['Coop2'] = 'Ally',
-                ['Coop3'] = 'Ally',
+                ['Player1'] = 'Ally',
+                ['Player2'] = 'Ally',
+                ['Player3'] = 'Ally',
+                ['Player4'] = 'Ally',
                 ['UEF'] = 'Enemy',
             },
             ['Units'] = GROUP {
@@ -3940,10 +3940,10 @@ Scenario = {
             Alliances = {
                 ['BrackmanBase'] = 'Enemy',
                 ['Civilian'] = 'Enemy',
-                ['Player'] = 'Enemy',
-                ['Coop1'] = 'Enemy',
-                ['Coop2'] = 'Enemy',
-                ['Coop3'] = 'Enemy',
+                ['Player1'] = 'Enemy',
+                ['Player2'] = 'Enemy',
+                ['Player3'] = 'Enemy',
+                ['Player4'] = 'Enemy',
             },
             ['Units'] = GROUP {
                 orders = '',
