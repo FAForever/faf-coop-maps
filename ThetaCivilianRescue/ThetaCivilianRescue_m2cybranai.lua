@@ -48,7 +48,7 @@ function CybranM2EastBaseAI()
     CybranM2EastBaseLandAttacks()
     CybranM2EastBaseAirAttacks()
     
-    ScenarioFramework.CreateAreaTrigger( ExtraAADefense, 'M2_Area', categories.AIR, true, false, ArmyBrains[ScenarioInfo.Player], numberOfAirLimit[Difficulty], true)
+    ScenarioFramework.CreateAreaTrigger( ExtraAADefense, 'M2_Area', categories.AIR, true, false, ArmyBrains[ScenarioInfo.Player1], numberOfAirLimit[Difficulty], true)
 end
 
 function CybranM2EastBaseLandAttacks()
