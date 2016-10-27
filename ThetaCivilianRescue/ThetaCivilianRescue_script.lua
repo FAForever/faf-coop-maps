@@ -208,6 +208,8 @@ function IntroMission1NIS()
                 
     end
     
+    ScenarioFramework.SimAnnouncement('Theta Civilian Rescue', 'mission by KeyBlue')
+    
     SpawnAllACUs()
     StartMission1()
 end
