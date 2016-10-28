@@ -101,7 +101,6 @@ function OnStart(self)
     
     -- Lock off cdr upgrades
     ScenarioFramework.RestrictEnhancements({'ResourceAllocation',
-                                            'DamageStablization',
                                             'T3Engineering',
                                             'LeftPod',
                                             'RightPod',
