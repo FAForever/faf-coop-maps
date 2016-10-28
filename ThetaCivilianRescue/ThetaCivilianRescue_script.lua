@@ -497,6 +497,9 @@ function StartMission2()
 end
 
 function M2S2MonkeylordObjective(MonkeylordTime)
+    if ScenarioInfo.hasMonkeylordSpawned or ScenarioInfo.M2S2_1 then
+        return
+    end
     ------------------------------------------------------------------------------
     -- Secondary Objective 2 - Complete Primary Objectives before spawn Monkeylord
     ------------------------------------------------------------------------------
@@ -526,7 +529,7 @@ end
 
 function planPrematureMonkeyLord()
     if ScenarioInfo.NumberOfPlayers >= 3 then
-        TCRUtil.CreateMultipleAreaTrigger(prematureMonkeylord, {'M2_Forward_Defenses_1', 'M2_Forward_Defenses_2'} , categories.DEFENSE * categories.CYBRAN - categories.WALL, true, true, 0)
+        TCRUtil.CreateMultipleAreaTrigger(prematureMonkeylord, {'M2_Forward_Defenses_1', 'M2_Forward_Defenses_2'} , categories.DEFENSE * categories.CYBRAN - categories.WALL, true, true, 1)
     end
 end
 
@@ -536,9 +539,11 @@ function prematureMonkeylord()
         return
     end
     
-    ScenarioFramework.Dialogue(OpStrings.M2_Scared_Cybran, nil, true)
     if ScenarioInfo.M2S2 then
+        ScenarioFramework.Dialogue(OpStrings.M2_Scared_Cybran, nil, true)
         ScenarioInfo.M2S2:ManualResult(true)
+    else
+        ScenarioFramework.Dialogue(OpStrings.M2_Scared_Cybran_Unseen, nil, true)
     end
     
     ------------------------------------------------------------------------------
@@ -576,7 +581,11 @@ function SpawnExperimental()
     --LOG('*DEBUG: SpawnExperimentals')
     if (not ScenarioInfo.hasMonkeylordSpawned) then
         ScenarioInfo.hasMonkeylordSpawned = true
-        ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming, nil, true)
+        if ScenarioInfo.M2S2 or ScenarioInfo.M2S2_1 then
+            ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming, nil, true)
+        else
+            ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Is_Coming_Unseen, nil, true)
+        end
         M2CybranManual.DropExperimental(KilledExperimentals)
     else
         if (math.floor(GetGameTimeSeconds()) > (M2SpawnMonkeylordTime[Difficulty] + M2SpawnExperimentalsTime[Difficulty] - 60)) then

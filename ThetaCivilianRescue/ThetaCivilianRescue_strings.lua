@@ -75,6 +75,10 @@ M2_Scared_Cybran = {
   {text = '[UEF]: They are afraid of your power and are rushing the Monkeylord. You don\'t have much time left to prepare.', vid = 'spinUEFBlue_6sec.sfd', bank = 'TCR_VO', cue = '14M2_Scared_Cybran', faction = 'UEF'},
 }
 
+M2_Scared_Cybran_Unseen = {
+  {text = '[UEF]: It\'s a trap! They are afraid of your power and are rushing a Monkeylord to take you out. You don\'t have much time left to prepare.', vid = 'spinUEFBlue_5sec.sfd', bank = 'TCR_VO', cue = '14M2_Scared_Cybran_UnSeen', faction = 'UEF'},
+}
+
 --[<no view> When you scout the 2nd prison the UEF intelligence finds out that its all a trap and that there is a Monkeylord being made off camera.]--
 M2_Monkeylord_Detected = {
   {text = '[UEF]: It\'s a trap! The Cybrans are preparing a Monkeylord to take you out. Complete the mission before the Monkeylord is ready!', vid = 'spinUEFBlue_6sec.sfd', bank = 'TCR_VO', cue = '15M2_Monkeylord_Detected', faction = 'UEF'},
@@ -83,6 +87,10 @@ M2_Monkeylord_Detected = {
 --[<no view> The timer for the monkeylord is over, and it'll get dropped in the east base.]--
 M2_Monkeylord_Is_Coming = {
   {text = '[UEF]: You were too slow and the cybrans are deploying the Monkeylord.', vid = 'spinUEFBlue_4sec.sfd', bank = 'TCR_VO', cue = '16M2_Monkeylord_Is_Coming', faction = 'UEF'},
+}
+--[<no view> The timer for the monkeylord is over, and it'll get dropped in the east base. Players hear about the monkeylord for the first time.]--
+M2_Monkeylord_Is_Coming_Unseen = {
+  {text = '[UEF]: It\'s a trap! The Cybrans are deploying a Monkeylord to take you out. Don\'t falter now. We need you to complete this mission!', vid = 'spinUEFBlue_6sec.sfd', bank = 'TCR_VO', cue = '16M2_Monkeylord_Is_Coming_UnSeeen', faction = 'UEF'},
 }
 
 --[<no view> You killed the experimental and a new timer has started, showing how long it'll take untill the next experimentals spawn.]--
