@@ -944,7 +944,7 @@ function StartMission3()
                         SetAlliance(player, UEF, 'Neutral')
                         SetAlliance(UEF, player, 'Neutral')
             end
-            local units = ArmyBrains[Player1]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
+            local units = ScenarioFramework.GetListOfHumanUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
             units = ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
             IssueClearCommands(units)
