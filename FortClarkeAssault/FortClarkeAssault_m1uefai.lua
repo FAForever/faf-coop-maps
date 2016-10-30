@@ -70,7 +70,7 @@ function UEFM1NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function UEFM1NorthBaseLandAttacks()
@@ -92,7 +92,7 @@ function UEFM1NorthBaseLandAttacks()
     opai:SetChildQuantity({'LightArtillery', 'LightTanks'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     opai = UEFM1NorthBase:AddOpAI('BasicLandAttack', 'M1_NorthLandAttack2',
         {
@@ -105,7 +105,7 @@ function UEFM1NorthBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileAntiAir', 4)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 5, categories.AIR * categories.MOBILE, '>='}})
+        {'default_brain', {'HumanPlayers'}, 5, categories.AIR * categories.MOBILE, '>='})
 
     quantity = {6, 6, 8}
     trigger = {60, 50, 40}
@@ -121,7 +121,7 @@ function UEFM1NorthBaseLandAttacks()
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     trigger = {4, 3, 2}
     opai = UEFM1NorthBase:AddOpAI('BasicLandAttack', 'M1_NorthLandAttack4',
@@ -135,7 +135,7 @@ function UEFM1NorthBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', 2)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 end
 
 --------------------
@@ -177,7 +177,7 @@ function UEFM1SouthBaseLandAttacks()
     opai:SetChildQuantity({'LightTanks', 'LightArtillery'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     quantity = {6, 8, 10}
     trigger = {60, 50, 40}
@@ -193,7 +193,7 @@ function UEFM1SouthBaseLandAttacks()
     opai:SetChildQuantity({'HeavyTanks', 'LightTanks'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     quantity = {6, 6, 8}
     trigger = {36, 28, 22}
@@ -221,7 +221,7 @@ function UEFM1SouthBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', 4)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 5, categories.TECH2 * categories.AIR * categories.MOBILE, '>='}})
+        {'default_brain', {'HumanPlayers'}, 5, categories.TECH2 * categories.AIR * categories.MOBILE, '>='})
 
     quantity = {4, 6, 8}
     trigger = {10, 8, 6}
@@ -236,7 +236,7 @@ function UEFM1SouthBaseLandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 end
 
 ----------------------
@@ -326,7 +326,7 @@ function UEFM1ExpansionBase2AirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.AIR * categories.TECH2, '>='}})
+        {'default_brain', {'HumanPlayers'}, 1, categories.AIR * categories.TECH2, '>='})
 
     quantity = {6, 8, 10}
     opai = UEFM1ExpansionBase2:AddOpAI('AirAttacks', 'M2ExpansionBaseAirAttack3',
@@ -342,7 +342,7 @@ function UEFM1ExpansionBase2AirAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 100, categories.ALLUNITS, '>='}})
+        {'default_brain', {'HumanPlayers'}, 100, categories.ALLUNITS, '>='})
 
     quantity = {7, 11, 15}
     trigger = {20, 16, 12}
@@ -359,5 +359,5 @@ function UEFM1ExpansionBase2AirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
