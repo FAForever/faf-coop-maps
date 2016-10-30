@@ -12,6 +12,7 @@ local Cinematics = import('/lua/cinematics.lua')
 local M1SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m1seraphimai.lua')
 local M2SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m2seraphimai.lua')
 local M3SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua')
+local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/X1CA_Coop_004/X1CA_Coop_004_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
@@ -1845,16 +1846,15 @@ function WaitDeleteNukes(seconds)
 end
 
 function FakeNuke(posX, posZ)
-    local tempNuke = ScenarioInfo.PlayerCDR:CreateProjectile('/effects/entities/SeraphimNukeEffectController01/SeraphimNukeEffectController01_proj.bp', posX, 0, posZ, nil, nil, nil):SetCollision(false)
-    tempNuke.NukeInnerRingDamage = 1000001
-    tempNuke.NukeInnerRingRadius = 45
-    tempNuke.NukeInnerRingTicks = 24
-    tempNuke.NukeInnerRingTotalTime = 12
-    tempNuke.NukeOuterRingDamage = 7500
-    tempNuke.NukeOuterRingRadius = 60
-    tempNuke.NukeOuterRingTicks = 20
-    tempNuke.NukeOuterRingTotalTime = 5
-    tempNuke:CreateNuclearExplosion()
+    local proj = ScenarioInfo.PlayerCDR:CreateProjectile('/projectiles/SIFExperimentalStrategicMissile01/SIFExperimentalStrategicMissile01_proj.bp', posX, 0, posZ, nil, nil, nil):SetCollision(false)
+
+    proj:OnCreate()
+    proj.InnerRing = NukeDamage()
+    proj.InnerRing:OnCreate(1000001, 45, 24, 12)
+    proj.OuterRing = NukeDamage()
+    proj.OuterRing:OnCreate(7500, 60, 20, 5)
+
+    proj:OnImpact('Terrain')
 end
 
 --------
