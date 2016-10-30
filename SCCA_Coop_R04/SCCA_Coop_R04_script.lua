@@ -571,7 +571,7 @@ function BeginMission1()
         }
     )
 
-    local numCurrentUnits = table.getn( ArmyBrains[ Player1 ]:GetListOfUnits( categories.ALLUNITS, false ))
+    local numCurrentUnits = ScenarioFramework.GetNumOfHumanUnits( categories.ALLUNITS, false )
 
     -- ScenarioFramework.CreateArmyStatTrigger( M1B1Complete, ArmyBrains[Player1], 'B1Trigger',
     -- {{ StatType = 'Units_History', CompareType = 'GreaterThan', Value = numCurrentUnits + M1B1BuildAmount, Category = categories.CYBRAN, },} )
