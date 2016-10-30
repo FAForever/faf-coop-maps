@@ -999,7 +999,7 @@ end
 function AeonContinuedNukeAttacks()
     while not ScenarioInfo.AeonNukesDestroyed do
         local nukeSiloTable = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
-        local nukeTargetTable = ArmyBrains[Player1]:GetListOfUnits(categories.STRUCTURE - categories.ECONOMIC, false)
+        local nukeTargetTable = ScenarioFramework.GetListOfHumanUnits(categories.STRUCTURE - categories.ECONOMIC, false)
         local rndNuke = ScenarioFramework.GetRandomEntry(nukeSiloTable)
         local rndTarget = ScenarioFramework.GetRandomEntry(nukeTargetTable)
         IssueNuke({ rndNuke }, rndTarget)

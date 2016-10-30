@@ -161,7 +161,7 @@ function OnPopulate(scen)
     ScenarioFramework.GroupPatrolChain(group, 'Player_North_Patrol_Chain')
 
     -- Give Player Anti-Nukes
-    for num,unit in ArmyBrains[Player1]:GetListOfUnits(categories.ueb4302, false) do
+    for num,unit in ScenarioFramework.GetListOfHumanUnits(categories.ueb4302, false) do
         unit:GiveTacticalSiloAmmo(2)
     end
 
