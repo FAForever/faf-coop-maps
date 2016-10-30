@@ -377,9 +377,18 @@ function DropReinforcements(brain, targetBrain, units, DropLocation, TransportDe
     local landUnits = {}
     local allTransports = {}
 
+    local function SetGroupVulnerable(group, bool)
+        for _, v in group do
+            v:SetCanTakeDamage(bool)
+            v:SetCanBeKilled(bool)
+        end
+    end
+
     ForkThread(
         function()
             local allUnits = ScenarioUtils.CreateArmyGroup(brain, units)
+
+            SetGroupVulnerable(allUnits, false)
 
             for _, unit in allUnits do
                 if EntityCategoryContains( categories.TRANSPORTATION, unit ) then
@@ -405,6 +414,7 @@ function DropReinforcements(brain, targetBrain, units, DropLocation, TransportDe
                     ScenarioFramework.GiveUnitToArmy(unit, strArmy)
                 end
             end
+            SetGroupVulnerable(allUnits, true)
         end
     )
 end
