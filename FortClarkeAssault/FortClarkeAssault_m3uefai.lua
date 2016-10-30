@@ -529,7 +529,7 @@ function UEFM3BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     --opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
+        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack2',
         {
@@ -552,7 +552,7 @@ function UEFM3BaseNavalAttacks()
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
+        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack3',
         {
@@ -575,7 +575,7 @@ function UEFM3BaseNavalAttacks()
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', 'Order', 1, categories.NAVAL * categories.MOBILE, '>='})
+        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 end
 
 function M3UEFBattleshipsAttacks()
