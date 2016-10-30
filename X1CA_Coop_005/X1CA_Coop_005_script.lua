@@ -766,10 +766,7 @@ function M2Counterattack()
     end
 
     -- If player > [225, 200, 25] structures, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE - categories.WALL, false)
 
     trigger = {225, 200, 25}
     if(num > trigger[Difficulty]) then
@@ -790,10 +787,7 @@ function M2Counterattack()
     end
 
     -- If player > [25, 15, 5] T2/T3 DF or artillery structures, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false)
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
@@ -814,10 +808,7 @@ function M2Counterattack()
     end
 
     -- If player has > [20, 10, 5] T2/T3 factories, spawn siege bots
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.FACTORY - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.FACTORY - categories.TECH1, false)
 
     trigger = {20, 10, 5}
     if(num > trigger[Difficulty]) then
@@ -832,10 +823,7 @@ function M2Counterattack()
     end
 
     -- If player has > [450, 400, 200] units, spawn mobile missiles
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     trigger = {450, 400, 200}
     if(num > trigger[Difficulty]) then
@@ -850,10 +838,7 @@ function M2Counterattack()
     end
 
     -- If player has > [30, 20, 5] shields, spawn artillery
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.SHIELD, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.SHIELD, false)
 
     trigger = {30, 20, 5}
     if(num > trigger[Difficulty]) then
@@ -868,10 +853,7 @@ function M2Counterattack()
     end
 
     -- If player has > [475, 450, 300] units, spawn spiderbot
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     trigger = {475, 450, 300}
     if(num > trigger[Difficulty]) then
@@ -883,10 +865,7 @@ function M2Counterattack()
     end
 
     -- If player has > [25, 15, 5] T2/T3 DF or artillery structures, spawn spiderbot
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false)
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
@@ -898,10 +877,7 @@ function M2Counterattack()
     end
 
     -- If player has > [100, 75, 25] gunships/bombers, spawn spiderbot
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.AIR) * (categories.GROUNDATTACK + categories.BOMBER), false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) * (categories.GROUNDATTACK + categories.BOMBER), false)
 
     trigger = {100, 75, 25}
     if(num > trigger[Difficulty]) then
@@ -913,10 +889,7 @@ function M2Counterattack()
     end
 
     -- Spawns transport attacks for every [10, 4, 1] T2/T3 point defense
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1, false)
 
     if(num > 0) then
         trigger = {10, 4, 1}
@@ -938,28 +911,23 @@ function M2Counterattack()
     end
 
     -- Experimental Response
-    for _, player in ScenarioInfo.HumanPlayers do
-        local experimentals = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL - categories.AIR, false)
-        num = table.getn(experimentals)
-        if(num > 0) then
-            if(num > 4) then
-                num = 4
-            end
-            for i = 1, num do
-                for j = 1, Difficulty do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_Adapt_Bombers', 'GrowthFormation')
-                    IssueAttack(units:GetPlatoonUnits(), experimentals[i])
-                    ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
-                end
+    local experimentals = ScenarioFramework.GetListOfHumanUnits(categories.EXPERIMENTAL - categories.AIR, false)
+    num = table.getn(experimentals)
+    if(num > 0) then
+        if(num > 4) then
+            num = 4
+        end
+        for i = 1, num do
+            for j = 1, Difficulty do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M2_Hex5_Adapt_Bombers', 'GrowthFormation')
+                IssueAttack(units:GetPlatoonUnits(), experimentals[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M2_Hex5_InitAir_Attack_Chain')
             end
         end
     end
 
     -- Shield Response
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.SHIELD, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.SHIELD, false)
 
     if(num > 0) then
         num = math.ceil(num/2)
@@ -974,10 +942,7 @@ function M2Counterattack()
     end
 
     -- Plane Response
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.AIR) * (categories.GROUNDATTACK + categories.BOMBER), false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) * (categories.GROUNDATTACK + categories.BOMBER), false)
 
     trigger = {50, 30, 15}
     if(num >= trigger[Difficulty]) then
@@ -1467,10 +1432,7 @@ function M3Counterattack()
     end
 
     -- If player > [225, 200, 25] structures, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE - categories.WALL, false)
 
     trigger = {225, 200, 25}
     if(num > trigger[Difficulty]) then
@@ -1491,10 +1453,7 @@ function M3Counterattack()
     end
 
     -- If player > [25, 15, 5] T2/T3 DF or artillery structures, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(((categories.STRUCTURE * categories.DIRECTFIRE) - categories.TECH1) + ((categories.STRUCTURE * categories.ARTILLERY) - categories.TECH1), false)
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
@@ -1515,10 +1474,7 @@ function M3Counterattack()
     end
 
     -- If player has > [20, 10, 5] T2/T3 factories, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.FACTORY - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.FACTORY - categories.TECH1, false)
 
     trigger = {20, 10, 5}
     if(num > trigger[Difficulty]) then
@@ -1533,10 +1489,7 @@ function M3Counterattack()
     end
 
     -- If player has > [30, 20, 5] shields, spawns land attack
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.SHIELD, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.SHIELD, false)
 
     trigger = {30, 20, 5}
     if(num > trigger[Difficulty]) then
@@ -1551,10 +1504,7 @@ function M3Counterattack()
     end
 
     -- If player has > [475, 450, 350] units, spawn fatboy
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     trigger = {475, 450, 350}
     if(num > trigger[Difficulty]) then
@@ -1565,10 +1515,7 @@ function M3Counterattack()
     end
 
     -- If player has > [4, 2, 0] experimentals, spawn fatboy
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL, false)
 
     trigger = {4, 2, 0}
     if(num > trigger[Difficulty]) then
@@ -1579,10 +1526,7 @@ function M3Counterattack()
     end
 
     -- If player has > [25, 15, 8] shields, spawn fatboy
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.SHIELD, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.SHIELD, false)
 
     trigger = {25, 15, 8}
     if(num > trigger[Difficulty]) then
@@ -1593,10 +1537,7 @@ function M3Counterattack()
     end
 
     -- Spawns Air Superiority for every [25, 15, 10] T2/T3 planes, max 5 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.AIR) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1, false)
 
     trigger = {25, 15, 10}
     if(num > 0) then
@@ -1612,29 +1553,24 @@ function M3Counterattack()
 
     -- Experimental Response
     if(Difficulty > 1) then
-        for _, player in ScenarioInfo.HumanPlayers do
-            local experimentals = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL, false)
-                num = table.getn(experimentals)
-                if(num > 0) then
-                    if(num > 3) then
-                        num = 3
-                    end
-                    for i = 1, num do
-                        for j = 1, Difficulty do
-                            units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_Bombers', 'GrowthFormation')
-                            IssueAttack(units:GetPlatoonUnits(), experimentals[i])
-                            ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_Attack_1_Chain')
-                        end
-                    end
+        local experimentals = ScenarioFramework.GetListOfHumanUnits(categories.EXPERIMENTAL, false)
+        num = table.getn(experimentals)
+        if(num > 0) then
+            if(num > 3) then
+                num = 3
+            end
+            for i = 1, num do
+                for j = 1, Difficulty do
+                    units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Adapt_Bombers', 'GrowthFormation')
+                    IssueAttack(units:GetPlatoonUnits(), experimentals[i])
+                    ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_AirBase_Attack_1_Chain')
                 end
+            end
         end
     end
 
     -- spawns gunships for every 3, 2, 1 shields, up to 5 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.SHIELD, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.SHIELD, false)
 
     if(num > 0) then
         trigger = {3, 2, 1}
@@ -1649,10 +1585,7 @@ function M3Counterattack()
     end
 
     -- Spawns transport attacks for every 3, 2, 1 T2/T3 defensive structure
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1, false)
 
     if(num > 0) then
         trigger = {3, 2, 1}
@@ -1674,10 +1607,7 @@ function M3Counterattack()
     end
 
     -- If player has > [100, 60, 20] T2/T3 planes, spawn Czar, 3, 4, 5 groups max
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.MOBILE * categories.AIR) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1, false)
 
     trigger = {100, 60, 20}
     if(num > trigger[Difficulty]) then

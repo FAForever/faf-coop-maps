@@ -420,10 +420,7 @@ function IntroMission2()
             end
 
             -- spawns air superiority patrols for every 50 planes
-            local num = 0
-            for _, player in ScenarioInfo.HumanPlayers do
-                num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.MOBILE, false))
-            end
+            local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
 
             if(num > 0) then
                 num = math.ceil(num/50)
@@ -512,10 +509,8 @@ function M2InitialAttack()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_South_D' .. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_LandAttack_3_Chain')
 
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
+    
     if (Difficulty >= 2 and num > 250) then
         for i = 1, 2 do
             units = ScenarioUtils.CreateArmyGroup('Seraphim', 'M2_Seraph_InitAttack_Back_' .. i .. '_D' .. Difficulty)
@@ -526,10 +521,7 @@ function M2InitialAttack()
     end
 
     -- Spawns transport attacks for every 6, 4, 4 non-T1 defensive structures, up to 10 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1, false)
 
     if(num > 0) then
         trigger = {6, 4, 4}
@@ -560,16 +552,10 @@ function M2InitialAttack()
     ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_2_Chain')
 
     -- If player > 250 units, spawns gunships for every 60, 50, 40 land units, up to 7 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     if(num > 250) then
-        local num = 0
-        for _, player in ScenarioInfo.HumanPlayers do
-            num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false))
-        end
+        local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
         if(num > 0) then
             trigger = {60, 50, 40}
@@ -585,10 +571,7 @@ function M2InitialAttack()
     end
 
     -- Spawns Air Superiority for every 30, 25, 20 gunships, up to 10 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.GROUNDATTACK, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.GROUNDATTACK, false)
 
     if(num > 0) then
         trigger = {30, 25, 20}
@@ -601,10 +584,7 @@ function M2InitialAttack()
 
     -- Spawns land units if player has > 25, 20, 15 T2/T3 defensive & artillery structures
     trigger = {25, 20, 15}
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(((categories.DEFENSE * categories.STRUCTURE) + (categories.ARTILLERY * categories.STRUCTURE)) - categories.TECH1, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(((categories.DEFENSE * categories.STRUCTURE) + (categories.ARTILLERY * categories.STRUCTURE)) - categories.TECH1, false)
 
     if(num > trigger[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_InitAttack_North1', 'AttackFormation', 5)
@@ -624,10 +604,7 @@ function M2InitialAttack()
     end
 
     -- Spawns land units if player has > 350, 325, 300 units
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     trigger = {350, 325, 300}
     if(num > trigger[Difficulty]) then
@@ -648,10 +625,7 @@ function M2InitialAttack()
     end
 
     -- Spawns land units if player has > 70, 50, 30 T2/T3 land units
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION, false)
 
     trigger = {70, 50, 30}
     if(num > trigger[Difficulty]) then
@@ -666,10 +640,7 @@ function M2InitialAttack()
     end
 
     -- Spawns land units if player has > 50, 30, 20 T3 land units
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE * categories.TECH3) - categories.CONSTRUCTION, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE * categories.TECH3) - categories.CONSTRUCTION, false)
 
     trigger = {50, 30, 20}
     if(num > trigger[Difficulty]) then
@@ -678,37 +649,33 @@ function M2InitialAttack()
     end
 
     -- sends 2 groups of gunships at each land experimental, up to 5
-    for _, player in ScenarioInfo.HumanPlayers do
-        local exp = ArmyBrains[player]:GetListOfUnits(categories.LAND * categories.EXPERIMENTAL, false)
-        num = table.getn(exp)
-        if(num > 0) then
-            if(num > 5) then
-                num = 5
-            end
-            for i = 1, num do
-                for j = 1, 2 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation')
-                    IssueAttack(units:GetPlatoonUnits(), exp[i])
-                    ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
-                end
+    local exp = ScenarioFramework.GetListOfHumanUnits(categories.LAND * categories.EXPERIMENTAL, false)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            for j = 1, 2 do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_Adapt_Gunships', 'GrowthFormation')
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
             end
         end
     end
 
     -- sends 2 groups of air superiority fighters at each air experimental, up to 5
-    for _, player in ScenarioInfo.HumanPlayers do
-        local exp = ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.EXPERIMENTAL, false)
-        num = table.getn(exp)
-        if(num > 0) then
-            if(num > 5) then
-                num = 5
-            end
-            for i = 1, num do
-                for j = 1, 2 do
-                    units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
-                    IssueAttack(units:GetPlatoonUnits(), exp[i])
-                    ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
-                end
+    local exp = ScenarioFramework.GetListOfHumanUnits(categories.AIR * categories.EXPERIMENTAL, false)
+    num = table.getn(exp)
+    if(num > 0) then
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            for j = 1, 2 do
+                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M2_Seraph_Adapt_AirSup', 'GrowthFormation', 5)
+                IssueAttack(units:GetPlatoonUnits(), exp[i])
+                ScenarioFramework.PlatoonPatrolChain(units, 'M2_Seraph_AirAttack_' .. Random(1,2) .. '_Chain')
             end
         end
     end
@@ -1006,58 +973,54 @@ function IntroMission3()
     --------------------------------
     -- Seraphim Experimental Response
     --------------------------------
-    for _, player in ScenarioInfo.HumanPlayers do
-        local airExp = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL * categories.AIR, false)
-        if(table.getn(airExp) > 0) then
-            local num = table.getn(airExp)
-            if(num > 5) then
-                num = 5
-            end
-            for i = 1, num do
-                for j = 1, 2 do
-                    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_AirSup_' .. j, 'GrowthFormation', 5)
-                    for k, v in airExp do
-                        if(v and not v:IsDead()) then
-                            platoon:AttackTarget(v)
-                        end
+    local airExp = ScenarioFramework.GetListOfHumanUnits(categories.EXPERIMENTAL * categories.AIR, false)
+    if(table.getn(airExp) > 0) then
+        local num = table.getn(airExp)
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            for j = 1, 2 do
+                platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_AirSup_' .. j, 'GrowthFormation', 5)
+                for k, v in airExp do
+                    if(v and not v:IsDead()) then
+                        platoon:AttackTarget(v)
                     end
-                    if(j == 1) then
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_North_Chain')
-                    else
-                        ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_South_Chain')
-                    end
+                end
+                if(j == 1) then
+                    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_North_Chain')
+                else
+                    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_South_Chain')
                 end
             end
         end
     end
 
-    for _, player in ScenarioInfo.HumanPlayers do
-        local landExp = ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL - categories.AIR, false)
-        if(table.getn(landExp) > 0) then
-            local num = table.getn(landExp)
-            if(num > 5) then
-                num = 5
+    local landExp = ScenarioFramework.GetListOfHumanUnits(categories.EXPERIMENTAL - categories.AIR, false)
+    if(table.getn(landExp) > 0) then
+        local num = table.getn(landExp)
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_StratBomb', 'GrowthFormation', 5)
+            for k, v in landExp do
+                if(v and not v:IsDead()) then
+                    platoon:AttackTarget(v)
+                end
             end
-            for i = 1, num do
-                platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_StratBomb', 'GrowthFormation', 5)
-                for k, v in landExp do
+            local artillery = ScenarioFramework.GetListOfHumanUnits(categories.ARTILLERY * categories.STRUCTURE, false)
+            if(table.getn(artillery) > 0) then
+                for k, v in artillery do
                     if(v and not v:IsDead()) then
                         platoon:AttackTarget(v)
                     end
                 end
-                local artillery = ArmyBrains[Player1]:GetListOfUnits(categories.ARTILLERY * categories.STRUCTURE, false)
-                if(table.getn(artillery) > 0) then
-                    for k, v in artillery do
-                        if(v and not v:IsDead()) then
-                            platoon:AttackTarget(v)
-                        end
-                    end
-                end
-                if(Random(1,2) == 1) then
-                    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_North_Chain')
-                else
-                    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_South_Chain')
-                end
+            end
+            if(Random(1,2) == 1) then
+                ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_North_Chain')
+            else
+                ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_PlayerArea_AirPatrol_South_Chain')
             end
         end
     end
@@ -1287,10 +1250,7 @@ function Experimental9Attack()
 end
 
 function D2ExperimentalAttack1()
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL, false)
     if (num > 4) then
         if(ScenarioInfo.Experimental12 and not ScenarioInfo.Experimental12:IsDead()) then   -- E2
             IssueStop({ScenarioInfo.Experimental12})
@@ -1301,10 +1261,7 @@ function D2ExperimentalAttack1()
 end
 
 function D2ExperimentalAttack2()
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.EXPERIMENTAL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL, false)
     if (num > 3) then
         if(ScenarioInfo.Experimental17 and not ScenarioInfo.Experimental17:IsDead()) then   -- SW2
             IssueStop({ScenarioInfo.Experimental17})
@@ -1315,10 +1272,7 @@ function D2ExperimentalAttack2()
 end
 
 function D2ExperimentalAttack3()
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.TECH3 * categories.MOBILE) - categories.ENGINEER, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.TECH3 * categories.MOBILE) - categories.ENGINEER, false)
     if (num > 40) then
         if(ScenarioInfo.Experimental18 and not ScenarioInfo.Experimental18:IsDead()) then   -- S2
             IssueStop({ScenarioInfo.Experimental18})
