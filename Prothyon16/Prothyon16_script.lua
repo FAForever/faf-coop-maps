@@ -233,7 +233,7 @@ function PlayerLoseToAI(commander)
         end
 
         -- Stop all units
-        local units = ArmyBrains[Player1]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
+        local units = ScenarioFramework.GetListOfHumanUnits(categories.ALLUNITS - categories.FACTORY, false)
         IssueClearCommands(units)
 
         units = ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS - categories.FACTORY, false)
@@ -739,16 +739,10 @@ end
 
 function M2InitialAirAttack()
     -- If player > 100 units, spawns Bombers for every 20 land units, up to 6 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
-
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
+    
     if(num > 100) then
-        local num = 0
-        for _, player in ScenarioInfo.HumanPlayers do
-            num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false))
-        end
+        local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
         if(num > 0) then
             num = math.ceil(num/20)
@@ -763,10 +757,7 @@ function M2InitialAirAttack()
     end
 
     -- Spawns Interceptors for every 10 Air units, up to 5 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.MOBILE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/10)
@@ -1020,10 +1011,7 @@ function M3InitialAttack()
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_Air_Hover_Chain2')
 
     -- Spawns transport attacks for every 8 defensive structures, up to 4 x 5 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.STRUCTURE * categories.DEFENSE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.DEFENSE, false)
 
     if(num > 0) then
         num = math.ceil(num/8)
@@ -1053,16 +1041,10 @@ function M3InitialAttack()
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_Air_Attack_Chain6')
 
     -- If player > 250 units, spawns gunships for every 40 land units, up to 7 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
 
     if(num > 250) then
-        local num = 0
-        for _, player in ScenarioInfo.HumanPlayers do
-            num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false))
-        end
+        local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
         if(num > 0) then
             num = math.ceil(num/40)
@@ -1077,10 +1059,7 @@ function M3InitialAttack()
     end
 
     -- Spawns Interceptors for every 20 Air units, up to 10 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.MOBILE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/20)
@@ -1094,10 +1073,7 @@ function M3InitialAttack()
     end
 
     -- Spawns Destroyers for every 30 Riptides, up to 2 x 4 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.uel0203, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.uel0203, false)
 
     if(num > 0) then
         num = math.ceil(num/30)
@@ -1418,10 +1394,7 @@ function M5InitialAttack()
 
     -- Air Attacks
     -- Spawns Interceptors for every 20 Air units, up to 5 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.MOBILE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/20)
@@ -1437,10 +1410,7 @@ function M5InitialAttack()
     end
 
     -- Spawns Bombers for every 30 Land units, up to 4 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.LAND * categories.MOBILE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.LAND * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/30)
@@ -1456,10 +1426,7 @@ function M5InitialAttack()
     end
 
     -- Spawns Gunships for every 20 Land units, up to 6 groups
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.LAND * categories.MOBILE, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.LAND * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/20)

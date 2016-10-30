@@ -869,23 +869,25 @@ end
 -- Custom Fnctions
 ------------------
 function CDROnWater(category)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
+    local units = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
     local result = false
-
-    if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Seabed') then
-        result = true
-    else
-        result = false
+    for _,unit in units do
+        if(unit and not unit:IsDead() and unit:GetCurrentLayer() == 'Seabed') then
+            result = true
+            break
+        end
     end
 
     return result
 end
 
 function M3AttackCDRWaterAI(platoon)
-    local unit = ArmyBrains[Player]:GetListOfUnits(categories.COMMAND, false)
-    if(unit[1] and not unit[1]:IsDead() and unit[1]:GetCurrentLayer() == 'Seabed') then
-        platoon:AttackTarget(unit[1])
-    else
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Air_Base_NavalAttack_Chain1')
+    local units = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
+    for _,unit in units do
+        if(unit and not unit:IsDead() and unit:GetCurrentLayer() == 'Seabed') then
+            platoon:AttackTarget(unit)
+            return
+        end
     end
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Air_Base_NavalAttack_Chain1')
 end
