@@ -468,6 +468,12 @@ end
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
+    local function MissionNameAnnouncement()
+        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, 'mission by [e]speed2')
+    end
+
+    ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 7)
+
     StartMission1()
 end
 
