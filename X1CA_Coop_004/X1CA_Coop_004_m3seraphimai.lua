@@ -1158,7 +1158,7 @@ function SeraphimM3NorthAirAttacks()
 end
 
 function M3AttackCDRAI(platoon)
-    local commander = ArmyBrains[Player1]:GetListOfUnits(categories.COMMAND, false)
+    local commander = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
     if(commander[1] and not commander[1]:IsDead()) then
         platoon:AttackTarget(commander[1])
     else

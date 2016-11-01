@@ -418,9 +418,9 @@ function IntroMission1()
         table.insert(airPlatoon, {air[i], 5, 5, 'attack', 'ChevronFormation'})
         table.insert(seaPlatoon, {sea[i], 5, 5, 'attack', 'AttackFormation'})
     end
-    local landFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0301, false)
-    local airFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0302, false)
-    local seaFactories = ArmyBrains[Player1]:GetListOfUnits(categories.urb0303, false)
+    local landFactories = ScenarioFramework.GetListOfHumanUnits(categories.urb0301, false)
+    local airFactories = ScenarioFramework.GetListOfHumanUnits(categories.urb0302, false)
+    local seaFactories = ScenarioFramework.GetListOfHumanUnits(categories.urb0303, false)
     IssueClearFactoryCommands(landFactories)
     IssueClearFactoryCommands(airFactories)
     IssueClearFactoryCommands(seaFactories)
@@ -908,7 +908,7 @@ end
 
 function GateBuilt()
     -- Primary Objective 2
-    local gates = ArmyBrains[Player1]:GetListOfUnits(categories.urb0304, false)
+    local gates = ScenarioFramework.GetListOfHumanUnits(categories.urb0304, false)
     ScenarioInfo.M2P2 = Objectives.Basic(
         'primary',                          -- type
         'incomplete',                       -- complete
@@ -997,7 +997,7 @@ function DownloadFinished()
                 ScenarioFramework.Dialogue(OpStrings.C06_M02_130)
 
                 -- Make the control center not targetable, if killed by splash damage op fails
-                local unit = ArmyBrains[Player1]:GetListOfUnits(categories.uec1902, false)
+                local unit = ScenarioFramework.GetListOfHumanUnits(categories.uec1902, false)
                 ScenarioInfo.ControlCenter = unit[1]
                 ScenarioInfo.ControlCenter:SetDoNotTarget(true)
                 ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
@@ -1148,7 +1148,7 @@ function StartMission3()
     ScenarioInfo.M3P1:AddResultCallback(
         function(result)
             if(result) then
-                local unit = ArmyBrains[Player1]:GetListOfUnits(categories.uec1901, false)
+                local unit = ScenarioFramework.GetListOfHumanUnits(categories.uec1901, false)
 
                 -- Primary Objective 2
                 ScenarioInfo.M3P2 = Objectives.Basic(

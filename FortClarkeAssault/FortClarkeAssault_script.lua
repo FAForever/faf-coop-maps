@@ -1159,10 +1159,7 @@ function M3CounterAttackAir()
     local trigger = {}
 
 
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
     if(num > 0) then
         trigger = {60, 50, 40}
@@ -1177,10 +1174,7 @@ function M3CounterAttackAir()
     end
 
     -- Spawns Air Superiority
-    local num = 0
-    for _, player in ScenarioInfo.HumanPlayers do
-        num = num + table.getn(ArmyBrains[player]:GetListOfUnits(categories.AIR * categories.MOBILE * categories.TECH3, false))
-    end
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE * categories.TECH3, false)
 
     if(num > 0) then
         trigger = {24, 20, 16}
