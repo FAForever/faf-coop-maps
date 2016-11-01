@@ -1,6 +1,51 @@
 # Changelog
 
-## Patch 1.0.0 (Upcoming)
+## Patch 2.0.0 (November, 2nd, 2016)
+
+### General
+- AI now properly reacts to units of all players instead of just first player.
+
+### Cybran Campaign
+
+#### Operation Defrag (3rd mission)
+- Stealth ally base doesn't share resources anymore.
+
+#### Operation Unlock (5th mission)
+- Fixed typo which cause mission not progress to the last part.
+
+### Forged Alliance Campaign
+
+#### Operation Black Day (1st mission)
+- Balanced Gari's counter attack.
+
+#### Operation Meltdown (4th mission)
+- Fixed dialogue for unlocking kennels and hives (playing just one).
+- Fixed mission not ending.
+
+### Custom Missions
+
+#### Prothyon-16
+- Morax now leaves his base.
+
+#### Fort Clarke Assault
+- Fixed invincible ACU.
+- Initial transport with reinforcements can't be killed anymore.
+
+#### Theta Civilian Rescue
+- M1 Engineers don't rebuild forward base anymore.
+- Changed players' colors.
+- Nano upgrade allowed.
+
+#### Operation Tha-Atha-Aez
+- New Seraphim mission made by shadowlorda1.
+
+### Contributors
+
+- speed2
+- KeyBlue
+- shadowlorda1
+
+## Patch 1.0.0 (September 1st, 2016)
 
 ### General
 - New custom UEF Mission: **Theta Civilian Rescue** by *keyblue*. [Feedback thread](http://forums.faforever.com/viewtopic.php?f=2&t=12625).
