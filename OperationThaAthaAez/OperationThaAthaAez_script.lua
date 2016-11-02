@@ -4,13 +4,13 @@ local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/Utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local P2UEFAI = import('/maps/Operation (Tha-Atha-Aez)/UEFaiP2.lua')
-local P3UEFAI = import('/maps/Operation (Tha-Atha-Aez)/UEFaiP3.lua')
-local P3SERAAI = import('/maps/Operation (Tha-Atha-Aez)/SERAaiP3.lua')
-local P2SERAAI = import('/maps/Operation (Tha-Atha-Aez)/SERAaiP2.lua')
-local P2AEONAI = import('/maps/Operation (Tha-Atha-Aez)/AEONaiP2.lua')
+local P2UEFAI = import('/maps/OperationThaAthaAez/UEFaiP2.lua')
+local P3UEFAI = import('/maps/OperationThaAthaAez/UEFaiP3.lua')
+local P3SERAAI = import('/maps/OperationThaAthaAez/SERAaiP3.lua')
+local P2SERAAI = import('/maps/OperationThaAthaAez/SERAaiP2.lua')
+local P2AEONAI = import('/maps/OperationThaAthaAez/AEONaiP2.lua')
 local Buff = import('/lua/sim/Buff.lua')
-local OpStrings = import('/maps/Operation (Tha-Atha-Aez)/Operation (Tha-Atha-Aez)_strings.lua')
+local OpStrings = import('/maps/OperationThaAthaAez/OperationThaAthaAez_strings.lua')
 
 ScenarioInfo.Player1 = 1
 ScenarioInfo.SeraphimAlly = 2
@@ -84,29 +84,31 @@ function OnPopulate()
     buffAffects.MassProduction.Mult = 1.5
 end 
 
-function OnStart(self) 
-    ScenarioFramework.AddRestriction(Player,
-        categories.xeb2306 + -- UEF Heavy Point Defense
-        categories.xel0305 + -- UEF Percival
-        categories.xel0306 + -- UEF Mobile Missile Platform
-        categories.xes0102 + -- UEF Torpedo Boat
-        categories.xes0205 + -- UEF Shield Boat
-        categories.xes0307 + -- UEF Battlecruiser
-        categories.xeb0104 + -- UEF Engineering Station 1
-        categories.xeb0204 + -- UEF Engineering Station 2
-        categories.xea0306 + -- UEF Heavy Air Transport
-        categories.xeb2402 + -- UEF Sub-Orbital Defense System
-        categories.xsl0305 + -- Seraph Sniper Bot
-        categories.xsl0304 + -- Seraph Arty Unit
-        categories.xsa0402 + -- Seraph Exp Bomb
-        categories.xss0304 + -- Seraph Sub Hunter
-        categories.xsb0304 + -- Seraph Gate
-        categories.xsl0301 + -- Seraph sACU
-        categories.xsb2401 + -- Seraph exp Nuke
-        categories.xsb2303 + -- T3 Arty
-        categories.xsb2108 + -- Tac lancher
-        categories.xsb2305   -- Nuke lancher
-    )
+function OnStart(self)
+    for _, Player in ScenarioInfo.HumanPlayers do
+        ScenarioFramework.AddRestriction(Player,
+            categories.xeb2306 + -- UEF Heavy Point Defense
+            categories.xel0305 + -- UEF Percival
+            categories.xel0306 + -- UEF Mobile Missile Platform
+            categories.xes0102 + -- UEF Torpedo Boat
+            categories.xes0205 + -- UEF Shield Boat
+            categories.xes0307 + -- UEF Battlecruiser
+            categories.xeb0104 + -- UEF Engineering Station 1
+            categories.xeb0204 + -- UEF Engineering Station 2
+            categories.xea0306 + -- UEF Heavy Air Transport
+            categories.xeb2402 + -- UEF Sub-Orbital Defense System
+            categories.xsl0305 + -- Seraph Sniper Bot
+            categories.xsl0304 + -- Seraph Arty Unit
+            categories.xsa0402 + -- Seraph Exp Bomb
+            categories.xss0304 + -- Seraph Sub Hunter
+            categories.xsb0304 + -- Seraph Gate
+            categories.xsl0301 + -- Seraph sACU
+            categories.xsb2401 + -- Seraph exp Nuke
+            categories.xsb2303 + -- T3 Arty
+            categories.xsb2108 + -- Tac lancher
+            categories.xsb2305   -- Nuke lancher
+        )
+    end
    
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 0)
     
@@ -634,13 +636,15 @@ function IntroMission4()
 	
 	ScenarioFramework.Dialogue(OpStrings.IntroP4, nil, true)
 	
-    ScenarioFramework.RemoveRestriction(Player,
-        categories.xsb2302 + -- T2 arty
-        categories.xsb2108 + -- Tac lancher
-        categories.xsb2305 + -- Nuke lancher
-        categories.xsl0305 + -- Seraph Sniper Bot
-        categories.xsl0304  -- Seraph Arty Unit
-    )
+    for _, Player in ScenarioInfo.HumanPlayers do
+        ScenarioFramework.RemoveRestriction(Player,
+            categories.xsb2302 + -- T2 arty
+            categories.xsb2108 + -- Tac lancher
+            categories.xsb2305 + -- Nuke lancher
+            categories.xsl0305 + -- Seraph Sniper Bot
+            categories.xsl0304  -- Seraph Arty Unit
+        )
+    end
 	
     ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFCom', false, 'Colonel Griff', false, false,
         {'T3Engineering', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
