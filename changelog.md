@@ -13,6 +13,9 @@
 #### Operation Unlock (5th mission)
 - Fixed typo which cause mission not progress to the last part.
 
+#### Operation Freedom (6th mission)
+- Game now properly shows win/lose dialog.
+
 ### Forged Alliance Campaign
 
 #### Operation Black Day (1st mission)
