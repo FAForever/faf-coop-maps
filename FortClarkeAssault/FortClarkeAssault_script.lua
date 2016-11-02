@@ -518,6 +518,11 @@ function StartMission1()
         table.insert(AssignedObjectives, ScenarioInfo.M1S1)
         --ScenarioFramework.CreateTimerTrigger(M1S1Reminder1, 600)
     end
+    
+    local function MissionAnnouncement()
+        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, 'mission by [e]speed2')
+    end
+    ScenarioFramework.CreateTimerTrigger(MissionAnnouncement, 7)
 
     -----------
     -- Triggers
