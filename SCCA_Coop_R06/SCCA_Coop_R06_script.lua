@@ -395,8 +395,7 @@ function KillGame()
     if(not ScenarioInfo.OpComplete) then
         WaitSeconds(15)
     end
-    ScenarioFramework.EndOperation('SCCA_Coop_R06', ScenarioInfo.OpComplete, ScenarioInfo.Options.Difficulty,
-        ScenarioInfo.OpComplete, true)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
 -----------
@@ -1267,8 +1266,7 @@ function BlackSunFired()
         if ScenarioInfo.M3P2 then
             ScenarioInfo.M3P2:ManualResult(true)
         end
-        ScenarioFramework.EndOperation('SCCA_Coop_R06', ScenarioInfo.OpComplete, ScenarioInfo.Options.Difficulty,
-            ScenarioInfo.OpComplete, true, true, 3) -- 3 == faction movie
+        ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
     end
 end
 
