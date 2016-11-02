@@ -42,6 +42,9 @@
 #### Operation Tha-Atha-Aez
 - New Seraphim mission made by shadowlorda1.
 
+#### Novax Station Assault
+- New Seraphim mission made by speed2
+
 ### Contributors
 
 - speed2
