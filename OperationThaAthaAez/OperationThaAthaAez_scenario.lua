@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Operation (Tha-Atha-Aez)',
-    description = 'You have been called back to Gev-7 because The Coalition has managed to caught up to us. Almost half our commanders are trapped behind enemy lines, and can only Gate to Gev-7. The Coalition also knows this, and is attemping to cut them off. You must hold the gates until all our commanders are through. ',
+    description = 'You have been called back to Gev-7 because the Coalition has launched a new offensive on us. Almost half of our commanders are trapped behind enemy lines, and can only Gate to Gev-7. The Coalition knows this, and is attemping to cut them off. You must hold the gates until all our commanders are through. ',
     type = 'campaign_coop',
     starts = true,
     preview = '',
