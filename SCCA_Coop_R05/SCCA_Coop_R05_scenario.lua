@@ -18,5 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
+            factions = { {'cybran'}, {'cybran'}, {'cybran'}, {'cybran'} },
         },
     }}
