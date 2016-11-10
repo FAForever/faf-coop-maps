@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/FortClarkeAssault/FortClarkeAssault.scmap',
     save = '/maps/FortClarkeAssault/FortClarkeAssault_save.lua',
     script = '/maps/FortClarkeAssault/FortClarkeAssault_script.lua',
+    map_version = 3,
     Configurations = {
         ['standard'] = {
             teams = {

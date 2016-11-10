@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/ThetaCivilianRescue/ThetaCivilianRescue.scmap',
     save = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_save.lua',
     script = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_script.lua',
+    map_version = 3,
     Configurations = {
         ['standard'] = {
             teams = {

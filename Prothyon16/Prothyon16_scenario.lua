@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/Prothyon16/Prothyon16.scmap',
     save = '/maps/Prothyon16/Prothyon16_save.lua',
     script = '/maps/Prothyon16/Prothyon16_script.lua',
+    map_version = 3,
     Configurations = {
         ['standard'] = {
             teams = {

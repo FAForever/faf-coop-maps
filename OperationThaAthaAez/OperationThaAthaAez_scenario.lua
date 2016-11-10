@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/OperationThaAthaAez/OperationThaAthaAez.scmap',
     save = '/maps/OperationThaAthaAez/OperationThaAthaAez_save.lua',
     script = '/maps/OperationThaAthaAez/OperationThaAthaAez_script.lua',
+    map_version = 3,
     Configurations = {
         ['standard'] = {
             teams = {
