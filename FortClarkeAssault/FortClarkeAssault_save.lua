@@ -58,6 +58,34 @@ Scenario = {
     MasterChain = {
         ['_MASTERCHAIN_'] = {
             Markers = {
+                ['Player1'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 972.500000, 30.000000, 53.500000 ),
+                },
+                ['Player2'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 874.500000, 20.000000, 50.500000 ),
+                },
+                ['Player3'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 871.500000, 20.000000, 135.500000 ),
+                },
+                ['Player4'] = {
+                    ['color'] = STRING( 'ff800080' ),
+                    ['type'] = STRING( 'Blank Marker' ),
+                    ['prop'] = STRING( '/env/common/props/markers/M_Blank_prop.bp' ),
+                    ['orientation'] = VECTOR3( 0, -0, 0 ),
+                    ['position'] = VECTOR3( 923.500000, 20.000000, 196.500000 ),
+                },
                 ['M2_UEF_Forward_Base_Engineer06'] = {
                     ['color'] = STRING( 'ff800080' ),
                     ['type'] = STRING( 'Blank Marker' ),
