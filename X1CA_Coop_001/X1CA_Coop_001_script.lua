@@ -1770,7 +1770,7 @@ function M3CounterAttack()
     end
 
     -- sends transport attacks for every other T2/T3 tower, up to [2, 6, 10]
-    num = GetNumOfHumanUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1)
+    num = ScenarioFramework.GetNumOfHumanUnits((categories.STRUCTURE * categories.DEFENSE) - categories.TECH1)
     quantity = {2, 6, 10}
     if(num > 0) then
         num = math.ceil(num/2)
@@ -1791,7 +1791,7 @@ function M3CounterAttack()
     end
 
     -- sends air superiority if player has more than [60, 40, 20] t2/t3 planes, up to 5, 1 group per 30, 20, 10
-    num = GetNumOfHumanUnits((categories.AIR * categories.MOBILE) - categories.TECH1)
+    num = ScenarioFramework.GetNumOfHumanUnits((categories.AIR * categories.MOBILE) - categories.TECH1)
     quantity = {60, 40, 20}
     trigger = {30, 20, 10}
     if(num > quantity[Difficulty]) then
@@ -1806,7 +1806,7 @@ function M3CounterAttack()
     end
 
     -- sends gunships if player has more than [70, 50, 30] t2/t3 land, up to 7, 1 group per 40, 25, 15
-    num = GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION)
+    num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.TECH1 - categories.CONSTRUCTION)
     quantity = {70, 50, 30}
     trigger = {40, 25, 15}
     if(num > quantity[Difficulty]) then
@@ -1821,7 +1821,7 @@ function M3CounterAttack()
     end
 
     -- sends gunships if player has more than [475, 450, 425] units
-    num = GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
     quantity = {475, 450, 425}
     if(num > quantity[Difficulty]) then
         for i = 1, Difficulty do
@@ -1832,7 +1832,7 @@ function M3CounterAttack()
 
     -- sends amphibious attack for each naval factory, up to 1, 3, 5
     quantity = {1, 3, 5}
-    num = GetNumOfHumanUnits(categories.NAVAL * categories.FACTORY)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.FACTORY)
     if(num > 0) then
         if(num > quantity[Difficulty]) then
             num = quantity[Difficulty]
@@ -1846,8 +1846,8 @@ function M3CounterAttack()
     -- sends destroyers if player has [15, 10, 5] T2/T3 boats or [5, 3, 1] T3 boats
     local t2limits = {15, 10, 5}
     local t3limits = {5, 3, 1}
-    if(GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
-       GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
+    if(ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
+       ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Destro', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Adapt_NavalAttack_Chain')
     end
@@ -1855,21 +1855,21 @@ function M3CounterAttack()
     -- sends cruisers if player has [24, 20, 16] T2/T3 boats or [6, 4, 2] T3 boats
     t2limits = {24, 20, 16}
     t3limits = {6, 4 ,2}
-    if(GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
-       GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
+    if(ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
+       ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Cruiser', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Adapt_NavalAttack_Chain')
     end
 
     -- sends torpedo bombers if player has [20, 10, 5] navy
     quantity = {20, 10, 5}
-    if(GetNumOfHumanUnits(categories.NAVAL) > quantity[Difficulty]) then
+    if(ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL) > quantity[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_Torpedo', 'GrowthFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Torpedo_Patrol_Chain')
     end
 
     -- sends torpedo bombers for every [20, 15, 10] T1 boats, up to 1, 2, 3
-    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH1)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH1)
     quantity = {20, 15, 10}
     trigger = {1, 2, 3}
     if(num > quantity[Difficulty]) then
@@ -1884,7 +1884,7 @@ function M3CounterAttack()
     end
 
     -- sends torpedo bombers for every [14, 10, 6] T2 boats, up to 1, 2, 3
-    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH2)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH2)
     quantity = {14, 10, 6}
     trigger = {1, 2, 3}
     if(num > quantity[Difficulty]) then
@@ -1899,7 +1899,7 @@ function M3CounterAttack()
     end
 
     -- sends torpedo bombers if player for every [3, 2, 1] T3 boats, up to 1, 2, 3
-    num = GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3)
     quantity = {3, 2, 1}
     trigger = {1, 2, 3}
     if(num > quantity[Difficulty]) then
