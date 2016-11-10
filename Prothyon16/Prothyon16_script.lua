@@ -1200,7 +1200,7 @@ function IntroMission5()
 
     coop = 1
     for iArmy, strArmy in pairs(ListArmies()) do
-        if iArmy >= ScenarioInfo.Coop1 then
+        if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(true)
             -- ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.CoopCDR[coop])
             coop = coop + 1
