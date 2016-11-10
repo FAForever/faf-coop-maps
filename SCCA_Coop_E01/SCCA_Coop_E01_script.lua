@@ -119,6 +119,9 @@ function OnStart(self)
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
+    
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(EastResearch):SetResourceSharing(false)
 
     ScenarioFramework.SetPlayableArea('M1Area', false)
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
