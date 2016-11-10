@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/X1MP_012/X1MP_012.scmap',
     save = '/maps/NovaxStationAssault/NovaxStationAssault_save.lua',
     script = '/maps/NovaxStationAssault/NovaxStationAssault_script.lua',
+    map_version = 3,
     norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
