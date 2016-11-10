@@ -455,7 +455,7 @@ function UEFM2BaseNavalAttacks()
         )
         opai:SetChildActive('T3', false)
         if Difficulty == 1 then
-            pai:SetFormation('AttackFormation')
+            opai:SetFormation('AttackFormation')
         end
         opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
