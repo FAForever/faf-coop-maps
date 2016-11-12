@@ -9,6 +9,8 @@
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 --------

@@ -10,6 +10,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local NavalOSB = import('/lua/ai/opai/GenerateNaval.lua')
 
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 --------
