@@ -54,6 +54,9 @@ local LastUpdate = 0
 local NumBuilding = 0
 
 function UnitBuildPercentUpdate(unit, eng)
+    if unit:IsDead() then
+        return
+    end
     if not eng.UnitBuildPercentSetup then
         eng.UnitBuildPercentSetup = true
         import('/lua/scenariotriggers.lua').CreateUnitDeathTrigger(EngineerDeath, eng)
