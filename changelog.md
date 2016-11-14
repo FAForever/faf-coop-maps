@@ -1,5 +1,38 @@
 # Changelog
 
+## Patch 2.0.2 (November, 14th, 2016)
+
+### UEF Campagin
+
+#### Operation Black Earth (1st mission)
+- Ally research station doesn't share resources anymore
+
+### Forged Alliance Campaign
+
+#### Operation Black Day (1st mission)
+- Fixed map not expanding after civilians are saved.
+
+#### Operation Mind Games (5th mission)
+- Temporary removed some camera movement during final cinematics to show win dialogue
+
+### Custom Missions
+- Custom missions should now display version in the lobby
+
+#### Fort Clarke Assault
+- Fixed initial reinorcement drops
+
+#### Prothyon-16
+- Fixed mission not expanding to the seraphim part.
+
+#### Operation Tha-Atha-Aez
+- Mission should now properly work with more than 1 player.
+
+#### Novax Station Assault
+- Fixed triggers causing AI not send almost any units.
+
+## Patch 2.0.1 (November, 2nd, 2016)
+- Removed special characters from folder's names, causing problems with updating.
+
 ## Patch 2.0.0 (November, 2nd, 2016)
 
 ### General
