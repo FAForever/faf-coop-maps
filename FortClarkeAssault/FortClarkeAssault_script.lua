@@ -214,13 +214,13 @@ function IntroMission1NIS()
                 end
             end
             if Debug then
-                for i = 1, 3 do
-                    DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Coop' .. i ..'_D' .. Difficulty, 'NIS_Drop_Coop' .. i, 'NIS_Transport_Death')
+                for i = 1, 4 do
+                    DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player' .. i ..'_D' .. Difficulty, 'NIS_Drop_Player' .. i, 'NIS_Transport_Death')
                 end
             end
             -- Units for player little later else units would die to ahwassa friendly-fire.
             WaitSeconds(3)
-            DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
+            DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player1_D' .. Difficulty, 'NIS_Drop_Player1', 'NIS_Transport_Death')
         end)
 
         ForkThread(function()
@@ -259,7 +259,7 @@ function IntroMission1NIS()
 
         Cinematics.ExitNISMode()
     else
-        DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player_D' .. Difficulty, 'NIS_Drop_Player', 'NIS_Transport_Death')
+        DropReinforcements('Seraphim', 'Player1', 'NIS_Bots_Player1_D' .. Difficulty, 'NIS_Drop_Player1', 'NIS_Transport_Death')
         ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
 
         -- spawn coop players too
