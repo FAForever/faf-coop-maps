@@ -1938,8 +1938,8 @@ function FinalNISPart2()
     -- QAI being confident
     ScenarioFramework.Dialogue(OpStrings.X05_M03_323, AttackQAI, true)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_1'), 0)
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_2'), 6)
+    -- WaitSeconds(1)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_2'), 6)
 end
 
 function AttackQAI()
@@ -1961,19 +1961,19 @@ function AttackQAI()
         end
    )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_2'), 4)
-    WaitSeconds(0.2)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_2'), 4)
+    -- WaitSeconds(0.2)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_3'), 1.5)
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_4'), 8)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_3'), 1.5)
+    -- WaitSeconds(1)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_4'), 8)
 end
 
 function FinalNISPart4()
     -- QAI becoming afraid
     WaitSeconds(3)
     ScenarioFramework.Dialogue(OpStrings.X05_M03_325, FinalNISPart5, true)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_1'), 0)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_1'), 0)
     -- WaitSeconds(1)
     -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_2'), 6)
 end
@@ -1982,8 +1982,8 @@ function FinalNISPart5()
     -- "Goodbye, QAI..."
     ScenarioFramework.Dialogue(OpStrings.X05_M03_326, KillQAI, true)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_3'), 0)
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_4'), 3)
+    -- WaitSeconds(1)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_4'), 3)
 end
 
 function KillQAI()
@@ -1994,7 +1994,7 @@ function KillQAI()
         ScenarioInfo.QAIBuilding:Kill()
     end
     ForkThread(KillQAIBuildingGroup)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_4'), 2)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_4'), 2)
     WaitSeconds(1)
 
     -- "Goodbye."
@@ -2021,7 +2021,7 @@ function FinalNISOver()
 
     WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Overview'), 10)
+    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Overview'), 10)
 end
 
 function KillQAIBuildingGroup()
