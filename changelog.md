@@ -19,7 +19,7 @@
 - Custom missions should now display version in the lobby
 
 #### Fort Clarke Assault
-- Fixed initial reinorcement drops
+- Fixed initial reinforcement drops
 
 #### Prothyon-16
 - Fixed mission not expanding to the seraphim part.
@@ -30,8 +30,17 @@
 #### Novax Station Assault
 - Fixed triggers causing AI not send almost any units.
 
+### Contributors
+- KeyBlue
+- speed2
+
 ## Patch 2.0.1 (November, 2nd, 2016)
 - Removed special characters from folder's names, causing problems with updating.
+- Fixed some spelling mistakes
+
+### Contributors
+- Gorton
+- speed2
 
 ## Patch 2.0.0 (November, 2nd, 2016)
 
