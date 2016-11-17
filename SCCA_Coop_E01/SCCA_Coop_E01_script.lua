@@ -457,6 +457,17 @@ end
 function IntroMission4()
     ScenarioInfo.MissionNumber = 4
 
+    -- Adjust buildable categories for Cybran in case Player captures them
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb0101 + -- T1 Land Factory
+        categories.urb1101 + -- T1 Power Generator
+        categories.urb1103 + -- T1 Mass Extractor
+        categories.urb3101 + -- T1 Radar
+        categories.url0105 + -- T1 Engineer
+        categories.url0107 + -- T1 Assault Bot
+        categories.urb5101   -- Wall 
+    )
+
     ScenarioInfo.Radar = ScenarioUtils.CreateArmyUnit('Cybran', 'Radar')
     ScenarioInfo.Radar:SetCapturable(false)
     ScenarioInfo.Radar:SetReclaimable(false)
@@ -543,17 +554,12 @@ function IntroMission5()
 
     -- Adjust buildable categories for Cybran in case Player captures them
     ScenarioFramework.RemoveRestrictionForAllHumans(
-        categories.urb0102 + -- T1 Air Factory
-        categories.urb1101 + -- T1 Power Generator
-        categories.urb1103 + -- T1 Mass Extractor
-        categories.urb2104 + -- T1 AA Tower
-        categories.urb3101 + -- T1 Radar
-        categories.urb5101 + -- Wall
-        categories.ura0101 + -- Air Scout
-        categories.ura0102 + -- Interceptor
-        categories.ura0103 + -- Attack Bomber
-        categories.url0105   -- T1 Engineer
-    )
+        categories.url0101 + -- Land Scout
+        categories.url0103 + -- Mobile Light Artillery
+        categories.url0104 + -- Mobile AA Gun
+        categories.url0106 + -- Light Assault Bot
+        categories.urb0102   -- T1 Air Factory
+	)
 
     -- Cybran Air Base
     ScenarioUtils.CreateArmyGroup('Cybran', 'AirBasePreBuilt')
@@ -780,10 +786,10 @@ function IntroMission7()
         categories.uea0103   -- Attack Bomber
     )
 
-    -- Player has access to ResourceAllocation and DamageStabilization
+    -- Player has access to HeavyAntiMatterCannon and DamageStabilization
     ScenarioFramework.RestrictEnhancements({'AdvancedEngineering',
                                             'T3Engineering',
-                                            'HeavyAntiMatterCannon',
+                                            'ResourceAllocation',
                                             'LeftPod',
                                             'RightPod',
                                             'Shield',
@@ -794,12 +800,15 @@ function IntroMission7()
 
     -- Adjust buildable categories for Cybran in case Player captures them
     ScenarioFramework.RemoveRestrictionForAllHumans(
-        categories.urb0101 + -- T1 Land Factory
-        categories.urb2101 + -- T1 Point Defense
-        categories.url0101 + -- Land Scout
-        categories.url0103 + -- Mobile Light Artillery
-        categories.url0104 + -- Mobile AA Gun
-        categories.url0106   -- Light Assault Bot
+        categories.urb0102 + -- T1 Air Factory
+        categories.urb2104 + -- T1 AA Tower
+        categories.urb3101 + -- T1 Radar
+        categories.ura0101 + -- Air Scout
+        categories.ura0102 + -- Interceptor
+        categories.ura0103 + -- Attack Bomber
+        categories.urb1105 + -- Energy Storage
+        categories.urb1104 + -- T2 Mass Fabricator
+        categories.urb1201   -- T2 Power Generator
     )
 
     CybranNumLandChildrenD1 = 3
