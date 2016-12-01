@@ -223,7 +223,7 @@ function StartMission1Part1()
         OpStrings.OpE01_M1P2_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M1P1_MassRequired,
@@ -275,7 +275,7 @@ function StartMission1Part2()
         OpStrings.OpE01_M1P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M1P2_PowerRequired,
@@ -332,7 +332,7 @@ function StartMission2()
         OpStrings.OpE01_M2P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -396,7 +396,7 @@ function StartMission3()
         LOCF(OpStrings.OpE01_M3P1_Desc, M3P1_TanksRequired),    -- description
         'build',                                                -- action
         {                                                       -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M3P1_TanksRequired,

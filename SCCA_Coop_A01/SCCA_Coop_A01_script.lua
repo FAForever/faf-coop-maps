@@ -345,7 +345,7 @@ function M1_BeginningObjectives()
         OpStrings.M1P2Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -374,7 +374,7 @@ function M1_SecondObjective()
         OpStrings.M1P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = ScenarioInfo.Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,
@@ -416,7 +416,7 @@ function M2_BuildFactoryObj()
         OpStrings.M2P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
@@ -464,7 +464,7 @@ function M3_BuildGunboatsObjective()
         LOCF(OpStrings.M3P1Detail, M3P1_BuildBoatValue, M3P1_BuildBoatValue),        -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = M3P1_BuildBoatValue,
@@ -544,7 +544,7 @@ function M4_BuildSubsObj()
         OpStrings.M4P1Detail,           -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 3,

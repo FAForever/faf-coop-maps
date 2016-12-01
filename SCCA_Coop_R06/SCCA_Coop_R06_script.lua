@@ -791,7 +791,7 @@ function StartMission2()
         OpStrings.OpC06_M2P1_Desc,      -- description
         'build',                        -- action
         {                               -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
