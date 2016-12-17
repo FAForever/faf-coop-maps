@@ -1148,7 +1148,7 @@ function BeginMission3()
     ScenarioInfo.AeonCommanderM3:CreateEnhancement('AdvancedEngineering')
     ScenarioInfo.AeonCommanderM3:CreateEnhancement('Teleporter')
     ScenarioInfo.AeonCommanderM3:SetDoNotTarget(true) -- prevent auto-targetting until the EMP goes off
-    ScenarioFramework.CreateUnitDeathTrigger( EnemyCommanderDied, ScenarioInfo.AeonCommanderM3 )
+    --ScenarioFramework.CreateUnitDeathTrigger( EnemyCommanderDied, ScenarioInfo.AeonCommanderM3 )
     -- Don't delay the explosion for now, as killing the commander would trigger the main frame destruction
     -- ScenarioFramework.PauseUnitDeath( ScenarioInfo.AeonCommanderM3 ) -- 
 
@@ -1517,6 +1517,13 @@ function EMPTriggered()
             Units = { ScenarioInfo.AeonCommanderM3 },
         }
     )
+	ScenarioInfo.M3P3Objective:AddResultCallback(
+		function(result)
+			if result then
+				EnemyCommanderDied()
+			end
+		end
+	)
 	
 	-- Now it's legitimate to kill commander, delay the explosion so we can watch it on camera
 	ScenarioFramework.PauseUnitDeath( ScenarioInfo.AeonCommanderM3 )
