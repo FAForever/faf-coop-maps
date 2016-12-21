@@ -38,7 +38,7 @@ local AssignedObjectives = {}
 local timeAttackP2 = 480
 
 local Debug = false
-local SkipNIS2 = true
+local SkipNIS2 = false
 
 function OnPopulate() 
     ScenarioUtils.InitializeScenarioArmies()
@@ -168,7 +168,7 @@ function StartPart1()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Survive UEF Assault',                 -- title
-        'Kill all UEF Forces Attacking Your Position.',  -- description
+        'Kill all UEF forces attacking your position.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -199,7 +199,7 @@ function StartPart1()
         'primary',                      -- type
         'incomplete',                   -- complete
         'The Gate Must Survive',                -- title
-        'Without The Gate the Retreat is over.', -- description
+        'Without the gate the retreat is over.', -- description
        
         {                              -- target
             MarkUnits = true,
@@ -224,7 +224,7 @@ function IntroPart2()
             'primary',                      -- type
             'incomplete',                   -- complete
             'Prepare For Second UEF Assault',                 -- title
-            'Rebuild Your Defences. Expect the Next Wave To Be Much Stronger',  -- description
+            'Rebuild your defences. Expect the next wave to be much stronger',  -- description
             {                               -- target
                 Timer = timeAttackP2,
                 ExpireResult = 'complete',
@@ -381,7 +381,7 @@ function Start2Mission2()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Go On The Offensive ',                 -- title
-        'Destroy all UEF Forces In The Area.',  -- description
+        'Destroy all UEF forces in the area.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -424,7 +424,7 @@ function Start2Mission2()
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Destroy Aeon Support Base',                -- title
-        'Destroy the Aeon support Base to help your ally', -- description
+        'Destroy the Aeon support base to help your ally', -- description
         'kill',
         {                              -- target
             MarkUnits = true,
@@ -525,7 +525,7 @@ function ACU3()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Protect Retreating Commanders',                -- title
-        'We Need Every Able Commander, Defend Them At All Costs', -- description
+        'We need every able commander, defend them at all costs.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.AeonACU1, ScenarioInfo.AeonACU2, ScenarioInfo.AeonACU3},
@@ -601,7 +601,7 @@ function ACU6()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Protect Retreating Commanders',                -- title
-        'We Need Every Able Commander, Defend Them At All Costs', -- description    
+        'We need every able commander, defend them at all costs.', -- description    
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.AeonACU4, ScenarioInfo.AeonACU5, ScenarioInfo.AeonACU6},
@@ -721,7 +721,7 @@ function IntroMission4()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Kill The UEF Commander',                -- title
-        'The UEF commander is between you and the third Gate, Destroy him.', -- description
+        'The UEF commander is between you and the third gate, destroy him.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.UEFACU}  
@@ -740,7 +740,7 @@ function IntroMission4()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Assist Jareth Where You Can',                -- title
-        'Jareth is Defending The Retreat Gate Help Him When able.', -- description
+        'Jareth is defending the second retreat gate help him when able.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.SeraACU2, ScenarioInfo.M3ObjectiveGate}   
@@ -771,7 +771,7 @@ function Cleanup()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Destroy UEF base',                -- title
-        'Destroy Remaining UEF Factories to allow our commanders to travel through this area', -- description
+        'Destroy remaining UEF factories to allow our commanders to travel through this area', -- description
         'kill',
         {                              -- target
             MarkUnits = true,
@@ -844,7 +844,7 @@ function ACU9()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Protect Retreating Commanders',                -- title
-        'We Need Every Able Commander Defend Them At All Costs', -- description    
+        'We need every able commander, defend them at all costs.', -- description    
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.AeonACU7, ScenarioInfo.AeonACU8, ScenarioInfo.AeonACU9},
