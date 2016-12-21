@@ -38,7 +38,7 @@ local AssignedObjectives = {}
 local timeAttackP2 = 480
 
 local Debug = false
-local SkipNIS2 = false
+local SkipNIS2 = true
 
 function OnPopulate() 
     ScenarioUtils.InitializeScenarioArmies()
@@ -168,7 +168,7 @@ function StartPart1()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Survive UEF Assault',                 -- title
-        'Kill all UEF Forces Attacking You.',  -- description
+        'Kill all UEF Forces Attacking Your Position.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -254,6 +254,14 @@ function StartMission2()
     
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2attack3', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'P2intattack3')
+	
+	platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2attack4', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2intattack4')
+	
+	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2attack5', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2intattack5')))
+    end
 
     --------------------------------------------
     -- Primary Objective 3 - Survive Second UEF assault
@@ -262,7 +270,7 @@ function StartMission2()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Survive Second UEF Assault',                 -- title
-        'Kill all UEF forces attacking you.',  -- description
+        'Kill all UEF forces attacking your position.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -373,7 +381,7 @@ function Start2Mission2()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Go On The Offensive ',                 -- title
-        'Destroy all UEF Forces In The Area .',  -- description
+        'Destroy all UEF Forces In The Area.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -416,7 +424,7 @@ function Start2Mission2()
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Destroy Aeon Support Base',                -- title
-        'Destroy Aeon support Base to help your ally', -- description
+        'Destroy the Aeon support Base to help your ally', -- description
         'kill',
         {                              -- target
             MarkUnits = true,
@@ -482,8 +490,9 @@ end
 
 function ACU1()
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept4', 'GrowthFormation')
-	ScenarioFramework.PlatoonPatrolChain(units, 'Aintercept3')
-    
+	 for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3AirPatrol1')))
+    end
     ScenarioInfo.AeonACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U1', 'Gate', 'Harva', false, false,
         {'CrysalisBeam', 'Shield', 'ShieldHeavy'})
     ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU1}, 'WarpComChain1')
@@ -541,12 +550,15 @@ function ACU3()
     )
 	
 	WaitSeconds(10)
-	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFComintercept2', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'UEFintercept1')
-   
-	WaitSeconds(10)
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept1', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'Aintercept1')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFComintercept2', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3AirPatrol1')))
+    end
+	WaitSeconds(60)
+	 local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept1', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3AirPatrol1')))
+    end
 end
 
 function MissionM2P3()
@@ -582,14 +594,14 @@ end
 
 function ACU6()
     ScenarioInfo.AeonACU6 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U6', 'Gate', 'Kelean', false, false,
-        {'CrysalisBeam'})
+        {'AdvancedEngineering', 'HeatSink'})
     ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU6}, 'WarpComChain1')
 
     ScenarioInfo.M3P2 = Objectives.SpecificUnitsInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
         'Protect Retreating Commanders',                -- title
-        'We Need Every Able Commander Defend Them At All Costs', -- description    
+        'We Need Every Able Commander, Defend Them At All Costs', -- description    
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.AeonACU4, ScenarioInfo.AeonACU5, ScenarioInfo.AeonACU6},
@@ -615,11 +627,15 @@ function ACU6()
 
 	WaitSeconds(10)
 
-	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept2', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'Aintercept1')
+	 local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept2', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Aintercept2')))
+    end
 	
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept3', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'Aintercept3')
+	units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept3', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Aintercept2')))
+    end
 end
 
 function IntroMission4()
@@ -705,7 +721,7 @@ function IntroMission4()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Kill The UEF Commander',                -- title
-        'The UEF Commander Is Between You On The Thrid Gate, Destory Him.', -- description
+        'The UEF commander is between you and the third Gate, Destroy him.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.UEFACU}  
@@ -723,7 +739,7 @@ function IntroMission4()
 	ScenarioInfo.M3P2 = Objectives.Protect(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Assist Jareth When You Can',                -- title
+        'Assist Jareth Where You Can',                -- title
         'Jareth is Defending The Retreat Gate Help Him When able.', -- description
         {                              -- target
             MarkUnits = true,
@@ -755,7 +771,7 @@ function Cleanup()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Destroy UEF base',                -- title
-        'Destroy Reaming UEF Factories to allow our commadners travel thought this area', -- description
+        'Destroy Remaining UEF Factories to allow our commanders to travel through this area', -- description
         'kill',
         {                              -- target
             MarkUnits = true,
@@ -809,10 +825,10 @@ function ACU8()
         {'AdvancedEngineering','NaniteTorpedoTube','ResourceAllocation'})
     ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU8}, 'WarpComChain2')
 
-	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept6', 'AttackFormation')
-	for _, v in units:GetPlatoonUnits() do
-        ScenarioFramework.GroupPatrolChain({v}, 'P4Aeonattack2')
-	end
+	 local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept6', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P4Aeonattack2')))
+    end
 
     WaitSeconds(5)
 
@@ -856,24 +872,26 @@ function ACU9()
 	local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept5', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4Aeonattack1')
 	  
-	units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UEFattack1', 'GrowthFormation')
+	units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UEFattack1', 'AttackFormation')
     for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupMoveChain({v}, 'P4UEFattack1')
-	end
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P4UEFattack1')))
+    end
 	 
     WaitSeconds(5)
 	
 	ScenarioInfo.M3P2:ManualResult(true)
+	ScenarioFramework.FakeTeleportUnit(ScenarioInfo.SeraACU2, true)
+	P3SERAAI.DisableBase1()
 	
 	WaitSeconds(180)
 
 	units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept7', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4Aeonattack3')
 	
-	units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept8', 'GrowthFormation')
-	for _, v in units:GetPlatoonUnits() do
-        ScenarioFramework.GroupPatrolChain({v}, 'P4Aeonattack4')	
-	end
+	units = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Comintercept8', 'AttackFormation')
+    for _, v in units:GetPlatoonUnits() do
+       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P4Aeonattack4')))
+    end
 	
 	ScenarioUtils.CreateArmyGroup('Aeon', 'Artybase')
 end
@@ -885,6 +903,16 @@ function nukeparty()
     IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
     WaitSeconds(10)
     IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
+	WaitSeconds(180)
+	IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+	WaitSeconds(180)
+	IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+	WaitSeconds(180)
+	IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+	WaitSeconds(180)
+	IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+	WaitSeconds(180)
+	IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
 end
 
 function PlayerWin()

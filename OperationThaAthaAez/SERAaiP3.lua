@@ -64,3 +64,15 @@ function OrderlandAttacks()
 	}
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 end
+
+function DisableBase1()
+    if(Serabase2) then
+        LOG('Serabase2 stopped')
+        Serabase2:BaseActive(false)
+    end
+    for _, platoon in ArmyBrains[SeraphimAlly2]:GetPlatoonsList() do
+        platoon:Stop()
+        ArmyBrains[SeraphimAlly2]:DisbandPlatoon(platoon)
+    end
+    LOG('All Platoons of Serabase2 stopped')
+end
