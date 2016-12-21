@@ -40,13 +40,13 @@ function UEFNbaseAI()
         'NLandAttackTemp1',
         'NoPlan',
         { 'xel0305', 1, 4, 'Attack', 'GrowthFormation' },  --heavy bots
-        { 'uel0205', 1, 6, 'Attack', 'GrowthFormation' },  --Moblie flak
+        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },  --Moblie flak
         { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },  --Moblesheild
 	}
 	local Builder = {
         BuilderName = 'NLandAttackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 1,
         Priority = 400,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -61,7 +61,7 @@ function UEFNbaseAI()
 	Temp = {
         'NLandAttackTemp2',
         'NoPlan',
-        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },  --Moblie flak
+        { 'uel0205', 1, 2, 'Attack', 'GrowthFormation' },  --Moblie flak
         { 'uel0304', 1, 4, 'Attack', 'GrowthFormation' },  --Moblesheild
 	}
     Builder = {
@@ -82,13 +82,13 @@ function UEFNbaseAI()
 	Temp = {
         'NLandAttackTemp3',
         'NoPlan',
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },  --heavy bots
-        { 'uel0307', 1, 3, 'Attack', 'GrowthFormation' },  --Moblesheild
+        { 'uel0303', 1, 8, 'Attack', 'GrowthFormation' },  --heavy bots
+        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },  --Moblesheild
 	}
     Builder = {
         BuilderName = 'NLandAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 1,
         Priority = 400,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -132,7 +132,7 @@ function UEFNbaseAI()
 	Builder = {
         BuilderName = 'AirAttackBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 2,
         Priority = 500,
         PlatoonType = 'Air',
         RequiresConstruction = true,
@@ -150,7 +150,7 @@ function UEFNbaseAI()
         'LandAttackTemp2',
         'NoPlan',
         { 'uel0202', 1, 9, 'Attack', 'GrowthFormation' },  --heavy Tanks
-        { 'uel0205', 1, 4, 'Attack', 'GrowthFormation' },  --Moblie flak
+        { 'uel0111', 1, 4, 'Attack', 'GrowthFormation' },  --Moblie flak
         { 'uel0307', 1, 3, 'Attack', 'GrowthFormation' },  --Moblesheild
 	}
 	local Builder = {
@@ -178,7 +178,7 @@ function UEFNbaseAI()
 	Builder = {
         BuilderName = 'LandAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 1,
         Priority = 500,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -200,7 +200,7 @@ function UEFNbaseAI()
 	Builder = {
         BuilderName = 'LandAttackBuilder4',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 1,
         Priority = 500,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -225,7 +225,7 @@ function SouthAirattacks()
 	local Builder = {
         BuilderName = 'AirAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 4,
+        InstanceCount = 2,
         Priority = 400,
         PlatoonType = 'Air',
         RequiresConstruction = true,

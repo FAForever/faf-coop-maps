@@ -10,7 +10,7 @@ local AeonIbase = BaseManager.CreateBaseManager()
 
 function AeonNavalAI()
     AeonNbase:Initialize(ArmyBrains[Aeon], 'AeonNavalbase', 'AeonNavalMK', 70, {P3AnavalN = 100})
-    AeonNbase:StartNonZeroBase({19,17})
+    AeonNbase:StartNonZeroBase({23,20})
     AeonNbase:SetActive('AirScouting', true)
     AeonNbase:SetActive('LandScouting', true)
 
@@ -67,13 +67,13 @@ function AeonNattacks()
         'AeonlandTemp1',
         'NoPlan',
         { 'xal0203', 1, 12, 'Attack', 'GrowthFormation' },   --Hover tanks
-        { 'ual0205', 1, 5, 'Attack', 'GrowthFormation' },  --moble flak
-	    { 'ual0307', 1, 5, 'Attack', 'GrowthFormation' },   --Moble shields
+        { 'ual0205', 1, 6, 'Attack', 'GrowthFormation' },  --moble flak
+	    { 'ual0307', 1, 6, 'Attack', 'GrowthFormation' },   --Moble shields
 	}
 	Builder = {
         BuilderName = 'AeonlandBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 2,
         Priority = 400,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -89,8 +89,8 @@ function AeonNattacks()
         'AeonlandTemp2',
         'NoPlan',
         { 'xal0203', 1, 12, 'Attack', 'GrowthFormation' },  --Hover tanks
-        { 'ual0205', 1, 5, 'Attack', 'GrowthFormation' },  --moble flak
-        { 'ual0307', 1, 5, 'Attack', 'GrowthFormation' },  --Moble shields
+        { 'ual0205', 1, 6, 'Attack', 'GrowthFormation' },  --moble flak
+        { 'ual0307', 1, 6, 'Attack', 'GrowthFormation' },  --Moble shields
     }
     Builder = {
         BuilderName = 'AeonlandBuilder2',
@@ -111,9 +111,9 @@ function AeonNattacks()
        'AeonlandTemp3',
        'NoPlan',
         { 'uaa0203', 1, 16, 'Attack', 'GrowthFormation' },  --Gunships
-        { 'uaa0303', 1, 9, 'Attack', 'GrowthFormation' },  --ASFs
-	    { 'uaa0304', 1, 3, 'Attack', 'GrowthFormation' },  --Stratbombers
-	    { 'xaa0202', 1, 8, 'Attack', 'GrowthFormation' },  --Fighters
+        { 'uaa0303', 1, 10, 'Attack', 'GrowthFormation' },  --ASFs
+	    { 'uaa0304', 1, 4, 'Attack', 'GrowthFormation' },  --Stratbombers
+	    { 'xaa0202', 1, 12, 'Attack', 'GrowthFormation' },  --Fighters
 	}
     Builder = {
         BuilderName = 'AeonlandBuilder3',
@@ -157,6 +157,34 @@ function AeonNattacks()
     )
     opai:SetChildQuantity('HeavyTanks', 24)
     opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
+	
+	 opai = AeonNbase:AddOpAI('EngineerAttack', 'M2_AEON_TransportBuilder',
+    {
+        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+        PlatoonData = {
+            TransportReturn = 'AeonNavalMK',
+        },
+        Priority = 1000,
+    })
+    opai:SetChildQuantity('T2Transports', 4)
+    opai:SetLockingStyle('None')
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.uaa0104})
+   
+    opai = AeonNbase:AddOpAI('BasicLandAttack', 'M2_Aeon_TransportAttack_2',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+            PlatoonData = {
+                AttackChain =  'P2Aintattack1', 
+                --PatrolChain = 'M2_UEF_Support_Civ_Chain',
+                LandingChain = 'AeonattackDrop',
+                TransportReturn = 'AeonNavalMK',
+            },
+            Priority = 550,
+        }
+    )
+    opai:SetChildQuantity({'HeavyTanks', 'MobileMissiles'}, 24)
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
 end
 
 function AeonNattack2()
@@ -167,9 +195,9 @@ function AeonNattack2()
     Temp = {
         'AeonairTemp2',
         'NoPlan',
-        { 'xaa0305', 1, 12, 'Attack', 'GrowthFormation' },   --AA Gunships
+        { 'xaa0305', 1, 10, 'Attack', 'GrowthFormation' },   --AA Gunships
         { 'uaa0303', 1, 5, 'Attack', 'GrowthFormation' },    --ASF
-	    { 'uaa0304', 1, 5, 'Attack', 'GrowthFormation' },    --Moble shields
+	    { 'uaa0304', 1, 5, 'Attack', 'GrowthFormation' },    --Strat Bombers
 	}
 	Builder = {
         BuilderName = 'AeonairBuilder2',
@@ -189,8 +217,8 @@ function AeonNattack2()
     Temp = {
         'AeonlandTemp2',
         'NoPlan',
-        { 'xas0306', 1, 2, 'Attack', 'GrowthFormation' },  --Hover tanks
-        { 'uas0202', 1, 4, 'Attack', 'GrowthFormation' },  --moble flak
+        { 'xas0306', 1, 2, 'Attack', 'GrowthFormation' },  --Tac boats
+        { 'uas0202', 1, 4, 'Attack', 'GrowthFormation' },  --Crusier
 	}
     Builder = {
         BuilderName = 'AeonlandBuilder2',
