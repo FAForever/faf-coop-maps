@@ -36,6 +36,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E02_DB01_010 = {
+  {text = '<LOC CAMPDEB_0014>Despite the advantage of a two hour head start, Aeon forces were unable to make any progress towards occupying Luthien. Colonel Zachary Arnold led the defense of Station Lima Foxtrot and the evacuation of Luthien Colony. Both the Colony and the Station suffered only light damage and civilian losses were minimal. The Aeon Commander, despite a formidable base, was defeated and the Aeon have made no further attempts to occupy the planet.', faction = 'UEF'},
+}
+
+E02_DB01_020 = {
+  {text = '<LOC CAMPDEB_0015>Despite heroic efforts by UEF personnel, Luthien was lost to Aeon invaders. Communication logs indicate that Station Lima Foxtrot was destroyed, with all personnel either declared dead or captured by the Aeon. Constable Keiichi Nakamura led the defense of Luthien Colony for nearly 24 hours before it was overwhelmed. Constable Nakamura has been posthumously awarded the UEF Cross 1st Class for his valor and leadership. All contact with Luthien has been lost.', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

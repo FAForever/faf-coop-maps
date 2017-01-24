@@ -38,6 +38,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R03_DB01_010 = {
+  {text = '<LOC CAMPDEB_0028>From: Elite Commander Dostya\nCc: Commander {g PlayerName}\nYou did well on Minerva, Commander. Dr. Brackman, all of us, are pleased with how you handled yourself. The mayor of York18 has even sent his personal thanks for your performance. As you no doubt know, the war is coming to a head. The Aeon are pressing the UEF and we cannot let them win. Now is the time for us to make our move and you will lead the charge. Enjoy yourself, Commander, you have earned it.', faction = 'Cybran'},
+}
+
+R03_DB01_020 = {
+  {text = '<LOC CAMPDEB_0029>From: Elite Commander Dostya\nTo: Dr. Brackman\nCc: Commander {g PlayerName}\n I am pleased to hear that you escaped Minerva. The UEF are still there, no doubt ransacking whatever they can find. I think we must forget about Minerva. Now that the UEF knows about it, they will monitor it for any sign of activity. They are nothing if not persistent. Your protégé failed in his mission. It was, in truth, a difficult fight, but I am not certain that he can be trusted for further frontline operations. He can, of course, continue as a Commander, but only if the missions are of secondary importance. Let me know your thoughts.', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

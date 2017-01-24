@@ -35,6 +35,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R02_DB01_010 = {
+  {text = '<LOC CAMPDEB_0026>From: Brackman\nTo: Commander {g PlayerName}\nExcellent work, my boy, excellent work! We will certainly put this Tech to good use, oh yes. It pleases me to no end that we were able to snatch the Aeon\'s most beloved artifacts right out from under them. It is too bad about Mach, but this just shows how powerful this technology is. It\'s quite amazing, oh yes.', faction = 'Cybran'},
+}
+
+R02_DB01_020 = {
+  {text = '<LOC CAMPDEB_0027>From: Elite Commander Dostya\nTo: Dr. Brackman\nCc: Commander {g PlayerName}\n I am certain that you already know, Doctor, that your protégé failed on Orionis. It was, perhaps, foolish to send him, but we cannot look back. We are considering another attempt on Orionis, but with the Aeon alerted, it will require a full scale invasion, something we cannot afford. The techs are looking for alternative targets, but nothing has come up so far. I will let you know the moment we have news.', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D02
 -- Player Death
 --------------------------------

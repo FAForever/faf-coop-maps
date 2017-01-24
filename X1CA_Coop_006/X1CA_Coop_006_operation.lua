@@ -1,20 +1,32 @@
--- ONLY EDIT THESE VARS 
-opID = 'X1CA_Coop_006'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opDesc = '<LOC X1CA_Coop_006_description>Using Gate codes recovered from the remains of QAI, Coalition forces can now gate directly to Earth, where the Seraphim are constructing a Quantum Arch. Once complete, the Arch will let the Seraphim summon untold reinforcements. The Arch must be destroyed, no matter the cost.'                            -- used in op select screen
-
--- DO NOT EDIT
-local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'X', 6)
+local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_strings.lua')
 
 operationData = 
 {
-    key = opID,
-    name = opVars.op_short_name,
-    long_name = opVars.op_long_name,
-    description = opDesc,
-    opNum = opVars.op_num,
-    opBriefingText = opVars.op_text,
-    opMovies = opVars.op_movies,
-    opMap = opVars.op_map,
-    opDebriefingSuccess = opVars.op_debrief_success,
-    opDebriefingFailure = opVars.op_debrief_failure,
+    key = 'X1CA_Coop_006',
+    feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13915',
+    opBriefingText = OpStrings.BriefingData,
+    opMovies = {
+        postOpMovies = {
+            factionDependant = true,
+            success = {
+                uef = {
+                    {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+                    {vid = '/movies/Credits_UEF.sfd', sfx = 'X_FMV_UEF_Credits', sfxBank = 'FMV_BG', voice = 'SCX_UEF_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                    {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                },
+                cybran = {
+                    {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+                    {vid = '/movies/Credits_Cybran.sfd', sfx = 'X_FMV_Cybran_Credits', sfxBank = 'FMV_BG', voice = 'SCX_Cybran_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                    {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                },
+                aeon = {
+                    {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+                    {vid = '/movies/Credits_Aeon.sfd', sfx = 'X_FMV_Aeon_Credits', sfxBank = 'FMV_BG', voice = 'SCX_Aeon_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                    {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+                },
+            },
+        },
+    },
+    opDebriefingSuccess = OpStrings.X06_DB01_010,
+    opDebriefingFailure = OpStrings.X06_DB01_020,
 }

@@ -39,6 +39,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A02_DB01_010 = {
+  {text = '<LOC CAMPDEB_0002>From: Avatar-of-War Marxon\nTo: Knight {g PlayerName}\n I am impressed, Knight. You not only completed your mission, but managed to do it in only half the time estimated. I think you will go far in the military, assuming you know whom to listen to. I worry that you might think to follow the words of Toth. Her kind does not understand war as we do. Sentimentality has no place on the battlefield. All you need do is follow The Way as outlined by our ancestors. That is all the guidance anyone requires.', faction = 'Aeon'},
+}
+
+A02_DB01_020 = {
+  {text = '<LOC CAMPDEB_0003>From: Evaluator Toth\nTo: Her Highness, Princess Rhianne\nPrincess, I bear grave news. The one I was to watch, the one you had such hopes for, has failed. She was unable to complete her mission on Zeta Canis. It is a great blow, I know. I had begun to think she was the one. Marxon continues his ways. He has even approached some of the other Avatars, seeking to increase his power. I fear he will soon have too much support and become unstoppable. I will do what I can.', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

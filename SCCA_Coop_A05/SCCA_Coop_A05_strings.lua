@@ -37,6 +37,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A05_DB01_010 = {
+  {text = '<LOC CAMPDEB_0008>From: Princess Burke\nTo: Champion {g PlayerName}\nWith your victory over Ariel, and Rhiza\'s abandonment of Marxon, the great majority of Commanders have disavowed themselves of the Avatar. Indeed, many in the government have publicly proclaimed their support for me. This is all thanks to you and your deeds on my behalf. However, we cannot stop now. To ensure the future, Marxon must be brought to justice for his crimes. Only then will the galaxy truly be saved.', faction = 'Aeon'},
+}
+
+A05_DB01_020 = {
+  {text = '<LOC CAMPDEB_0009>From: Evaluator Toth\nFlee, Rhianne! Marxon is staging a coup d\'état! His followers have already murdered several of your supporters and I fear they will come for you next! I will try to lead them away, but I do not know how long I can distract them! Flee! Please! You must survive for all our sakes!', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

@@ -35,6 +35,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E04_DB01_010 = {
+  {text = '<LOC CAMPDEB_0018>Desperate to find a solution to the Cybran Gate Virus, the UEF dispatched Captain {g PlayerName} to Minerva, the largest Cybran colony ever found. There Captain {g PlayerName}, despite continued Cybran attacks, found not only data on the Virus, but also rescued Dr. Eric Sweeney, who was kidnapped during the fight for Capella. Dr. Sweeney had further information: Dr. Brackman himself was on Minerva. Despite a valiant effort, Brackman managed to escape, but his facility and current research were destroyed. With the return of Captain {g PlayerName} and the successful completion of his mission, the UEF has the tools it needs to continue the fight against the enemies of Earth.', faction = 'UEF'},
+}
+
+E04_DB01_020 = {
+  {text = '<LOC CAMPDEB_0019>Desperate to find a solution to the Cybran Gate Virus, the UEF dispatched Captain {g PlayerName} to Minerva, the largest Cybran colony ever found. Despite all precautions, Captain {g PlayerName} was unable to find the necessary research. UEF Quantum Specialists warn that the Cybran Virus is continuing to spread across the Gates and will completely infest the Quantum Gate Network within 20 solar days. Further operations on Minerva are unlikely.', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

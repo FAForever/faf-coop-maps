@@ -35,6 +35,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E03_DB01_010 = {
+  {text = '<LOC CAMPDEB_0016>Although Matar was the scene of a hotly contested battle, UEF forces were victorious in driving the Aeon invaders from the planet. Notable was the presence of the Princess\' Champion, who was defeated after a tough battle in the Gulf region. Despite the UEF victory, there is much sorrow over the loss of Colonel Zachary Arnold, a 22-year veteran and one of the UEF\'s best field commanders. President Riley has ordered all flags at half-mast for one week and will personally speak at the Colonel\'s memorial service.', faction = 'UEF'},
+}
+
+E03_DB01_020 = {
+  {text = '<LOC CAMPDEB_0017>Despite a 14-hour battle on multiple fronts, Matar was lost to the Aeon. Included among the dead was Colonel Zachary Arnold, a 22-year veteran and one of the UEF\'s best field commanders. President Riley has ordered all flags at half-mast for one week and will personally speak at the Colonel\'s memorial service. All contact with Matar has been lost and it is presumed that the Aeon are currently capturing or murdering the remaining civilian population.', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

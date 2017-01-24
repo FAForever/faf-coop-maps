@@ -38,6 +38,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R06_DB01_010 = {
+  {text = '<LOC CAMPDEB_0034>From: Elite Commander Dostya\nTo: Commander {g PlayerName}\nCongratulations, Commander! You have ended the Infinite War! You no doubt have your hands full, but if you check your aft storage compartment, you will find a very good bottle of vodka. I look forward to seeing you in a few years. Dostya.', faction = 'Cybran'},
+}
+
+R06_DB01_020 = {
+  {text = '<LOC CAMPDEB_0035>To: All Cybran Commanders\nFrom: Elite Commander Dostya\nCommander {g PlayerName} failed. He was unable to spread the Quantum Virus and shut down the Gate Network. The Aeon will quickly turn its sights on us. All civilians will be evacuated to the furthest reaches of our territory. I am asking for volunteers to stay behind with me and detonate the Gates once the civilians are gone. This, combined with our delaying action, should give them some time. Make no mistake, those who volunteer will not return. ', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

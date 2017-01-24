@@ -34,7 +34,13 @@
 --
 --			Info: Voice actors can suggest names for their characters.
 
+Debriefing_Win = {
+	{text = '[Seraphim]: The UEF research station has been destroyed.', faction = 'Seraphim'},
+}
 
+Debriefing_Lose = {
+	{text = '[Seraphim]: You failed.', faction = 'Seraphim'},
+}
 
 -------------
 -- Win / Lose

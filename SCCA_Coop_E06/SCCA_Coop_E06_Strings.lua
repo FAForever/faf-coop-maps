@@ -35,6 +35,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E06_DB01_010 = {
+  {text = '<LOC CAMPDEB_0022>UEF Command has proclaimed victory in the Infinite War! The war is over! Despite a massive Aeon invasion and Cybran attacks, the UEF held firm and fired a secret weapon, Project: Black Sun, which destroyed both the Aeon homeworld of Seraphim II and several Cybran core worlds. The Aeon Princess and Dr. Gustaf Brackman both offered their immediate surrender. A new day has dawned across the galaxy! The UEF is victorious!', faction = 'UEF'},
+}
+
+E06_DB01_020 = {
+  {text = '<LOC CAMPDEB_0023>A glorious new light has come to the UEF. With the fall of UEF Command, the Aeon have taken up the reins of the galaxy. Avatar-of-War Marxon has assured the citizens of the UEF that their lives can only improve under Aeon leadership. Disease, poverty and social inequality are all unknowns in the Illuminate and we are certain to reap the benefits of their enlightened and advanced civilization. Long live the Illuminate!', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

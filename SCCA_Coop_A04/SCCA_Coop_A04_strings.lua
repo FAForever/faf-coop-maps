@@ -38,6 +38,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A04_DB01_010 = {
+  {text = '<LOC CAMPDEB_0006>From: Evaluator Toth\nTo: Champion {g PlayerName}\nYou have done the Princess a great service, Champion. It seems that everyday, more and more people flock to Marxon\'s banner. The Princess is hard pressed and I fear not only for her, but for all of our people. She will need your strength in the days to come. I will do what I can, but I feel that I will not see the end of this struggle. Keep Rhianne safe, Champion, the future must belong to her.', faction = 'Aeon'},
+}
+
+A04_DB01_020 = {
+  {text = '<LOC CAMPDEB_0007>From: Evaluator Toth\nTo: Her Highness, Princess Rhianne\nPrincess, the failure of your Champion on Procyon has left you in a perilous state. Marxon has used this to further erode your position. He argues that if your chosen Champion is weak, then by extension, you are as well. Others are listening, and more move to stand behind Marxon every day. If we are to stop him, then something must be done soon!', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

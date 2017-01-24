@@ -39,6 +39,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R01_DB01_010 = {
+  {text = '<LOC CAMPDEB_0024>From: Elite Commander Dostya\nTo: Commander {g PlayerName}\nIt appears that Dr. Brackman was correct in his assessment of your abilities. I admit to some doubt, but am pleased to have been proven wrong. All Symbionts from Theban 2 have been rescued and are being integrated into the Nation. Jericho, in particular, has been most eager to help and has volunteered for field duty. Perhaps you will see him again one day. Rest for now, Commander, you will be needed again soon.', faction = 'Cybran'},
+}
+
+R01_DB01_020 = {
+  {text = '<LOC CAMPDEB_0025>From: Elite Commander Dostya\nTo: Doctor Brackman\nCc: Commander {g PlayerName}\nI am afraid your protégé did not perform as expected. He failed in his primary objectives and as a result, very few Symbionts were rescued from Theban 2. I would not recommend this Commander for further duties at this time.', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

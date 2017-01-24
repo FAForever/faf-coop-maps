@@ -35,6 +35,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A03_DB01_010 = {
+  {text = '<LOC CAMPDEB_0004>From: Princess Burke\nTo: Evaluator Toth\nCc: Knight {g PlayerName}\n I have succeeded. The UEF Colonel, Zachary Arnold, has accepted The Way. He resisted far longer than I expected, but he eventually realized the Truth. His conversion, as pleasing as it is, has made our lives more difficult. He spoke to me of the UEF and its plans, of a terrible weapon being constructed. This news will only serve to bring more Commanders to Marxon\'s side and strengthen his power. How are we to find peace when it seems all anyone else wants is war and destruction?', faction = 'Aeon'},
+}
+
+A03_DB01_020 = {
+  {text = '<LOC CAMPDEB_0005>From: Princess Burke\nTo: Knight {g PlayerName}\nKnight, I would like to thank you for your efforts on Matar. I realize I put you in a difficult position and that you did your best to secure the UEF Commander. I know there was something I was to learn from him, but hopefully, there will be another opportunity in the future.', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

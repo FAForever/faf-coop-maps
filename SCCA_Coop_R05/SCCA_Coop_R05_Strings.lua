@@ -39,6 +39,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R05_DB01_010 = {
+  {text = '<LOC CAMPDEB_0032>From: Elite Commander Dostya\nTo: Commander {g PlayerName}\nGlad to see you made it, Commander. I apologize for the situation with Hex5. If I had my way, he and his entire Node would be breathing vacuum, but the Doctor is much more lenient than I. We received the access codes for Black Sun and are preparing for the mission to Earth. You will lead that assault. The hopes and dreams of the entire Nation rest in your hands.', faction = 'Cybran'},
+}
+
+R05_DB01_020 = {
+  {text = '<LOC CAMPDEB_0033>From: Elite Commander Dostya\nTo: Dr. Brackman\nCc: Commander {g PlayerName}\nWe have no options left, Doctor. We cannot hope to hack Black Sun\'s controls before the Aeon conquer Earth. I am recommending a full evacuation. The Nation must run if it is to survive. I have asked for volunteers to stay behind with me and slow the Aeon down. We should be able to buy you at least a few months. Hopefully, something, a new plan, some brilliant insight, will occur and you will be able to save our people. Do svidanya, Doctor, it has been a privilege knowing you.', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------
