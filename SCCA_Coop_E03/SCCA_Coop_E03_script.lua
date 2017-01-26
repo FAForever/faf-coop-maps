@@ -293,7 +293,7 @@ function StartMission1()
         OpStrings.M1S2Description,          -- description
         'build',                            -- action
         {                                   -- target
-            Army = Player1,
+            Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
             Value = 1,
