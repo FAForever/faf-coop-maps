@@ -36,6 +36,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+R04_DB01_010 = {
+  {text = '<LOC CAMPDEB_0030>From: QAI\nTo: Dr. Brackman; Elite Commander Dostya; Commander {g PlayerName}\nRe: Status\nMy systems have been thoroughly diagnosed and all damage has been repaired. I am continuing my work on the Quantum Virus. The Aeon interference had no impact and I am .23% ahead of schedule. The Aeon purpose is still uncertain. They were obviously searching for something, but I have no reference for their motivation. All operations are proceeding as planned.', faction = 'Cybran'},
+}
+
+R04_DB01_020 = {
+  {text = '<LOC CAMPDEB_0031>From: Tech ID 227, Node Technician, Procyon\nTo: Dr. Brackman; Elite Commander Dostya; Commander {g PlayerName}\nSir, we have completed our analysis of the damage and it\'s bad. Not only did the Aeon have complete access to QAI\'s data banks, they also managed to get into the central router and traced a number of messages. We can\'t be certain what they got, but it\'s a safe to assume that they at least know where a couple dozen Nodes are. We\'ve already sent warnings, but I don\'t know if that\'s enough. They also destroyed QAI\'s mainframe. We managed to salvage quite a bit, but QAI lost almost 39% of its memory. It\'ll be at least a year before QAI will be operating at 100% again. Awaiting further instruction.', faction = 'Cybran'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

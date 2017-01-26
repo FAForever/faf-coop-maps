@@ -1,20 +1,10 @@
--- ONLY EDIT THESE VARS 
-opID = 'X1CA_Coop_005'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opDesc = '<LOC X1CA_Coop_005_description>Because of the events on Hades, QAI must be destroyed once and for all. Using intelligence acquired from the Seven Hand Node, the Coalition has learned that QAI\'s mainframe is on the planet Pearl II. Your mission is to establish a foothold on Pearl II, thus clearing the way for Dr. Brackman, who will arrive and personally shut down QAI.'                            -- used in op select screen
-
--- DO NOT EDIT
-local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'X', 5)
+local OpStrings = import('/maps/X1CA_Coop_005/X1CA_Coop_005_strings.lua')
 
 operationData = 
 {
-    key = opID,
-    name = opVars.op_short_name,
-    long_name = opVars.op_long_name,
-    description = opDesc,
-    opNum = opVars.op_num,
-    opBriefingText = opVars.op_text,
-    opMovies = opVars.op_movies,
-    opMap = opVars.op_map,
-    opDebriefingSuccess = opVars.op_debrief_success,
-    opDebriefingFailure = opVars.op_debrief_failure,
+    key = 'X1CA_Coop_005',
+    feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13914',
+    opBriefingText = OpStrings.BriefingData,
+    opDebriefingSuccess = OpStrings.X05_DB01_010,
+    opDebriefingFailure = OpStrings.X05_DB01_020,
 }

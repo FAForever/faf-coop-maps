@@ -37,6 +37,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A01_DB01_010 = {
+  {text = '<LOC CAMPDEB_0000>From: Crusader Rhiza\nTo: Avatar-of-War Marxon\nCc: Knight {g PlayerName}\nOperation Joust is a success. I defeated the UEF Commander mere hours ago and have finished securing the planet. The Evaluators have already begun arriving and will begin work shortly. Knight {g PlayerName}\'s performance was satisfactory. With more experience, she may become a valuable Commander.', faction = 'Aeon'},
+}
+
+A01_DB01_020 = {
+  {text = '<LOC CAMPDEB_0001>To: Avatar-of-War Marxon\nCc: Knight {g PlayerName}\nFrom: Crusader Rhiza\nHonor to you, Avatar. The new Knight you sent me has proven insufficient for her task. She was unable to breach the UEF defenses nor stop their assaults. I had thought her strong in The Way, but it seems I was mistaken. I was able to continue the mission and secure Rigel. I look forward to my next assignment.', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

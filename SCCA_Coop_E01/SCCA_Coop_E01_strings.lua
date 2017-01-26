@@ -36,6 +36,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E01_DB01_010 = {
+  {text = '<LOC CAMPDEB_0012>With the defeat of the Cybrans on Capella, UEF Disaster Response Teams were quick to land and begin cleanup operations. Almost 40% of the Symbiont population was reported missing and any remaining Symbionts received thorough psychological and AI examinations to ensure that no 'Trojan Horse' programs were left behind. Overall civilian casualties were light and property damage was minimal. Note: Dr. Eric Sweeney, a noted scientist and Quantum Theorist, was reported missing. Statements taken from his coworkers suggest the Cybrans may have kidnapped him. More data will be posted as it is made available.', faction = 'Aeon'},
+}
+
+E01_DB01_020 = {
+  {text = '<LOC CAMPDEB_0013>Though eventually driven off by Colonel Zachary Arnold, the Cybrans had almost free reign across Capella for at least 11 hours. During that time, nearly 95% of the Symbiont population was abducted, leaving local industry critically short of manpower. Additionally, numerous public buildings were raided and destroyed, including a research facility. Director Marcus Thompson, despite leading a heroic defense of his facility, was killed in a bombing run, as was the greater part of his staff. Listed among the missing is Dr. Eric Sweeney, a noted scientist and Quantum Theorist.', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

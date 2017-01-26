@@ -33,6 +33,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+A06_DB01_010 = {
+  {text = '<LOC CAMPDEB_0010>From: General Samantha Clarke\nTo: Princess Rhianne Burke\nCc: Champion {g PlayerName}\n I do not know if this will reach you, Princess, but I hope it does. I don\'t quite know what to say. It is strange, being at peace. My mind is still full of orders and strategies. I keep expecting field reports to arrive and bring news of fresh attacks. All I can say is that I wish I had known. I spoke with Dr. Brackman the other day. He is as stunned as I am. We are moving to formally recognize the Cybran Nation. It should not take long. I hope that I will get a chance to speak to you someday. I think I will enjoy peace.', faction = 'Aeon'},
+}
+
+A06_DB01_020 = {
+  {text = '<LOC CAMPDEB_0011>Princess Rhianne Burke\nPrivate Journal\nEarth is gone. We were so close, but in the end, my Champion could not stop Marxon. Just as he was about to fire Black Sun, UEF President Riley destroyed Earth rather than be defeated. Billions are dead. There can be no peace now. I am forced to name a new Avatar-of-War. Operations against the Cybrans will continue. I will be known as the Princess who defeated the UEF and purged the Cybrans from the galaxy. I will be revered not for peace, but for war. I wish Toth were here. I wish there was another way. I wish I had never become Princess.', faction = 'Aeon'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

@@ -36,6 +36,19 @@ BriefingData = {
 }
 
 --------------------------------
+-- Opnode ID: DB01
+-- Operation Debriefing
+--------------------------------
+
+E05_DB01_010 = {
+  {text = '<LOC CAMPDEB_0020>Despite attacks by both Aeon and Cybran forces, Captain {g PlayerName} safeguarded the research facilities on Pisces IV and delivered vital materials for Project: Black Sun to Earth. Withstanding both nuclear and conventional assault, the Commander stood firm against the invaders and ensured the future of the UEF.', faction = 'UEF'},
+}
+
+E05_DB01_020 = {
+  {text = '<LOC CAMPDEB_0021>UEF Command announced a minor setback today, the loss of Pisces IV. Home to a small colony and R&D facilities, Pisces IV was attacked by both Aeon and Cybran forces. Captain {g PlayerName} was sent to contain the Aeon attack and was pushing back when he was blindsided by a covert Cybran force. Despite the uneven odds, Captain {g PlayerName} continued a valiant defense before being forced off the planet. UEF Command reassures its citizens that this is an isolated incident and that they expect to retake the planet soon.', faction = 'UEF'},
+}
+
+--------------------------------
 -- Opnode ID: D01
 -- Player Death
 --------------------------------

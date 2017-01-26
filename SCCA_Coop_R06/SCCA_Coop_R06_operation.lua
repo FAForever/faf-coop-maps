@@ -8,31 +8,23 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
--- ONLY EDIT THESE VARS 
-opID = 'SCCA_Coop_R06'                        -- should always be in the form 'SCCA_' + faction letter + 2-digit op num, e.g. SCCA_E01
-opLoc = {x = 627, y = 297}            -- location of op 'planet' on op select screen
-opDesc = ''                            -- used in op select screen
-
--- DO NOT EDIT
-local opVars = import('/lua/ui/campaign/operationvars.lua').MakeOpVars(opID, 'cybran', 6)
+local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
 
 operationData = 
 {
-    key = opID,
-    
-    operationSelectData = {
-        name = opVars.op_short_name,
-        long_name = opVars.op_long_name,
-        location = opLoc,
-        buttonPrefix = opVars.op_BtnPfx,
-        description = opDesc,
-    },
-
-    operationBriefingData = {
-        opNum = opVars.op_num,
-        opTitle = opVars.op_long_name,
-        opText = opVars.op_text,
-        opMovPfx = opVars.op_MovPfx,
-        opMap = opVars.op_map,
-    },
-} 
+    key = 'SCCA_Coop_R06',
+    long_name = OpStrings.OPERATION_NAME,
+    feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13909',
+    opBriefingText = OpStrings.BriefingData,
+    --[[opMovies = { -- Removed until sounds and movies are ready
+        postOpMovies = {
+            success = {
+                {vid = '/movies/FMV_Cybran_Outro_1.sfd', sfx = 'FMV_Cybran_Outro_1', sfxBank = '', voice = 'FMV_Cybran_Outro_1', voiceBank = '', subtitles = 'default'},
+                {vid = '/movies/FMV_Credits.sfd', sfx = 'FMV_Cybran_Credits', sfxBank = '', voice = 'FMV_Cybran_Credits', voiceBank = '', subtitles = 'default'},
+                {vid = '/movies/FMV_Cybran_Outro_2.sfd', sfx = 'FMV_Cybran_Outro_2', sfxBank = '', voice = 'FMV_Cybran_Outro_2', voiceBank = '', subtitles = 'default'},
+            },
+        },
+    },--]]
+    opDebriefingSuccess = OpStrings.R06_DB01_010,
+    opDebriefingFailure = OpStrings.R06_DB01_020,
+}
