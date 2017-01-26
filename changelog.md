@@ -1,5 +1,48 @@
 # Changelog
 
+## Patch 2.0.3 (Upcoming)
+
+### General
+- Lobby will show only available faction for the mission instead of all. (pending faf patch)
+- Added mission debriefings and feedback button to the score screen.
+- Objectives for having certain amout of units should count units of all players now.
+
+### Cybran Campaign
+
+#### Operation Mainframe Tango (4th mission)
+- Fixed Aeon commander death scene playing twice
+
+### UEF Campagin
+
+#### Operation Black Earth (1st mission)
+- Fixed typo causing player 3 and 4 not working properly
+- Improved unit restrictions to allow capturing cybran units
+- Gun upgrade allowed instead of RAS
+
+#### Operation Snow Blind (2nd mission)
+- Friendly AI doesn't share resources anymore
+- Fixed Aeon commander not exploding
+
+#### Operation Metal Shark (3rdd mission)
+- Friendly AI doesn't share resources anymore
+
+### Custom Missions
+
+#### Fort Clarke Assault
+- Fixed trigger to send percivals if players go too forward with ACUs
+- Fixed T4 Bot releasing energy storm when given (pending faf patch)
+- Adjusted unit restrictions to not promote UEF tech capturing
+
+#### Operation Tha-Atha-Aez
+- Improvements to AI, attacks, fixed typos in the text
+
+### Contributors
+- Chafe10
+- KeyBlue
+- OCGDFS
+- Shadowlorda1
+- speed2
+
 ## Patch 2.0.2 (November, 14th, 2016)
 
 ### UEF Campagin
