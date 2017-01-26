@@ -2067,10 +2067,10 @@ function BeginMission3()
         }
    )
     ScenarioInfo.M3P2:AddResultCallback(
-        function(result)
+        function(result, unit)
             if result then
                 -- enemy aeon cdr destroyed
-                ScenarioFramework.CDRDeathNISCamera(EnemyCommanderPlatoon:GetPlatoonUnits()[1])
+                ScenarioFramework.CDRDeathNISCamera(unit)
 
                 -- Aeon commander's death cry
                 ScenarioFramework.Dialogue(OpStrings.E02_M04_130, false, true)
