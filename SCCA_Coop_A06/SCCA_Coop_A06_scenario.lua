@@ -18,5 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
+            factions = { {'aeon'}, {'aeon'}, {'aeon'}, {'aeon'} },
         },
     }}

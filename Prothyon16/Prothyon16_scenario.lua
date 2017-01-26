@@ -17,5 +17,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
+            factions = { {'uef'}, {'uef'}, {'uef'}, {'uef'} },
         },
     }}
