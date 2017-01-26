@@ -155,6 +155,9 @@ function OnStart(self)
         end
     end
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Arnold):SetResourceSharing(false)
+
     ScenarioFramework.SetPlayableArea('M1_Playable_Area', false)
     ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
 end
