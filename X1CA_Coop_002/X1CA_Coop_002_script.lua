@@ -1437,7 +1437,7 @@ function AssignM4S2Cybran()
             Area = 'Cybran_Secondary_Virus_End',
             MarkArea = true,
             Requirements = {
-                {Area = 'Cybran_Secondary_Virus_End', Category = categories.ENGINEER - categories.EXPERIMENTAL, CompareOp = '>=', Value = 1, ArmyIndex = Player1},
+                {Area = 'Cybran_Secondary_Virus_End', Category = categories.ENGINEER - categories.EXPERIMENTAL, CompareOp = '>=', Value = 1, Armies = {'HumanPlayers'}},
             },
         }
     )
