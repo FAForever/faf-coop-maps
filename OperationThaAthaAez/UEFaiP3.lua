@@ -10,7 +10,7 @@ local UEFMbase2 = BaseManager.CreateBaseManager()
 
 function UEFmain1AI()
     UEFMbase1:Initialize(ArmyBrains[UEF], 'UEFmmainbase1', 'UEFMain1MK', 80, {UEFmain1 = 100})
-    UEFMbase1:StartNonZeroBase({19,17})
+    UEFMbase1:StartNonZeroBase({19,18})
     UEFMbase1:SetActive('AirScouting', true)
     UEFMbase1:SetActive('LandScouting', true)
 
@@ -20,7 +20,7 @@ end
 
 function UEFmain2AI()
     UEFMbase2:Initialize(ArmyBrains[UEF], 'UEFmmainbase2', 'UEFMain2MK', 80, {UEFmain2 = 100})
-    UEFMbase2:StartNonZeroBase({19,17})
+    UEFMbase2:StartNonZeroBase({19,18})
     UEFMbase2:SetActive('AirScouting', true)
     UEFMbase2:SetActive('LandScouting', true)
 

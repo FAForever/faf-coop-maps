@@ -40,10 +40,11 @@ function SeraAirPatrols()
 end
 
 function SeraLandPatrols()
+ local opai = nil
 	local Temp = {
         'landDefenceTemp1',
         'NoPlan',
-        { 'xsl0202', 1, 8, 'Attack', 'GrowthFormation' },  --Assault bots
+        { 'xsl0202', 1, 6, 'Attack', 'GrowthFormation' },  --Assault bots
 	    { 'xsl0303', 1, 2, 'Attack', 'GrowthFormation' },  --Seige Tanks
 	}
 	local Builder = {
