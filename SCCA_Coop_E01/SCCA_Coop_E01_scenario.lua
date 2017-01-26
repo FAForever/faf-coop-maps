@@ -14,7 +14,7 @@ ScenarioInfo = {
     Configurations = {
         ['standard'] = {
             teams = {
-                { name = 'FFA', armies = {'Player1','Arnold','Cybran','EastResearch','Player2','Player2','Player3'} },
+                { name = 'FFA', armies = {'Player1','Arnold','Cybran','EastResearch','Player2','Player3','Player4'} },
             },
             customprops = {
             },
