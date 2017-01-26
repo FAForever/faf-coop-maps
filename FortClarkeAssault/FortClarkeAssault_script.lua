@@ -167,14 +167,11 @@ function OnStart(self)
             categories.xeb0104 + -- UEF Engineering Station 1
             categories.xeb0204 + -- UEF Engineering Station 2
             categories.xea0306 + -- UEF Heavy Air Transport
-            categories.xeb2402 + -- UEF Sub-Orbital Defense System
             categories.xsl0305 + -- Seraph Sniper Bot
-            categories.xsl0401 + -- Seraph Exp Bot
-            categories.xsa0402 + -- Seraph Exp Bomb
+            categories.EXPERIMENTAL +
+            categories.SUBCOMMANDER +
             categories.xss0304 + -- Seraph Sub Hunter
-            categories.xsb0304 + -- Seraph Gate
-            categories.xsl0301 + -- Seraph sACU
-            categories.xsb2401   -- Seraph exp Nuke
+            categories.GATE
         )
     end
 
@@ -786,6 +783,9 @@ function IntroMission2NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 2)
         Cinematics.ExitNISMode()
     end
+
+    -- Allow sACUs
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.GATE + categories.SUBCOMMANDER, true)
 
     M2InitialAttack()
     StartMission2()
