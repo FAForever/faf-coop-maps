@@ -230,22 +230,26 @@ function IntroMission1NIS()
             local tblArmy = ListArmies()
             if tblArmy[ScenarioInfo.Player2] then
                 ScenarioInfo.Player2CRD = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player2CRD)
             end
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Player3] then
                 ScenarioInfo.Player3CRD = ScenarioFramework.SpawnCommander('Player3', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player3CRD)
             end
 
             WaitSeconds(5)
 
             ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
+            table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player1CDR)
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Player4] then
                 ScenarioInfo.Player4CRD = ScenarioFramework.SpawnCommander('Player4', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player4CRD)
             end
         end)
 
@@ -274,6 +278,7 @@ function IntroMission1NIS()
                 WaitSeconds(0.5)
             end
         end
+        table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player1CDR)
     end
     IntroMission1()
 end
@@ -530,9 +535,6 @@ function StartMission1()
     -- Send group of percies if players ACUs are close to the UEF bases
     ScenarioInfo.M1Percies1Locked = false
     ScenarioInfo.M1Percies2Locked = false
-
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ScenarioInfo.Player1CDR, 'M1_South_Base_Marker', 40)
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, ScenarioInfo.Player1CDR, 'M1_North_Base_Marker', 40)
 
     for _, ACU in ScenarioInfo.CoopCDR or {} do
         ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ACU, 'M1_South_Base_Marker', 40)
