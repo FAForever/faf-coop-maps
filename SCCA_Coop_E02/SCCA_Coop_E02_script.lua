@@ -454,6 +454,10 @@ function OnStart(self)
         end
     end
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(AllyResearch):SetResourceSharing(false)
+    GetArmyBrain(AllyCivilian):SetResourceSharing(false)
+    
     -- Take away units that the player shouldn't have access to
     for _, player in ScenarioInfo.HumanPlayers do
          ScenarioFramework.AddRestriction(player,
