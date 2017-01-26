@@ -167,14 +167,11 @@ function OnStart(self)
             categories.xeb0104 + -- UEF Engineering Station 1
             categories.xeb0204 + -- UEF Engineering Station 2
             categories.xea0306 + -- UEF Heavy Air Transport
-            categories.xeb2402 + -- UEF Sub-Orbital Defense System
             categories.xsl0305 + -- Seraph Sniper Bot
-            categories.xsl0401 + -- Seraph Exp Bot
-            categories.xsa0402 + -- Seraph Exp Bomb
+            categories.EXPERIMENTAL +
+            categories.SUBCOMMANDER +
             categories.xss0304 + -- Seraph Sub Hunter
-            categories.xsb0304 + -- Seraph Gate
-            categories.xsl0301 + -- Seraph sACU
-            categories.xsb2401   -- Seraph exp Nuke
+            categories.GATE
         )
     end
 
@@ -230,22 +227,26 @@ function IntroMission1NIS()
             local tblArmy = ListArmies()
             if tblArmy[ScenarioInfo.Player2] then
                 ScenarioInfo.Player2CRD = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player2CRD)
             end
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Player3] then
                 ScenarioInfo.Player3CRD = ScenarioFramework.SpawnCommander('Player3', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player3CRD)
             end
 
             WaitSeconds(5)
 
             ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
+            table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player1CDR)
 
             WaitSeconds(3)
 
             if tblArmy[ScenarioInfo.Player4] then
                 ScenarioInfo.Player4CRD = ScenarioFramework.SpawnCommander('Player4', 'Commander', 'Warp', true, true, PlayerDeath)
+                table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player4CRD)
             end
         end)
 
@@ -274,6 +275,7 @@ function IntroMission1NIS()
                 WaitSeconds(0.5)
             end
         end
+        table.insert(ScenarioInfo.CoopCDR, ScenarioInfo.Player1CDR)
     end
     IntroMission1()
 end
@@ -531,9 +533,6 @@ function StartMission1()
     ScenarioInfo.M1Percies1Locked = false
     ScenarioInfo.M1Percies2Locked = false
 
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ScenarioInfo.Player1CDR, 'M1_South_Base_Marker', 40)
-    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, ScenarioInfo.Player1CDR, 'M1_North_Base_Marker', 40)
-
     for _, ACU in ScenarioInfo.CoopCDR or {} do
         ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies1, ACU, 'M1_South_Base_Marker', 40)
         ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M1SendPercies2, ACU, 'M1_North_Base_Marker', 40)
@@ -784,6 +783,9 @@ function IntroMission2NIS()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 2)
         Cinematics.ExitNISMode()
     end
+
+    -- Allow sACUs
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.GATE + categories.SUBCOMMANDER, true)
 
     M2InitialAttack()
     StartMission2()
