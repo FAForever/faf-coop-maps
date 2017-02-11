@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 2.0.3 (Upcoming)
+## Patch 2.0.3 (February, 11th, 2017)
 
 ### General
 - Lobby will show only available faction for the mission instead of all. (pending faf patch)
@@ -23,7 +23,7 @@
 - Friendly AI doesn't share resources anymore
 - Fixed Aeon commander not exploding
 
-#### Operation Metal Shark (3rdd mission)
+#### Operation Metal Shark (3rd mission)
 - Friendly AI doesn't share resources anymore
 
 ### Custom Missions
