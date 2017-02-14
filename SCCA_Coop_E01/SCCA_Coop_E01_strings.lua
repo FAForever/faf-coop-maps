@@ -41,7 +41,7 @@ BriefingData = {
 --------------------------------
 
 E01_DB01_010 = {
-  {text = '<LOC CAMPDEB_0012>With the defeat of the Cybrans on Capella, UEF Disaster Response Teams were quick to land and begin cleanup operations. Almost 40% of the Symbiont population was reported missing and any remaining Symbionts received thorough psychological and AI examinations to ensure that no 'Trojan Horse' programs were left behind. Overall civilian casualties were light and property damage was minimal. Note: Dr. Eric Sweeney, a noted scientist and Quantum Theorist, was reported missing. Statements taken from his coworkers suggest the Cybrans may have kidnapped him. More data will be posted as it is made available.', faction = 'Aeon'},
+  {text = '<LOC CAMPDEB_0012>With the defeat of the Cybrans on Capella, UEF Disaster Response Teams were quick to land and begin cleanup operations. Almost 40% of the Symbiont population was reported missing and any remaining Symbionts received thorough psychological and AI examinations to ensure that no \'Trojan Horse\' programs were left behind. Overall civilian casualties were light and property damage was minimal. Note: Dr. Eric Sweeney, a noted scientist and Quantum Theorist, was reported missing. Statements taken from his coworkers suggest the Cybrans may have kidnapped him. More data will be posted as it is made available.', faction = 'UEF'},
 }
 
 E01_DB01_020 = {
