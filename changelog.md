@@ -1,5 +1,10 @@
 # Changelog
 
+## Patch 2.0.4 (February, 14th, 2017)
+
+#### Operation Black Earth (1st mission)
+- Fixed typo causing the mission not to start
+
 ## Patch 2.0.3 (February, 11th, 2017)
 
 ### General
