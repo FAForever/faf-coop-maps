@@ -1385,6 +1385,9 @@ function StartMission4()
     end
     ScenarioFramework.Dialogue(OpStrings.X02_M03_021)
 
+    -- Start launching nukes
+    ScenarioFramework.CreateTimerTrigger(NukePlayer, 60)
+
     -- Resource generator
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xab1401, "aeon", 90, OpStrings.X02_M03_130)
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xel0306, "uef", 90, OpStrings.X02_M01_220)
@@ -1554,6 +1557,37 @@ function CzarDamaged()
             end
         end
     )
+end
+
+function NukePlayer()
+    local delay = {11, 8, 5}
+
+    while ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke:IsDead() do
+        local marker = nil
+        local numUnits = 0
+        local searching = true
+        while(searching) do
+            WaitSeconds(5)
+            for i = 1, 10 do
+                local num = table.getn(ArmyBrains[QAI]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_QAI_NukeTarget_' .. i), 30, 'enemy'))
+                if(num > 3) then
+                    if(num > numUnits) then
+                        numUnits = num
+                        marker = 'M4_QAI_NukeTarget_' .. i
+                    end
+                end
+                if(i == 10 and marker) then
+                    searching = false
+                end
+            end
+        end
+        if ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke:IsDead() then
+            ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(1)
+            IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition(marker))
+        end
+        
+        WaitSeconds(delay[Difficulty] * 60)
+    end
 end
 
 -----------------
