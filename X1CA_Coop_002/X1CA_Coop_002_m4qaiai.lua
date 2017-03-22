@@ -8,7 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 --------
@@ -394,6 +394,52 @@ function QAIM4MainBaseLandAttacks()
         )
         opai:SetChildQuantity({'MobileMissiles'}, quantity[Difficulty])
     end
+
+    quantity = {1, 1, 2}
+    opai = QAIM4MainBase:AddOpAI('M4_QAI_SpiderBot',
+        {
+            Amount = quantity[Difficulty],
+            KeepAlive = true,
+            PlatoonAIFunction = {'/maps/X1CA_Coop_002/X1CA_Coop_002_m4qaiai.lua', 'QAIAddSpiderToPlatoon'},
+            PlatoonData = {
+                PatrolChain = 'M4_QAI_LandAttack_Full1_Chain',
+                NumRequired = quantity[Difficulty],
+            },
+            MaxAssist = Difficulty,
+            Retry = true,
+        }
+    )
+
+    if Difficulty == 3 then
+        opai = QAIM4MainBase:AddOpAI('M4_QAI_SpiderBot',
+            {
+                KeepAlive = true,
+                PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+                PlatoonData = {
+                    PatrolChain = 'M4_QAI_Spider_Water_Chain',
+                },
+                MaxAssist = Difficulty,
+                Retry = true,
+            }
+        )
+    end
+
+    if Difficulty > 1 then
+        opai = QAIM4MainBase:AddOpAI('M4_QAI_SourRipper',
+            {
+                KeepAlive = true,
+                PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+                PlatoonData = {
+                    PatrolChains = {'M4_QAI_Soulripper_Chain_1',
+                                    'M4_QAI_Soulripper_Chain_2',
+                                    'M4_QAI_Soulripper_Chain_3',
+                                    'M4_QAI_Soulripper_Chain_4'},
+                },
+                MaxAssist = Difficulty,
+                Retry = true,
+            }
+        )
+    end
 end
 
 function QAIM4NavalBaseAI()
@@ -679,4 +725,49 @@ function QAIM4SouthBaseLandAttacks()
     opai:RemoveChildren('MobileShields')
     opai:SetChildCount(1)
     opai:SetLockingStyle('None')
+end
+
+function QAIAddSpiderToPlatoon(platoon)
+    local brain = platoon:GetBrain()
+    local unit = platoon:GetPlatoonUnits()[1]
+    local plat = brain:GetPlatoonUniquelyNamed('SpiderBots')
+    local spawnThread = false
+
+    if not plat then
+        plat = brain:MakePlatoon('', '')
+        plat:UniquelyNamePlatoon('SpiderBots')
+        plat:SetPlatoonData(platoon.PlatoonData)
+        spawnThread = true
+    end
+
+    brain:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'AttackFormation')
+    brain:DisbandPlatoon(platoon)
+
+    if spawnThread then
+        ForkThread(QAISpiderThread)
+    end
+end
+
+function QAISpiderThread()
+    local brain = ArmyBrains[QAI]
+    local platoon = brain:GetPlatoonUniquelyNamed('SpiderBots')
+    local data = platoon.PlatoonData
+
+    while brain:PlatoonExists(platoon) do
+        if not platoon:IsPatrolling('Attack') then
+            local numAlive = 0
+            for _, v in platoon:GetPlatoonUnits() do
+                if not v:IsDead() then
+                    numAlive = numAlive + 1
+                end
+            end
+
+            if numAlive == data.NumRequired then
+                for _, v in ScenarioUtils.ChainToPositions(data.PatrolChain) do
+                    platoon:Patrol(v)
+                end
+            end
+        end
+        WaitSeconds(10)
+    end
 end
