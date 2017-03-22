@@ -925,7 +925,7 @@ end
 
 function IntroMission3NIS()
     -- Currently cut
-
+    --[[
     Cinematics.EnterNISMode()
     
     WaitSeconds(1)
@@ -937,7 +937,7 @@ function IntroMission3NIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_3'), 1)
     
     Cinematics.ExitNISMode()
-
+    --]]
     StartMission3()
 end
 
