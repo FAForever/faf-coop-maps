@@ -7,7 +7,6 @@
 -- **
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local EffectUtilities = import('/lua/effectutilities.lua')
 local M1LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua')
@@ -25,12 +24,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
-local Utilities = import('/lua/utilities.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
-local EffectUtilities = import('/lua/EffectUtilities.lua')
-
-local SPAIFileName = '/Lua/Scenarioplatoonai.lua'
-local ScriptFile = '/maps/X1CA_Coop_002/X1CA_Coop_002_script.lua'
 
 ---------
 -- Globals
