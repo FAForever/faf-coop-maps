@@ -461,124 +461,106 @@ function QAIM4NavalBaseNavalAttacks()
     -- QAI M4 Naval Base Op AI, Naval Attacks
     ----------------------------------------
 
-    -- sends [frigates]
+    -- sends [destroyers] if player has >= 5 T2/T3 boats
+    quantity = {15, 20, 25}
     opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack1',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
-                PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
+                PatrolChain = 'M4_Naval_Attack_Destroyer_Chain',
             },
-            EnableTypes = {'Frigate'},
-            MaxFrigates = 3,
-            MinFrigates = 3,
+            EnabledTypes = {'Destroyer'},
+            MaxFrigates = quantity[Difficulty],
+            MinFrigates = quantity[Difficulty],
             Priority = 100,
         }
     )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T3', false)
+    opai:SetFormation('AttackFormation')
 
-    -- sends [frigates, subs] if player has >= 8 boats
+    -- sends [frigates, subs] if player has >= 3, 2, 1 naval units
+    quantity = {6, 8, 10}
+    trigger = {3, 2, 1}
     opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
             },
-            EnableTypes = {
-                'Frigate',
-                'Submarine',
-            },
-            MaxFrigates = 6,
-            MinFrigates = 6,
+            MaxFrigates = quantity[Difficulty],
+            MinFrigates = quantity[Difficulty],
             Priority = 110,
         }
     )
+    opai:SetChildActive('T2', false)
+    opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 8, categories.NAVAL * categories.MOBILE, '>='})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
 
-    -- sends all but T3 if player has >= 2 T2/T3 boats
+    -- sends mix of T2/T1 if player has >= 9, 7, 5 T2 boats
+    quantity = {18, 24, 29}
+    trigger = {9, 7, 5}
     opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
             },
-            MaxFrigates = 6,
-            MinFrigates = 6,
+            MaxFrigates = quantity[Difficulty],
+            MinFrigates = quantity[Difficulty],
             Priority = 120,
         }
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 2, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
-    -- sends all but T3 if player has >= 5 T2/T3 boats
+    -- sends battleship with light escort if player has >= 2, 2, 1 T3/T4 boats
+    trigger = {2, 2, 1}
     opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
             },
-            MaxFrigates = 9,
-            MinFrigates = 9,
-            Priority = 130,
+            Overrides = {
+                CORE_TO_SUBS = 0.25,
+                CORE_TO_UTILITY = 1,
+            },
+            MaxFrigates = 35,
+            MinFrigates = 35,
+            Priority = 140,
         }
     )
-    opai:SetChildActive('T3', false)
+    opai:SetChildActive('T1', false)
+    opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
 
-    local Temp = {
-        'QAIBattleshipTemp1',
-        'NoPlan',
-        { 'urs0302', 1, 1, 'Attack', 'AttackFormation' },   -- Battleship
-        { 'urs0201', 1, 2, 'Attack', 'AttackFormation' },   -- Destroyer
-        { 'xrs0205', 1, 1, 'Attack', 'AttackFormation' },   -- Stealth Boat
-        { 'xrs0204', 1, 4, 'Attack', 'AttackFormation' }    -- Sub Hunter
-    }
-    local Builder = {
-        BuilderName = 'QAIBattleshipBuilder1',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 140,
-        PlatoonType = 'Sea',
-        RequiresConstruction = true,
-        LocationType = 'M4_Naval_Base',
-        BuildConditions = {
-            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                {'default_brain', {'HumanPlayers'}, 1, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='}},
-        },
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-        PlatoonData = {
-            PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
-        },
-    }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
-
-    Temp = {
-        'QAIBattleshipTemp2',
-        'NoPlan',
-        { 'urs0302', 1, 3, 'Attack', 'AttackFormation' },   -- Battleship
-        { 'urs0202', 1, 2, 'Attack', 'AttackFormation' },   -- Cruiser
-        { 'xrs0205', 1, 2, 'Attack', 'AttackFormation' },   -- Stealth Boat
-        { 'xrs0204', 1, 7, 'Attack', 'AttackFormation' }    -- Sub Hunter
-    }
-    Builder = {
-        BuilderName = 'QAIBattleshipBuilder2',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 150,
-        PlatoonType = 'Sea',
-        RequiresConstruction = true,
-        LocationType = 'M4_Naval_Base',
-        BuildConditions = {
-            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='}},
-        },
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-        PlatoonData = {
-            PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
-        },
-    }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    -- sends 2 battleships with escort if player has >= 3 T3/T4 boats on Medium/High difficulty
+    if Difficulty > 1 then
+        quantity = {0, 60, 70}
+        opai = QAIM4NavalBase:AddNavalAI('M4_NavalAttack5',
+            {
+                MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+                PlatoonData = {
+                    PatrolChains = {'M3_QAI_NavalAttack_1_Chain', 'M4_Naval_Attack_2_Chain'},
+                },
+                Overrides = {
+                    CORE_TO_SUBS = 0.5,
+                    CORE_TO_CRUISERS = 1.5,
+                },
+                MaxFrigates = quantity[Difficulty],
+                MinFrigates = quantity[Difficulty],
+                Priority = 150,
+            }
+        )
+        opai:SetChildActive('T1', false)
+        opai:SetFormation('AttackFormation')
+        opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+    end
 end
 
 function QAIM4NorthBaseAI()
