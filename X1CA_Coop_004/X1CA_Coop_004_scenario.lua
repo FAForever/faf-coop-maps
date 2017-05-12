@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'FA Mission 4 - Meltdown',
-    description = '<LOC X1CA_Coop_004_description>Coalition Command has received unverified intel that the Seraphim are massing on the planet Hades -- control of Hades will let the Seraphim attack any location within Coalition-controlled space. Elite Commander Dostya will join you for this mission, and the two of you will eliminate any Seraphim forces found on Hades.',
+    description = '<LOC X1CA_004_description>Coalition Command has received unverified intel that the Seraphim are massing on the planet Hades -- control of Hades will let the Seraphim attack any location within Coalition-controlled space. Elite Commander Dostya will join you for this mission, and the two of you will eliminate any Seraphim forces found on Hades.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

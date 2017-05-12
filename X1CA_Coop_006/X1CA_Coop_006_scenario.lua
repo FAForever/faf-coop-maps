@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'FA Mission 6 - Overlord',
-    description = '<LOC X1CA_Coop_006_description>Using Gate codes recovered from the remains of QAI, Coalition forces can now gate directly to Earth, where the Seraphim are constructing a Quantum Arch. Once complete, the Arch will let the Seraphim summon untold reinforcements. The Arch must be destroyed, no matter the cost.',
+    description = '<LOC X1CA_006_description>Using Gate codes recovered from the remains of QAI, Coalition forces can now gate directly to Earth, where the Seraphim are constructing a Quantum Arch. Once complete, the Arch will let the Seraphim summon untold reinforcements. The Arch must be destroyed, no matter the cost.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
