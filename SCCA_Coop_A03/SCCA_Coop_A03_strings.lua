@@ -136,17 +136,23 @@ OpA03_M1P1_Title = '<LOC A03_M01_OBJ_010_111>Survive UEF Assault'
 -- Primary Objectives
 OpA03_M1P1_Desc = '<LOC A03_M01_OBJ_010_112>Repair and rebuild your defenses. Do not let the UEF overrun your position. Expect attacks from all directions: air, land, and sea.'
 
--- Seconardary Objectives
+-- Bonus Objectives
 OpA03_Bonus1_Title = '<LOC A03_M01_OBJ_020_111>Fortress'
 
--- Seconardary Objectives
+-- Bonus Objectives
 OpA03_Bonus1_Desc = '<LOC A03_M01_OBJ_020_112>You built over %s Towers.'
 
--- Seconardary Objectives
+-- Bonus Objectives
 OpA03_Bonus2_Title = '<LOC A03_M01_OBJ_020_121>Fire in the Sky'
 
--- Seconardary Objectives
+-- Bonus Objectives
 OpA03_Bonus2_Desc = '<LOC A03_M01_OBJ_020_122>You built over %s Gunships.'
+
+-- Bonus Objectives
+OpA03_Bonus3_Title = '<LOC A03_M01_OBJ_020_131>Naval Domination'
+
+-- Bonus Objectives
+OpA03_Bonus3_Desc = '<LOC A03_M01_OBJ_020_132>You killed over %s Destroyers.'
 
 
 
