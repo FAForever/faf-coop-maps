@@ -1,5 +1,62 @@
 # Changelog
 
+## Patch 2.1.0 (Upcoming)
+
+### General
+- FA missions and custom mission that take place on one of the original maps (FA maps) now use it instead of downloading a new one. This reduces the amount of data required to the minimum.
+- Movies and voices from custom missions were moved into the mod so they don't need to be downloaded with every new mission version but only if they actually change.
+- First bonus objectives got added into the Aeon missions.
+- Aeon missions 2-4 got reworked, using now FA AI which is much harder, and easier to adjust/improve for the future. That made the missions also harder, so don't be ashamed the change the difficulty if it's too hard for you now.
+
+### Aeon Campaign
+
+#### Operation Joust (Mission 1)
+- Added 4 bonus objectives.
+- Players now have slightly different starting location.
+- Fixed wrong formation name cause some of the AI attack not to work.
+
+#### Operation Machine Purge (Mission 2)
+- Added 3 bonus objectives.
+- New secondary objective to capture Cybran T2 mexes in the first part of the mission.
+- Players now have slightly different starting location.
+- Improved unit and ACU upgrades restrictions.
+- More agressive AI.
+- Events in the first part of the missions happen much faster.
+- Offmap attacks are bit harder.
+- Defenses around enemy bases are now more balanced via difficulty.
+- Added naval defenses to the hidden Cybran base.
+- Leopard11's ACU now uses OCs.
+
+#### Operation High Tide (Mission 3)
+- Added 3 bonus objectives.
+- Players now have slightly different starting location.
+- Improved unit and ACU upgrades restrictions.
+- More agressive AI.
+- Events in the first part of the missions happen much faster.
+- UEF Frigates in the first part now have power for jamming.
+- Drops got rebalanced to be more challenging during the first part.
+- Arnold's ACU now properly works in the base after teleporting.
+- Arnold's ACU now uses OCs.
+
+#### Operation Entity (Mission 4)
+- Added 4 bonus objectives.
+- Players now have slightly different starting location.
+- Improved unit and ACU upgrades restrictions.
+- More agressive AI.
+- More patrolling units all over the map.
+- TML in the Nexus04 will start firing after several minutes giving some time to the players to build TMD.
+
+### FA Campaign
+
+#### Operation Dawn (Mission 2)
+- Disabled cinematics on offmap area after capturing the prison.
+- QAI now launches nukes at the players in the last part.
+- QAI builds and attacks players with experimentals.
+- Improved QAI's naval attacks.
+
+### Contributors
+- speed2
+
 ## Patch 2.0.4 (February, 14th, 2017)
 
 #### Operation Black Earth (1st mission)
