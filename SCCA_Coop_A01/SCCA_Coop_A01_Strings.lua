@@ -125,17 +125,23 @@ M1P2Text = '<LOC A01_M01_OBJ_010_115>Build Three Mass Extractors'
 -- Primary Objectives
 M1P2Detail = '<LOC A01_M01_OBJ_010_116>Select your CDR and click the Mass Extractor icon. You can only build Mass Extractors on Mass Deposits; your CDR has highlighted the correct locations.'
 
--- Secondary Objectives
-B1Text = '<LOC A01_M01_OBJ_020_150>Black Water'
+-- Bonus Objectives
+M1B1Text = '<LOC A01_M01_OBJ_020_150>Black Water'
 
--- Secondary Objectives
-B1Detail = '<LOC A01_M01_OBJ_020_151>You\'ve sunk over %s enemy subs.'
+-- Bonus Objectives
+M1B1Detail = '<LOC A01_M01_OBJ_020_151>You\'ve sunk over %s enemy subs.'
 
--- Secondary Objectives
-B2Text = '<LOC A01_M01_OBJ_020_155>Dogfight'
+-- Bonus Objectives
+M1B2Text = '<LOC A01_M01_OBJ_020_155>Dogfight'
 
--- Secondary Objectives
-B2Detail = '<LOC A01_M01_OBJ_020_156>You\'ve built over %s Interceptors.'
+-- Bonus Objectives
+M1B2Detail = '<LOC A01_M01_OBJ_020_156>You\'ve built over %s Interceptors.'
+
+-- Bonus Objectives
+M1B3Text = '<LOC A01_M01_OBJ_020_160>Naval Specialist'
+
+-- Bonus Objectives
+M1B3Detail = '<LOC A01_M01_OBJ_020_161>Have at least %s Naval Factories operational at a time.'
 
 
 
@@ -318,7 +324,11 @@ M6P1Text = '<LOC A01_M06_OBJ_010_610>Destroy all UEF Power Generators and Factor
 -- Primary Objectives
 M6P1Detail = '<LOC A01_M06_OBJ_010_611>Destroy all Power Generators and Factories on the island to the east. They are guarded by a small force of air units, as well as torpedo towers, so build a force of Light Attack Boats and Frigates and then send them to attack.'
 
+-- Bonus Objectives
+M6B1Text = '<LOC A01_M06_OBJ_020_610>Energy Boost'
 
+-- Bonus Objectives
+M6B1Detail = '<LOC A01_M06_OBJ_020_611>Capture the UEF T2 Power Generator to boost your Energy income.'
 
 --------------------------------
 -- Opnode ID: M07
