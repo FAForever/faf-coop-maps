@@ -59,7 +59,7 @@ A04_DB01_020 = {
 
 -- Player Death
 A04_D01_010 = {
-  {text = '<LOC A04_D01_010_010>[{i Choir}]: Choir to Champion, respond. Choir to Champion, please respond. We\'ve lost your signal, please respond.', vid = 'A04_Choir_D01_00889.sfd', bank = 'A04_VO', cue = 'A04_Choir_D01_00889', faction = 'Aeon'},
+  {text = '<LOC A04_D01_010_010>[{i Choir}]: Choir to Champion, respond. Choir to Champion, please respond. We\'ve lost your signal, please respond.', vid = 'A04_Choir_D01_00889.sfd', bank = 'A04_VO', cue = 'A04_Choir_M01_00898', faction = 'Aeon'},
 }
 
 --------------------------------
@@ -71,7 +71,7 @@ A04_D01_010 = {
 
 -- Player lands
 A04_M01_010 = {
-  {text = '<LOC A04_M01_010_010>[{i Choir}]: Champion, there is a Cybran settlement called Nexus04 to your north. The Princess does not want the population cleansed, but you are to eliminate all military resistance within the settlement. Choir out.', vid = 'A04_Choir_M01_00898.sfd', bank = 'A04_VO', cue = 'A04_Choir_M01_00898', faction = 'Aeon'},
+  {text = '<LOC A04_M01_010_010>[{i Choir}]: Champion, there is a Cybran settlement called Nexus04 to your north. The Princess does not want the population cleansed, but you are to eliminate all military resistance within the settlement. Choir out.', vid = 'A04_Choir_M01_00898.sfd', bank = 'A04_VO', cue = 'A04_Choir_D01_00889', faction = 'Aeon'},
 }
 
 -- 2 minutes after PO#2 is revealed
@@ -179,17 +179,29 @@ M1S1Title = '<LOC A04_M01_OBJ_020_010>Destroy the Cybran Naval Base'
 -- Secondary Objectives
 M1S1Description = '<LOC A04_M01_OBJ_020_015>Do not let the enemy establish a base in your sector. Send your forces across the lake and destroy the enemy base.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Title = '<LOC A04_M01_OBJ_020_050>Flying Fortress'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Description = '<LOC A04_M01_OBJ_020_055>You built over %s Strategic Bombers.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Title = '<LOC A04_M01_OBJ_020_060>Guard Duty'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Description = '<LOC A04_M01_OBJ_020_065>All three Nodes survive.'
+
+-- Bonus Objectives
+M1B3Title = '<LOC A04_M01_OBJ_020_070>Strength of the Way II'
+
+-- Bonus Objectives
+M1B3Description = '<LOC A04_M01_OBJ_020_075>All buildings in the human settlement were captured.'
+
+-- Bonus Objectives
+M1B4Title = '<LOC A04_M01_OBJ_020_080>Swift Strike'
+
+-- Bonus Objectives
+M1B4Description = '<LOC A04_M01_OBJ_020_085>You pacified Nexus04 before all defences were built.'
 
 
 
@@ -226,7 +238,7 @@ A04_M02_050 = {
   {text = '<LOC A04_M02_050_020>[{i Gauge}]: Not today, Aeon!', vid = 'A04_Gauge_M02_00923.sfd', bank = 'A04_VO', cue = 'A04_Gauge_M02_00923', faction = 'Cybran'},
 }
 
--- 5 minutes after PO#2 is revealed
+-- 5 minutes after PO#2 is revealed (currently not used)
 A04_M02_060 = {
   {text = '<LOC A04_M02_060_010>[{i Choir}]: Champion, our technicians unlocked some of the Node\'s functions and have located an algorithm. Each Node you control increases resource production. Capture all three for the maximum benefit. Choir out.', vid = 'A04_Choir_M02_00924.sfd', bank = 'A04_VO', cue = 'A04_Choir_M02_00924', faction = 'Aeon'},
 }
