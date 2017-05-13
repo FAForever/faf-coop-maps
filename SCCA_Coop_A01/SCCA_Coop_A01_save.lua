@@ -8127,7 +8127,7 @@ Scenario = {
                                                 Position = { 275.500000, 17.814453, 409.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
-                                            ['UNIT_63'] = {
+                                            ['M6_UEFBase_Pgen'] = {
                                                 type = 'ueb1201',
                                                 orders = '',
                                                 platoon = '',

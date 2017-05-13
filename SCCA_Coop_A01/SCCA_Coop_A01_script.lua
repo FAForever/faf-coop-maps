@@ -40,6 +40,7 @@ local UEF                   = ScenarioInfo.UEF
 local FauxUEF               = ScenarioInfo.FauxUEF
 local FauxRhiza             = ScenarioInfo.FauxRhiza
 
+local Difficulty = ScenarioInfo.Options.Difficulty
 local MissionStartDelay     = 1.25
 
  --- reminders
@@ -360,6 +361,69 @@ function M1_BeginningObjectives()
         end
    )
     ScenarioInfo.M1Objectives:AddObjective(ScenarioInfo.M1P2)
+    M1_BonusObjectives()
+end
+
+function M1_BonusObjectives()
+    ------------------------------
+    -- Bonus Objective - Kill Subs
+    ------------------------------
+    local num = {16, 18, 20}
+    ScenarioInfo.M1B1 = Objectives.ArmyStatCompare(
+        'bonus',
+        'incomplete',
+        OpStrings.M1B1Text,
+        LOCF(OpStrings.M1B1Detail, num[Difficulty]),
+        'kill',
+        {
+            Armies = {'HumanPlayers'},
+            StatName = 'Enemies_Killed',
+            CompareOp = '>=',
+            Value = num[Difficulty],
+            Category = categories.ues0203,
+            Hidden = true,
+        }
+    )
+
+    ---------------------------------------
+    -- Bonus Objective - Build Interceptors
+    ---------------------------------------
+    num = {70, 85, 100}
+    ScenarioInfo.M1B2 = Objectives.ArmyStatCompare(
+        'bonus',
+        'incomplete',
+        OpStrings.M1B2Text,
+        LOCF(OpStrings.M1B2Detail, num[Difficulty]),
+        'build',
+        {
+            Armies = {'HumanPlayers'},
+            StatName = 'Units_History',
+            CompareOp = '>=',
+            Value = num[Difficulty],
+            Category = categories.uaa0102 + categories.uea0102,
+            Hidden = true,
+        }
+    )
+
+    ------------------------------------
+    -- Bonus Objective - Naval Factories
+    ------------------------------------
+    num = {8, 10, 12}
+    ScenarioInfo.M1B3 = Objectives.ArmyStatCompare(
+        'bonus',
+        'incomplete',
+        OpStrings.M1B3Text,
+        LOCF(OpStrings.M1B3Detail, num[Difficulty]),
+        'build',
+        {
+            Armies = {'HumanPlayers'},
+            StatName = 'Units_Active',
+            CompareOp = '>=',
+            Value = num[Difficulty],
+            Category = categories.uab0103 + categories.ueb0103,
+            Hidden = true,
+        }
+    )
 end
 
 function M1_SecondObjective()
@@ -666,6 +730,21 @@ function M6_ResourceBaseObj()
         end
    )
     m6Objectives:AddObjective(ScenarioInfo.M6P1)
+
+    -----------------------------------------------
+    -- Bonus Objective - Capture T2 Power Generator
+    -----------------------------------------------
+    ScenarioInfo.M6B1 = Objectives.Capture(
+        'bonus',                      -- type
+        'incomplete',                   -- complete
+        OpStrings.M6B1Text,             -- title
+        OpStrings.M6B1Detail,           -- description
+        {                               -- target
+            Units = {ScenarioInfo.UnitNames[UEF]['M6_UEFBase_Pgen']},
+            MarkUnits = false,
+            Hidden = true,
+        }
+    )
 end
 
 function M6_ResourceBaseUnits()
@@ -1595,13 +1674,10 @@ function PlayerCommanderDies_Lose(unit)
     ScenarioFramework.PlayerDeath(unit, OpStrings.A01_D01_010)
 end
 
---- Returns true iff all secondary objectives have been completed
-function SecondaryObjectivesComplete()
-    return Objectives.IsComplete(ScenarioInfo.M7S1) and Objectives.IsComplete(ScenarioInfo.M7S2)
-end
-
 function KillGame_Win()
     ScenarioInfo.OpComplete = true
-    WaitSeconds(8.0)
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, SecondaryObjectivesComplete())
+    local secondary = Objectives.IsComplete(ScenarioInfo.M7S1) and Objectives.IsComplete(ScenarioInfo.M7S2)
+    local bonus = Objectives.IsComplete(ScenarioInfo.M1B1) and Objectives.IsComplete(ScenarioInfo.M1B2) and Objectives.IsComplete(ScenarioInfo.M1B3) and Objectives.IsComplete(ScenarioInfo.M6B1)
+    WaitSeconds(5.0)
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondary, bonus)
 end
