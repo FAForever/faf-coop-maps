@@ -1772,8 +1772,8 @@ Scenario = {
         ['FauxUEF_Air_Platoon_1'] = {
             'FauxUEF_Air_Platoon_1',
             '',
-            { 'uea0303', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uea0102', 1, 6, 'attack', 'ChevronFormation' },
+            { 'uea0303', 1, 2, 'attack', 'GrowthFormation' },
+            { 'uea0102', 1, 6, 'attack', 'GrowthFormation' },
         },
         ['FauxUEF_Initial_Eng'] = {
             'FauxUEF_Initial_Eng',
@@ -1788,7 +1788,7 @@ Scenario = {
         ['FauxUEF_Single_AirSup'] = {
             'FauxUEF_Single_AirSup',
             '',
-            { 'uea0303', 1, 1, 'attack', 'ChevronFormation' },
+            { 'uea0303', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Faux_UEF_Sub'] = {
             'Faux_UEF_Sub',
@@ -1798,20 +1798,20 @@ Scenario = {
         ['M6_UEF_Air_Light'] = {
             'M6_UEF_Air_Light',
             '',
-            { 'uea0102', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 1, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 2, 'attack', 'GrowthFormation' },
+            { 'uea0103', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M6_UEF_Air_Medium'] = {
             'M6_UEF_Air_Medium',
             '',
-            { 'uea0102', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 2, 'attack', 'GrowthFormation' },
+            { 'uea0103', 1, 2, 'attack', 'GrowthFormation' },
         },
         ['M6_UEF_Air_Strong'] = {
             'M6_UEF_Air_Strong',
             '',
-            { 'uea0102', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 1, 'attack', 'GrowthFormation' },
+            { 'uea0103', 1, 3, 'attack', 'GrowthFormation' },
         },
         ['M7_UEF_4frigates'] = {
             'M7_UEF_4frigates',
@@ -1833,12 +1833,12 @@ Scenario = {
         ['M7_UEF_InitEngineer'] = {
             'M7_UEF_InitEngineer',
             '',
-            { 'uel0105', 1, 5, 'attack', 'TravellingFormation' },
+            { 'uel0105', 1, 5, 'attack', 'GrowthFormation' },
         },
         ['M7_UEF_NavalBase_2Subs'] = {
             'M7_UEF_NavalBase_2Subs',
             '',
-            { 'ues0203', 1, 2, 'attack', 'TravellingFormation' },
+            { 'ues0203', 1, 2, 'attack', 'GrowthFormation' },
         },
         ['M7_UEF_NavalBase_HardMix'] = {
             'M7_UEF_NavalBase_HardMix',
@@ -1853,15 +1853,15 @@ Scenario = {
         ['Rhiza_Air_Platoon_1'] = {
             'Rhiza_Air_Platoon_1',
             '',
-            { 'uaa0203', 1, 4, 'attack', 'ChevronFormation' },
-            { 'uaa0102', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uaa0203', 1, 4, 'attack', 'GrowthFormation' },
+            { 'uaa0102', 1, 4, 'attack', 'GrowthFormation' },
         },
         ['Rhiza_Air_Platoon_2'] = {
             'Rhiza_Air_Platoon_2',
             '',
-            { 'uaa0203', 1, 3, 'attack', 'ChevronFormation' },
-            { 'uaa0303', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uaa0103', 1, 5, 'attack', 'ChevronFormation' },
+            { 'uaa0203', 1, 3, 'attack', 'GrowthFormation' },
+            { 'uaa0303', 1, 2, 'attack', 'GrowthFormation' },
+            { 'uaa0103', 1, 5, 'attack', 'GrowthFormation' },
         },
         ['Rhiza_Air_Platoon_3'] = {
             'Rhiza_Air_Platoon_3',
@@ -1871,7 +1871,7 @@ Scenario = {
         ['Rhiza_Air_Platoon_4'] = {
             'Rhiza_Air_Platoon_4',
             '',
-            { 'uaa0102', 1, 20, 'attack', 'ChevronFormation' },
+            { 'uaa0102', 1, 20, 'attack', 'GrowthFormation' },
         },
         ['Rhiza_Initial_Eng'] = {
             'Rhiza_Initial_Eng',

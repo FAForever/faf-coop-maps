@@ -570,7 +570,7 @@ function M4_OffmapAir1()
             M4_OffmapAir_Patrol = 1
         end
         -- Alternate between two patrol chains
-        local air = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M4_UEF_AirGroup_Int', 'ChevronFormation')
+        local air = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M4_UEF_AirGroup_Int', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(air, 'M4_UEF_AirPatrol_Chain'..M4_OffmapAir_Patrol)
         ScenarioFramework.CreatePlatoonDeathTrigger(M4_OffmapInterlude, air)
     end
@@ -685,13 +685,13 @@ function M6_ResourceBaseUnits()
         end
 
         -- Small air group that will patrol over player base area from north, after a brief pause
-        ScenarioInfo.M6AirHard1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol3_Attack', 'ChevronFormation')
+        ScenarioInfo.M6AirHard1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol3_Attack', 'GrowthFormation')
         ScenarioFramework.CreateTimerTrigger(M6_Hard_DelayedAirAttack,10)
     end
 
     -- Patrolers
-    local airPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol1_'..DifficultyConc, 'ChevronFormation')
-    local airPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol2_'..DifficultyConc, 'ChevronFormation')
+    local airPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol1_'..DifficultyConc, 'GrowthFormation')
+    local airPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M6_UEFPatrol2_'..DifficultyConc, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(airPatrol1, 'M6_UEFAirPatrol_Chain1')
     ScenarioFramework.PlatoonPatrolChain(airPatrol2, 'M6_UEFAirPatrol_Chain2')
 
@@ -1194,7 +1194,7 @@ function M7_CreateCzar()
         -- a problem with the defense of the base).
         ScenarioInfo.CzarSpawned = true
         -- Create Czar as platoon, and get a handle it to it as a unit
-        ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('FauxRhiza', 'M7_Czar', 'ChevronFormation')
+        ScenarioInfo.RhizaCzarPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('FauxRhiza', 'M7_Czar', 'GrowthFormation')
         ScenarioInfo.RhizaCzar = ScenarioInfo.UnitNames[FauxRhiza]['Rhiza_Czar']
 
         -- Temporarily set czar viz radius to zero, so we dont have any vis to share with player ally
@@ -1205,7 +1205,7 @@ function M7_CreateCzar()
         ScenarioInfo.CzarAircraftPlatoon = ArmyBrains[FauxRhiza]:MakePlatoon(' ', ' ')
         for i = 1,15 do
             local group = ScenarioUtils.CreateArmyGroup('FauxRhiza', 'M7_CzarAircraft')
-            ArmyBrains[FauxRhiza]:AssignUnitsToPlatoon(ScenarioInfo.CzarAircraftPlatoon, group, 'Attack', 'ChevronFormation')
+            ArmyBrains[FauxRhiza]:AssignUnitsToPlatoon(ScenarioInfo.CzarAircraftPlatoon, group, 'Attack', 'GrowthFormation')
             for k,unit in group do
                 IssueStop({unit})
                 ScenarioInfo.RhizaCzar:AddUnitToStorage(unit)
