@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 2.1.0 (Upcoming)
+## Patch 2.1.0 (May, 14th, 2017)
 
 ### General
 - FA missions and custom mission that take place on one of the original maps (FA maps) now use it instead of downloading a new one. This reduces the amount of data required to the minimum.
