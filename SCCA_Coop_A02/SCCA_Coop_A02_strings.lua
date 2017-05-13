@@ -135,11 +135,17 @@ M1S1Detail = '<LOC A02_M01_OBJ_020_112>Seize your enemy\'s assets and use them f
 -- Secondary Objectives
 M1S1Fail = '<LOC A02_M01_OBJ_020_113>A Mass Extractor has been destroyed.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Text = '<LOC A02_M01_OBJ_020_121>Fossil Fuel'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Detail = '<LOC A02_M01_OBJ_020_122>You built Hydrocarbon Plants on all available markers.'
+
+-- Bonus Objectives
+M1B2Text = '<LOC A02_M01_OBJ_020_123>Hover Army'
+
+-- Bonus Objectives
+M1B2Detail = '<LOC A02_M01_OBJ_020_124>You build over %s Aurora Tanks.'
 
 
 
@@ -277,10 +283,10 @@ M2B1Text = '<LOC A02_M02_OBJ_020_121>All colony buildings survived'
 -- Secondary Objectives
 M2B1Detail = '<LOC A02_M02_OBJ_020_122>You preserved the integrity of the human colony.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M2B2Text = '<LOC A02_M02_OBJ_020_131>Strength of the Way'
 
--- Secondary Objectives
+-- Bonus Objectives
 M2B2Detail = '<LOC A02_M02_OBJ_020_132>All buildings in the human settlement were captured.'
 
 
