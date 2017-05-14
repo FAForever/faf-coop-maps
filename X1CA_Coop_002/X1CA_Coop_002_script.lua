@@ -427,9 +427,6 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, 300)
     ScenarioFramework.CreateTimerTrigger(M1Subplot, 180)
 
-    -- Light gunship
-    ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xra0105, "cybran", 105, OpStrings.X02_M01_190)
-
     -- Sniper bot
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xal0305, "aeon", 240, OpStrings.X02_M01_045)
     
