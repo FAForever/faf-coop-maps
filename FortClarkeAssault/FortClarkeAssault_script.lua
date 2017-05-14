@@ -671,7 +671,7 @@ function IntroMission2()
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_Arty')
 
     -- UEF ACU
-    ScenarioInfo.UEFCDR = ScenarioFramework.SpawnCommander('UEF', 'UEF_Commander', false, 'Gorton', true, M4UEFCommanderKilled, 
+    ScenarioInfo.UEFCDR = ScenarioFramework.SpawnCommander('UEF', 'UEF_Commander', false, 'Gorton', false, false,--true, M4UEFCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','Shield','ShieldGeneratorField','ResourceAllocation'})
     ScenarioInfo.UEFCDR:SetVeterancy(2 + Difficulty)
 
@@ -694,7 +694,7 @@ function IntroMission2()
     ArmyBrains[Cybran]:PBMSetCheckInterval(6)
 
     -- Cybran ACU
-    ScenarioInfo.CybranCDR = ScenarioFramework.SpawnCommander('Cybran', 'Cybran_Commander', false, 'Tokyto', true, M4CybranCommanderKilled, 
+    ScenarioInfo.CybranCDR = ScenarioFramework.SpawnCommander('Cybran', 'Cybran_Commander', false, 'Tokyto', false, false,--true, M4CybranCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','StealthGenerator','CloakingGenerator','MicrowaveLaserGenerator'})
     ScenarioInfo.CybranCDR:SetVeterancy(2 + Difficulty)
 
@@ -705,7 +705,7 @@ function IntroMission2()
     ArmyBrains[Aeon]:PBMSetCheckInterval(6)
 
     -- Aeon ACU
-    ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', false, 'Ithilis', true, M4AeonCommanderKilled, 
+    ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', false, 'Ithilis', false, false,--true, M4AeonCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','Shield','ShieldHeavy','EnhancedSensors'})
     ScenarioInfo.AeonCDR:SetVeterancy(2 + Difficulty)
     
