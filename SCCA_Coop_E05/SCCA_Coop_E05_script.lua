@@ -413,17 +413,11 @@ function StartCamera()
     ForkThread(CreatePlayer)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Initial_Cam_2'), 3)
     WaitSeconds(0.75)
-    ForkThread(OpeningDialogue)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Initial_Cam_3'), 2.5)
     Cinematics.ExitNISMode()
+    ScenarioFramework.Dialogue(OpStrings.E05_M01_010, M1AssignP1)
     IntroNIS()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Initial_Cam_4'), 4)
-end
-
-function OpeningDialogue()
-    WaitSeconds(2)
-    -- ! Assign M1P1: Protect 2/3 research facilities.
-    ScenarioFramework.Dialogue(OpStrings.E05_M01_010, M1AssignP1)
 end
 
 -- === INTRO NIS === #
