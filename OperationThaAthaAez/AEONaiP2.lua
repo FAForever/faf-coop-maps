@@ -130,7 +130,7 @@ function AeonNattacks()
     }
     ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 
-    opai = AeonNbase:AddOpAI('EngineerAttack', 'M2_AEON_TransportBuilder',
+    opai = AeonNbase:AddOpAI('EngineerAttack', 'M2_AEON_TransportBuilder1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
@@ -143,7 +143,7 @@ function AeonNattacks()
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.uaa0104})
    
-    opai = AeonNbase:AddOpAI('BasicLandAttack', 'M2_Aeon_TransportAttack_2',
+    opai = AeonNbase:AddOpAI('BasicLandAttack', 'M2_Aeon_TransportAttack_1',
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
             PlatoonData = {
@@ -158,7 +158,7 @@ function AeonNattacks()
     opai:SetChildQuantity('HeavyTanks', 24)
     opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
 	
-	 opai = AeonNbase:AddOpAI('EngineerAttack', 'M2_AEON_TransportBuilder',
+	 opai = AeonNbase:AddOpAI('EngineerAttack', 'M2_AEON_TransportBuilder2',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
@@ -215,13 +215,13 @@ function AeonNattack2()
     ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 
     Temp = {
-        'AeonlandTemp2',
+        'AeonSeaTemp2',
         'NoPlan',
         { 'xas0306', 1, 2, 'Attack', 'GrowthFormation' },  --Tac boats
         { 'uas0202', 1, 4, 'Attack', 'GrowthFormation' },  --Crusier
 	}
     Builder = {
-        BuilderName = 'AeonlandBuilder2',
+        BuilderName = 'AeonSeaBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
         Priority = 400,
