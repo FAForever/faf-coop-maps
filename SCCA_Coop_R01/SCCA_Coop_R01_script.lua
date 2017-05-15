@@ -173,6 +173,7 @@ function OnStart(self)
     ScenarioFramework.SetPlayableArea(ScenarioUtils.AreaToRect('PlayableArea_Initial'), false)
     ArmyBrains[Dostya]:SetResourceSharing(false)
     ArmyBrains[Symbiont]:SetResourceSharing(false)
+    ArmyBrains[Symbiont]:GiveStorage('ENERGY', 5000)
     ForkThread(StartCamera)
 end
 
