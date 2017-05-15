@@ -1,5 +1,31 @@
 # Changelog
 
+## Patch 2.1.1 (Upcoming)
+
+### Aeon Campaign
+
+#### Operation Beginnings (Mission 6)
+- Fixed Jamming not working on UEF frigates.
+- Added Air Staging for UEF in the first part.
+
+### UEF Campaign
+
+#### Operation Forge (Missing 5)
+- Fixed intro dialogue not playing.
+
+### FA Campaign
+
+#### Operation Dawn (Mission 2)
+- Fixed Jester unlock dialogue playing twice for Cybran players.
+
+### Custom Missions
+
+#### Fort Clarke Assault
+- Fixed final objective for killing 3 coalitions ACUs ending after killing only 2.
+
+### Contributors
+- speed2
+
 ## Patch 2.1.0 (May, 14th, 2017)
 
 ### General
