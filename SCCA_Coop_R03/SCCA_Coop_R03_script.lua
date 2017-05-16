@@ -304,7 +304,7 @@ function IntroSequenceThread()
 end
 
 function OpeningDialogue()
-    ScenarioFramework.Dialogue(OpStrings.C03_M01_010)
+    ScenarioFramework.Dialogue(OpStrings.C03_M01_010, nil, true)
 end
 
 -- #### Miscellaneous Functions #####
