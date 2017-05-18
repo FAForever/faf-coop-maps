@@ -886,9 +886,9 @@ end
 function StartMission3()
     --UpdateACUPlatoon('M3_Main_Base')
     -- VO Timers
-    ScenarioFramework.CreateTimerTrigger(M3Dialogue1, M3VOTimer1) -- 240
-    ScenarioFramework.CreateTimerTrigger(M3Dialogue2, M3VOTimer2) -- 480
-    ScenarioFramework.CreateTimerTrigger(M3Dialogue3, M3VOTimer3) -- 600
+    ScenarioFramework.CreateTimerTrigger(M3Dialogue1, 240)
+    ScenarioFramework.CreateTimerTrigger(M3Dialogue2, 480)
+    ScenarioFramework.CreateTimerTrigger(M3Dialogue3, 600)
     ScenarioFramework.CreateTimerTrigger(M3Dialogue4, 60) -- 900
 
     -- Primary Objective 1
