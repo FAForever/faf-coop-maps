@@ -4,9 +4,21 @@
 
 ### Aeon Campaign
 
+#### Operation High Tide (Mission 3)
+- Fixed mission not expanding.
+
 #### Operation Beginnings (Mission 6)
 - Fixed Jamming not working on UEF frigates.
 - Added Air Staging for UEF in the first part.
+
+### Cybran Campaign
+
+#### Operation Liberation (Mission 1)
+- Disable friendly AI sharing resources.
+- Friendly AI radars work now.
+
+#### Operation Defrag (Mission 3)
+- Fixed intro dialogue not playing.
 
 ### UEF Campaign
 
