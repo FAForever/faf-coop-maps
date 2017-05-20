@@ -356,7 +356,7 @@ function SeraphimM5MainBaseLandAttacks()
         },
         Priority = 110,
     })
-    opai:SetChildQuantity('T2Engineers', 8)
+    opai:SetChildQuantity('T1Engineers', 8)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
     for i = 1, 2 do
@@ -374,7 +374,7 @@ function SeraphimM5MainBaseLandAttacks()
             },
             Priority = 110,
         })
-        opai:SetChildQuantity('T2Engineers', 8)
+        opai:SetChildQuantity('T1Engineers', 8)
         opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     end
 
@@ -747,7 +747,7 @@ function SeraphimM5IslandWestBaseLandAttacks()
         },
         Priority = 300,
     })
-    opai:SetChildQuantity('T2Engineers', 4)
+    opai:SetChildQuantity('T1Engineers', 4)
 
     opai = SeraphimM5IslandWestBase:AddOpAI('EngineerAttack', 'M5_Sera_West_Reclaim_Engineers_2',
     {
@@ -760,7 +760,7 @@ function SeraphimM5IslandWestBaseLandAttacks()
         },
         Priority = 500,
     })
-    opai:SetChildQuantity('T2Engineers', 8)
+    opai:SetChildQuantity('T1Engineers', 8)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
     quantity = {8, 10, 12}
