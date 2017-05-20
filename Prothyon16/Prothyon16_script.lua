@@ -1776,6 +1776,27 @@ function sACUstartevac()
 
     ScenarioFramework.CreateArmyStatTrigger(SACUescape, ArmyBrains[UEF], 'SACUescape',
         {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uea0104}})
+
+    ForkThread(FailSafeTransportBuilder)
+end
+
+function FailSafeTransportBuilder()
+    local transportBulding = false
+    repeat
+        WaitSeconds(60)
+
+        -- Force build T2 Transport in every factory
+        local factories = ArmyBrains[UEF]:GetListOfUnits(categories.AIR * categories.FACTORY * categories.TECH2, false)
+        if factories[1] then
+            for _, v in factories do
+                IssueBuildFactory({v}, 'uea0104', 1)
+            end
+            transportBulding = true
+            LOG('Transport force building')
+        else
+            LOG('No Air Factory alive')
+        end
+    until transportBulding
 end
 
 function SACUescape()
@@ -1785,22 +1806,29 @@ function SACUescape()
 
             WaitSeconds(2)
 
-            ScenarioInfo.sACUTransport = ScenarioFramework.GetCatUnitsInArea((categories.uea0104), 'M5_UEF_Island_Base_Area', ArmyBrains[UEF])
             IssueClearCommands({ScenarioInfo.UEFSACU})
 
             -- Platoon for sACU to make sure BaseManager won't steal it back.
             local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
             ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.UEFSACU}, 'Attack', 'GrowthFormation')
 
-            IssueTransportLoad({ScenarioInfo.UEFSACU}, ScenarioInfo.sACUTransport[1])
-            IssueMove({ScenarioInfo.sACUTransport[1]}, ScenarioUtils.MarkerToPosition('M5_Transport_Marker1'))
-            IssueTransportUnload({ScenarioInfo.sACUTransport[1]}, ScenarioUtils.MarkerToPosition('M5_Transport_Drop'))
+            local transports = ScenarioFramework.GetCatUnitsInArea((categories.uea0104), 'M5_UEF_Island_Base_Area', ArmyBrains[UEF])
+            for _, v in transports do
+                if v:GetFractionComplete() == 1 then
+                    ScenarioInfo.sACUTransport = v
+                    break
+                end
+            end
+
+            IssueTransportLoad({ScenarioInfo.UEFSACU}, ScenarioInfo.sACUTransport)
+            IssueMove({ScenarioInfo.sACUTransport}, ScenarioUtils.MarkerToPosition('M5_Transport_Marker1'))
+            IssueTransportUnload({ScenarioInfo.sACUTransport}, ScenarioUtils.MarkerToPosition('M5_Transport_Drop'))
 
             local AirUnits = ScenarioFramework.GetCatUnitsInArea(categories.AIR * categories.MOBILE - categories.uea0104, 'M5_UEF_Island_Base_Area', ArmyBrains[UEF])
             for k, unit in AirUnits do
                 if (unit and not unit:IsDead()) then
                     IssueClearCommands({ unit })
-                    IssueGuard({ unit }, ScenarioInfo.sACUTransport[1])
+                    IssueGuard({unit}, ScenarioInfo.sACUTransport)
                 end
             end
 
