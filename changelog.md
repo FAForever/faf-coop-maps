@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 2.1.1 (Upcoming)
+## Patch 2.1.1 (May, 25th, 2017)
 
 ### Aeon Campaign
 
@@ -35,8 +35,16 @@
 #### Fort Clarke Assault
 - Fixed final objective for killing 3 coalitions ACUs ending after killing only 2.
 
+#### Operation ThaAthaAez
+- Fixed couple of dialogues
+- Fixed map not expanding after the second attack.
+
+#### Prothyon-16
+- Morax should finally leave his base when primary objectives are completed.
+
 ### Contributors
 - speed2
+- shadowlorda1
 
 ## Patch 2.1.0 (May, 14th, 2017)
 
