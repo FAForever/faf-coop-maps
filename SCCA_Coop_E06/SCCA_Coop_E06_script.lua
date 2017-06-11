@@ -348,7 +348,7 @@ function CreatePlayer()
     IntroNIS()
     WaitSeconds(3)
     -- Opening dialogue
-    ScenarioFramework.Dialogue(OpStrings.E06_M01_005)
+    ScenarioFramework.Dialogue(OpStrings.E06_M01_005, nil, true)
 end
 
 function RedFogTaunt()
