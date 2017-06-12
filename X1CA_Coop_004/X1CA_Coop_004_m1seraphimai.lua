@@ -554,7 +554,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -565,7 +565,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -576,7 +576,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -587,7 +587,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -598,7 +598,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -609,7 +609,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -620,7 +620,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
@@ -631,7 +631,7 @@ function ForwardLandAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocation'},
             PlatoonData = {
-                Location = 'UEF_Base_Marker',
+                Location = 'Player1',
             },
             Priority = 100,
         }
