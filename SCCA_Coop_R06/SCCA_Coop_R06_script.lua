@@ -75,6 +75,7 @@ function SpawnPlayer()
     ScenarioInfo.Jericho:CreateEnhancement('NaniteMissileSystem')
     ScenarioInfo.Jericho:CreateEnhancement('Switchback')
     ScenarioFramework.CreateUnitDeathTrigger(JerichoKilled, ScenarioInfo.Jericho)
+    ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 
     -- Player Engineers
     local engineers = ScenarioUtils.CreateArmyGroup('Player1', 'Engineers')
@@ -328,6 +329,11 @@ end
 function JerichoKilled()
     ScenarioFramework.Dialogue(OpStrings.C06_M01_080)
     ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Jericho, 7 )
+end
+
+function JerichoGiven(oldJericho, newJericho)
+    ScenarioInfo.Jericho = newJericho
+    ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 end
 
 ----------
