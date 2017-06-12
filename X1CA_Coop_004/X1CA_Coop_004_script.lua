@@ -97,6 +97,9 @@ function OnPopulate(scenario)
     SetArmyUnitCap(Dostya, 200)
     SetArmyUnitCap(Seraphim, 800)
 
+    -- Disable friendly AI sharing resources to players
+    GetArmyBrain(Dostya):SetResourceSharing(false)
+
     ----------------
     -- M1 Seraphim AI
     ----------------
