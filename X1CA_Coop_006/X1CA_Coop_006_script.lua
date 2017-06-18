@@ -1428,6 +1428,14 @@ function ControlCenterCaptured(newControlCenter, captor)
     ScenarioInfo.ControlCenterBldg:SetRegenRate(5)
     local army = captor:GetArmy()
 
+    -- Handle all human players as Player1
+    for _, v in ScenarioInfo.HumanPlayers do
+        if army == v then
+            army = Player1
+            break
+        end
+    end
+
     if(ScenarioInfo.ControlCenterPossession == Player1 and not army == Player1) then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_160)
     elseif(not ScenarioInfo.ControlCenterPossession == Player1 and not army == Player1) then
