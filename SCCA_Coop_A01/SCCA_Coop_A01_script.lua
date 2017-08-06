@@ -1457,7 +1457,6 @@ function M7_FauxUEFCommanderKilled()
         EndOperationCounter()
 
             if EndOperationCount < 3 then
-                ScenarioFramework.Dialogue(OpStrings.A01_M07_110)
 -- Kill Commander and continue op cam
                 ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.M7_FauxUEFCommanderUnit, 7)
             else
