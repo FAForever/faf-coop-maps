@@ -571,7 +571,7 @@ function IntroMission2()
 
     -- Arnold's ACU
     ScenarioInfo.ArnoldCDR = ScenarioFramework.SpawnCommander('UEF', 'Arnold', false, LOC '{i CDR_Arnold}', false, false,
-        {'DamageStablization', 'Shield', 'HeavyAntiMatterCannon'})
+        {'DamageStabilization', 'Shield', 'HeavyAntiMatterCannon'})
     ScenarioInfo.ArnoldCDR:SetCanBeKilled(false)
     ScenarioInfo.ArnoldCDR:SetAutoOvercharge(true)
     ScenarioInfo.ArnoldCDR:AddBuildRestriction(categories.UEF * categories.DEFENSE)

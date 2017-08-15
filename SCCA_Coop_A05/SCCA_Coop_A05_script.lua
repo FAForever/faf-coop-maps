@@ -789,7 +789,7 @@ function StartMission2()
     ScenarioInfo.BlakeUnit = plat:GetPlatoonUnits()[1]
     ScenarioInfo.BlakeUnit:SetCustomName(LOC '{i CDR_Blake}')
     ScenarioInfo.BlakeUnit:CreateEnhancement('Shield')
-    ScenarioInfo.BlakeUnit:CreateEnhancement('DamageStablization')
+    ScenarioInfo.BlakeUnit:CreateEnhancement('DamageStabilization')
     ScenarioInfo.BlakeUnit:CreateEnhancement('ResourceAllocation')
     M2RevealObjectives() -- Cant assign this before blake exists
 
