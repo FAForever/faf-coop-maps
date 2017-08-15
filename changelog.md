@@ -1,5 +1,37 @@
 # Changelog
 
+## Patch 2.1.2 (August, 15th, 2017)
+
+### General
+- Added map previews into the missions.
+- Fixed all missions with UEF ACU with Nano upgrade, that broke after the latest game patch.
+
+### Aeon Campaign
+
+#### Operation Joust (Mission 1)
+- Fixed same death dialogue player for both UEF ACUs.
+
+### Cybran Campaign
+
+#### Operation Freedom (Mission 6)
+- Fixed giving the sACU to different player breaking the mission.
+
+### UEF Campaign
+
+#### Operation Stone Wall (Mission 6)
+- Fixed giving the sACU to different player breaking the mission.
+- Fixed intro dialogue not playing.
+- Fixed transport on the small island not creating a wreckage.
+
+### FA Campaign
+
+#### Operation Meltdown (Mission 4)
+- Fixed marker names causing one of the small bases in the first part not sending attacks.
+- Dostya doesn't share resources to the players anymore.
+
+#### Operation Overlord (Mission 6)
+- Fixed Option Zero firing friendly nukes if not captured by the first player.
+
 ## Patch 2.1.1 (May, 25th, 2017)
 
 ### Aeon Campaign
