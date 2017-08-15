@@ -153,6 +153,7 @@ function OnPopulate(scen)
     ScenarioInfo.AikoUnit = ScenarioUtils.CreateArmyUnit('Player1', 'Aiko')
     ScenarioInfo.AikoUnit:SetCustomName(LOC '{i sCDR_Aiko}')
     ScenarioFramework.CreateUnitDestroyedTrigger(AikoDestroyed, ScenarioInfo.AikoUnit)
+    ScenarioFramework.CreateUnitGivenTrigger(AikoGiven, ScenarioInfo.AikoUnit)
     local group = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Air_1')
     ScenarioFramework.GroupPatrolChain(group, 'Player_Base_Patrol_Chain')
     local group = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Air_2')
@@ -1827,6 +1828,11 @@ function AikoDestroyed()
     ScenarioInfo.AikoUnitDestroyed = true
     ScenarioFramework.Dialogue(OpStrings.E06_M01_040)
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.AikoUnit, 7)
+end
+
+function AikoGiven(oldAiko, newAiko)
+    ScenarioInfo.AikoUnit = newAiko
+    ScenarioFramework.CreateUnitGivenTrigger(AikoGiven, ScenarioInfo.AikoUnit)
 end
 
 function BlackSunCannonDestroyed(unit)
