@@ -189,7 +189,7 @@ function OnStart(scenario)
     -- Lock off cdr upgrades
     for _, player in ScenarioInfo.HumanPlayers do
     	ScenarioFramework.RestrictEnhancements({'ResourceAllocation',
-                                            	'DamageStablization',
+                                            	'DamageStabilization',
                                             	'AdvancedEngineering',
                                             	'T3Engineering',
                                             	'LeftPod',

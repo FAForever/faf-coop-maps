@@ -89,7 +89,7 @@ function OnStart(self)
 
     -- Lock off cdr upgrades
     ScenarioFramework.RestrictEnhancements({'ResourceAllocation',
-                                            'DamageStablization',
+                                            'DamageStabilization',
                                             'AdvancedEngineering',
                                             'T3Engineering',
                                             'HeavyAntiMatterCannon',

@@ -607,7 +607,7 @@ function M2Fletcher()
     --------------
     ScenarioInfo.FletcherACU = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', false, LOC '{i Fletcher}', true)
     if(Difficulty > 1) then
-        ScenarioInfo.FletcherACU:CreateEnhancement('DamageStablization')
+        ScenarioInfo.FletcherACU:CreateEnhancement('DamageStabilization')
         ScenarioInfo.FletcherACU:CreateEnhancement('HeavyAntiMatterCannon')
         ScenarioInfo.FletcherACU:CreateEnhancement('Shield')
         ScenarioInfo.FletcherACU:CreateEnhancement('ShieldGeneratorField')
