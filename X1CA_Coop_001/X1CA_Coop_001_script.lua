@@ -2715,6 +2715,8 @@ function RevealM4P2()
             nuke:GiveNukeSiloAmmo(1)
             IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M4_Seraph_Nuke_Marker'))
             ScenarioFramework.CreateTimerTrigger(M4NukeWarning, 9)
+            -- Start sending nukes at the player after 6 minutes
+            ScenarioFramework.CreateTimerTrigger(M4NukeThread, 6*60)
         end
     end
 end
@@ -2727,6 +2729,38 @@ function M4NukeWarning()
     end
 
     ScenarioFramework.Dialogue(VoiceOvers.EmotionalNukeWarning)
+end
+
+function M4NukeThread()
+    local nuke = ScenarioInfo.UnitNames[Seraphim]['M4_Seraph_StratLauncher']
+    local delay = {11, 8, 5}
+
+    while nuke and not nuke:IsDead() do
+        local marker = nil
+        local numUnits = 0
+        local searching = true
+        while(searching) do
+            WaitSeconds(5)
+            for i = 1, 17 do
+                local num = table.getn(ArmyBrains[Seraphim]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_Seraphim_NukeTarget_' .. i), 30, 'enemy'))
+                if(num > 3) then
+                    if(num > numUnits) then
+                        numUnits = num
+                        marker = 'M4_Seraphim_NukeTarget_' .. i
+                    end
+                end
+                if(i == 10 and marker) then
+                    searching = false
+                end
+            end
+        end
+        if nuke and not nuke:IsDead() then
+            nuke:GiveNukeSiloAmmo(1)
+            IssueNuke({nuke}, ScenarioUtils.MarkerToPosition(marker))
+        end
+        
+        WaitSeconds(delay[Difficulty] * 60)
+    end
 end
 
 function DeathNIS(unit)
