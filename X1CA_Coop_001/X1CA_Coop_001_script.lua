@@ -1493,7 +1493,7 @@ function IntroMission3()
 
             -- Order CDR
             ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, false, 
-                {'ResourceAllocationAdvanced', 'EnhancedSensors', 'AdvancedEngineering' ,'T3Engineering'})
+                {'ShieldHeavy', 'EnhancedSensors', 'AdvancedEngineering' ,'T3Engineering'})
 
             -----------------------
             -- Order Initial Patrols
