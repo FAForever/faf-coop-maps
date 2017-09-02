@@ -392,8 +392,8 @@ function OrderM3NavalBaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
-    -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
-    trigger = {5, 3, 2}
+    -- sends 9 frigate power of [all but T3] if player has >= 4, 2, 1 T2/T3 boats
+    trigger = {4, 2, 1}
     opai = OrderM3NavalBase:AddNavalAI('M2_NavalAttack3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -409,7 +409,7 @@ function OrderM3NavalBaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
-    -- sends 12 frigate power of [all but T3] if player has >= 5 T2/T3 boats
+    -- sends 12 frigate power of [all but T3] if player has >= 3 T2/T3 boats
     opai = OrderM3NavalBase:AddNavalAI('M2_NavalAttack4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -423,7 +423,52 @@ function OrderM3NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 5, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {'default_brain', {'HumanPlayers'}, 3, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+
+
+    quantity = {{2, 1}, {3, 1}, {4, 2}}
+    trigger = {9, 7, 5}
+    opai = OrderM3NavalBase:AddOpAI('NavalAttacks', 'M2_NavalAttack5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Order_NavalAttack_Chain',
+            },
+            Priority = 140,
+        }
+    )
+    opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+
+    quantity = {{1, 2}, {1, 3}, {1, 4}}
+    trigger = {2, 1, 1}
+    opai = OrderM3NavalBase:AddOpAI('NavalAttacks', 'M2_NavalAttack6',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Order_NavalAttack_Chain',
+            },
+            Priority = 150,
+        }
+    )
+    opai:SetChildQuantity({'Battleships', 'Destroyers'}, quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+
+    trigger = {5, 4, 3}
+    opai = OrderM3NavalBase:AddOpAI('NavalAttacks', 'M2_NavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M3_Order_NavalAttack_Chain',
+            },
+            Priority = 160,
+        }
+    )
+    opai:SetChildQuantity('Battleships', 3)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Naval Defense
     for i = 1, 2 do
