@@ -320,6 +320,8 @@ function OnPopulate(scenario)
     M1OrderAI.OrderM1WestBaseAI()
     M1OrderAI.OrderM1EastBaseAI()
 
+    ScenarioFramework.RefreshRestrictions('Order')
+
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('EngineeringFocusingModule')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('SystemIntegrityCompensator')
@@ -1075,6 +1077,8 @@ function IntroMission2()
             -----------
             M2UEFAI.UEFM2WesternTownAI()
 
+            ScenarioFramework.RefreshRestrictions('UEF')
+
             --------------------
             -- UEF Initial Attack
             --------------------
@@ -1091,6 +1095,8 @@ function IntroMission2()
             M2OrderAI.OrderM2AirSouthBaseAI()
             M2OrderAI.OrderM2LandNorthBaseAI()
             M2OrderAI.OrderM2LandSouthBaseAI()
+
+            ScenarioFramework.RefreshRestrictions('Order')
 
             -----------------------
             -- Order Initial Patrols
@@ -1491,6 +1497,15 @@ function IntroMission3()
             M3OrderAI.OrderM3NavalBaseAI()
             M3OrderAI.OrderM3ExpansionBaseAI()
 
+            ScenarioFramework.RefreshRestrictions('Order')
+
+            -- Spawn T3 Arty if player has one, else build one
+            if ScenarioFramework.GetNumOfHumanUnits(categories.ARTILLERY * (categories.TECH3 + categories.EXPERIMENTAL)) > 0 then
+                M3OrderAI.OrderM3MainBaseArty(true)
+            else
+                M3OrderAI.OrderM3MainBaseArty()
+            end
+
             -- Order CDR
             ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, false, 
                 {'ShieldHeavy', 'EnhancedSensors', 'AdvancedEngineering' ,'T3Engineering'})
@@ -1522,6 +1537,8 @@ function IntroMission3()
                     ScenarioFramework.GroupPatrolChain({v}, 'Order_M2_NavalBasePatrol2_Chain')
                 end
             end
+
+            ArmyBrains[Order]:GiveResource('MASS', 12000)
 
             M3CounterAttack()
         end
@@ -1825,14 +1842,14 @@ function M3CounterAttack()
         end
     end
 
-    -- sends air superiority if player has more than [60, 40, 20] t2/t3 planes, up to 5, 1 group per 30, 20, 10
+    -- sends air superiority if player has more than [60, 40, 20] t2/t3 planes, up to 10, 1 group per 30, 20, 10
     num = ScenarioFramework.GetNumOfHumanUnits((categories.AIR * categories.MOBILE) - categories.TECH1)
     quantity = {60, 40, 20}
     trigger = {30, 20, 10}
     if(num > quantity[Difficulty]) then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 10) then
+            num = 10
         end
         for i = 1, num do
             units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Main_Adapt_AirSup', 'GrowthFormation', 5)
@@ -1894,6 +1911,15 @@ function M3CounterAttack()
        ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Cruiser', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_Adapt_NavalAttack_Chain')
+    end
+
+    -- send battleships if player has [24, 20, 16] T2/T3 boats or [6, 4, 2] T3 boats
+    t2limits = {24, 20, 16}
+    t3limits = {6, 4, 2}
+    if(ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) >= t2limits[Difficulty] or
+       ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) >= t3limits[Difficulty]) then
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_Adapt_Naval_Battleships', 'AttackFormation', 5)
+        ScenarioFramework.PlatoonPatrolChain(units, 'M3_Order_NavalAttack_Chain')
     end
 
     -- sends torpedo bombers if player has [20, 10, 5] navy
@@ -2283,6 +2309,8 @@ function IntroMission4()
             M4UEFAI.UEFM4ForwardOneAI()
             M4UEFAI.UEFM4ForwardTwoAI()
 
+            ScenarioFramework.RefreshRestrictions('UEF')
+
             ScenarioFramework.CreateTimerTrigger(M4UEFAI.FortClarkeTransportAttacks, 1200)
 
             ---------------------
@@ -2346,6 +2374,8 @@ function IntroMission4()
             M4SeraphimAI.SeraphimM4ForwardOneAI()
             M4SeraphimAI.SeraphimM4ForwardTwoAI()
             M4SeraphimAI.SeraphimM4NavalBaseAI()
+
+            ScenarioFramework.RefreshRestrictions('Seraphim')
 
             ----------------------------------
             -- Seraphim Spawned Misc Structures
@@ -2534,6 +2564,13 @@ function M4CounterAttack()
     trigger = {26, 24, 22}
     if ScenarioFramework.GetNumOfHumanUnits((categories.NAVAL * categories.MOBILE) - categories.TECH1) > trigger[Difficulty] then
         units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval3_Destro', 'AttackFormation', 5)
+        ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
+    end
+
+    -- sends naval is player has > [6, 5, 4] T3 navy
+    trigger = {6, 5, 4}
+    if ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL * categories.MOBILE * categories.TECH3) > trigger[Difficulty] then
+        units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'M4_Seraph_Adapt_Naval4_Battleship', 'AttackFormation', 5)
         ScenarioFramework.PlatoonPatrolChain(units, 'M3_Naval_Attack1_Chain')
     end
 
@@ -2828,6 +2865,9 @@ function IncarnaAttack()
 
         ScenarioFramework.CreateTimerTrigger(IncarnaWarning, 60)
     end
+
+    -- Build more Ythotas
+    M4SeraphimAI.SeraphimM4YthotaAttacks()
 end
 
 function IncarnaWarning()
@@ -3013,3 +3053,4 @@ function SetupSeraphimTauntTriggers()
     SeraphTM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[UEF], categories.ALLUNITS, 95)                         -- seraph taunt
     SeraphTM:AddUnitsKilledTaunt('TAUNT33', ArmyBrains[Player1], categories.TECH3, 15)                         -- seraph taunt
 end
+
