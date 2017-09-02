@@ -821,7 +821,11 @@ function StartMission1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ScenarioFramework.Dialogue(VoiceOvers.FactoriesDestroyed, IntroMission2)
+                if ScenarioInfo.MissionNumber == 1 then
+                    ScenarioFramework.Dialogue(VoiceOvers.FactoriesDestroyed, IntroMission2)
+                else
+                    ScenarioFramework.Dialogue(VoiceOvers.FactoriesDestroyed)
+                end
             end
         end
     )
@@ -908,6 +912,10 @@ function StartMission1()
 
     ScenarioFramework.Dialogue(VoiceOvers.BeamIn)
     ScenarioFramework.CreateTimerTrigger(M1S2Reveal, 30)
+
+    -- Expand the map even if the objective isn't finished yet
+    local delay = {25, 20, 15}
+    ScenarioFramework.CreateTimerTrigger(IntroMission2, delay[Difficulty] * 60)
 
     -- turn on air scouting
     M1OrderAI.BuildAirScouts()
@@ -1034,6 +1042,11 @@ end
 function IntroMission2()
     ForkThread(
         function()
+            if ScenarioInfo.MissionNumber ~= 1 then
+                return
+            end
+            ScenarioInfo.MissionNumber = 2
+
             ScenarioFramework.FlushDialogueQueue()
             -- "Grahm wants to talk to you"
             ScenarioFramework.Dialogue(VoiceOvers.CivvyTalk, nil, true) -- 3 sec
@@ -1041,7 +1054,6 @@ function IntroMission2()
                 WaitSeconds(0.2)
             end
 
-            ScenarioInfo.MissionNumber = 2
             local opai = nil
 
             -- Fail M1 secondaries, if not yet completed
@@ -1342,7 +1354,11 @@ function StartMission2()
         function(result)
             if(result) then
                 ScenarioInfo.M2P1:ManualResult(true)
-                IntroMission3()
+                if ScenarioInfo.MissionNumber == 2 then
+                    ScenarioFramework.Dialogue(OpStrings.X01_M02_039, IntroMission3)
+                else
+                    ScenarioFramework.Dialogue(OpStrings.X01_M02_039)
+                end
             end
         end
     )
@@ -1361,6 +1377,10 @@ function StartMission2()
 
     -- Tech unlock, Aeon t2 fighter
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xaa0202, "aeon", 45, VoiceOvers.T2FighterUnlocked)
+
+    -- Expand the map even if the objective isn't finished yet
+    local delay = {25, 20, 15}
+    ScenarioFramework.CreateTimerTrigger(IntroMission3, delay[Difficulty] * 60)
 end
 
 --- Called when one of the civilian buildings you must defend in the main settlement is destroyed.
@@ -1432,12 +1452,16 @@ end
 function IntroMission3()
     ForkThread(
         function()
+            if ScenarioInfo.MissionNumber ~= 2 then
+                return
+            end
+            ScenarioInfo.MissionNumber = 3
+
             ScenarioFramework.FlushDialogueQueue()
             while(ScenarioInfo.DialogueLock) do
                 WaitSeconds(0.2)
             end
 
-            ScenarioInfo.MissionNumber = 3
             GariM1M2TM:Activate(false)
 
             -- Disable the UEF Town in M2
@@ -1942,8 +1966,7 @@ function M3CounterAttack()
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M3_Order_SniperGroup_4_D' .. Difficulty, 'AttackFormation', veterancy)
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('Order_M1_West_Bluffs_Patrol_3'), false)
 
-    -- "Good job beating mission 2"
-    ScenarioFramework.Dialogue(OpStrings.X01_M02_039, Mission3NIS)
+    ForkThread(Mission3NIS)
 end
 
 function StartMission3()
