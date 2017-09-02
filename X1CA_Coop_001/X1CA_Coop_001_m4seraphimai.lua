@@ -628,8 +628,38 @@ function SeraphimM4NavalBaseNavalAttacks()
             Priority = 140,
         }
     )
+    opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+
+    quantity = {{1, 2}, {1, 3}, {1, 4}}
+    trigger = {2, 1, 1}
+    opai = SeraphimM4NavalBase:AddOpAI('NavalAttacks', 'M4_NavalAttack7',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Naval_Attack1_Chain', 'M3_Naval_Attack2_Chain'},
+            },
+            Priority = 150,
+        }
+    )
+    opai:SetChildQuantity({'Battleships', 'Destroyers'}, quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+
+    trigger = {5, 4, 3}
+    opai = SeraphimM4NavalBase:AddOpAI('NavalAttacks', 'M4_NavalAttack8',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Naval_Attack1_Chain', 'M3_Naval_Attack2_Chain'},
+            },
+            Priority = 160,
+        }
+    )
+    opai:SetChildQuantity('Battleships', 3)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Naval Defense
     for i = 1, 2 do
