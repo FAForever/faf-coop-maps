@@ -322,6 +322,7 @@ function OnPopulate(scenario)
 
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('EngineeringFocusingModule')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('ResourceAllocation')
+    ScenarioInfo.UnitNames[Order]['East_Base_sACU']:CreateEnhancement('SystemIntegrityCompensator')
     ScenarioInfo.UnitNames[Order]['East_Base_sACU']:SetCustomName(LOC '{i sCDR_Victoria}')
 
     -----------------------
