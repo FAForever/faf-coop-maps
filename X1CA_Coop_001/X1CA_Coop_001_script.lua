@@ -2623,7 +2623,8 @@ function StartMission4()
 
     ScenarioFramework.Dialogue(VoiceOvers.AttackSeraphimInstruction, RevealM4P2)
     ScenarioFramework.CreateTimerTrigger(M4Subplot, 300)
-    ScenarioFramework.CreateTimerTrigger(IncarnaAttack, 800)
+    local delay = {8, 6, 4}
+    ScenarioFramework.CreateTimerTrigger(IncarnaAttack, delay[Difficulty] * 60)
 
     SetupFletcherTauntTriggers()
     SetupSeraphimTauntTriggers()
