@@ -1981,7 +1981,7 @@ function StartMission3()
     --------------------------------------
     -- Primary Objective 1 - Kill Order ACU
     --------------------------------------
-    ScenarioInfo.M3P1 = Objectives.KillOrCapture(
+    ScenarioInfo.M3P1 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
         OpStrings.X01_M02_OBJ_010_050,  -- title
@@ -2633,7 +2633,7 @@ function RevealM4P2()
     -----------------------------------------
     -- Primary Objective 2 - Kill Seraphim ACU
     -----------------------------------------
-    ScenarioInfo.M4P2 = Objectives.KillOrCapture(
+    ScenarioInfo.M4P2 = Objectives.Kill(
         'primary',                              -- type
         'incomplete',                           -- complete
         OpStrings.X01_M03_OBJ_010_030,          -- title
