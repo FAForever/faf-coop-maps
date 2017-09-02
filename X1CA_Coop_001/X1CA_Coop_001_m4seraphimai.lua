@@ -184,7 +184,7 @@ function SeraphimM4AirMainBaseAI()
     ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphAir_Start_Eng_D' .. Difficulty)
     SeraphimM4AirMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
-    SeraphimM4AirMainBase:StartNonZeroBase({{2, 5, 9}, {2, 5, 9}})
+    SeraphimM4AirMainBase:StartNonZeroBase({{2, 5, 9}, {2, 4, 7}})
     SeraphimM4AirMainBase:SetActive('AirScouting', true)
     SeraphimM4AirMainBase:SetBuild('Defenses', false)
 
@@ -370,6 +370,22 @@ function SeraphimM4AirMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
+end
+
+function SeraphimM4YthotaAttacks()
+    quantity = {0, 1, 2}
+    opai = SeraphimM4AirMainBase:AddOpAI('M4_Ythotha',
+        {
+            Amount = quantity[Difficulty],
+            KeepAlive = true,
+            PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M4_Incarna_Attack_Chain',
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+        }
+    )
 end
 
 function SeraphimM4ForwardOneAI()

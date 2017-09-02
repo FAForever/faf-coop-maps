@@ -48,6 +48,10 @@ function OrderM3MainBaseAI()
     OrderM3MainBaseLandAttacks()
 end
 
+function OrderM3MainBaseArty(spawn)
+    OrderM3MainBase:AddBuildGroup('M2_Main_Base_Arty', 90, spawn)
+end
+
 function OrderM3MainBaseAirAttacks()
     local opai = nil
     local quantity = {}
@@ -253,6 +257,22 @@ function OrderM3MainBaseAirAttacks()
         )
         opai:SetChildQuantity('AirSuperiority', 6)
     end
+
+    -- CZAR
+    quantity = {1, 2, 3}
+    opai = OrderM3MainBase:AddOpAI('M3_Order_CZAR',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Order_AirAttack_Mid_Chain', 'M3_Order_AirAttack_East_Chain'},
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+            WaitSecondsAfterDeath = 120,
+        }
+    )
 end
 
 function OrderM3MainBaseLandAttacks()
@@ -335,6 +355,22 @@ function OrderM3MainBaseLandAttacks()
         )
         opai:SetChildQuantity({'MobileFlak', 'HeavyBots'}, 6)
     end
+
+    -- GC
+    quantity = {1, 2, 3}
+    opai = OrderM3MainBase:AddOpAI('M3_Order_GC',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {'M3_Order_LandAttack_Chain', 'M3_Order_LandAttack2_Chain'},
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+            WaitSecondsAfterDeath = 120,
+        }
+    )
 end
 
 function OrderM3NavalBaseAI()
@@ -344,7 +380,7 @@ function OrderM3NavalBaseAI()
     ---------------------
     ScenarioUtils.CreateArmyGroup('Order', 'M2_Naval_Init_Eng_D' .. Difficulty)
     OrderM3NavalBase:Initialize(ArmyBrains[Order], 'M2_Naval_Base', 'Order_M2_Naval_Base_Marker', 50, {M2_Naval_Base = 100})
-    OrderM3NavalBase:StartNonZeroBase({{1, 3, 5}, {1, 3, 5}})
+    OrderM3NavalBase:StartNonZeroBase({{1, 3, 5}, {1, 2, 3}})
     OrderM3NavalBase:SetBuild('Defenses', false)
 
     OrderM3NavalBaseNavalAttacks()
@@ -484,6 +520,23 @@ function OrderM3NavalBaseNavalAttacks()
             }
         )
         opai:SetChildActive('T3', false)
+    end
+
+    if Difficulty >= 2 then
+        -- Tempest
+        quantity = {0, 1, 2}
+        opai = OrderM3NavalBase:AddOpAI('M3_Order_Tempest',
+            {
+                Amount = 1,
+                KeepAlive = true,
+                PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+                PlatoonData = {
+                    PatrolChain = 'M3_Order_NavalAttack_Chain',
+                },
+                MaxAssist = quantity[Difficulty],
+                Retry = true,
+            }
+        )
     end
 end
 
