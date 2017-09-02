@@ -221,7 +221,7 @@ function FortClarkeAirAttacks()
             Priority = 100,
         }
     )
-    opai:SetChildQuantity({'HeavyGunships', 'Gunships', 'Interceptors'}, 24)
+    opai:SetChildQuantity({'HeavyGunships', 'Gunships', 'Interceptors'}, 9)
     opai:SetLockingStyle('None')
 
     -- sends [bombers]
@@ -234,7 +234,7 @@ function FortClarkeAirAttacks()
             Priority = 110,
         }
     )
-    opai:SetChildQuantity('Bombers', 24)
+    opai:SetChildQuantity('Bombers', 8)
 
     -- sends [air superiority]
     opai = FortClarke:AddOpAI('AirAttacks', 'M4_AirAttack3',
@@ -246,7 +246,7 @@ function FortClarkeAirAttacks()
             Priority = 110,
         }
     )
-    opai:SetChildQuantity('AirSuperiority', 16)
+    opai:SetChildQuantity('AirSuperiority', 8)
 
     -- Air Defense
     for i = 1, 2 do
