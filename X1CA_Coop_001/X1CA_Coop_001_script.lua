@@ -2882,14 +2882,14 @@ function M3P1Reminder1()
 end
 
 -- m3 uef secondary
-    -- part1
+-- part1
 function M3S1UEFReminder1()
     if ScenarioInfo.M3S1UEF.Active then
         ScenarioFramework.Dialogue(VoiceOvers.ProtectTownReminder1)
     end
 end
 
-    -- part2
+-- part2
 function M3S2UEFReminder1()
     if ScenarioInfo.M3S2UEF.Active then
         ScenarioFramework.Dialogue(VoiceOvers.ProtectTrucksReminder1)
@@ -2923,16 +2923,14 @@ end
 --------
 -- Taunts
 --------
- --- M1
-
+-- M1
 function SetupGariM1M2TauntTriggers()
     -- not tied to gari's unit, as it is not spawned in m1, m2. So, these are tied to m1/m2 instead.
     GariM1M2TM:AddEnemiesKilledTaunt('TAUNT22', ArmyBrains[Order], categories.uec1101, 2)       -- m2 objective civ buildings
     GariM1M2TM:AddEnemiesKilledTaunt('X01_M01_060', ArmyBrains[Order], categories.uec1101, 8)
 end
 
-
- --- M3
+-- M3
 function SetupGariTauntTriggers()
     GariTM:AddTauntingCharacter(ScenarioInfo.UnitNames[Order]['Order_ACU'])
 
@@ -2978,8 +2976,7 @@ function M3GariTaunt2()
     end
 end
 
- -- M4
-
+-- M4
 function SetupFletcherTauntTriggers()
     ---- Faction specific Fletcher dialogue, using the taunt system
     if(LeaderFaction == 'uef') then
