@@ -780,7 +780,7 @@ function BeginMission2()
         Omni = false,
         Vision = true,
         Radar = false,
-        Army = GetFocusArmy(),
+        Army = 1,
     }
     local vizmarker = VizMarker( spec )
     ScenarioInfo.Node2.Trash:Add( vizmarker )
@@ -1542,7 +1542,7 @@ function EMPTriggered()
         Omni = false,
         Vision = true,
         Radar = false,
-        Army = GetFocusArmy(),
+        Army = 1,
     }
     local vizmarker = VizMarker( spec )
     ScenarioInfo.Mainframe.Trash:Add( vizmarker )

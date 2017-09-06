@@ -1290,7 +1290,7 @@ function M3_UEFGunshipVirusThread()
                 LifeTime = 6,
                 Omni = false,
                 Vision = true,
-                Army = GetFocusArmy(),
+                Army = 1,
             }
             local vizmarker = VizMarker(spec)
             vizmarker:AttachBoneTo(-1,v,-1)
