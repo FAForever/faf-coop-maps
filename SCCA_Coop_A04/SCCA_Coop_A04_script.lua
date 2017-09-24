@@ -81,13 +81,6 @@ function OnPopulate(scenario)
     M1CybranAI.CybranM1NavalBaseAI()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Artillery_Line')
 
-    -- Tactical Missile Launchers
-    for _, unit in ArmyBrains[Cybran]:GetListOfUnits(categories.urb2108, false) do
-        local plat = ArmyBrains[Cybran]:MakePlatoon('', '')
-        ArmyBrains[Cybran]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
-        plat:ForkAIThread(plat.TacticalAI)
-    end
-
     -- VO trigger
     local nodeBaseUnits = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE, 'M1_Node_Base_Area', ArmyBrains[Cybran]) 
     for _, unit in nodeBaseUnits do
@@ -132,16 +125,6 @@ function OnPopulate(scenario)
 
     -- Intel on the civilian base
     ScenarioFramework.CreateVisibleAreaLocation(50, 'Nexus_Base_Marker', 1, ArmyBrains[Player1]) -- .5 duration didn't provide intel to all players
-
-    ForkThread(function()
-        -- Tactical Missile Launchers, wait 12/10/8 minutes to give player's time to build TMDs
-        WaitSeconds((14 - Difficulty * 2) * 60)
-        for k,unit in ArmyBrains[Nexus_Defense]:GetListOfUnits(categories.urb2108, false) do
-            local plat = ArmyBrains[Nexus_Defense]:MakePlatoon('', '')
-            ArmyBrains[Nexus_Defense]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
-            plat:ForkAIThread(plat.TacticalAI)
-        end
-    end)
 
     -- Objective Structures
     ScenarioInfo.SWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'SW_Node_Unit')
@@ -333,6 +316,8 @@ function StartMission1()
     ScenarioFramework.CreateAreaTrigger(M1WarnIncomingAttacks, 'M1_VO_Trigger_Area', categories.ALLUNITS - categories.SCOUT, true, false, ArmyBrains[Cybran], 1, false)
     ScenarioFramework.CreateTimerTrigger(M1CaptureNodeObjective, 2 * 60)
     ScenarioFramework.CreateTimerTrigger(M1GaugeTaunt1, 10 * 60)
+    -- Tactical Missile Launchers, wait 12/10/8 minutes to give player's time to build TMDs
+    ScenarioFramework.CreateTimerTrigger(M1NexusAI.NexusActivateTML, (14 - Difficulty * 2) * 60)
     ScenarioFramework.CreateTimerTrigger(M1GaugeTaunt2, 15 * 60)
     ScenarioFramework.CreateTimerTrigger(M1StaticShieldReveal, 10 * 60)
     ScenarioFramework.CreateTimerTrigger(M1ObjectiveReminder, 12 * 60)
