@@ -75,7 +75,7 @@ A06_M01_020 = {
   {text = '<LOC A06_M01_020_020>[{i Princess}]: Your days are at an end, Marxon. Your fate was sealed the moment you killed Toth.', vid = 'A06_Princess_M01_01044.sfd', bank = 'A06_VO', cue = 'A06_Princess_M01_01044', faction = 'Aeon'},
   {text = '<LOC A06_M01_020_030>[{i Marxon}]: That old hag earned her fate. And you shall soon follow her.', vid = 'A06_Marxon_M01_01045.sfd', bank = 'A06_VO', cue = 'A06_Marxon_M01_01045', faction = 'Aeon'},
   {text = '<LOC A06_M01_020_040>[{i Princess}]: Attention all Aeon Commanders: This is Princess Rhianne Burke. Avatar Marxon is a traitor. You may engage him at will.', vid = 'A06_Princess_M01_01046.sfd', bank = 'A06_VO', cue = 'A06_Princess_M01_01046', faction = 'Aeon'},
-  {text = '<LOC A06_M01_020_050>[{i Choir}]: Champion, Black Sun\'s construction is nearly complete. You must capture the Control Center and prevent the UEF from firing the weapon.\n', vid = 'A06_Choir_M01_01054.sfd', bank = 'A06_VO', cue = 'A06_Choir_M01_01054', faction = 'Aeon'},
+  {text = '<LOC A06_M01_020_050>[{i Choir}]: Champion, Black Sun\'s construction is nearly complete. You must capture the Control Center and prevent the UEF from firing the weapon.', vid = 'A06_Choir_M01_01054.sfd', bank = 'A06_VO', cue = 'A06_Choir_M01_01054', faction = 'Aeon'},
 }
 
 -- Once Control Center is in player\'s LoS
@@ -132,16 +132,16 @@ M1P2Text = '<LOC A06_M01_OBJ_010_121>Defeat Naval Assault'
 -- Primary Objectives
 M1P2Detail = '<LOC A06_M01_OBJ_010_122>Both the Cybrans and the UEF will attack your base with naval forces. You must survive this combined assault if the Princess\' plans are to succeed.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Text = '<LOC A06_M01_OBJ_020_111>Defender of the Way'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Detail = '<LOC A06_M01_OBJ_020_112>You have destroyed over %s of Marxon\'s units'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Text = '<LOC A06_M01_OBJ_020_121>Experimental Master'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Detail = '<LOC A06_M01_OBJ_020_122>You built one of each Experimental Unit: a CZAR, a Colossus, and a Tempest'
 
 
@@ -198,7 +198,7 @@ A06_M02_080 = {
 
 -- 1 minutes after Cybran attack defeated
 A06_M02_090 = {
-  {text = '<LOC A06_M02_090_010>[{i Aiko}]: Somebody help me! I\'ve lost most of my forces...Black Sun is vulnerable. I need help!\n\n', vid = 'A06_Aiko_M02_01067.sfd', bank = 'A06_VO', cue = 'A06_Aiko_M02_01067', faction = 'UEF'},
+  {text = '<LOC A06_M02_090_010>[{i Aiko}]: Somebody help me! I\'ve lost most of my forces...Black Sun is vulnerable. I need help!', vid = 'A06_Aiko_M02_01067.sfd', bank = 'A06_VO', cue = 'A06_Aiko_M02_01067', faction = 'UEF'},
 }
 
 -- Cybran CDR defeated – PO#2 completed
@@ -268,19 +268,19 @@ A06_M03_010 = {
   {text = '<LOC A06_M03_010_010>[{i Arnold}]: The UEF Commander is dead. I have Black Sun, Princess. What are your orders?', vid = 'A06_Arnold_M03_01074.sfd', bank = 'A06_VO', cue = 'A06_Arnold_M03_01074', faction = 'Aeon'},
   {text = '<LOC A06_M03_010_020>[{i Marxon}]: You dare betray me?', vid = 'A06_Marxon_M03_01075.sfd', bank = 'A06_VO', cue = 'A06_Marxon_M03_01075', faction = 'Aeon'},
   {text = '<LOC A06_M03_010_030>[{i Arnold}]: I have never served you, Marxon. The Princess is the one who set me free, showed me the UEF lies. She has always commanded me.', vid = 'A06_Arnold_M03_01076.sfd', bank = 'A06_VO', cue = 'A06_Arnold_M03_01076', faction = 'Aeon'},
-  {text = '<LOC A06_M03_010_040>[{i Marxon}]: I always control the self-destruct codes for my subordinates, Arnold. Goodbye. ', vid = 'A06_Marxon_M03_01077.sfd', bank = 'A06_VO', cue = 'A06_Marxon_M03_01077', faction = 'Aeon'},
+  {text = '<LOC A06_M03_010_040>[{i Marxon}]: I always control the self-destruct codes for my subordinates, Arnold. Goodbye.', vid = 'A06_Marxon_M03_01077.sfd', bank = 'A06_VO', cue = 'A06_Marxon_M03_01077', faction = 'Aeon'},
   {text = '<LOC A06_M03_010_050>[{i Princess}]: No!', vid = 'A06_Princess_M03_01078.sfd', bank = 'A06_VO', cue = 'A06_Princess_M03_01078', faction = 'Aeon'},
   {text = '<LOC A06_M03_010_060>[{i Arnold}]: You showed me the light, Princess. For that I am grateful-- ', vid = 'A06_Arnold_M03_01079.sfd', bank = 'A06_VO', cue = 'A06_Arnold_M03_01079', faction = 'Aeon'},
 }
 
 -- Arnold\'s CDR goes up, player should see the flash.
 A06_M03_020 = {
-  {text = '<LOC A06_M03_020_010>[{i Princess}]: Champion, destroy Marxon! ', vid = 'A06_Princess_M03_01080.sfd', bank = 'A06_VO', cue = 'A06_Princess_M03_01080', faction = 'Aeon'},
+  {text = '<LOC A06_M03_020_010>[{i Princess}]: Champion, destroy Marxon!', vid = 'A06_Princess_M03_01080.sfd', bank = 'A06_VO', cue = 'A06_Princess_M03_01080', faction = 'Aeon'},
 }
 
 -- PO#1 revealed
 A06_M03_030 = {
-  {text = '<LOC A06_M03_030_010>[{i Choir}]: Champion, defeat Marxon. Choir out. ', vid = 'A06_Choir_M03_01081.sfd', bank = 'A06_VO', cue = 'A06_Choir_M03_01081', faction = 'Aeon'},
+  {text = '<LOC A06_M03_030_010>[{i Choir}]: Champion, defeat Marxon. Choir out.', vid = 'A06_Choir_M03_01081.sfd', bank = 'A06_VO', cue = 'A06_Choir_M03_01081', faction = 'Aeon'},
 }
 
 -- 10 minutes into mission 
@@ -326,6 +326,12 @@ M3P2Text = '<LOC A06_M03_OBJ_010_321>Defeat Marxon\'s Forces'
 
 -- Primary Objectives
 M3P2Detail = '<LOC A06_M03_OBJ_010_322>Clear out all of Marxon\'s forces from around Black Sun. The Princess\' safety must be ensured when she comes to Earth.'
+
+-- Bonus Objectives
+M3B1Text = 'Experimentals denial'
+
+-- Bonus Objectives
+M3B1Detail = 'You\'ve killed Marxon\'s engineers on the island before they were able to finish an experimental unit.'
 
 
 
