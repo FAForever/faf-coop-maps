@@ -4,8 +4,8 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TCRUtil = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_CustomFunctions.lua')
-local ThisFile = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_m2cybranai.lua'
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local ThisFile = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai.lua'
 
 ---------
 -- Locals

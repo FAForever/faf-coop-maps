@@ -1,23 +1,23 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/ThetaCivilianRescue/ThetaCivilianRescue_script.lua
+-- **  File     : /maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_script.lua
 -- **  Author(s): KeyBlue
 -- **
 -- **  Summary  : Main mission flow script for ThetaCivilianRescue
 -- **
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local M1CybranAI = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_m1cybranai.lua')
-local M1CybranManual = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_m1cybran_manual.lua')
-local M2CybranAI = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_m2cybranai.lua')
-local M2CybranManual = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_m2cybran_manual.lua')
+local M1CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai.lua')
+local M1CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybran_manual.lua')
+local M2CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai.lua')
+local M2CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybran_manual.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/Utilities.lua')
-local OpStrings = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_strings.lua')
-local TCRUtil = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_CustomFunctions.lua')
+local OpStrings = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_strings.lua')
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
 
 ----------
 -- Globals

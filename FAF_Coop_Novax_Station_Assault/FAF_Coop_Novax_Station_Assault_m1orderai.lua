@@ -1,7 +1,7 @@
-local CustomFunctions = import('/maps/NovaxStationAssault/NovaxStationAssault_CustomFunctions.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ThisFile = '/maps/NovaxStationAssault/NovaxStationAssault_m1orderai.lua'
+local ThisFile = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai.lua'
 
 ---------
 -- Locals

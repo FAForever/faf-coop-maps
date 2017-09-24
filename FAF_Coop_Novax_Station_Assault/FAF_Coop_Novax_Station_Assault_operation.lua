@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/NovaxStationAssault/NovaxStationAssault_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_strings.lua')
 
 operationData = 
 {

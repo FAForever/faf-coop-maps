@@ -1,5 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local CustomFunctions = '/maps/Prothyon16/Prothyon16_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -401,12 +401,12 @@ function UEFM3AirBaseAirAttacks()
     quantity = {8, 10, 12}
     opai = UEFM3AirBase:AddOpAI('AirAttacks', 'M3_AirAirAttack15',
         {
-            MasterPlatoonFunction = {'/maps/Prothyon16/Prothyon16_m3uefai.lua', 'M3AttackCDRWaterAI'},
+            MasterPlatoonFunction = {'/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua', 'M3AttackCDRWaterAI'},
             Priority = 120,
         }
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/Prothyon16/Prothyon16_m3uefai.lua', 'CDROnWater', {})
+    opai:AddBuildCondition('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua', 'CDROnWater', {})
     ]]--
 
     -- Air Defense

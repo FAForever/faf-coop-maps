@@ -1,21 +1,21 @@
 -- ****************************************************************************
 -- **
--- **  File     : /maps/FortClarkeAssault/FortClarkeAssault_script.lua
+-- **  File     : /maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_script.lua
 -- **  Author(s): speed2
 -- **
--- **  Summary  : Main mission flow script for FortClarkeAssault
+-- **  Summary  : Main mission flow script for Fort Clarke Assault
 -- **
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/FortClarkeAssault/FortClarkeAssault_CustomFunctions.lua')
-local M1UEFAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m1uefai.lua')
-local M2OrderAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m2orderai.lua')
-local M2UEFAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m2uefai.lua')
-local M3AeonAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m3aeonai.lua')
-local M3CybranAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m3cybranai.lua')
-local M3UEFAI = import('/maps/FortClarkeAssault/FortClarkeAssault_m3uefai.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_CustomFunctions.lua')
+local M1UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m1uefai.lua')
+local M2OrderAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2orderai.lua')
+local M2UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2uefai.lua')
+local M3AeonAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3aeonai.lua')
+local M3CybranAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3cybranai.lua')
+local M3UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3uefai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/FortClarkeAssault/FortClarkeAssault_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')

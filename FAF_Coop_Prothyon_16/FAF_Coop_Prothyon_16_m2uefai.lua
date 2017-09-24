@@ -1,5 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local CustomFunctions = '/maps/Prothyon16/Prothyon16_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua'
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 ---------

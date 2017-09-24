@@ -3,17 +3,17 @@
 
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/Prothyon16/Prothyon16_CustomFunctions.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua')
 local EffectUtilities = import('/lua/effectutilities.lua')
-local M1UEFAI = import('/maps/Prothyon16/Prothyon16_m1uefai.lua')
-local M2UEFAI = import('/maps/Prothyon16/Prothyon16_m2uefai.lua')
-local M3UEFAI = import('/maps/Prothyon16/Prothyon16_m3uefai.lua')
-local M5UEFAI = import('/maps/Prothyon16/Prothyon16_m5uefai.lua')
-local M5UEFALLYAI = import('/maps/Prothyon16/Prothyon16_m5uefallyai.lua')
-local M5SeraphimAI = import('/maps/Prothyon16/Prothyon16_m5seraphimai.lua')
-local M6SeraphimAI = import('/maps/Prothyon16/Prothyon16_m6seraphimai.lua')
+local M1UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m1uefai.lua')
+local M2UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m2uefai.lua')
+local M3UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua')
+local M5UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefai.lua')
+local M5UEFALLYAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefallyai.lua')
+local M5SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai.lua')
+local M6SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m6seraphimai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/Prothyon16/Prothyon16_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
@@ -69,8 +69,8 @@ local SkipNIS5 = false
 -----------------
 -- Taunt Managers
 -----------------
-local ZottooWestTM = TauntManager.CreateTauntManager('ZottooWestTM', '/maps/Prothyon16/Prothyon16_strings.lua')
-local SACUTM = TauntManager.CreateTauntManager('SACUTM', '/maps/Prothyon16/Prothyon16_strings.lua')
+local ZottooWestTM = TauntManager.CreateTauntManager('ZottooWestTM', '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings.lua')
+local SACUTM = TauntManager.CreateTauntManager('SACUTM', '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings.lua')
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
