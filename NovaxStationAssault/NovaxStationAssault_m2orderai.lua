@@ -94,6 +94,20 @@ function OrderM2BaseAirAttacks()
     local quantity = {}
     local trigger = {}
 
+    quantity = {15, 12, 12}
+    opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_Order_Base_AirAttack_1',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocationList'},
+            PlatoonData = {
+                LocationChain = 'M2_Cybran_Base_AirDeffense_Chain',
+                High = true,
+            },
+            Priority = 90,
+        }
+    )
+    opai:SetChildQuantity({'Bombers', 'Gunships', 'HeavyGunships'}, quantity[Difficulty])
+    opai:SetLockingStyle('None')
+
     -- Air Defense
     for i = 1, 3 do
         quantity = {4, 3, 3}
@@ -109,6 +123,7 @@ function OrderM2BaseAirAttacks()
         opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
         opai:SetLockingStyle('DeathRatio', {Ratio = .5})
     end
+
     for i = 1, 2 do
         quantity = {4, 4, 3}
         opai = OrderM2Base:AddOpAI('AirAttacks', 'M2_Order_Base_AirDefense2_' .. i,
@@ -150,6 +165,20 @@ function OrderM2BaseNavalAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
+
+    opai = OrderM2Base:AddNavalAI('M2_Order_NavalAttack_1',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PlatoonAttackLocationList'},
+            PlatoonData = {
+                LocationChain = 'M2_Cybran_Base_AirDeffense_Chain',
+                High = true,
+            },
+            EnabledTypes = {'Destroyer', 'Frigate'},
+            MaxFrigates = 18,
+            MinFrigates = 18,
+            Priority = 90,
+        }
+    )
 
     -- Defense
     -- 2x 3 Destroyers and 3 frigates

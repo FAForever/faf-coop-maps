@@ -635,11 +635,34 @@ function CybranM2IslandBaseCarrierAttacks()
 
     -- Initiate build locations
     for i = 1, 2 do
-        ArmyBrains[Cybran]:PBMAddBuildLocation('M2_Cybran_Carrier_Marker_' .. i, 40, 'M2_Cybran_Carrier_' .. i)
+        ArmyBrains[Cybran]:PBMAddBuildLocation('M2_Cybran_Carrier_Marker_' .. i, 50, 'M2_Cybran_Carrier_' .. i)
     end
 
-    -- Spawn carriers
-    -- ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Cybran_Carriers') -- TODO: Delete if M2CybranIslandUnits() in the script works
+    -- TODO: Set carriers as factories for locations
+    local units = ArmyBrains[Cybran]:GetListOfUnits(categories.CARRIER, false)
+    for i = 1, 2 do
+        local carrier = units[i]
+        carrier:SetCustomName('Carrier' .. i)
+    
+        local location
+        for num, loc in ArmyBrains[Cybran].PBM.Locations do
+            if loc.LocationType == 'M2_Cybran_Carrier_' .. i then
+                location = loc
+                break
+            end
+        end
+        location.PrimaryFactories.Air = carrier
+        
+        ForkThread(function()
+            while carrier and not carrier:IsDead() do
+                if table.getn(carrier:GetCargo()) > 0 and carrier:IsIdleState() then
+                    IssueClearCommands({carrier})
+                    IssueTransportUnload({carrier}, carrier:GetPosition())
+                end
+                WaitSeconds(1)
+            end
+        end)
+    end
 
     -- Build units
     -- Carrier 1
@@ -712,5 +735,5 @@ function CybranM2IslandBaseArtyAI()
     LOG('*speed2: Arty activation wait time: ' .. waitTime[Difficulty])
     WaitSeconds(waitTime[Difficulty] * 60.0)
 
-    arty:SetFireState('Aggressive') -- ReturnFire -- HoldGround -- GroundFire
+    arty:SetFireState('ReturnFire') -- ReturnFire -- HoldFire -- GroundFire
 end

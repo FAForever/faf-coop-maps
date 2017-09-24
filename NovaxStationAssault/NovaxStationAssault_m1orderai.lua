@@ -1,3 +1,4 @@
+local CustomFunctions = import('/maps/NovaxStationAssault/NovaxStationAssault_CustomFunctions.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ThisFile = '/maps/NovaxStationAssault/NovaxStationAssault_m1orderai.lua'
@@ -60,6 +61,7 @@ function OrderCarrierAttacks()
         PlatoonAIFunction = {ThisFile, 'GivePlatoonToPlayer'},
         PlatoonData = {
             PatrolChain = 'M1_Oder_Naval_Def_Chain',
+            FuelMultiplier = 2,
         },      
     }
     ArmyBrains[Order]:PBMAddPlatoon( Builder )
@@ -130,6 +132,10 @@ function GivePlatoonToPlayer(platoon)
             tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player1')
         end
         table.insert(givenUnits, tempUnit)
+    end
+
+    if data.FuelMultiplier then
+        CustomFunctions.UnitsMultiplyMaxFuel(givenUnits, data.FuelMultiplier)
     end
 
     if data.PatrolChain then
