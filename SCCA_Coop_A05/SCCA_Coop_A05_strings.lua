@@ -190,17 +190,29 @@ M1P3Title = '<LOC A05_M01_OBJ_010_030>Stop Ariel\'s Attacks'
 -- Primary Objectives
 M1P3Description = '<LOC A05_M01_OBJ_010_035>Ariel must not be allowed to carry out Marxon\'s orders. The civilians must be protected. At least %s%% of the civilian buildings must survive.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Title = '<LOC A05_M01_OBJ_020_050>Indirect Fire'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B1Description = '<LOC A05_M01_OBJ_020_055>You built %s Mobile Heavy Artillery units.'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Title = '<LOC A05_M01_OBJ_020_060>Air War'
 
--- Secondary Objectives
+-- Bonus Objectives
 M1B2Description = '<LOC A05_M01_OBJ_020_065>You destroyed over %s combined UEF and Aeon air units.'
+
+-- Bonus Objective
+M1B3Title = '<LOC A05_M01_OBJ_030_070>Protector'
+
+-- Bonus Objective
+M1B3Description = '<LOC A05_M01_OBJ_030_075>The UEF colonies survived without any casualties.'
+
+-- Bonus Objectives
+-- M1B4Title = '<LOC A02_M02_OBJ_020_131>Strength of the Way' -- TODO: title, loc tagsm currently stolen from M2
+
+-- Bonus Objectives
+-- M1B4Description = '<LOC A02_M02_OBJ_020_132>All buildings in the human settlement were captured.' -- TODO: description, loc tagsm currently stolen from M2
 
 
 
@@ -321,6 +333,12 @@ M2S1Title = '<LOC A05_M02_OBJ_020_010>Destroy the UEF Defensive Artillery Positi
 -- Secondary Objectives
 M2S1Description = '<LOC A05_M02_OBJ_020_015>This artillery position will shell any force moving to attack the UEF base. Destroy the artillery and then assault the base.'
 
+-- Bonus Objective
+M2B1Title = '<LOC A05_M02_OBJ_020_020>Backfire'
+
+-- Bonus Objective
+M2B1Description = '<LOC A05_M02_OBJ_020_025>Capture at least 1 T3 Artillery and use it against the UEF commander.'
+
 
 
 --------------------------------
@@ -386,16 +404,22 @@ A05_M03_070 = {
 --------------------------------
 
 -- Primary Objectives
-M3P1Title = '<LOC A05_M03_OBJ_010_010>Defeat the Colossus'
+M3P1Title = '<LOC A05_M03_OBJ_010_020>Defeat Ariel'
 
 -- Primary Objectives
-M3P1Description = '<LOC A05_M03_OBJ_010_015>The Colossus is the pinnacle of the Aeon war machine. It\'s almost a pity you have to destroy it.'
+M3P1Description = '<LOC A05_M03_OBJ_010_025>Ariel and the other Commanders loyal to Marxon must be defeated if the Princess is to succeed.'
 
--- Primary Objectives
-M3P2Title = '<LOC A05_M03_OBJ_010_020>Defeat Ariel'
+-- Secondary Objectives
+M3S1Title = '<LOC A05_M03_OBJ_010_010>Defeat the Colossus'
 
--- Primary Objectives
-M3P2Description = '<LOC A05_M03_OBJ_010_025>Ariel and the other Commanders loyal to Marxon must be defeated if the Princess is to succeed.'
+-- Secondary Objectives
+M3S1Description = '<LOC A05_M03_OBJ_010_015>The Colossus is the pinnacle of the Aeon war machine. It\'s almost a pity you have to destroy it.'
+
+-- Bonus Objective
+M3B1Title = '<LOC A05_M03_OBJ_010_030>Retaliation' -- TODO: title, loc tags
+
+-- Bonus Objective
+M3B1Description = '<LOC A05_M03_OBJ_010_035>You\'ve fired at least %s Strategic Missiles at Ariel.' -- TODO: description, loc tags
 
 
 
