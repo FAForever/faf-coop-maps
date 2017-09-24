@@ -1,5 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local CustomFunctions = '/maps/Prothyon16/Prothyon16_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -167,12 +167,12 @@ function SeraphimM5MainBaseAirAttacks()
     quantity = {10, 13, 16}
     opai = SeraphimM5MainBase:AddOpAI('AirAttacks', 'M5_Sera_Main_AirAttackPlayer6',
         {
-            MasterPlatoonFunction = {'/maps/Prothyon16/Prothyon16_m5seraphimai.lua', 'M5AttackCDRWaterAI'},
+            MasterPlatoonFunction = {'/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai.lua', 'M5AttackCDRWaterAI'},
             Priority = 120,
         }
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
-    opai:AddBuildCondition('/maps/Prothyon16/Prothyon16_m5seraphimai.lua', 'CDROnWater', {})
+    opai:AddBuildCondition('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai.lua', 'CDROnWater', {})
 
 	-----------------
 	-- Attacks on UEF

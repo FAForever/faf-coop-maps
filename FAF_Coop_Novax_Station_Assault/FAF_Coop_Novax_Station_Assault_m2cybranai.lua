@@ -1,5 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local CustomFunctions = '/maps/NovaxStationAssault/NovaxStationAssault_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua'
 -- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 

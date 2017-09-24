@@ -3,8 +3,8 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TCRUtil = import('/maps/ThetaCivilianRescue/ThetaCivilianRescue_CustomFunctions.lua')
-local ThisFile = '/maps/ThetaCivilianRescue/ThetaCivilianRescue_m1cybranai.lua'
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local ThisFile = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai.lua'
 
 ---------
 -- Locals

@@ -1,5 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local CustomFunctions = '/maps/FortClarkeAssault/FortClarkeAssault_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_CustomFunctions.lua'
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 ---------

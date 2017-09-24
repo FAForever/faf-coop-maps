@@ -1,17 +1,17 @@
 -- Custom Mission
 -- Author: speed2
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/NovaxStationAssault/NovaxStationAssault_CustomFunctions.lua')
-local M1OrderAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m1orderai.lua')
-local M1UEFAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m1uefai.lua')
-local M2CybranAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m2cybranai.lua')
-local M2OrderAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m2orderai.lua')
-local M2QAIAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m2qaiai.lua')
-local M2UEFAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m2uefai.lua')
-local M3CybranAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m3cybranai.lua')
-local M3UEFAI = import('/maps/NovaxStationAssault/NovaxStationAssault_m3uefai.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')
+local M1OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai.lua')
+local M1UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1uefai.lua')
+local M2CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2cybranai.lua')
+local M2OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai.lua')
+local M2QAIAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2qaiai.lua')
+local M2UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2uefai.lua')
+local M3CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3cybranai.lua')
+local M3UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3uefai.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/NovaxStationAssault/NovaxStationAssault_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_strings.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
