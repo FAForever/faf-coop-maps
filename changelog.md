@@ -1,5 +1,71 @@
 # Changelog
 
+## Patch 3.0.0 (September, 25th, 2017)
+
+### General
+- Added a new Seraphim mission - Haven's Invasion.
+- Added a very short preview of a new Cybran mission - Theban Colony.
+- Reworked 5th and 6th Aeon mission.
+- Custom missions files were renamed for easier updating on the server.
+
+### Aeon Campaign
+
+#### Operation Entity (4th mission)
+- Fixed TML shooting right at the start of the mission.
+
+#### Operation Shining Star (5th mission)
+- Completely reworked.
+- More difficult AI with much more attacks.
+- More initial units defending bases.
+- Slightly different starting postions for all players.
+- Second player gets sACU and half of the base.
+- Offmap land and air attack during the first part of the mission.
+- UEF counter attack once the map expands.
+- 5 new bonus objectives.
+
+#### Operation Beginnings (6th mission)
+- Completely reworked.
+- More difficult AI with much more attacks.
+- More initial units defending bases.
+- Slightly different starting postions for all players.
+- New major naval attack before the map expands (part of a new objective).
+- 3 new bonus objectives.
+
+### Cybran Campaign
+
+#### Operation Mainframe Tange (4th mission)
+- Fixed markers breaking the replays.
+
+### FA Campaign
+
+#### Operation Black Day (1st mission)
+- Fixed desync when one of the players was Aeon.
+- Order sACU now has Nano upgrade.
+- Map will now expand after certain time.
+- Gari's ACU now has a shield instead of RAS.
+- Yothothas will now attack Fort Clarke much sooner.
+- Seraphim base will shoot nukes at players.
+- Nerfed Fletcher's AI so player has to defend Fort Clarke.
+- Both Order and Seraphim send much more naval attacks (including Battleships).
+- More naval units in the initial counter attacks.
+- Both Order and Seraphim now attack with Experimentals.
+- T3 Arty in Order and Seraphim base if players have one.
+
+#### Operation Red Flag (3rd mission)
+- Rhiza doesn't try to rebuild her base under enemy fire anymore.
+
+### Custom Missions
+
+#### Novax Station Assault
+- Doubled fuel on air units during first part of the mission.
+
+#### Haven's Invasion
+- New singleplayer Seraphim mission.
+- [More details here](http://forums.faforever.com/viewtopic.php?f=78&t=15178).
+
+### Contributors
+- speed2
+
 ## Patch 2.1.2 (August, 15th, 2017)
 
 ### General
