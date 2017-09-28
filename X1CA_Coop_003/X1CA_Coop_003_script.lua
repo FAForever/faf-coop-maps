@@ -527,6 +527,8 @@ function StartMission1()
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrb2308, "cybran", 140, OpStrings.X03_M01_066)
     ScenarioFramework.CreateTimerTrigger(M1Subplot1, 300)
     ScenarioFramework.CreateTimerTrigger(M1Subplot2, 600)
+    -- Rebuild Rhiza's base once player clears the middle island
+    ScenarioFramework.CreateAreaTrigger(M1RhizaAI.M1RhizaRebuildWreckages, 'M1_MiddleIsland_Area', categories.ALLUNITS - categories.WALL, true, true, ArmyBrains[Seraphim])
 
     -- taunts for the 2 Seraphim commanders (not in-map until M3)
     SetupNorthM1Taunts()
