@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 3.0.0 (September, 25th, 2017)
+## Patch 3.0.0 (September, 28th, 2017)
 
 ### General
 - Added a new Seraphim mission - Haven's Invasion.
