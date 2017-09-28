@@ -31,22 +31,11 @@ function M1RhizaBaseAI()
     ---------------
     -- M1 Rhiza Base
     ---------------
-    M1RhizaBase:InitializeDifficultyTables(
-        ArmyBrains[Rhiza],
-        'M1_Rhiza_Base',
-        'Rhiza_M1_Base',
-        260,
-        {
-             M1_Rhiza_Base = 500,
-        }
-    )
+    M1RhizaBase:InitializeDifficultyTables(ArmyBrains[Rhiza], 'M1_Rhiza_Base', 'Rhiza_M1_Base', 260, {M1_Rhiza_Base = 500})
     M1RhizaBase:StartNonZeroBase({10, 8})
     M1RhizaBase:SetMaximumConstructionEngineers(5)
     M1RhizaBase:SetConstructionAlwaysAssist(true)
     M1RhizaBase:SetActive('AirScouting', true)
-
-    M1RhizaBase:AddBuildGroup('M1_Rhiza_NoRebuild', 400)
-    M1RhizaBase:AddBuildGroup('Rhiza_Base_Wreckage', 450)
 
     ArmyBrains[Rhiza]:PBMSetCheckInterval(4)
 
@@ -54,6 +43,11 @@ function M1RhizaBaseAI()
     M1RhizaBaseAirAttacks()
     M1RhizaBaseNavalAttacks()
     -- M1RhizaTransports()
+end
+
+function M1RhizaRebuildWreckages()
+    M1RhizaBase:AddBuildGroup('M1_Rhiza_NoRebuild', 400)
+    M1RhizaBase:AddBuildGroup('Rhiza_Base_Wreckage', 450)
 end
 
 function M1RhizaBaseExperimentalAttacks()
