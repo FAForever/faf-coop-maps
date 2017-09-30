@@ -304,9 +304,13 @@ A06_M03_070 = {
   {text = '<LOC A06_M03_070_010>[{i Choir}]: Your orders are to destroy Avatar Marxon. Choir out.', vid = 'A06_Choir_M03_01090.sfd', bank = 'A06_VO', cue = 'A06_Choir_M03_01090', faction = 'Aeon'},
 }
 
--- If all Primary Objectives are completed.
+-- Marxon killed
 A06_M03_080 = {
   {text = '<LOC A06_M03_080_010>[{i Marxon}]: No! NO!', vid = 'A06_Marxon_M03_01091.sfd', bank = 'A06_VO', cue = 'A06_Marxon_M03_01091', faction = 'Aeon'},
+}
+
+-- If all Primary Objectives are completed.
+A06_M03_090 = {
   {text = '<LOC A06_M03_080_020>[{i Princess}]: It is almost over. I will join you on Earth shortly, my Champion. Then, at long last, the Infinite War will end.', vid = 'A06_Princess_M03_01092.sfd', bank = 'A06_VO', cue = 'A06_Princess_M03_01092', faction = 'Aeon'},
 }
 
