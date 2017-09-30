@@ -631,6 +631,8 @@ function IntroMission2()
     -- ACU
     ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'Commander', false, LOC '{i RedFog}', true, false,
         {'AdvancedEngineering', 'T3Engineering', 'Teleporter', 'MicrowaveLaserGenerator'})
+    -- Restrict building Naval factory, Torp def and AA
+    ScenarioInfo.CybranCommander:AddBuildRestriction(categories.urb0103 + categories.zrb9603 + categories.urb2205 + categories.urb2304)
 
     -- sACU
     ScenarioFramework.SpawnCommander('Cybran', 'SubCommander', false, LOC '{i sCDR_Jericho}', false, false,
