@@ -650,8 +650,6 @@ end
 function M1Reminder()
     if ScenarioInfo.M1P1.Active then
         ScenarioFramework.Dialogue(OpStrings.M1Reminder)
-
-        ScenarioFramework.CreateTimerTrigger(M1Reminder, 6*60)
     end
 end
 
