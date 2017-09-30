@@ -185,7 +185,7 @@ function PlayerWin()
         ScenarioFramework.EndOperationSafety()
 
         -- Celebration dialogue
-        ScenarioFramework.Dialogue(OpStrings.A06_M03_080, WinGame, true)
+        ScenarioFramework.Dialogue(OpStrings.A06_M03_090, WinGame, true)
     end
 end
 
@@ -971,13 +971,8 @@ function StartMission3()
     ScenarioInfo.M3P1Objective:AddResultCallback(
         function(result)
             -- Marxon killed
-            -- ScenarioFramework.EndOperationCamera(ScenarioInfo.AeonCommander, true)
-            ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.AeonCommander)
-
-            -- All of his units die when he does
-            -- for k, unit in ArmyBrains[Aeon]:GetListOfUnits(categories.ALLUNITS, false) do
-            --     unit:Kill()
-            -- end
+            ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.AeonCommander, 5)
+            ScenarioFramework.Dialogue(OpStrings.A06_M03_080, nil, true)
         end
     )
     ScenarioInfo.Mission3ObjectiveGroup:AddObjective(ScenarioInfo.M3P1Objective)
