@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = "Haven's Invasion",
-    description = "Invasion on Haven's Reef is starting. It's a planet controlled by UEF. You will gate in close to several small settlements and eradicate them. We except very little resistance from these humans.",
+    description = "Invasion on Haven's Reef is starting. It's a planet controlled by UEF. You will gate in close to several small settlements and eradicate them. We expect very little resistance from these humans.",
     type = 'campaign_coop',
     starts = true,
     preview = '',
