@@ -1,5 +1,22 @@
 # Changelog
 
+## Patch 3.0.1 (October, 1st, 2017)
+
+### Aeon Campaign
+
+#### Operation Shining Star (5th mission)
+- Fixed paths to mission files for the server update script.
+
+#### Operation Beginnings (6th mission)
+- Enemy ACUs stay in their bases instead of trying to rebuild structures in the water.
+- Fixed the camera stucked on Marxon's ACU and the mission not ending.
+
+### Custom Missions
+
+#### Haven's Invasion
+- Fixed typo in the mission's description.
+- Fixed the first objective reminder playing too many times.
+
 ## Patch 3.0.0 (September, 28th, 2017)
 
 ### General
