@@ -29,7 +29,7 @@ function OrderM4MainBaseAI()
     --------------------
     -- Order M4 Main Base
     --------------------
-    OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 50, {M4_Order_Main_Base = 100})
+    OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 70, {M4_Order_Main_Base = 100})
     OrderM4MainBase:StartNonZeroBase({{5, 2, 2}, {4, 2, 2}})
 
 -- OrderM4MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM4MainBase_ExperimentalLand')
