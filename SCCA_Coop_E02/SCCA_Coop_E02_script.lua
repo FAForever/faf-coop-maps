@@ -121,11 +121,11 @@ local M1P3ReoccuringReminderDelay = 120
 
 -- How long after this mission starts before
 -- we give another warning about the big attack?
-local M15TimeUntilWarningBeforeWave1 = 300
+local M15TimeUntilWarningBeforeWave1 = 120
 
 -- How long after the warning before
 -- the big attack is launched?
-local M15TimeUntilAttackOnResearchFacilityWave1 = 300
+local M15TimeUntilAttackOnResearchFacilityWave1 = 120
 
 -- How long after the first wave is defeated before the second wave starts?
 local M15TimeUntilAttackOnResearchFacilityWave2 = 30
