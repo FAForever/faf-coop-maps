@@ -730,7 +730,14 @@ function IntroMission2()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', true)
 
     -- Allow player to build awesomeness
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.uab0301 + categories.zab9601 + categories.ueb0301 + categories.zeb9601)
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.uab0301 +  -- T3 Land Factories
+        categories.zab9601 +
+        categories.ueb0301 +
+        categories.zeb9601 +
+        categories.uab3104 + -- Omni
+        categories.ueb3104
+    )
 
     for num, unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_West_Area')) do
         if EntityCategoryContains(categories.STRUCTURE, unit) then
