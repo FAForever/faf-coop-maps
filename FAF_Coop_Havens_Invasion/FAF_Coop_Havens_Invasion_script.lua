@@ -479,6 +479,7 @@ function IntroMission2NIS()
 
     if not SkipM2NIS then
         Cinematics.EnterNISMode()
+        Cinematics.SetInvincible('M2_Area')
 
         local VizMarker1 = ScenarioFramework.CreateVisibleAreaLocation(10, ScenarioUtils.MarkerToPosition('M2_Viz_Marker_1'), 0, ArmyBrains[Player1])
         local VizMarker2 = ScenarioFramework.CreateVisibleAreaLocation(35, ScenarioUtils.MarkerToPosition('M2_Viz_Marker_2'), 0, ArmyBrains[Player1])
@@ -512,6 +513,7 @@ function IntroMission2NIS()
         VizMarker2:Destroy()
         VizMarker3:Destroy()
 
+        Cinematics.SetInvincible('M2_Area', true)
         Cinematics.ExitNISMode()
     end
 
