@@ -284,7 +284,7 @@ function StartMission1()
         -----------------------------------
         -- Bonus Objective - Build Defenses
         -----------------------------------
-        local num = {100, 125, 150}
+        local num = {40, 50, 60}
         ScenarioInfo.M1B1 = Objectives.ArmyStatCompare(
             'bonus',
             'incomplete',
@@ -304,7 +304,7 @@ function StartMission1()
         -----------------------------------
         -- Bonus Objective - Build Gunships
         -----------------------------------
-        num = {150, 175, 200}
+        num = {65, 80, 95}
         ScenarioInfo.M1B2 = Objectives.ArmyStatCompare(
             'bonus',
             'incomplete',
@@ -323,7 +323,7 @@ function StartMission1()
         ------------------------------------
         -- Bonus Objective - Kill Destroyers
         ------------------------------------
-        num = {30, 40, 50}
+        num = {26, 33, 40}
         ScenarioInfo.M1B3 = Objectives.ArmyStatCompare(
             'bonus',
             'incomplete',
