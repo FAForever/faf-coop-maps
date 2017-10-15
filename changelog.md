@@ -1,5 +1,31 @@
 # Changelog
 
+## Patch 3.0.2 (Upcoming)
+
+### Aeon Campaign
+
+#### Opearation High Tide
+- Adjusted values for bonus objective to make them easier to complete.
+
+#### Operation Shining Start (5th mission)
+- Allowed Omni once the map expands.
+
+### UEF Campaign
+
+#### Operation Snow Blind (2nd mission)
+- Reduced the delay before Aeon attack the Research station from 10 to 4 minutes.
+
+### FA Campaign
+
+#### Operation Dawn (2nd mission)
+- Fixed Celene's main base not sending units properly.
+
+### Custom Missions
+
+#### Haven's Invasion
+- ACU can't die during cinematics anymore.
+- Fixed mission not working on medium and easy difficulty.
+
 ## Patch 3.0.1 (October, 1st, 2017)
 
 ### Aeon Campaign
