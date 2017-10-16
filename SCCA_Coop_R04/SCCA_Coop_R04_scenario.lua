@@ -11,6 +11,7 @@ ScenarioInfo = {
     map = '/maps/SCCA_Coop_R04/SCCA_Coop_R04.scmap',
     save = '/maps/SCCA_Coop_R04/SCCA_Coop_R04_save.lua',
     script = '/maps/SCCA_Coop_R04/SCCA_Coop_R04_script.lua',
+    norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {
