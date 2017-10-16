@@ -327,7 +327,8 @@ function StartMission1()
     --------------------------------
     -- Bonus Objective - Build units
     --------------------------------
-    local num = {200, 250, 300}
+    local num = {280, 340, 400}
+    local currentUnitsNum = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS)
     ScenarioInfo.M1B1Objective = Objectives.ArmyStatCompare(
         'bonus',
         'incomplete',
@@ -338,7 +339,7 @@ function StartMission1()
             Armies = {'HumanPlayers'},
             StatName = 'Units_History',
             CompareOp = '>=',
-            Value = num[Difficulty],
+            Value = num[Difficulty] + currentUnitsNum,
             Category = categories.ALLUNITS - categories.WALL,
             Hidden = true,
         }
