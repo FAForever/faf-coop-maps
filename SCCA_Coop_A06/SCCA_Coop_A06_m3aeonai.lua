@@ -213,7 +213,7 @@ function AeonM3NavalBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = {
+                PatrolChains = {
                     'M1_UEF_Naval_Attack_Chain',
                     'M3_Aeon_Naval_Attack_Chain',
                 },
@@ -227,7 +227,7 @@ function AeonM3NavalBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = {
+                PatrolChains = {
                     'M1_UEF_Naval_Attack_Chain',
                     'M3_Aeon_Naval_Attack_Chain',
                 },
@@ -242,7 +242,7 @@ function AeonM3NavalBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = {
+                PatrolChains = {
                     'M1_UEF_Naval_Attack_Chain',
                     'M3_Aeon_Naval_Attack_Chain',
                 },
@@ -262,7 +262,7 @@ function AeonM3NavalBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = {
+                PatrolChains = {
                     'M1_UEF_Naval_Attack_Chain',
                     'M3_Aeon_Naval_Attack_Chain',
                 },
@@ -278,7 +278,7 @@ function AeonM3NavalBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = {
+                PatrolChains = {
                     'M1_UEF_Naval_Attack_Chain',
                     'M3_Aeon_Naval_Attack_Chain',
                 },
