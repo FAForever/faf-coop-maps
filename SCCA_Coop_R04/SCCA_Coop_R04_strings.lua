@@ -242,6 +242,12 @@ M2S1Detail = '<LOC C04_M02_OBJ_020_212>The civilian infrastructure keeps the Nod
 -- Secondary Objectives
 M2S1Fail = '<LOC C04_M02_OBJ_020_213>Less than %s%% of the buildings survived.'
 
+-- Bonus Objectives
+M2B1Text = '<LOC C04_M02_OBJ_030_211>Protector'
+
+-- Bonus Objectives
+M2B1Detail = '<LOC C04_M02_OBJ_030_212>The civilian colony survived without any casualties.'
+
 
 
 --------------------------------
