@@ -457,7 +457,9 @@ function IntroMission2()
     vizmarker:AttachBoneTo(-1, ScenarioInfo.Node2, -1)
 
     -- Create area trigger for the player's units that will cause the attackers to spawn in
-    ScenarioFramework.CreateAreaTrigger(M2SpawnAttackers, ScenarioUtils.AreaToRect('M2_Trigger_Attack_Area'), categories.ALLUNITS, true, false, ArmyBrains[Player1], 1)
+    for _, player in ScenarioInfo.HumanPlayers do
+        ScenarioFramework.CreateAreaTrigger(M2SpawnAttackers, ScenarioUtils.AreaToRect('M2_Trigger_Attack_Area'), categories.ALLUNITS, true, false, ArmyBrains[player], 1)
+    end
 
     -- The distress call comes in
     ScenarioFramework.Dialogue(OpStrings.C04_M02_010, StartMission2, true)
@@ -528,6 +530,11 @@ function StartMission2()
 end
 
 function M2SpawnAttackers()
+    if ScenarioInfo.M2AttackSpawned then
+        return
+    end
+    ScenarioInfo.M2AttackSpawned = true
+
     -- Spawn the Aeon attackers
     local AeonAttackers = ScenarioUtils.CreateArmyGroup('Aeon', 'M2_Initial_Attackers_D' .. Difficulty)
     ForkThread(M2StartFirstLandAttack, AeonAttackers)
