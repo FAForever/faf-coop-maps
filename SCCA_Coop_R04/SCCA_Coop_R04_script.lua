@@ -822,7 +822,7 @@ function IntroMission3()
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Walls_D2')
 
     -- Set trigger on the base when damaged
-    ScenarioInfo.M3_Base = ScenarioFramework.GetCatUnitsInArea(categories.ALLUNITS - categories.WALL - categories.ual0001, 'Aeon_Base_M3', ArmyBrains[Aeon]) 
+    ScenarioInfo.M3_Base = ScenarioFramework.GetCatUnitsInArea(categories.STRUCTURE - categories.WALL, 'Aeon_Base_M3', ArmyBrains[Aeon]) 
     for _, unit in ScenarioInfo.M3_Base do
         if EntityCategoryContains(categories.DEFENSE, unit) then
             unit:SetDoNotTarget(true)
