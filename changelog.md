@@ -1,14 +1,30 @@
 # Changelog
 
-## Patch 3.0.2 (Upcoming)
+## Patch 3.1.0 (Upcoming)
+
+### Cybran Campaign
+
+#### Operation Mainframe Tange (4th mission)
+- Fixed desync with more players.
+- Reduced the Aeon counter attack on the civilian base.
+- Improved AI in the first part of the mission.
+- 2 new bonus objectives.
+
+### Contributors
+- speed2
+
+## Patch 3.0.2 (October, 17th, 2017)
 
 ### Aeon Campaign
 
-#### Opearation High Tide
+#### Opearation High Tide (3rd mission)
 - Adjusted values for bonus objective to make them easier to complete.
 
 #### Operation Shining Start (5th mission)
 - Allowed Omni once the map expands.
+
+#### Operation Beginnings (6th mission)
+- Fixed naval attacks from Marxon's base.
 
 ### UEF Campaign
 
@@ -24,7 +40,10 @@
 
 #### Haven's Invasion
 - ACU can't die during cinematics anymore.
-- Fixed mission not working on medium and easy difficulty.
+- Fixed mission not working on the medium and easy difficulty.
+
+### Contributors
+- speed2
 
 ## Patch 3.0.1 (October, 1st, 2017)
 
@@ -42,6 +61,9 @@
 #### Haven's Invasion
 - Fixed typo in the mission's description.
 - Fixed the first objective reminder playing too many times.
+
+### Contributors
+- speed2
 
 ## Patch 3.0.0 (September, 28th, 2017)
 
