@@ -564,7 +564,7 @@ end
 
 function M3_Handle_Cybran_Teleport()
     while not ScenarioInfo.CybranCommander:IsDead() do
-        local targets = GetArmyBrain('Player'.. Random(1, table.getn(ScenarioInfo.HumanPlayers))):GetListOfUnits(categories.LAND - categories.WALLS + categories.FACTORY + categories.ECONOMIC - categories.UEL0001, false)
+        local targets = GetArmyBrain('Player'.. Random(1, table.getn(ScenarioInfo.HumanPlayers))):GetListOfUnits(categories.LAND * (categories.FACTORY + categories.MOBILE) - categories.WALL - categories.COMMAND, false)
         local target = targets[Random(1, table.getn(targets))]
         WaitSeconds(10)
 
@@ -574,11 +574,11 @@ function M3_Handle_Cybran_Teleport()
         ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
         IssueAttack(ScenarioInfo.CybranCommander, target)
 
-        WaitSeconds(15)
+        WaitSeconds(5)
 
         ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
         ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander)
-        Warp(ScenarioInfo.CybranCommander, ScenarioUtils.GetMarker('M3_Cybran_Base_Marker'))
+        Warp(ScenarioInfo.CybranCommander, ScenarioUtils.MarkerToPosition('M3_Cybran_Base_Marker'))
         ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
 
         WaitSeconds(CybranTeleportTimer[Difficulty])
