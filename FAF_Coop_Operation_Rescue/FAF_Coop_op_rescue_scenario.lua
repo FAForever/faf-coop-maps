@@ -9,6 +9,7 @@ ScenarioInfo = {
     map = '/maps/SCMP_027/SCMP_027.scmap',
     save = '/maps/FAF_Coop_Operation_Rescue/FAF_Coop_op_rescue_save.lua',
     script = '/maps/FAF_Coop_Operation_Rescue/FAF_Coop_op_rescue_script.lua',
+    map_version = 1,
     norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
