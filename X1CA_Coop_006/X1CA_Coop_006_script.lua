@@ -2449,6 +2449,7 @@ function SetupVedettaTauntTriggers()
 
     -- On losing defensive structures
     VedettaTM:AddUnitsKilledTaunt('TAUNT29', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 12)
+    VedettaTM:AddUnitsKilledTaunt('TAUNT8', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 30)
 
     if(LeaderFaction == 'uef') then
         VedettaTM:AddEnemiesKilledTaunt('TAUNT22', ArmyBrains[Order], categories.ALLUNITS, 25)
@@ -2496,7 +2497,6 @@ function SetupTauTauntTriggers()
 
     TauTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Seraphim], categories.xsb4301, 1)
     TauTM:AddUnitsKilledTaunt('TAUNT7', ArmyBrains[Seraphim], categories.STRUCTURE * categories.ECONOMIC, 10)
-    TauTM:AddUnitsKilledTaunt('TAUNT8', ArmyBrains[Seraphim], categories.STRUCTURE * categories.DEFENSE, 25)
     TauTM:AddEnemiesKilledTaunt('TAUNT9', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 20)
 
     if(LeaderFaction == 'uef') then
