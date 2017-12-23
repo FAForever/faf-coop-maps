@@ -206,10 +206,8 @@ function IntroMission1()
     local tblArmy = ListArmies()
     local i = 1
     while tblArmy[ScenarioInfo['Player' .. i]] do
-        if i ~= 2 then
-            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'Commander', 'Warp', true, true, PlayerCommanderDied)
-            WaitSeconds(2)
-        end
+        ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'Commander', 'Warp', true, true, PlayerCommanderDied)
+        WaitSeconds(2)
         i = i + 1
     end
 
