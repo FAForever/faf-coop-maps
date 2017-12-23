@@ -77,7 +77,7 @@ local EvacTimer = {350, 300, 250}
 local TruckTimer = {200, 350, 500}
 local OffMapAttackTimer = {200, 150, 100}
 local CybranTeleportTimer = {250, 200, 150}
-local M2P3Timer = {1200, 1050, 900}
+local M2P3Timer = {1500, 1350, 1200}
 local M3OffMapAttackTimer = {120, 90, 60}
 
 ----------------
@@ -372,10 +372,11 @@ function Start_Mission_2()
             if not result then
                 -- Spawn Spider Group
                 local SpiderGroup = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran', 'SpiderGroup_2', 'GrowthFormation', 5)
-                ScenarioFramework.PlatoonPatrolChain(SpiderGroup, 'M3_Spider_2_Attack_Chain')
+                SpiderGroup:MoveToLocation(ScenarioUtils.MarkerToPosition('M3_Spider_2_Attack_Destination'), false)
                 if ScenarioInfo.M2P2.Active then
                     ScenarioInfo.M2P2:ManualResult(false)
-                elseif ScenarioInfo.M2P5.Active then
+                end
+                if ScenarioInfo.M2P5.Active then
                     ScenarioInfo.M2P5:ManualResult(false)
                 end
                 ScenarioFramework.Dialogue(OpStrings.JammerObjFailed, nil, true)
@@ -437,7 +438,7 @@ function Intro_Mission_3()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Cybran_Base_Land_Patrol')))
     end
 
-    ForkThread(M3_Handle_Cybran_Teleport)
+    --ForkThread(M3_Handle_Cybran_Teleport)
     ForkThread(M3Trucks)
 
     -- Disable Old AI

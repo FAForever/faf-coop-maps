@@ -8,7 +8,7 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local M2CybranBase1 = BaseManager.CreateBaseManager()
 
 function M2_Cybran_Base_Function()
-    M2CybranBase1:Initialize(ArmyBrains[Cybran], 'JammerBase', 'JammerBase', 50, {JammerBase = 100})
+    M2CybranBase1:Initialize(ArmyBrains[Cybran], 'JammerBase', 'JammerBase', 100, {JammerBase = 100})
     M2CybranBase1:StartNonZeroBase(10, 5)
 
     M2CybranBase1:SetActive('AirScouting', true)
@@ -183,7 +183,7 @@ function M2_Cybran_Land_Attacks()
             PlatoonData = {
                 PatrolChain = 'Cybran_Jammer_Land_Attack'
             },
-            Priority = 235,
+            Priority = 230,
         }
     )
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
@@ -210,7 +210,7 @@ function M2_Cybran_Land_Attacks()
             PlatoonData = {
                 PatrolChain = 'Cybran_Jammer_Land_Attack'
             },
-            Priority = 250,
+            Priority = 255,
         }
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
@@ -252,7 +252,7 @@ function M2_Cybran_Land_Attacks()
             PlatoonData = {
                 PatrolChain = 'Cybran_Jammer_Land_Attack'
             },
-            Priority = 250,
+            Priority = 255,
         }
     )
     opai:SetChildQuantity('MobileFlak', 6)
@@ -273,20 +273,7 @@ function M2_Cybran_Transport_Attacks()
     opai:SetChildQuantity('T1Transports', 2)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.uaa0107})
-
-    opai = M2CybranBase1:AddOpAI('EngineerAttack', 'M2_Cybran_TransportBuilder_Base1_T2',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 1000,
-    })
-    opai:SetChildQuantity('T2Transports', 2)
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.ura0107})
 
     -- Tech 1
     opai = M2CybranBase1:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack_Base1_1',
@@ -294,7 +281,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
             TransportReturn = 'M2_Transport_Return_Marker_2',
         },
         Priority = 150,
@@ -306,7 +293,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
             TransportReturn = 'M2_Transport_Return_Marker_2',
         },
         Priority = 125,
@@ -319,7 +306,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
             TransportReturn = 'M2_Transport_Return_Marker_2',
         },
         Priority = 175,
@@ -333,7 +320,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
             TransportReturn = 'M2_Transport_Return_Marker_2',
         },
         Priority = 125,

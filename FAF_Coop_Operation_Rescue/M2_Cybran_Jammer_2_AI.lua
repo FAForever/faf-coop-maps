@@ -8,7 +8,7 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local M2CybranBase2 = BaseManager.CreateBaseManager()
 
 function M2_Cybran_Base_Function()
-    M2CybranBase2:Initialize(ArmyBrains[Cybran], 'JammerBase2', 'JammerBase2', 50, {JammerBase2 = 100})
+    M2CybranBase2:Initialize(ArmyBrains[Cybran], 'JammerBase2', 'JammerBase2', 75, {JammerBase2 = 100})
     M2CybranBase2:StartNonZeroBase(8, 5)
 
     M2CybranBase2:SetActive('AirScouting', true)
@@ -74,10 +74,10 @@ function M2_Cybran_Transport_Attacks()
         },
         Priority = 1000,
     })
-    opai:SetChildQuantity('T2Transports', 2)
+    opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.ura0104})
 
     -- Tech 1
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack1',
@@ -85,7 +85,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 150,
@@ -97,7 +97,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 200,
@@ -110,7 +110,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 175,
@@ -125,7 +125,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 200,
@@ -139,7 +139,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 240,
@@ -153,7 +153,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 245,
@@ -167,7 +167,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 250,
@@ -182,7 +182,7 @@ function M2_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M2_Transport_Return_Marker',
         },
         Priority = 175,
