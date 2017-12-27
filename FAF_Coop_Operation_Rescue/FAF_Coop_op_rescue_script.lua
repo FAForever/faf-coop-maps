@@ -58,6 +58,8 @@ local TrucksAtDest = 0
 local DeadTransports = 0
 local DeadEngineers = 0
 local M3CAttacks = 1
+local MaxTrucks = 10
+local RequiredTrucks = {6, 6, 6}
 
 ----------
 -- Bools
@@ -68,13 +70,15 @@ local TrucksReachedDest = false
 local CommsRestored = false -- Used for details. I want multiple death messages.
 local CybTeleportedToPlayer = false
 local FacilitySpotted = false
+local AllTrucksAlive = false
+local AllTrucksRescued = false
 
 ----------------
 -- Timers
 ----------------
 local PatrolTimer = {300, 250, 200}
 local EvacTimer = {350, 300, 250}
-local TruckTimer = {200, 350, 500}
+local TruckTimer = {60, 100, 120}
 local OffMapAttackTimer = {200, 150, 100}
 local CybranTeleportTimer = {250, 200, 150}
 local M2P3Timer = {1500, 1350, 1200}
@@ -93,13 +97,13 @@ function OnPopulate()
     -- Set Army Colours
     ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetUEFAllyColor(UEF)
-    ScenarioFramework.SetCybranColor(Cybran)
+    ScenarioFramework.SetCybranEvilColor(Cybran)
 
     -- Coop Colours
     local colors = {
-        ['Player2'] = {16, 16, 86}, 
-        ['Player3'] = {80, 80, 240}, 
-        ['Player4'] = {133, 148, 255}
+        ['Player2'] = {255, 255, 255}, 
+        ['Player3'] = {250, 250, 0}, 
+        ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
     for army, color in colors do
@@ -327,7 +331,6 @@ function Start_Mission_2()
                         end
                     end
                 )
-
                 table.insert(AssignedObjectives, ScenarioInfo.M2P5)
 
                 -- Send an off-map attack whilst the player is distracted.
@@ -373,13 +376,29 @@ function Start_Mission_2()
                 -- Spawn Spider Group
                 local SpiderGroup = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran', 'SpiderGroup_2', 'GrowthFormation', 5)
                 SpiderGroup:MoveToLocation(ScenarioUtils.MarkerToPosition('M3_Spider_2_Attack_Destination'), false)
-                if ScenarioInfo.M2P2.Active then
-                    ScenarioInfo.M2P2:ManualResult(false)
-                end
                 if ScenarioInfo.M2P5.Active then
                     ScenarioInfo.M2P5:ManualResult(false)
                 end
                 ScenarioFramework.Dialogue(OpStrings.JammerObjFailed, nil, true)
+
+                WaitSeconds(5)
+
+                ScenarioInfo.M3P6 = Objectives.KillOrCapture(
+                    'primary',                      -- type
+                    'incomplete',                   -- complete
+                    'Survive Assault',  -- title
+                    'The Cybran has sent a huge force to finish you off, destory it.',  -- description
+                    {
+                        MarkUnits = true,
+                        Units = SpiderGroup:GetPlatoonUnits(),
+                    }
+                )
+                ScenarioInfo.M3P6:AddResultCallback(
+                    function(result)
+                        ScenarioFramework.Dialogue(OpStrings.AttackFailed, Intro_Mission_3, true)
+                    end
+                )
+                table.insert(AssignedObjectives, ScenarioInfo.M3P6)
             end
         end
     )
@@ -420,7 +439,7 @@ end
 
 -- Mission 3 --
 function Intro_Mission_3()
-    ScenarioFramework.Dialogue(OpStrings.Evac, nil, true)
+    ScenarioFramework.Dialogue(OpStrings.Evac, M3Trucks, true)
 
     -- Handle Cybran Base Stuff --
     ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'ACU', false, "Jerrax", false, false, {'MicrowaveLaserGenerator', 'Teleporter', 'T3Engineering'})
@@ -439,7 +458,6 @@ function Intro_Mission_3()
     end
 
     --ForkThread(M3_Handle_Cybran_Teleport)
-    ForkThread(M3Trucks)
 
     -- Disable Old AI
     M2CybranJammerAI_1:DisableBase()
@@ -453,27 +471,39 @@ function Intro_Mission_3()
 end
 
 function M3Trucks()
-    -- Function to handle M3 UEF Trucks.
-    ForkThread(M3CybranAttacks)
+    -- Create a trigger to send off-map attacks at the trucks.
+    ForkThread(M3_Attack_Trucks_Function)
 
-    --WaitSeconds(TruckTimer[Difficulty])
+    WaitSeconds(TruckTimer[Difficulty])
 
-    -- Create Trucks    
-    ScenarioInfo.Trucks = ScenarioUtils.CreateArmyGroup('UEF', 'Trucks')
-    ScenarioInfo.M1P1:ManualResult(true)
+    ScenarioInfo.TrucksCreated = 0
+    ScenarioInfo.TrucksDestroyed = 0
+    ScenarioInfo.TrucksEscorted = 0
+    ScenarioInfo.Trucks = {}
+    ScenarioInfo.TrucksRescued = {}
 
-    -- Create Death Triggers
-    for _, v in ScenarioInfo.Trucks do
-        ScenarioFramework.CreateUnitDamagedTrigger(M3TruckDamaged, v)
-        ScenarioFramework.CreateUnitDeathTrigger(M3DeadTrucks, v)
-        ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, v,  ScenarioUtils.MarkerToPosition('TrucksRemove'), 15)
+    -- Create Trucks
+    for i = 1, MaxTrucks do
+        ScenarioInfo.TrucksCreated = i   
+        local Truck = ScenarioUtils.CreateArmyUnit('UEF', 'Truck_'..ScenarioInfo.TrucksCreated)
+
+        ScenarioFramework.CreateUnitDamagedTrigger(M3TruckDamaged, Truck, .01)
+        ScenarioFramework.CreateUnitDeathTrigger(M3DeadTrucks, Truck)
+        ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, Truck,  ScenarioUtils.MarkerToPosition('TrucksRemove'), 15)
+
+        ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckRescued, Truck, ScenarioUtils.MarkerToPosition('M3_Base_Defenses'), 15)
+        IssueMove({Truck}, ScenarioUtils.MarkerToPosition('M3_UEF_Truck_Waypoint'))
+        table.insert(ScenarioInfo.Trucks, Truck)
+        WaitSeconds(3)
     end
 
-    ScenarioFramework.CreateAreaTrigger(Finish_Mission_3, ScenarioUtils.AreaToRect('LandingZone'), categories.uec0001, false, false, ArmyBrains[UEF], 1, false)
+    AllTrucksAlive = true
+    ScenarioInfo.M1P1:ManualResult(true)
 
     -- Expand playable area.
-    ScenarioFramework.SetPlayableArea('M2', false)
+    ScenarioFramework.SetPlayableArea('M3', true)
     ScenarioFramework.Dialogue(OpStrings.Trucks_Dispatched, nil, true)
+    ForkThread(M3CybranAttacks)
 
     -- Create Transports, load them and send them to our objective.
     ScenarioInfo.Transports = ScenarioUtils.CreateArmyGroup('UEF', 'TransportTeam')
@@ -513,14 +543,13 @@ function M3Trucks()
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.Reinforcements_2, 'M3_UEF_Reinforcement_Patrol')
 
     WaitSeconds(5)
-    ScenarioFramework.SetPlayableArea('M3', true)
 
     -- Create an objective to defend the trucks.
     ScenarioInfo.M3P1 = Objectives.Basic(
         'primary',                      -- type
         'incomplete',                   -- complete
         'Defend Science Trucks',  -- title
-        'The Cybran is trying to attack the trucks. Make sure he doesn\'t get close to the civilians.',  -- description
+        'The Cybran is trying to attack the trucks. Make sure he doesn\'t get close to the civilians. Ensure a safe evacuation for the trucks. \nAt least 6 trucks must survive.',  -- description
         Objectives.GetActionIcon('move'),
         {
             MarkArea = true,
@@ -529,6 +558,8 @@ function M3Trucks()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M3P1)
     ScenarioFramework.CreateTimerTrigger(M3P3Reminder1, 600)
+
+    Objectives.UpdateBasicObjective(ScenarioInfo.M3P1, 'progress', LOCF( '(%s/%s)', 0, 10 ) )
 
     -- Start moving the trucks to the landing zone.
     ScenarioInfo.M3MovePing = PingGroups.AddPingGroup('Move Scientist Trucks', nil, 'move', 'Mark a location for the trucks to move to.')
@@ -559,8 +590,25 @@ function M3Trucks()
     )
     table.insert(AssignedObjectives, ScenarioInfo.M3P2)
 
-    -- Create a trigger to send off-map attacks at the trucks.
-    ForkThread(M3_Attack_Trucks_Function)
+    -- Bonus objective if all trucks are secure
+    ScenarioInfo.M3B1 = Objectives.Protect(
+        'bonus',
+        'incomplete',
+        'No Casualties',
+        'All 10 of the Civilian Trucks survived.',
+        {
+            Units = ScenarioInfo.Trucks,
+            MarkUnits = false,
+            Hidden = true,
+        }
+    )
+    ScenarioInfo.M3B1:AddResultCallback(
+        function(result)
+            if result then
+                ScenarioFramework.Dialogue(OpStrings.BonusComplete, nil, true)
+            end
+        end
+    )
 end
 
 function M3_Handle_Cybran_Teleport()
@@ -586,13 +634,34 @@ function M3_Handle_Cybran_Teleport()
     end
 end
 
-function Finish_Mission_3()
+function TruckRescued(unit)
+    for i,v in ScenarioInfo.Trucks do 
+        if(v == unit) then
+            table.remove(ScenarioInfo.Trucks, i)
+            table.insert(ScenarioInfo.TrucksRescued, unit)
+        end
+    end
+
+    IssueStop({unit})
+    IssueMove({unit}, ScenarioUtils.MarkerToPosition('M3_UEF_Trans_Move'))
+
     TrucksAtDest = TrucksAtDest + 1
-    if TrucksAtDest >= 6 then
+    Objectives.UpdateBasicObjective(ScenarioInfo.M3P1, 'progress', LOCF('(%s/%s)', TrucksAtDest, 10 ))
+
+    if TrucksAtDest == MaxTrucks then
+        -- Bonus Objective here
+        AllTrucksRescued = true
+        ScenarioInfo.M3B1:ManualResult(true)
+    end
+
+    if TrucksAtDest >= RequiredTrucks[Difficulty] and AllTrucksRescued or TrucksAtDest >= RequiredTrucks[Difficulty] and not AllTrucksAlive then
         if not TrucksReachedDest then
-            ScenarioInfo.M3MovePing:Destroy()
             ScenarioInfo.M3P1:ManualResult(true)
-            import('/lua/ai/aiutilities.lua').UseTransports(ScenarioInfo.Trucks, ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
+
+            ScenarioInfo.M3MovePing:Destroy()
+
+            -- Remove Trucks from the map using transports.
+            import('/lua/ai/aiutilities.lua').UseTransports(ScenarioInfo.TrucksRescued, ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
             IssueMove(ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
             ForkThread(M3DisableEngineerBase) -- Disable base if trucks have departed.
             ForkThread(M3AttackPlayer)
@@ -610,6 +679,8 @@ function M3TruckDamaged(truck)
 end
 
 function M3DeadTrucks(truck)
+    AllTrucksAlive = false
+
     if ScenarioInfo.M3P1.Active then
         DeadTrucks = DeadTrucks + 1
         if DeadTrucks >= 4 then
@@ -662,7 +733,6 @@ end
 
 function M3_Attack_Trucks_Function()
     while ScenarioInfo.M3P1.Active do
-        WaitSeconds(M3OffMapAttackTimer[Difficulty])
         if M3CAttacks == 1 then
             local Units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3_Attack_1', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(Units, 'M3_Cybran_Truck_Attacker_Chain')
@@ -676,6 +746,7 @@ function M3_Attack_Trucks_Function()
             ScenarioFramework.PlatoonPatrolChain(Units, 'M3_Cybran_Truck_Attacker_Chain')
             M3CAttacks = 1
         end
+        WaitSeconds(M3OffMapAttackTimer[Difficulty])
     end
 end
 
@@ -689,6 +760,7 @@ function MoveTruckAbility(location)
     end
 end
 
+-- Mission 4 --
 function Intro_Mission_4()
     ForkThread(M4_Cybran_Nuke_Function)
 
@@ -802,6 +874,7 @@ end
 -- Misc Functions --
 function TeleportToPlayer()
     ForkThread(function()
+        M3CybranMainAI_1:DisableBase()
         ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
         ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander)
         local ACU = ScenarioInfo.PlayerACUs[Random(1, table.getn(ScenarioInfo.PlayerACUs))]

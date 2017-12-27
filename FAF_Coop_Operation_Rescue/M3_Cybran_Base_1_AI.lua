@@ -9,7 +9,7 @@ local M4CybranBase1 = BaseManager.CreateBaseManager()
 
 function M4_Cybran_Base_1_Function()
     M4CybranBase1:Initialize(ArmyBrains[Cybran], 'MainBase', 'M3_Cybran_Base_Marker', 100, {MainBase = 100})
-    M4CybranBase1:StartNonZeroBase(20, 12)
+    M4CybranBase1:StartNonZeroBase(6, 3)
 
     M4CybranBase1:SetActive('AirScouting', true)
 
@@ -29,7 +29,7 @@ function M4_Cybran_Air_Attacks()
             PlatoonData = {
                 PatrolChains = {'M3_Cybran_Air_Attack_Chain', 'M3_Cybran_Air_Attack_2_Chain'}
             },
-            Priority = 750,
+            Priority = 900,
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
@@ -55,7 +55,7 @@ function M4_Cybran_Air_Attacks()
             PlatoonData = {
                 PatrolChains = {'M3_Cybran_Air_Attack_Chain', 'M3_Cybran_Air_Attack_2_Chain'}
             },
-            Priority = 525,
+            Priority = 725,
         }
     )
     opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
@@ -118,7 +118,7 @@ function M4_Cybran_Air_Attacks()
             PlatoonData = {
                 PatrolChains = {'M3_Cybran_Air_Attack_Chain', 'M3_Cybran_Air_Attack_2_Chain'}
             },
-            Priority = 900,
+            Priority = 750,
         }
     )
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
@@ -137,10 +137,10 @@ function M4_Cybran_Transport_Attacks()
         },
         Priority = 1000,
     })
-    opai:SetChildQuantity('T2Transports', 2)
+    opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uaa0104}
+        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.ura0104}
     )
 
     quantity = {2, 4, 6}
@@ -149,10 +149,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 225,
     })
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
@@ -164,10 +164,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 300,
     })
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
 
@@ -176,10 +176,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 275,
     })
     opai:SetChildQuantity('MobileFlak', 4)
 
@@ -189,10 +189,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 235,
     })
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
 
@@ -202,12 +202,14 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 275,
     })
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH3, '>='})
 
     quantity = {4, 6, 8}
     opai = M4CybranBase1:AddOpAI('BasicLandAttack', 'M3_CybranTransportAttack6',
@@ -215,10 +217,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 295,
     })
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
 
@@ -228,10 +230,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 265,
     })
     opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
 
@@ -241,10 +243,10 @@ function M4_Cybran_Transport_Attacks()
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
             AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_Chain',
+            LandingChain = 'M2_Cybran_Tran_Land_2_Chain',
             TransportReturn = 'M3_Cybran_Base_Marker',
         },
-        Priority = 250,
+        Priority = 325,
     })
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
 end

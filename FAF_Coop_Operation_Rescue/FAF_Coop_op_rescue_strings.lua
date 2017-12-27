@@ -53,6 +53,10 @@ JammerObjFailed = {
     {text = "[Jerrax]: Enough foolishness! It's time for you to die!", vid = 'Hex5.sfd', bank = '', cue = '', faction = 'Cybran'},
 }
 
+AttackFailed = {
+    {text = "[Jerrax]: This isn't over! You will die soon enough.", vid = 'Hex5.sfd', bank = '', cue = '', faction = 'Cybran'},
+}
+
 -- M3 Strings --
 
 Evac = {
@@ -60,8 +64,8 @@ Evac = {
 }
 
 Trucks_Dispatched = {
-    {text = "[Jackson]: The transports have had to land to the south sir due to a heavy Cybran blockade that's preventing them from reaching the facility. Escort the trucks to the marked pick-up point.", vid = 'Graham.sfd', bank = '', cue = '', faction = 'UEF'},
     {text = "[Jackson]: The trucks are rolling out sir, they are now under your command. Get them to the pick-up point safely.", vid = 'Graham.sfd', bank = '', cue = '', faction = 'UEF'},
+    {text = "[Jackson]: The transports have had to land to the south sir due to a heavy Cybran blockade that's preventing them from reaching the facility. Escort the trucks to the marked pick-up point.", vid = 'Graham.sfd', bank = '', cue = '', faction = 'UEF'},
 }
 
 Trucks_Attacked = {
@@ -74,6 +78,10 @@ Trucks_Lost = {
 
 Transports_Lost = {
     {text = "[Jackson]: The transports have been destroyed! There aren't enough of them to get us out of here. We're doomed.", vid = 'Graham.sfd', bank = '', cue = '', faction = 'UEF'},
+}
+
+BonusComplete = {
+    {text = "[Jackson]: All 10 Trucks made it to the LZ safely Commander. Excellent!", vid = 'Graham.sfd', bank = '', cue = '', faction = 'UEF'},
 }
 
 SpiderLocated = {
