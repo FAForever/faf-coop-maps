@@ -214,6 +214,7 @@ local VoiceOvers = {
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
+local ExpansionTimer = ScenarioInfo.Options.Expansion
 
 -- The faction of player 1: determines the dialog and suchlike you get.
 local LeaderFaction
@@ -915,9 +916,11 @@ function StartMission1()
     ScenarioFramework.Dialogue(VoiceOvers.BeamIn)
     ScenarioFramework.CreateTimerTrigger(M1S2Reveal, 30)
 
-    -- Expand the map even if the objective isn't finished yet
-    local delay = {25, 20, 15}
-    ScenarioFramework.CreateTimerTrigger(IntroMission2, delay[Difficulty] * 60)
+    if ExpansionTimer then
+        -- Expand the map even if the objective isn't finished yet
+        local delay = {25, 20, 15}
+        ScenarioFramework.CreateTimerTrigger(IntroMission2, delay[Difficulty] * 60)
+    end
 
     -- turn on air scouting
     M1OrderAI.BuildAirScouts()
@@ -1384,9 +1387,11 @@ function StartMission2()
     -- Tech unlock, Aeon t2 fighter
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xaa0202, "aeon", 45, OpStrings.X01_M01_031) -- TODO: Disabled until dialougue desync is fixes -- VoiceOvers.T2FighterUnlocked
 
-    -- Expand the map even if the objective isn't finished yet
-    local delay = {25, 20, 15}
-    ScenarioFramework.CreateTimerTrigger(IntroMission3, delay[Difficulty] * 60)
+    if ExpansionTimer then
+        -- Expand the map even if the objective isn't finished yet
+        local delay = {25, 20, 15}
+        ScenarioFramework.CreateTimerTrigger(IntroMission3, delay[Difficulty] * 60)
+    end
 end
 
 --- Called when one of the civilian buildings you must defend in the main settlement is destroyed.

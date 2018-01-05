@@ -58,6 +58,7 @@ local OptionZero = ScenarioInfo.OptionZero
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
+local ExpansionTimer = ScenarioInfo.Options.Expansion
 
 local WaveDuration          =   30      -- number of units per wave
 local WaveDurationNIS       =   20      -- duration of NIS rift "wave"
@@ -493,9 +494,11 @@ function StartMission1()
    )
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
 
-    -- Continue to other part even if objective isn't finished yet
-    local Delay = {25, 20, 15}
-    ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 60)
+    if ExpansionTimer then
+        -- Continue to other part even if objective isn't finished yet
+        local Delay = {25, 20, 15}
+        ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 1)
+    end
 
     if(false and Difficulty ==3) then
         WaitSeconds(10)
@@ -1083,9 +1086,11 @@ function StartMission2()
     table.insert(AssignedObjectives, ScenarioInfo.M2P2)
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, 1060)
 
-    -- Continue to other part even if objective isn't finished yet
-    local Delay = {30, 25, 20}
-    ScenarioFramework.CreateTimerTrigger(M2EndMission, Delay[Difficulty] * 60)
+    if ExpansionTimer then
+        -- Continue to other part even if objective isn't finished yet
+        local Delay = {30, 25, 20}
+        ScenarioFramework.CreateTimerTrigger(M2EndMission, Delay[Difficulty] * 60)
+    end
 
     local m2Objectives = Objectives.CreateGroup('M2Primaries', M2EndMission, 2)
     m2Objectives:AddObjective(ScenarioInfo.M2P1)
