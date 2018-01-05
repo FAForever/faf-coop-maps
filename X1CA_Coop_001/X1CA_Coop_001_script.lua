@@ -2278,7 +2278,7 @@ function TruckInBuilding(unit)
 end
 
 function KillOrder()
-    local units = ArmyBrains[Order]:GetListOfUnits(categories.ALLUNITS - (categories.NAVAL * categories.MOBILE), false)
+    local units = ArmyBrains[Order]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false)
     local waitNum = math.floor(table.getn(units) / 20)
     for k,v in units do
         if(not v:IsDead()) then
