@@ -22,6 +22,7 @@
 
 #### Operation Black Day (1st mission)
 - Fixed desync with Aeon player.
+- Gari's naval units die with her as well.
 
 #### Operation Overlord (6th mission)
 - Fix Vendetta's taunt playing when she's dead.
