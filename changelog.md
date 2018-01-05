@@ -1,6 +1,14 @@
 # Changelog
 
-## Patch 3.1.0 (Upcoming)
+## Patch 4.0.0 (Upcoming)
+
+### General
+- Added a new lobby option to disable the timed expansion where some missions would continue even if the primary objectives were not completed yet.
+
+### Aeon Campaign
+
+#### Operation Beginnings (6th mission)
+- Fixed second player's ACU not spawning.
 
 ### Cybran Campaign
 
@@ -10,7 +18,22 @@
 - Improved AI in the first part of the mission.
 - 2 new bonus objectives.
 
+### FA Campaign
+
+#### Operation Black Day (1st mission)
+- Fixed desync with Aeon player.
+
+#### Operation Overlord (6th mission)
+- Fix Vendetta's taunt playing when she's dead.
+
+### Custom Missions
+
+#### Operation Rescue
+- New UEF mission for 4 players by JJs_AI.
+- More information here: https://forums.faforever.com/viewtopic.php?f=78&t=15605
+
 ### Contributors
+- JJs_AI
 - speed2
 
 ## Patch 3.0.2 (October, 17th, 2017)
