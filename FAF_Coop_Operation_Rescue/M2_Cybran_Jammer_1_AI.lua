@@ -15,7 +15,6 @@ function M2_Cybran_Base_Function()
 
     M2_Cybran_Air_Attacks()
     M2_Cybran_Land_Attacks()
-    M2_Cybran_Transport_Attacks()
 end
 
 function M2_Cybran_Air_Attacks()
@@ -47,6 +46,7 @@ function M2_Cybran_Air_Attacks()
     opai:SetChildQuantity('LightGunships', 3)
 
     quantity = {8, 12, 16}
+    trigger = {16, 12, 8}
     opai = M2CybranBase1:AddOpAI('AirAttacks', 'M2_JammerAirAttack_3_Base1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -58,7 +58,7 @@ function M2_Cybran_Air_Attacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.AIR, '>='})
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     quantity = {2, 3, 4}
     trigger = {36, 28, 20}
@@ -258,74 +258,6 @@ function M2_Cybran_Land_Attacks()
     opai:SetChildQuantity('MobileFlak', 6)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
-end
-
-function M2_Cybran_Transport_Attacks()
-    -- Transport Builder
-    opai = M2CybranBase1:AddOpAI('EngineerAttack', 'M2_Cybran_TransportBuilder_Base1_T1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 1000,
-    })
-    opai:SetChildQuantity('T1Transports', 2)
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.ura0107})
-
-    -- Tech 1
-    opai = M2CybranBase1:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack_Base1_1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 150,
-    })
-    opai:SetChildQuantity('HeavyBots', 4)
-
-    opai = M2CybranBase1:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack_Base1_2',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 125,
-    })
-    opai:SetChildQuantity('LightBots', 6)
-
-    trigger = {24, 20, 16}
-    opai = M2CybranBase1:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack_Base1_3',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 175,
-    })
-    opai:SetChildQuantity('HeavyBots', 12)
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE, '>='})
-
-    opai = M2CybranBase1:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack_Base1_4',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            AttackChain = 'M2_Cybran_Tran_Attack_Chain',
-            LandingChain = 'M2_Cybran_Tran_Land_1_Chain',
-            TransportReturn = 'M2_Transport_Return_Marker_2',
-        },
-        Priority = 125,
-    })
-    opai:SetChildQuantity('LightArtillery', 6)
 end
 
 function DisableBase()

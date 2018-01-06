@@ -36,6 +36,7 @@ function M2_Cybran_Air_Attacks()
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
 
     quantity = {8, 12, 16}
+    trigger = {16, 12, 8}
     opai = M2CybranBase2:AddOpAI('AirAttacks', 'M2_JammerAirAttack_2_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -46,6 +47,8 @@ function M2_Cybran_Air_Attacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     quantity = {2, 3, 4}
     opai = M2CybranBase2:AddOpAI('AirAttacks', 'M2_JammerAirAttack_2_3',

@@ -83,10 +83,7 @@ local OffMapAttackTimer = {200, 150, 100}
 local CybranTeleportTimer = {250, 200, 150}
 local M2P3Timer = {1500, 1350, 1200}
 local M3OffMapAttackTimer = {120, 90, 60}
-
-----------------
--- Taunt Managers
-----------------   
+  
 function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.SetPlayableArea('M1', false)
@@ -618,7 +615,6 @@ function M3_Handle_Cybran_Teleport()
         WaitSeconds(10)
 
         ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
-        ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander)
         Warp(ScenarioInfo.CybranCommander, target:GetPosition())
         ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
         IssueAttack(ScenarioInfo.CybranCommander, target)
@@ -626,7 +622,6 @@ function M3_Handle_Cybran_Teleport()
         WaitSeconds(5)
 
         ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
-        ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander)
         Warp(ScenarioInfo.CybranCommander, ScenarioUtils.MarkerToPosition('M3_Cybran_Base_Marker'))
         ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
 
@@ -732,7 +727,7 @@ function M3AttackPlayer()
 end
 
 function M3_Attack_Trucks_Function()
-    while ScenarioInfo.M3P1.Active do
+    while ScenarioInfo.M1P1.Active do
         if M3CAttacks == 1 then
             local Units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3_Attack_1', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(Units, 'M3_Cybran_Truck_Attacker_Chain')
@@ -851,11 +846,11 @@ function M4_Cybran_Nuke_Function()
 end
 
 function M4_Gate_Built()
-    local gates = ArmyBrains[Player1]:GetListOfUnits(categories.urb0304, false)
+    local gates = ArmyBrains[Player1]:GetListOfUnits(categories.ueb0304, false)
     ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.Player1CDR, ArmyBrains[Player1], categories.ueb0304, 5)
  
     if not ScenarioInfo.CybranCommander:IsDead() then
-        ScenarioFramework.Dialogue(OpStrings.M4_Cybran_Teleport, TeleportToPlayer, true)
+        ScenarioFramework.Dialogue(OpStrings.M4_Cybran_Teleport, M3_Handle_Cybran_Teleport, true)
     end
 
     ScenarioInfo.M4P2 = Objectives.Basic(
@@ -871,31 +866,15 @@ function M4_Gate_Built()
     table.insert(AssignedObjectives, ScenarioInfo.M4P2)
 end
 
--- Misc Functions --
-function TeleportToPlayer()
-    ForkThread(function()
-        M3CybranMainAI_1:DisableBase()
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
-        ScenarioFramework.FakeTeleportUnit(ScenarioInfo.CybranCommander)
-        local ACU = ScenarioInfo.PlayerACUs[Random(1, table.getn(ScenarioInfo.PlayerACUs))]
-        Warp(ScenarioInfo.CybranCommander, ACU:GetPosition())
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
-        IssueAttack(ScenarioInfo.CybranCommander, ACU)
-    end)
-end
-
 function CDRNearGate(Commander)
     if(ScenarioInfo.M4P2.Active) then
         ScenarioInfo.M4P2:ManualResult(true)
     end
 
-    ScenarioFramework.Dialogue(OpStrings.PlayerWins, nil, true)
-
     -- End Scenario Here
     ScenarioFramework.CDRDeathNISCamera(Commander)
     WaitSeconds(4)
     ScenarioFramework.FakeTeleportUnit(Commander, true)
-
     ForkThread(PlayerWins)
 end
 
