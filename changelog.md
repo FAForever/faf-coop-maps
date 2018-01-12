@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 4.0.0 (Upcoming)
+## Patch 4.0.0 (January 12th, 2018)
 
 ### General
 - Added a new lobby option to disable the timed expansion where some missions would continue even if the primary objectives were not completed yet.
