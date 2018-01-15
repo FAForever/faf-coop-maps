@@ -497,7 +497,7 @@ function StartMission1()
     if ExpansionTimer then
         -- Continue to other part even if objective isn't finished yet
         local Delay = {25, 20, 15}
-        ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 1)
+        ScenarioFramework.CreateTimerTrigger(IntroMission2PreNIS, Delay[Difficulty] * 60)
     end
 
     if(false and Difficulty ==3) then
