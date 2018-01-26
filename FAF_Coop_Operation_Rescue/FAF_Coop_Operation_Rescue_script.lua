@@ -14,16 +14,16 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local OpStrings = import('/maps/faf_coop_operation_rescue.v0001/FAF_Coop_op_rescue_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Rescue/FAF_Coop_op_rescue_strings.lua')
 
 ----------
 -- AI
 ----------
-local M1CivAI = import('/maps/faf_coop_operation_rescue.v0001/M1_UEF_Settlement_AI.lua')
-local M2CybranJammerAI_1 = import('/maps/faf_coop_operation_rescue.v0001/M2_Cybran_Jammer_1_AI.lua')
-local M2CybranJammerAI_2 = import('/maps/faf_coop_operation_rescue.v0001/M2_Cybran_Jammer_2_AI.lua')
-local M3CybranMainAI_1 = import('/maps/faf_coop_operation_rescue.v0001/M3_Cybran_Base_1_AI.lua')
-local M3_Rescue_AI = import('/maps/faf_coop_operation_rescue.v0001/M3_Rescue_AI.lua')
+local M1CivAI = import('/maps/FAF_Coop_Operation_Rescue/M1_UEF_Settlement_AI.lua')
+local M2CybranJammerAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_1_AI.lua')
+local M2CybranJammerAI_2 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_2_AI.lua')
+local M3CybranMainAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M3_Cybran_Base_1_AI.lua')
+local M3_Rescue_AI = import('/maps/FAF_Coop_Operation_Rescue/M3_Rescue_AI.lua')
 
 ----------
 -- Units and Teams
