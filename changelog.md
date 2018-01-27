@@ -1,11 +1,24 @@
 # Changelog
 
+## Patch 4.0.2 (January 27th, 2018)
+
+### Custom Missions
+
+#### Operation Rescue
+- Changed name of the mission files for the update script.
+
+### Contributors
+- JJs_AI
+
 ## Patch 4.0.1 (January 15th, 2018)
 
 ### FA Campaign
 
 #### Operation Overlord (6th mission)
 - Fixed map expanding right away to the second part.
+
+### Contributors
+- speed2
 
 ## Patch 4.0.0 (January 12th, 2018)
 
