@@ -1,5 +1,15 @@
 # Changelog
 
+## Patch 4.0.3 (January 28th, 2018)
+
+### Custom Missions
+
+#### Operation Rescue
+- Fixed wrong file path.
+
+### Contributors
+- speed2
+
 ## Patch 4.0.2 (January 27th, 2018)
 
 ### Custom Missions
