@@ -14,7 +14,7 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local OpStrings = import('/maps/FAF_Coop_Operation_Rescue/FAF_Coop_op_rescue_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Rescue/FAF_Coop_Operation_Rescue_strings.lua')
 
 ----------
 -- AI
