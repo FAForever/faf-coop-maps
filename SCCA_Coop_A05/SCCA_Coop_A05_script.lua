@@ -959,7 +959,7 @@ function Mission2CounterAttack()
     quantity = {475, 450, 425}
     if num > quantity[Difficulty] then
         for i = 1, Difficulty do
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order', 'M2_UEF_Adapt_Gunships', 'GrowthFormation', 5)
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'M2_UEF_Adapt_Gunships', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(platoon, 'UEF_M2_Bomber_Chain_' .. Random(1, 3))
         end
     end
