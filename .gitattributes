@@ -1,2 +1,4 @@
-* text=auto
 *.lua text
+*.png -text
+*.jpg -text
+*.scmap -text
