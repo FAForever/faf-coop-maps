@@ -1,4 +1,6 @@
 *.lua text
-*.png -text
+
+*.dds -text
 *.jpg -text
+*.png -text
 *.scmap -text
