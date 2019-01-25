@@ -51,6 +51,7 @@ local Civilians = ScenarioInfo.Civilians
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
+local ExpansionTimer = ScenarioInfo.Options.Expansion
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
@@ -482,9 +483,11 @@ function StartMission1()
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
     --ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, 600)
 
-    -- Expand map even if objective isn't finished yet
-    local M1MapExpandDelay = {35*60, 30*60, 25*60}
-    ScenarioFramework.CreateTimerTrigger(IntroMission2, M1MapExpandDelay[Difficulty])
+    if ExpansionTimer then
+        -- Expand map even if objective isn't finished yet
+        local M1MapExpandDelay = {35*60, 30*60, 25*60}
+        ScenarioFramework.CreateTimerTrigger(IntroMission2, M1MapExpandDelay[Difficulty])
+    end
 
     if not SkipNIS1 and not Debug then
         ------------------------------------------------
