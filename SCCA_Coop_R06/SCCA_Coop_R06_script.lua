@@ -285,16 +285,22 @@ function OnStart(self)
                     categories.url0402 +   -- Spider Bot
                     categories.urs0304 +   -- Strategic Missile Submarine
                     categories.drlk001 +   -- Cybran T3 Mobile AA
+                    categories.dra0202 +   -- Corsairs
+                    categories.drl0204 +   -- Hoplites
 
                     categories.ueb2302 +  -- Long Range Heavy Artillery
                     categories.ueb4301 +  -- T3 Heavy Shield Generator
                     categories.uel0401 +  -- Experimental Mobile Factory
                     categories.delk002 +  -- UEF T3 Mobile AA
                     categories.ues0304 +  -- Strategic Missile Submarine
+                    categories.del0204 +  -- Mongoose
+                    categories.dea0202 +  -- Janus
 
                     categories.uab0304 + -- Quantum Gate
                     categories.ual0301 + -- Sub Commander
                     categories.dalk003 + -- Aeon M3 Mobile AA
+                    categories.dal0312 + -- T3 Absolver
+                    categories.daa0206 + -- Mercy
                     categories.uas0304)  -- Strategic Missile Submarine
             end
         end

@@ -1534,6 +1534,8 @@ function M1_BuildCategories()
                          categories.ura0401 + -- Exp. T4 gunship
                          categories.urb4207 + -- Final T2 Shield upgrade
                          categories.drlk001 + -- Cybran T3 Mobile AA
+                         categories.dra0202 + -- Corsairs
+                         categories.drl0204 + -- Hoplites
 
                          categories.ueb0302 + -- T3 Naval Factory
                          categories.ueb2302 + -- Long Range Heavy Artillery
@@ -1545,6 +1547,8 @@ function M1_BuildCategories()
                          categories.ueb2305 + -- Strategic Missile Launcher
                          categories.ues0304 + -- Strategic Missile Submarine
                          categories.delk002 + -- UEF T3 Mobile AA
+                         categories.del0204 + -- Mongoose
+                         categories.dea0202 + -- Janus
 
                          categories.urb2108 + -- Tactical Missile Launcher
                          categories.urb2304 + -- T3 SAM Launcher
