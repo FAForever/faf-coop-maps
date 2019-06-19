@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Operation Tha-Atha-Aez',
-    description = 'You have been called back to Gev-7 because the Coalition has launched a new offensive. Almost half of our commanders are trapped behind enemy lines, and can only Gate to Gev-7. The Coalition knows this and they are attemping to cut them off. You must hold the gates until all our commanders are through. ',
+    name = 'Seraphim Mission 2: Operation Tha-Atha-Aez',
+    description = 'You have been called back to Velia, because the Coalition has launched a new offensive. Almost half of our commanders are trapped behind enemy lines, and can only Gate to Velia. The Coalition knows this and they are attemping to cut them off. You must hold the gates until all our commanders are through. ',
     type = 'campaign_coop',
     starts = true,
     preview = '',
