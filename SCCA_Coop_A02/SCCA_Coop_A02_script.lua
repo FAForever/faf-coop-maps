@@ -97,7 +97,7 @@ function OnStart(self)
         categories.EXPERIMENTAL +
         categories.PRODUCTFA + -- All FA Units
         categories.uaa0107     -- T1 transport
-    ) 
+    )
 
     ScenarioFramework.RestrictEnhancements({
         'AdvancedEngineering',
@@ -114,8 +114,8 @@ function OnStart(self)
     ScenarioFramework.SetNeutralColor(NeutralCybran) -- SetCybranNeutralColor
     ScenarioFramework.SetAeonColor(Player1)
     local colors = {
-        ['Player2'] = {47, 79, 79}, 
-        ['Player3'] = {46, 139, 87}, 
+        ['Player2'] = {47, 79, 79},
+        ['Player3'] = {46, 139, 87},
         ['Player4'] = {102, 255, 204}
     }
     local tblArmy = ListArmies()
@@ -470,7 +470,7 @@ function NavalPatrolReinforceAI(platoon)
     elseif not data.Location then
         error('*SCENARIO PLATOON AI ERROR: NavalPatrolReinforceAI requires Location in PlatoonData to operate', 2)
     end
-    
+
     platoon:Stop()
     if not data.FormationPatrol then
         for _, unit in platoon:GetPlatoonUnits() do
@@ -487,7 +487,7 @@ function NavalPatrolReinforceAI(platoon)
             local filteredList = EntityCategoryFilterDown(categories.NAVAL * categories.MOBILE, entities)
             local ownUnits = 0
             local enemyUnits = 0
-            
+
             for _, v in filteredList do
                 if v:GetAIBrain() == aiBrain then
                     ownUnits = ownUnits + 1
@@ -720,7 +720,7 @@ end
 function M2StartSecretBaseAttacks()
     if not ScenarioFramework.GroupDeathCheck(ScenarioInfo.M2_South_Attackers) then
         ScenarioFramework.Dialogue(OpStrings.A02_M02_060)
-        
+
         -- Send units from patrol on attack, start producing units.
         ScenarioFramework.GroupPatrolChain(ScenarioInfo.M2_South_Attackers, 'M2_South_Naval_Attack')
     end
@@ -1080,7 +1080,7 @@ function M3CaptureArtilleryObjective()
             --     function(result)
             --         if result then
             --             for _, player in ScenarioInfo.HumanPlayers do
-            --                 ScenarioFramework.AddRestriction(player, categories.urb2303) 
+            --                 ScenarioFramework.AddRestriction(player, categories.urb2303)
             --             end
             --         end
             --     end

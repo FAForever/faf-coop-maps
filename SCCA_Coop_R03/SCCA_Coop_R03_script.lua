@@ -199,8 +199,8 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranNeutralColor(BrackmanBase)
     ScenarioFramework.SetCybranNeutralColor(Civilian)
     local colors = {
-        ['Player2'] = {183, 101, 24}, 
-        ['Player3'] = {255, 135, 62}, 
+        ['Player2'] = {183, 101, 24},
+        ['Player3'] = {255, 135, 62},
         ['Player4'] = {255, 191, 128}
     }
     local tblArmy = ListArmies()
@@ -267,8 +267,6 @@ function IntroSequenceThread()
     ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
     ScenarioInfo.PlayerCDR:SetReclaimable(false)
     ScenarioInfo.PlayerCDR:SetCapturable(false)
-
-
 
     WaitSeconds(.8)
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))

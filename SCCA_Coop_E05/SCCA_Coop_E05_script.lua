@@ -194,8 +194,8 @@ function OnPopulate(scenario)
     ScenarioFramework.SetCybranColor(Cybran)
     ScenarioFramework.SetNeutralColor(City)
     local colors = {
-        ['Player2'] = {67, 110, 238}, 
-        ['Player3'] = {97, 109, 126}, 
+        ['Player2'] = {67, 110, 238},
+        ['Player3'] = {97, 109, 126},
         ['Player4'] = {255, 255, 255}
     }
     local tblArmy = ListArmies()
@@ -357,7 +357,7 @@ function OnPopulate(scenario)
                                       categories.uel0401 + -- Experimental Mobile Factory
                                       categories.ues0304 + -- Strategic Missile Submarine
                                       categories.delk002 + -- UEF T3 Mobile AA
-     
+
                                       categories.uab4302 + -- Strategic Missile Defense
                                       categories.uab0304 + -- Quantum Gateway
                                       categories.uab2305 + -- Nuclear Missile Launcher
@@ -370,7 +370,7 @@ function OnPopulate(scenario)
                                       categories.uab2302 + -- Long Range Heavy Artillery
                                       categories.uas0304 + -- Strategic Missile Submarine
                                       categories.dalk003 + -- Aeon M3 Mobile AA
-     
+
                                       categories.urb4302 + -- Strategic Missile Defense
                                       categories.urb0304 + -- Quantum Gateway
                                       categories.urb2305 + -- Nuclear Missile Launcher
@@ -388,10 +388,10 @@ function OnPopulate(scenario)
                                       categories.drlk001 + -- Cybran T3 Mobile AA
 
                                       categories.PRODUCTFA + -- All FA Units
-     
+
                                       categories.EXPERIMENTAL )
     end
-    
+
     -- Commader
     ScenarioFramework.RestrictEnhancements({'TacticalNukeMissile',
                                             'Teleporter'})
