@@ -21,48 +21,68 @@ function OrderAirAttacks()
     local Temp = {
         'AirDefenceTemp2',
         'NoPlan',
-        { 'xaa0305', 1, 4, 'Attack', 'GrowthFormation' },  --AA gunships
-        { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },  --Gunships
+        { 'xaa0305', 1, 3, 'Attack', 'GrowthFormation' },  --AA gunships
+        { 'uaa0203', 1, 9, 'Attack', 'GrowthFormation' },  --Gunships
 	    { 'uaa0303', 1, 6, 'Attack', 'GrowthFormation' },  --ASFs
 	}
 	local Builder = {
         BuilderName = 'AirDefenceBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 4,
+        InstanceCount = 3,
         Priority = 400,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'Orderbase',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
-        PlatoonData = {
-            PatrolChain = 'P3seraDefendchain'
-        },
+      PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P3S2B1defence1'
+       },
 	}
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 end
 
 function OrderlandAttacks()
+
     local Temp = {
         'LandDefenceTemp2',
         'NoPlan',
-        { 'ual0205', 1, 4, 'Attack', 'GrowthFormation' },  --mobile Flak
-        { 'ual0202', 1, 12, 'Attack', 'GrowthFormation' },  --Heavy Tanks
-	    { 'ual0303', 1, 6, 'Attack', 'GrowthFormation' },  --Seige Bots
+        { 'ual0202', 1, 10, 'Attack', 'GrowthFormation' },  --Heavy Tanks
 	}
 	local Builder = {
         BuilderName = 'LandDefenceBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 4,
+        InstanceCount = 2,
         Priority = 400,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'Orderbase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
-            PatrolChain = 'P3seraDefendchain'
+            PatrolChain = 'P3S2B1defence2'
         },
 	}
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+	
+	Temp = {
+        'LandDefenceTemp3',
+        'NoPlan',
+        { 'ual0205', 1, 6, 'Attack', 'GrowthFormation' },  --Heavy Tanks
+	}
+	Builder = {
+        BuilderName = 'LandDefenceBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 400,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Orderbase',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+        PlatoonData = {
+            PatrolChain = 'P3S2B1defence2'
+        },
+	}
+	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+	
 end
 
 function DisableBase1()
