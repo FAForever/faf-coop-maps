@@ -84,14 +84,14 @@ function OnPopulate()
     elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player1)
     end
-    
+
     ScenarioFramework.SetAeonEvilColor(Order)
     ScenarioFramework.SetCybranEvilColor(QAI)
     ScenarioFramework.SetAeonAlly1Color(Loyalist)
     ScenarioFramework.SetAeonAlly2Color(OrderNeutral)
     local colors = {
-        ['Player2'] = {250, 250, 0}, 
-        ['Player3'] = {255, 255, 255}, 
+        ['Player2'] = {250, 250, 0},
+        ['Player3'] = {255, 255, 255},
         ['Player4'] = {97, 109, 126}
     }
     local tblArmy = ListArmies()
@@ -144,8 +144,8 @@ function OnPopulate()
     --ScenarioInfo.M1OrderAttack = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
     ScenarioInfo.M1OrderAttackPlatoons = {}
     ScenarioInfo.M1OrderAttack = {}
-    
-    
+
+
     for k, player in ScenarioInfo.HumanPlayers do
         local armyGroup = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
         local playerPlatoons = {}
@@ -158,7 +158,7 @@ function OnPopulate()
         end
 
     end
-    
+
     ----------------
     -- Loyalist M1 AI
     ----------------
@@ -229,7 +229,6 @@ function PlayerWin()
 end
 
 function FinalNIS()
-
     ScenarioFramework.EndOperationSafety()
     Cinematics.EnterNISMode()
 
@@ -262,16 +261,16 @@ function FinalNIS()
     WaitSeconds(2)
 
     -- Have it walk out of the gate
-    IssueMove({ EnemyCommander }, ScenarioUtils.MarkerToPosition( 'NIS_5_Destination' ))
+    IssueMove({EnemyCommander}, ScenarioUtils.MarkerToPosition('NIS_5_Destination'))
 
     WaitSeconds(1)
 
-    EffectUtilities.AeonHackACU( EnemyCommander )
+    EffectUtilities.AeonHackACU(EnemyCommander)
 
     ForkThread(
         function()
             WaitSeconds(3)
-            ScenarioFramework.SetLoyalistColor( QAI )
+            ScenarioFramework.SetLoyalistColor(QAI)
         end
     )
 
@@ -330,7 +329,7 @@ function IntroNIS()
     elseif(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
     end
-    
+
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
@@ -429,7 +428,7 @@ function StartMission1()
 
     -- Sniper bot
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xal0305, "aeon", 240, OpStrings.X02_M01_045)
-    
+
     SetupCeleneM1Taunt()
 end
 
@@ -784,7 +783,7 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2PingEventNotification, 600)
     SetupCeleneM2Taunt()
     SetupQAIM2Taunt()
-    
+
     -- Heavy point defense
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xeb2306, "uef", 60, OpStrings.X02_M01_210)
     ScenarioFramework.UnrestrictWithVoiceoverAndDelay(categories.xrl0302, "cybran", 90, OpStrings.X02_M01_200)
@@ -927,15 +926,15 @@ function IntroMission3NIS()
     -- Currently cut
     --[[
     Cinematics.EnterNISMode()
-    
+
     WaitSeconds(1)
-    
+
     ScenarioFramework.Dialogue(OpStrings.X02_M02_160, nil, true)
-    
+
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_1'), 0)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_2'), 3)
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_3'), 1)
-    
+
     Cinematics.ExitNISMode()
     --]]
     StartMission3()
@@ -1278,7 +1277,7 @@ function IntroMission4()
             ScenarioInfo.SeraphimGate:SetCustomName(LOC '{i Seraphim_Gate}')
 
             -- QAI Commander
-            ScenarioInfo.QAICommander = ScenarioFramework.SpawnCommander('QAI', 'M4_QAI_Commander', false, LOC '{i QAI}', true, false, 
+            ScenarioInfo.QAICommander = ScenarioFramework.SpawnCommander('QAI', 'M4_QAI_Commander', false, LOC '{i QAI}', true, false,
                 {'StealthGenerator', 'MicrowaveLaserGenerator', 'AdvancedEngineering', 'T3Engineering'})
 
             -- Czar
@@ -1576,7 +1575,7 @@ function NukePlayer()
             ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(1)
             IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition(marker))
         end
-        
+
         WaitSeconds(delay[Difficulty] * 60)
     end
 end
