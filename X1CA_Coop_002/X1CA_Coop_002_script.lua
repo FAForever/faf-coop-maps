@@ -253,10 +253,8 @@ function FinalNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_2'), 5)
 
     -- Enemy commander appears
-    local EnemyCommander = ScenarioUtils.CreateArmyUnit('QAI', 'M4_Seraph_SCU')
-    EnemyCommander:SetCustomName(LOC '{i sCDR_AhnUshi}')
+    local EnemyCommander = ScenarioFramework.SpawnCommander('QAI', 'M4_Seraph_SCU', 'Gate', LOC '{i sCDR_AhnUshi}')
     EnemyCommander:SetCanTakeDamage(false)
-    ScenarioFramework.FakeGateInUnit(EnemyCommander)
 
     WaitSeconds(2)
 

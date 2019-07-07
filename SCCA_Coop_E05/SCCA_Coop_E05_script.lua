@@ -424,9 +424,7 @@ end
 function CreatePlayer()
     WaitSeconds(3)
     -- ! Player Commander and his Death Trigger
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
+    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', ArmyBrains[Player1].Nickname, true, CommanderDied)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -434,30 +432,20 @@ function CreatePlayer()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
+            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander', 'Warp', ArmyBrains[iArmy].Nickname, true, CommanderDied)
+
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
-            ScenarioFramework.PauseUnitDeath(ScenarioInfo.CoopCDR[coop])
-            ScenarioFramework.CreateUnitDeathTrigger(CommanderDied, ScenarioInfo.CoopCDR[coop])
-            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+
             coop = coop + 1
             WaitSeconds(0.5)
         end
     end
 
-    ScenarioFramework.CreateUnitDeathTrigger(CommanderDied, ScenarioInfo.PlayerCDR)
     ScenarioInfo.PlayerCDR:SetReclaimable(false)
     ScenarioInfo.PlayerCDR:SetCapturable(false)
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
-
-    -- no warp in pls. Matt 9/11/06
-    ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-
-
 end
 
 function IntroNIS()

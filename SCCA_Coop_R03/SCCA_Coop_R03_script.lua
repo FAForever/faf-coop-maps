@@ -261,14 +261,11 @@ function IntroSequenceThread()
     Cinematics.EnterNISMode()
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Gate_Area'), 2)
 
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
-
-    ScenarioFramework.FakeGateInUnit(ScenarioInfo.PlayerCDR)
+    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Gate', ArmyBrains[Player1].Nickname, true, OnCommanderDeath)
     ScenarioInfo.PlayerCDR:SetReclaimable(false)
     ScenarioInfo.PlayerCDR:SetCapturable(false)
+    WaitSeconds(0.8)
 
-    WaitSeconds(.8)
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Start_Camera_Area'), 3)
     Cinematics.CameraMoveToRectangle(ScenarioUtils.AreaToRect('Start_Camera_Area_2'), 2)
@@ -280,22 +277,12 @@ function IntroSequenceThread()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
-            ScenarioFramework.FakeGateInUnit(ScenarioInfo.CoopCDR[coop])
+            ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Gate', ArmyBrains[iArmy].Nickname, true, OnCommanderDeath)
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Start_CDR_MovePoint'))
             coop = coop + 1
             WaitSeconds(1.8)
         end
     end
-
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(OnCommanderDeath, coopACU)
-    end
-    ScenarioFramework.CreateUnitDeathTrigger(OnCommanderDeath, ScenarioInfo.PlayerCDR)
 
     WaitSeconds(1.5)
     StartMission1()
