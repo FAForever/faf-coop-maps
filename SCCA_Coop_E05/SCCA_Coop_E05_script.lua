@@ -442,8 +442,6 @@ function CreatePlayer()
         end
     end
 
-    ScenarioInfo.PlayerCDR:SetReclaimable(false)
-    ScenarioInfo.PlayerCDR:SetCapturable(false)
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
     IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
 end
