@@ -424,7 +424,7 @@ end
 function CreatePlayer()
     WaitSeconds(3)
     -- ! Player Commander and his Death Trigger
-    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', ArmyBrains[Player1].Nickname, true, CommanderDied)
+    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Gate', true, true, CommanderDied)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
@@ -432,7 +432,7 @@ function CreatePlayer()
     coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander', 'Warp', ArmyBrains[iArmy].Nickname, true, CommanderDied)
+            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander', 'Gate', true, true, CommanderDied)
 
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
