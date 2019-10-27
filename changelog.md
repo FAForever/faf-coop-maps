@@ -1,5 +1,41 @@
 # Changelog
 
+## Patch 5.0.0 (October 27th, 2019)
+
+### Aeon Campaign
+
+#### Operation Shining Star (5th mission)
+- Fixed from army name if one of the attacks causing the mission to not progress.
+
+### Cybran Campaign
+
+#### Operation Unlock (5th mission)
+- Fixed unit restrictions, can't build Corsairs, Hoplites, Moongooses, Janusees anymore.
+
+#### Operation Freedom (6th mission)
+- Fixed unit restrictions, can't build Corsairs, Hoplites, Moongooses, Janusees, Absolvers, Mercies anymore.
+
+### Custom Missions
+
+#### Operation Rescue
+- Fixed line endings.
+
+#### Operation Tha Atha Aez
+- Overall adjustments to the AI attacks and difficulty.
+- Fixed and improved dialogues.
+
+#### Operation Uthe Thuum QAI
+- Brand new Seraphim mission by shadowlorda1
+
+#### Operation Yath Aez
+- Brand new Seraphim mission by shadowlorda1
+
+### Contributors
+- Icedreamer
+- shadowlorda1
+- Sheeo
+- speed2
+
 ## Patch 4.0.3 (January 28th, 2018)
 
 ### Custom Missions
