@@ -1,6 +1,6 @@
 # Changelog
 
-## Patch 5.0.0 (Upcoming)
+## Patch 5.0.0 (October 27th, 2019)
 
 ### Aeon Campaign
 
@@ -31,6 +31,7 @@
 - Brand new Seraphim mission by shadowlorda1
 
 ### Contributors
+- Icedreamer
 - shadowlorda1
 - Sheeo
 - speed2
