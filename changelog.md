@@ -1,5 +1,15 @@
 # Changelog
 
+## Patch 5.0.1 (October 30th, 2019)
+
+### Cybran Campaign
+
+#### Operation Freedom (6th mission)
+- Fix mission not starting due to typo in the script.
+
+### Contributors
+- speed2
+
 ## Patch 5.0.0 (October 27th, 2019)
 
 ### Aeon Campaign
