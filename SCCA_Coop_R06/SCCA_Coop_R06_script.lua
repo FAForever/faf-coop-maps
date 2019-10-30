@@ -299,7 +299,7 @@ function OnStart(self)
                     categories.uab0304 + -- Quantum Gate
                     categories.ual0301 + -- Sub Commander
                     categories.dalk003 + -- Aeon M3 Mobile AA
-                    categories.dal0312 + -- T3 Absolver
+                    categories.dal0310 + -- T3 Absolver
                     categories.daa0206 + -- Mercy
                     categories.uas0304)  -- Strategic Missile Submarine
             end
