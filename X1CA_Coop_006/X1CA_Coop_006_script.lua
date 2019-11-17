@@ -58,7 +58,7 @@ local OptionZero = ScenarioInfo.OptionZero
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local WaveDuration          =   30      -- number of units per wave
 local WaveDurationNIS       =   20      -- duration of NIS rift "wave"
