@@ -899,26 +899,9 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
-function PlayerDeath()
+function PlayerDeath(deadCommander)
     if Debug then return end
-    if (not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
-		ScenarioFramework.Dialogue(OpStrings.Objectivefailed2, nil, true)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for _, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(1)
-                UnlockInput()
-                KillGame()
-            end
-       )
-    end
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.Objectivefailed2, AssignedObjectives)
 end
 
 function PlayerLose()
