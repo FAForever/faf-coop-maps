@@ -905,13 +905,10 @@ end
 
 function PlayerDeath(Player)
     LOG("ACU Death")
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(Player)
-        if CommsRestored then
-            ScenarioFramework.Dialogue(OpStrings.Player_Dead_2, Mission_Failed, true)
-        else
-            ScenarioFramework.Dialogue(OpStrings.Player_Dead_1, Mission_Failed, true)
-        end
+    if CommsRestored then
+        ScenarioFramework.PlayerDeath(Player, OpStrings.Player_Dead_2, AssignedObjectives)
+    else
+        ScenarioFramework.PlayerDeath(Player, OpStrings.Player_Dead_1, AssignedObjectives)
     end
 end
 
