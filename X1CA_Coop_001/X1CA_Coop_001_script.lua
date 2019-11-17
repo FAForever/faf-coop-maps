@@ -214,7 +214,7 @@ local VoiceOvers = {
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 -- The faction of player 1: determines the dialog and suchlike you get.
 local LeaderFaction
