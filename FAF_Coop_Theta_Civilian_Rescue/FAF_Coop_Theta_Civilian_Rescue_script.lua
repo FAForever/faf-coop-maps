@@ -660,23 +660,7 @@ function makeCDRImmortal()
 end
 
 function PlayerDeath(player)
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(player)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for k, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-        )
-    end
+    ScenarioFramework.PlayerDeath(player, nil, AssignedObjectives)
 end
 
 function KillGame()
