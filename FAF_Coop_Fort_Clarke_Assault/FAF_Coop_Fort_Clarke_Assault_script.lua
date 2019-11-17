@@ -51,7 +51,7 @@ local Civilians = ScenarioInfo.Civilians
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
@@ -1488,24 +1488,8 @@ function PlayerWin()
     end
 end
 
-function PlayerDeath()
-    if (not ScenarioInfo.OpEnded) then
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Player1CDR)
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        for _, v in AssignedObjectives do
-            if(v and v.Active) then
-                v:ManualResult(false)
-            end
-        end
-        ForkThread(
-            function()
-                WaitSeconds(3)
-                UnlockInput()
-                KillGame()
-            end
-       )
-    end
+function PlayerDeath(deadCommander)
+    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
 end
 
 function KillGame()
