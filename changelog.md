@@ -1,13 +1,5 @@
 # Changelog
 
-## Patch 5.0.2 (November 17th, 2019)
-
-#### All Mission
-- Fixed ExpansionTimer and PlayerDeath functions
-
-### Contributors
-- KionX
-
 ## Patch 5.0.1 (October 30th, 2019)
 
 ### Cybran Campaign
