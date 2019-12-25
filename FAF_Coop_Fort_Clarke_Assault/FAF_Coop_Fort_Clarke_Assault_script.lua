@@ -14,7 +14,7 @@ local M2UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_
 local M3AeonAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3aeonai.lua')
 local M3CybranAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3cybranai.lua')
 local M3UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3uefai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
+local Objectives = import('/lua/SimObjectives.lua')
 local OpStrings = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
@@ -1171,10 +1171,10 @@ function M3CounterAttackAir()
 
     local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
-    if(num > 0) then
+    if num > 0 then
         trigger = {60, 50, 40}
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 6) then
+        if num > 6 then
             num = 6
         end
         for i = 1, num do
@@ -1186,7 +1186,7 @@ function M3CounterAttackAir()
     -- Spawns Air Superiority
     local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE * categories.TECH3, false)
 
-    if(num > 0) then
+    if num > 0 then
         trigger = {24, 20, 16}
         num = math.ceil(num/trigger[Difficulty])
         for i = 1, num do
