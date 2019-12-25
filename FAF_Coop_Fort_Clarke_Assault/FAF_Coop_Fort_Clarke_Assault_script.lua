@@ -92,7 +92,7 @@ function OnPopulate(scenario)
     end
 
     -- Unit Cap
-    ScenarioFramework.SetSharedUnitCap(600)
+    ScenarioFramework.SetSharedUnitCap(1000)
 
     -- Disable friendly AI sharing resources to players
     GetArmyBrain(Order):SetResourceSharing(false)
@@ -648,7 +648,7 @@ function IntroMission2()
     ScenarioInfo.MissionNumber = 2
 
     -- Unit Cap
-    ScenarioFramework.SetSharedUnitCap(1000)
+    ScenarioFramework.SetSharedUnitCap(1500)
 
     -------------------
     -- UEF Eastern Town
@@ -1272,6 +1272,9 @@ function IntroMission4()
         return
     end
     ScenarioInfo.MissionNumber = 4
+
+    -- Unit Cap
+    ScenarioFramework.SetSharedUnitCap(2000)
 
     ------------
     -- Civilians
