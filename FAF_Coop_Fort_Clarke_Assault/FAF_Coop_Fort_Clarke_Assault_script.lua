@@ -103,7 +103,6 @@ function OnPopulate(scenario)
     M1UEFAI.UEFM1NorthBaseAI()
     M1UEFAI.UEFM1SouthBaseAI()
     M1UEFAI.UEFM1ExpansionBases()
-    ArmyBrains[UEF]:PBMSetCheckInterval(5)
     ScenarioUtils.CreateArmyGroup('UEF', 'M1_Mass')
 
     -- Resources for UEF AI, slightly delayed cause army didn't recieve it for some reason
@@ -694,7 +693,6 @@ function IntroMission2()
     -- M2 Cybran
     ------------
     M3CybranAI.CybranM3BaseAI()
-    ArmyBrains[Cybran]:PBMSetCheckInterval(6)
 
     -- Cybran ACU
     ScenarioInfo.CybranCDR = ScenarioFramework.SpawnCommander('Cybran', 'Cybran_Commander', false, 'Tokyto', false, false,--true, M4CybranCommanderKilled, 
@@ -705,7 +703,6 @@ function IntroMission2()
     -- M2 Aeon
     ----------
     M3AeonAI.AeonM3BaseAI()
-    ArmyBrains[Aeon]:PBMSetCheckInterval(6)
 
     -- Aeon ACU
     ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', false, 'Ithilis', false, false,--true, M4AeonCommanderKilled, 
@@ -724,7 +721,6 @@ function IntroMission2()
     else
         ScenarioFramework.CreateTimerTrigger(M2OrderAI.M2OrderCarriers, 2 * Difficulty * 60)
     end
-    ArmyBrains[Order]:PBMSetCheckInterval(5)
 
     -- Order CDR
     ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, OrderCommanderKilled, 
