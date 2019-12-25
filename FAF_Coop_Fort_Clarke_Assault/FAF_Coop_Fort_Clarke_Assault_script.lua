@@ -145,6 +145,8 @@ function OnPopulate(scenario)
         ScenarioFramework.PlatoonAttackChain(platoon, 'M1_Reclaim_Chain_' .. i)
     end
 
+    ScenarioFramework.RefreshRestrictions('UEF')
+
     -- Wrecks
     ScenarioUtils.CreateArmyGroup('UEF', 'M1_Wrecks', true)
 
@@ -677,6 +679,8 @@ function IntroMission2()
         {'AdvancedEngineering','T3Engineering','Shield','ShieldGeneratorField','ResourceAllocation'})
     ScenarioInfo.UEFCDR:SetVeterancy(2 + Difficulty)
 
+    ScenarioFramework.RefreshRestrictions('UEF')
+
     -- Initial UEF Units
     local platoon
 
@@ -699,6 +703,8 @@ function IntroMission2()
         {'AdvancedEngineering','T3Engineering','StealthGenerator','CloakingGenerator','MicrowaveLaserGenerator'})
     ScenarioInfo.CybranCDR:SetVeterancy(2 + Difficulty)
 
+    ScenarioFramework.RefreshRestrictions('Cybran')
+
     ----------
     -- M2 Aeon
     ----------
@@ -708,7 +714,9 @@ function IntroMission2()
     ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', false, 'Ithilis', false, false,--true, M4AeonCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','Shield','ShieldHeavy','EnhancedSensors'})
     ScenarioInfo.AeonCDR:SetVeterancy(2 + Difficulty)
-    
+
+    ScenarioFramework.RefreshRestrictions('Aeon')
+
     ----------------
     -- M2 Order Base
     ----------------
@@ -725,6 +733,8 @@ function IntroMission2()
     -- Order CDR
     ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, OrderCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','ResourceAllocationAdvanced','EnhancedSensors'})
+
+    ScenarioFramework.RefreshRestrictions('Order')
 
     -- Order Initial Patrols
     -- Air
@@ -990,6 +1000,8 @@ function IntroMission3()
 
     ScenarioUtils.CreateArmyGroup('UEF', 'Bridge_Defenses_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('UEF', 'M3_Arty')
+
+    ScenarioFramework.RefreshRestrictions('UEF')
 
     ------------
     -- M3 Cybran
