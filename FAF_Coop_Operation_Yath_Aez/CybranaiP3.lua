@@ -73,7 +73,7 @@ function P3CNavalAttacks1()
        'P3CB1NavalattackTemp0',
        'NoPlan',
        { 'urs0201', 1, 6, 'Attack', 'GrowthFormation' },
-	   { 'urs0202', 1, 3, 'Attack', 'GrowthFormation' },
+	   { 'urs0202', 1, 4, 'Attack', 'GrowthFormation' },
        { 'urs0303', 1, 1, 'Attack', 'GrowthFormation' }, 
     }
     local Builder = {
@@ -142,7 +142,7 @@ function P3CNavalAttacks1()
     Builder = {
        BuilderName = 'P3CB1NavalattackBuilder3',
        PlatoonTemplate = Temp,
-       InstanceCount = 1,
+       InstanceCount = 2,
        Priority = 100,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
@@ -230,7 +230,7 @@ function P3CB1EXPattacks1()
     
     opai = CybranP3base1:AddOpAI('P3CExp1',
         {
-            Amount = 1,
+            Amount = 2,
             KeepAlive = true,
            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
            PlatoonData = {

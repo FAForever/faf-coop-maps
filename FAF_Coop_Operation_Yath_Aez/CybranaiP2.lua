@@ -229,6 +229,28 @@ function P2CB1Airattacks1()
     }
     ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
 	
+	 Temp = {
+       'P2CB1AirAttackTemp2',
+       'NoPlan',
+       { 'ura0203', 1, 10, 'Attack', 'GrowthFormation' },  
+       { 'dra0202', 1, 6, 'Attack', 'GrowthFormation' },
+	   { 'ura0102', 1, 12, 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+       BuilderName = 'P2CB1AirAttackBuilder2',
+       PlatoonTemplate = Temp,
+       InstanceCount = 1,
+       Priority = 200,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'Cybranbase1',
+       PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P2CB1Airdefense1'
+       },
+    }
+    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+	
 end
 
 function P2CB1EXPattacks1()
@@ -291,7 +313,7 @@ function P2CB2Airattacks1()
     local Builder = {
        BuilderName = 'P2CB2AirAttackBuilder1',
        PlatoonTemplate = Temp,
-       InstanceCount = 3,
+       InstanceCount = 4,
        Priority = 100,
        PlatoonType = 'Air',
        RequiresConstruction = true,

@@ -18,6 +18,7 @@ function Aeonbase1AI()
 
 	P2AB1landattacks1()
 	P2AB1Airattacks1()
+	P2AB1EXPattacks1()
 	
 end
 
@@ -69,8 +70,8 @@ function P2AB1landattacks1()
    Temp = {
        'A_landAttackTemp3',
        'NoPlan',
-       { 'ual0202', 1, 6, 'Attack', 'GrowthFormation' },
-       { 'ual0303', 1, 4, 'Attack', 'GrowthFormation' },
+       { 'ual0111', 1, 6, 'Attack', 'GrowthFormation' },
+       { 'Dal0310', 1, 4, 'Attack', 'GrowthFormation' },
 	   }
       Builder = {
         BuilderName = 'A_landAttackBuilder3',
@@ -94,11 +95,32 @@ function P2AB1Airattacks1()
   local Temp = {
        'A_AirAttackTemp1',
        'NoPlan',
-       { 'uaa0203', 1, 12, 'Attack', 'GrowthFormation' },
-       { 'xaa0202', 1, 6, 'Attack', 'GrowthFormation' }, 
+       { 'uaa0203', 1, 9, 'Attack', 'GrowthFormation' },
+       { 'xaa0202', 1, 5, 'Attack', 'GrowthFormation' }, 
    }
   local Builder = {
        BuilderName = 'A_AirAttackBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
+       Priority = 200,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'Aeonbase1',   
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'P2AB1airattack1', 'P2AB1airattack2', 'P2AB1airattack3'}
+       },
+   }
+   ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+   
+   local Temp = {
+       'A_AirAttackTemp2',
+       'NoPlan',
+       { 'xaa0202', 1, 3, 'Attack', 'GrowthFormation' },
+       { 'uaa0304', 1, 4, 'Attack', 'GrowthFormation' }, 
+   }
+  local Builder = {
+       BuilderName = 'A_AirAttackBuilder2',
        PlatoonTemplate = Temp,
        InstanceCount = 3,
        Priority = 200,
@@ -113,13 +135,34 @@ function P2AB1Airattacks1()
    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
    
     Temp = {
-       'A_AirAttackTemp2',
+       'A_AirAttackTemp3',
        'NoPlan',
-       { 'uaa0203', 1, 15, 'Attack', 'GrowthFormation' },  
-       { 'xaa0202', 1, 9, 'Attack', 'GrowthFormation' },  
+       { 'uaa0203', 1, 16, 'Attack', 'GrowthFormation' },  
+       { 'xaa0202', 1, 10, 'Attack', 'GrowthFormation' },  
     }
     Builder = {
-       BuilderName = 'A_AirAttackBuilder2',
+       BuilderName = 'A_AirAttackBuilder3',
+       PlatoonTemplate = Temp,
+       InstanceCount = 1,
+       Priority = 210,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'Aeonbase1',
+       PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P2AB1airdefence1'
+       },
+    }
+    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+	
+	 Temp = {
+       'A_AirAttackTemp4',
+       'NoPlan',
+       { 'uaa0203', 1, 10, 'Attack', 'GrowthFormation' },  
+       { 'xaa0202', 1, 6, 'Attack', 'GrowthFormation' },  
+    }
+    Builder = {
+       BuilderName = 'A_AirAttackBuilder4',
        PlatoonTemplate = Temp,
        InstanceCount = 1,
        Priority = 210,
@@ -133,6 +176,25 @@ function P2AB1Airattacks1()
     }
     ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 
+
+end
+
+function P2AB1EXPattacks1()
+    local opai = nil
+    local quantity = {}
+    
+    opai = Aeonbase1:AddOpAI('P2AExp1',
+        {
+            Amount = 2,
+            KeepAlive = true,
+            PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'P2AB1landattack1',
+            },
+            MaxAssist = 2,
+            Retry = true,
+        }
+    )
 
 end
 
