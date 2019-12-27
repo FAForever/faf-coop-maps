@@ -2,8 +2,8 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
-local Player = 5
-local QAI = 2
+local Player1 = 1
+local QAI = 3
 
 local Q1P2Base1 = BaseManager.CreateBaseManager()
 local Difficulty = ScenarioInfo.Options.Difficulty
@@ -21,6 +21,7 @@ end
 function P3Q1base1EXD()
 
     Q1P2Base1:AddBuildGroup('P3QbaseEXD_D' .. Difficulty, 800, false)
+	Q1P2Base1.MaximumConstructionEngineers = 4
 	
 	P3QlandAttack1()
 	P3QAirAttack1()
@@ -65,6 +66,27 @@ function P2QlandDefenses1()
        BuilderName = 'P2QB1DefenseBuilder0',
        PlatoonTemplate = Temp,
        InstanceCount = 4,
+       Priority = 100,
+       PlatoonType = 'Land',
+       RequiresConstruction = true,
+       LocationType = 'P2QAIBase1',
+      PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P2QlandD1'
+       },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+	
+	local Temp = {
+       'P2QB1DefenseTemp1',
+       'NoPlan',
+       { 'url0303', 1, 2, 'Attack', 'GrowthFormation' },   
+       { 'url0205', 1, 4, 'Attack', 'GrowthFormation' },     
+    }
+    local Builder = {
+       BuilderName = 'P2QB1DefenseBuilder1',
+       PlatoonTemplate = Temp,
+       InstanceCount = 2,
        Priority = 100,
        PlatoonType = 'Land',
        RequiresConstruction = true,
@@ -130,7 +152,7 @@ function P3QAirAttack1()
        'P3QB1AirAttackTemp0',
        'NoPlan',
        { 'xra0305', 1, 2, 'Attack', 'GrowthFormation' },   
-       { 'ura0202', 1, 6, 'Attack', 'GrowthFormation' },     
+       { 'ura0203', 1, 6, 'Attack', 'GrowthFormation' },     
     }
     local Builder = {
        BuilderName = 'P3QB1AirAttackBuilder0',
