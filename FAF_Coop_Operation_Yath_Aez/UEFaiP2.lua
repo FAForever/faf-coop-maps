@@ -16,8 +16,8 @@ function UEFnavalbaseAI()
      UEFnavalbase:StartNonZeroBase({{10,14,18}, {8,12,16}})
 
      P2UB2Navalattacks1()
-	 P2UB2landattacks1()
-	 P2UEXPattacks1()
+     P2UB2landattacks1()
+     P2UEXPattacks1()
 end
 
 function UEFmainbaseAI()
@@ -28,6 +28,7 @@ function UEFmainbaseAI()
 
      P2UB1Airattacks1()
      P2UB1landattacks1()
+	 P2BU1EXPattacks()
 end
 
 function P2UB2Navalattacks1()
@@ -74,8 +75,8 @@ function P2UB2Navalattacks1()
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-	
-	Temp = {
+    
+    Temp = {
        'P1UB2NavalattackTemp2',
        'NoPlan',
        { 'ues0201', 1, 4, 'Attack', 'GrowthFormation' }, 
@@ -119,8 +120,8 @@ function P2UB2landattacks1()
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-	
-	Temp = {
+    
+    Temp = {
        'P2UB2LandattackTemp1',
        'NoPlan',     
        { 'xel0305', 1, 3, 'Attack', 'GrowthFormation' },   
@@ -154,11 +155,11 @@ function P2UEXPattacks1()
             PlatoonData = {
                 PatrolChain = 'P2UB2navalattack1',
             },
-            MaxAssist = 1,
+            MaxAssist = 2,
             Retry = true,
         }
     )
-
+  
 end
  
 function P2UB1Airattacks1()
@@ -210,7 +211,7 @@ function P2UB1Airattacks1()
        'P2UB1AirattackTemp2',
        'NoPlan',
        { 'uea0303', 1, 6, 'Attack', 'GrowthFormation' },
-       { 'dea0202', 1, 6, 'Attack', 'GrowthFormation' }, 	   
+       { 'dea0202', 1, 6, 'Attack', 'GrowthFormation' },       
     }
     Builder = {
        BuilderName = 'P2UB1AirattackBuilder2',
@@ -226,11 +227,11 @@ function P2UB1Airattacks1()
        },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-	
-	Temp = {
+    
+    Temp = {
        'P2UB1AirattackTemp3',
        'NoPlan',
-       { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' }, 	   
+       { 'uea0305', 1, 9, 'Attack', 'GrowthFormation' },       
     }
     Builder = {
        BuilderName = 'P2UB1AirattackBuilder3',
@@ -314,6 +315,25 @@ function P2UB1landattacks1()
    }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
    
+end
+  
+function P2BU1EXPattacks()
+    local opai = nil
+    local quantity = {}
+    
+    opai = UEFmainbase:AddOpAI('P2Uexp2',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'P2UB1landattack1',
+            },
+            MaxAssist = 2,
+            Retry = true,
+        }
+    )
+
 end
   
  

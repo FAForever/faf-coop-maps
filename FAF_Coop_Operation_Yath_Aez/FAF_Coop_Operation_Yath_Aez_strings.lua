@@ -10,7 +10,7 @@ SecondaryP1 = {
 }
 
 SecondaryEndP1 = {
-   {text = '[Overlord HQ]: Good work, with those Tac Missile lanchers out of the way your landing zone is closer to secured. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
+   {text = '[Overlord HQ]: Good work, with those Tac Missile launchers out of the way your landing zone is closer to secured. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
 }
 
 Secondary2P1 = {
@@ -39,7 +39,7 @@ Secondary1P2 = {
 }
 
 SecondaryEnd1P2 = {
-   {text = '[Overlord HQ]: Good work that\'s one last problem to deal with. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
+   {text = '[Overlord HQ]: Good work that\'s one less problem to deal with. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
 }
 
 Secondary2P2 = {
@@ -85,11 +85,11 @@ TAUNT3P1 = {
 }
 
 TAUNT1P2 = {
-    {text = '[Fredrick]: We are goign to break your defences sooner or later!', vid = 'Graham.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P2', faction = 'UEF'},
+    {text = '[Fredrick]: We are going to break your defenses sooner or later!', vid = 'Graham.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P2', faction = 'UEF'},
 }
 
 TAUNT2P2 = {
-    {text = '[Fredrick]: I have friends to help me, Seraphim! what do you have? A corpse!', vid = 'Graham.sfd', bank = 'JJ_VO2', cue = 'TAUNT2P2', faction = 'UEF'},
+    {text = '[Fredrick]: I have friends to help me Seraphim! what do you have? A corpse!', vid = 'Graham.sfd', bank = 'JJ_VO2', cue = 'TAUNT2P2', faction = 'UEF'},
 }
 
 TAUNT3P2 = {
@@ -100,7 +100,16 @@ ACUDeath1 = {
     {text = '[Fredrick]: I can\'t die here! Ahh..Ahhhh!', vid = 'Graham.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P2', faction = 'UEF'},
 }
 
+-- Bonus Objective
+M2B2Title = 'Kill Spider Bots'
+M2B2Description = 'You\'ve Killed %s Cybran experimentals.'
 
+Debriefing_Win = {
+{text = '[Overlord HQ]: Good work getting out of there commander, However your objective is still at hand. We have managed to secure a foothold on Velra and have began to set up gates for the evacuatation. You will support the defense, HQ out.', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'victoryend-1', faction = 'Seraphim'},
+}
 
+Debriefing_Lose = {
+{text = '[Overlord HQ]: We lost one of our best commanders today. We must still attempt to break the blockade if we are to survive!', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'Seraphim'},
+}
 
 
