@@ -56,7 +56,7 @@ local NIS1InitialDelay = 3
 
 function OnPopulate(self)
     ScenarioUtils.InitializeScenarioArmies()
-	
+    	
 	ScenarioFramework.SetSeraphimColor(Player1)
 	ScenarioFramework.SetAeonEvilColor(KOrder)
 	ScenarioFramework.SetUEFPlayerColor(UEF)
@@ -83,7 +83,7 @@ function OnPopulate(self)
 end
 
 function OnStart(self)
-
+    
     ScenarioFramework.SetPlayableArea('AREA_1', false)   
     
 	 for _, Player in ScenarioInfo.HumanPlayers do
@@ -122,7 +122,7 @@ function OnStart(self)
        for _, u in GetArmyBrain(Order):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
                Buff.ApplyBuff(u, 'CheatIncome')
        end	   
-   GetArmyBrain(Order):SetResourceSharing(false)
+    GetArmyBrain(Order):SetResourceSharing(false)
 	
 	ForkThread(IntroP1)
 
@@ -224,7 +224,7 @@ function IntroP1()
         end
     end	
    
-   ScenarioFramework.Dialogue(OpStrings.Intro2P1, nil, true)
+    ScenarioFramework.Dialogue(OpStrings.Intro2P1, nil, true)
    
 	local Orderunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_M1', ArmyBrains[Order])
             for k, v in Orderunits do
@@ -348,15 +348,15 @@ function SecondaryMissionP1()
                 },
             },
         }
-   )
+    )
     ScenarioInfo.M2P1S1:AddResultCallback(
     function(result)
         if(result) then
 		  
 		end
     end
-   )    
-	
+    )    
+    	
 	
 
 
@@ -655,9 +655,9 @@ function Mission2()
     )
 	end
 	
- end)
+end)
  
-    
+        
 	ScenarioInfo.M1P2S2 = Objectives.Protect(
     'secondary',                      -- type
     'incomplete',                   -- complete
@@ -668,9 +668,9 @@ function Mission2()
              Units = {ScenarioInfo.P1P1ACU}  
            
         }
-    
-   )
-   ScenarioInfo.M1P2S2:AddResultCallback(
+            
+    )
+    ScenarioInfo.M1P2S2:AddResultCallback(
         function(result)
             if (result) then
                
@@ -860,10 +860,10 @@ function MissionP3()
 end
 
 function SecondaryMissionP3()
+       
+    ScenarioFramework.Dialogue(OpStrings.Secondary1P3, nil, true)
    
-   ScenarioFramework.Dialogue(OpStrings.Secondary1P3, nil, true)
-   
-   ScenarioInfo.M3S1 = Objectives.CategoriesInArea(
+    ScenarioInfo.M3S1 = Objectives.CategoriesInArea(
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Destroy the UEF Resource Island',                 -- title
@@ -882,14 +882,14 @@ function SecondaryMissionP3()
                 },
             },
         }
-   )
+    )
     ScenarioInfo.M3S1:AddResultCallback(
     function(result)
 	if(result) then
 	 ScenarioFramework.Dialogue(OpStrings.SecondaryEnd1P3, nil, true)
      end
 	end
-   )
+    )
 
 end
 
@@ -951,7 +951,7 @@ function P3COffmapattacks2()
 end
 
 function TimerCounter()
-    
+        
     if ScenarioInfo.M2P2.Active then
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UExtra', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(platoon, 'P3ULandchain1')
@@ -1046,9 +1046,9 @@ function IntroP4()
     end
 
 	ScenarioInfo.Palace = ScenarioUtils.CreateArmyUnit('Kael', 'Kaelpalace')
-	 ScenarioInfo.Palace:SetCustomName("Kael's Palace")
-     ScenarioInfo.Palace:SetReclaimable(false)
-     ScenarioInfo.Palace:SetCapturable(false)
+	ScenarioInfo.Palace:SetCustomName("Kael's Palace")
+    ScenarioInfo.Palace:SetReclaimable(false)
+    ScenarioInfo.Palace:SetCapturable(false)
 	
 	ScenarioUtils.CreateArmyGroup('Kael', 'P4KOuterD_D'.. Difficulty)
 	ScenarioUtils.CreateArmyGroup('Kael', 'P4KWalls')
@@ -1137,7 +1137,7 @@ end
 
 function MissionP4()
 	
-     ScenarioInfo.M1P4 = Objectives.Kill(
+    ScenarioInfo.M1P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
         'Kill Kael',                -- title
@@ -1218,7 +1218,7 @@ function P4KillUEFBase()
 end
 
 function UEFACUdeath()
-    
+        
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.P4UACU, 3)
 	ScenarioFramework.Dialogue(OpStrings.ACUDeath3, nil, true)
 	
