@@ -1,8 +1,8 @@
 
 IntroP1 = {
   {text = '[Overlord HQ]: It appears Commander Zuth has failed to defend the exit gate. We are transfering the remaining units and base structures to your command.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: Commander show our fallen comrade how a real seraphim fights pathetic humans.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: Elimiate any human forces assaulting your position HQ, out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
+  {text = '[Overlord HQ]: Commander, This gate is the only way off planet defend it.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+  {text = '[Overlord HQ]: Eliminate any UEF forces assaulting your position HQ, out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
 }
 
 IntroP2 = {
@@ -15,8 +15,8 @@ MidP2 = {
 }
 
 IntroP3 = {
-	{text = '[Overlord HQ]:The Human has set up a number of bases around you, destroy them so we can bring our comrades through the first gate.', vid = 'X06_Seth-Iavow_M03_04500.sfd', bank = 'JJ_VO2', cue = 'IntroP3-1', faction = 'Seraphim'},
-	{text = '[Overlord HQ]:It appears Commander Zuth is still alive, help him if you can, but his gate is more important than his life, HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'IntroP3-2', faction = 'Seraphim'},
+	{text = '[Overlord HQ]:The UEF has set up a number of bases around you, destroy them so we can bring commanders through the first retreat gate.', vid = 'X06_Seth-Iavow_M03_04500.sfd', bank = 'JJ_VO2', cue = 'IntroP3-1', faction = 'Seraphim'},
+	{text = '[Overlord HQ]:It appears Commander Zuth is still alive, help him if you can, there is a number of commanders waiting on safe passage. Complete your Objectives, HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'IntroP3-2', faction = 'Seraphim'},
 }
 
 CompleteP3 = {
@@ -36,6 +36,14 @@ IntroP4 = {
 
 IntroP4S = {
 	{text = '[Overlord HQ]: A group of Seraphim Tech officers are traped across the river, If you can bring them back to your gate, HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'CompleteP2S', faction = 'Seraphim'},
+}
+
+SACUs = {
+	{text = '[Overlord HQ]: Commander two SACU commanders are gating in to assist you, We are also giving you acess to consruct new SACUs. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'CompleteP2S', faction = 'Seraphim'},
+}
+
+SACUsDeath = {
+	{text = '[Overlord HQ]: Commander one of your support commanders died, We can not afford another loss like that, perform better. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'CompleteP2S', faction = 'Seraphim'},
 }
 
 CompleteP4S = {
@@ -92,5 +100,5 @@ Debriefing_Win = {
 }
 
 Debriefing_Lose = {
-{text = '[General Hall]: All Seraphim forces have been traped and killed on Velra. All remaining Order commanders have either surrendered or have been killed, this is a momentous occasion!', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
+{text = '[General Hall]: All Seraphim forces have been trapped and killed on Velra. All remaining Order commanders have either surrendered or have been killed, this is a momentous occasion!', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
 }

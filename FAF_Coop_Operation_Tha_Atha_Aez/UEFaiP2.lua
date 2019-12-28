@@ -34,6 +34,14 @@ function UEFS2baseAI()
     UEFbase3:SetActive('AirScouting', true)
  
 	P1UB3Airattacks()
+	
+	ForkThread(
+	function()
+	WaitSeconds(5*60)
+	P1UB3EXpattacks1()
+	end
+	)
+	
 end
  
 function P1UB1landAttacks()
@@ -41,20 +49,20 @@ function P1UB1landAttacks()
 	local Temp = {
         'P2UB1LandAttackTemp1',
         'NoPlan',
-        { 'xel0305', 1, 5, 'Attack', 'GrowthFormation' },  
+        { 'xel0305', 1, 6, 'Attack', 'GrowthFormation' },  
         { 'uel0205', 1, 3, 'Attack', 'GrowthFormation' },    
 	}
 	local Builder = {
         BuilderName = 'P2UB1LandAttackBuilder1',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
-            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2'}
+            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -69,13 +77,13 @@ function P1UB1landAttacks()
         BuilderName = 'P2UB1LandAttackBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
-            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2'}
+            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -83,26 +91,27 @@ function P1UB1landAttacks()
 	Temp = {
         'P2UB1LandAttackTemp3',
         'NoPlan',
-        { 'uel0304', 1, 2, 'Attack', 'GrowthFormation' },  --heavy bots
-        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },  --Moblesheild
+        { 'uel0304', 1, 3, 'Attack', 'GrowthFormation' },  --Mobile Arty
+        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },  --Mobilesheild
 	}
     Builder = {
         BuilderName = 'P2UB1LandAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 400,
+        InstanceCount = 2,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
-            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2'}
+            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
  end
  
 function P1UB1Airattacks()
+
 	local Temp = {
         'P2UB1AirAttackTemp1',
         'NoPlan',
@@ -112,7 +121,7 @@ function P1UB1Airattacks()
         BuilderName = 'P2UB1AirAttackBuilder1',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
@@ -132,7 +141,7 @@ function P1UB1Airattacks()
         BuilderName = 'P2UB1AirAttackBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
@@ -152,8 +161,8 @@ function P1UB1Airattacks()
 	Builder = {
         BuilderName = 'P2UB1AirAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 400,
+        InstanceCount = 3,
+        Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
@@ -174,7 +183,7 @@ function P1UB1Airattacks()
         BuilderName = 'P2UB1AirAttackBuilder0',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 500,
+        Priority = 200,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'NorthUEFbase',
@@ -191,21 +200,21 @@ function P1UB2landattacks()
 	local Temp = {
         'P1UB2LandAttackTemp1',
         'NoPlan',
-        { 'uel0202', 1, 8, 'Attack', 'GrowthFormation' }, 
-        { 'uel0111', 1, 4, 'Attack', 'GrowthFormation' }, 
+        { 'uel0202', 1, 9, 'Attack', 'GrowthFormation' }, 
+        { 'uel0111', 1, 6, 'Attack', 'GrowthFormation' }, 
         { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },
 	}
 	local Builder = {
         BuilderName = 'P1UB2LandAttackBuilder1',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2'}
+            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -214,19 +223,20 @@ function P1UB2landattacks()
         'P1UB2LandAttackTemp2',
         'NoPlan',
         { 'uel0303', 1, 9, 'Attack', 'GrowthFormation' }, 
-        { 'uel0307', 1, 3, 'Attack', 'GrowthFormation' }, 
+        { 'uel0307', 1, 3, 'Attack', 'GrowthFormation' },
+        { 'uel0205', 1, 3, 'Attack', 'GrowthFormation' },		
 	}
 	Builder = {
         BuilderName = 'P1UB2LandAttackBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 500,
+        InstanceCount = 2,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2'}
+            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -234,20 +244,20 @@ function P1UB2landattacks()
 	Temp = {
         'P1UB2LandAttackTemp3',
         'NoPlan',
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },
-        { 'uel0304', 1, 2, 'Attack', 'GrowthFormation' }, 
+        { 'uel0202', 1, 6, 'Attack', 'GrowthFormation' },
+        { 'uel0304', 1, 3, 'Attack', 'GrowthFormation' }, 
 	}
 	Builder = {
         BuilderName = 'P1UB2LandAttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 500,
+        InstanceCount = 3,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2'}
+            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
@@ -258,14 +268,14 @@ function P1UB3Airattacks()
 	local Temp = {
         'P2UB3AirAttackTemp1',
         'NoPlan',
-        { 'uea0203', 1, 12, 'Attack', 'GrowthFormation' }, 
+        { 'uea0203', 1, 9, 'Attack', 'GrowthFormation' }, 
 	    { 'uea0305', 1, 6, 'Attack', 'GrowthFormation' },  
 	}
 	local Builder = {
         BuilderName = 'P2UB3AirAttackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
-        Priority = 400,
+        InstanceCount = 1,
+        Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase2',
@@ -279,14 +289,14 @@ function P1UB3Airattacks()
 	Temp = {
         'P2UB3AirAttackTemp2',
         'NoPlan',
-        { 'dea0202', 1, 8, 'Attack', 'GrowthFormation' },
+        { 'dea0202', 1, 9, 'Attack', 'GrowthFormation' },
 	    { 'uea0303', 1, 6, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
         BuilderName = 'P2UB3AirAttackBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 400,
+        Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase2',
@@ -301,14 +311,14 @@ function P1UB3Airattacks()
         'P2UB3AirAttackTemp3',
         'NoPlan',
         { 'uea0305', 1, 6, 'Attack', 'GrowthFormation' },  --ASFs
-        { 'uea0203', 1, 12, 'Attack', 'GrowthFormation' },  --Gunships
-	    { 'uea0303', 1, 9, 'Attack', 'GrowthFormation' },  --Hev Gunships
+        { 'uea0203', 1, 9, 'Attack', 'GrowthFormation' },  --Gunships
+	    { 'uea0303', 1, 6, 'Attack', 'GrowthFormation' },  --Hev Gunships
 	}
 	Builder = {
         BuilderName = 'P2UB3AirAttackBuilder3',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 500,
+        Priority = 200,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase2',
@@ -330,7 +340,7 @@ function P1UB3Airattacks()
         BuilderName = 'P2UB3AirAttackBuilder4',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 500,
+        Priority = 200,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'SouthUEFbase2',
@@ -341,3 +351,23 @@ function P1UB3Airattacks()
 	}
 	ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
+
+function P1UB3EXpattacks1()
+    local opai = nil
+    local quantity = {}
+    
+    opai = UEFbase3:AddOpAI('P2Fatboy',
+        {
+            Amount = 1,
+            KeepAlive = true,
+           PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P2B1Expattack1', 'P2B1Expattack2'}
+        },
+            MaxAssist = 2,
+            Retry = true,
+        }
+    )
+
+end
+ 

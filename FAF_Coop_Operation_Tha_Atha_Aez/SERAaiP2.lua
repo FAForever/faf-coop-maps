@@ -13,7 +13,6 @@ function SeraphimBaseAI()
     Serabase:StartNonZeroBase({{15,12,9}, {12,10,7}})
 	
 	SeraAirPatrols()
-	
 	SeraLandPatrols()
 	
 end
@@ -42,11 +41,30 @@ function SeraAirPatrols()
 	}
 	ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
 	
+	Temp = {
+       'Sera1AirDefenceTemp2',
+       'NoPlan',
+	   { 'xsa0303', 1, 5, 'Attack', 'GrowthFormation' },
+	}
+	Builder = {
+       BuilderName = 'Sera1AirDefenceBuilder2',
+       PlatoonTemplate = Temp,
+       InstanceCount = 3,
+       Priority = 100,
+       PlatoonType = 'Air',
+       RequiresConstruction = true,
+       LocationType = 'Seraphimbase',
+       PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P2S1B1defence1'
+       },
+	}
+	ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+	
 end
 
 function SeraLandPatrols()
 
- local opai = nil
 	local Temp = {
         'SA1landDefenceTemp1',
         'NoPlan',
@@ -57,7 +75,7 @@ function SeraLandPatrols()
         BuilderName = 'SA1landDefenceBuilder1',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 100,
+        Priority = 150,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'Seraphimbase',
@@ -78,7 +96,7 @@ function SeraLandPatrols()
         BuilderName = 'SA1landDefenceBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 3,
-        Priority = 100,
+        Priority = 130,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'Seraphimbase',
