@@ -1,23 +1,25 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local CustomFunctions = '/maps/faf_coop_operation_tha_atha_aez.v0011/FAF_Coop_Operation_Tha_Atha_Aez_CustomFunctions.lua' 
 
 local SeraphimAlly2 = 6
 
+local Difficulty = ScenarioInfo.Options.Difficulty
 
 local Serabase2 = BaseManager.CreateBaseManager()
 
-function OrderBaseAI()
-	Serabase2:Initialize(ArmyBrains[SeraphimAlly2], 'Orderbase', 'OrderBaseMK', 60, {AeonbaseAlly2 = 100})
-    Serabase2:StartNonZeroBase({12,8})
-    Serabase2:SetActive('AirScouting', true)
-    Serabase2:SetActive('LandScouting', true)
+function OrderBase1AI()
+	Serabase2:InitializeDifficultyTables(ArmyBrains[SeraphimAlly2], 'Orderbase', 'OrderBaseMK', 70, {AeonbaseAlly2 = 100})
+    Serabase2:StartNonZeroBase({{15,12,9}, {12,9,6}})
 
 	OrderlandAttacks()
 	OrderAirAttacks()
+	
 end
 
 function OrderAirAttacks()
+
     local Temp = {
         'AirDefenceTemp2',
         'NoPlan',
@@ -39,20 +41,46 @@ function OrderAirAttacks()
        },
 	}
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+	
 end
 
 function OrderlandAttacks()
 
     local Temp = {
-        'LandDefenceTemp2',
+        'P3SA2LandDefenceTemp0',
         'NoPlan',
-        { 'ual0202', 1, 10, 'Attack', 'GrowthFormation' },  --Heavy Tanks
+        { 'ual0202', 1, 7, 'Attack', 'GrowthFormation' },  --Heavy Tanks
+		{ 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },   --Mobile-Sheilds
+		{ 'ual0205', 1, 4, 'Attack', 'GrowthFormation' },   --Anti-Air Flak
 	}
 	local Builder = {
-        BuilderName = 'LandDefenceBuilder2',
+        BuilderName = 'P3SA2LandDefenceBuilder0',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 400,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Orderbase',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+        PlatoonData = {
+            PatrolChain = 'P3S2B1defence2'
+        },
+	}
+	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+	
+	
+	Temp = {
+        'P3SA2LandDefenceTemp1',
+        'NoPlan',
+        { 'ual0202', 1, 6, 'Attack', 'GrowthFormation' },
+		{ 'xal0305', 1, 2, 'Attack', 'GrowthFormation' },
+		{ 'dalk003', 1, 2, 'Attack', 'GrowthFormation' },
+	}
+	Builder = {
+        BuilderName = 'P3SA2LandDefenceBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'Orderbase',
@@ -64,35 +92,30 @@ function OrderlandAttacks()
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 	
 	Temp = {
-        'LandDefenceTemp3',
+        'P3SA2LandDefenceTemp2',
         'NoPlan',
-        { 'ual0205', 1, 6, 'Attack', 'GrowthFormation' },  --Heavy Tanks
+        { 'ual0303', 1, 3, 'Attack', 'GrowthFormation' },
+		{ 'ual0202', 1, 5, 'Attack', 'GrowthFormation' },
 	}
 	Builder = {
-        BuilderName = 'LandDefenceBuilder3',
+        BuilderName = 'P3SA2LandDefenceBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
-        Priority = 400,
+        InstanceCount = 3,
+        Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'Orderbase',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
-        PlatoonData = {
-            PatrolChain = 'P3S2B1defence2'
+        PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
+       PlatoonData = {
+           MoveChains = {'P3SA2landattack1', 'P3SA2landattack2'}
         },
+	
 	}
 	ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 	
+	
 end
 
-function DisableBase1()
-    if(Serabase2) then
-        LOG('Serabase2 stopped')
-        Serabase2:BaseActive(false)
-    end
-    for _, platoon in ArmyBrains[SeraphimAlly2]:GetPlatoonsList() do
-        platoon:Stop()
-        ArmyBrains[SeraphimAlly2]:DisbandPlatoon(platoon)
-    end
-    LOG('All Platoons of Serabase2 stopped')
-end
+
+
+
