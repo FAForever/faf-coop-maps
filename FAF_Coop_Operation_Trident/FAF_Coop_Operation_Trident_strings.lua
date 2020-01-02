@@ -500,7 +500,7 @@ M2P2Title = '<LOC FAF_Coop_Operation_Trident_M2P2Title>Sink the Atlantis'
 M2P2Description = '<LOC FAF_Coop_Operation_Trident_M2P2Description>The UEF has a strong air presence in the area supported by the Atlantis positioned in the nearby sea base. Sink it to reduce the UEF air production cababilities.'
 
 M2P3Title = '<LOC FAF_Coop_Operation_Trident_M2P3Title>Evacuate the civilians'
-M2P3Description = '<LOC FAF_Coop_Operation_Trident_M2P3Description>Transports are coming to pick up our people. At least %s of the turcks must survive.'
+M2P3Description = '<LOC FAF_Coop_Operation_Trident_M2P3Description>Transports are coming to pick up our people. At least %s of the trucks must survive.'
 
 -- Secondary Objectives
 M2S1Title = '<LOC FAF_Coop_Operation_Trident_M2S1Title>Build Tech 2 Shield Generators over the settlement'
