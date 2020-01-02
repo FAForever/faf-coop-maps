@@ -22,14 +22,7 @@ function CybranM3BaseAI()
     CybranM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     CybranM3Base:SetActive('AirScouting', true)
     CybranM3Base:SetSupportACUCount(Difficulty)
-    CybranM3Base:SetSACUUpgrades({'ResourceAllocation', 'Switchback', 'SelfRepairSystem'})
-
-    ForkThread(function()
-        -- Spawn support factories bit later, since sometimes they can't build anything
-        WaitSeconds(1)
-        CybranM3Base:AddBuildGroup('M3_Cybran_Base_Support_Factories', 100, true)
-    end)
-    
+    CybranM3Base:SetSACUUpgrades({'ResourceAllocation', 'Switchback', 'SelfRepairSystem'})    
 
     -- East Defenses, only for Easy Difficulty
     if Difficulty == 1 then

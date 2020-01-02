@@ -23,12 +23,6 @@ function AeonM3BaseAI()
     AeonM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     AeonM3Base:SetActive('AirScouting', true)
 
-    ForkThread(function()
-        -- Spawn support factories bit later, since sometimes they can't build anything
-        WaitSeconds(1)
-        AeonM3Base:AddBuildGroup('M3_Aeon_Base_Support_Factories', 100, true)
-    end)
-
     AeonM3BaseAirAttacks()
     AeonM3BaseLandAttacks()
 end
