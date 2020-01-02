@@ -97,28 +97,3 @@ function PatrolThread(platoon)
         error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)
     end
 end
-
-####################################################################################################################
-### ReclaimPatrolThread
-###     - Each unit of a platoon gets a random patrol chain from the list
-###
-### PlatoonData
-###     - PatrolChains - List of chains to choose from
-###
-####################################################################################################################
-function ReclaimPatrolThread(platoon)
-    local data = platoon.PlatoonData
-    platoon:Stop()
-    if(data) then
-        if(data.PatrolChains) then
-            for k, v in platoon:GetPlatoonUnits() do
-                local chain = Random(1, table.getn(data.PatrolChains))
-                ScenarioFramework.GroupPatrolChain({v}, data.PatrolChains[chain])
-            end
-        else
-            error('*SCENARIO PLATOON AI ERROR: PatrolChains not defined', 2)
-        end
-    else
-        error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)
-    end
-end
