@@ -158,24 +158,22 @@ function OnStart(self)
     --------------------
     -- Build Restrictions
     --------------------
-    for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.AddRestriction(player,
-            categories.xeb2306 + -- UEF Heavy Point Defense
-            categories.xel0305 + -- UEF Percival
-            categories.xel0306 + -- UEF Mobile Missile Platform
-            categories.xes0102 + -- UEF Torpedo Boat
-            categories.xes0205 + -- UEF Shield Boat
-            categories.xes0307 + -- UEF Battlecruiser
-            categories.xeb0104 + -- UEF Engineering Station 1
-            categories.xeb0204 + -- UEF Engineering Station 2
-            categories.xea0306 + -- UEF Heavy Air Transport
-            categories.xsl0305 + -- Seraph Sniper Bot
-            categories.EXPERIMENTAL +
-            categories.SUBCOMMANDER +
-            categories.xss0304 + -- Seraph Sub Hunter
-            categories.GATE
-        )
-    end
+    ScenarioFramework.AddRestrictionForAllHumans(
+        categories.xeb2306 + -- UEF Heavy Point Defense
+        categories.xel0305 + -- UEF Percival
+        categories.xel0306 + -- UEF Mobile Missile Platform
+        categories.xes0102 + -- UEF Torpedo Boat
+        categories.xes0205 + -- UEF Shield Boat
+        categories.xes0307 + -- UEF Battlecruiser
+        categories.xeb0104 + -- UEF Engineering Station 1
+        categories.xeb0204 + -- UEF Engineering Station 2
+        categories.xea0306 + -- UEF Heavy Air Transport
+        categories.xsl0305 + -- Seraph Sniper Bot
+        categories.EXPERIMENTAL +
+        categories.SUBCOMMANDER +
+        categories.xss0304 + -- Seraph Sub Hunter
+        categories.GATE
+    )
 
     -- Initialize camera
     if not SkipNIS1 then
