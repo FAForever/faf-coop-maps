@@ -370,7 +370,7 @@ function NISUnits()
 
     local UEFAir = ArmyBrains[UEF]:GetListOfUnits(categories.uea0303, false)
     for _, unit in UEFAir do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             unit:Kill()
         end
     end
@@ -411,10 +411,10 @@ function DropReinforcements(brain, targetBrain, units, DropLocation, TransportDe
             end
 
             for _, unit in landUnits do
-                while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+                while (not unit.Dead and unit:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
-                if (unit and not unit:IsDead()) then
+                if (unit and not unit.Dead) then
                     ScenarioFramework.GiveUnitToArmy(unit, strArmy)
                 end
             end
@@ -634,7 +634,7 @@ end
 
 function UpgradeMex()
     local Mex = ScenarioInfo.UnitNames[UEF]['MexToUpgrade2']
-    if Mex and not Mex:IsDead() then
+    if Mex and not Mex.Dead then
         ScenarioFramework.UpgradeUnit(Mex)
     end
 end
@@ -895,11 +895,11 @@ function M2InitialAttack()
 
             --local platoon = ArmyBrains[UEF]:MakePlatoon('','')
             for _, unit in landUnits do
-                while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+                while (not unit.Dead and unit:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
                 
-                if (unit and not unit:IsDead()) then
+                if (unit and not unit.Dead) then
                     --ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {unit}, 'Attack', 'AttackFormation')
                     IssueAggressiveMove({unit}, ScenarioUtils.MarkerToPosition('M2_UEF_Air_South_Init_1_' .. Random(3,4)))
                 end
@@ -1303,7 +1303,7 @@ function IntroMission4()
 
     -- Satellite defense
     local orbital = ArmyBrains[UEF]:GetListOfUnits(categories.xea0002, false)
-    if(orbital[1] and not orbital[1]:IsDead()) then
+    if(orbital[1] and not orbital[1].Dead) then
         local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
         ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M4_Fort_Clarke_Sat_Chain')
@@ -1388,12 +1388,12 @@ function M4NukeParty()
     IssueNuke({OrderNuke[1]}, ScenarioUtils.MarkerToPosition('M4_Order_Nuke_Marker_2'))
     WaitSeconds(120)
 
-    --while OrderAntiNuke and not OrderAntiNuke:IsDead() do
+    --while OrderAntiNuke and not OrderAntiNuke.Dead do
         --WaitSeconds(5)
     --end
 
     local run = 0
-    while run < 3 and ScenarioInfo.OrderCDR and not ScenarioInfo.OrderCDR:IsDead() do
+    while run < 3 and ScenarioInfo.OrderCDR and not ScenarioInfo.OrderCDR.Dead do
         UEFNuke[1]:GiveNukeSiloAmmo(1)
         AeonNuke[1]:GiveNukeSiloAmmo(1)
         CybranNuke[1]:GiveNukeSiloAmmo(1)
