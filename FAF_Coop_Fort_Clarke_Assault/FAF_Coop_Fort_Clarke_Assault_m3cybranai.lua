@@ -17,8 +17,8 @@ local CybranM3Base = BaseManager.CreateBaseManager()
 -------------------
 function CybranM3BaseAI()
     CybranM3Base:InitializeDifficultyTables(ArmyBrains[Cybran], 'M3_Cybran_Base', 'M3_Cybran_Base_Marker', 70, {M3_Cybran_Base = 100,
-    																											M3_Cybran_Bluffs_1 = 80,
-    																											M3_Cybran_Bluffs_2 = 70})
+                                                                                                                M3_Cybran_Bluffs_1 = 80,
+                                                                                                                M3_Cybran_Bluffs_2 = 70})
     CybranM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     CybranM3Base:SetActive('AirScouting', true)
     CybranM3Base:SetSupportACUCount(Difficulty)
@@ -33,7 +33,7 @@ function CybranM3BaseAI()
 
     -- East Defenses, only for Easy Difficulty
     if Difficulty == 1 then
-    	CybranM3Base:AddBuildGroup('M3_East_Defenses_D1', 90, true)
+        CybranM3Base:AddBuildGroup('M3_East_Defenses_D1', 90, true)
     end
 
     CybranM3BaseAirAttacks()
@@ -41,12 +41,12 @@ function CybranM3BaseAI()
 end
 
 function CybranM3BaseAirAttacks()
-	--[[
-	{'M3_Cybran_AirAttackOrder_Chain_1', 
-	'M3_Cybran_AirAttackOrder_Chain_2',
-	'M3_Cybran_AirAttackOrder_Chain_3'}, -- for naval
-	]]--
-	local opai = nil
+    --[[
+    {'M3_Cybran_AirAttackOrder_Chain_1', 
+    'M3_Cybran_AirAttackOrder_Chain_2',
+    'M3_Cybran_AirAttackOrder_Chain_3'}, -- for naval
+    ]]--
+    local opai = nil
     local quantity = {}
     local trigger = {}
 

@@ -17,7 +17,7 @@ local AeonM3BaseNaval = BaseManager.CreateBaseManager()
 -- Aeon Main Base
 -----------------
 function AeonM3BaseAI()
-	AeonM3Base:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Aeon_Base = 100,
+    AeonM3Base:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Aeon_Base = 100,
                                                                                                         M3_Aeon_Bluffs_1 = 90,
                                                                                                         M3_Aeon_Bluffs_2 = 80})
     AeonM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
