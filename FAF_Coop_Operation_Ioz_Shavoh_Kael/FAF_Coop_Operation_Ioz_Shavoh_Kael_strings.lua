@@ -1,18 +1,18 @@
 Intro1P1 = {
-   {text = '[Overlord HQ]: Commander, several Order commanders are engaged on planet against Kael\'s tratior forces. You will be assisted by the human commander called Havra.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
-   {text = '[Executioner Havra]: Welcome My lord, I am currently engaged with a traitorous Order commander to our north. Togather we will crush her and move to attack Kael to the east.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-   {text = '[Executioner Havra]: My lord, the tratior is launching an assault on the landing zone, I would advise gating in quickly.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander, several Order commanders are engaged on planet against Kael\'s tratior forces. You will be assisted by the human commander called Havra.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+    {text = '[Executioner Havra]: Welcome My lord, I am currently engaged with a traitorous Order commander to our north. Togather we will crush her and move to attack Kael to the east.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
+    {text = '[Executioner Havra]: My lord, the tratior is launching an assault on the landing zone, I would advise gating in quickly.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
 }
 
 Intro2P1 = {
-  {text = '[Executioner Havra]: My lord, I am transfering control of the remaining units and structures in this base to you, I am tasking Jareth with assisting you clear this region.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-  {text = '[Jareth]: It is good to see you again my lord, I will be launching attacks and setting up defenses, while you establish your base.', vid = '.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: Commander, for the time being QAI will be your main source of operational intelligence, while HQ focuses our attention else were, HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
+    {text = '[Executioner Havra]: My lord, I am transfering control of the remaining units and structures in this base to you, I am tasking Jareth with assisting you clear this region.', vid = 'Gari.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
+    {text = '[Jareth]: It is good to see you again my lord, I will be launching attacks and setting up defenses, while you establish your base.', vid = '.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander, for the time being QAI will be your main source of operational intelligence, while HQ focuses our attention else were, HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
  }
  
 Intro3P1 = {
-  {text = '[QAI]: Commander, I would suggest acting quickly, Kael\'s broadcasts have not gone unnoticed by the Coalition.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'Seraphim'},
-  {text = '[QAI]: Currently their forces are attacking the outlining systems, but it will not be long before they reach this planet, QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, I would suggest acting quickly, Kael\'s broadcasts have not gone unnoticed by the Coalition.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'Seraphim'},
+    {text = '[QAI]: Currently their forces are attacking the outlining systems, but it will not be long before they reach this planet, QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'Seraphim'},
   
 }
 
@@ -23,8 +23,8 @@ MidP1 = {
 }
 
 Secondary1P1 = {
-   {text = '[QAI]: Commander, I have dectect a weakness in the defenses of the tratior. Her air force only has a few air staging locations outside her base.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_3', faction = 'Seraphim'},
-   {text = '[QAI]: If you destroy them, it would only be a matter of time before her air force runs out of fuel patroling her base. your decision', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_3', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, I have dectect a weakness in the defenses of the tratior. Her air force only has a few air staging locations outside her base.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_3', faction = 'Seraphim'},
+    {text = '[QAI]: If you destroy them, it would only be a matter of time before her air force runs out of fuel patroling her base. your decision', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_3', faction = 'Seraphim'},
 
 }
 
@@ -42,18 +42,18 @@ Intro2P2 = {
 }
 
 Intro3P2 = {
-   {text = '[QAI]: Havra has turned off her freind-foe idenfication. She is launching an assault on your position.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_1P2', faction = 'Seraphim'},
-   {text = '[QAI]: Kelean\'s main base is located to your north, and Havra is located to your east. Jareth as not joined Havra and still has his freind-foe idenfication turned on.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_2P2', faction = 'Seraphim'},
-   {text = '[Jareth]: They are all traitors my lord, I am willing to fight and die for the Seraphim gods!', vid = '.sfd', bank = 'JJ_VO2', cue = 'Intro1_3P2', faction = 'Aeon'},
+    {text = '[QAI]: Havra has turned off her freind-foe idenfication. She is launching an assault on your position.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_1P2', faction = 'Seraphim'},
+    {text = '[QAI]: Kelean\'s main base is located to your north, and Havra is located to your east. Jareth as not joined Havra and still has his freind-foe idenfication turned on.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_2P2', faction = 'Seraphim'},
+    {text = '[Jareth]: They are all traitors my lord, I am willing to fight and die for the Seraphim gods!', vid = '.sfd', bank = 'JJ_VO2', cue = 'Intro1_3P2', faction = 'Aeon'},
 
 }
 
 Secondary1P2 = {
-   {text = '[QAI]: Commander, you have been granted the Experimental bomber. Begin construting one soon, QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary12_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, you have been granted the Experimental bomber. Begin construting one soon, QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary12_1', faction = 'Seraphim'},
 }
 
 SecondaryEnd1P2 = {
-   {text = '[QAI]: Good work, Use that to destroy your enemies. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
+    {text = '[QAI]: Good work, Use that to destroy your enemies. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
 }
 
 MidP2 = {
@@ -74,11 +74,11 @@ Intro2P3 = {
 }
 
 Secondary1P3 = {
-   {text = '[QAI]: Commander there is a small resource base on that island to the north-east. it is fueling the expermentals. Destroy when you see fit.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander there is a small resource base on that island to the north-east. it is fueling the expermentals. Destroy when you see fit.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
 }
 
 SecondaryEnd1P3 = {
-   {text = '[QAI]: The expermentals are building at a reduced rate now and will be easier to destroy. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
+    {text = '[QAI]: The expermentals are building at a reduced rate now and will be easier to destroy. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
 }
 
 Intro1P4 = {
@@ -89,11 +89,11 @@ Intro1P4 = {
 }
 
 Secondaryend1P4 = {
-   {text = '[QAI]: With the UEF commander defeated, attacking Kael will be much easier.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
+    {text = '[QAI]: With the UEF commander defeated, attacking Kael will be much easier.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
 }
 
 EndP4 = {
-   {text = '[Overlord HQ]: Kael is dead, all forces gate off planet at once!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'End_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Kael is dead, all forces gate off planet at once!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'End_1', faction = 'Seraphim'},
 }
 
 TAUNT1P1 = {
@@ -145,11 +145,11 @@ ACUDeath3 = {
 }
 
 Debriefing_Win = {
-{text = '[Overlord HQ]: With Kael dead all remaining dissent amoung our Order commanders has been stomped out. QAI\'s qauntum project is nearing completion. Soon we will be able to renew the Offensive and wipe out this Human scourge from the galaxy. HQ out.', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'victoryend-1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: With Kael dead all remaining dissent amoung our Order commanders has been stomped out. QAI\'s qauntum project is nearing completion. Soon we will be able to renew the Offensive and wipe out this Human scourge from the galaxy. HQ out.', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'victoryend-1', faction = 'Seraphim'},
 }
 
 Debriefing_Lose = {
-{text = '[Kael]: Sisters of the Order, hear me! The Seraphim\'s most prized warrior as been defeat by my hand! Resist the false gods! Only through the Order can we bring stabilty and strength to the galaxy!', vid = 'EvaluatorKael.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'Aeon'},
+    {text = '[Kael]: Sisters of the Order, hear me! The Seraphim\'s most prized warrior as been defeat by my hand! Resist the false gods! Only through the Order can we bring stabilty and strength to the galaxy!', vid = 'EvaluatorKael.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'Aeon'},
 }
 
 

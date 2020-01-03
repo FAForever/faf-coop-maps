@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/faf_coop_operation_yath_aez.v0001/FAF_Coop_Operation_Yath_Aez_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings.lua')
 
 operationData = 
 {
