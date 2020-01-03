@@ -126,7 +126,7 @@ function GivePlatoonToPlayer(platoon)
             WaitSeconds(1)
         end
         local tempUnit
-        if ScenarioInfo.HumanPlayers[2] then
+        if ScenarioInfo.HumanPlayers['Player2'] then
             tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player2')
         else
             tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player1')
