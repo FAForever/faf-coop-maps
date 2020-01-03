@@ -610,7 +610,7 @@ end
 
 function M3_Handle_Cybran_Teleport()
     while not ScenarioInfo.CybranCommander:IsDead() do
-        local targets = GetArmyBrain('Player'.. Random(1, table.getn(ScenarioInfo.HumanPlayers))):GetListOfUnits(categories.LAND * (categories.FACTORY + categories.MOBILE) - categories.WALL - categories.COMMAND, false)
+        local targets = GetArmyBrain('Player'.. Random(1, table.getsize(ScenarioInfo.HumanPlayers))):GetListOfUnits(categories.LAND * (categories.FACTORY + categories.MOBILE) - categories.WALL - categories.COMMAND, false)
         local target = targets[Random(1, table.getn(targets))]
         WaitSeconds(10)
 
