@@ -1,57 +1,56 @@
 IntroP1 = {
-  {text = '[Overlord HQ]: Commander welcome to Tarv-3 a former UEF colony world. We plan to use it to evacuate our troops from the Core into open space.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: Initial scans report that seraphim forces recently fought here, we also are picking up two UEF bases in the area.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: We have limited time commander, complete your objectives within the allotted time or we will be forced to find another planet to retreat to.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
-  {text = '[Overlord HQ]: Destroy all UEF forces and discover what happened to Yuth and his forces, HQ out', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_4', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander welcome to Tarv-3 a former UEF colony world. We plan to use it to evacuate our troops from the Core into open space.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Initial scans report that seraphim forces recently fought here, we also are picking up two UEF bases in the area.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: We have limited time commander, complete your objectives within the allotted time or we will be forced to find another planet to retreat to.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Destroy all UEF forces and discover what happened to Yuth and his forces, HQ out', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_4', faction = 'Seraphim'},
 }
 
 SecondaryP1 = {
-   {text = '[Overlord HQ]: Commander we are picking up Tac Missile launchers to your north in a small base, these may pose a problem to you but sufficant TMD will stop them as well as destroying them, it\'s your choice. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander we are picking up Tac Missile launchers to your north in a small base, these may pose a problem to you but sufficant TMD will stop them as well as destroying them, it\'s your choice. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
 }
 
 SecondaryEndP1 = {
-   {text = '[Overlord HQ]: Good work, with those Tac Missile launchers out of the way your landing zone is closer to secured. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work, with those Tac Missile launchers out of the way your landing zone is closer to secured. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
 }
 
 Secondary2P1 = {
-   {text = '[Overlord HQ]: Commander The UEF base to your west has a series of naval factories, we recommended getting your own naval presence quickly. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary21_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander The UEF base to your west has a series of naval factories, we recommended getting your own naval presence quickly. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary21_1', faction = 'Seraphim'},
 }
 
 SecondaryEnd2P1 = {
-   {text = '[Overlord HQ]: Good work, now construct a fleet of your own to rival the UEF commander\'s. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend21_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work, now construct a fleet of your own to rival the UEF commander\'s. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend21_1', faction = 'Seraphim'},
 }
 
 MidP1 = {
     {text = '[Overlord HQ]: Time is short commander, Coalition forces are attempting to pin down our retreat to a select few worlds. We are limited in our resources after the loss of the main body of the Order and QAI\'s shutdown by Brackman.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
-	{text = '[Overlord HQ]: We must get the bulk of our forces out into open space, before the Coalition has the chance to cut off our escape routes. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
-
+    {text = '[Overlord HQ]: We must get the bulk of our forces out into open space, before the Coalition has the chance to cut off our escape routes. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
 }
 
 IntroP2 = {
-	{text = '[Overlord HQ]: Planetary Scans report the UEF commander and his main base are to your south, scans also report... ', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
-	{text = '[Overlord HQ]: Commander there is a Cybran and Aeon on planet, this is some kind of trap!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
-	{text = '[Overlord HQ]: We are detecting several quantum wakes, you will not be able to gate out in these conditions.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'Seraphim'},
-	{text = '[Overlord HQ]: Defeat the UEF Commander and any enemy forces in the area, we will begin attempting to find a way to get you out of there. HQ out. ', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_4', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Planetary Scans report the UEF commander and his main base are to your south, scans also report... ', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander there is a Cybran and Aeon on planet, this is some kind of trap!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: We are detecting several quantum wakes, you will not be able to gate out in these conditions.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Defeat the UEF Commander and any enemy forces in the area, we will begin attempting to find a way to get you out of there. HQ out. ', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro2_4', faction = 'Seraphim'},
 }
 
 Secondary1P2 = {
-   {text = '[Overlord HQ]: Commander The UEF commander and Aeon forces, are constructing T3 Artillery installations, either build up more shields or take them out. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary12_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander The UEF commander and Aeon forces, are constructing T3 Artillery installations, either build up more shields or take them out. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary12_1', faction = 'Seraphim'},
 }
 
 SecondaryEnd1P2 = {
-   {text = '[Overlord HQ]: Good work that\'s one less problem to deal with. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work that\'s one less problem to deal with. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondaryend12_1', faction = 'Seraphim'},
 }
 
 Secondary2P2 = {
-   {text = '[Overlord HQ]: Commander The Aeon and Cybran are constructing secondary bases over the wreakage of Yuth\'s former bases. Destroy them quickly before they are fully established. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary22_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander The Aeon and Cybran are constructing secondary bases over the wreakage of Yuth\'s former bases. Destroy them quickly before they are fully established. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary22_1', faction = 'Seraphim'},
 }
 
 SecondaryEnd2P2 = {
-   {text = '[Overlord HQ]: Good work, that should help reduce the amount of enemy attacks, be careful though, they may attempt to rebuild them. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'SecondaryEnd22_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work, that should help reduce the amount of enemy attacks, be careful though, they may attempt to rebuild them. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'SecondaryEnd22_1', faction = 'Seraphim'},
 }
 
 MidP2 = {
-	{text = '[Overlord HQ]: So far we are able to detect four enemy commanders on planet, we almost have a method you get you out, complete your objectives. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: So far we are able to detect four enemy commanders on planet, we almost have a method you get you out, complete your objectives. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
 }
 
 IntroP3 = {
@@ -61,11 +60,11 @@ IntroP3 = {
 }
 
 SecondaryEnd1P3 = {
-   {text = '[Overlord HQ]: Good work, with the Cybran base gone the Jammer should be more vulnerable to attack. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work, with the Cybran base gone the Jammer should be more vulnerable to attack. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Secondary13_1', faction = 'Seraphim'},
 }
 
 EndP3 = {
-   {text = '[Overlord HQ]: Starting recall process in 5.. 4.. 3.. 2.. 1!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'End_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Starting recall process in 5.. 4.. 3.. 2.. 1!', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'End_1', faction = 'Seraphim'},
 }
 
 RevealP1  = {
@@ -105,11 +104,11 @@ M2B2Title = 'Kill Spider Bots'
 M2B2Description = 'You\'ve Killed %s Cybran experimentals.'
 
 Debriefing_Win = {
-{text = '[Overlord HQ]: Good work getting out of there commander, However your objective is still at hand. We have managed to secure a foothold on Velra and have began to set up gates for the evacuatation. You will support the defense, HQ out.', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'victoryend-1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work getting out of there commander, However your objective is still at hand. We have managed to secure a foothold on Velra and have began to set up gates for the evacuatation. You will support the defense, HQ out.', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'victoryend-1', faction = 'Seraphim'},
 }
 
 Debriefing_Lose = {
-{text = '[Overlord HQ]: We lost one of our best commanders today. We must still attempt to break the blockade if we are to survive!', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: We lost one of our best commanders today. We must still attempt to break the blockade if we are to survive!', vid = 'X06_Seth-Iavow_M03_0400.sfd', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'Seraphim'},
 }
 
 
