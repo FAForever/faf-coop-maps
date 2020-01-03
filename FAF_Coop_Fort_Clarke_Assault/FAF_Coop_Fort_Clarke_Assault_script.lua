@@ -1129,7 +1129,7 @@ function M3CounterAttack()
     end
 
     -- Mobile AA for Fatboy
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Fatboy_Support_D' .. Difficulty, 'AttackFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Fatboy_Support_D' .. Difficulty, 'AttackFormation')
     for _, v in platoon:GetPlatoonUnits() do
         IssueGuard({v}, ScenarioInfo.UnitNames[UEF]['UEF_Fatboy'])
     end
@@ -1141,6 +1141,46 @@ function M3CounterAttack()
 
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Init_Titans_' .. i .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_UEF_Init_LandAttack_Chain_' .. i)
+    end
+
+    -- Naval
+    -- Battleships
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Battleships_D' .. Difficulty, 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_UEF_Initial_Naval_Attack_Chain')
+
+    -- Cruisers around battleships
+    for _, v in platoon:GetPlatoonUnits() do
+        local support = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Battleship_Support_D' .. Difficulty, 'AttackFormation')
+        support:GuardTarget(v)
+        support:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('M2_UEF_Air_Attack_03'))
+    end
+
+    -- Atlantis, loaded with air units, released when damaged or when reaching player's base
+    local AtlantisPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Atlantis_D' .. Difficulty, 'AttackFormation')
+
+    -- Load one with units
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Atlantis_Cargo_D' .. Difficulty, 'NoFormation')
+    local unit = AtlantisPlatoon:GetPlatoonUnits()[1]
+    unit.AirPlatoon = platoon
+    for _, v in platoon:GetPlatoonUnits() do
+        unit:AddUnitToStorage(v)
+    end
+
+    for _, atlantis in AtlantisPlatoon:GetPlatoonUnits() do
+        IssueDive({atlantis})
+        -- Add to objective
+        table.insert(ScenarioInfo.M3ObjectiveExperimentalas, atlantis)
+    end
+    ScenarioFramework.PlatoonMoveChain(AtlantisPlatoon, 'M3_UEF_Initial_Naval_Attack_Chain')
+
+    -- Triggers to release the air units, either by being damaged or reaching the players base
+    ScenarioFramework.CreateUnitDamagedTrigger(M3ReleaseCargo, unit, .5)
+    ScenarioFramework.CreateUnitToMarkerDistanceTrigger(M3ReleaseCargo, unit, 'M2_UEF_Air_South_Init_1_2', 30)
+
+    -- Friages and Destroyers
+    for i = 1, 2 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_UEF_Naval_Attack_' .. i .. '_D' .. Difficulty, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_UEF_Initial_Naval_Attack_Chain')
     end
 end
 
@@ -1258,6 +1298,45 @@ function M3SeraphimReinforcements()
             end
         end
     )
+end
+
+function M3ReleaseCargo(unit)
+    -- Unload all units at the current position
+    if not unit.CargoReleased then
+        unit.CargoReleased = true
+
+        IssueStop({unit})
+        IssueClearCommands({unit})
+        IssueDive(({unit}))
+        IssueTransportUnload({unit}, unit:GetPosition())
+
+        -- Wait until they are all out
+        local allReleased = false
+        while not allReleased do
+            for _, v in unit.AirPlatoon:GetPlatoonUnits() do
+                if v:IsUnitState('Attached') then
+                    break
+                end
+                allReleased = true
+            end
+            WaitSeconds(3)
+        end
+
+        unit.AirPlatoon:Stop()
+
+        -- Attack the ACUs with the air units
+        for i = 1, table.getn(ScenarioInfo.HumanPlayers) do
+            local ACU = ScenarioInfo['Player' .. i .. 'CRD']
+            if ACU and not ACU.Dead then
+                unit.AirPlatoon:AggressiveMoveToLocation(ACU:GetPosition())
+            end
+        end
+        -- Then patrol the air units over the starting location
+        ScenarioFramework.PlatoonPatrolChain(unit.AirPlatoon, 'M1_EB2_Air_Attack_Chain_1')
+    end
+
+    -- Move towards the players base
+    IssueAggressiveMove({unit}, ScenarioUtils.MarkerToPosition('M2_UEF_Air_South_Init_1_2'))
 end
 
 function M3CheatEconomy()
