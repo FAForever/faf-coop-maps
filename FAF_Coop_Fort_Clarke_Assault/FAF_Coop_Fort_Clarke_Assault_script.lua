@@ -159,6 +159,27 @@ function OnStart(self)
     -- Build Restrictions
     --------------------
     ScenarioFramework.AddRestrictionForAllHumans(
+        categories.xal0305 + -- Aeon Sniper Bot
+        categories.xaa0202 + -- Aeon Mid Range fighter (Swift Wind)
+        categories.xab1401 + -- Aeon Quantum Resource Generator
+        categories.xas0204 + -- Aeon Submarine Hunter
+        categories.xaa0306 + -- Aeon Torpedo Bomber
+        categories.xas0306 + -- Aeon Missile Ship
+        categories.xab3301 + -- Aeon Quantum Optics Device
+        categories.xab2307 + -- Aeon Rapid Fire Artillery
+
+        categories.xra0105 + -- Cybran Light Gunship
+        categories.xrs0204 + -- Cybran Sub Killer
+        categories.xrs0205 + -- Cybran Counter-Intelligence Boat
+        categories.xrb2308 + -- Cybran Torpedo Ambushing System
+        categories.xrb0104 + -- Cybran Engineering Station 1
+        categories.xrb0204 + -- Cybran Engineering Station 2
+        categories.xrb0304 + -- Cybran Engineering Station 3
+        categories.xrb3301 + -- Cybran Perimeter Monitoring System
+        categories.xra0305 + -- Cybran Heavy Gunship
+        categories.xrl0305 + -- Cybran Brick
+        categories.xrl0403 + -- Cybran Amphibious Mega Bot
+
         categories.xeb2306 + -- UEF Heavy Point Defense
         categories.xel0305 + -- UEF Percival
         categories.xel0306 + -- UEF Mobile Missile Platform
@@ -168,10 +189,14 @@ function OnStart(self)
         categories.xeb0104 + -- UEF Engineering Station 1
         categories.xeb0204 + -- UEF Engineering Station 2
         categories.xea0306 + -- UEF Heavy Air Transport
+        categories.xeb2402 + -- UEF Sub-Orbital Defense System
+        categories.uel0301 + -- UEF sACU
+        categories.ueb0304 + -- UEF Gate
+
         categories.xsl0305 + -- Seraph Sniper Bot
-        categories.EXPERIMENTAL +
-        categories.SUBCOMMANDER +
         categories.xss0304 + -- Seraph Sub Hunter
+        categories.xsb2401 + -- Seraph exp Nuke
+        categories.SUBCOMMANDER +
         categories.GATE
     )
 
@@ -791,9 +816,6 @@ function IntroMission2NIS()
         Cinematics.ExitNISMode()
     end
 
-    -- Allow sACUs
-    ScenarioFramework.RemoveRestrictionForAllHumans(categories.GATE + categories.SUBCOMMANDER, true)
-
     M2InitialAttack()
     StartMission2()
 end
@@ -829,6 +851,8 @@ function StartMission2()
 
     ScenarioFramework.CreateTimerTrigger(M2AssignSecondary, 40)
 
+    -- Unlock Sniperbots
+    ScenarioFramework.CreateTimerTrigger(M2UnlockSniperBots, 120)
 
     -- Expand map even if objective isn't finished yet
     local M2MapExpandDelay = {20*60, 15*60, 10*60}
@@ -939,6 +963,11 @@ function M2CheatEconomy()
         ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
         WaitSeconds(1)
     end
+end
+
+function M2UnlockSniperBots()
+    -- Allow players to Sniperbots
+    ScenarioFramework.RemoveRestrictionForAllHumans(categories.xal0305 + categories.xsl0305, true)
 end
 
 function EnableStealthOnAir()
@@ -1272,8 +1301,8 @@ end
 function M3SeraphimReinforcements()
     ForkThread(
         function()
-            -- Allow players to build T4 Bots and Bombers
-            ScenarioFramework.RemoveRestrictionForAllHumans(categories.xsl0401 + categories.xsa0402, true)
+            -- Allow T3 Subs
+            ScenarioFramework.RemoveRestrictionForAllHumans(categories.xss0304, true)
 
             -- Move on map and give T4 Bot
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_Sera_Exps_D' .. Difficulty, 'AttackFormation')
