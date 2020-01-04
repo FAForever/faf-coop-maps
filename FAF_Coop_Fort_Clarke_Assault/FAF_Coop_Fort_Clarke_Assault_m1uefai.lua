@@ -275,7 +275,7 @@ function UEFM1ExpansionBases()
     -- T2 Arties
     if Difficulty >= 2 then
         ForkThread(function()
-            WaitSeconds(4 - Difficulty)
+            WaitSeconds((10 - Difficulty) * 60)
             UEFM1ExpansionBase3:Initialize(ArmyBrains[UEF], 'M1_Expansion_Base_3', 'M1_EB_3_Marker', 15, 
                 {M1_EB_3_STH = 100,
                  M1_EB_3_AT1 = 90,
