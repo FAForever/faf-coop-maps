@@ -358,7 +358,7 @@ function IntroMission1()
 
     for k, v in ScenarioInfo.M1OrderAttackPlatoons do
         if(ArmyBrains[Order]:PlatoonExists(v)) then
-            local r = Random(1, table.getn(ScenarioInfo.HumanPlayers))
+            local r = Random(1, table.getsize(ScenarioInfo.HumanPlayers))
             if (r==1) then
                 v:AttackTarget(ScenarioInfo.PlayerCDR)
             else
