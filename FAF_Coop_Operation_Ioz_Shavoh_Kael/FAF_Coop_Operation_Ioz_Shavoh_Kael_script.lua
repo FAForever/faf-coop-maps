@@ -606,44 +606,43 @@ function Mission2()
     
     ForkThread(
         function()
+            WaitSeconds(60)
     
-        WaitSeconds(60)
+            for _, Player in ScenarioInfo.HumanPlayers do
+                ScenarioFramework.RemoveRestriction(Player,
+                    categories.xsa0402 + -- Exp bomber
+                    categories.uaa0310  -- Exp Carrier          
+                )
     
-        for _, Player in ScenarioInfo.HumanPlayers do
-    
-        ScenarioFramework.RemoveRestriction(Player,
-            categories.xsa0402 + -- Exp bomber
-            categories.uaa0310  -- Exp Carrier          
-        )
-    
-        ScenarioInfo.M1P2S1 = Objectives.CategoriesInArea(
-            'secondary',                      -- type
-            'incomplete',                   -- complete
-            'Build A Experimental Bomber',                 -- title
-            'We have given you the blueprints to a T4 bomber, use it.',  -- description
-            'build',                         -- action
-            {                               -- target
-                ShowProgress = true,
-                Requirements = {
-                    {   
-                        Area = 'AREA_1',
+                ScenarioInfo.M1P2S1 = Objectives.CategoriesInArea(
+                    'secondary',                      -- type
+                    'incomplete',                   -- complete
+                    'Build A Experimental Bomber',                 -- title
+                    'We have given you the blueprints to a T4 bomber, use it.',  -- description
+                    'build',                         -- action
+                    {                               -- target
+                        ShowProgress = true,
+                        Requirements = {
+                            {   
+                                Area = 'AREA_1',
+                                Category = categories.xsa0402,
+                                CompareOp = '>=',
+                                Value = 1,
+                                ArmyIndex = Player,
+                            }, 
+                        },
                         Category = categories.xsa0402,
-                        CompareOp = '>=',
-                        Value = 1,
-                        ArmyIndex = Player,
-                    }, 
-                },
-                Category = categories.xsa0402,
-            }
-        )
-        ScenarioInfo.M1P2S1:AddResultCallback(
-            function(result)
-                if ( not result) then
-        
-                end
+                    }
+                )
+                ScenarioInfo.M1P2S1:AddResultCallback(
+                    function(result)
+                        if ( not result) then
+                
+                        end
+                    end
+                )
             end
-        )
-        end
+        end 
     )
 
     ScenarioInfo.M1P2S2 = Objectives.Protect(
