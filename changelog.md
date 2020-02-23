@@ -1,5 +1,39 @@
 # Changelog
 
+## Patch 6.0.0 (February 23rd, 2020)
+
+### General
+- Combatibility changes for the new common army option.
+
+### Custom Missions
+
+#### Operation Tha Atha Aez
+- Improvements and fixes.
+
+#### Operation Uthe Thuum QAI
+- Improvements and fixes.
+
+#### Operation Yath Aez
+- Improvements and fixes.
+
+#### Operation Ioz Shavoh Kael
+- New 4th mission of shadowlorda1's Seraphim campaign.
+
+#### Operation Trident
+- New Cybran mission for 2 players by speed2.
+
+#### Fork Clarke Assault
+- Fixed timer for building the UEF Arty base in the first part.
+- Increased unit limit.
+- Adjusted attack timings.
+- Added a naval attack from UEF in the 3rd part of the mission.
+- Unit restriction adjustmenets.
+
+### Contributors
+- KionX
+- shadowlorda1
+- speed2
+
 ## Patch 5.0.1 (October 30th, 2019)
 
 ### Cybran Campaign
