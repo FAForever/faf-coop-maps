@@ -139,7 +139,7 @@ function P2KO1B1Landattacks1()
         PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},
         PlatoonAddFunctions = {
             {
-            '/maps/Operation(Ioz-Shavoh-Kael)/Operation(Ioz-Shavoh-Kael)_script.lua', 'RemoveCommandCapFromPlatoon',
+            '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_script.lua', 'RemoveCommandCapFromPlatoon',
             },
         },
         PlatoonData = {
@@ -166,7 +166,7 @@ function P2KO1B1Landattacks1()
         PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},
         PlatoonAddFunctions = {
             {
-            '/maps/Operation(Ioz-Shavoh-Kael)/Operation(Ioz-Shavoh-Kael)_script.lua', 'RemoveCommandCapFromPlatoon',
+            '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_script.lua', 'RemoveCommandCapFromPlatoon',
             },
         },     
         PlatoonData = {
