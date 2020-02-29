@@ -776,7 +776,7 @@ function UpdateACUPlatoon(location)
                 if location == 'None' then
                     IssueClearCommands({unit})
                     platoon:StopAI()
-                    ArmyBrains[UEF]:DisbandPlatoon(platoon)
+                    ScenarioFramework.PlatoonPatrolChain(platoon, 'MainBase_ACU_Patrol_Chain')
                     return
                 end
 
