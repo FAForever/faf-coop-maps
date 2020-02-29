@@ -617,8 +617,8 @@ function IntroMission2()
                 end
             end
 
-            local scathis = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Scath')
-            ScenarioFramework.CreateUnitDeathTrigger(M2ScathisDestroyed, scathis)
+            --local scathis = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Scath')
+            --ScenarioFramework.CreateUnitDeathTrigger(M2ScathisDestroyed, scathis)
             ScenarioInfo.M2FletcherWarningPlayed = false
             for i = 1, 2 do
                 local soul = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Soul' .. i)
@@ -1078,7 +1078,7 @@ end
 function M2ExperSightedTrigger()
     -- delay creation of these triggers, to avoid NIS intel, and to keep dialogue from stacking up a tad
     ScenarioFramework.CreateArmyIntelTrigger(M2SpiderbotSighted, ArmyBrains[Player1], 'LOSNow', false, true, categories.url0402, true, ArmyBrains[Hex5])
-    ScenarioFramework.CreateArmyIntelTrigger(M2ScathisSighted, ArmyBrains[Player1], 'LOSNow', false, true, categories.url0401, true, ArmyBrains[Hex5])
+    --ScenarioFramework.CreateArmyIntelTrigger(M2ScathisSighted, ArmyBrains[Player1], 'LOSNow', false, true, categories.url0401, true, ArmyBrains[Hex5])
 end
 
 function M2SpiderbotSighted()
