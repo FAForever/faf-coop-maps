@@ -1,5 +1,15 @@
 # Changelog
 
+## Patch 6.0.1 (February 29th, 2020)
+
+### Custom Missions
+
+#### Operation Ioz Shavoh Kael
+- Fixed wrong file paths breaking the mission.
+
+### Contributors
+- speed2
+
 ## Patch 6.0.0 (February 23rd, 2020)
 
 ### General
