@@ -775,20 +775,17 @@ function UpdateACUPlatoon(location)
             if EntityCategoryContains(categories.COMMAND, unit) then
                 if location == 'None' then
                     IssueClearCommands({unit})
-                    LOG('Stopping CRD Platoon')
                     platoon:StopAI()
                     ArmyBrains[UEF]:DisbandPlatoon(platoon)
                     return
                 end
-                LOG('Changing ACU platoon for location: ' .. location)
-                LOG('Old PlatoonData: ', repr(platoon.PlatoonData))
+
                 platoon:StopAI()
                 platoon.PlatoonData = {
                     BaseName = location,
                     LocationType = location,
                 }
                 platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerSingleEngineerPlatoon)
-                LOG('New PlatoonData: ', repr(platoon.PlatoonData))
                 return
             end
         end
@@ -884,7 +881,6 @@ function IntroMission3()
 end
 
 function StartMission3()
-    --UpdateACUPlatoon('M3_Main_Base')
     -- VO Timers
     ScenarioFramework.CreateTimerTrigger(M3Dialogue1, 240)
     ScenarioFramework.CreateTimerTrigger(M3Dialogue2, 480)
