@@ -900,7 +900,7 @@ function StartMission3()
     ScenarioInfo.M3P1:AddResultCallback(
         function()
             IssueClearCommands({ScenarioInfo.ArnoldCDR})
-            UpdateACUPlatoon('None')
+            ScenarioInfo.ArnoldCDR:SetImmobile(true)
             for _, player in ScenarioInfo.HumanPlayers do
                 SetAlliance(player, UEF, 'Neutral')
                 SetAlliance(UEF, player, 'Neutral')
