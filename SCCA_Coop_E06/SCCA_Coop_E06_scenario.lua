@@ -7,6 +7,7 @@ ScenarioInfo = {
     preview = '',
     -- Do not manually edit. Ever. Controlled by deployment script:
     map_version = 3,
+    norushradius = 0.000000,
     size = {1024, 1024},
     map = '/maps/SCCA_Coop_E06/SCCA_Coop_E06.scmap',
     save = '/maps/SCCA_Coop_E06/SCCA_Coop_E06_save.lua',
