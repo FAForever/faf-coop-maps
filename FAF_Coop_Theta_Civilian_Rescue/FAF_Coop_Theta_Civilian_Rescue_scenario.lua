@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_save.lua',
     script = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_script.lua',
     map_version = 3,
+    norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {

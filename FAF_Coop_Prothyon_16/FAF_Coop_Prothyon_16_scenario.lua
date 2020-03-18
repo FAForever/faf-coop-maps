@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_save.lua',
     script = '/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_script.lua',
     map_version = 3,
+    norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {
