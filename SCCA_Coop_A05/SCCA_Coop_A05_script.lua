@@ -194,10 +194,7 @@ function PlayerCDRDestroyed(unit)
 end
 
 function PlayerLose()
-    ScenarioFramework.EndOperationSafety()
-    ScenarioFramework.FlushDialogueQueue()
-
-    ScenarioFramework.Dialogue(OpStrings.A05_M01_150, ScenarioFramework.PlayerLose, true)
+    ScenarioFramework.PlayerLose(OpStrings.A05_M01_150)
 
     -- colony not defended
     local camInfo = {
