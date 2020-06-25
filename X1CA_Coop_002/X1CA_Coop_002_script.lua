@@ -79,7 +79,7 @@ function OnPopulate()
     -- Army Colors
     if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player1)
-    elseif(LeaderFaction == 'uef') then
+    elseif(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player1)
@@ -326,6 +326,10 @@ function IntroNIS()
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEF_ACU', 'Warp', true, true, PlayerDeath)
     elseif(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
+    elseif(LeaderFaction == 'seraphim') then
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Seraphim_ACU', 'Warp', true, true, PlayerDeath)
+    elseif(LeaderFaction == 'nomads') then
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Nomads_ACU', 'Warp', true, true, PlayerDeath)
     end
 
     -- spawn coop players too
@@ -339,8 +343,12 @@ function IntroNIS()
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
             elseif(factionIdx == 2) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
-            else
+            elseif(factionIdx == 3) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
+            elseif(factionIdx == 4) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'SeraphimPlayer', 'Warp', true, true, PlayerDeath)
+            elseif(factionIdx == 5) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'NomadsPlayer', 'Warp', true, true, PlayerDeath)
             end
             coop = coop + 1
             WaitSeconds(0.5)
@@ -367,7 +375,7 @@ function IntroMission1()
         end
     end
 
-    if(LeaderFaction == 'uef') then
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_020)
     elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_025)
@@ -458,7 +466,7 @@ function M1OrderAttackDefeated()
 end
 
 function M1Subplot()
-    if(LeaderFaction == 'uef') then
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_090)
     elseif(LeaderFaction == 'cybran') then
         ScenarioFramework.Dialogue(OpStrings.X02_M01_100)
@@ -1485,7 +1493,7 @@ function M4S2CybranWarning()
 end
 
 function M4Subplot()
-    if(LeaderFaction == 'uef') then
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         ScenarioFramework.Dialogue(OpStrings.X02_M03_240)
     elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.Dialogue(OpStrings.X02_M03_250)
@@ -1598,7 +1606,7 @@ function SetupCeleneM2Taunt()
     CeleneTM:AddUnitsKilledTaunt('TAUNT11', ArmyBrains[Order], categories.STRUCTURE, 18)            -- Order loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Loyalist], categories.STRUCTURE, 2)           -- Loyalist lose a structure, tuant relating to them
 
-    if(LeaderFaction == 'uef') then                                        -- factional taunt when bit of Order base is destroyed
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then                                        -- factional taunt when bit of Order base is destroyed
         CeleneTM:AddUnitKilledTaunt('TAUNT14', ScenarioInfo.UnitNames[Order]['M2_Order_TauntUnit'])
         CeleneTM:AddUnitsKilledTaunt('X02_M01_050', ArmyBrains[Order], categories.STRUCTURE * categories.TECH3, 2)
     elseif(LeaderFaction == 'cybran') then
@@ -1624,7 +1632,7 @@ function SetupQAIM4Taunt()
     QAITM:AddAreaTaunt('TAUNT28', 'M1_Playable_Area', categories.ALLUNITS, ArmyBrains[QAI], 10)     -- QAI gets substantively into M1 area
     QAITM:AddDamageTaunt('TAUNT29', ScenarioInfo.PlayerCDR, .02)                                    -- Player CDR is touched
 
-    if(LeaderFaction == 'uef') then                                        -- faction specific taunts, player gets hit a bit
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then                                        -- faction specific taunts, player gets hit a bit
         QAITM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player1], categories.STRUCTURE, 4)
     elseif(LeaderFaction == 'cybran') then
         QAITM:AddUnitsKilledTaunt('TAUNT32', ArmyBrains[Player1], categories.STRUCTURE, 4)
