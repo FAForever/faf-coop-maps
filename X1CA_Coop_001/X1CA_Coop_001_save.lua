@@ -7318,6 +7318,20 @@ Scenario = {
                                 Position = { 76.500000, 18.000000, 967.500000 },
                                 Orientation = { 0.000000, 3.141593, 0.000000 },
                             },
+                            ['SeraphimPlayer'] = {
+                                type = 'xsl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            },
+                            ['NomadsPlayer'] = {
+                                type = 'xnl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            }
                         },
                     },
                     ['WRECKAGE'] = GROUP {
@@ -21703,6 +21717,20 @@ Scenario = {
                                 Position = { 76.500000, 18.000000, 967.500000 },
                                 Orientation = { 0.000000, 3.141593, 0.000000 },
                             },
+                            ['SeraphimPlayer'] = {
+                                type = 'xsl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            },
+                            ['NomadsPlayer'] = {
+                                type = 'xnl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            }
                         },
                     },
                     ['WRECKAGE'] = GROUP {
@@ -21776,6 +21804,20 @@ Scenario = {
                                 Position = { 76.500000, 18.000000, 967.500000 },
                                 Orientation = { 0.000000, 3.141593, 0.000000 },
                             },
+                            ['SeraphimPlayer'] = {
+                                type = 'xsl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            },
+                            ['NomadsPlayer'] = {
+                                type = 'xnl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            }
                         },
                     },
                     ['WRECKAGE'] = GROUP {
@@ -26670,6 +26712,20 @@ Scenario = {
                             },
                             ['UEFPlayer'] = {
                                 type = 'uel0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            },
+                            ['SeraphimPlayer'] = {
+                                type = 'xsl0001',
+                                orders = '',
+                                platoon = '',
+                                Position = { 76.500000, 18.000000, 967.500000 },
+                                Orientation = { 0.000000, 3.141593, 0.000000 },
+                            },
+                            ['NomadsPlayer'] = {
+                                type = 'xnl0001',
                                 orders = '',
                                 platoon = '',
                                 Position = { 76.500000, 18.000000, 967.500000 },
