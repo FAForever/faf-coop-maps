@@ -76,12 +76,8 @@ function OnPopulate(scenario)
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
-    
-    for index,_ in ScenarioInfo.HumanPlayers do
-        ScenarioInfo.NumberOfPlayers = index
-    end
-    
-    
+
+    ScenarioInfo.NumberOfPlayers = table.getsize(ScenarioInfo.HumanPlayers)
 end
 
 function OnStart(self)

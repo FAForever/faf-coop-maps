@@ -31,7 +31,7 @@ function CarrierAI(platoon)
                     ForkThread(function(i)
                         IssueMove( {carriers[i]}, movePositions[i] )
 
-                        while (carriers[i] and not carriers[i]:IsDead() and carriers[i]:IsUnitState('Moving')) do
+                        while (carriers[i] and not carriers[i].Dead and carriers[i]:IsUnitState('Moving')) do
                             WaitSeconds(.5)
                         end
 
@@ -43,11 +43,11 @@ function CarrierAI(platoon)
                             end
                         end
 
-                        if not carriers[i]:IsDead() then
+                        if not carriers[i].Dead then
                             location.PrimaryFactories.Air = carriers[i]
                         end
 
-                        while (carriers[i] and not carriers[i]:IsDead()) do
+                        while (carriers[i] and not carriers[i].Dead) do
                             if  table.getn(carriers[i]:GetCargo()) > 0 and carriers[i]:IsIdleState() then
                                 IssueClearCommands(carriers[i])
                                 IssueTransportUnload({carriers[i]}, carriers[i]:GetPosition())
@@ -71,7 +71,7 @@ function PatrolThread(platoon)
     local data = platoon.PlatoonData
 
     for _, unit in platoon:GetPlatoonUnits() do
-        while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+        while (not unit.Dead and unit:IsUnitState('Attached')) do
             WaitSeconds(1)
         end
     end
@@ -92,31 +92,6 @@ function PatrolThread(platoon)
             end
         else
             error('*SCENARIO PLATOON AI ERROR: PatrolRoute or PatrolChain not defined', 2)
-        end
-    else
-        error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)
-    end
-end
-
-####################################################################################################################
-### ReclaimPatrolThread
-###     - Each unit of a platoon gets a random patrol chain from the list
-###
-### PlatoonData
-###     - PatrolChains - List of chains to choose from
-###
-####################################################################################################################
-function ReclaimPatrolThread(platoon)
-    local data = platoon.PlatoonData
-    platoon:Stop()
-    if(data) then
-        if(data.PatrolChains) then
-            for k, v in platoon:GetPlatoonUnits() do
-                local chain = Random(1, table.getn(data.PatrolChains))
-                ScenarioFramework.GroupPatrolChain({v}, data.PatrolChains[chain])
-            end
-        else
-            error('*SCENARIO PLATOON AI ERROR: PatrolChains not defined', 2)
         end
     else
         error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)

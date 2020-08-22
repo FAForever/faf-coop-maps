@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_save.lua',
     script = '/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_script.lua',
     map_version = 3,
+    norushradius = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {

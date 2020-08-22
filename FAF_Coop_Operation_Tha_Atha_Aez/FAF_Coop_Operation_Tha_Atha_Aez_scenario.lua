@@ -9,8 +9,8 @@ ScenarioInfo = {
     map = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez.scmap',
     save = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_save.lua',
     script = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_script.lua',
-    norushradius = 0.000000,
-    map_version = 3,
+     norushradius = 0.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -18,6 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-            factions = { {'seraphim'}, {'seraphim'}, {'seraphim'}, {'seraphim'} },
+			factions = { {'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'} },
         },
     }}

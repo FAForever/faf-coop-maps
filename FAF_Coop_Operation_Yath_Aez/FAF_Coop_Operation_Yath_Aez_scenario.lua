@@ -14,10 +14,10 @@ ScenarioInfo = {
     Configurations = {
         ['standard'] = {
             teams = {
-                { name = 'FFA', armies = {'UEF','Player1','Cybran','Aeon','Player2','Player3','Player4',} },
+                { name = 'FFA', armies = {'Player1','UEF', 'Cybran','Aeon','Player2','Player3','Player4',} },
             },
             customprops = {
             },
-			factions = { {'seraphim'}, {'seraphim'}, {'seraphim'}, {'seraphim'} },
+			factions = { {'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'} },
         },
     }}
