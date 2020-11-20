@@ -211,11 +211,11 @@ function IntroP1()
         if iArmy >= ScenarioInfo.Player2 then
             factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 3) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CCommander', 'Warp', true, true, PlayerDeath)
             elseif (factionIdx == 2) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'ACommander', 'Warp', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CCommander', 'Warp', true, true, PlayerDeath)   
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)   
            end
             coop = coop + 1
             WaitSeconds(0.5)
