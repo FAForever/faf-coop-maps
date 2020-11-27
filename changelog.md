@@ -1,5 +1,43 @@
 # Changelog
 
+## Patch 6.0.2 (November 11th, 2020)
+
+### General
+- Added NoRushRadius into the files so the missions can be opened via GPG editor without crashing.
+
+### FA Campaign
+
+#### Operation Mind Games (5th mission)
+- Disabled Scathis in Hex5's base due to recent balance changes to Scathis.
+
+### Aeon Campaign
+
+#### Operation High Tyde (3rd mission)
+- Small changes to make sure Arnold's ACU won't move when captured during the final cinematics.
+
+#### Operation Shining Star (5th mission)
+- Fixed bug where mission would not fail when civilians, that player was suppose to protect, died.
+
+### Custom Missions
+
+#### Operation Ioz Shavoh Kael
+- Fixed some players not spawning.
+- Fixed Player3 being neutral.
+
+#### Operation Ytha Aez
+- Fixed some players not spawning.
+
+#### Operation Tha Atha Aez
+- Fixed some players not spawning.
+
+#### Operation Uhthe Thuum QAI
+- Fixed some players not spawning.
+
+### Contributors
+- KionX
+- Shadowlorda1
+- speed2
+
 ## Patch 6.0.1 (February 29th, 2020)
 
 ### Custom Missions
