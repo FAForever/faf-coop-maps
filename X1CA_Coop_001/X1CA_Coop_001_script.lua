@@ -218,6 +218,7 @@ local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 -- The faction of player 1: determines the dialog and suchlike you get.
 local LeaderFaction
+local ImpersonatedLeaderFaction
 
 -- The faction of the local player. Determines a few other bits and bobs.
 local LocalFaction
@@ -239,10 +240,10 @@ local UEFM3EasternTown = BaseManager.CreateBaseManager()
 ----------------
 -- Taunt Managers
 ----------------
-local GariM1M2TM = TauntManager.CreateTauntManager('GariM1M2TM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua') -- M1 / M2 Gari related taunts (ie, when she is not onmap)
-local GariTM = TauntManager.CreateTauntManager('GariTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
-local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
-local SeraphTM = TauntManager.CreateTauntManager('SeraphTM', '/maps/X1CA_Coop_001/X1CA_Coop_001_Strings.lua')
+local GariM1M2TM = TauntManager.CreateTauntManager('GariM1M2TM', '/maps/x1ca_coop_001.v0025/X1CA_Coop_001_Strings.lua') -- M1 / M2 Gari related taunts (ie, when she is not onmap)
+local GariTM = TauntManager.CreateTauntManager('GariTM', '/maps/x1ca_coop_001.v0025/X1CA_Coop_001_Strings.lua')
+local FletcherTM = TauntManager.CreateTauntManager('FletcherTM', '/maps/x1ca_coop_001.v0025/X1CA_Coop_001_Strings.lua')
+local SeraphTM = TauntManager.CreateTauntManager('SeraphTM', '/maps/x1ca_coop_001.v0025/X1CA_Coop_001_Strings.lua')
 
 -------------------------
 -- UEF Secondary variables
@@ -258,7 +259,12 @@ function OnPopulate(scenario)
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
     
     -- Build the faction-specific voiceover table.
-    VoiceOvers = table.assimilate(VoiceOvers[LeaderFaction], VoiceOvers.common)
+    ImpersonateLeaderFaction = "uef";
+    if(LeaderFaction == 'aeon' or LeaderFaction == 'cybran') then
+        ImpersonateLeaderFaction = LeaderFaction
+    end
+
+    VoiceOvers = table.assimilate(VoiceOvers[ImpersonateLeaderFaction], VoiceOvers.common)
 
     -- Army Colors
     ScenarioFramework.SetUEFAlly1Color(Player1)      -- starting base units are "originally" from the UEF, before being given to player
@@ -584,18 +590,22 @@ function IntroNISPart2()
     -- set faction color before spawning in player CDR
     if(LeaderFaction == 'cybran') then
         ScenarioFramework.SetCybranPlayerColor(Player1)
-    elseif(LeaderFaction == 'uef') then
-        ScenarioFramework.SetUEFPlayerColor(Player1)
     elseif(LeaderFaction == 'aeon') then
         ScenarioFramework.SetAeonPlayerColor(Player1)
+    else
+        ScenarioFramework.SetUEFPlayerColor(Player1)
     end
 
     if(LeaderFaction == 'cybran') then
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Gate', true, true, PlayerDeath)
-    elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Gate', true, true, PlayerDeath)
     elseif(LeaderFaction == 'aeon') then
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Gate', true, true, PlayerDeath)
+    elseif(LeaderFaction == 'uef') then
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Gate', true, true, PlayerDeath)
+    elseif(LeaderFaction == 'nomads') then
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'NomadsPlayer', 'Gate', true, true, PlayerDeath)
+    elseif(LeaderFaction == 'seraphim') then
+        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'SeraphimPlayer', 'Gate', true, true, PlayerDeath)
     end
 
     -- Give the special NIS units to the player
@@ -675,8 +685,12 @@ function IntroNISPart2()
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Gate', true, true, PlayerDeath)
             elseif(factionIdx == 2) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Gate', true, true, PlayerDeath)
-            else
+            elseif(factionIdx == 3) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Gate', true, true, PlayerDeath)
+            elseif(factionIdx == 4) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'SeraphimPlayer', 'Gate', true, true, PlayerDeath)
+            elseif(factionIdx == 5) then
+                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'NomadsPlayer', 'Gate', true, true, PlayerDeath)
             end
             IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('CDRWarp'))
             coop = coop + 1
@@ -2037,7 +2051,7 @@ function StartMission3()
     ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 2700)
     ScenarioFramework.CreateTimerTrigger(CounterAttackWarning, 5)
 
-    if LeaderFaction == 'uef' then
+    if (LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         -- For UEF, assign the Truck Town objective after a bit of a pause. We'll send in the
         -- attack where we assign, as it is dialogue-callback based (ie, in case dialogue gets stacked
         -- up, we don't have the attack sent before the late dialogue)
@@ -2765,7 +2779,7 @@ end
 
 function M4NukeWarning()
     -- UEF players whe havent completed the m3 town obj get an emphatic warning. Those who have get the general warning
-    if LeaderFaction == 'uef' and ScenarioInfo.M3S1UEF.Active then
+    if (LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') and ScenarioInfo.M3S1UEF.Active then
         ScenarioFramework.Dialogue(VoiceOvers.NukeWarning)
         return
     end
@@ -2983,7 +2997,7 @@ function SetupGariTauntTriggers()
     GariTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Order], categories.STRUCTURE * categories.DEFENSE, 8)
 
     -- On losing resource structures
-    if(LeaderFaction == 'uef') then
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         GariTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 9)
     end
     GariTM:AddUnitsKilledTaunt('TAUNT6', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 14)
@@ -3024,7 +3038,7 @@ end
 -- M4
 function SetupFletcherTauntTriggers()
     ---- Faction specific Fletcher dialogue, using the taunt system
-    if(LeaderFaction == 'uef') then
+    if(LeaderFaction == 'uef' or LeaderFaction == 'seraphim' or LeaderFaction == 'nomads') then
         FletcherTM:AddDamageTaunt('X01_M03_020', ScenarioInfo.ClarkeMonument, .01)                              -- Admin building taking damage, UEF
         FletcherTM:AddDamageTaunt('X01_M03_030', ScenarioInfo.ClarkeMonument, .40)                              -- Admin building taking damage, UEF
         FletcherTM:AddUnitKilledTaunt('X01_M03_170', ScenarioInfo.UnitNames[Seraphim]['M4_Seraphim_Factory'])   -- Fletcher enjoys a factory being destroyed, UEF

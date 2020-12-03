@@ -19,6 +19,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-            factions = { {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'} },
+            factions = { {'uef', 'aeon', 'cybran', 'seraphim', 'nomads'}, {'uef', 'aeon', 'cybran', 'seraphim', 'nomads'}, {'uef', 'aeon', 'cybran', 'seraphim', 'nomads'}, {'uef', 'aeon', 'cybran', 'seraphim', 'nomads'} },
         },
     }}
