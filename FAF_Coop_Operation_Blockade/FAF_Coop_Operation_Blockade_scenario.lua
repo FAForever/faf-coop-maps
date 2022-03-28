@@ -5,6 +5,7 @@ ScenarioInfo = {
     type = 'campaign_coop',
     starts = true,
     preview = '',
+    map_version = 1,
     size = {2048, 2048},
     map = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade.scmap',
     save = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_save.lua',

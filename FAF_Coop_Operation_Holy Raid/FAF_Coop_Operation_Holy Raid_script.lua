@@ -1255,9 +1255,13 @@ function PlayerLose()
                 v:ManualResult(false)
             end
         end
-        WaitSeconds(3)
-       KillGame()
-  end
+        ForkThread(
+            function()
+                WaitSeconds(3)
+                KillGame()
+            end
+        )
+    end
 end
 
 function SetupOrderM1TauntTriggers()
