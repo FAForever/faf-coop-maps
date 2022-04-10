@@ -568,6 +568,16 @@ function SeraphimM3SouthBaseNavalAttacks()
         }
     )
     end
+
+    -- Sonar
+    opai = SeraphimM3SouthBase:AddOpAI('M3_Seraph_Sonar_South',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 function DisableBase()
