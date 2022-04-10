@@ -248,6 +248,16 @@ function SeraphimM2BaseNavalAttacks()
             Priority = 110,
         }
     )
+
+    -- Sonar
+    opai = SeraphimM2Base:AddOpAI('M2_Seraph_Sonar',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 function M2SeraphimAirAttackAI(platoon)

@@ -692,4 +692,14 @@ function SeraphimM4NavalBaseNavalAttacks()
         )
         opai:SetChildActive('T3', false)
     end
+
+    -- Sonar
+    opai = SeraphimM4NavalBase:AddOpAI('M3_Naval_Base_Sonar',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
