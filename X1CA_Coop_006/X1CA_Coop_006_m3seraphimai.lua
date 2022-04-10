@@ -698,6 +698,16 @@ function SeraphimM3WestNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ues0401 + categories.uas0401, '>='})
+
+    -- Sonar
+    opai = SeraphimM3WestBase:AddOpAI('M3_Seraph_Sonar_West',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 function SeraphimM3EastBaseAI()
@@ -860,4 +870,14 @@ function SeraphimM3EastNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ues0401 + categories.uas0401, '>='})
+
+    -- Sonar
+    opai = SeraphimM3EastBase:AddOpAI('M3_Seraph_Sonar_East',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
