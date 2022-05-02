@@ -961,7 +961,7 @@ end
 function CDRNearGate()
     local position = ScenarioInfo.PlayerCDR:GetPosition()
     local rect = Rect(position[1] - 10, position[3] - 10, position[1] + 10, position[3] + 10)
-    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.url0001, true, true, ArmyBrains[Player1])
+    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.COMMAND, true, true, ArmyBrains[Player1])
     ScenarioInfo.DownloadTimer = ScenarioFramework.CreateTimerTrigger(DownloadFinished, 120, true)
     ScenarioFramework.Dialogue(OpStrings.C06_M02_060)
 
