@@ -322,7 +322,7 @@ function P1B1seraAir()
     }
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 2, 4}
+    quantity = {1, 2, 4}
     Temp = {
         'P1B1AirAttackTemp1',
         'NoPlan',
@@ -546,7 +546,7 @@ function P1B2seraAir()
     }
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 3, 5}
+    quantity = {1, 3, 5}
     Temp = {
         'P1B2AirAttackTemp1',
         'NoPlan',
@@ -567,8 +567,8 @@ function P1B2seraAir()
     }
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
-    quantity = {5, 6, 9}
-    trigger = {60, 50, 45}
+    quantity = {4, 6, 9}
+    trigger = {70, 50, 45}
     Temp = {
         'P1B2AirAttackTemp1.5',
         'NoPlan',
@@ -620,7 +620,7 @@ function P1B2seraAir()
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
     quantity = {5, 6, 7}
-    trigger = {14, 12, 10}
+    trigger = {16, 12, 10}
     Temp = {
         'P1B2AirAttackTemp3',
         'NoPlan',

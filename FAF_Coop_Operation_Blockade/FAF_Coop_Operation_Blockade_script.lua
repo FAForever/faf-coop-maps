@@ -617,7 +617,7 @@ function P2Intattacks()
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P2Landattack2_D' .. Difficulty, 'AttackFormation', 2 + Difficulty)
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P2Intlandattack2')
 
-    -- sends swift winds if player has more than [3, 2, 1] planes, up to 4, 1 group per 3, 2, 1
+    -- sends EXP if player has more than [3, 2, 1] EXPS, up to 4, 1 group per 3, 2, 1
     num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL)
     quantity = {3, 2, 1}
     trigger = {3, 2, 1}
@@ -757,7 +757,7 @@ function P3Intattacks()
     -- sends swift winds if player has more than [60, 50, 40] planes, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
     quantity = {60, 50, 40}
-    trigger = {14, 12, 10}
+    trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
         if(num > 15) then
@@ -771,8 +771,8 @@ function P3Intattacks()
 
     -- sends Strat Bombers if player has more than [80, 70, 60] Structures, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE - categories.WALL)
-    quantity = {80, 70, 60}
-    trigger = {14, 12, 10}
+    quantity = {110, 90, 70}
+    trigger = {40, 30, 20}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
         if(num > 10) then
