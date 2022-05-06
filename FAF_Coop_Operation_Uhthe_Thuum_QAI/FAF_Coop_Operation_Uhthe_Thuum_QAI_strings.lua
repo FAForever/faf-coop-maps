@@ -1,13 +1,13 @@
 IntroP1 = {
-    {text = '[Overlord HQ]: Commander, this is Procyon the first world the Seraphim attacked in Cybran space. This also is the original planet QAI\'s mainframe was located. The facilty is still here and we need it.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-    {text = '[Overlord HQ]: We recovered a Cybran ACU with a fragment of QAI\'s mind back on Velia. We need QAI\'s vast operational intellgence to have a chance against the Human alliance.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander, this is Procyon the first world the Seraphim attacked in Cybran space. This also is the original planet QAI\'s mainframe was located at. The facilty is still here and we need it.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: We recovered a Cybran ACU with a fragment of QAI\'s mind back on Velia. We need QAI\'s vast operational intellgence to have a chance against the Human Alliance.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
     {text = '[Overlord HQ]: We need to reupload QAI back into his network so he can assist us on a strategic scale and hopefully develop a means of reopening the Rift.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
     {text = '[Overlord HQ]: QAI gated in to your northeast, but he is locked out of his mainframe. Capture the town\'s node for the codes. HQ out', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro1_4', faction = 'Seraphim'},
 }
  
 MidP1 = {
     {text = '[QAI]: Commander, I am currently under attack from the second cybran commander.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid11_1', faction = 'Cybran'},
-    {text = '[QAI]: Scans from his base show a large build up of gunships and fighters, I calculate he will be launching an assault in 3 minutes on your position. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid1_2', faction = 'Cybran'},
+    {text = '[QAI]: Scans from his base show a large build up of gunships and Transport, I calculate he will be launching an assault in 3 minutes on your position. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid1_2', faction = 'Cybran'},
 }
  
 QAIhelp = {
@@ -44,7 +44,7 @@ Intro2P2 = {
 }
  
 SecondaryObj2 = {
-    {text = '[Overlord HQ]: Commander, we are detecting a build up of heavy artillary in one of the Cybran\'s bases. Either destroy them before they are built or build up a strong shield array. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Sobj1_1', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Commander, we are detecting a build up of heavy artillery in one of the Cybran\'s bases.  We are giving you access to construct your own T3 artillery. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Sobj1_1', faction = 'Seraphim'},
 }
 
 SecondaryObj2Complete = {
@@ -52,7 +52,7 @@ SecondaryObj2Complete = {
 }
 
 NodeCapturedP2 = {
-    {text = '[Overlord HQ]: Good work capturing that node, secure the locate and complete your objectives. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro3_4', faction = 'Seraphim'},
+    {text = '[Overlord HQ]: Good work capturing that node, secure the location and complete your objectives. HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro3_4', faction = 'Seraphim'},
 }
 
 IntroP3 = {
@@ -61,6 +61,8 @@ IntroP3 = {
     {text = '[QAI]: He is heavily entrenched with three bases in the operational area.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro3_3', faction = 'Cybran'},
     {text = '[Overlord HQ]: QAI we are detecting a Megalith with the same virus that disabled you the first time. Commander stop that walker! HQ out.', vid = 'X06_Seth-Iavow_M03_03997.sfd', bank = 'JJ_VO2', cue = 'Intro3_4', faction = 'Seraphim'},
 }
+
+-- Taunts
 
 Reveal1P1 = {
     {text = '[Corva]: Seraphim here to help their poor robot! I will kill you both for all the lives you\'ve ruined!', vid = 'Dostya.sfd', vidx = 'FAF_Coop_Havens_Invasion_TAUNT1.sfd', bank = 'FAF_Coop_Havens_Invasion_VO', cue = 'Reveal1P1', faction = 'Cybran'},
@@ -87,7 +89,7 @@ TAUNT1P2 = {
 }
 
 TAUNT2P2 = {
-    {text = '[Corva]: I am are more than a match for damn robot and freak like you!', vid = 'Dostya.sfd', vidx = 'FAF_Coop_Havens_Invasion_TAUNT1.sfd', bank = 'FAF_Coop_Havens_Invasion_VO', cue = 'TAUNT2P2', faction = 'Cybran'},
+    {text = '[Corva]: I am are more than a match for a damn robot and freak like you!', vid = 'Dostya.sfd', vidx = 'FAF_Coop_Havens_Invasion_TAUNT1.sfd', bank = 'FAF_Coop_Havens_Invasion_VO', cue = 'TAUNT2P2', faction = 'Cybran'},
 }
 
 TAUNT3P2 = {

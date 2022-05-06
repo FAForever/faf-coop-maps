@@ -15,7 +15,8 @@ local P2CybranAI = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/CybranaiP2.l
 local P3CybranAI = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/CybranaiP3.lua')
 local P2QAIAI = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/QAIaiP2.lua')
 local OpStrings = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_strings.lua')
-local CustomFunctions = '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_CustomFunctions.lua'  
+local CustomFunctions = '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_CustomFunctions.lua'
+local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')  
 local TauntManager = import('/lua/TauntManager.lua')
 
 local CybranTM = TauntManager.CreateTauntManager('Cybran1TM', '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_strings.lua')
@@ -41,7 +42,8 @@ local Cybran2 = ScenarioInfo.Cybran2
 local Nodes = ScenarioInfo.Nodes
 local QAI = ScenarioInfo.QAI
 
-local TimedAttackP1 = {26*60, 23*60, 20*60}
+local TimedAttackP1 = {16*60, 14*60, 12*60}
+local ExpansionTimer = ScenarioInfo.Options.Expansion
 
 local Debug = false
 local NIS1InitialDelay = 3
@@ -68,7 +70,6 @@ function OnPopulate(Self)
         end
     end
     
-    
     SetArmyUnitCap(Cybran1, 2000)
     SetArmyUnitCap(Cybran2, 2000)
     SetArmyUnitCap(QAI, 1000)
@@ -76,7 +77,7 @@ function OnPopulate(Self)
     
     ScenarioUtils.CreateArmyGroup('Cybran1', 'P1walls')
     ScenarioUtils.CreateArmyGroup('Cybran1', 'P1Civilanbase')
-    ScenarioUtils.CreateArmyGroup('Cybran1', 'OuterDefenses')
+    ScenarioUtils.CreateArmyGroup('Cybran1', 'OuterDefenses_D' .. Difficulty)
     ScenarioUtils.CreateArmyGroup('Cybran1', 'Wreakbase1', true)
     ScenarioUtils.CreateArmyGroup('Cybran1', 'Wreakbase2')
      
@@ -95,13 +96,18 @@ function OnStart(Self)
     
     ScenarioFramework.AddRestrictionForAllHumans(
         categories.UEF + -- UEF faction 
-        categories.CYBRAN + -- Cybran faction
+        categories.url0401 + -- Scathis
+        categories.xrl0403 + -- Megalith
+        categories.ura0401 + -- Exp Gunship
         categories.xsa0402 + -- Super bomber
         categories.xab1401 + -- Paragon
         categories.uaa0310 + -- Exp Carrier
         categories.xab2307 + -- Salvation
+        categories.xsb2302 + -- Sera T3 Arty
+        categories.uab2302 + -- Aeon T3 Arty
+        categories.urb2302 + -- Cybran T3 Arty
         categories.xsb2401  -- Super Nuke
-        )
+    )
 
     
     P1CybranAI.P1C1base1AI()
@@ -116,27 +122,6 @@ function OnStart(Self)
     
     GetArmyBrain(Nodes):SetResourceSharing(false)
     GetArmyBrain(QAI):SetResourceSharing(false)
-    
-    ForkThread(
-        function()
-            WaitSeconds(TimedAttackP1[Difficulty])
-    
-            ScenarioFramework.Dialogue(OpStrings.MidP1, nil, true)
-    
-            WaitSeconds(3*60)
-
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1Attacks1', 'GrowthFormation')
-            ScenarioFramework.PlatoonPatrolChain(platoon, 'P1C2Sattack1')
-  
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1Attacks2', 'GrowthFormation')
-            ScenarioFramework.PlatoonPatrolChain(platoon, 'P1C2Sattack2')
-    
-            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1Attacks3_D' .. Difficulty, 'AttackFormation')
-            for _, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P1C2Sattack3')))
-            end
-        end
-    )
     
     ForkThread(IntroP1)
 end
@@ -212,15 +197,14 @@ function IntroP1()
     buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 2
 
        for _, u in GetArmyBrain(Cybran1):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
        end
     
     ForkThread(MissionP1)
-    ForkThread(EnableStealthOnAirC1)
-    ForkThread(QAIhelp)
+    ForkThread(MidAttackP1)
 end
 
 function MissionP1()
@@ -250,40 +234,14 @@ function MissionP1()
     end
     )
     
-    ScenarioInfo.M2P1 = Objectives.CategoriesInArea(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        'Destroy Cybran Forces In The Area',    -- title
-        'We need to secure this area so the node is safe from counter attacks.',  -- description
-        'kill',                         -- action
-        {                               -- target
-            MarkUnits = true,
-                Requirements = {
-                    {   
-                        Area = 'AREA_1',
-                        Category = categories.FACTORY,
-                        CompareOp = '<=',
-                        Value = 0,
-                        ArmyIndex = Cybran1,
-                    },
-                },
-            Category = categories.urb0202,
-        }
-    )
-    ScenarioInfo.M2P1:AddResultCallback(
-    function(result)
-        if(result) then
-            ScenarioFramework.Dialogue(OpStrings.IntroP1CybranbaseDestroyed, nil, true)
-        end
-    end
-    )
-    
     ScenarioFramework.CreateArmyIntelTrigger(SecondaryMissionP1, ArmyBrains[Player1], 'LOSNow', false, true, categories.urc1301, true, ArmyBrains[Cybran1])
     
     SetupCybranM1TauntTriggers()
     
-    local M1MapExpandDelay = {45*60, 40*60, 35*60}
-    ScenarioFramework.CreateTimerTrigger(IntroP2Dialogue, M1MapExpandDelay[Difficulty])
+    if ExpansionTimer then
+        local M1MapExpandDelay = {40*60, 35*60, 30*60}
+        ScenarioFramework.CreateTimerTrigger(IntroP2Dialogue, M1MapExpandDelay[Difficulty])
+    end
 end
 
 function SecondaryMissionP1()
@@ -322,36 +280,51 @@ function SecondaryMissionP1()
     )
 end
 
-function QAIhelp()  
-    
-    WaitSeconds(15*60)
-    
-    ScenarioFramework.Dialogue(OpStrings.QAIhelp, nil, true)
-    
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P1QAIhelp_D'.. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(units, 'P1QAIhelpmove')
- 
-    WaitSeconds(25)
-    
-    local QAIUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'QAIhelp', ArmyBrains[QAI])
-            for k, v in QAIUnits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[QAI]) then
-                    ScenarioFramework.GiveUnitToArmy( v, Player1 )
-                end
-            end 
-end
+function MidAttackP1()
 
-function EnableStealthOnAirC1()
-    local T3AirUnits = {}
-    while true do
-        for _, v in ArmyBrains[Cybran1]:GetListOfUnits(categories.ura0303 + categories.ura0304, false) do
-            if not ( T3AirUnits[v:GetEntityId()] or v:IsBeingBuilt() ) then
-                v:ToggleScriptBit('RULEUTC_StealthToggle')
-                T3AirUnits[v:GetEntityId()] = true
-            end
+    WaitSeconds(TimedAttackP1[Difficulty])
+    
+        ScenarioFramework.Dialogue(OpStrings.MidP1, nil, true)
+    
+        WaitSeconds(2*60)
+
+        for i = 1, 3 do
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1C2Assaultbombers_D' .. Difficulty, 'GrowthFormation')
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P1C2Assaultattack' .. i)
+        end 
+
+        for i = 1, 3 do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1C2Assaultgunships', 'GrowthFormation')
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P1C2Assaultattack' .. i)
         end
-        WaitSeconds(10)
-    end
+
+        for i = 1, 3 do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P1C2Assaultdrops', 'GrowthFormation')
+            ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P1C2AssaultattackDrop', 'P1C2AssaultattackDropA', true)
+        end
+
+        local destination = ScenarioUtils.MarkerToPosition('P1C2B1MK')
+
+        local transports = ScenarioUtils.CreateArmyGroup('Cybran2', 'P2C2EngineersTransport')
+        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P2C2Engineers', 'NoFormation')
+
+        WaitSeconds(2)
+
+        import('/lua/ai/aiutilities.lua').UseTransports(units:GetPlatoonUnits(), transports, destination)
+
+        WaitSeconds(6)
+
+        for _, transport in transports do
+            ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, transport,  ScenarioUtils.MarkerToPosition('P2UTransportdeath'), 15)
+
+            IssueTransportUnload({transport}, destination)
+            IssueMove({transport}, ScenarioUtils.MarkerToPosition('P2UTransportdeath'))
+        end
+        
+        -- Disband the Platoon
+        ArmyBrains[Cybran2]:DisbandPlatoon(units)
+        ScenarioUtils.CreateArmyGroup('Cybran2', 'P1C2Eco')
+        P1CybranAI:P1C2base1AI()
 end
 
 function KillP1QACU()
@@ -397,51 +370,28 @@ function IntroP2()
     
     P2CybranAI.P2C1base1AI()
     P2CybranAI.P2C1base2AI()
-    P2CybranAI.P2C1base3AI()
     P2QAIAI.P2Q1base1AI()
     P2CybranAI.P2C2base1AI()
-    P2CybranAI.P2C2base2AI()
+    P3CybranAI.C2P3Base3AI()
     
     ArmyBrains[Cybran1]:PBMSetCheckInterval(6)
     ArmyBrains[Cybran2]:PBMSetCheckInterval(6)
     
     ScenarioInfo.P2C1ACU = ScenarioFramework.SpawnCommander('Cybran1', 'C1ACU', false, 'Commander Corva', true, false,
-        {'T3Engineering', 'CloakingGenerator', 'NaniteTorpedoTube'})
+    {'T3Engineering', 'CloakingGenerator', 'NaniteTorpedoTube'})
+    ScenarioInfo.P2C1ACU:SetAutoOvercharge(true)
+    ScenarioInfo.P2C1ACU:SetVeterancy(1 + Difficulty)
     
-    ScenarioInfo.P2C1ACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201)
+    ScenarioInfo.P2C1ACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201 + categories.urb2101)
     
     ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'QACU', false, 'QAI', false, false,
-        {'T3Engineering', 'ResourceAllocation'})
+    {'T3Engineering', 'ResourceAllocation'})
+    ScenarioInfo.P2QACU:SetAutoOvercharge(true)
+    ScenarioInfo.P2QACU:SetVeterancy(4 - Difficulty)
     
-    ScenarioInfo.P2QACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201)
+    ScenarioInfo.P2QACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201 + categories.urb2101)
     
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Navalattack1_D' .. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1intnavalattack1')
     
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Expattack1_D' .. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1intnavalattack1')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Landattack1', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1Intlandattack1')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Landattack2', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1Intlandattack2')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Landattack3', 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1Intlandattack3')
-    
-    ForkThread(
-        function()
-    
-        WaitSeconds(15)
-    
-        local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran1', 'P2Airattack1_D'.. Difficulty, 'AttackFormation')
-            for _, v in units:GetPlatoonUnits() do
-                ScenarioFramework.GroupAttackChain({v}, 'P2C1intAirattack1')
-            end
-        end
-    )
-
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P2attacks1_D' .. Difficulty, 'AttackFormation')
     for _, v in units:GetPlatoonUnits() do
        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2C2intattack1')))
@@ -497,24 +447,15 @@ function IntroP2()
             end 
         )
             
-    Cinematics.SetInvincible('AREA_1', true) 
+        Cinematics.SetInvincible('AREA_1', true) 
     Cinematics.ExitNISMode()
      
     buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
        for _, u in GetArmyBrain(Cybran1):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
-
-       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
        end
     
@@ -527,10 +468,11 @@ function IntroP2()
             Buff.ApplyBuff(u, 'CheatIncome')
        end
      
-     ForkThread(MissionP2)
-     ForkThread(Nukeparty)
-     ForkThread(EnableStealthOnAirC2)
-     ForkThread(P2COffmapattacks)
+    ForkThread(MissionP2)
+    ForkThread(Nukeparty)
+    ForkThread(EnableStealthOnAirC2)
+    ForkThread(CounterAttackP2)
+    ForkThread(EnableStealthOnAirC1)
 end
      
 function MissionP2()
@@ -605,21 +547,73 @@ end
 
 function P2ArtyObj()
 
-    WaitSeconds(2*60)
+    AIBuildStructures.CreateBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase1' )
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase1', 'CybranArtybase1')
+    
+    AIBuildStructures.AppendBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybaseBD1', 'CybranArtybase1')
+    
+    ScenarioUtils.CreateArmyGroup( 'Cybran1', 'CybranArtybase1')
+    
+    plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'Cybran1', 'CybranArtybaseENG1', 'NoFormation' )
+    plat.PlatoonData.MaintainBaseTemplate = 'CybranArtybase1'
+    plat.PlatoonData.PatrolChain = 'P2C1ENG1'
+    plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
+
+    if Difficulty >= 2 then
+
+        AIBuildStructures.CreateBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase2' )
+        AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase2', 'CybranArtybase2')
+    
+        AIBuildStructures.AppendBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybaseBD2', 'CybranArtybase2')
+    
+        ScenarioUtils.CreateArmyGroup( 'Cybran1', 'CybranArtybase2')
+    
+        plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'Cybran1', 'CybranArtybaseENG2', 'NoFormation' )
+        plat.PlatoonData.MaintainBaseTemplate = 'CybranArtybase2'
+        plat.PlatoonData.PatrolChain = 'P2C1ENG1'
+        plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
+
+        if Difficulty == 3 then
+
+            AIBuildStructures.CreateBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase3' )
+            AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybase3', 'CybranArtybase3')
+    
+            AIBuildStructures.AppendBuildingTemplate( ArmyBrains[Cybran1], 'Cybran1', 'CybranArtybaseBD3', 'CybranArtybase3')
+    
+            ScenarioUtils.CreateArmyGroup( 'Cybran1', 'CybranArtybase3')
+    
+            plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'Cybran1', 'CybranArtybaseENG3', 'NoFormation' )
+            plat.PlatoonData.MaintainBaseTemplate = 'CybranArtybase3'
+            plat.PlatoonData.PatrolChain = 'P2C1ENG1'
+            plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
+
+        end
+
+    end
+
+    WaitSeconds(1*60)
      
     ScenarioFramework.Dialogue(OpStrings.SecondaryObj2, nil, true)
+
+    ScenarioFramework.PlayUnlockDialogue()
+
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.xsb2302 + -- Sera T3 Arty
+        categories.uab2302 + -- Aeon T3 Arty
+        categories.urb2302  -- Cybran T3 Arty
+    )
      
     ScenarioInfo.M1P2S1 = Objectives.CategoriesInArea(
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Destroy long ranged artillery',    -- title
-        'The Cybran is constructing a series of heavy artillery in one of her bases.',  -- description
+        'The Cybran is constructing a series of heavy artillery near the Node.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
             Requirements = {
                 {   
-                    Area = 'P2SObj',
+                    Area = 'P2Arty',
                     Category = categories.urb2302 + categories.url0309,
                     CompareOp = '==',
                     Value = 0,
@@ -640,9 +634,9 @@ end
 
 function P2Timer()
     
-    WaitSeconds(5*60)
+    WaitSeconds(3*60)
     
-    local M2MapExpandDelay = {40*60, 35*60, 30*60}
+    local M2MapExpandDelay = {50*60, 40*60, 30*60}
     ScenarioInfo.M4P2 = Objectives.Timer(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -662,28 +656,13 @@ function P2Timer()
    )
 end
 
-function P2COffmapattacks()
-    local attackGroups = {
-        'P2Offmapattack1',
-        'P2Offmapattack2',
-        'P2Offmapattack3',
-
-    }
-    attackGroups.num = table.getn(attackGroups)
-
-    while ScenarioInfo.MissionNumber == 2 do
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', attackGroups[Random(1, attackGroups.num)] .. '_D' .. Difficulty, 'GrowthFormation')
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C2Offmapattack' .. Random(1, 3))
-
-        WaitSeconds(Random(3*60, 5*60))
-    end
-end
-
 function Nukeparty()
     
     if Difficulty == 3 then
     
         local CybranNuke = ArmyBrains[Cybran1]:GetListOfUnits(categories.urb2305, false)
+        WaitSeconds(20)
+        IssueNuke({CybranNuke[1]}, ScenarioUtils.MarkerToPosition('NukeQ'))
         WaitSeconds(7*60)
         IssueNuke({CybranNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
         WaitSeconds(5*60)
@@ -695,6 +674,7 @@ function Nukeparty()
         WaitSeconds(5*60)
         IssueNuke({CybranNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke5'))
         WaitSeconds(5*60)
+        return
     else
     
     end 
@@ -732,6 +712,96 @@ function P2KillCybran1Base()
             end
 end
 
+function EnableStealthOnAirC1()
+    local T3AirUnits = {}
+    while true do
+        for _, v in ArmyBrains[Cybran1]:GetListOfUnits(categories.ura0303 + categories.ura0304, false) do
+            if not ( T3AirUnits[v:GetEntityId()] or v:IsBeingBuilt() ) then
+                v:ToggleScriptBit('RULEUTC_StealthToggle')
+                T3AirUnits[v:GetEntityId()] = true
+            end
+        end
+        WaitSeconds(10)
+    end
+end
+
+function CounterAttackP2()
+
+    local quantity = {}
+    local trigger = {}
+    local platoon
+
+    -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    quantity = {200, 150, 100}
+    trigger = {40, 35, 30}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 6) then
+            num = 6
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultGunships_D' .. Difficulty, 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1IntAirattack' .. Random(1, 4))
+        end
+    end
+
+    -- sends Strats if player has more than [70, 60, 50] Tech 2 Defenses, up to 6, 1 group per 25, 20, 15
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.DEFENSE - categories.TECH1)
+    quantity = {40, 30, 20}
+    trigger = {25, 20, 15}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultBomber_D' .. Difficulty, 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1IntAirattack' .. Random(1, 4))
+        end
+    end
+
+    -- sends ASF if player has more than [30, 20, 10] Air, up to 3, 1 group per 3, 2, 1
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    quantity = {30, 20, 10}
+    trigger = {20, 15, 10}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 5) then
+            num = 5
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultIntercept', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1IntAirattack' .. Random(1, 4))
+        end
+    end
+
+    for i = 1, 3 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultDrops_D'.. Difficulty, 'GrowthFormation', 5)
+        ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P2C1IntDrop', 'P2C1IntDropattack1', true)
+    end
+
+    for i = 1, 2 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultNaval' .. i .. '_D' .. Difficulty, 'GrowthFormation', 1)
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'P2C1IntNavalattack' .. i)
+    end
+
+    -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.TECH3 * categories.ALLUNITS)
+    quantity = {150, 100, 80}
+    trigger = {90, 70, 50}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 2) then
+            num = 2
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran1', 'P2C1AssaultExp', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonMoveChain(platoon, 'P2C1IntEXPattack')
+        end
+    end
+end
+
 -- Part 3
 
 function Part3start()
@@ -756,14 +826,15 @@ function IntroP3()
     
     ScenarioInfo.P3C2ACU = ScenarioFramework.SpawnCommander('Cybran2', 'C2ACU', false, 'Elite Commander Vladimir', true, Cybran2ACUdeath,
         {'T3Engineering', 'CloakingGenerator', 'MicrowaveLaserGenerator'})
+        ScenarioInfo.P3C2ACU:SetAutoOvercharge(true)
+        ScenarioInfo.P3C2ACU:SetVeterancy(2 + Difficulty)
     
-    ScenarioInfo.P3C2ACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201)
+        ScenarioInfo.P3C2ACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201)
     
     P3CybranAI.C2P3Base1AI()
     P3CybranAI.C2P3Base2AI()
-    P3CybranAI.C2P3Base3AI()
+    P3CybranAI.P3C2B3EXPattacks()
     P2CybranAI.P2C2B1base1EXD()
-    P2QAIAI.P3Q1base1EXD()
     
     ScenarioUtils.CreateArmyGroup('Cybran2', 'P3C2wall')
     
@@ -773,12 +844,6 @@ function IntroP3()
     ScenarioFramework.GroupMoveChain({ScenarioInfo.Meg2}, 'P3C2Objective2')
     
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack1_D' .. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Objective2Land2')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack2_D' .. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Objective2Land1')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack3_D' .. Difficulty, 'GrowthFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2C2B1Airpatrol1')))
     end
@@ -788,21 +853,15 @@ function IntroP3()
     ForkThread(
         function()
             WaitSeconds(6*60)
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack4', 'GrowthFormation')
-            ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Objective1')
+            if Difficulty == 3 then
+                platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack2', 'GrowthFormation')
+                ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Objective1')
+            end
     
             ScenarioInfo.Meg1 = ScenarioUtils.CreateArmyUnit('Cybran2', 'Meg1')
             ScenarioFramework.GroupMoveChain({ScenarioInfo.Meg1}, 'P3C2Objective1')
         end
     )
-    
-    -- Player Targeted attacks
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack5_D'.. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Intailattack1')
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack6_D'.. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2Intailattack2')
     
     -- Air Defense Groups
     
@@ -850,7 +909,17 @@ function IntroP3()
                         
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam0'), 2)
         
-        WaitSeconds(1)
+        local qaiuunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[QAI])
+            for k, v in qaiuunits do
+                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[QAI]) then
+                    ScenarioFramework.GiveUnitToArmy( v, Player1 )
+                end
+            end
+
+        WaitSeconds(2)
+
+        ScenarioFramework.FakeTeleportUnit(ScenarioInfo.P2QACU, true)
+
         local Nodeunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[Nodes])
             for k, v in Nodeunits do
                 if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nodes]) then
@@ -882,25 +951,20 @@ function IntroP3()
     
     ScenarioInfo.M2P2:ManualResult(true)    
     
-    -- Player Air attack, Delayed till after Cutscene   
-    
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran2', 'P3Attack7_D'.. Difficulty, 'AttackFormation')
-    for _, v in units:GetPlatoonUnits() do
-        ScenarioFramework.GroupAttackChain({v}, 'P3C2Intailattack3')
-    end
-     
     -- Cybran Eco buffs 
      
     buffDef = Buffs['CheatIncome']
     buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 2
 
        for _, u in GetArmyBrain(Cybran2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
            Buff.ApplyBuff(u, 'CheatIncome')
        end
      
     ForkThread(MissionP3)
+    ForkThread(CounterAttackP3)
+    ForkThread(P3SecondaryBases)
     ForkThread(SetupCybranM3TauntTriggers)  
     ForkThread(Nukeparty2)  
 end
@@ -977,14 +1041,10 @@ function MissionP3()
         end
     )   
     
-    ScenarioFramework.CreateArmyIntelTrigger(P3ScathisSecondary, ArmyBrains[Player1], 'LOSNow', false, true, categories.url0401, true, ArmyBrains[Cybran1])
     ForkThread(P3SecondMegalith)
     
     ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', PlayerWin)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
-    if ScenarioInfo.M1P2.Active then
-        ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P2)
-    end
     if ScenarioInfo.M2P1.Active then
         ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M2P1)
     end   
@@ -993,6 +1053,7 @@ end
 function P3SecondMegalith()
 
     WaitSeconds(6.5*60)
+
     ScenarioInfo.M3P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -1014,19 +1075,33 @@ function P3SecondMegalith()
     )
 end
 
-function P3ScathisSecondary()
+function P3SecondaryBases()
  
     ScenarioInfo.M1P3S1 = Objectives.CategoriesInArea(
     'secondary',                      -- type
     'incomplete',                   -- complete
-    'Eliminate Enemy Experimental Artillary Unit',    -- title
-    'The Cybran is constructing a experimental artillary unit in a small hidden base.',  -- description
+    'Destroy Support Bases',    -- title
+    'The Cybran has several support bases in the area, destroy them.',  -- description
     'kill',                         -- action
         {                               -- target
             MarkUnits = true,
             Requirements = {
                 {   
-                    Area = 'P3SObj',
+                    Area = 'P3SObj1',
+                    Category = categories.urb2302 + categories.url0309 + categories.FACTORY + categories.TECH3 * categories.ECONOMIC,
+                    CompareOp = '==',
+                    Value = 0,
+                    ArmyIndex = Cybran2,
+                },
+                {   
+                    Area = 'P3SObj2',
+                    Category = categories.urb2302 + categories.url0309 + categories.FACTORY + categories.TECH3 * categories.ECONOMIC,
+                    CompareOp = '==',
+                    Value = 0,
+                    ArmyIndex = Cybran2,
+                },
+                {   
+                    Area = 'P3SObj3',
                     Category = categories.urb2302 + categories.url0309 + categories.FACTORY + categories.TECH3 * categories.ECONOMIC,
                     CompareOp = '==',
                     Value = 0,
@@ -1048,18 +1123,21 @@ end
 function Nukeparty2()
     
     local CybranNuke2 = ArmyBrains[Cybran2]:GetListOfUnits(categories.urb2305, false)
-    WaitSeconds(7*60)
+    WaitSeconds(5*60)
     if ScenarioInfo.M1P3.Active then
-        IssueNuke({CybranNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('NukeQ'))
         WaitSeconds(5*60)
-        IssueNuke({CybranNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('Nuke1'))
         WaitSeconds(5*60)
-        IssueNuke({CybranNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('Nuke2'))
         WaitSeconds(5*60)
-        IssueNuke({CybranNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke4'))
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('Nuke3'))
         WaitSeconds(5*60)
-        IssueNuke({CybranNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke5'))
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('Nuke4'))
         WaitSeconds(5*60)
+        IssueNuke({CybranNuke2[2]}, ScenarioUtils.MarkerToPosition('Nuke5'))
+        WaitSeconds(5*60)
+        return
     end
 end
 
@@ -1067,6 +1145,78 @@ function Cybran2ACUdeath()
 
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.P3C2ACU, 4)
     ScenarioFramework.Dialogue(OpStrings.Death2, nil, true)
+end
+
+function CounterAttackP3()
+
+    local quantity = {}
+    local trigger = {}
+    local platoon
+
+    -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    quantity = {300, 250, 200}
+    trigger = {90, 70, 50}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 8) then
+            num = 8
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran2', 'P3C2AssaultGunship', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2IntAssault' .. Random(1, 5))
+        end
+    end
+
+    -- sends Strats if player has more than [70, 60, 50] Tech 2 Defenses, up to 6, 1 group per 25, 20, 15
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.STRUCTURE * categories.DEFENSE - categories.TECH1)
+    quantity = {60, 50, 40}
+    trigger = {30, 25, 20}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 8) then
+            num = 8
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran2', 'P3C2AssaultBomber', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2IntAssault' .. Random(1, 5))
+        end
+    end
+
+    -- sends ASF if player has more than [30, 20, 10] Air, up to 3, 1 group per 3, 2, 1
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    quantity = {40, 30, 20}
+    trigger = {20, 15, 10}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 8) then
+            num = 8
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran2', 'P3C2AssaultIntercept', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2IntAssault' .. Random(1, 5))
+        end
+    end
+
+    for i = 1, 3 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran2', 'P3C2AssaultDrop_D'.. Difficulty, 'GrowthFormation', 5)
+        ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P3C2IntAssaultDrop', 'P3C2IntAssaultDropA', true)
+    end
+
+    -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS * categories.TECH3 - categories.WALL)
+    quantity = {100, 75, 50}
+    trigger = {100, 75, 50}
+    if num > quantity[Difficulty] then
+        num = math.ceil(num/trigger[Difficulty])
+        if(num > 3) then
+            num = 3
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Cybran2', 'P3C2AssaultExp', 'GrowthFormation', 5)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C2IntAssault' .. Random(1, 5))
+        end
+    end
 end
 
 -- Misc Functions
@@ -1148,3 +1298,5 @@ function DestroyUnit(unit)
 
     unit:Destroy() 
 end
+
+
