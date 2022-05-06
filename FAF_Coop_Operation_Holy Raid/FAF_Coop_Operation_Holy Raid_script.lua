@@ -840,7 +840,6 @@ end
 function Nukeparty()
 
     local AeonNuke = ArmyBrains[Order1]:GetListOfUnits(categories.uab2305, false)
-    AeonNuke[1]:GiveNukeSiloAmmo(5)
     WaitSeconds(3)
     WaitSeconds(Nukedelay[Difficulty])
     IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
