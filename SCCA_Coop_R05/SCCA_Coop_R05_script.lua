@@ -788,7 +788,7 @@ function M2_Hex5UnloadCheckThread()
     WaitSeconds(3)
 
     -- Once Hex5 is in the area and uncloaked etc, create a trigger to see if the player CDR is present.
-    ScenarioFramework.CreateAreaTrigger( M2_DownloadToCommander, ScenarioUtils.AreaToRect('M2_Hex5Area'), categories.url0001, true, false, ArmyBrains[Player1], 1, false)
+    ScenarioFramework.CreateAreaTrigger( M2_DownloadToCommander, ScenarioUtils.AreaToRect('M2_Hex5Area'), categories.COMMAND, true, false, ArmyBrains[Player1], 1, false)
 end
 
 function M2_DownloadToCommander()

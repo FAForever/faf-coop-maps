@@ -2039,7 +2039,7 @@ function M3P2EnoughTrucks()
             { -- Target
                 MarkArea = true,
                 Requirements = {
-                    { Area = 'CDR_Gate_Area', Category=categories.uel0001, CompareOp='>=', Value=1, },
+                    { Area = 'CDR_Gate_Area', Category=categories.COMMAND, CompareOp='>=', Value=1, },
                 },
             }
        )
