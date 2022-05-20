@@ -114,11 +114,6 @@ function OnStart(self)
        for _, u in GetArmyBrain(KOrder):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
        end
-       
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
 
        for _, u in GetArmyBrain(Order):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
@@ -282,14 +277,6 @@ function Mission1()
         }
     )
     
-    ScenarioInfo.M1P1:AddResultCallback(
-        function(result)
-            if result then
-                
-            end
-        end
-    )
-    
     ScenarioInfo.M2P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -353,13 +340,6 @@ function SecondaryMissionP1()
             },
         }
     )
-    ScenarioInfo.M2P1S1:AddResultCallback(
-    function(result)
-        if(result) then
-          
-        end
-    end
-    )    
 end
 
 --Part 2
@@ -511,11 +491,6 @@ function IntroP2()
        for _, u in GetArmyBrain(KOrder):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
        end
-       
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
 
        for _, u in GetArmyBrain(Order):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')

@@ -354,11 +354,6 @@ function IntroP2()
     for _, u in GetArmyBrain(Seraphim):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
         Buff.ApplyBuff(u, 'CheatIncome')
     end
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 2
 
     for _, u in GetArmyBrain(Seraphim2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
         Buff.ApplyBuff(u, 'CheatIncome')
@@ -385,13 +380,6 @@ function MissionP2()
             Units = {ScenarioInfo.Gate1, ScenarioInfo.Gate2, ScenarioInfo.Gate3},
         }
     )
-    ScenarioInfo.M1P2:AddResultCallback(
-        function(result)
-            if(result) then
-
-            end
-        end
-    )
    
     ScenarioInfo.M2P2 = Objectives.Kill(
         'primary',                      -- type
@@ -403,13 +391,6 @@ function MissionP2()
             ShowProgress = true,
             Units = {ScenarioInfo.SeraACU},
         }
-    )
-    ScenarioInfo.M2P2:AddResultCallback(
-        function(result)
-            if(result) then
-                
-            end
-        end
     )
 
     ScenarioFramework.CreateTimerTrigger(MidP2, 15*60)
