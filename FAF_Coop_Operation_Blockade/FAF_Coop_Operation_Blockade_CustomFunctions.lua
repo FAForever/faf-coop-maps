@@ -35,68 +35,6 @@ function PatrolThread(platoon)
     end
 end
 
---- Build condition
--- Checks if any of the player's ACUs is close to the base
-function PlayersACUsNearBase(aiBrain, baseName, distance)
-    local bManager = aiBrain.BaseManagers[baseName]
-    if not bManager then return false end
-
-    local bPosition = bManager:GetPosition()
-    if not distance then
-        distance = bManager:GetRadius()
-    end
-
-    for _, v in ScenarioInfo.PlayersACUs or {} do
-        if not v:IsDead() then
-            local position = v:GetPosition()
-            local value = VDist2(position[1], position[3], bPosition[1], bPosition[3])
-
-            if value <= distance then
-                return true
-            end
-        end
-    end
-    return false
-end
-
---- Tries to attack the closest ACU to the base, else patrols
-function MercyThread(platoon)
-    local data = platoon.PlatoonData
-    local aiBrain = platoon:GetBrain()
-    local bManager = aiBrain.BaseManagers[data.Base]
-    local bPosition = bManager:GetPosition()
-
-    local target = false
-    for _, v in ScenarioInfo.PlayersACUs or {} do
-        if not v:IsDead() then
-            local position = v:GetPosition()
-            local value = VDist2(position[1], position[3], bPosition[1], bPosition[3])
-
-            if value <= data.Distance and platoon:CanAttackTarget('Attack', v) then
-                target = v
-                break
-            end
-        end
-    end
-
-    if target then
-        platoon:AttackTarget(target)
-        platoon:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('Player1'))
-    else
-        import(SPAIFileName).PatrolThread(platoon)
-    end
-end
-
---- Build condition
--- Returns true if mass in storage of <aiBrain> is less than <mStorage>
-function LessMassStorageCurrent(aiBrain, mStorage)
-    local econ = AIUtils.AIGetEconomyNumbers(aiBrain)
-    if econ.MassStorage < mStorage then
-        return true
-    end
-    return false
-end
-
 function PlatoonAttackWithTransports( platoon, landingChain, attackChain, instant )
     ForkThread( PlatoonAttackWithTransportsThread, platoon, landingChain, attackChain, instant )
 end

@@ -22,8 +22,6 @@ ScenarioInfo.Player2 = 4
 ScenarioInfo.Player3 = 5
 ScenarioInfo.Player4 = 6
 
-ScenarioInfo.HumanPlayers = {ScenarioInfo.Player1, ScenarioInfo.Player2, ScenarioInfo.Player3, ScenarioInfo.Player4}
-
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 local Player1 = ScenarioInfo.Player1
@@ -227,7 +225,7 @@ end
 
 function IntroP2()
     
-    if ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 2
@@ -296,10 +294,6 @@ function Convoy1()
     local Convoy1 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy1', 'GrowthFormation')
     ScenarioFramework.PlatoonMoveChain(Convoy1, 'P2QConvoys2')
 
-    for _, v in Convoy1:GetPlatoonUnits() do
-        table.insert(ScenarioInfo.Convoy1, v)
-    end
-
     local ConvyTrigger1 = {5*60, 4*60, 3*60}
     ScenarioFramework.CreateTimerTrigger(Convoy2, ConvyTrigger1[Difficulty])
     
@@ -310,16 +304,13 @@ function Convoy1()
         'We can not allow the crystal to get off world.', -- description
         {                              -- target
             MarkUnits = true,
-            Units = ScenarioInfo.Convoy1,
+            Units = Convoy1:GetPlatoonUnits(),
             Area = 'EvacZone',
         }
     )
    
     ScenarioInfo.M2P2:AddResultCallback(
         function(result)
-            if (not result and not ScenarioInfo.OpEnded) then
-
-            end
             if result then
                 for _, v in Convoy1:GetPlatoonUnits() do
                 ScenarioFramework.FakeTeleportUnit(v, true)
@@ -339,10 +330,6 @@ function Convoy2()
         local Convoy2 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy2', 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(Convoy2, 'P2QConvoys1')
 
-        for _, v in Convoy2:GetPlatoonUnits() do
-            table.insert(ScenarioInfo.Convoy2, v)
-        end
-
         local ConvyTrigger2 = {5*60, 4*60, 3*60}
         ScenarioFramework.CreateTimerTrigger(Convoy3, ConvyTrigger2[Difficulty])
     
@@ -353,16 +340,13 @@ function Convoy2()
             'We can not allow the crystal to get off world.', -- description
             {                              -- target
                 MarkUnits = true,
-                Units = ScenarioInfo.Convoy2,
+                Units = Convoy2:GetPlatoonUnits(),
                 Area = 'EvacZone',
             }
         )
    
         ScenarioInfo.M3P2:AddResultCallback(
             function(result)
-                if (not result and not ScenarioInfo.OpEnded) then
-
-                end
                 if result then
                     for _, v in Convoy2:GetPlatoonUnits() do
                     ScenarioFramework.FakeTeleportUnit(v, true)
@@ -382,10 +366,6 @@ function Convoy3()
 
         local Convoy3 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy3', 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(Convoy3, 'P2QConvoys1')
-    
-        for _, v in Convoy3:GetPlatoonUnits() do
-            table.insert(ScenarioInfo.Convoy3, v)
-        end
 
         local ConvyTrigger3 = {5*60, 4*60, 3*60}
         ScenarioFramework.CreateTimerTrigger(Convoy4, ConvyTrigger3[Difficulty])
@@ -397,16 +377,13 @@ function Convoy3()
             'We can not allow the crystal to get off world.', -- description
             {                              -- target
                 MarkUnits = true,
-                Units = ScenarioInfo.Convoy3,
+                Units = Convoy3:GetPlatoonUnits(),
                 Area = 'EvacZone',
             }
         )
    
         ScenarioInfo.M4P2:AddResultCallback(
             function(result)
-                if (not result and not ScenarioInfo.OpEnded) then
-
-                end
                 if result then
                     for _, v in Convoy3:GetPlatoonUnits() do
                     ScenarioFramework.FakeTeleportUnit(v, true)
@@ -441,16 +418,13 @@ function Convoy4()
             'We can not allow the crystal to get off world.', -- description
             {                              -- target
                 MarkUnits = true,
-                Units = ScenarioInfo.Convoy4,
+                Units = Convoy4:GetPlatoonUnits(),
                 Area = 'EvacZone',
             }
         )
    
         ScenarioInfo.M5P2:AddResultCallback(
             function(result)
-                if (not result and not ScenarioInfo.OpEnded) then
-
-                end
                 if result then
                     for _, v in Convoy4:GetPlatoonUnits() do
                     ScenarioFramework.FakeTeleportUnit(v, true)
@@ -482,16 +456,13 @@ function Convoy5()
             'We can not allow the crystal to get off world.', -- description
             {                              -- target
                 MarkUnits = true,
-                Units = ScenarioInfo.Convoy5,
+                Units = Convoy5:GetPlatoonUnits(),
                 Area = 'EvacZone',
             }
         )
    
         ScenarioInfo.M6P2:AddResultCallback(
             function(result)
-                if (not result and not ScenarioInfo.OpEnded) then
-
-                end
                 if result then
                     for _, v in Convoy5:GetPlatoonUnits() do
                     ScenarioFramework.FakeTeleportUnit(v, true)
@@ -520,8 +491,7 @@ function MissionP2()
         function(result)
             if result then
                 ForkThread(IntroP3)  
-            end
-            if not result then
+            else
                 PlayerLose()
             end
         end
@@ -657,7 +627,7 @@ end
 
 function IntroP3()
 
-    if ScenarioInfo.MissionNumber == 3 or ScenarioInfo.MissionNumber == 4 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 3
@@ -812,17 +782,6 @@ function MissionP3()
             Units = {ScenarioInfo.P3QACU1},   
         }
     )
-    ScenarioInfo.M1P3:AddResultCallback(
-        function(result)
-            if result then
-                if ScenarioInfo.M2P3.Active then
-               
-                else 
-                    ForkThread(IntroP4) 
-                end 
-            end
-        end
-    )
     
     ScenarioInfo.M2P3 = Objectives.Kill(
         'primary',                      -- type
@@ -834,17 +793,13 @@ function MissionP3()
             Units = {ScenarioInfo.P3QACU2},   
         }
     )
-    ScenarioInfo.M2P3:AddResultCallback(
-        function(result)
-            if result then
-                if ScenarioInfo.M1P3.Active then
-               
-                else 
-                    ForkThread(IntroP4) 
-                end   
-            end
-        end
-    )
+
+    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', IntroP4)
+    ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M2P3)
+    ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
+    if ScenarioInfo.M7P2.Active then
+        ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M7P2)
+    end
 
     if ExpansionTimer then
         local M3MapExpandDelay = {45*60, 35*60, 25*60}
@@ -905,10 +860,7 @@ function MissionSecondary2P3()
         function(result)
             if (not result) then
                 ScenarioFramework.Dialogue(OpStrings.Secondary2FailP3, nil, true)
-            end
-
-            if result then
-
+            else
                 ScenarioFramework.Dialogue(OpStrings.Secondary2endP3, nil, true)
 
                 local ARTY = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_4', ArmyBrains[Civilians])

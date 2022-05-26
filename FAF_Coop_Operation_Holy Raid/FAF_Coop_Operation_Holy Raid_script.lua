@@ -261,10 +261,7 @@ end
 function AttackCheck()
     
     if ScenarioInfo.M1P1.Active then
-    
-    ScenarioInfo.M1P1:ManualResult(true)   
-    else
-
+        ScenarioInfo.M1P1:ManualResult(true)   
     end
 end
 

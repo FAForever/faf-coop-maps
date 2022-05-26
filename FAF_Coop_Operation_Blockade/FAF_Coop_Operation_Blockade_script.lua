@@ -264,7 +264,7 @@ end
 
 function IntroP2()
 
-    if ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 2
@@ -640,7 +640,7 @@ function Part3start()
 end
 
 function IntroP3()
-    if ScenarioInfo.MissionNumber == 3 then
+    if ScenarioInfo.MissionNumber ~= 3 then
         return
     end
     ScenarioInfo.MissionNumber = 3
