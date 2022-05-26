@@ -264,7 +264,7 @@ end
 
 function IntroP2()
 
-    if ScenarioInfo.MissionNumber ~= 2 then
+    if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
@@ -640,7 +640,7 @@ function Part3start()
 end
 
 function IntroP3()
-    if ScenarioInfo.MissionNumber ~= 3 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 3
@@ -983,7 +983,7 @@ end
 
 function nukeparty()
     local SeraNuke = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb2305, false)
-    SeraNuke[2]:GiveNukeSiloAmmo(5)
+    SeraNuke[2]:GiveNukeSiloAmmo(3)
     WaitSeconds(30)
     IssueNuke({SeraNuke[2]}, ScenarioUtils.MarkerToPosition('Nuke1'))
     WaitSeconds(10)

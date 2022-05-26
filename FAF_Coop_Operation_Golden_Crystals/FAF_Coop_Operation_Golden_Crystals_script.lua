@@ -145,6 +145,8 @@ end
 
 function MissionP1()
 
+    ScenarioInfo.MissionNumber = 1
+
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -225,7 +227,7 @@ end
 
 function IntroP2()
     
-    if ScenarioInfo.MissionNumber ~= 2 then
+    if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
