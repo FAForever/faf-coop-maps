@@ -37,7 +37,7 @@ end
 
 --- Build condition
 -- Checks if any of the player's ACUs is close to the base
-function PlayersACUsNearBase(aiBrain, baseName, distance)
+function PlayerUnitsNearBase(aiBrain, baseName, distance)
     local bManager = aiBrain.BaseManagers[baseName]
     if not bManager then return false end
 
@@ -46,7 +46,7 @@ function PlayersACUsNearBase(aiBrain, baseName, distance)
         distance = bManager:GetRadius()
     end
 
-    for _, v in ScenarioInfo.PlayersACUs or {} do
+    
         if not v:IsDead() then
             local position = v:GetPosition()
             local value = VDist2(position[1], position[3], bPosition[1], bPosition[3])
@@ -55,7 +55,7 @@ function PlayersACUsNearBase(aiBrain, baseName, distance)
                 return true
             end
         end
-    end
+    
     return false
 end
 
@@ -154,7 +154,7 @@ function PlatoonAttackWithTransportsThread( platoon, landingChain, attackChain, 
     local attackLocs = ScenarioUtils.ChainToPositions(attackChain)
     for k,v in attackLocs do
         IssuePatrol( units, v )
-    end
+    end 
     --[[
     if instant then
         IssueMove( transports, startPos )

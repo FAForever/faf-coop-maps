@@ -4,560 +4,702 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 local UEF = 3
 local Player1 = 1
+local SeraphimAlly2 = 6
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 local P3Ubase1 = BaseManager.CreateBaseManager()
 local P3Ubase2 = BaseManager.CreateBaseManager()
 local P3Ubase3 = BaseManager.CreateBaseManager()
-local P3Ubase4 = BaseManager.CreateBaseManager()
 
+function P3UEFbase1AI()
+    P3Ubase1:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFP3base1', 'P3UB1MK', 90, {P3UBase1 = 100})
+    P3Ubase1:StartNonZeroBase({{12, 20, 26}, {11, 17, 22}})
 
-function UEFmain1AI()
-    P3Ubase1:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFmmainbase1', 'P3UB1MK', 80, {P3UBase1 = 300})
-    P3Ubase1:StartNonZeroBase({{14,18,22}, {12,16,20}})
-
-    AirAttacks1()
-    LandAttacks1()
+    P3UB1AirAttacks()
+    P3UB1LandAttacks()
+    P3UB1NavalAttacks()
     P3UB1EXpattacks1()
 end
 
-function UEFmain2AI()
-    P3Ubase2:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFmmainbase2', 'P3UB2MK', 80, {P3UBase2 = 300})
-    P3Ubase2:StartNonZeroBase({{14,18,22}, {12,16,20}})
+function P3UB1AirAttacks()
 
-    AirAttacks2()
-    LandAttacks2()
-    P3UB2EXpattacks1()
-end
+    local quantity = {}
 
-function UEFmain3AI()
-    P3Ubase3:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFmmainbase3', 'P3UB3MK', 80, {P3UBase3 = 300})
-    P3Ubase3:StartNonZeroBase({{7,10,13}, {6,9,12}})
-
-    NavalAttacks1()
-end
-
-function AirAttacks2()
-
+    quantity = {4, 5, 6}
     local Temp = {
-        'P3UB2AirattackTemp0',
+        'P3UB1AirattackTemp0',
         'NoPlan',
-        { 'uea0305', 1, 6, 'Attack', 'GrowthFormation' },
+        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uea0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     local Builder = {
-        BuilderName = 'P3UB2AirattackBuilder0',
+        BuilderName = 'P3UB1AirattackBuilder0',
         PlatoonTemplate = Temp,
         InstanceCount = 1,
-        Priority = 100,
+        Priority = 200,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        LocationType = 'UEFP3base1',
+        PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3'}
+            PatrolChain = 'P3UB1AirDefense1'
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
     
+    quantity = {4, 6, 8}
     Temp = {
-        'P3UB2AirattackTemp1',
+        'P3UB1AirattackTemp1',
         'NoPlan',
-        { 'uea0203', 1, 18, 'Attack', 'GrowthFormation' },
+        { 'uea0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
-        BuilderName = 'P3UB2AirattackBuilder1',
+        BuilderName = 'P3UB1AirattackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
+        InstanceCount = 5,
         Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
+        LocationType = 'UEFP3base1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3'}
+            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3', 'P3UB1Airattack4'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
     
+    quantity = {4, 8, 12}
     Temp = {
-        'P3UB2AirattackTemp2',
+        'P3UB1AirattackTemp2',
         'NoPlan',
-        { 'uea0303', 1, 6, 'Attack', 'GrowthFormation' },
+        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
-        BuilderName = 'P3UB2AirattackBuilder2',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-        'P3UB2AirattackTemp3',
-        'NoPlan',
-        { 'uea0304', 1, 6, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB2AirattackBuilder3',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-end
-
-function LandAttacks2()
-
-    local Temp = {
-        'P3UB2LandattackTemp1',
-        'NoPlan',
-        { 'xel0305', 1, 6, 'Attack', 'GrowthFormation' },
-    }
-    local Builder = {
-        BuilderName = 'P3UB2LandattackBuilder1',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1landattack1', 'P3UB1landattack2', 'P3UB1landattack3', 'P3UB1landattack4'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-     Temp = {
-        'P3UB2LandattackTemp2',
-        'NoPlan',
-        { 'uel0303', 1, 12, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB2LandattackBuilder2',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1landattack1', 'P3UB1landattack2', 'P3UB1landattack3', 'P3UB1landattack4'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-    Temp = {
-        'P3UB2LandattackTemp3',
-        'NoPlan',
-        { 'uel0304', 1, 3, 'Attack', 'GrowthFormation' },
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB2LandattackBuilder3',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1landattack1', 'P3UB1landattack2', 'P3UB1landattack3', 'P3UB1landattack4'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-    Temp = {
-        'P3UB2LandattackTemp4',
-        'NoPlan',
-        { 'uel0303', 1, 9, 'Attack', 'GrowthFormation' },
-        { 'xel0305', 1, 3, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB2LandattackBuilder4',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1landattack1', 'P3UB1landattack2', 'P3UB1landattack3', 'P3UB1landattack4'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
-    Temp = {
-        'P3UB2LandattackTemp5',
-        'NoPlan',
-        { 'uel0205', 1, 9, 'Attack', 'GrowthFormation' },
-        { 'uel0307', 1, 3, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB2LandattackBuilder5',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase2',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB1landattack1', 'P3UB1landattack2', 'P3UB1landattack3', 'P3UB1landattack4'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )    
-end
-
-function AirAttacks1()
-
-    local Temp = {
-        'P3UB1airattackTemp1',
-        'NoPlan',
-        { 'uea0304', 1, 4, 'Attack', 'AttackFormation' },  --Strat bomders
-        { 'uea0303', 1, 8, 'Attack', 'AttackFormation' },  --ASFs
-    }
-    local Builder = {
-        BuilderName = 'P3UB1airattackBuilder1',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB2Airattack1', 'P3UB2Airattack2', 'P3UB2Airattack3'}
-        },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-    Temp = {
-        'P3UB1airattackTemp2',
-        'NoPlan',
-        { 'uea0305', 1, 6, 'Attack', 'AttackFormation' },  --Heavy Gunships
-        { 'uea0203', 1, 12, 'Attack', 'AttackFormation' },  --ASFs
-    }
-    Builder = {
-        BuilderName = 'P3UB1airattackBuilder2',
+        BuilderName = 'P3UB1AirattackBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 100,
+        Priority = 110,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 10, categories.AIR * categories.MOBILE}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2Airattack1', 'P3UB2Airattack2', 'P3UB2Airattack3'}
+            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3', 'P3UB1Airattack4'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
+    
+    quantity = {4, 6, 8}
     Temp = {
-        'P3UB1airattackTemp3',
+        'P3UB1AirattackTemp3',
         'NoPlan',
-        { 'uea0305', 1, 12, 'Attack', 'AttackFormation' },  --Heavy Gunships
+        { 'uea0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
-        BuilderName = 'P3UB1airattackBuilder3',
+        BuilderName = 'P3UB1AirattackBuilder3',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 100,
+        Priority = 105,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
+        LocationType = 'UEFmmainbase2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 40, categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2Airattack1', 'P3UB2Airattack2', 'P3UB2Airattack3'}
+            PatrolChains = {'P3UB1Airattack1', 'P3UB1Airattack2', 'P3UB1Airattack3', 'P3UB1Airattack4'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {8, 10, 12}
+    opai = P3Ubase1:AddOpAI('AirAttacks', 'M3_UEF_Air_Attack_1',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.EXPERIMENTAL * categories.LAND},
+            },
+            Priority = 150,
+        }
+    )
+    opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, 2,  categories.EXPERIMENTAL * categories.LAND, '>='})
 end
 
-function LandAttacks1()
+function P3UB1LandAttacks()
 
+    local quantity = {}
+
+    quantity = {5, 7, 10}
     local Temp = {
+        'P3UB1LandattackTemp0',
+        'NoPlan',
+        { 'uel0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    local Builder = {
+        BuilderName = 'P3UB1LandattackBuilder0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB1Landattack1', 'P3UB1Landattack2'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {3, 4, 5}
+    Temp = {
         'P3UB1LandattackTemp1',
         'NoPlan',
-        { 'xel0305', 1, 10, 'Attack', 'GrowthFormation' },
-        { 'delk002', 1, 2, 'Attack', 'GrowthFormation' },
+        { 'uel0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
-    local Builder = {
+    Builder = {
         BuilderName = 'P3UB1LandattackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
+        InstanceCount = 3,
+        Priority = 110,
         PlatoonType = 'Land',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 35, (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
+            PatrolChains = {'P3UB1Landattack1', 'P3UB1Landattack2'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
+    quantity = {6, 7, 8}
     Temp = {
         'P3UB1LandattackTemp2',
         'NoPlan',
-        { 'uel0307', 1, 4, 'Attack', 'GrowthFormation' },
-        { 'uel0303', 1, 11, 'Attack', 'GrowthFormation' },
+        { 'xel0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },
     }
     Builder = {
         BuilderName = 'P3UB1LandattackBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
+        InstanceCount = 3,
+        Priority = 150,
         PlatoonType = 'Land',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 2, categories.EXPERIMENTAL * categories.LAND}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
+            PatrolChains = {'P3UB1Landattack1', 'P3UB1Landattack2'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
+    quantity = {3, 4, 5}
     Temp = {
         'P3UB1LandattackTemp3',
         'NoPlan',
-        { 'uel0303', 1, 15, 'Attack', 'GrowthFormation' },
+        { 'delk002', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
         BuilderName = 'P3UB1LandattackBuilder3',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 100,
+        Priority = 115,
         PlatoonType = 'Land',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 20, categories.AIR * categories.MOBILE}},
         },
-    }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-
-    Temp = {
-        'P3UB1LandattackTemp4',
-        'NoPlan',
-        { 'uel0202', 1, 15, 'Attack', 'GrowthFormation' },
-        { 'uel0307', 1, 5, 'Attack', 'GrowthFormation' },
-        { 'uel0205', 1, 5, 'Attack', 'GrowthFormation' },
-    }
-    Builder = {
-        BuilderName = 'P3UB1LandattackBuilder4',
-        PlatoonTemplate = Temp,
-        InstanceCount = 2,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'UEFmmainbase1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
+            PatrolChains = {'P3UB1Landattack1', 'P3UB1Landattack2'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
-function NavalAttacks1()
+function P3UB1NavalAttacks()
 
+    local quantity = {}
+
+    quantity = {2, 3, 4}
     local Temp = {
-        'P3UB3LandattackTemp1',
+        'P3UB1NavalattackTemp0',
         'NoPlan',
-        { 'ues0302', 1, 3, 'Attack', 'GrowthFormation' },
+        { 'ues0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     local Builder = {
-        BuilderName = 'P3UB3LandattackBuilder1',
+        BuilderName = 'P3UB3NavalattackBuilder0',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
+        InstanceCount = 3,
         Priority = 100,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase3',
+        LocationType = 'UEFP3base1',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB3Navalattack1', 'P3UB3Navalattack2'}
+            PatrolChains = {'P3UB1Navalattack1', 'P3UB1Navalattack2'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
+
+    quantity = {2, 3, 4}
     Temp = {
-        'P3UB3LandattackTemp2',
+        'P3UB1NavalattackTemp1',
         'NoPlan',
-        { 'ues0201', 1, 3, 'Attack', 'GrowthFormation' },
-        { 'ues0202', 1, 4, 'Attack', 'GrowthFormation' },
-        { 'ues0203', 1, 3, 'Attack', 'GrowthFormation' },
+        { 'ues0201', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
-        BuilderName = 'P3UB3LandattackBuilder2',
+        BuilderName = 'P3UB3NavalattackBuilder1',
         PlatoonTemplate = Temp,
         InstanceCount = 3,
-        Priority = 200,
+        Priority = 105,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
-        LocationType = 'UEFmmainbase3',
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 5, categories.NAVAL * categories.MOBILE}},
+        },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB3Navalattack1', 'P3UB3Navalattack2'}
+            PatrolChains = {'P3UB1Navalattack1', 'P3UB1Navalattack2'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {2, 3, 4}
+    Temp = {
+        'P3UB1NavalattackTemp2',
+        'NoPlan',
+        { 'xes0102', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+        BuilderName = 'P3UB3NavalattackBuilder2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 110,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 4, categories.xss0304}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB1Navalattack1', 'P3UB1Navalattack2'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {1, 2, 2}
+    Temp = {
+        'P3UB1NavalattackTemp3',
+        'NoPlan',
+        { 'xes0307', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+        BuilderName = 'P3UB3NavalattackBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 115,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base1',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 2, categories.NAVAL * categories.MOBILE * categories.TECH3 - categories.xss0304}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB1Navalattack1', 'P3UB1Navalattack2'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )   
 end
 
 function P3UB1EXpattacks1()
     local opai = nil
     local quantity = {}
-    
+    quantity = {2, 3, 4}
     opai = P3Ubase1:AddOpAI('Fatboy1',
         {
             Amount = 2,
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
+            PatrolChains = {'P3UB1Landattack1', 'P3UB1Landattack2'}
         },
-            MaxAssist = 4,
+            MaxAssist = quantity[Difficulty],
             Retry = true,
+            BuildCondition = {
+                {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                    {{'HumanPlayers'}, 40, categories.ALLUNITS * categories.TECH3, '>='},
+                },
+            }
         }
     )
 end
 
-function P3UB2EXpattacks1()
-    local opai = nil
+function P3UEFbase2AI()
+    P3Ubase2:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFP3base2', 'P3UB2MK', 80, {P3UBase2 = 100})
+    P3Ubase2:StartNonZeroBase({{8, 11, 14}, {6, 9, 12}})
+
+    P3UB2AirAttacks()
+    P3UB2LandAttacks()
+end
+
+function P3UB2AirAttacks()
+
     local quantity = {}
-    
-    opai = P3Ubase2:AddOpAI('Fatboy2',
-        {
-            Amount = 2,
-            KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
-            PatrolChains = {'P3UB2landattack1', 'P3UB2landattack2'}
-        },
-            MaxAssist = 4,
-            Retry = true,
-        }
-    )
-end
 
-function P3UEFbase4AI()
-
-    P3Ubase4:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFBase4', 'P3UB4MK', 60, {P3UBase4 = 300})
-    P3Ubase4:StartEmptyBase({{8,11,14}, {6,9,12}})
-    
-    P3Ubase2:AddExpansionBase('P3UEFBase4', 3)
-    
-    P3UB4landattacks()
-end
-
-function P3UB4landattacks()
-
+    quantity = {2, 2, 3}
     local Temp = {
-        'P3UB4LandattackTemp0',
+        'P3UB2AirattackTemp0',
         'NoPlan',
-        { 'uel0303', 1, 6, 'Attack', 'GrowthFormation' },
-        { 'uel0202', 1, 9, 'Attack', 'GrowthFormation' },
+        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --ASF
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --Gunships
     }
     local Builder = {
-        BuilderName = 'P3UB4LandattackBuilder0',
+        BuilderName = 'P3UB2AirattackBuilder0',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 100,
-        PlatoonType = 'Land',
+        InstanceCount = 2,
+        Priority = 200,
+        PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'P3UEFBase4',
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        LocationType = 'UEFP3base2',
+        PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB4landattack1', 'P3UB4landattack2', 'P3UB4landattack3'}
+            PatrolChain = 'P3UB2AirDefense1'
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
+
+    quantity = {6, 9, 12}
     Temp = {
-        'P3UB4LandattackTemp1',
+        'P3UB2airattackTemp1',
         'NoPlan',
-        { 'del0204', 1, 6, 'Attack', 'GrowthFormation' },
-        { 'uel0202', 1, 10, 'Attack', 'GrowthFormation' },
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --Gunships
     }
     Builder = {
-        BuilderName = 'P3UB4LandattackBuilder1',
+        BuilderName = 'P3UB2AirattackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 1,
+        InstanceCount = 5,
         Priority = 100,
-        PlatoonType = 'Land',
+        PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'P3UEFBase4',
+        LocationType = 'UEFP3base2',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB4landattack1', 'P3UB4landattack2', 'P3UB4landattack3'}
+            PatrolChains = {'P3UB2Landattack1', 'P3UB2Landattack2', 'P3UB2Landattack3'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
-    
+
+    quantity = {7, 8, 9}
     Temp = {
-        'P3UB4LandattackTemp2',
+        'P3UB2airattackTemp2',
         'NoPlan',
-        { 'xel0305', 1, 6, 'Attack', 'GrowthFormation' },
+        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --ASFs
+    }
+    Builder = {
+        BuilderName = 'P3UB2AirattackBuilder2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 110,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  'SeraphimAlly2', 10, categories.AIR * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Landattack1', 'P3UB2Landattack2', 'P3UB2Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {4, 5, 6}
+    Temp = {
+        'P3UB2airattackTemp3',
+        'NoPlan',
+        { 'uea0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --HeavyGunships
+    }
+    Builder = {
+        BuilderName = 'P3UB2AirattackBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 120,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 1, categories.xsb2305 + categories.uab2305}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Airattack1', 'P3UB2Airattack2'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {4, 5, 6}
+    Temp = {
+        'P3UB2airattackTemp3',
+        'NoPlan',
+        { 'uea0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --HeavyGunships
+    }
+    Builder = {
+        BuilderName = 'P3UB2AirattackBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 115,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, 20, categories.AIR * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Airattack1', 'P3UB2Airattack2'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+end
+
+function P3UB2LandAttacks()
+
+    local quantity = {}
+
+    quantity = {6, 8, 9}
+    local Temp = {
+        'P3UB2LandattackTemp0',
+        'NoPlan',
+        { 'uel0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    local Builder = {
+        BuilderName = 'P3UB2LandattackBuilder0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Landattack1', 'P3UB2Landattack2', 'P3UB2Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {2, 3, 4}
+    Temp = {
+        'P3UB2LandattackTemp1',
+        'NoPlan',
+        { 'delk002', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+        BuilderName = 'P3UB2LandattackBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 105,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  'SeraphimAlly2', 10, categories.AIR * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Landattack1', 'P3UB2Landattack2', 'P3UB2Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {3, 4, 6}
+    Temp = {
+        'P3UB2LandattackTemp2',
+        'NoPlan',
+        { 'uel0111', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+        BuilderName = 'P3UB2LandattackBuilder2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 110,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base2',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  'SeraphimAlly2', 10, categories.LAND * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB2Landattack1', 'P3UB2Landattack2', 'P3UB2Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+end
+
+function P3UEFbase3AI()
+    P3Ubase3:InitializeDifficultyTables(ArmyBrains[UEF], 'UEFP3base3', 'P3UB3MK', 80, {P3UBase3 = 100})
+    P3Ubase3:StartNonZeroBase({{8, 11, 14}, {6, 9, 12}})
+
+    P3UB3LandAttacks()
+    P3UB3AirAttacks()
+end
+
+function P3UB3LandAttacks()
+
+    local quantity = {}
+
+    quantity = {3, 4, 5}
+    local Temp = {
+        'P3UB3LandattackTemp0',
+        'NoPlan',
+        { 'uel0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uel0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
         { 'uel0307', 1, 2, 'Attack', 'GrowthFormation' },
-        { 'uel0111', 1, 4, 'Attack', 'GrowthFormation' },
     }
-    Builder = {
-        BuilderName = 'P3UB4LandattackBuilder2',
+    local Builder = {
+        BuilderName = 'P3UB3LandattackBuilder0',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 4,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
-        LocationType = 'P3UEFBase4',
+        LocationType = 'UEFP3base3',
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-            PatrolChains = {'P3UB4landattack1', 'P3UB4landattack2', 'P3UB4landattack3'}
+            PatrolChains = {'P3UB3Landattack1', 'P3UB3Landattack2', 'P3UB3Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {2, 3, 4}
+    Temp = {
+        'P3UB3LandattackTemp1',
+        'NoPlan',
+        { 'uel0111', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+    }
+    Builder = {
+        BuilderName = 'P3UB3LandattackBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 105,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base3',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  'SeraphimAlly2', 10, categories.LAND * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB3Landattack1', 'P3UB3Landattack2', 'P3UB3Landattack3'}
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
-function DisableBase1()
-    if(P3Ubase1) then
-        LOG('P3Ubase1 stopped')
-        P3Ubase1:BaseActive(false)
-    end
-    for _, platoon in ArmyBrains[UEF]:GetPlatoonsList() do
-        platoon:Stop()
-        ArmyBrains[UEF]:DisbandPlatoon(platoon)
-    end
-    LOG('All Platoons of P3Ubase1 stopped')
-end
+function P3UB3AirAttacks()
 
-function DisableBase2()
-    if(P3Ubase2) then
-        LOG('Serabase2 stopped')
-        P3Ubase2:BaseActive(false)
-    end
-    for _, platoon in ArmyBrains[UEF]:GetPlatoonsList() do
-        platoon:Stop()
-        ArmyBrains[UEF]:DisbandPlatoon(platoon)
-    end
-    LOG('All Platoons of P3Ubase2 stopped')
-end
+    local quantity = {}
 
+    quantity = {2, 2, 3}
+    local Temp = {
+        'P3UB3AirattackTemp0',
+        'NoPlan',
+        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --ASF
+        { 'dea0202', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --Gunships
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --Gunships
+    }
+    local Builder = {
+        BuilderName = 'P3UB3AirattackBuilder0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 200,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base3',
+        PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+        PlatoonData = {
+            PatrolChain = 'P3UB3AirDefense1'
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {6, 7, 9}
+    Temp = {
+        'P3UB3AirattackTemp1',
+        'NoPlan',
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --Gunships
+    }
+    Builder = {
+        BuilderName = 'P3UB3AirattackBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base3',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB3Landattack1', 'P3UB3Landattack2', 'P3UB3Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    quantity = {6, 7, 9}
+    Temp = {
+        'P3UB3AirattackTemp2',
+        'NoPlan',
+        { 'dea0202', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --ASFs
+    }
+    Builder = {
+        BuilderName = 'P3UB3AirattackBuilder2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 105,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'UEFP3base3',
+        BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  'SeraphimAlly2', 15, categories.AIR * categories.MOBILE}},
+        },
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+            PatrolChains = {'P3UB3Landattack1', 'P3UB3Landattack2', 'P3UB3Landattack3'}
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+end

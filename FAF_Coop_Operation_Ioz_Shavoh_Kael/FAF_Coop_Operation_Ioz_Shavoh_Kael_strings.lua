@@ -121,7 +121,7 @@ TAUNT3P2 = {
 }
 
 TAUNT1P3 = {
-    {text = '[Valerie]: See your nothing without your human servants!', vid = 'E06_Aiko_M01_0264.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P3', faction = 'UEF'},
+    {text = '[Valerie]: See, your nothing without your human servants!', vid = 'E06_Aiko_M01_0264.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P3', faction = 'UEF'},
 }
 
 TAUNT2P3 = {
