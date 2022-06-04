@@ -1,5 +1,15 @@
 # Changelog
 
+## Patch 7.0.0 (June 4th, 2022)
+
+Introduces three new operations made by Shadowlorda1:
+
+- Blockade
+- Holy Raid
+- Golden Crystals
+
+Adds support for BlackOps ACUs.
+
 ## Patch 6.0.2 (November 11th, 2020)
 
 ### General
