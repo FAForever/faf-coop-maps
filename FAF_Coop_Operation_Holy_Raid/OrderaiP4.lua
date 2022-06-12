@@ -1,7 +1,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local CustomFunctions = '/maps/FAF_Coop_Operation_Holy Raid/FAF_Coop_Operation_Holy Raid_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_CustomFunctions.lua'
 
 local Player1 = 1
 local Order2 = 3

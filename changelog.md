@@ -1,5 +1,9 @@
 # Changelog
 
+## Patch 7.0.1 (June 12th, 2022)
+
+Fixes the naming convetion of Holy Raid and fixes a small scripting bug.
+
 ## Patch 7.0.0 (June 4th, 2022)
 
 Introduces three new operations made by Shadowlorda1:

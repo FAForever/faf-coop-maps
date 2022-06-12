@@ -10,13 +10,13 @@ local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/Utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local Buff = import('/lua/sim/Buff.lua')
-local P2OrderAI = import('/maps/FAF_Coop_Operation_Holy Raid/OrderaiP2.lua')
-local P3OrderAI = import('/maps/FAF_Coop_Operation_Holy Raid/OrderaiP3.lua')
-local P4OrderAI = import('/maps/FAF_Coop_Operation_Holy Raid/OrderaiP4.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Holy Raid/FAF_Coop_Operation_Holy Raid_strings.lua')  
+local P2OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP2.lua')
+local P3OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP3.lua')
+local P4OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP4.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings.lua')  
 local TauntManager = import('/lua/TauntManager.lua')
 
-local OrderTM = TauntManager.CreateTauntManager('Order1TM', '/maps/FAF_Coop_Operation_Holy Raid/FAF_Coop_Operation_Holy Raid_strings.lua')
+local OrderTM = TauntManager.CreateTauntManager('Order1TM', '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings.lua')
 
 ScenarioInfo.Player1 = 1
 ScenarioInfo.Civilians = 4
@@ -533,120 +533,125 @@ function IntroP3()
     end
     ScenarioInfo.MissionNumber = 2
 
-    WaitSeconds(5)
-    ScenarioFramework.SetPlayableArea('AREA_3', true)
-     
-    P3OrderAI.Order1base1P3AI()
-    P3OrderAI.Order1base2P3AI()
-    P3OrderAI.Order1base3P3AI()
-    P3OrderAI.Order1base4P3AI()
-    P3OrderAI.Order2base1P3AI()
-
-    local Antinukes = ArmyBrains[Order1]:GetListOfUnits(categories.uab4302, false)
-    for _, v in Antinukes do
-        v:GiveTacticalSiloAmmo(3)
-    end
-     
-    ScenarioUtils.CreateArmyGroup('Order1', 'P2A1OuterD_D'.. Difficulty)
-     
-    ScenarioInfo.P3O1ACU = ScenarioFramework.SpawnCommander('Order1', 'O1ACU', false, 'Executor Havra', false, OrderACUdeath,
-    {'AdvancedEngineering','T3Engineering', 'Shield', 'ShieldHeavy', 'HeatSink'})
-    ScenarioInfo.P3O1ACU:SetAutoOvercharge(true)
-    ScenarioInfo.P3O1ACU:SetVeterancy(1 + Difficulty)
-    
-    ScenarioUtils.CreateArmyGroup('Civilians', 'P2Civilianbase1', true)
-    ScenarioUtils.CreateArmyGroup('Civilians', 'P2Civilianbase2')
-    ScenarioUtils.CreateArmyGroup('Civilians', 'P2Cunits')
-    ScenarioInfo.Blackbox = ScenarioUtils.CreateArmyUnit('Order1', 'Blackbox')
-    ScenarioInfo.Blackbox:SetCustomName("UEF blackbox")
-    ScenarioInfo.Blackbox:SetReclaimable(true)
-    ScenarioInfo.Blackbox:SetCapturable(false)
-    ScenarioInfo.Blackbox:SetCanTakeDamage(false)
-    ScenarioInfo.Blackbox:SetCanBeKilled(false)
-    ScenarioInfo.Blackbox:SetDoNotTarget(true)
-    
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit1', 'AttackFormation')
-    ScenarioFramework.PlatoonMoveChain(platoon, 'O2P3B1Landattack1')
-    
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3G1cut', 'GrowthFormation')
-    for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3IntattackCAM')))
-    end
-
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3O1LandDefence1_D' .. Difficulty, 'GrowthFormation')
-    for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O1P3B1landDefence1')))
-    end
-
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3O1LandDefence2_D' .. Difficulty, 'GrowthFormation')
-    for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O1P3B2landDefence1')))
-    end
-    
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit2', 'GrowthFormation')
-    for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O2P3B1Airdefence1')))
-    end
-    
-    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit3', 'GrowthFormation')
-    for _, v in units:GetPlatoonUnits() do
-       ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O2P3B1Landdefence1')))
-    end
-    
-    Cinematics.EnterNISMode()
-        Cinematics.SetInvincible('AREA_2')
-    
-    local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(40, 'P3vision1', 0, ArmyBrains[Player1])
-    local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(40, 'P3vision2', 0, ArmyBrains[Player1])
-    local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(70, 'P3vision3', 0, ArmyBrains[Player1])
-    
-    ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 2)
-    WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
-    WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 3)
-    WaitSeconds(3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 3)
-    WaitSeconds(3)
-    local AeonNuke = ArmyBrains[Order1]:GetListOfUnits(categories.uab2305, false)
-    IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
     ForkThread(
-            function()
-                WaitSeconds(1)
-                VisMarker2_1:Destroy()
-                VisMarker2_2:Destroy()
-                VisMarker2_3:Destroy()
-                WaitSeconds(1)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision1'), 50)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision2'), 50)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision3'), 80)
-                end
-                )
-        Cinematics.SetInvincible('AREA_2', true)
-    Cinematics.ExitNISMode()
+        function()
     
-    ScenarioInfo.M2P1:ManualResult(true)
-    
-    ForkThread(MissionP3)
-    ForkThread(P3Intattacks)
-    
-    SetupOrderM2TauntTriggers()
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2.0
+            WaitSeconds(5)
+            ScenarioFramework.SetPlayableArea('AREA_3', true)
+            
+            P3OrderAI.Order1base1P3AI()
+            P3OrderAI.Order1base2P3AI()
+            P3OrderAI.Order1base3P3AI()
+            P3OrderAI.Order1base4P3AI()
+            P3OrderAI.Order2base1P3AI()
 
-       for _, u in GetArmyBrain(Order1):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end     
+            local Antinukes = ArmyBrains[Order1]:GetListOfUnits(categories.uab4302, false)
+            for _, v in Antinukes do
+                v:GiveTacticalSiloAmmo(3)
+            end
+            
+            ScenarioUtils.CreateArmyGroup('Order1', 'P2A1OuterD_D'.. Difficulty)
+            
+            ScenarioInfo.P3O1ACU = ScenarioFramework.SpawnCommander('Order1', 'O1ACU', false, 'Executor Havra', false, OrderACUdeath,
+            {'AdvancedEngineering','T3Engineering', 'Shield', 'ShieldHeavy', 'HeatSink'})
+            ScenarioInfo.P3O1ACU:SetAutoOvercharge(true)
+            ScenarioInfo.P3O1ACU:SetVeterancy(1 + Difficulty)
+            
+            ScenarioUtils.CreateArmyGroup('Civilians', 'P2Civilianbase1', true)
+            ScenarioUtils.CreateArmyGroup('Civilians', 'P2Civilianbase2')
+            ScenarioUtils.CreateArmyGroup('Civilians', 'P2Cunits')
+            ScenarioInfo.Blackbox = ScenarioUtils.CreateArmyUnit('Order1', 'Blackbox')
+            ScenarioInfo.Blackbox:SetCustomName("UEF blackbox")
+            ScenarioInfo.Blackbox:SetReclaimable(true)
+            ScenarioInfo.Blackbox:SetCapturable(false)
+            ScenarioInfo.Blackbox:SetCanTakeDamage(false)
+            ScenarioInfo.Blackbox:SetCanBeKilled(false)
+            ScenarioInfo.Blackbox:SetDoNotTarget(true)
+            
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit1', 'AttackFormation')
+            ScenarioFramework.PlatoonMoveChain(platoon, 'O2P3B1Landattack1')
+            
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3G1cut', 'GrowthFormation')
+            for _, v in units:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3IntattackCAM')))
+            end
 
-       for _, u in GetArmyBrain(Order2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end     
-    
-    ForkThread(Nukeparty)   
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3O1LandDefence1_D' .. Difficulty, 'GrowthFormation')
+            for _, v in units:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O1P3B1landDefence1')))
+            end
+
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3O1LandDefence2_D' .. Difficulty, 'GrowthFormation')
+            for _, v in units:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O1P3B2landDefence1')))
+            end
+            
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit2', 'GrowthFormation')
+            for _, v in units:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O2P3B1Airdefence1')))
+            end
+            
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit3', 'GrowthFormation')
+            for _, v in units:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('O2P3B1Landdefence1')))
+            end
+            
+            Cinematics.EnterNISMode()
+                Cinematics.SetInvincible('AREA_2')
+            
+            local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(40, 'P3vision1', 0, ArmyBrains[Player1])
+            local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(40, 'P3vision2', 0, ArmyBrains[Player1])
+            local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(70, 'P3vision3', 0, ArmyBrains[Player1])
+            
+            ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 2)
+            WaitSeconds(2)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
+            WaitSeconds(2)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 3)
+            WaitSeconds(3)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 3)
+            WaitSeconds(3)
+            local AeonNuke = ArmyBrains[Order1]:GetListOfUnits(categories.uab2305, false)
+            IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
+            ForkThread(
+                    function()
+                        WaitSeconds(1)
+                        VisMarker2_1:Destroy()
+                        VisMarker2_2:Destroy()
+                        VisMarker2_3:Destroy()
+                        WaitSeconds(1)
+                        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision1'), 50)
+                        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision2'), 50)
+                        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3vision3'), 80)
+                        end
+                        )
+                Cinematics.SetInvincible('AREA_2', true)
+            Cinematics.ExitNISMode()
+            
+            ScenarioInfo.M2P1:ManualResult(true)
+            
+            ForkThread(MissionP3)
+            ForkThread(P3Intattacks)
+            
+            SetupOrderM2TauntTriggers()
+            
+            buffDef = Buffs['CheatIncome']
+            buffAffects = buffDef.Affects
+            buffAffects.EnergyProduction.Mult = 1.5
+            buffAffects.MassProduction.Mult = 2.0
+
+            for _, u in GetArmyBrain(Order1):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+                    Buff.ApplyBuff(u, 'CheatIncome')
+            end     
+
+            for _, u in GetArmyBrain(Order2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+                    Buff.ApplyBuff(u, 'CheatIncome')
+            end     
+            
+            ForkThread(Nukeparty)   
+        end
+    )
 end
 
 function P3Intattacks()
