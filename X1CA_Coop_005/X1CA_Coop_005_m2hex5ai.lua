@@ -8,6 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
@@ -28,7 +29,7 @@ function Hex5M2BaseAI()
     -- Hex5 M2 Base
     --------------
     Hex5M2Base:InitializeDifficultyTables(ArmyBrains[Hex5], 'M2_Hex5_Main_Base', 'M2_Hex5_Base_Marker', 150, {M2_Hex5_Main_Base = 100})
-    Hex5M2Base:StartNonZeroBase({{5, 10, 21}, {5, 8, 18}})
+    Hex5M2Base:StartNonZeroBase({{7, 12, 24}, {5, 8, 18}})
     Hex5M2Base:SetActive('AirScouting', true)
     Hex5M2Base:SetActive('LandScouting', true)
     Hex5M2Base:SetBuild('Defenses', false)
@@ -249,6 +250,41 @@ function Hex5M2BaseLandAttacks()
     local quantity = {}
     local trigger = {}
 
+    if Difficulty > 1 then
+        -- Send Spider to Fletcher once he has Fatboys
+        opai = Hex5M2Base:AddOpAI('M2_Hex5_Spider_To_Fletcher',
+            {
+                Amount = quantity[Difficulty],
+                KeepAlive = true,
+                BuildCondition = {
+                    {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory', {'Fletcher', 1, categories.EXPERIMENTAL}}
+                },
+                PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+                PlatoonData = {
+                    PatrolChains = {'M2_Hex5_AttFletcher_Land_1_Chain', 'M2_Hex5_AttFletcher_Land_2_Chain'},
+                },
+                MaxAssist = Difficulty * 2,
+                Retry = true,
+            }
+        )
+    end
+
+    quantity = {1, 2, 3}
+    opai = Hex5M2Base:AddOpAI('M2_Hex5_Spider_To_Player',
+        {
+            Amount = quantity[Difficulty],
+            KeepAlive = true,
+            PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua', 'AddExperimentalToPlatoon'},
+            PlatoonData = {
+                PatrolChain = 'M2_Hex5_LandAttack_1_Chain',
+                Name = 'Hex5_Spiders',
+                NumRequired = quantity[Difficulty],
+            },
+            MaxAssist = Difficulty * 2,
+            Retry = true,
+        }
+    )
+
     ----------------------------------
     -- Hex5 M2 Base Op AI, Land Attacks
     ----------------------------------
@@ -435,5 +471,57 @@ function Hex5M2BaseLandAttacks()
             }
         )
         opai:SetChildQuantity({'MobileMissiles'}, quantity[Difficulty])
+    end
+end
+
+--- Merges units produced by the Base Manager conditional build into the same platoon.
+-- PlatoonData = {
+--     Name - String, unique name for this platoon
+--     NumRequired - Number of experimentals to start moving the platoon
+--     PatrolChain - Name of the chain to use
+-- }
+function AddExperimentalToPlatoon(platoon)
+    local brain = platoon:GetBrain()
+    local data = platoon.PlatoonData
+
+    if not (data.Name and data.NumRequired) then
+        error('*SCENARIO PLATOON AI ERROR: AddExperimentalToPlatoon requires Name, NumRequired to operate', 2)
+    end
+
+    local unit = platoon:GetPlatoonUnits()[1]
+    local plat = brain:GetPlatoonUniquelyNamed(data.Name)
+
+    if not plat then
+        plat = brain:MakePlatoon('', '')
+        plat:UniquelyNamePlatoon(data.Name)
+        plat:SetPlatoonData(data)
+        plat:ForkAIThread(MultipleExperimentalsThread)
+    end
+
+    brain:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'AttackFormation')
+    brain:DisbandPlatoon(platoon)
+end
+
+--- Handles an unique platoon of multiple experimentals.
+function MultipleExperimentalsThread(platoon)
+    local brain = platoon:GetBrain()
+    local data = platoon.PlatoonData
+
+    while brain:PlatoonExists(platoon) do
+        if not platoon:IsPatrolling('Attack') then
+            local numAlive = 0
+            for _, v in platoon:GetPlatoonUnits() do
+                if not v.Dead then
+                    numAlive = numAlive + 1
+                end
+            end
+
+            if numAlive == data.NumRequired then
+                for _, v in ScenarioUtils.ChainToPositions(data.PatrolChain) do
+                    platoon:Patrol(v)
+                end
+            end
+        end
+        WaitSeconds(10)
     end
 end
