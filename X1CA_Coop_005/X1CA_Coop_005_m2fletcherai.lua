@@ -34,13 +34,16 @@ function FletcherBaseAI()
     FletcherBase:Initialize(ArmyBrains[Fletcher], 'M1_Fletcher_Base', 'M1_Fletcher_Base_Marker', 150,
         {
              M1_Fletcher_MEX1 = 1000,
-             M1_Fletcher_RDR1 = 990,
-             M1_Fletcher_FACT1 = 980,
-             M1_Fletcher_FACT2 = 975,
-             M1_Fletcher_MEX2 = 970,
+             M1_Fletcher_FACT1 = 990,
+             M1_Fletcher_MEX2 = 980,
+             M1_Fletcher_FACT2 = 970,
              M1_Fletcher_PWR2 = 960,
-             M1_Fletcher_MEX3 = 950,
-             M1_Fletcher_DEF1 = 930,
+             M1_Fletcher_PWR3 = 950,
+             M1_Fletcher_RDR1 = 940,
+             M1_Fletcher_MEX3 = 930,
+             M1_Fletcher_DEF1 = 920,
+             M1_Fletcher_MSTOR1 = 917,
+             M1_Fletcher_PWR4 = 915,
              M1_Fletcher_PWFAB1_1 = 910,
              M1_Fletcher_PWFAB1_2 = 900,
              M1_Fletcher_PWFAB1_3 = 890,
@@ -49,43 +52,42 @@ function FletcherBaseAI()
              M1_Fletcher_PWFAB2_2 = 810,
              M1_Fletcher_PWFAB2_3 = 800,
              M1_Fletcher_PWFAB2_4 = 790,
+             M1_Fletcher_FACT3 = 780,
              M1_Fletcher_PWFAB3_1 = 730,
              M1_Fletcher_PWFAB3_2 = 720,
              M1_Fletcher_PWFAB3_3 = 710,
              M1_Fletcher_PWFAB3_4 = 700,
-             M1_Fletcher_MSTOR4 = 650,
              M1_Fletcher_PWFAB4_1 = 640,
              M1_Fletcher_PWFAB4_2 = 630,
              M1_Fletcher_PWFAB4_3 = 620,
              M1_Fletcher_PWFAB4_4 = 610,
+             M1_Fletcher_MSTOR4 = 600,
              M1_Fletcher_DEF2 = 560,
+             M1_Fletcher_RDR2 = 550,
              M1_Fletcher_SHLD1 = 540,
              M1_Fletcher_DEF3 = 510,
              M1_Fletcher_SHLD2 = 500,
              M1_Fletcher_DEF4 = 490,
-             M1_Fletcher_PWR1 = 30,
-             M1_Fletcher_PWR3 = 30,
-             M1_Fletcher_MEX4 = 30,
-             M1_Fletcher_MSTOR1 = 20,
-             M1_Fletcher_MSTOR2 = 20,
-             M1_Fletcher_MSTOR3 = 20,
-             M1_Fletcher_FACT4 = 15,    -- 4 factories - 2 air - 2 land    # Belonged to FACT3!
-             M1_Fletcher_WALL1 = 10,
-             M1_Fletcher_WALL2 = 10,
-             M1_Fletcher_WALL3 = 10,
-             M1_Fletcher_WALL4 = 10,
-             M1_Fletcher_WALL5 = 10,
-             M1_Fletcher_WALL6 = 10,
-             M1_Fletcher_WALL7 = 10,
-             M1_Fletcher_WALL8 = 10,
-             M1_Fletcher_WALL9 = 10,
-             M1_Fletcher_WALL10 = 10,
-             M1_Fletcher_WALL11 = 10,
-             M1_Fletcher_WALL12 = 10,
-             M1_Fletcher_FACT3 = 5,    -- 675
+             M1_Fletcher_PWR5 = 485,
+             M1_Fletcher_WALL1 = 480,
+             M1_Fletcher_WALL2 = 470,
+             M1_Fletcher_WALL3 = 460,
+             M1_Fletcher_WALL4 = 450,
+             M1_Fletcher_WALL5 = 440,
+             M1_Fletcher_WALL6 = 430,
+             M1_Fletcher_WALL7 = 420,
+             M1_Fletcher_WALL8 = 410,
+             M1_Fletcher_WALL9 = 400,
+             M1_Fletcher_WALL10 = 390,
+             M1_Fletcher_WALL11 = 380,
+             M1_Fletcher_WALL12 = 370,
+             M1_Fletcher_PWR1 = 10,
+             --M1_Fletcher_MEX4 = 10,
+             --M1_Fletcher_MSTOR2 = 10,
+             M1_Fletcher_MSTOR3 = 10,
          }
     )
-    FletcherBase:StartEmptyBase(35)
+    FletcherBase:StartEmptyBase({15, 4})
     FletcherBase:SetConstructionAlwaysAssist(true)
     FletcherBase:SetMaximumConstructionEngineers(5)
 
@@ -93,9 +95,37 @@ function FletcherBaseAI()
     FletcherBase:SetActive('LandScouting', true)
 end
 
+function FletcherEngineerCount1()
+    FletcherBase:SetEngineerCount({25, 6})
+
+    FletcherBase:SetMaximumConstructionEngineers(10)
+
+    M2FletcherBaseAirAttacks()
+end
+
+function FletcherEngineerCount2()
+    FletcherBase:SetEngineerCount({35, 20})
+end
+
+function FletcherEngineerCount3()
+    FletcherBase:SetMaximumConstructionEngineers(5)
+end
+
 function FletcherBaseLandAttacks()
     local opai = nil
     local quantity = {}
+
+    -- Reclaiming engineers
+    opai = FletcherBase:AddOpAI('EngineerAttack', 'M2_Reclaiming_Engineers',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
+            PlatoonData = {
+                PatrolChain = 'M1_Fletcher_Base_EngineerChain',
+            },
+            Priority = 300,
+        }
+    )
+    opai:SetChildQuantity('CombatEngineers', 6)
 
     -----------------------------------
     -- Fletcher Base Op AI, Land Attacks
