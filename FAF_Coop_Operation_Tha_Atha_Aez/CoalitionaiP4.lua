@@ -37,7 +37,7 @@ function P4AB1landattacks()
     }
     )
     opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
 
     quantity = {6, 12, 18}
     opai = P4AeonBase1:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_1',
@@ -191,7 +191,7 @@ function P4UB1landattacks()
     }
     )
     opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
     
     quantity = {6, 6, 9}
     opai = P4UEFBase1:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_1',
@@ -315,7 +315,7 @@ function P4UB2landattacks()
     }
     )
     opai:SetChildQuantity('T3Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
 
     quantity = {6, 12, 12}
     opai = P4UEFBase2:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_3',
@@ -434,7 +434,7 @@ function P4AB2landattacks()
     }
     )
     opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
 
     quantity = {6, 12, 18}
     opai = P4AeonBase2:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_4',

@@ -469,12 +469,12 @@ function P3UB2AirAttacks()
 
     quantity = {4, 5, 6}
     Temp = {
-        'P3UB2airattackTemp3',
+        'P3UB2airattackTemp4',
         'NoPlan',
         { 'uea0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' },  --HeavyGunships
     }
     Builder = {
-        BuilderName = 'P3UB2AirattackBuilder3',
+        BuilderName = 'P3UB2AirattackBuilder4',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
         Priority = 115,
@@ -559,7 +559,7 @@ function P3UB2LandAttacks()
         LocationType = 'UEFP3base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  'SeraphimAlly2', 10, categories.LAND * categories.MOBILE}},
+        {'default_brain',  'SeraphimAlly2', 10, categories.LAND * categories.MOBILE - categories.ENGINEER}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -620,7 +620,7 @@ function P3UB3LandAttacks()
         LocationType = 'UEFP3base3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  'SeraphimAlly2', 10, categories.LAND * categories.MOBILE}},
+        {'default_brain',  'SeraphimAlly2', 12, categories.LAND * categories.MOBILE - categories.ENGINEER}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {

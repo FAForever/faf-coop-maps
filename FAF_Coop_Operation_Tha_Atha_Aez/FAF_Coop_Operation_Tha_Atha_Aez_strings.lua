@@ -87,7 +87,7 @@ ZuthAliveP3 = {
 
 IntroP4 = {
     {text = '[Overlord HQ]: The last group of commanders are coming throught now, escourt them to the gate.', vid = 'X06_Seth-Iavow_M03_04500.sfd', bank = 'JJ_VO2', cue = 'IntroP5-1', faction = 'Seraphim'},
-    {text = '[Jareth]: My task is complete, warping to my next assigment, good luck my lord.', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-2', faction = 'Aeon'},
+    {text = '[Jareth]: My task is complete, transfering all my troops to you and warping to my next assignment, good luck my lord.', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-2', faction = 'Aeon'},
     {text = '[Overlord HQ]: All other Seraphim forces have gated off world, you are the last commander left. As we speak dozens of Coalition commanders are rushing here. Procced with haste. HQ out.', vid = 'X06_Seth-Iavow_M03_04500.sfd', bank = 'JJ_VO2', cue = 'IntroP5-3', faction = 'Seraphim'},
 }
 

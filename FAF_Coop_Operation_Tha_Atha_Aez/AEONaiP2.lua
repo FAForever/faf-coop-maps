@@ -57,9 +57,7 @@ function P2AB1Landattacks()
         Priority = 1000,
     })
     opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', quantity[Difficulty], categories.uaa0104})
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
     
     quantity = {12, 12, 18}
     opai = Aeonbase1:AddOpAI('BasicLandAttack', 'M2_Aeon_TransportAttack_1',
@@ -231,13 +229,12 @@ function P2AB2landattacks()
     
     local quantity = {}
 
-    quantity = {3, 4, 5}
+    quantity = {2, 3, 4}
     local Temp = {
         'P2AB2LandattackTemp0',
         'NoPlan',
         { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
         { 'ual0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },
     }
     local Builder = {
         BuilderName = 'P2AB2LandattackBuilder0',
@@ -254,7 +251,7 @@ function P2AB2landattacks()
     }
     ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 
-    quantity = {3, 4, 6}
+    quantity = {3, 4, 5}
     Temp = {
         'P2AB2LandattackTemp1',
         'NoPlan',
