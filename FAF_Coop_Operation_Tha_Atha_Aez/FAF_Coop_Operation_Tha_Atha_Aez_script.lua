@@ -2,6 +2,8 @@
 -- Seraphim Campaign - Mission 2
 --
 -- Author: Shadowlorda1
+--
+-- Map Edited By: MadMax
 ------------------------------
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
@@ -159,13 +161,13 @@ function IntroP1()
     ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
  
     WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam1'), 2)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam1'), 3)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam2'), 2)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam2'), 3)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam3'), 2)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam3'), 3)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 1)
+    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 2)
 
     ForkThread(
         function()
@@ -181,6 +183,12 @@ end
 
 function MissionP1()
     
+    local function MissionNameAnnouncement()
+        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, "Mission by Shadowlorda1")
+    end
+
+    ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 12)
+
     ScenarioInfo.M2P1 = Objectives.Protect(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -199,9 +207,8 @@ function MissionP1()
             end
         end
     )
-    
 
-    ScenarioFramework.CreateTimerTrigger(IntAssaultP1, 10)
+    ScenarioFramework.CreateTimerTrigger(IntAssaultP1, 20)
 
     WaitSeconds(60)
     ScenarioFramework.Dialogue(OpStrings.UEFReveal1, nil, true)
@@ -302,7 +309,7 @@ end
 
 function IntroP2()
     
-    if ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3 then
+    if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
@@ -315,11 +322,12 @@ function IntroP2()
     P2UEFAI.P2UEFbase1AI()
     P2UEFAI.P2UEFbase2AI()
 
-    ArmyBrains[UEF]:PBMSetCheckInterval(6)
-    ArmyBrains[Aeon]:PBMSetCheckInterval(6)
+    ArmyBrains[UEF]:PBMSetCheckInterval(8)
     
     ScenarioUtils.CreateArmyGroup('Aeon', 'P2AbaseWalls')
     ScenarioUtils.CreateArmyGroup('UEF', 'P2UWalls')
+
+    ScenarioUtils.CreateArmyGroup('SeraphimAlly', 'SeraDefenses')
 
     ScenarioUtils.CreateArmyGroup('WarpComs', 'Gatebase2')
     ScenarioInfo.M2ObjectiveGate = ScenarioUtils.CreateArmyUnit('WarpComs', 'Gate2')
@@ -327,8 +335,7 @@ function IntroP2()
     ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('SeraphimAlly', 'SeraCom', false, 'Vuth-Vuthroz', false, false,
         {'AdvancedEngineering', 'DamageStabilization', 'RateOfFire'})
         ScenarioInfo.SeraACU:SetAutoOvercharge(true)
-        ScenarioInfo.SeraACU:SetVeterancy(4 - Difficulty)
-
+        ScenarioInfo.SeraACU:SetVeterancy(5 - Difficulty)
     
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('SeraphimAlly', 'SApatrolG2', 'AttackFormation')
     for _, v in units:GetPlatoonUnits() do
@@ -420,7 +427,7 @@ function IntroP2()
     end
 
     for _, player in ScenarioInfo.HumanPlayers do
-    ScenarioFramework.CreateAreaTrigger(P2UOffmapattacks, 'P2DefenseArea', categories.LAND * categories.MOBILE - categories.TECH1, true, false, ArmyBrains[player], 25)
+    ScenarioFramework.CreateAreaTrigger(P2UOffmapattacks, 'P2DefenseArea', categories.LAND * categories.MOBILE - categories.TECH1, true, false, ArmyBrains[player], 30)
     end
 end
 
@@ -483,7 +490,7 @@ function MissionP2()
     ) 
 
     if ExpansionTimer then
-        local M2MapExpandDelay = {35*60, 30*60, 25*60}
+        local M2MapExpandDelay = {50*60, 35*60, 30*60}
         ScenarioFramework.CreateTimerTrigger(EscortACU1, M2MapExpandDelay[Difficulty])  
     end  
 end
@@ -606,7 +613,7 @@ end
 
 function EscortACU1()
 
-    if ScenarioInfo.MissionNumber == 3 or ScenarioInfo.MissionNumber == 4 or ScenarioInfo.MissionNumber == 5 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 3
@@ -616,7 +623,7 @@ function EscortACU1()
         ScenarioInfo.ComACUs = {}
 
         ScenarioInfo.AeonACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U1', 'Gate', 'Havra', false, false,
-            {'CrysalisBeam', 'HeatSink', 'ShieldHeavy'})
+            {'CrysalisBeam', 'HeatSink', 'Shield', 'ShieldHeavy'})
             ScenarioInfo.AeonACU1:SetVeterancy(5 - Difficulty)
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU1}, 'WarpComChain1')
             table.insert(ScenarioInfo.ComACUs, ScenarioInfo.AeonACU1)
@@ -624,7 +631,7 @@ function EscortACU1()
         WaitSeconds(5)
 
         ScenarioInfo.AeonACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U2', 'Gate', 'Oum-Eoshi', false, false,
-            {'AdvancedRegenAura', 'DamageStabilizationAdvanced', 'RateOfFire'})
+            {'AdvancedRegenAura', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
             ScenarioInfo.AeonACU2:SetVeterancy(5 - Difficulty)
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU2}, 'WarpComChain1')
             table.insert(ScenarioInfo.ComACUs, ScenarioInfo.AeonACU2)
@@ -636,7 +643,7 @@ function EscortACU1()
             WaitSeconds(5)
 
             ScenarioInfo.AeonACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U3', 'Gate', 'Zertha', false, false,
-                {'CrysalisBeam', 'ShieldHeavy', 'HeatSink'}) 
+                {'CrysalisBeam', 'Shield', 'ShieldHeavy', 'HeatSink'}) 
                 ScenarioInfo.AeonACU3:SetVeterancy(5 - Difficulty)
                 ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU3}, 'WarpComChain1')
                 table.insert(ScenarioInfo.ComACUs, ScenarioInfo.AeonACU3)
@@ -810,8 +817,6 @@ function EscortACU2()
             table.insert(ScenarioInfo.ComACU2s, ScenarioInfo.AeonACUG3)
 
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 1)
-    
-       
 
         Cinematics.SetInvincible('AREA_2', true)
     Cinematics.ExitNISMode()
@@ -944,12 +949,14 @@ function IntroP3()
 
     WaitSeconds(10)
 
-    if ScenarioInfo.MissionNumber == 4 or ScenarioInfo.MissionNumber == 5 then
+    if ScenarioInfo.MissionNumber ~= 3 then
         return
     end
     ScenarioInfo.MissionNumber = 4
 
     ScenarioFramework.SetPlayableArea('AREA_3', true)
+
+    -- Part 3 Enemy bases
 
     P3UEFAI.P3UEFbase1AI()
     P3UEFAI.P3UEFbase2AI()
@@ -961,11 +968,15 @@ function IntroP3()
     ArmyBrains[UEF]:PBMSetCheckInterval(8)
     
     ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-    
+
+    --Spawn UEF ACU
+
     ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFCom', false, 'Colonel Griff', true, false,
         {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
         ScenarioInfo.UEFACU:SetAutoOvercharge(true)
         ScenarioInfo.UEFACU:SetVeterancy(2 + Difficulty)
+
+    --Spawn Aeon ACU
 
     ScenarioInfo.AEONACU = ScenarioFramework.SpawnCommander('Aeon', 'AeonCom', false, 'Crusader Thaila', true, false,
         {'Shield', 'ShieldHeavy', 'CrysalisBeam', 'EnhancedSensors'})
@@ -979,7 +990,6 @@ function IntroP3()
     ScenarioUtils.CreateArmyGroup('UEF', 'P3UDefenses_D'.. Difficulty)
     ScenarioUtils.CreateArmyGroup('Aeon', 'P3AbaseWalls')
 
-
     ScenarioInfo.P3SecObj1 = ScenarioUtils.CreateArmyUnit('UEF', 'P3SecObj1')
 
     ScenarioInfo.P3SecObj2 = ScenarioUtils.CreateArmyUnit('UEF', 'P3SecObj2')
@@ -991,6 +1001,37 @@ function IntroP3()
         ScenarioInfo.SeraACU2:SetAutoOvercharge(true)
         ScenarioInfo.SeraACU2:SetVeterancy(3 - Difficulty)
     
+    local AntinukesA = ArmyBrains[Aeon]:GetListOfUnits(categories.uab4302, false)
+            for _, v in AntinukesA do
+                v:GiveTacticalSiloAmmo(5)
+            end
+    local AntinukesU = ArmyBrains[UEF]:GetListOfUnits(categories.ueb4302, false)
+            for _, v in AntinukesU do
+                v:GiveTacticalSiloAmmo(5)
+            end
+
+    --Eco boosts for AI
+    
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 2
+
+    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+
+    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+    
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 1.5
+
+    for _, u in GetArmyBrain(SeraphimAlly2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+
     -- P3 Cutscene Units
 
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('SeraphimAlly2', 'P3S2UnitEXP', 'GrowthFormation')
@@ -1080,28 +1121,6 @@ function IntroP3()
     
         Cinematics.SetInvincible('AREA_2', true)    
     Cinematics.ExitNISMode() 
-    
-    --Eco boosts for AI
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
-
-    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
-
-    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
-    
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
-
-    for _, u in GetArmyBrain(SeraphimAlly2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
     
     --Start Missions and secondary objectives
     
@@ -1386,6 +1405,7 @@ function P3KillUEFBase()
                 WaitSeconds(Random(0.1, 0.3))
             end
         end
+        ForkThread(Part4Bases)
 end
 
 function AeonCommanderKilled()
@@ -1415,7 +1435,7 @@ end
 
 function EscortACU3()
 
-    if ScenarioInfo.MissionNumber == 5 then
+    if ScenarioInfo.MissionNumber ~= 4 then
         return
     end
     ScenarioInfo.MissionNumber = 5
@@ -1449,31 +1469,6 @@ function EscortACU3()
     WaitSeconds(5)
     
     ForkThread(MissionEscort1P3)
-
-    -- Offmap bases (adds more "activity" to the map during final escort)
-
-    P4CoalitionAI.P4UBase1AI()
-    P4CoalitionAI.P4UBase2AI()
-    P4CoalitionAI.P4ABase1AI()
-    P4CoalitionAI.P4ABase2AI()
-
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 2
-
-    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
-       
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 2
-
-    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
 end
 
 function MissionEscort1P3()
@@ -1528,6 +1523,38 @@ function Failsafe3()
          ScenarioInfo.M3P3:ManualResult(true)
     else
          
+    end
+end
+
+function Part4Bases()
+
+     -- Offmap bases (adds more "activity" to the map during final escort)
+
+    P4CoalitionAI.P4UBase1AI()
+    P4CoalitionAI.P4UBase2AI()
+    P4CoalitionAI.P4ABase1AI()
+    P4CoalitionAI.P4ABase2AI()
+
+    local AntinukesA = ArmyBrains[Aeon]:GetListOfUnits(categories.uab4302, false)
+            for _, v in AntinukesA do
+                v:GiveTacticalSiloAmmo(5)
+            end
+    local AntinukesU = ArmyBrains[UEF]:GetListOfUnits(categories.ueb4302, false)
+            for _, v in AntinukesU do
+                v:GiveTacticalSiloAmmo(5)
+            end
+
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 2
+    buffAffects.MassProduction.Mult = 2
+
+    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+    
+    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
     end
 end
 
@@ -1636,7 +1663,7 @@ function CoalitionInterceptattacksP3()
         end
     end
 
-    WaitSeconds(15)
+    WaitSeconds(30)
 
     for _, v in ScenarioInfo.ComACU3s do
         if not v:IsDead() then
@@ -1645,6 +1672,8 @@ function CoalitionInterceptattacksP3()
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
         end
     end
+
+    WaitSeconds(30)
 
     for _, v in ScenarioInfo.ComACU3s do
         if not v:IsDead() then
@@ -1657,14 +1686,13 @@ function CoalitionInterceptattacksP3()
     ScenarioFramework.SetPlayableArea('AREA_4', true)
 end
 
-function P3KillOrderBase()
+function P3GiveOrderBase()
     local OrderUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[SeraphimAlly2])
-        for k, v in OrderUnits do
-            if v and not v.Dead then
-                v:Kill()
-                WaitSeconds(Random(0.1, 0.3))
+            for k, v in OrderUnits do
+                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[SeraphimAlly2]) then
+                    ScenarioFramework.GiveUnitToArmy( v, Player1 )
+                end
             end
-        end
 end
 
 --Aeon Nuke function
@@ -1672,21 +1700,15 @@ end
 function nukeparty()
     if not ScenarioInfo.OpEnded then
         local AeonNuke = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
-        AeonNuke[1]:GiveNukeSiloAmmo(5)
+        AeonNuke[1]:GiveNukeSiloAmmo(2)
         WaitSeconds(30)
         IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
         WaitSeconds(5)
         IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
+        WaitSeconds(8*60)
+        local plat = ArmyBrains[Aeon]:MakePlatoon('', '')
+        ArmyBrains[Aeon]:AssignUnitsToPlatoon(plat, {AeonNuke[1]}, 'Attack', 'NoFormation')
+        plat:ForkAIThread(plat.NukeAI)
         return
     end
 end
@@ -1704,11 +1726,9 @@ function nukepartyOrder()
         WaitSeconds(3*60)
         IssueNuke({OrderNuke[1]}, ScenarioUtils.MarkerToPosition('NukeS4'))
         WaitSeconds(3*60)
-        IssueNuke({OrderNuke[1]}, ScenarioUtils.MarkerToPosition('NukeS3'))
-        WaitSeconds(3*60)
-        IssueNuke({OrderNuke[1]}, ScenarioUtils.MarkerToPosition('NukeS4'))
-        WaitSeconds(3*60)
-        IssueNuke({OrderNuke[1]}, ScenarioUtils.MarkerToPosition('NukeS3'))
+        local plat = ArmyBrains[SeraphimAlly2]:MakePlatoon('', '')
+        ArmyBrains[SeraphimAlly2]:AssignUnitsToPlatoon(plat, {OrderNuke[1]}, 'Attack', 'NoFormation')
+        plat:ForkAIThread(plat.NukeAI)
         return
     end
 end

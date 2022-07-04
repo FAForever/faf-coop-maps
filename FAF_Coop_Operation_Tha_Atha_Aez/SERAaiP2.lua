@@ -29,7 +29,7 @@ function SeraAirPatrols()
     local Builder = {
         BuilderName = 'Sera1AirDefenceBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 4,
         Priority = 103,
         PlatoonType = 'Air',
         RequiresConstruction = true,
@@ -50,7 +50,7 @@ function SeraAirPatrols()
     Builder = {
         BuilderName = 'Sera1AirDefenceBuilder2',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 4,
         Priority = 101,
         PlatoonType = 'Air',
         RequiresConstruction = true,
@@ -71,7 +71,7 @@ function SeraAirPatrols()
     Builder = {
         BuilderName = 'Sera1AirDefenceBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 4,
         Priority = 102,
         PlatoonType = 'Air',
         RequiresConstruction = true,
