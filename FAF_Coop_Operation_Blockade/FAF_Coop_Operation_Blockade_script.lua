@@ -359,12 +359,7 @@ function IntroP2()
         Buff.ApplyBuff(u, 'CheatIncome')
     end
     
-    ForkThread(
-        function()
-            WaitSeconds(3*60)
-            MissionP2Secondary()
-        end
-    )  
+    ScenarioFramework.CreateTimerTrigger(MissionP2Secondary, 3*60)
 end 
 
 function MissionP2()
@@ -656,7 +651,7 @@ function IntroP3()
 
     local Antinukes = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb4302, false)
     for _, v in Antinukes do
-        v:GiveTacticalSiloAmmo(3)
+        v:GiveTacticalSiloAmmo(5)
     end
 
     ScenarioUtils.CreateArmyGroup('Seraphim2', 'P3Bwalls')

@@ -265,7 +265,7 @@ function P2B1seraNaval()
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
-    trigger = {5, 4, 3}
+    trigger = {5, 4, 2}
     Temp = {
        'P2B1NavalAttackTemp1',
        'NoPlan',       
@@ -291,7 +291,7 @@ function P2B1seraNaval()
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 6}
-    trigger = {35, 30, 25}
+    trigger = {20, 15, 10}
     Temp = {
         'P2B1NavalAttackTemp2',
         'NoPlan',          
@@ -301,7 +301,7 @@ function P2B1seraNaval()
         BuilderName = 'P2B1NavalAttackBuilder2',
         PlatoonTemplate = Temp,
         InstanceCount = 3,
-        Priority = 104,
+        Priority = 110,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
         LocationType = 'Seraphimbase1P2',
@@ -672,21 +672,21 @@ function P2B3seraNaval()
        { 'xss0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
     }
     Builder = {
-       BuilderName = 'P2B3NavalAttackBuilder1',
-       PlatoonTemplate = Temp,
-       InstanceCount = 3,
-       Priority = 105,
-       PlatoonType = 'Sea',
-       RequiresConstruction = true,
-       LocationType = 'Seraphimbase3P2',
-       BuildConditions = {
+        BuilderName = 'P2B3NavalAttackBuilder1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 105,
+        PlatoonType = 'Sea',
+        RequiresConstruction = true,
+        LocationType = 'Seraphimbase3P2',
+        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
         },
-       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
            PatrolChains = {'P2B3Navalattack1', 'P2B3Navalattack2'}
-       },
+        },
     }
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
 
@@ -709,6 +709,33 @@ function P2B3seraNaval()
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
         {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        },
+       PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+       PlatoonData = {
+           PatrolChains = {'P2B3Navalattack1', 'P2B3Navalattack2'}
+       },
+    }
+    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+
+    quantity = {1, 2, 2}
+    trigger = {4, 3, 2}
+    Temp = {
+       'P2B3NavalAttackTemp3',
+       'NoPlan',       
+       { 'xss0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+       { 'xss0302', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
+    }
+    Builder = {
+       BuilderName = 'P2B3NavalAttackBuilder3',
+       PlatoonTemplate = Temp,
+       InstanceCount = 1,
+       Priority = 110,
+       PlatoonType = 'Sea',
+       RequiresConstruction = true,
+       LocationType = 'Seraphimbase3P2',
+       BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -1022,7 +1049,8 @@ function P2B4seraNaval()
     }
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
 
-    quantity = {3, 4, 6}
+    quantity = {2, 3, 4}
+    trigger = {20, 15, 10}
     Temp = {
        'P2B4NavalAttackTemp1',
        'NoPlan',       
@@ -1031,11 +1059,41 @@ function P2B4seraNaval()
     Builder = {
        BuilderName = 'P2B4NavalAttackBuilder1',
        PlatoonTemplate = Temp,
-       InstanceCount = 1,
+       InstanceCount = 2,
        Priority = 104,
        PlatoonType = 'Sea',
        RequiresConstruction = true,
        LocationType = 'Seraphimebase4P2',
+       BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3}},
+        },
+       PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+       PlatoonData = {
+           PatrolChain = 'P2S2B2Navalattack1'
+       },
+    }
+    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+
+    quantity = {5, 6, 8}
+    trigger = {6, 5, 3}
+    Temp = {
+       'P2B4NavalAttackTemp2',
+       'NoPlan',       
+       { 'xss0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },      
+    }
+    Builder = {
+       BuilderName = 'P2B4NavalAttackBuilder12',
+       PlatoonTemplate = Temp,
+       InstanceCount = 3,
+       Priority = 110,
+       PlatoonType = 'Sea',
+       RequiresConstruction = true,
+       LocationType = 'Seraphimebase4P2',
+       BuildConditions = {
+           { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        },
        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
        PlatoonData = {
            PatrolChain = 'P2S2B2Navalattack1'

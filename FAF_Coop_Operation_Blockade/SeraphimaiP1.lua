@@ -911,7 +911,7 @@ function P1B2seraNaval()
     }
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 	
-    quantity = {2, 3, 4}
+    quantity = {2, 2, 3}
     trigger = {80, 75, 60}
 	Temp = {
         'P1B2SeaAttackTemp1',
@@ -1016,7 +1016,7 @@ function P1B2seraNaval()
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
-    trigger = {12, 10, 8}
+    trigger = {12, 9, 6}
     Temp = {
         'P1B2SeaAttackTemp5',
         'NoPlan',
@@ -1043,7 +1043,7 @@ function P1B2seraNaval()
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
-    trigger = {45, 35, 30}
+    trigger = {45, 35, 25}
     Temp = {
         'P1B2SeaAttackTemp6',
         'NoPlan',
