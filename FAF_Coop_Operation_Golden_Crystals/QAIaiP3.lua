@@ -682,9 +682,30 @@ function QP3B3landattacks()
         {'default_brain',  {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
+        PlatoonData = {
            PatrolChains = {'P3QB3landattack1', 'P3QB3landattack2', 'P3QB3landattack3'}
-       },
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+
+    quantity = {1, 2, 3}
+    Temp = {
+        'QP3B3landAttackTemp4',
+        'NoPlan',
+        { 'url0301_Rambo', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },        
+    }
+    Builder = {
+        BuilderName = 'QP3B3AttackBuilder4',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Gate',
+        RequiresConstruction = true,
+        LocationType = 'QAIP3base3',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+           PatrolChains = {'P3QB3landattack1', 'P3QB3landattack2', 'P3QB3landattack3'}
+        },
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 end

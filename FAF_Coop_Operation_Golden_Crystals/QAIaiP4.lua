@@ -16,7 +16,7 @@ local QAIP4base6 = BaseManager.CreateBaseManager()
 
 function QAIP4base1AI()
 
-    QAIP4base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base1', 'QAIP4base1MK', 80, {P4Qbase1 = 100})
+    QAIP4base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base1', 'QAIP4base1MK', 70, {P4Qbase1 = 100})
     QAIP4base1:StartNonZeroBase({{9, 12, 14}, {5, 8, 10}})
     QAIP4base1:SetActive('AirScouting', true)
 
@@ -124,7 +124,7 @@ end
 
 function QAIP4base2AI()
 
-    QAIP4base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base2', 'QAIP4base2MK', 80, {P4Qbase2 = 100})
+    QAIP4base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base2', 'QAIP4base2MK', 70, {P4Qbase2 = 100})
     QAIP4base2:StartNonZeroBase({{9, 12, 14}, {5, 8, 10}})
     QAIP4base2:SetActive('AirScouting', true)
     
@@ -259,7 +259,7 @@ end
 
 function QAIP4base3AI()
 
-    QAIP4base3:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base3', 'QAIP4base3MK', 80, {P4Qbase3 = 100})
+    QAIP4base3:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base3', 'QAIP4base3MK', 70, {P4Qbase3 = 100})
     QAIP4base3:StartNonZeroBase({{10, 12, 18}, {6, 8, 12}})
     QAIP4base3:SetActive('AirScouting', true)
     
@@ -391,7 +391,7 @@ end
 
 function QAIP4base4AI()
 
-    QAIP4base4:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base4', 'QAIP4base4MK', 80, {P4Qbase4 = 100})
+    QAIP4base4:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base4', 'QAIP4base4MK', 70, {P4Qbase4 = 100})
     QAIP4base4:StartNonZeroBase({{7, 8, 10}, {3, 4, 6}})
     QAIP4base4:SetActive('AirScouting', true)
 
@@ -504,7 +504,7 @@ end
 
 function QAIP4base5AI()
 
-    QAIP4base5:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base5', 'QAIP4base5MK', 80, {P4Qbase5 = 100})
+    QAIP4base5:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base5', 'QAIP4base5MK', 70, {P4Qbase5 = 100})
     QAIP4base5:StartNonZeroBase({{8, 9, 10}, {3, 5, 6}})
     QAIP4base5:SetActive('AirScouting', true)
 
@@ -624,7 +624,7 @@ end
 
 function QAIP4base6AI()
 
-    QAIP4base6:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base6', 'QAIP4base6MK', 80, {P4Qbase6 = 100})
+    QAIP4base6:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base6', 'QAIP4base6MK', 70, {P4Qbase6 = 100})
     QAIP4base6:StartNonZeroBase({{10, 13, 16}, {6, 9, 12}})
     QAIP4base6:SetActive('AirScouting', true)
 
