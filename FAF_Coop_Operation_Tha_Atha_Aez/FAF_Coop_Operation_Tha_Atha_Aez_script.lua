@@ -1398,6 +1398,7 @@ function UEFCommanderKilled()
 end
 
 function P3KillUEFBase()
+    ForkThread(Part4Bases)
     local UEFUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[UEF])
         for k, v in UEFUnits do
             if v and not v.Dead then
