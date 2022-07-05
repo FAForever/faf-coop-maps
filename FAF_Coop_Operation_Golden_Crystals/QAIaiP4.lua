@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local CustomFunctions = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua'
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua')
 
 local Player1 = 1
 local QAI = 3
@@ -16,7 +16,7 @@ local QAIP4base6 = BaseManager.CreateBaseManager()
 
 function QAIP4base1AI()
 
-    QAIP4base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base1', 'QAIP4base1MK', 80, {P4Qbase1 = 100})
+    QAIP4base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base1', 'QAIP4base1MK', 70, {P4Qbase1 = 100})
     QAIP4base1:StartNonZeroBase({{9, 12, 14}, {5, 8, 10}})
     QAIP4base1:SetActive('AirScouting', true)
 
@@ -124,7 +124,7 @@ end
 
 function QAIP4base2AI()
 
-    QAIP4base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base2', 'QAIP4base2MK', 80, {P4Qbase2 = 100})
+    QAIP4base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base2', 'QAIP4base2MK', 70, {P4Qbase2 = 100})
     QAIP4base2:StartNonZeroBase({{9, 12, 14}, {5, 8, 10}})
     QAIP4base2:SetActive('AirScouting', true)
     
@@ -224,7 +224,7 @@ function QP4B2Airattacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.EXPERIMENTAL * categories.AIR },
+              CategoryList = { categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE},
             },
             Priority = 140,
         }
@@ -232,7 +232,7 @@ function QP4B2Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR, '>='})
+            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 end
 
 function P4QB2Exp()
@@ -259,12 +259,15 @@ end
 
 function QAIP4base3AI()
 
-    QAIP4base3:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base3', 'QAIP4base3MK', 80, {P4Qbase3 = 100})
-    QAIP4base3:StartNonZeroBase({{10, 12, 18}, {6, 8, 12}})
+    QAIP4base3:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base3', 'QAIP4base3MK', 70, {P4Qbase3 = 100})
+    QAIP4base3:StartNonZeroBase({{14, 16, 22}, {6, 8, 12}})
     QAIP4base3:SetActive('AirScouting', true)
+    QAIP4base3.MaximumConstructionEngineers = 8
     
     QP4B3Airattacks() 
     P4QB3Exp() 
+
+    QAIP4base3:AddBuildGroupDifficulty('P4Qbase3Arty', 90)
 end
 
 function QP4B3Airattacks()
@@ -344,7 +347,7 @@ function QP4B3Airattacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.EXPERIMENTAL * categories.AIR },
+              CategoryList = { categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE},
             },
             Priority = 140,
         }
@@ -352,7 +355,7 @@ function QP4B3Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR, '>='})
+            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 
     quantity = {12, 14, 18}
     opai = QAIP4base3:AddOpAI('AirAttacks', 'M4_QAIB3_Air_Attack_2',
@@ -391,8 +394,8 @@ end
 
 function QAIP4base4AI()
 
-    QAIP4base4:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base4', 'QAIP4base4MK', 80, {P4Qbase4 = 100})
-    QAIP4base4:StartNonZeroBase({{7, 8, 10}, {3, 4, 6}})
+    QAIP4base4:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base4', 'QAIP4base4MK', 70, {P4Qbase4 = 100})
+    QAIP4base4:StartNonZeroBase({{9, 10, 12}, {3, 4, 6}})
     QAIP4base4:SetActive('AirScouting', true)
 
     QP4B4landattacks()
@@ -480,7 +483,7 @@ function P4QB4Exp()
     local opai = nil
     local quantity = {}
     
-    quantity = {3, 4, 5}
+    quantity = {4, 5, 6}
     opai = QAIP4base4:AddOpAI('P4Mega1',
         {
             Amount = 4,
@@ -495,7 +498,7 @@ function P4QB4Exp()
             Retry = true,
             BuildCondition = {
                 {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                    {{'HumanPlayers'}, 3, categories.EXPERIMENTAL, '>='},
+                    {{'HumanPlayers'}, 2, categories.EXPERIMENTAL, '>='},
                 },
             }
         }
@@ -504,7 +507,7 @@ end
 
 function QAIP4base5AI()
 
-    QAIP4base5:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base5', 'QAIP4base5MK', 80, {P4Qbase5 = 100})
+    QAIP4base5:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base5', 'QAIP4base5MK', 70, {P4Qbase5 = 100})
     QAIP4base5:StartNonZeroBase({{8, 9, 10}, {3, 5, 6}})
     QAIP4base5:SetActive('AirScouting', true)
 
@@ -589,7 +592,7 @@ function QP4B5Airattacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.EXPERIMENTAL * categories.STRUCTURE },
+              CategoryList = { categories.EXPERIMENTAL * categories.STRUCTURE},
             },
             Priority = 130,
         }
@@ -624,7 +627,7 @@ end
 
 function QAIP4base6AI()
 
-    QAIP4base6:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base6', 'QAIP4base6MK', 80, {P4Qbase6 = 100})
+    QAIP4base6:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base6', 'QAIP4base6MK', 70, {P4Qbase6 = 100})
     QAIP4base6:StartNonZeroBase({{10, 13, 16}, {6, 9, 12}})
     QAIP4base6:SetActive('AirScouting', true)
 

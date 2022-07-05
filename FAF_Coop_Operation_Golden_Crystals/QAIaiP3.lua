@@ -11,7 +11,6 @@ local QAIP3base1 = BaseManager.CreateBaseManager()
 local QAIP3base2 = BaseManager.CreateBaseManager()
 local QAIP3base3 = BaseManager.CreateBaseManager()
 
-
 function QAIP3base1AI()
 
     QAIP3base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP3base1', 'QAIP3base1MK', 80, {P3Qbase1 = 100})
@@ -103,7 +102,7 @@ function QP3B1Airattacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.AIR + categories.EXPERIMENTAL },
+              CategoryList = { categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE },
             },
             Priority = 150,
         }
@@ -111,7 +110,7 @@ function QP3B1Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.AIR + categories.EXPERIMENTAL, '>='})
+            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 end
 
 function QP3B1landattacks()
@@ -559,7 +558,7 @@ function QP3B3Airattacks()
         {
             MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-              CategoryList = { categories.EXPERIMENTAL * categories.AIR },
+              CategoryList = { categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE},
             },
             Priority = 140,
         }
@@ -567,7 +566,7 @@ function QP3B3Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.AIR, '>='})
+            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 
     quantity = {6, 10, 15}
     opai = QAIP3base3:AddOpAI('AirAttacks', 'M3_QAIB3_Air_Attack_3',
@@ -682,9 +681,30 @@ function QP3B3landattacks()
         {'default_brain',  {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
+        PlatoonData = {
            PatrolChains = {'P3QB3landattack1', 'P3QB3landattack2', 'P3QB3landattack3'}
-       },
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+
+    quantity = {1, 2, 3}
+    Temp = {
+        'QP3B3landAttackTemp4',
+        'NoPlan',
+        { 'url0301_Rambo', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },        
+    }
+    Builder = {
+        BuilderName = 'QP3B3AttackBuilder4',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Gate',
+        RequiresConstruction = true,
+        LocationType = 'QAIP3base3',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+           PatrolChains = {'P3QB3landattack1', 'P3QB3landattack2', 'P3QB3landattack3'}
+        },
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 end

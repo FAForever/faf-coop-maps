@@ -11,7 +11,7 @@ local QAIP2base2 = BaseManager.CreateBaseManager()
 
 function QAIP2base1AI()
 
-    QAIP2base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP2base1', 'QAIP2base1MK', 60, {P2Qbase1 = 100})
+    QAIP2base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP2base1', 'QAIP2base1MK', 50, {P2Qbase1 = 100})
     QAIP2base1:StartNonZeroBase({{11, 16, 20}, {9, 14, 18}})
     QAIP2base1:SetActive('AirScouting', true)
 
@@ -115,17 +115,16 @@ end
 function QP2B1landattacks()
     local quantity = {}
 
-    quantity = {3, 4, 5} 
+    quantity = {3, 4, 6} 
     local Temp = {
        'QP2B1landAttackTemp0',
        'NoPlan',
        { 'url0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-       { 'drl0204', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        }
     local Builder = {
         BuilderName = 'QP2B1AttackBuilder0',
         PlatoonTemplate = Temp,
-        InstanceCount = 5,
+        InstanceCount = 8,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -137,12 +136,11 @@ function QP2B1landattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
     
-    quantity = {3, 4, 5} 
+    quantity = {3, 4, 6} 
     Temp = {
        'QP2B1landAttackTemp1',
        'NoPlan',
        { 'url0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-       { 'url0111', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        }
     Builder = {
         BuilderName = 'QP2B1AttackBuilder1',
@@ -163,11 +161,10 @@ function QP2B1landattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
     
-    quantity = {3, 4, 5} 
+    quantity = {3, 4, 6} 
     Temp = {
        'QP2B1landAttackTemp2',
        'NoPlan',
-       { 'url0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        { 'drlk001', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        }
     Builder = {
@@ -180,7 +177,7 @@ function QP2B1landattacks()
         LocationType = 'QAIP2base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 20, categories.AIR * categories.MOBILE}},
+        {'default_brain',  {'HumanPlayers'}, 5, categories.AIR * categories.MOBILE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -200,7 +197,7 @@ function QP2B1landattacks()
     Builder = {
         BuilderName = 'QP2B1AttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 4,
+        InstanceCount = 7,
         Priority = 110,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -219,7 +216,7 @@ end
 
 function QAIP2base2AI()
 
-    QAIP2base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP2base2', 'QAIP2base2MK', 60, {P2Qbase2 = 100})
+    QAIP2base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP2base2', 'QAIP2base2MK', 50, {P2Qbase2 = 100})
     QAIP2base2:StartNonZeroBase({{10, 13, 15}, {6, 9, 12}})
     QAIP2base2:SetActive('AirScouting', true)
     
