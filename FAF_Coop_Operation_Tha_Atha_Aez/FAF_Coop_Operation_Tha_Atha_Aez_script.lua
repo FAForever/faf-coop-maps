@@ -1405,7 +1405,7 @@ function P3KillUEFBase()
                 WaitSeconds(Random(0.1, 0.3))
             end
         end
-        ForkThread(Part4Bases)
+        
 end
 
 function AeonCommanderKilled()
@@ -1454,7 +1454,7 @@ function EscortACU3()
 
     ScenarioInfo.FinalACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U8', 'Gate', 'Unknown Cybran ACU', false, false,
     {'MicrowaveLaserGenerator','ResourceAllocation', 'AdvancedEngineering', 'T3Engineering'})
-    ScenarioInfo.FinalACU2:SetVeterancy(5 - Difficulty)
+    ScenarioInfo.FinalACU2:SetVeterancy(5)
     ScenarioFramework.GroupMoveChain({ScenarioInfo.FinalACU2}, 'WarpComChain2')
     table.insert(ScenarioInfo.ComACU3s, ScenarioInfo.FinalACU2)
 
@@ -1513,7 +1513,7 @@ function MissionEscort1P3()
     
     ScenarioInfo.M2P3:ManualResult(true)
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.SeraACU2, true) 
-    ForkThread(P3KillOrderBase)
+    ForkThread(P3GiveOrderBase)
 end
 
 function Failsafe3()
@@ -1747,9 +1747,25 @@ function KillGame()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end
 
-function PlayerDeath(deadCommander)
+function PlayerDeath()
     if Debug then return end
-    ScenarioFramework.PlayerDeath(deadCommander, nil, AssignedObjectives)
+    if (not ScenarioInfo.OpEnded) then
+        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+        ScenarioFramework.EndOperationSafety()
+        ScenarioInfo.OpComplete = false
+        for _, v in AssignedObjectives do
+            if(v and v.Active) then
+                v:ManualResult(false)
+            end
+        end
+        ForkThread(
+            function()
+                WaitSeconds(1)
+                UnlockInput()
+                KillGame()
+            end
+       )
+    end
 end
 
 function PlayerLose()
