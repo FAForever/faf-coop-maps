@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Seraphim Mission 2: Operation Tha-Atha-Aez',
-    description = 'You have been called back to Velia, because the Coalition has launched a new offensive. Almost half of our commanders are trapped behind enemy lines, and can only Gate to Velia. The Coalition knows this and they are attemping to cut them off. You must hold the gates until all our commanders are through. ',
+    description = 'You have been called back to Velia, because the Coalition has launched a new offensive. Almost half of our commanders are trapped behind enemy lines, and can only Gate to Velia. The Coalition knows this and they are attemping to cut them off. You must hold the gates until all our commanders are through. "One or more textures bundled with this project have been created with images from Textures.com. These images may not be redistributed by default. Please visit www.textures.com for more information." ',
     type = 'campaign_coop',
     starts = true,
     preview = '',

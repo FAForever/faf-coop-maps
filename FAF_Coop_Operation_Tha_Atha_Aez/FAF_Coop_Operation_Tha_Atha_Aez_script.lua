@@ -726,12 +726,12 @@ function UEFInterceptattacksP2()
     end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2UComAttackDrop_D'.. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P2UComDrop', 'P2UComDropattack', true)
+    CustomFunctions.PlatoonAttackWithTransports(platoon, 'P2UComDrop', 'P2UComDropattack', 'P3UB1MK', true)
 
     WaitSeconds(40)
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P2UComAttackDrop_D'.. Difficulty, 'GrowthFormation')
-    ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P2UComDrop2', 'P2UComDropattack', true)
+    CustomFunctions.PlatoonAttackWithTransports(platoon, 'P2UComDrop2', 'P2UComDropattack', 'P3UB1MK', true)
 
     WaitSeconds(40)
 
@@ -918,7 +918,7 @@ function AeonInterceptattacksP2()
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'P2AComAttackDrop_D'.. Difficulty, 'GrowthFormation')
-            ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P2AComDrop', 'P2AComDropattack', true)
+            CustomFunctions.PlatoonAttackWithTransports(platoon, 'P2AComDrop', 'P2AComDropattack', 'P2AB1MK', true)
         end
     end
 
@@ -1286,7 +1286,7 @@ function CounterAttackP3()
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P3AIntDrop', 'GrowthFormation', 5)
-            ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P2UOffmapattackDrop', 'P2AComDropattack', true)
+            CustomFunctions.PlatoonAttackWithTransports(platoon, 'P2UOffmapattackDrop', 'P2AComDropattack', 'P2AB1MK', true)
         end
     end
 
@@ -1405,8 +1405,7 @@ function P3KillUEFBase()
                 v:Kill()
                 WaitSeconds(Random(0.1, 0.3))
             end
-        end
-        
+        end      
 end
 
 function AeonCommanderKilled()
