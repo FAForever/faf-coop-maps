@@ -33,74 +33,47 @@ local StartM3InsteadOfM1 = false
 -- # Delay between the truck warning dialogue and when the truck is spawned.
 -- ScenarioInfo.M2TruckDialogueToSpawnDelay = 10 #60
 
-    -- easy = 1 medium = 2 hard = 3
-
-ScenarioInfo.Difficulty = ScenarioInfo.Options.Difficulty or 2
+local Difficulty = ScenarioInfo.Options.Difficulty or 2
 
 -- === Tuning Variables === #
     -- For timing variables, the units are seconds
     -- For tables, the format is {easy number, medium number, hard number}
 
     -- Delay after start of mission, before the Aeon start attacking the player
-local M1AeonWarningDelayTable = {240 , 180 , 120}
-local M1AeonWarningDelay = M1AeonWarningDelayTable[ScenarioInfo.Difficulty]
+local M1AeonWarningDelay = {240, 180, 120}
     -- Delay after start of mission, before Arnold launches his first nuke
-local M1AeonNukeAttackDelayTable = {480 , 420 , 360}
-local M1AeonNukeAttackDelay = M1AeonNukeAttackDelayTable[ScenarioInfo.Difficulty]
+local M1AeonNukeAttackDelay = {480, 420, 360}
     -- How long it takes the nuke to reach its destination
 local AeonNukeTravelTime = 33
     -- How often to remind the player to build anti-nukes
 local M1P2ReminderTimer = 180
     -- How long between Aeon main base attacks in M1
 local M1AeonMainBaseAttackDelayTable = {90,30,0}
-ScenarioInfo.M1AeonMainBaseAttackDelay = M1AeonMainBaseAttackDelayTable[ScenarioInfo.Difficulty]
+ScenarioInfo.M1AeonMainBaseAttackDelay = M1AeonMainBaseAttackDelayTable[Difficulty]
     -- This is now a player fail case only. So I'm being pretty generous with time
-local M1AeonTripleNukeDelayTable = {900 , 900 , 600}
-
-local M1AeonTripleNukeDelay = M1AeonTripleNukeDelayTable[ScenarioInfo.Difficulty] --- AeonNukeTravelTime
+local M1AeonTripleNukeDelay = {900, 900, 600}
 
 -- Number of seconds after Arnold's big attack is built that the player gets warned (based on how long it takes the troops to move out of Arnold's base)
 local M1AeonBigAttackWarningDelay = 120
 
-
--- Composition of Arnold's big attack (must be changed in the editor)
--- ual0103 {4,8,12}
--- ual0111 {2,8,12}
--- ual0202 {4,8,12}
--- ual0205 {4,8,12}
--- ual0303 {4,8,12}
--- ual0304 {0,4,8}
--- ual0307 {0,4,4}
--- uaa0102 {8,8,8}
--- uaa0103 {4,8,12}
--- uaa0203 {4,8,12}
--- uaa0303 {0,4,8}
--- uaa0304 {0,2,4}
-
-    -- Safety timer to complete M1P3, in case something happens to some of the units in it (i.e. they get stuck)
+-- Safety timer to complete M1P3, in case something happens to some of the units in it (i.e. they get stuck)
 local M1AeonBigAttackSafetyTimer = 600
-
-    -- How often to remind the player to destroy Arnold's nukes
-local M1P4InitialReminderTimer = 900
-local M1P4OngoingReminderTimer = 600
 
     -- Delay after the start of M2 before LRHA start attacking the player (insurance in case the aeon dummy base isn't completely destroyed)
 local M2LrhaAttackPlayerDelay = 180
-    -- How often to remind the player to destroy the LRHAs
-local M2P2ReminderTimer = 600
 
     -- How many seconds between reminders to move the trucks
 local M3P2ReminderTimer = 120
     -- How many trucks can get made in M3 by each facility
 local UEFTruckGroupSizeTable = {8, 8, 8}
-ScenarioInfo.UEFTruckGroupSize = UEFTruckGroupSizeTable[ScenarioInfo.Difficulty]
+ScenarioInfo.UEFTruckGroupSize = UEFTruckGroupSizeTable[Difficulty]
 
     -- How many total trucks can get made in M3 if three facilities are alive
 ScenarioInfo.PotentialUEFTrucks = 3*ScenarioInfo.UEFTruckGroupSize
 
     -- How many trucks need to be sent to earth to complete M3P2
 local RequiredUEFTrucksTable = {12, 12, 12}
-ScenarioInfo.RequiredUEFTrucks = RequiredUEFTrucksTable[ScenarioInfo.Difficulty]
+ScenarioInfo.RequiredUEFTrucks = RequiredUEFTrucksTable[Difficulty]
 
     -- Delay after the LRHA bases are destroyed, before Truck 1 is spawned
 ScenarioInfo.M2TruckGroup1Delay = 120 - (2*ScenarioInfo.UEFTruckGroupSize)
@@ -111,18 +84,6 @@ ScenarioInfo.M2TruckGroup3Delay = 70 --- (2*ScenarioInfo.UEFTruckGroupSize)
     -- Delay between the truck warning dialogue and when the truck is spawned.
 ScenarioInfo.M2TruckDialogueToSpawnDelay = 60
 
-    -- If 10% of city is destroyed, bonus objective for Mission 1 is failed
-local M1CityDestroyedMilestone1Fraction = 0.1
-    -- If 20% of city is destroyed, bonus objective for Mission 2 is failed
-local M2CityDestroyedMilestone2Fraction = 0.2
-
-    -- How many seconds between reminders to go through the gate
-local M3P3InitialReminderTimer = 450
-local M3P3OngoingReminderTimer = 900
-
--- === GLOBAL VARIABLES === #
-
-    -- === Army Brains === #
 ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.City = 3
@@ -139,52 +100,41 @@ local Aeon = ScenarioInfo.Aeon
 local City = ScenarioInfo.City
 local Cybran = ScenarioInfo.Cybran
 
--- City.SetArmyShowScore = false
--- Aeon.SetArmyShowScore = false
--- Cybran.SetArmyShowScore = false
-
-    -- === Tracking Variables === #
-    -- How many research facilities have been destroyed
+-- === Tracking Variables === #
+-- How many research facilities have been destroyed
 ScenarioInfo.FacilitiesDestroyedNumber = 0
-    -- How many anti-nukes the player has built
+-- How many anti-nukes the player has built
 ScenarioInfo.AntiNukeNumber = 0
-    -- How many of Arnold's nukes have been destroyed
+-- How many of Arnold's nukes have been destroyed
 ScenarioInfo.AeonNukesDestroyedNumber = 0
-    -- How many other Cybran bases have been destroyed
+-- How many other Cybran bases have been destroyed
 ScenarioInfo.CybranBasesDestroyed = 0
-    -- How many total trucks have been created in M3
+-- How many total trucks have been created in M3
 ScenarioInfo.NumUEFTrucksAlive = 0
-    -- How many trucks RF1 has made
+-- How many trucks RF1 has made
 ScenarioInfo.ResearchFacility1TrucksProduced = 0
-    -- How many trucks RF1 has made
+-- How many trucks RF1 has made
 ScenarioInfo.ResearchFacility2TrucksProduced = 0
-    -- How many trucks RF1 has made
+-- How many trucks RF1 has made
 ScenarioInfo.ResearchFacility3TrucksProduced = 0
-    -- How many trucks in the currently active truck group have been killed
+-- How many trucks in the currently active truck group have been killed
 ScenarioInfo.CurrentTruckGroupTrucksLost = 0
-    -- How many trucks from the current group have gone through the gate
+-- How many trucks from the current group have gone through the gate
 ScenarioInfo.NumCurrentGroupTrucksThroughGate = 0
-    -- Which truck group to start with
+-- Which truck group to start with
 ScenarioInfo.CurrentTruckGroup = 1
-    -- How many trucks have gone back to Earth through the gate
+-- How many trucks have gone back to Earth through the gate
 ScenarioInfo.NumUEFTrucksThroughGate = 0
-    -- How many total trucks have been lost (for M3B2)
+-- How many total trucks have been lost (for M3B2)
 ScenarioInfo.TotalTrucksLost = 0
-    -- Used for truck positioning in TrucksNearGate
+-- Used for truck positioning in TrucksNearGate
 ScenarioInfo.TruckPosition = 1
 
 
--- === LOCAL VARIABLES === #
-    -- === Other Variables === #
 
--- note needed anymore, but left for simplicity Matt 9/7/06
-local M1PlayableArea = ScenarioUtils.AreaToRect('M1_PLAYABLE_AREA')
-local M2PlayableArea = ScenarioUtils.AreaToRect('M2_PLAYABLE_AREA')
-local M3PlayableArea = ScenarioUtils.AreaToRect('M3_PLAYABLE_AREA')
-
--- === STARTUP === #
-
--- ! Spawn armies: includes all player bases, research facilities, Aeon main base and little nuke bases, City buildings, gate
+-----------
+-- Start up
+-----------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
     ScenarioFramework.GetLeaderAndLocalFactions()
@@ -206,13 +156,13 @@ function OnPopulate(scenario)
     end
 
     -- ! Player Bases
-    ScenarioInfo.PlayerBase = ScenarioUtils.CreateArmyGroup('Player1', 'Player_Main_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF1Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF1_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF2Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF2_Base_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.PlayerRF3Base = ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF3_Base_D'..ScenarioInfo.Difficulty)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Player_Main_Base_D'..Difficulty)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF1_Base_D'..Difficulty)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF2_Base_D'..Difficulty)
+    ScenarioUtils.CreateArmyGroup('Player1', 'Player_RF3_Base_D'..Difficulty)
     -- ! Player Anti Nuke, with some ammo
-    ScenarioInfo.PlayerAntiNuke = ScenarioUtils.CreateArmyUnit('Player1', 'Anti_nuke')
-    ScenarioInfo.PlayerAntiNuke:GiveTacticalSiloAmmo(1)
+    local PlayerAntiNuke = ScenarioUtils.CreateArmyUnit('Player1', 'Anti_nuke')
+    PlayerAntiNuke:GiveTacticalSiloAmmo(1)
 
     -- ! Research Facilities
     ScenarioInfo.ResearchFacility1 = ScenarioUtils.CreateArmyUnit('Player1', 'ResearchFacility1')
@@ -221,6 +171,12 @@ function OnPopulate(scenario)
     ScenarioInfo.ResearchFacility1:SetCustomName(LOC '{i E5_RF1Name}')
     ScenarioInfo.ResearchFacility2:SetCustomName(LOC '{i E5_RF2Name}')
     ScenarioInfo.ResearchFacility3:SetCustomName(LOC '{i E5_RF3Name}')
+    ScenarioInfo.ResearchFacility1.CanBeGiven = false
+    ScenarioInfo.ResearchFacility2.CanBeGiven = false
+    ScenarioInfo.ResearchFacility3.CanBeGiven = false
+    ScenarioInfo.ResearchFacility1:SetReclaimable(false)
+    ScenarioInfo.ResearchFacility2:SetReclaimable(false)
+    ScenarioInfo.ResearchFacility3:SetReclaimable(false)
         -- ! Death triggers for research facilities
     ScenarioFramework.CreateUnitDeathTrigger(ResearchFacility1Destroyed, ScenarioInfo.ResearchFacility1)
     ScenarioFramework.CreateUnitDeathTrigger(ResearchFacility2Destroyed, ScenarioInfo.ResearchFacility2)
@@ -280,36 +236,36 @@ function OnPopulate(scenario)
 
     -- ! Aeon Bases
     -- ! Spawn Main base, make a new template for Main base engineers to maintain
-    ScenarioInfo.AeonMainBaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.AeonMainBaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.AeonMainBaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.AeonMainBaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'Main_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Main_Base_Buildings_D'..ScenarioInfo.Difficulty), 'Main_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Main_Base_Buildings_ToBuild_D'..ScenarioInfo.Difficulty), 'Main_Base_Buildings')
-    ScenarioInfo.AeonMainBasePatrolUnits = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Patrol_Units_D'..ScenarioInfo.Difficulty)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Main_Base_Buildings_D'..Difficulty), 'Main_Base_Buildings')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Main_Base_Buildings_ToBuild_D'..Difficulty), 'Main_Base_Buildings')
+    ScenarioInfo.AeonMainBasePatrolUnits = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Patrol_Units_D'..Difficulty)
     ScenarioInfo.VarTable['BuildAeonMainBasePatrols'] = true
 
     -- ! Spawning walls separately because I don't want engineers to maintain them
     ScenarioInfo.AeonMainBaseWalls = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Walls')
 
     -- ! Spawn initial Aeon attacks
-    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Air_Attack_D'..ScenarioInfo.Difficulty, 'ChevronFormation')
-    ScenarioInfo.AeonFirstGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Ground_Attack_D'..ScenarioInfo.Difficulty, 'AttackFormation')
+    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Air_Attack_D'..Difficulty, 'ChevronFormation')
+    ScenarioInfo.AeonFirstGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Ground_Attack_D'..Difficulty, 'AttackFormation')
     ScenarioInfo.AeonGroundAttackRF1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Ground_Attack_RF1', 'AttackFormation')
     ScenarioInfo.AeonAirAttackRF2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Air_Attack_RF2', 'ChevronFormation')
     ScenarioInfo.AeonSecondGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Second_Ground_Attack_Player', 'AttackFormation')
 
     -- ! Spawn Nuke 2 base, make a new template for nuke2base engineers to maintain
-    ScenarioInfo.AeonNuke2BaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke2_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.AeonNuke2BaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke2_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.AeonNuke2BaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke2_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.AeonNuke2BaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke2_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'Nuke2_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Nuke2_Base_Buildings_D'..ScenarioInfo.Difficulty), 'Nuke2_Base_Buildings')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Nuke2_Base_Buildings_D'..Difficulty), 'Nuke2_Base_Buildings')
 
 
     -- ! Spawn Nuke 3 base, make a new template for nuke3base engineers to maintain
-    ScenarioInfo.AeonNuke3BaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke3_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.AeonNuke3BaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke3_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.AeonNuke3BaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke3_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.AeonNuke3BaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Nuke3_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[Aeon], 'Aeon', 'Nuke3_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Nuke3_Base_Buildings_D'..ScenarioInfo.Difficulty), 'Nuke3_Base_Buildings')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[Aeon], 'Aeon', ('Nuke3_Base_Buildings_D'..Difficulty), 'Nuke3_Base_Buildings')
 
     -- ! Aeon nuke launchers
     ScenarioInfo.AeonNuke1 = ScenarioUtils.CreateArmyUnit('Aeon', 'Aeon_nuke_launcher_1')
@@ -322,6 +278,7 @@ function OnPopulate(scenario)
     ScenarioInfo.AeonNuke1:SetCapturable(false)
     ScenarioInfo.AeonNuke2:SetCapturable(false)
     ScenarioInfo.AeonNuke3:SetCapturable(false)
+    IssueStop({ScenarioInfo.AeonNuke1, ScenarioInfo.AeonNuke2, ScenarioInfo.AeonNuke3})
 
     -- ! City buildings
     ScenarioInfo.CityBuildingsGroup = ScenarioUtils.CreateArmyGroup('City', 'City_Buildings')
@@ -336,70 +293,66 @@ function OnPopulate(scenario)
 
     -- ! Set army unit caps
     ScenarioFramework.SetSharedUnitCap(720)
-    SetArmyUnitCap(Aeon, 500)
-    SetArmyUnitCap(City, 125)
-
-    ScenarioFramework.RestrictEnhancements({ 'TacticalNukeMissile', 'Teleporter' })
 
     -- ! Take away units that the player shouldn't have access to
-    for _, player in ScenarioInfo.HumanPlayers do
-         ScenarioFramework.AddRestriction(player, categories.ueb4302 + -- Strategic Missile Defense
-                                      categories.ueb0304 + -- Quantum Gateway
-                                      categories.ueb2305 + -- Nuclear Missile Launcher
-                                      categories.uel0304 + -- Mobile Heavy Artillery
-                                      categories.uel0301 + -- Sub Commander
-                                      categories.ueb3104 + -- Omni Detection System
-                                      categories.ueb0303 + -- T3 Navy factory
-                                      categories.ues0302 + -- Battleship
-                                      categories.ues0305 + -- T3 Mobile Sonar
-                                      categories.ues0401 + -- Submersible Aircraft Carrier
-                                      categories.ueb2302 + -- Long Range Heavy Artillery
-                                      categories.uel0401 + -- Experimental Mobile Factory
-                                      categories.ues0304 + -- Strategic Missile Submarine
-                                      categories.delk002 + -- UEF T3 Mobile AA
+    ScenarioFramework.AddRestrictionForAllHumans(
+        categories.ueb4302 + -- Strategic Missile Defense
+        categories.ueb0304 + -- Quantum Gateway
+        categories.ueb2305 + -- Nuclear Missile Launcher
+        categories.uel0304 + -- Mobile Heavy Artillery
+        categories.uel0301 + -- Sub Commander
+        categories.ueb3104 + -- Omni Detection System
+        categories.ueb0303 + -- T3 Navy factory
+        categories.ues0302 + -- Battleship
+        categories.ues0305 + -- T3 Mobile Sonar
+        categories.ues0401 + -- Submersible Aircraft Carrier
+        categories.ueb2302 + -- Long Range Heavy Artillery
+        categories.uel0401 + -- Experimental Mobile Factory
+        categories.ues0304 + -- Strategic Missile Submarine
+        categories.delk002 + -- UEF T3 Mobile AA
+        categories.dea0202 + -- T2 F/B
 
-                                      categories.uab4302 + -- Strategic Missile Defense
-                                      categories.uab0304 + -- Quantum Gateway
-                                      categories.uab2305 + -- Nuclear Missile Launcher
-                                      categories.ual0304 + -- Mobile Heavy Artillery
-                                      categories.ual0301 + -- Sub Commander
-                                      categories.uab3104 + -- Omni Detection System
-                                      categories.uab0303 + -- T3 Navy factory
-                                      categories.uas0302 + -- Battleship
-                                      categories.uas0305 + -- T3 Mobile Sonar
-                                      categories.uab2302 + -- Long Range Heavy Artillery
-                                      categories.uas0304 + -- Strategic Missile Submarine
-                                      categories.dalk003 + -- Aeon M3 Mobile AA
+        categories.uab4302 + -- Strategic Missile Defense
+        categories.uab0304 + -- Quantum Gateway
+        categories.uab2305 + -- Nuclear Missile Launcher
+        categories.ual0304 + -- Mobile Heavy Artillery
+        categories.ual0301 + -- Sub Commander
+        categories.uab3104 + -- Omni Detection System
+        categories.uab0303 + -- T3 Navy factory
+        categories.uas0302 + -- Battleship
+        categories.uas0305 + -- T3 Mobile Sonar
+        categories.uab2302 + -- Long Range Heavy Artillery
+        categories.uas0304 + -- Strategic Missile Submarine
+        categories.dalk003 + -- Aeon M3 Mobile AA
 
-                                      categories.urb4302 + -- Strategic Missile Defense
-                                      categories.urb0304 + -- Quantum Gateway
-                                      categories.urb2305 + -- Nuclear Missile Launcher
-                                      categories.url0304 + -- Mobile Heavy Artillery
-                                      categories.url0301 + -- Sub Commander
-                                      categories.urb3104 + -- Omni Detection System
-                                      categories.urb0303 + -- T3 Navy factory
-                                      categories.urs0302 + -- Battleship
-                                      categories.urs0305 + -- T3 Mobile Sonar
-                                      categories.urb2302 + -- Long Range Heavy Artillery
-                                      categories.urs0304 + -- Strategic Missile Submarine
-                                      categories.drlk001 + -- Cybran T3 Mobile AA
-                                      categories.delk002 + -- UEF T3 Mobile AA
-                                      categories.dalk003 + -- Aeon M3 Mobile AA
-                                      categories.drlk001 + -- Cybran T3 Mobile AA
+        categories.urb4302 + -- Strategic Missile Defense
+        categories.urb0304 + -- Quantum Gateway
+        categories.urb2305 + -- Nuclear Missile Launcher
+        categories.url0304 + -- Mobile Heavy Artillery
+        categories.url0301 + -- Sub Commander
+        categories.urb3104 + -- Omni Detection System
+        categories.urb0303 + -- T3 Navy factory
+        categories.urs0302 + -- Battleship
+        categories.urs0305 + -- T3 Mobile Sonar
+        categories.urb2302 + -- Long Range Heavy Artillery
+        categories.urs0304 + -- Strategic Missile Submarine
+        categories.drlk001 + -- Cybran T3 Mobile AA
+        categories.delk002 + -- UEF T3 Mobile AA
+        categories.dalk003 + -- Aeon M3 Mobile AA
+        categories.drlk001 + -- Cybran T3 Mobile AA
 
-                                      categories.PRODUCTFA + -- All FA Units
+        categories.PRODUCTFA + -- All FA Units
 
-                                      categories.EXPERIMENTAL )
-    end
+        categories.EXPERIMENTAL
+    )
 
-    -- Commader
-    ScenarioFramework.RestrictEnhancements({'TacticalNukeMissile',
-                                            'Teleporter'})
+    -- ACU upgrades restrictions
+    ScenarioFramework.RestrictEnhancements({'TacticalNukeMissile', 'Teleporter'})
 end
 
 function OnStart(self)
     -- ! Set playable area for M1
-    ScenarioFramework.SetPlayableArea(M1PlayableArea, false)
+    ScenarioFramework.SetPlayableArea('M1_PLAYABLE_AREA', false)
 
     -- ! Start intro NIS
     -- ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', IntroNIS)
@@ -423,27 +376,17 @@ end
 -- === INTRO NIS === #
 function CreatePlayer()
     WaitSeconds(3)
-    -- ! Player Commander and his Death Trigger
-    ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Gate', true, true, CommanderDied)
 
-    -- spawn coop players too
-    ScenarioInfo.CoopCDR = {}
-    local tblArmy = ListArmies()
-    coop = 1
-    for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander', 'Gate', true, true, CommanderDied)
+    ScenarioInfo.PlayerCDRs = {}
+    for name, _ in ScenarioInfo.HumanPlayers do
+        ScenarioInfo[name .. 'CDR'] = ScenarioFramework.SpawnCommander(name, 'Commander', 'Gate', true, true, CommanderDied)
+        table.insert(ScenarioInfo.PlayerCDRs, ScenarioInfo[name .. 'CDR'])
 
-            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
-            IssueMove({ScenarioInfo.CoopCDR[coop]}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
+        IssueMove({ScenarioInfo[name .. 'CDR']}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
+        IssueMove({ScenarioInfo[name .. 'CDR']}, ScenarioUtils.MarkerToPosition('Commander_Start_' .. name))
 
-            coop = coop + 1
-            WaitSeconds(0.5)
-        end
+        WaitSeconds(2)
     end
-
-    IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_1'))
-    IssueMove({ScenarioInfo.PlayerCDR}, ScenarioUtils.MarkerToPosition('Commander_Start_2'))
 end
 
 function IntroNIS()
@@ -477,7 +420,7 @@ function StartMission1()
 
     ScenarioInfo.MissionNumber = 1
     -- SetArmyShowScore(ScenarioInfo.City, false)
-    LOG('debug: Op: Mission 1 has started dificulty='..ScenarioInfo.Difficulty)
+    LOG('debug: Op: Mission 1 has started dificulty='..Difficulty)
 
     -- ! Arnold shouldn't taunt until after his presence has been revealed
     ScenarioInfo.ArnoldDontTaunt = true
@@ -495,12 +438,12 @@ function StartMission1()
     ScenarioInfo.AeonNuke3:GiveNukeSiloAmmo(1)
 
     -- ! Warn about Aeon, either timer or LOS
-    ScenarioFramework.CreateTimerTrigger(AeonNukeWarning, M1AeonWarningDelay)
+    ScenarioFramework.CreateTimerTrigger(AeonNukeWarning, M1AeonWarningDelay[Difficulty])
     ScenarioFramework.CreateArmyIntelTrigger(AeonNukeWarning, ArmyBrains[Player1], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Aeon])
 
 
     -- ! Arnold fires his first nuke after the M1AeonNukeAttackDelay
-    ScenarioFramework.CreateTimerTrigger(FireAeonNuke, M1AeonNukeAttackDelay)
+    ScenarioFramework.CreateTimerTrigger(FireAeonNuke, M1AeonNukeAttackDelay[Difficulty])
 
 
     -- ! Stop building main base patrols so we don't gather units that are supposed to be in an OSB
@@ -515,8 +458,8 @@ function M1AssignP1()
         OpStrings.M1P1Description,      -- description
         {                               -- target
             Units = {ScenarioInfo.ResearchFacility1, ScenarioInfo.ResearchFacility2, ScenarioInfo.ResearchFacility3},           -- group to protect
-            Timer = nil,                -- if nil, requires a manual update for completion
             NumRequired = 2,            -- How many must survive
+            ShowProgress = true,
         }
    )
     ScenarioInfo.M1P1:AddResultCallback(
@@ -534,18 +477,20 @@ end
 function SiloAmmoThread(callback, areaName)
     local hasAmmo = false
     local rect = ScenarioUtils.AreaToRect(areaName)
+    local cats = categories.SILO * categories.ANTIMISSILE
+
     while not hasAmmo do
+        local units = ScenarioFramework.GetListOfHumanUnits(cats, rect)
         local units = GetUnitsInRect(rect)
         for k,v in units do
-            if not v:IsDead() and v:GetAIBrain():GetArmyIndex() == 1 and EntityCategoryContains(categories.SILO * categories.ANTIMISSILE, v) then
-                if v:GetTacticalSiloAmmoCount() > 0 then
-                    if not hasAmmo then
-                        hasAmmo = true
-                        callback()
-                    end
+            if not v.Dead and v:GetTacticalSiloAmmoCount() > 0 then
+                if not hasAmmo then
+                    hasAmmo = true
+                    callback()
                 end
             end
         end
+
         WaitSeconds(.5)
     end
 end
@@ -563,7 +508,7 @@ function AeonNukeWarning()
 
         -- ! Check for M1S1 success (protect 90% of the city)
         ScenarioFramework.Dialogue(OpStrings.E05_M01_020)
-        local CityDestroyedAmountOne = math.floor(M1CityDestroyedMilestone1Fraction * table.getn(ScenarioInfo.CityBuildingsGroup))
+        local CityDestroyedAmountOne = math.floor(0.1 * table.getn(ScenarioInfo.CityBuildingsGroup))
         local CityProtectAmountOne = table.getn(ScenarioInfo.CityBuildingsGroup) - CityDestroyedAmountOne
         ScenarioInfo.M1S1 = Objectives.Protect(
             'secondary',                    -- type
@@ -572,21 +517,10 @@ function AeonNukeWarning()
             OpStrings.M1S1Description,      -- description
             {                               -- target
                 Units = ScenarioInfo.CityBuildingsGroup,          -- group to protect
-                Timer = nil,                -- if nil, requires a manual update for completion
+                PercentProgress = true,
                 NumRequired = CityProtectAmountOne,            -- How many must survive
             }
-       )
-        ScenarioInfo.M1S1:AddResultCallback(
-            function(result)
-                if not result then -- If you fail to protect the city
-                    if ScenarioInfo.MissionNumber == 1 then
-                        ScenarioInfo.M1S1:ManualResult(false)
-                        ScenarioInfo.M1S1Failed = true
-                        LOG('debug: Op: More than 10% of the city has been destroyed')
-                    end
-                end
-            end
-       )
+        )
     end
 end
 
@@ -674,7 +608,7 @@ function M1InitialNukeShotDownPt2()
 
     -- ! Arnold launches three nukes after (a)M1AeonTripleNukeDelay, (b)the player builds two anti-nuke missles, or
     -- !
-    ScenarioFramework.CreateTimerTrigger(CallAeonTripleNukeAttack, M1AeonTripleNukeDelay)
+    ScenarioFramework.CreateTimerTrigger(CallAeonTripleNukeAttack, M1AeonTripleNukeDelay[Difficulty])
 
 
     -- ! Remind the player to do M1P2 after M1P2ReminderTimer
@@ -735,19 +669,19 @@ function AeonTripleNukeAttack()
     -- if not ScenarioInfo.TripleNukesLaunched then
         ScenarioInfo.TripleAttackNukesSent = 0
         if not ScenarioInfo.AeonNuke1:IsDead() then
-            -- if ScenarioInfo.Difficulty == 1 then
+            -- if Difficulty == 1 then
             -- ScenarioInfo.Nuke1Target = ScenarioUtils.MarkerToPosition('Nuke1_Target_Easy')
             -- else
             -- ScenarioInfo.Nuke1Target = ScenarioUtils.MarkerToPosition('Research_Facility_2')
             -- end
-            ScenarioInfo.Nuke1Target = ScenarioUtils.MarkerToPosition('Research_Facility_1')
+            ScenarioInfo.Nuke1Target = ScenarioUtils.MarkerToPosition('Research_Facility_2')
             ScenarioInfo.AeonNuke1:AddProjectileDamagedCallback(OnNukeShotDown)
             IssueNuke({ ScenarioInfo.AeonNuke1 }, ScenarioInfo.Nuke1Target)
             ScenarioInfo.TripleAttackNukesSent = ScenarioInfo.TripleAttackNukesSent + 1
         end
 
         if not ScenarioInfo.AeonNuke2:IsDead() then
-            ScenarioInfo.Nuke2Target = ScenarioUtils.MarkerToPosition('Research_Facility_2')
+            ScenarioInfo.Nuke2Target = ScenarioUtils.MarkerToPosition('Research_Facility_3')
             ScenarioInfo.AeonNuke2:AddProjectileDamagedCallback(OnNukeShotDown)
             IssueNuke({ ScenarioInfo.AeonNuke2 }, ScenarioInfo.Nuke2Target)
             ScenarioInfo.TripleAttackNukesSent = ScenarioInfo.TripleAttackNukesSent + 1
@@ -755,12 +689,12 @@ function AeonTripleNukeAttack()
 
         if not ScenarioInfo.AeonNuke3:IsDead() then
             LOG("debugmatt: Nuke3111")
-            -- if ScenarioInfo.Difficulty == 1 then
+            -- if Difficulty == 1 then
             -- ScenarioInfo.Nuke3Target = ScenarioUtils.MarkerToPosition('Nuke3_Target_Easy')
             -- else
             -- ScenarioInfo.Nuke3Target = ScenarioUtils.MarkerToPosition('Research_Facility_1')
             -- end
-            ScenarioInfo.Nuke3Target = ScenarioUtils.MarkerToPosition('Research_Facility_3')
+            ScenarioInfo.Nuke3Target = ScenarioUtils.MarkerToPosition('Research_Facility_1')
             ScenarioInfo.AeonNuke3:AddProjectileDamagedCallback(OnNukeShotDown)
             IssueNuke({ ScenarioInfo.AeonNuke3 }, ScenarioInfo.Nuke3Target)
             ScenarioInfo.TripleAttackNukesSent = ScenarioInfo.TripleAttackNukesSent + 1
@@ -768,9 +702,9 @@ function AeonTripleNukeAttack()
         end
         LOG("debugmatt: Nuke?>>"..ScenarioInfo.TripleAttackNukesSent)
         -- ! On hard difficulty, let the nukes keep nuking stuff.
---    if ScenarioInfo.Difficulty == 3 then
---        ForkThread(AeonContinuedNukeAttacks)
---    end
+        if Difficulty == 3 then
+            ForkThread(AeonContinuedNukeAttacks)
+        end
 
 
         -- ! Arnold sends a big attack
@@ -778,7 +712,7 @@ function AeonTripleNukeAttack()
         WaitSeconds(60)
 
         -- assign here instead of after big attack, better flow.
-        if not ScenarioInfo.M1P4Assigned then
+        if not ScenarioInfo.M1P4 then
             AssignM1P4()
         end
 
@@ -850,16 +784,15 @@ end
 
 -- ! Assign M1P4 (Destroy all three of Arnold's nuke launchers.)
 function AssignM1P4()
-    ScenarioInfo.M1P4Assigned = true
     ScenarioFramework.Dialogue(OpStrings.E05_M01_065)
-    ScenarioInfo.AeonNukeLaunchers = {ScenarioInfo.AeonNuke1, ScenarioInfo.AeonNuke2, ScenarioInfo.AeonNuke3}
-    ScenarioInfo.M1P4 = Objectives.KillOrCapture(
+
+    ScenarioInfo.M1P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
         OpStrings.M1P4Title,            -- title
         OpStrings.M1P4Description,      -- description
         {                               -- target
-            Units = ScenarioInfo.AeonNukeLaunchers,
+            Units = {ScenarioInfo.AeonNuke1, ScenarioInfo.AeonNuke2, ScenarioInfo.AeonNuke3},
             FlashVisible = true,
             ShowProgress = true,
         }
@@ -879,12 +812,12 @@ function AssignM1P4()
 
     -- ! Remind the player to do M1P4 after M1P4InitialReminderTimer
     ScenarioInfo.NextM1P4Reminder = 1
-    ScenarioFramework.CreateTimerTrigger(M1P4Reminder, M1P4InitialReminderTimer)
+    ScenarioFramework.CreateTimerTrigger(M1P4Reminder, 900)
 end
 
 -- ! Remind the player to destroy Arnold's nukes
 function M1P4Reminder()
-    while not ScenarioInfo.AeonNukesDestroyed do
+    while ScenarioInfo.M1P4.Active do
         if ScenarioInfo.NextM1P4Reminder == 1 and not ScenarioInfo.OpEnded then
             ScenarioFramework.Dialogue(OpStrings.E05_M01_110)
             ScenarioInfo.NextM1P4Reminder = 2
@@ -892,14 +825,14 @@ function M1P4Reminder()
             ScenarioFramework.Dialogue(OpStrings.E05_M01_115)
             ScenarioInfo.NextM1P4Reminder = 1
         end
-        WaitSeconds(M1P4OngoingReminderTimer)
+        WaitSeconds(600)
     end
 end
 
 -- ! If an aeon nuke is destroyed, assign M1P4.
 function AeonNukeHasBeenDestroyed(unit)
     -- If M1P4 hasn't been assigned yet, assign it.
-    if not ScenarioInfo.M1P4Assigned then
+    if not ScenarioInfo.M1P4 then
         AssignM1P4()
     end
 -- base Aeon nuke launcher destroyed cam
@@ -977,16 +910,19 @@ end
 
 -- ! On hard, Aeon nukes should keep nuking the player
 function AeonContinuedNukeAttacks()
-    while not ScenarioInfo.AeonNukesDestroyed do
+    while true do
         local nukeSiloTable = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
+        if not nukeSiloTable[1] then
+            return
+        end
+
         local nukeTargetTable = ScenarioFramework.GetListOfHumanUnits(categories.STRUCTURE - categories.ECONOMIC, false)
         local rndNuke = ScenarioFramework.GetRandomEntry(nukeSiloTable)
         local rndTarget = ScenarioFramework.GetRandomEntry(nukeTargetTable)
-        IssueNuke({ rndNuke }, rndTarget)
+        rndNuke:GiveNukeSiloAmmo(1)
+        IssueNuke({rndNuke}, rndTarget)
 
-        LOG('debug: Op: '..rndNuke.UnitName..' is nuking '..rndTarget.UnitName)
-
-        local rndWait = Random(10, 120)
+        local rndWait = Random(300, 480)
         WaitSeconds(rndWait)
     end
 end
@@ -1004,7 +940,7 @@ function EndMission1()
             ScenarioInfo.M1P1:ManualResult(true)
 
                -- ! If more than 10% of the town wasn't destroyed in M1, then the town was saved!
-            if not ScenarioInfo.M1S1Failed then
+            if ScenarioInfo.M1S1.Active then
                 ScenarioInfo.M1S1:ManualResult(true)
             end
 
@@ -1021,11 +957,6 @@ function StartMission2()
     ScenarioInfo.MissionNumber = 2
 
     ScenarioInfo.VarTable['BuildAeonSecondBasePatrols'] = true
-
-    -- ! Set army unit caps
-    SetArmyUnitCap(Aeon, 700)
-    SetArmyUnitCap(Cybran, 700)
-    SetArmyUnitCap(City, 225)
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
         categories.ueb3104 + -- Omni Radar
@@ -1064,7 +995,7 @@ function StartMission2()
                                     categories.url0301) -- Sub Commander
 
     -- ! If we're on hard difficulty, give mobile heavy artillery to the Aeon and Cybran
-    if ScenarioInfo.Difficulty == 3 then
+    if Difficulty == 3 then
         ScenarioFramework.RemoveRestriction(Aeon, categories.uel0304 + -- Mobile Heavy Artillery
                                       categories.ual0304 + -- Mobile Heavy Artillery
                                       categories.url0304) -- Mobile Heavy Artillery
@@ -1075,11 +1006,11 @@ function StartMission2()
     end
 
     -- ! Expand the map area
-    ScenarioFramework.SetPlayableArea(M2PlayableArea)
+    ScenarioFramework.SetPlayableArea('M2_PLAYABLE_AREA')
 
     -- ! Spawn the Cybran LRA bases and the M2 Aeon bases
-    ScenarioInfo.CybranLRA1BaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'LRA1_Base_Buildings_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranLRA2BaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'LRA2_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.CybranLRA1BaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'LRA1_Base_Buildings_D'..Difficulty)
+    ScenarioInfo.CybranLRA2BaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'LRA2_Base_Buildings_D'..Difficulty)
     ScenarioInfo.CybranLRA1 = ScenarioUtils.CreateArmyUnit('Cybran', 'Cybran_LRA_1')
     ScenarioInfo.CybranLRA2 = ScenarioUtils.CreateArmyUnit('Cybran', 'Cybran_LRA_2')
         -- ! Keep track of the Cybran LRHA
@@ -1087,40 +1018,29 @@ function StartMission2()
     ScenarioFramework.CreateUnitDeathTrigger(CybranLRHADestroyed, ScenarioInfo.CybranLRA2)
 
     -- ! Spawn 5 Cybran bases
-    ScenarioInfo.CybranWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'W_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'W_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.CybranWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'W_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.CybranWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'W_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'W_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('W_Base_Buildings_D'..ScenarioInfo.Difficulty), 'W_Base_Buildings')
-    ScenarioInfo.CybranNWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NW_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranNWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NW_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('W_Base_Buildings_D'..Difficulty), 'W_Base_Buildings')
+    ScenarioInfo.CybranNWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NW_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.CybranNWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NW_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'NW_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NW_Base_Buildings_D'..ScenarioInfo.Difficulty), 'NW_Base_Buildings')
-    ScenarioInfo.CybranNNWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NNW_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranNNWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NNW_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NW_Base_Buildings_D'..Difficulty), 'NW_Base_Buildings')
+    ScenarioInfo.CybranNNWBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NNW_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.CybranNNWBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NNW_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'NNW_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NNW_Base_Buildings_D'..ScenarioInfo.Difficulty), 'NNW_Base_Buildings')
-    ScenarioInfo.CybranNNEBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NNE_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranNNEBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NNE_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NNW_Base_Buildings_D'..Difficulty), 'NNW_Base_Buildings')
+    ScenarioInfo.CybranNNEBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NNE_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.CybranNNEBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NNE_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'NNE_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NNE_Base_Buildings_D'..ScenarioInfo.Difficulty), 'NNE_Base_Buildings')
-    ScenarioInfo.CybranNEBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NE_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.CybranNEBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NE_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NNE_Base_Buildings_D'..Difficulty), 'NNE_Base_Buildings')
+    ScenarioInfo.CybranNEBaseEngineers = ScenarioUtils.CreateArmyGroup('Cybran', 'NE_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.CybranNEBaseBuildings = ScenarioUtils.CreateArmyGroup('Cybran', 'NE_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', 'NE_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NE_Base_Buildings_D'..ScenarioInfo.Difficulty), 'NE_Base_Buildings')
-        -- ! Keep track of the Cybran bases
-    ScenarioFramework.CreateAreaTrigger(Cybran_W_Base_Area_Destroyed, ScenarioUtils.AreaToRect('Cybran_W_Base_Area'),
-        categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Cybran], 1)
-    ScenarioFramework.CreateAreaTrigger(Cybran_NW_Base_Area_Destroyed, ScenarioUtils.AreaToRect('Cybran_NW_Base_Area'),
-        categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Cybran], 1)
-    ScenarioFramework.CreateAreaTrigger(Cybran_NNW_Base_Area_Destroyed, ScenarioUtils.AreaToRect('Cybran_NNW_Base_Area'),
-        categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Cybran], 1)
-    ScenarioFramework.CreateAreaTrigger(Cybran_NNE_Base_Area_Destroyed, ScenarioUtils.AreaToRect('Cybran_NNE_Base_Area'),
-        categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Cybran], 1)
-    ScenarioFramework.CreateAreaTrigger(Cybran_NE_Base_Area_Destroyed, ScenarioUtils.AreaToRect('Cybran_NE_Base_Area'),
-        categories.STRUCTURE - categories.WALL, true, true, ArmyBrains[Cybran], 1)
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Cybran], 'Cybran', ('NE_Base_Buildings_D'..Difficulty), 'NE_Base_Buildings')
 
     -- ! Spawn the Cybran walls (kept separate so they aren't counted in the group death triggers)
-    ScenarioInfo.CybranWalls = ScenarioUtils.CreateArmyGroup('Cybran', 'Cybran_Walls_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.CybranWalls = ScenarioUtils.CreateArmyGroup('Cybran', 'Cybran_Walls_D'..Difficulty)
 
     -- ! Spawn Cybran commander
     ScenarioInfo.CybranCDR = ScenarioUtils.CreateArmyUnit('Cybran', 'Commander')
@@ -1142,12 +1062,12 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(StartMission2Part2, M2LrhaAttackPlayerDelay)
 
     -- ! Spawn the secondary Aeon base and the Aeon commander (Arnold)
-    ScenarioInfo.AeonSecondBaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Second_Base_Engineers_D'..ScenarioInfo.Difficulty)
-    ScenarioInfo.AeonSecondBaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Second_Base_Buildings_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.AeonSecondBaseEngineers = ScenarioUtils.CreateArmyGroup('Aeon', 'Second_Base_Engineers_D'..Difficulty)
+    ScenarioInfo.AeonSecondBaseBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Second_Base_Buildings_D'..Difficulty)
     AIBuildStructures.CreateBuildingTemplate(ArmyBrains[ScenarioInfo.Aeon], 'Aeon', 'Second_Base_Buildings')
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Aeon], 'Aeon', ('Second_Base_Buildings_D'..ScenarioInfo.Difficulty), 'Second_Base_Buildings')
+    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[ScenarioInfo.Aeon], 'Aeon', ('Second_Base_Buildings_D'..Difficulty), 'Second_Base_Buildings')
         -- ! Spawning walls separately because I don't want engineers to maintain them
-    ScenarioInfo.AeonWalls = ScenarioUtils.CreateArmyGroup('Aeon', 'Aeon_Walls_D'..ScenarioInfo.Difficulty)
+    ScenarioInfo.AeonWalls = ScenarioUtils.CreateArmyGroup('Aeon', 'Aeon_Walls_D'..Difficulty)
 
     -- Arnold
     ScenarioInfo.AeonCDR = ScenarioUtils.CreateArmyUnit('Aeon', 'Commander_Arnold')
@@ -1192,8 +1112,8 @@ function StartMission2()
         OpStrings.M2P1Description,      -- description
         {                               -- target
             Units = researchFacilitiesGroup,          -- group to protect
-            Timer = nil,                -- if nil, requires a manual update for completion
             NumRequired = 2,            -- How many must survive
+            ShowProgress = true,
         }
    )
     ScenarioInfo.M2P1:AddResultCallback(
@@ -1266,11 +1186,11 @@ function StartMission2Part2()
         ScenarioFramework.Dialogue(OpStrings.E05_M02_010)
         -- Todo: Motion capture of LRHAs
 
-        if ScenarioInfo.Difficulty == 3 then
+        if Difficulty == 3 then
             -- Let LRHAs shell whatever they want on hard
             IssueClearCommands({ScenarioInfo.CybranLRA1})
             IssueClearCommands({ScenarioInfo.CybranLRA2})
-        elseif ScenarioInfo.Difficulty == 2 then
+        elseif Difficulty == 2 then
             -- Have LRHAs shell Aeon base and near a research facility on medium
             IssueClearCommands({ScenarioInfo.CybranLRA1})
             IssueAttack({ScenarioInfo.CybranLRA1}, ScenarioUtils.MarkerToPosition('LRA1_Player_Target_Medium'))
@@ -1309,9 +1229,9 @@ function StartMission2Part2()
         )
         ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M2P2)
 
-        -- ! Remind the player to do M2P2 after M2P2ReminderTimer
+        -- ! Remind the player to do M2P2
         ScenarioInfo.NextM2P2Reminder = 1
-        ScenarioFramework.CreateTimerTrigger(M2P2Reminder, M2P2ReminderTimer)
+        ScenarioFramework.CreateTimerTrigger(M2P2Reminder, 600)
 
         -- ! Give the player access to nukes
         ScenarioFramework.RemoveRestrictionForAllHumans(categories.ueb2305 + categories.uab2305 + categories.urb2305)
@@ -1352,7 +1272,7 @@ function M2P2Reminder()
             ScenarioFramework.Dialogue(OpStrings.E05_M02_055)
             ScenarioInfo.NextM2P2Reminder = 1
         end
-        WaitSeconds(M2P2ReminderTimer)
+        WaitSeconds(600)
     end
 end
 
@@ -1371,14 +1291,12 @@ function StartMission3()
 
     LOG('debug: Op: Mission3 is starting')
 
+    -- ! Set army unit caps
+    ScenarioFramework.SetSharedUnitCap(1000)
+
     ScenarioInfo.MissionNumber = 3
 
-    -- ! Set army unit caps
-    SetArmyUnitCap(Aeon, 500)
-    SetArmyUnitCap(Cybran, 500)
-    SetArmyUnitCap(City, 125)
-
-    ScenarioFramework.SetPlayableArea(M3PlayableArea)
+    ScenarioFramework.SetPlayableArea('M3_PLAYABLE_AREA')
 
     -- ! Get ready to spawn truck group 1
     ForkThread(CreateTruckGroup)
@@ -1417,9 +1335,9 @@ function StartMission3()
             -- Units = {ScenarioInfo.Gate},
             -- MarkUnits = true,
         }
-   )
+    )
     ScenarioInfo.M3P2:AddResultCallback(
--- NIS for when the sufficient number of trucks makes it through the gate
+        -- NIS for when the sufficient number of trucks makes it through the gate
         function(result)
             local camInfo = {
                 blendTime = 1.0,
@@ -1431,30 +1349,32 @@ function StartMission3()
             }
             ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition("Gate_Position"), camInfo)
         end
-   )
+    )
     -- ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M3P2)
     ScenarioFramework.M3GateTrigger = ScenarioFramework.CreateAreaTrigger(SendTruckThroughGate, ScenarioUtils.AreaToRect('CDR_Gate_Area'),
         (categories.uec0001), false, false, ArmyBrains[ScenarioInfo.Player1], 1, true)
 
-
-    -- ! Assign M3S1: destroy all the Cybran bases
-    ScenarioInfo.M3S1 = Objectives.Basic(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        OpStrings.M3S1Title,            -- title
-        OpStrings.M3S1Description,      -- description
-        Objectives.GetActionIcon('kill'),
-        {                               -- target
+    -------------------------------------------
+    -- Primary Objective - Destroy Cybran bases
+    -------------------------------------------
+    ScenarioInfo.M3S1 = Objectives.CategoriesInArea(
+        'primary',
+        'incomplete',
+        OpStrings.M3S1Title,
+        OpStrings.M3S1Description,
+        'kill',
+        {
             ShowFaction = 'Cybran',
-            Areas = { 'Cybran_W_Base_Area', 'Cybran_NE_Base_Area', 'Cybran_NNE_Base_Area', 'Cybran_NNW_Base_Area', 'Cybran_NW_Base_Area', },
             MarkArea = true,
+            Requirements = {
+                {Area = 'Cybran_W_Base_Area', Category = categories.STRUCTURE - categories.WALL, CompareOp = '<=', Value = 0, ArmyIndex = Cybran},
+                {Area = 'Cybran_NE_Base_Area', Category = categories.STRUCTURE - categories.WALL, CompareOp = '<=', Value = 0, ArmyIndex = Cybran},
+                {Area = 'Cybran_NNE_Base_Area', Category = categories.STRUCTURE - categories.WALL, CompareOp = '<=', Value = 0, ArmyIndex = Cybran},
+                {Area = 'Cybran_NNW_Base_Area', Category = categories.STRUCTURE - categories.WALL, CompareOp = '<=', Value = 0, ArmyIndex = Cybran},
+                {Area = 'Cybran_NW_Base_Area', Category = categories.STRUCTURE - categories.WALL, CompareOp = '<=', Value = 0, ArmyIndex = Cybran},
+            },
         }
-   )
-
-    -- ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M3S1)
-
-    -- ! Start sending Cybran and Aeon attacks
-    LOG('debug: Op: Cybran and Aeon are attacking each other and the player now')
+    )
 end
 
 -- ! If a research facility dies, check if we fail M3P1
@@ -1464,55 +1384,6 @@ function CheckM3P1(unit)
         ScenarioInfo.M3P1:ManualResult(false)
         ScenarioInfo.MissionFailed = true
         ScenarioFramework.PlayerLose(OpStrings.E05_M03_180)
-    end
-end
-
-
--- ! Track M3S1 (Defeat all 5 Cybran bases). Each base passes in a loc for use if it is the final destroyed base (for NIS)
-function Cybran_W_Base_Area_Destroyed()
-    CybranBaseDestroyed(ScenarioUtils.MarkerToPosition("Cybran_W_Base_Location"))
-    -- Cybran_W_Base_Location
-end
-
-function Cybran_NW_Base_Area_Destroyed()
-    CybranBaseDestroyed(ScenarioUtils.MarkerToPosition("Cybran_Base_NW"))
-    -- Cybran_Base_NW
-end
-
-function Cybran_NNW_Base_Area_Destroyed()
-    CybranBaseDestroyed(ScenarioUtils.MarkerToPosition("Cybran_NNW_Location"))
-    -- Cybran_NNW_Location
-end
-
-function Cybran_NNE_Base_Area_Destroyed()
-    CybranBaseDestroyed(ScenarioUtils.MarkerToPosition("Cybran_Base_NNE"))
-    -- Cybran_Base_NNE
-end
-
-function Cybran_NE_Base_Area_Destroyed()
-    CybranBaseDestroyed(ScenarioUtils.MarkerToPosition("Cybran_Base_NE"))
-    -- Cybran_Base_NE
-end
-
-function CybranBaseDestroyed(marker)
-    -- ! Count number of Cybran bases that have been destroyed
-    ScenarioInfo.CybranBasesDestroyed = ScenarioInfo.CybranBasesDestroyed +1
-    -- Todo Addmarker: remove marker from base?
-
-    Objectives.UpdateBasicObjective(ScenarioInfo.M3S1, 'progress', LOCF(OpStrings.M3S1Progress, ScenarioInfo.CybranBasesDestroyed))
-
-    -- ! If 5 have been destroyed, then complete M3S1, and play an NIS at the marker passed in
-    if ScenarioInfo.CybranBasesDestroyed >= 5 then
-        ScenarioInfo.M3S1:ManualResult(true)
---    local camInfo = {
---        blendTime = 1.0,
---        holdTime = 4,
---        orientationOffset = { 2.67, 0.4, 0 },
---        positionOffset = { 0, 0.5, 0 },
---        zoomVal = 55,
---        markerCam = true,
---    }
---    ScenarioFramework.OperationNISCamera(marker, camInfo)
     end
 end
 
@@ -1607,7 +1478,7 @@ function CreateTruckGroupAtFacility1()
             n = n+1
             if not (ScenarioInfo.ResearchFacility1TrucksProduced >= ScenarioInfo.UEFTruckGroupSize) then
                 -- ! Adjust truck counters
-                if not (ScenarioInfo.Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
+                if not (Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
                     ScenarioInfo.PotentialUEFTrucks = ScenarioInfo.PotentialUEFTrucks - 1
                 end
                 ScenarioInfo.ResearchFacility1TrucksProduced = ScenarioInfo.ResearchFacility1TrucksProduced + 1
@@ -1647,9 +1518,7 @@ function CreateTruckGroupAtFacility1()
 end
 
 function CreateTruckAtFacility1(n)
-    SetIgnoreArmyUnitCap(Player1, true)
     local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck1')
-    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely
@@ -1688,7 +1557,7 @@ function CreateTruckGroupAtFacility2()
             n = n+1
             if not (ScenarioInfo.ResearchFacility2TrucksProduced >= ScenarioInfo.UEFTruckGroupSize) then
                 -- ! Adjust truck counters
-                if not (ScenarioInfo.Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
+                if not (Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
                     ScenarioInfo.PotentialUEFTrucks = ScenarioInfo.PotentialUEFTrucks - 1
                 end
                 ScenarioInfo.ResearchFacility2TrucksProduced = ScenarioInfo.ResearchFacility2TrucksProduced + 1
@@ -1728,9 +1597,7 @@ function CreateTruckGroupAtFacility2()
 end
 
 function CreateTruckAtFacility2(n)
-    SetIgnoreArmyUnitCap(Player1, true)
     local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck2')
-    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely
@@ -1769,7 +1636,7 @@ function CreateTruckGroupAtFacility3()
             n = n+1
             if not (ScenarioInfo.ResearchFacility3TrucksProduced >= ScenarioInfo.UEFTruckGroupSize) then
                 -- ! Adjust truck counters
-                if not (ScenarioInfo.Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
+                if not (Difficulty == 1) then -- Don't deplete potential truck pool on Easy diff, since we can make infinite trucks.
                     ScenarioInfo.PotentialUEFTrucks = ScenarioInfo.PotentialUEFTrucks - 1
                 end
                 ScenarioInfo.ResearchFacility3TrucksProduced = ScenarioInfo.ResearchFacility3TrucksProduced + 1
@@ -1807,9 +1674,7 @@ function CreateTruckGroupAtFacility3()
 end
 
 function CreateTruckAtFacility3(n)
-    SetIgnoreArmyUnitCap(Player1, true)
     local truck = ScenarioUtils.CreateArmyUnit('Player1', 'Truck3')
-    SetIgnoreArmyUnitCap(Player1, false)
     ScenarioFramework.CreateUnitDeathTrigger(TruckKilled, truck)
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TruckNearGate, truck, ScenarioUtils.MarkerToPosition('Gate_Position'), 30)
     -- ! Line up the trucks nicely
@@ -1941,7 +1806,7 @@ function TruckKilled(unit)
             ScenarioInfo.CurrentTruckGroupTrucksLost = 0
             ScenarioInfo.NumCurrentGroupTrucksThroughGate = 0
             -- ! If we're on easy, make the same truck group again. Otherwise, move to the next one.
-            if ScenarioInfo.Difficulty > 1 then
+            if Difficulty > 1 then
                 ScenarioInfo.CurrentTruckGroup = ScenarioInfo.CurrentTruckGroup + 1
                 ForkThread(CreateTruckGroup)
             else
@@ -1953,21 +1818,7 @@ end
 
 -- ! If a truck gets close to the gate, move it closer and send it through.
 function TruckNearGate(truck)
-    LOG('debug: Op: Running TruckNearGate')
     local x, y, z = unpack(ScenarioInfo.Gate:GetPosition())
-    -- if ScenarioInfo.TruckPosition <= 4 then
-    -- IssueMove({truck}, {x + 5, y, z - 2 + ScenarioInfo.TruckPosition})
-    -- elseif ScenarioInfo.TruckPosition <= 8 then
-    -- IssueMove({truck}, {x - 6 + ScenarioInfo.TruckPosition, y, z - 5})
-    -- elseif ScenarioInfo.TruckPosition <= 12 then
-    -- IssueMove({truck}, {x - 5, y, z - 10 + ScenarioInfo.TruckPosition})
-    -- elseif ScenarioInfo.TruckPosition <= 16 then
-    -- IssueMove({truck}, {x - 14 + ScenarioInfo.TruckPosition, y, z + 5})
-    -- else
-    -- ScenarioInfo.TruckPosition = 0
-    -- end
-    -- ScenarioInfo.TruckPosition = ScenarioInfo.TruckPosition + 1
-    -- WaitSeconds(15)
     IssueMove({truck}, {x , y, z })
 end
 
@@ -2018,7 +1869,6 @@ function M3P2EnoughTrucks()
     if not ScenarioInfo.M3P2Complete then
         ScenarioInfo.M3P2Complete = true
 
-        LOG ('debug:complete truck tasks')
         ScenarioInfo.M3P2:ManualResult(true)
         ScenarioInfo.M3P1:ManualResult(true)
 
@@ -2029,42 +1879,48 @@ function M3P2EnoughTrucks()
 
         ScenarioFramework.Dialogue(OpStrings.E05_M03_115)
 
-        -- ! Assign M3P3 (Go back to earth through the gate)
+        -----------------------------------
+        -- Primary Objective - Leave planet
+        -----------------------------------
         ScenarioInfo.M3P3 = Objectives.CategoriesInArea(
-            'primary',                      -- type
-            'incomplete',                   -- complete
-            OpStrings.M3P3Title,            -- title
-            OpStrings.M3P3Description,      -- description
+            'primary',
+            'incomplete',
+            OpStrings.M3P3Title,
+            OpStrings.M3P3Description,
             'move',
-            { -- Target
+            {
                 MarkArea = true,
                 Requirements = {
-                    { Area = 'CDR_Gate_Area', Category=categories.COMMAND, CompareOp='>=', Value=1, },
+                    {
+                        Area = 'CDR_Gate_Area',
+                        Category = categories.COMMAND,
+                        CompareOp = '>=',
+                        Value = table.getn(ScenarioInfo.PlayerCDRs),
+                    },
                 },
             }
-       )
+        )
         ScenarioInfo.M3P3:AddResultCallback(
             function(result)
-                -- LOG('debug: Op: The commander is through the gate.')
-                ScenarioFramework.FakeTeleportUnit(ScenarioInfo.PlayerCDR, true)
---            ScenarioFramework.EndOperationCamera(ScenarioInfo.PlayerCDR, false)
-                ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.PlayerCDR)
+                ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Player1CDR)
 
-                ScenarioInfo.PlayerCDRThroughTheGate = true
+                for _, ACU in ScenarioInfo.PlayerCDRs do
+                    ScenarioFramework.FakeTeleportUnit(ACU, true)
+                end
+
                 PlayerWin()
             end
-       )
-        -- ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M3P3)
+        )
 
         -- ! Remind the player to do M3P3 after M1P4InitialReminderTimer
         ScenarioInfo.NextM3P3Reminder = 1
-        ScenarioFramework.CreateTimerTrigger(M3P3Reminder, M3P3InitialReminderTimer)
+        ScenarioFramework.CreateTimerTrigger(M3P3Reminder, 450)
     end
 end
 
 -- ! Remind the player to go through the gate
 function M3P3Reminder()
-    while not ScenarioInfo.PlayerCDRThroughTheGate do
+    while ScenarioInfo.M3P3.Active do
         if ScenarioInfo.NextM3P3Reminder == 1 and not ScenarioInfo.OpEnded then
             ScenarioFramework.Dialogue(OpStrings.E05_M03_200)
             ScenarioInfo.NextM3P3Reminder = 2
@@ -2072,25 +1928,24 @@ function M3P3Reminder()
             ScenarioFramework.Dialogue(OpStrings.E05_M03_205)
             ScenarioInfo.NextM3P3Reminder = 1
         end
-        WaitSeconds(M3P3OngoingReminderTimer)
+        WaitSeconds(900)
     end
 end
 
 -- ! Complete M3B2 (all the trucks reached earth safely)
 function CompleteM3B2()
     ScenarioFramework.Dialogue(OpStrings.E05_M03_160)
+
     ScenarioInfo.M3B2 = Objectives.Basic(
-        'secondary',                      -- type
-        'incomplete',                   -- complete
-        OpStrings.M3B2Title,            -- title
-        OpStrings.M3B2Description,      -- description
+        'secondary',
+        'complete',
+        OpStrings.M3B2Title,
+        OpStrings.M3B2Description,
         Objectives.GetActionIcon('protect'),
-        {                               -- target
-            Area = 'Gate_Area',
-            MarkArea = false, -- Todo: Change this to mark the quantum gate when that's in
+        {
         }
-   )
-    ScenarioInfo.M3B2:ManualResult(true)
+    )
+    --ScenarioInfo.M3B2:ManualResult(true)
 end
 
 -- === Taunts === #
@@ -2178,7 +2033,7 @@ end
 function WinGame()
     ScenarioInfo.OpComplete = true
     WaitSeconds(5)
-    local secondaries = Objectives.IsComplete(ScenarioInfo.M1S1Obj) and Objectives.IsComplete(ScenarioInfo.M3S1Obj)
+    local secondaries = Objectives.IsComplete(ScenarioInfo.M1S1) and Objectives.IsComplete(ScenarioInfo.M3S1)
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, secondaries)
 end
 
