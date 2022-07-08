@@ -7,17 +7,20 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
+local AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_AeonAI.lua')
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
+local Buff = import('/lua/sim/Buff.lua')
+local Objectives = import('/lua/SimObjectives.lua')
 local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
-local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local UEFAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_UEFAI.lua')
 local Weather = import('/lua/weather.lua')
 
----------
+----------
 -- Globals
----------
+----------
 ScenarioInfo.Player1 = 1
 ScenarioInfo.Aeon = 2
 ScenarioInfo.UEF = 3
@@ -26,135 +29,186 @@ ScenarioInfo.Player2 = 5
 ScenarioInfo.Player3 = 6
 ScenarioInfo.Player4 = 7
 
-ScenarioInfo.VarTable = {}
-
+---------
+-- Locals
+---------
 local Player1 = ScenarioInfo.Player1
-local aeon = ScenarioInfo.Aeon
-local uef = ScenarioInfo.UEF
-local blackSun = ScenarioInfo.BlackSun
+local Aeon = ScenarioInfo.Aeon
+local UEF = ScenarioInfo.UEF
+local BlackSun = ScenarioInfo.BlackSun
 local Player2 = ScenarioInfo.Player2
 local Player3 = ScenarioInfo.Player3
 local Player4 = ScenarioInfo.Player4
 
-local Players = {ScenarioInfo.Player1, ScenarioInfo.Player2, ScenarioInfo.Player3, ScenarioInfo.Player4}
+local Difficulty = ScenarioInfo.Options.Difficulty
+
+local LeaderFaction
+local LocalFaction
 
 local aikoTaunt = 1
 local arnoldTaunt = 9
 
---------------------------
+---------------------------
 -- Objective Reminder Times
---------------------------
-local M1P1Time = 600
+---------------------------
 local M2P1Time = 300
 local M2P2Time = 300
 local M2P3Time = 300
-local M3P1Time = 300
 local M3P2Time = 300
 local SubsequentTime = 600
 
----------
--- Startup
----------
+--------------
+-- Debug Only!
+--------------
+local DEBUG = false
+local SkipIntro = false
+
+-----------
+-- Start up
+-----------
 function OnPopulate(scenario)
     ScenarioUtils.InitializeScenarioArmies()
-    ScenarioFramework.GetLeaderAndLocalFactions()
+    LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
-    SpawnPlayer()
-    SpawnUEF()
-    SpawnAeon()
-end
+    Weather.CreateWeather()
 
-function SpawnPlayer()
-    -- Player Base
-    ScenarioUtils.CreateArmyGroup('Player1', 'Base_D' .. ScenarioInfo.Options.Difficulty)
+    ---------
+    -- Player
+    ---------
+    -- Base
+    ScenarioUtils.CreateArmyGroup('Player1', 'Base_D' .. Difficulty)
 
     -- Jericho
-    ScenarioInfo.Jericho = ScenarioUtils.CreateArmyUnit('Player1', 'Jericho')
-    ScenarioInfo.Jericho:SetCustomName(LOC '{i sCDR_Jericho}')
-    ScenarioInfo.Jericho:CreateEnhancement('FocusConvertor')
-    ScenarioInfo.Jericho:CreateEnhancement('NaniteMissileSystem')
-    ScenarioInfo.Jericho:CreateEnhancement('Switchback')
-    ScenarioFramework.CreateUnitDeathTrigger(JerichoKilled, ScenarioInfo.Jericho)
+    ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Player1', 'Jericho', false, LOC('{i sCDR_Jericho}'), false, JerichoKilled,
+        {'FocusConvertor', 'NaniteMissileSystem', 'Switchback'})
     ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 
     -- Player Engineers
     local engineers = ScenarioUtils.CreateArmyGroup('Player1', 'Engineers')
-    for k, v in engineers do
-        for i = 1, 3 do
-            IssuePatrol({v}, ScenarioUtils.MarkerToPosition('Jericho_Patrol' .. i))
-        end
-    end
+    ScenarioFramework.GroupPatrolChain(engineers, 'Player_Jericho_Patrol_Chain')
 
     -- Player Mobile Defense
     local subs = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Subs', 'AttackFormation')
-    subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
-    subs:Patrol(ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
+    ScenarioFramework.PlatoonPatrolChain(subs, 'Player_Subs_Patrol_Chain')
 
     local sonar = ScenarioUtils.CreateArmyUnit('Player1', 'MobileSonar')
-    IssuePatrol({sonar}, ScenarioUtils.MarkerToPosition('PlayerSub_Patrol1'))
-    IssuePatrol({sonar}, ScenarioUtils.MarkerToPosition('PlayerSub_Patrol2'))
+    ScenarioFramework.GroupPatrolChain({sonar}, 'Player_Subs_Patrol_Chain')
 
     local landPatrol1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'LandPatrol1', 'AttackFormation')
-    for i = 1, 4 do
-        landPatrol1:Patrol(ScenarioUtils.MarkerToPosition('PlayerLand_Patrol' .. i))
-    end
+    ScenarioFramework.PlatoonPatrolChain(landPatrol1, 'Player_Land_Patrol_Chain')
 
     local landPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'LandPatrol2', 'AttackFormation')
-    for i = 1, 4 do
-        landPatrol2:Patrol(ScenarioUtils.MarkerToPosition('PlayerLand_Patrol' .. i))
+    ScenarioFramework.PlatoonPatrolChain(landPatrol2, 'Player_Land_Patrol_Chain')
+
+    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'AirPatrol', 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(airPatrol, 'Player_Air_Patrol_Chain')
+
+    -------
+    -- Aeon
+    -------
+    -- Aeon Base
+    AeonAI.AeonBaseAI()
+
+    -- Arnold ACU
+    ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', false, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed,
+        {'Shield', 'ShieldHeavy', 'HeatSink', 'CrysalisBeam'})
+    local cdrPlatoon = ArmyBrains[Aeon]:MakePlatoon('','')
+    cdrPlatoon.PlatoonData = {
+        LocationType = 'Aeon_Main_Base',
+    }
+    ArmyBrains[Aeon]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.Arnold}, 'Attack', 'AttackFormation')
+    cdrPlatoon:SetAIPlan('PatrolLocationFactoriesAI')
+    cdrPlatoon.CDRData = {
+        LeashPosition = 'CzarStart',
+        LeashRadius = 50,
+    }
+    cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
+
+    ScenarioInfo.ColossusPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Colossus', 'AttackFormation')
+    ScenarioInfo.Colossus = ScenarioInfo.ColossusPlatoon:GetPlatoonUnits()[1]
+    ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.ColossusPlatoon, 'Aeon_Base_Land_Patrol_Chain')
+    ScenarioFramework.CreateUnitDeathTrigger(AeonAI.StartBuildingGCs, ScenarioInfo.Colossus)
+
+    ScenarioInfo.ColossusGuards = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'ColossusGuards_D' .. Difficulty, 'NoFormation')
+    ScenarioInfo.ColossusGuards:GuardTarget(ScenarioInfo.Colossus)
+
+    -- Stationary naval
+    ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'StationaryNaval', 'NoFormation')
+
+    -- Aeon Mobile Defense
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SubPatrolSouth', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonNaval_Chain')))
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SubPatrolNorth', 'AttackFormation')
+    ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonNavalN_Chain')))
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SurfacePatrol', 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonNaval_Chain')))
     end
 
-    local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'AirPatrol', 'ChevronFormation')
-    for i = 1, 4 do
-        airPatrol:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol' .. i))
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'LandPatrol_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonBase_Chain')))
     end
-end
 
-function SpawnUEF()
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'TorpedoBombers_D' .. Difficulty, 'NoFormation')
+    for _, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Aeon_Chain')))
+    end
+
+    ScenarioInfo.CzarBombers = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'CzarBombers_D' .. Difficulty, 'NoFormation')
+    for _, v in ScenarioInfo.CzarBombers:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Aeon_Chain')))
+    end
+
+    local scouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Scouts', 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(scouts, 'Player_Air_Patrol_Chain')
+
+    ------
+    -- UEF
+    ------
+    -- Main base
+    UEFAI.UEFMainBaseAI()
+
+    local nukes = ArmyBrains[UEF]:GetListOfUnits(categories.NUKE * categories.SILO * categories.STRUCTURE, false)
+    IssueStop(nukes)
+
+    UEFAI.ControlCenterAI()
+    -- Control Center
+    for i = 1, 5 do
+        local patrol = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'ControlCenterPatrol', 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolRoute(patrol, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('ControlCenter_Chain')))
+    end
+
+    -- UEF ACU Aiko
+    ScenarioInfo.Aiko = ScenarioFramework.SpawnCommander('UEF', 'Aiko', false, LOC('{i CDR_Aiko}'), false, AikoDestroyed,
+        {'DamageStabilization', 'HeavyAntiMatterCannon', 'Shield'})
+    --ScenarioInfo.Aiko:SetAutoOvercharge(true)
+
+    local cdrPlatoon = ArmyBrains[UEF]:MakePlatoon('','')
+    cdrPlatoon.PlatoonData = {
+        LocationType = 'UEF_Main_Base',
+    }
+    ArmyBrains[UEF]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.Aiko}, 'Attack', 'AttackFormation')
+    cdrPlatoon:SetAIPlan('PatrolLocationFactoriesAI')
+    cdrPlatoon.CDRData = {
+        LeashPosition = 'UEFBase_Patrol2',
+        LeashRadius = 50,
+    }
+    cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
+
+    ------------
+    -- Objective
+    ------------
     -- Control Center
     ScenarioInfo.ControlCenter = ScenarioUtils.CreateArmyUnit('BlackSun', 'ControlCenter')
     ScenarioInfo.ControlCenter:SetReclaimable(false)
     ScenarioInfo.ControlCenter:SetCapturable(false)
     ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
     ScenarioFramework.CreateUnitDeathTrigger(ControlCenterDestroyed, ScenarioInfo.ControlCenter)
-    ScenarioUtils.CreateArmyGroup('UEF', 'ControlCenterDefensesPreBuilt_D' .. ScenarioInfo.Options.Difficulty)
-    for i = 1, 5 do
-        local patrol = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'ControlCenterPatrol', 'AttackFormation')
-        patrol.PlatoonData = {}
-        patrol.PlatoonData.PatrolChain = 'ControlCenter_Chain'
-        patrol:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-    end
 
-    -- Naval
-    local naval = ScenarioUtils.CreateArmyGroup('UEF', 'InitialNaval')
-    for k, v in naval do
-        local platoon = ArmyBrains[uef]:MakePlatoon('', '')
-        ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'AeonNaval_Chain'
-        platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-    end
-    ScenarioFramework.CreateGroupDeathTrigger(SpawnUEFNaval, naval)
-
-    -- Atlantis Assault
-    ScenarioInfo.AtlantisBoats = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3NavyFleet_D' .. ScenarioInfo.Options.Difficulty, 'GrowthFormation')
-
-    -- Base
-    ScenarioUtils.CreateArmyGroup('UEF', 'BaseStructuresPreBuilt_D' .. ScenarioInfo.Options.Difficulty)
-    ScenarioInfo.Aiko = ScenarioUtils.CreateArmyUnit('UEF', 'Aiko')
-    ScenarioInfo.Aiko:SetCustomName(LOC '{i CDR_Aiko}')
-    ScenarioInfo.Aiko:CreateEnhancement('HeavyAntiMatterCannon')
-    ScenarioInfo.Aiko:CreateEnhancement('Shield')
-    ScenarioInfo.Aiko:CreateEnhancement('HeavyAntiMatterCannon')
-    ScenarioInfo.Aiko:CreateEnhancement('DamageStabilization')
-    local cdrPlatoon = ArmyBrains[uef]:MakePlatoon('','')
-    ArmyBrains[uef]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.Aiko}, 'Attack', 'AttackFormation')
-    cdrPlatoon:ForkAIThread(AikoAI)
-    cdrPlatoon.CDRData = {}
-    cdrPlatoon.CDRData.LeashPosition = 'UEFBase_Patrol2'
-    cdrPlatoon.CDRData.LeashRadius = 50
-    cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
-    ScenarioFramework.CreateUnitDeathTrigger(AikoDestroyed, ScenarioInfo.Aiko)
+    -- Black Sun
     ScenarioInfo.BlackSunWeapon = ScenarioUtils.CreateArmyUnit('BlackSun', 'BlackSun')
     ScenarioInfo.BlackSunWeapon:SetCanTakeDamage(false)
     ScenarioInfo.BlackSunWeapon:SetCanBeKilled(false)
@@ -170,153 +224,22 @@ function SpawnUEF()
     end
 end
 
-function AikoAI(platoon)
-    platoon.PlatoonData.LocationType = 'UEFBase'
-    platoon:PatrolLocationFactoriesAI()
+function JerichoKilled()
+    ScenarioFramework.Dialogue(OpStrings.C06_M01_080)
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Jericho, 7)
 end
 
-function SpawnUEFNaval()
-    if(ScenarioInfo.MissionNumber == 1 and not ScenarioInfo.CzarFullyBuilt) then
-        local naval = ScenarioUtils.CreateArmyGroup('UEF', 'SpawnedNaval')
-        for k, v in naval do
-            local platoon = ArmyBrains[uef]:MakePlatoon('', '')
-            ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'AeonNaval_Chain'
-            platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-        end
-        ScenarioFramework.CreateGroupDeathTrigger(SpawnUEFNaval, naval)
-    end
-end
-
-function SpawnAeon()
-    -- Aeon Base
-    ScenarioInfo.Arnold = ScenarioUtils.CreateArmyUnit('Aeon', 'Arnold')
-    ScenarioInfo.Arnold:SetCustomName(LOC '{i CDR_Arnold}')
-    ScenarioInfo.Arnold:CreateEnhancement('Shield')
-    ScenarioInfo.Arnold:CreateEnhancement('HeatSink')
-    ScenarioInfo.Arnold:CreateEnhancement('CrysalisBeam')
-    local cdrPlatoon = ArmyBrains[aeon]:MakePlatoon('','')
-    ArmyBrains[aeon]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.Arnold}, 'Attack', 'AttackFormation')
-    cdrPlatoon:ForkAIThread(ArnoldAI)
-    cdrPlatoon.CDRData = {}
-    cdrPlatoon.CDRData.LeashPosition = 'AeonBase'
-    cdrPlatoon.CDRData.LeashRadius = 50
-    cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
-    ScenarioFramework.CreateUnitDeathTrigger(ArnoldDestroyed, ScenarioInfo.Arnold)
-    ScenarioInfo.Colossus = ScenarioUtils.CreateArmyUnit('Aeon', 'Colossus')
-    for i = 1, 4 do
-        IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('AeonBase_Patrol' .. i))
-    end
-    local colossusGuards = ScenarioUtils.CreateArmyGroup('Aeon', 'ColossusGuards_D' .. ScenarioInfo.Options.Difficulty)
-    IssueGuard(colossusGuards, ScenarioInfo.Colossus)
-    ScenarioInfo.CzarEngineer = ScenarioUtils.CreateArmyUnit('Aeon', 'CzarEngineer')
-    ScenarioUtils.CreateArmyGroup('Aeon', 'MainBaseStructuresPreBuilt_D' .. ScenarioInfo.Options.Difficulty)
-    ScenarioUtils.CreateArmyGroup('Aeon', 'StationaryNaval')
-
-    -- Aeon Mobile Defense
-    local subPatrolSouth = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SubPatrolSouth', 'AttackFormation')
-    subPatrolSouth.PlatoonData = {}
-    subPatrolSouth.PlatoonData.PatrolChain = 'AeonNaval_Chain'
-    subPatrolSouth:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-
-    local subPatrolNorth = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'SubPatrolNorth', 'AttackFormation')
-    subPatrolNorth.PlatoonData = {}
-    subPatrolNorth.PlatoonData.PatrolChain = 'AeonNavalN_Chain'
-    subPatrolNorth:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-
-    local surfacePatrol = ScenarioUtils.CreateArmyGroup('Aeon', 'SurfacePatrol')
-    for k, v in surfacePatrol do
-        local platoon = ArmyBrains[aeon]:MakePlatoon('', '')
-        ArmyBrains[aeon]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'AeonNaval_Chain'
-        platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-    end
-
-    local landPatrol = ScenarioUtils.CreateArmyGroup('Aeon', 'LandPatrol_D' .. ScenarioInfo.Options.Difficulty)
-    for k, v in landPatrol do
-        local platoon = ArmyBrains[aeon]:MakePlatoon('', '')
-        ArmyBrains[aeon]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'AttackFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'AeonBase_Chain'
-        platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-    end
-
-    local airPatrol = ScenarioUtils.CreateArmyGroup('Aeon', 'TorpedoBombers_D' .. ScenarioInfo.Options.Difficulty)
-    for k, v in airPatrol do
-        local platoon = ArmyBrains[aeon]:MakePlatoon('', '')
-        ArmyBrains[aeon]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'ChevronFormation')
-        platoon:SetPlatoonFormationOverride('NoFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'Aeon_Chain'
-        platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-    end
-
-    ScenarioInfo.CzarBombers = ScenarioUtils.CreateArmyGroup('Aeon', 'CzarBombers_D' .. ScenarioInfo.Options.Difficulty)
-    for k, v in ScenarioInfo.CzarBombers do
-        local chain = ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Aeon_Chain'))
-        for i = 1, table.getn(chain) do
-            IssuePatrol({v}, chain[i])
-        end
-    end
-
-    local scouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Scouts', 'ChevronFormation')
-    for i = 1, 4 do
-        scouts:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol' .. i))
-    end
-end
-
-function ArnoldAI(platoon)
-    platoon.PlatoonData.LocationType = 'AeonBase'
-    platoon:PatrolLocationFactoriesAI()
+function JerichoGiven(oldJericho, newJericho)
+    ScenarioInfo.Jericho = newJericho
+    ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 end
 
 function OnStart(self)
-    -- Adjust buildable categories for Player
-    local tblArmy = ListArmies()
-    for _, player in Players do
-        for iArmy, strArmy in pairs(tblArmy) do
-            if iArmy == player then
-                ScenarioFramework.AddRestriction(player,
-                    categories.PRODUCTFA + -- All FA Units
-                    categories.urb2305 +   -- Strategic Missile Launcher
-                    categories.urb4302 +   -- Strategic Missile Defense
-                    categories.url0402 +   -- Spider Bot
-                    categories.urs0304 +   -- Strategic Missile Submarine
-                    categories.drlk001 +   -- Cybran T3 Mobile AA
-                    categories.dra0202 +   -- Corsairs
-                    categories.drl0204 +   -- Hoplites
-
-                    categories.ueb2302 +  -- Long Range Heavy Artillery
-                    categories.ueb4301 +  -- T3 Heavy Shield Generator
-                    categories.uel0401 +  -- Experimental Mobile Factory
-                    categories.delk002 +  -- UEF T3 Mobile AA
-                    categories.ues0304 +  -- Strategic Missile Submarine
-                    categories.del0204 +  -- Mongoose
-                    categories.dea0202 +  -- Janus
-
-                    categories.uab0304 + -- Quantum Gate
-                    categories.ual0301 + -- Sub Commander
-                    categories.dalk003 + -- Aeon M3 Mobile AA
-                    categories.dal0310 + -- T3 Absolver
-                    categories.daa0206 + -- Mercy
-                    categories.uas0304)  -- Strategic Missile Submarine
-            end
-        end
-    end
-
-    ScenarioFramework.SetPlayableArea('M1Area', false)
-
-    ScenarioFramework.SetSharedUnitCap(480)
-    SetArmyUnitCap(aeon, 600)
-    SetArmyUnitCap(uef, 800)
-
     -- Army colors
     ScenarioFramework.SetCybranColor(Player1)
-    ScenarioFramework.SetAeonColor(aeon)
-    ScenarioFramework.SetUEFColor(uef)
-    ScenarioFramework.SetUEFColor(blackSun)
+    ScenarioFramework.SetAeonColor(Aeon)
+    ScenarioFramework.SetUEFColor(UEF)
+    ScenarioFramework.SetUEFColor(BlackSun)
     local colors = {
         ['Player2'] = {183, 101, 24}, 
         ['Player3'] = {255, 135, 62}, 
@@ -329,90 +252,59 @@ function OnStart(self)
         end
     end
 
-    ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
-end
+    -- Adjust buildable categories for Players
+    ScenarioFramework.AddRestrictionForAllHumans(
+        -- All non vanilla units
+        categories.PRODUCTFA + -- All FA Units
+        categories.drlk001 +   -- Cybran T3 Mobile AA
+        categories.dra0202 +   -- Corsairs
+        categories.drl0204 +   -- Hoplites
+        categories.delk002 +   -- UEF T3 Mobile AA
+        categories.del0204 +   -- Mongoose
+        categories.dea0202 +   -- Janus
+        categories.dalk003 +   -- Aeon M3 Mobile AA
+        categories.dal0310 +   -- T3 Absolver
+        categories.daa0206 +   -- Mercy
 
-function JerichoKilled()
-    ScenarioFramework.Dialogue(OpStrings.C06_M01_080)
-    ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Jericho, 7 )
-end
+        -- Actual mission restrictions
+        categories.urb2305 +   -- Cybran Strategic Missile Launcher
+        categories.urb4302 +   -- Cybran Strategic Missile Defense
+        categories.urs0304 +   -- Cybran Strategic Missile Submarine
+        categories.urb0304 +   -- Cybran Quantum Gate
+        categories.url0301 +   -- Cybran Sub Commander
+        categories.url0402 +   -- Spider Bot
 
-function JerichoGiven(oldJericho, newJericho)
-    ScenarioInfo.Jericho = newJericho
-    ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
-end
+        categories.ueb2305 +   -- UEF Strategic Missile Launcher
+        categories.ueb4302 +   -- UEF Strategic Missile Defense
+        categories.ues0304 +   -- UEF Strategic Missile Submarine
+        categories.ueb0304 +   -- UEF Quantum Gate
+        categories.uel0301 +   -- UEF Sub Commander
+        categories.uel0401 +   -- Fatboy
 
-----------
--- End Game
-----------
--- rolled into BlackSunFired()
--- function PlayerWin()
--- end
+        categories.uab2305 +   -- Aeon Strategic Missile Launcher
+        categories.uab4302 +   -- Aeon Strategic Missile Defense
+        categories.uas0304 +   -- Aeon Strategic Missile Submarine
+        categories.uab0304 +   -- Aeon Quantum Gate
+        categories.ual0301 +   -- Aeon Sub Commander
+        categories.ual0401     -- GC
+    )
 
-function ControlCenterDestroyed()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-        ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('ControlCenter'), 0, ArmyBrains[Player1])
+    ScenarioFramework.SetSharedUnitCap(660)
+    SetArmyUnitCap(Aeon, 1000)
+    SetArmyUnitCap(UEF, 1000)
 
-        -- Control center destroyed cam
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
-        local camInfo = {
-            blendTime = 2.5,
-            holdTime = nil,
-            orientationOffset = { 0, 0.3, 0 },
-            positionOffset = { 0, 0.5, 0 },
-            zoomVal = 30,
-            spinSpeed = 0.03,
-            overrideCam = true,
-        }
-        ScenarioFramework.OperationNISCamera( ScenarioInfo.ControlCenter, camInfo )
+    if not SkipIntro then
+        ScenarioFramework.SetPlayableArea('M1Area', false)
 
-        ScenarioInfo.M1P1:ManualResult(false)
-        ScenarioFramework.Dialogue(OpStrings.C06_M01_090, StartKillGame, true)
+        ScenarioFramework.StartOperationJessZoom('CDRZoom', IntroMission1)
+    else
+        IntroMission1()
     end
 end
 
-function PlayerLose()
-    if(not ScenarioInfo.OpEnded) then
-        ScenarioFramework.EndOperationSafety()
-        ScenarioInfo.OpComplete = false
-
-        -- Control Center destroyed cam
---    ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
-        local camInfo = {
-            blendTime = 2.5,
-            holdTime = nil,
-            orientationOffset = { 0, 0.3, 0 },
-            positionOffset = { 0, 0.5, 0 },
-            zoomVal = 30,
-            spinSpeed = 0.03,
-            overrideCam = true,
-        }
-        ScenarioFramework.OperationNISCamera( ScenarioInfo.ControlCenter, camInfo )
-
-        ScenarioFramework.Dialogue(OpStrings.C06_M03_090, StartKillGame, true)
-    end
-end
-
-function PlayerKilled(deadCommander)
-    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C06_D01_010)
-end
-
-function StartKillGame()
-    ForkThread(KillGame)
-end
-
-function KillGame()
-    if(not ScenarioInfo.OpComplete) then
-        WaitSeconds(15)
-    end
-    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
-end
-
------------
+------------
 -- Mission 1
------------
+------------
 function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
@@ -420,7 +312,7 @@ function IntroMission1()
     local land = {'url0202', 'url0205', 'url0303'}
     local air = {'ura0204', 'ura0303', 'ura0304'}
     local sea = {'urs0201', 'urs0202','urs0203'}
-    local num = (-1 * ScenarioInfo.Options.Difficulty) + 4
+    local num = (-1 * Difficulty) + 4
     local landPlatoon = {'', '',}
     local airPlatoon = {'', '',}
     local seaPlatoon = {'', '',}
@@ -442,96 +334,62 @@ function IntroMission1()
     ArmyBrains[Player1]:BuildPlatoon(airPlatoon, airFactories, 1)
     ArmyBrains[Player1]:BuildPlatoon(seaPlatoon, seaFactories, 1)
 
-    -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player')
-    ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
-    ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
-
-    ScenarioInfo.CoopCDR = {}
-    local tblArmy = ListArmies()
-    coop = 1
-    for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player')
-            ScenarioInfo.CoopCDR[coop]:PlayCommanderWarpInEffect()
-            ScenarioInfo.CoopCDR[coop]:SetCustomName(ArmyBrains[iArmy].Nickname)
-            coop = coop + 1
-            WaitSeconds(0.5)
+    ForkThread(function()
+        local tblArmy = ListArmies()
+        local i = 1
+        while tblArmy[ScenarioInfo['Player' .. i]] do
+            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'Commander', 'Warp', true, true, PlayerKilled)
+            WaitSeconds(2)
+            i = i + 1
         end
-    end
-
-    ScenarioFramework.PauseUnitDeath(ScenarioInfo.PlayerCDR)
-    for index, coopACU in ScenarioInfo.CoopCDR do
-        ScenarioFramework.PauseUnitDeath(coopACU)
-        ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, coopACU)
-    end
-    ScenarioFramework.CreateUnitDeathTrigger(PlayerKilled, ScenarioInfo.PlayerCDR)
+    end)
 
     -- Jericho strut
-    local cmd = IssueMove({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('JerichoDestination'))
-    while(not IsCommandDone(cmd)) do
-        WaitSeconds(.5)
-    end
-    ScenarioFramework.Dialogue(OpStrings.C06_M01_010, StartMission1)
-    WaitSeconds(5)
-    if(ScenarioInfo.Jericho:IsIdleState()) then
-        for i = 1, 3 do
-            IssuePatrol({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('Jericho_Patrol' .. i))
-        end
-    end
+    IssueMove({ScenarioInfo.Jericho}, ScenarioUtils.MarkerToPosition('JerichoDestination'))
+    ScenarioFramework.GroupPatrolChain({ScenarioInfo.Jericho}, 'Player_Jericho_Patrol_Chain')
 
     -- After 2 minutes: Jericho VO trigger
     ScenarioFramework.CreateTimerTrigger(M1JerichoVO, 120)
 
     -- Cybran in Aeon LOS VO trigger
-    ScenarioFramework.CreateArmyIntelTrigger(CybranSpotted, ArmyBrains[aeon], 'LOSNow',
-        false, true, categories.ALLUNITS, true, ArmyBrains[Player1])
+    ScenarioFramework.CreateArmyIntelTrigger(CybranSpotted, ArmyBrains[Aeon], 'LOSNow', false, true, categories.ALLUNITS, true, ArmyBrains[Player1])
 
-    -- UEF vs Aeon air attacks
-    SpawnUEFAir()
+    -- UEF vs Aeon attacks
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'SpawnedAir', 'NoFormation')
+    for _, unit in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonNaval_Chain')))
+    end
+
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'InitialNaval', 'NoFormation')
+    for _, unit in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('AeonNaval_Chain')))
+    end
+
+    ScenarioFramework.Dialogue(OpStrings.C06_M01_010, StartMission1, true)
 end
 
 function StartMission1()
     ScenarioFramework.CreateTimerTrigger(Taunt, Random(600, 900))
 
-    -- Primary Objective 1
-    ScenarioFramework.CreateArmyStatTrigger(CzarFullyBuilt, ArmyBrains[aeon], 'CzarFullyBuilt1',
-        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uaa0310}})
-    ScenarioFramework.CreateArmyStatTrigger(CzarDefeated, ArmyBrains[aeon], 'CzarDefeated1',
-        {{StatType = 'Units_Killed', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uaa0310}})
-    ScenarioFramework.CreateUnitDeathTrigger(CzarEngineerDefeated, ScenarioInfo.CzarEngineer)
+    BuildCZAR()
+
+    --------------------------------
+    -- Primary Objective - Kill CZAR
+    --------------------------------
     ScenarioInfo.M1P1 = Objectives.Basic(
-        'primary',                          -- type
-        'incomplete',                       -- complete
-        OpStrings.OpC06_M1P1_Title,         -- title
-        OpStrings.OpC06_M1P1_Desc,          -- description
-        Objectives.GetActionIcon('kill'),   -- action
-        {                                   -- target
-            -- Category = categories.uaa0310,
-        }
+        'primary',
+        'incomplete',
+        OpStrings.OpC06_M1P1_Title,
+        OpStrings.OpC06_M1P1_Desc,
+        Objectives.GetActionIcon('kill'),
+        {}
     )
 
-    ForkThread(UpdateCzarObjective)
-
-    -- M1P1 Objective Reminder
-    ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, M1P1Time)
-end
-
-function UpdateCzarObjective()
-    local found = false
-    while(not found) do
-        local czar = ArmyBrains[aeon]:GetListOfUnits(categories.uaa0310, false)
-        if(table.getn(czar) >= 1) then
-            found = true
-            ScenarioInfo.M1P1:AddUnitTarget(czar[1])
-        else
-            WaitSeconds(2)
-        end
-    end
+    ScenarioFramework.CreateUnitDeathTrigger(CzarEngineerDefeated, ScenarioInfo.CzarEngineer)
 end
 
 function M1JerichoVO()
-    if(not ScenarioInfo.Jericho:IsDead()) then
+    if not ScenarioInfo.Jericho.Dead then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_020)
     else
         ScenarioFramework.Dialogue(OpStrings.C06_M01_022)
@@ -540,7 +398,77 @@ end
 
 function CybranSpotted()
     ScenarioFramework.Dialogue(OpStrings.C06_M01_030)
-    ScenarioInfo.VarTable['CybranSpotted'] = true
+end
+
+-- CZAR, AI builds it, it gets loaded with units and attacks the Control Center
+function BuildCZAR()
+    -- Makes the CZAR take 45, 34, 28 minutes to build
+    local multiplier = {0.5, 0.75, 1}
+
+    BuffBlueprint {
+        Name = 'R06_EngBuildRate',
+        DisplayName = 'R06_EngBuildRate',
+        BuffType = 'AIBUILDRATE',
+        Stacks = 'REPLACE',
+        Duration = -1,
+        EntityCategory = 'ENGINEER',
+        Affects = {
+            BuildRate = {
+                Add = 0,
+                Mult = multiplier[Difficulty],
+            },
+        },
+    }
+
+    ScenarioInfo.CzarEngineer = ScenarioUtils.CreateArmyUnit('Aeon', 'CzarEngineer')
+    -- Apply buff here
+    Buff.ApplyBuff(ScenarioInfo.CzarEngineer, 'R06_EngBuildRate')
+
+    -- Trigger to kill the Tempest if the engineer dies
+    ScenarioFramework.CreateUnitDestroyedTrigger(CzarEngineerDefeated, ScenarioInfo.CzarEngineer)
+
+    local platoon = ArmyBrains[Aeon]:MakePlatoon('', '')
+    platoon.PlatoonData = {
+        NamedUnitBuild = {'Czar'},
+        NamedUnitBuildReportCallback = CzarBuildProgressUpdate,
+        NamedUnitFinishedCallback = CzarFullyBuilt,
+    }
+
+    ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.CzarEngineer}, 'Support', 'None')
+
+    platoon:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
+end
+
+local LastUpdate = 0
+function CzarBuildProgressUpdate(unit, eng)
+    if unit.Dead then
+        return
+    end
+
+    if not unit.UnitPassedToScript then
+        unit.UnitPassedToScript = true
+        ScenarioInfo.M1P1:AddUnitTarget(unit)
+        ScenarioFramework.CreateUnitDeathTrigger(CZARKilled, unit)
+    end
+
+    local fractionComplete = unit:GetFractionComplete()
+    if math.floor(fractionComplete * 100) > math.floor(LastUpdate * 100) then
+        LastUpdate = fractionComplete
+        CZARBuildPercentUpdate(math.floor(LastUpdate * 100))
+    end
+end
+
+function CZARBuildPercentUpdate(percent)
+    if percent == 25 and not ScenarioInfo.CZAR25Dialogue then
+        ScenarioInfo.CZAR25Dialogue = true
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_070)
+    elseif percent == 50 and not ScenarioInfo.CZAR50Dialogue then
+        ScenarioInfo.CZAR50Dialogue = true
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
+    elseif percent == 75 and not ScenarioInfo.CZARDialogue then
+        ScenarioInfo.CZARDialogue = true
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_075)
+    end
 end
 
 function CzarFullyBuilt()
@@ -548,136 +476,112 @@ function CzarFullyBuilt()
     ForkThread(CzarAI)
 
     ScenarioFramework.SetPlayableArea('M2Area')
-    ScenarioInfo.M2Area = true
 
-    ScenarioFramework.CreateAreaTrigger(CzarOverLand, ScenarioUtils.AreaToRect('CzarOverLand'),
-        categories.uaa0310, true, false, ArmyBrains[aeon])
+    ScenarioFramework.CreateAreaTrigger(CzarOverLand, 'CzarOverLand', categories.uaa0310, true, false, ArmyBrains[Aeon])
+end
+
+function CZARKilled(unit)
+    ScenarioInfo.M1P1:ManualResult(true)
+
+    -- Make Control Center invulnerable
+    ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
+    ScenarioInfo.ControlCenter:SetCanBeKilled(false)
+    ScenarioInfo.ControlCenter:SetDoNotTarget(true)
+
+    -- Rebuild the CZAR to attack player's base
+    AeonAI.StartBuildingCZARs()
+
+    if ScenarioInfo.Czar then
+        -- Show the Czar dying, if the Czar was completely built when the player killed it
+        local camInfo = {
+            blendTime = 1.0,
+            holdTime = 8,
+            orientationOffset = { math.pi, 0.8, 0 },
+            positionOffset = { 0, 0, 0 },
+            zoomVal = 150,
+        }
+        ScenarioFramework.OperationNISCamera( ScenarioInfo.Czar[1], camInfo )
+    end
+
+    if not ScenarioInfo.Arnold.Dead then
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_100, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_110, IntroMission2, true)
+    else
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_100, IntroMission2, true)
+    end
 end
 
 function CzarAI()
-    ScenarioInfo.Czar = ArmyBrains[aeon]:GetListOfUnits(categories.uaa0310, false)
-    ScenarioFramework.PauseUnitDeath( ScenarioInfo.Czar[1] )
-    if(ScenarioInfo.CzarBombers) then
-        ScenarioInfo.CzarBomberPlatoon = ArmyBrains[aeon]:MakePlatoon('','')
-        for k, v in ScenarioInfo.CzarBombers do
-            if(not v:IsDead() and not v:IsUnitState('Attached')) then
-                ArmyBrains[aeon]:AssignUnitsToPlatoon(ScenarioInfo.CzarBomberPlatoon, {v}, 'attack', 'NoFormation')
-                IssueClearCommands({v})
+    ScenarioInfo.Czar = ArmyBrains[Aeon]:GetListOfUnits(categories.uaa0310, false)
+    
+    if ArmyBrains[Aeon]:PlatoonExists(ScenarioInfo.CzarBombers) then
+        if table.getn(ScenarioInfo.CzarBombers:GetPlatoonUnits()) > 0 then
+            ScenarioInfo.CzarBombers:Stop()
+            local units = {}
+            for _, unit in ScenarioInfo.CzarBombers:GetPlatoonUnits() do
+                if not unit.Dead and not unit:IsUnitState('Attached') then
+                    table.insert(units, unit)
+                end
             end
-        end
-        if(table.getn(ScenarioInfo.CzarBomberPlatoon:GetPlatoonUnits()) > 0) then
-            ScenarioInfo.CzarBomberPlatoon:Stop()
-            IssueTransportLoad(ScenarioInfo.CzarBomberPlatoon:GetPlatoonUnits(), ScenarioInfo.Czar[1])
+            IssueTransportLoad(units, ScenarioInfo.Czar[1])
             WaitSeconds(5)
         end
     end
     IssueAttack(ScenarioInfo.Czar, ScenarioInfo.ControlCenter)
-    ScenarioFramework.Dialogue(OpStrings.C06_M01_050)
+    ScenarioFramework.Dialogue(OpStrings.C06_M01_050, nil, true)
 
-    ScenarioFramework.CreateUnitDamagedTrigger(CzarDamaged, ScenarioInfo.Czar[1])
-end
-
-function CzarDamaged()
-    ForkThread(ReleaseBombers)
-end
-
-function ReleaseBombers()
-    if(not ScenarioInfo.BombersReleased) then
-        ScenarioInfo.BombersReleased = true
-        IssueClearCommands(ScenarioInfo.Czar)
-        IssueTransportUnload(ScenarioInfo.Czar, ScenarioInfo.Czar[1]:GetPosition())
-        WaitSeconds(5)
-        IssueAttack(ScenarioInfo.Czar, ScenarioInfo.ControlCenter)
-        if(ScenarioInfo.CzarBomberPlatoon and table.getn(ScenarioInfo.CzarBomberPlatoon:GetPlatoonUnits()) > 0) then
-            ScenarioInfo.CzarBomberPlatoon:Stop()
-            ScenarioInfo.CzarBomberPlatoon:AggressiveMoveToLocation(ScenarioInfo.ControlCenter:GetPosition())
-        end
-    end
-end
-
-function CzarDefeated()
-    if(ScenarioInfo.M1P1.Active) then
-        ScenarioInfo.M1P1:ManualResult(true)
-
-        -- Make Control Center invulnerable
-        ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
-        ScenarioInfo.ControlCenter:SetCanBeKilled(false)
-        ScenarioInfo.ControlCenter:SetDoNotTarget(true)
-
-        if ScenarioInfo.Czar then
-            -- Show the Czar dying, if the Czar was completely built when the player killed it
-            local camInfo = {
-                blendTime = 1.0,
-                holdTime = 8,
-                orientationOffset = { math.pi, 0.8, 0 },
-                positionOffset = { 0, 0, 0 },
-                zoomVal = 150,
-            }
-            ScenarioFramework.OperationNISCamera( ScenarioInfo.Czar[1], camInfo )
-        end
-
-        if(not ScenarioInfo.Arnold:IsDead()) then
-            ScenarioFramework.Dialogue(OpStrings.C06_M01_100)
-            ScenarioFramework.Dialogue(OpStrings.C06_M01_110, IntroMission2)
-        else
-            ScenarioFramework.Dialogue(OpStrings.C06_M01_100, IntroMission2)
-        end
-    end
+    ScenarioFramework.CreateUnitDamagedTrigger(ReleaseBombers, ScenarioInfo.Czar[1])
 end
 
 function CzarEngineerDefeated()
-    if(not ScenarioInfo.CzarFullyBuilt) then
-        if(ScenarioInfo.CzarEngineer.UnitBeingBuilt) then
-            ScenarioInfo.CzarEngineer.UnitBeingBuilt:Kill()
-        end
+    if not ScenarioInfo.CzarFullyBuilt and ScenarioInfo.CzarEngineer.UnitBeingBuilt then
+        ScenarioInfo.CzarEngineer.UnitBeingBuilt:Kill()
     end
 end
 
 function CzarOverLand()
-    if(ScenarioInfo.M1P1.Active) then
+    if ScenarioInfo.M1P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_060)
     end
-    ForkThread(ReleaseBombers)
+    
+    ReleaseBombers()
 end
 
-function SpawnUEFAir()
-    if(ScenarioInfo.MissionNumber == 1 and not ScenarioInfo.CzarFullyBuilt) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'SpawnedAir', 'StaggeredChevronFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'AeonBase_Chain'
-        platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
-        ScenarioFramework.CreatePlatoonDeathTrigger(SpawnUEFAir, platoon)
+function ReleaseBombers()
+    if ScenarioInfo.BombersReleased then
+        return
     end
+    ScenarioInfo.BombersReleased = true
+
+    ForkThread(function()
+        IssueClearCommands(ScenarioInfo.Czar)
+        IssueTransportUnload(ScenarioInfo.Czar, ScenarioInfo.ControlCenter:GetPosition())--ScenarioInfo.Czar[1]:GetPosition())
+        --WaitSeconds(5)
+        IssueAttack(ScenarioInfo.Czar, ScenarioInfo.ControlCenter)
+        --if ScenarioInfo.CzarBombers and table.getn(ScenarioInfo.CzarBombers:GetPlatoonUnits()) > 0 then
+        --    ScenarioInfo.CzarBombers:Stop()
+        --    ScenarioInfo.CzarBombers:AggressiveMoveToLocation(ScenarioInfo.ControlCenter:GetPosition())
+        --end
+    end)
 end
 
-function M1P1Reminder1()
-    if(ScenarioInfo.M1P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M01_070)
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder2, SubsequentTime)
-    end
-end
-
-function M1P1Reminder2()
-    if(ScenarioInfo.M1P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M01_075)
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder3, SubsequentTime)
-    end
-end
-
-function M1P1Reminder3()
-    if(ScenarioInfo.M1P1.Active) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
-        ScenarioFramework.CreateTimerTrigger(M1P1Reminder1, SubsequentTime)
-    end
-end
-
------------
+------------
 -- Mission 2
------------
+------------
 function IntroMission2()
+    if ScenarioInfo.MissionNumber ~= 1 then
+        return
+    end
     ScenarioInfo.MissionNumber = 2
 
-    ScenarioFramework.SetSharedUnitCap(660)
+    UEFAI.ForwardBaseAI()
+    UEFAI.ControlCenterBuildExtraDefences()
+    -- Start attacking player from the main base
+    UEFAI.M2UEFMainBaseAirAttacks()
+    UEFAI.M2UEFMainBaseLandAttacks()
+    UEFAI.M2UEFMainBaseNavalAttacks()
+
+    ScenarioFramework.SetSharedUnitCap(720)
 
     ForkThread(M2MobileFactoriesThread)
 
@@ -689,101 +593,106 @@ function IntroMission2()
     -- UEF Land Attack
     for i = 1, 3 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2LandPatrol_D1_' .. i, 'AttackFormation')
-        platoon.PlatoonData = {}
-        platoon.PlatoonData.PatrolChain = 'M2LandAttack_Chain' .. i
-        platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'M2LandAttack_Chain' .. i)
     end
-    if(ScenarioInfo.Options.Difficulty >= 2) then
+
+    if Difficulty >= 2 then
         for i = 1, 2 do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2LandPatrol_D2_' .. i, 'AttackFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'M2LandAttack_Chain' .. i
-            platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'M2LandAttack_Chain' .. i)
         end
     end
-    if(ScenarioInfo.Options.Difficulty == 3) then
+
+    if Difficulty >= 3 then
         for i = 1, 3 do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2LandPatrol_D3_' .. i, 'AttackFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'M2LandAttack_Chain' .. i
-            platoon:ForkAIThread(ScenarioPlatoonAI.PatrolThread)
+            ScenarioFramework.PlatoonPatrolChain(platoon, 'M2LandAttack_Chain' .. i)
         end
     end
 
     -- UEF Air Attack
     for i = 1, 2 do
-        local group = ScenarioUtils.CreateArmyGroup('UEF', 'M2AirPatrol_D1_' .. i)
-        for k, v in group do
-            platoon = ArmyBrains[uef]:MakePlatoon('','')
-            ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'NoFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'ControlCenterAir_Chain'
-            platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2AirPatrol_D1_' .. i, 'NoFormation')
+        for _, unit in platoon:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('ControlCenterAir_Chain')))
         end
     end
-    if(ScenarioInfo.Options.Difficulty >= 2) then
-        local group = ScenarioUtils.CreateArmyGroup('UEF', 'M2AirPatrol_D2_1')
-        for k, v in group do
-            platoon = ArmyBrains[uef]:MakePlatoon('','')
-            ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'NoFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'ControlCenterAir_Chain'
-            platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
+
+    if Difficulty >= 2 then
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2AirPatrol_D2_1', 'NoFormation')
+        for _, unit in platoon:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('ControlCenterAir_Chain')))
         end
     end
-    if(ScenarioInfo.Options.Difficulty >= 3) then
+
+    if Difficulty >= 3 then
         for i = 1, 2 do
-            local group = ScenarioUtils.CreateArmyGroup('UEF', 'M2AirPatrol_D3_' .. i)
-            for k, v in group do
-                platoon = ArmyBrains[uef]:MakePlatoon('','')
-                ArmyBrains[uef]:AssignUnitsToPlatoon(platoon, {v}, 'attack', 'NoFormation')
-                platoon.PlatoonData = {}
-                platoon.PlatoonData.PatrolChain = 'ControlCenterAir_Chain'
-                platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2AirPatrol_D3_' .. i, 'NoFormation')
+            for _, unit in platoon:GetPlatoonUnits() do
+                ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('ControlCenterAir_Chain')))
             end
         end
     end
 
-    -- UEF Engineers
+    -- UEF Engineers from offmap to build control centre defences and forward defensive line.
     local engs = ScenarioUtils.CreateArmyGroup('UEF', 'M2Engineers')
     local shields = ScenarioUtils.CreateArmyGroup('UEF', 'M2Shields')
-    for i = 1, 12 do
-        IssueGuard({shields[i]}, engs[i])
+    for i = 1, table.getn(shields) do
+        if engs[i] then
+            IssueGuard({shields[i]}, engs[i])
+        end
     end
+
+    -- This is shove them into the base managers even when they are out of the base radius.
+    local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
+    platoon.PlatoonData = {BaseName = 'Forward_Base'}
+    for i = 1, 9 do
+        if engs[i] then
+            ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {engs[i]}, 'Support', 'NoFormation')
+        end
+    end
+    platoon:ForkAIThread(import('/lua/ai/opai/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
+
+    platoon = ArmyBrains[UEF]:MakePlatoon('', '')
+    platoon.PlatoonData = {BaseName = 'Control_Center_Base'}
+    for i = 10, 18 do
+        if engs[i] then
+            ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {engs[i]}, 'Support', 'NoFormation')
+        end
+    end
+    platoon:ForkAIThread(import('/lua/ai/opai/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
 
     -- Aeon Air Attack
     M2AeonAirAttack()
 
     -- Colossus Attack
-    if(ScenarioInfo.Colossus and not ScenarioInfo.Colossus:IsDead()) then
-        IssueClearCommands({ScenarioInfo.Colossus})
-        IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol2'))
-        IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol3'))
-        IssuePatrol({ScenarioInfo.Colossus}, ScenarioUtils.MarkerToPosition('M2LandAttack_Patrol1'))
+    if ScenarioInfo.Colossus and not ScenarioInfo.Colossus.Dead then
+        ScenarioInfo.ColossusPlatoon:Stop()
+        ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.ColossusPlatoon, 'Aeon_AttackChain') --Colossus_Attack_Chain
+
+        -- Move the guarding units into the Player's base once the GC dies
+        ScenarioInfo.ColossusGuards:MoveToLocation(ScenarioUtils.MarkerToPosition('Player1'), false)
     end
 
     ScenarioFramework.RemoveRestrictionForAllHumans(
-        categories.urb4302 +    -- T3 Strategic Missile Defense
-        categories.url0402 +     -- Spider Bot
-        categories.ueb2302 +      -- Long Range Heavy Artillery
-        categories.ueb4301 +      -- T3 Heavy Shield Generator
-        categories.uel0401 +     -- Experimental Mobile Factory
-        categories.ues0304 +       -- Strategic Missile Submarine
-        categories.uab0304 +     -- Quantum Gate
-        categories.ual0301 +     -- Sub Commander
-        categories.uas0304      -- Strategic Missile Submarine
+        categories.urb4302 +   -- Cybran Strategic Missile Defense
+        categories.urb0304 +   -- Cybran Quantum Gate
+        categories.url0301 +   -- Cybran Sub Commander
+        categories.url0402 +   -- Spider Bot
+
+        categories.ueb4302 +   -- UEF Strategic Missile Defense
+        categories.ueb0304 +   -- UEF Quantum Gate
+        categories.uel0301 +   -- UEF Sub Commander
+        categories.uel0401 +   -- Fatboy
+
+        categories.uab4302 +   -- Aeon Strategic Missile Defense
+        categories.uab0304 +   -- Aeon Quantum Gate
+        categories.ual0301 +   -- Aeon Sub Commander
+        categories.ual0401,    -- GC
+        true
     )
 
-    ScenarioFramework.RemoveRestriction(uef, categories.ueb2302 +  -- Long Range Heavy Artillery
-                                categories.ueb4301 +  -- T3 Heavy Shield Generator
-                                categories.uel0401 +  -- Experimental Mobile Factory
-                                categories.ues0304)   -- Strategic Missile Submarine
-
-    ScenarioFramework.RemoveRestriction(aeon, categories.uab0304 + -- Quantum Gate
-                                 categories.ual0301 + -- Sub Commander
-                                 categories.uas0304)  -- Strategic Missile Submarine
-
-    ScenarioFramework.Dialogue(OpStrings.C06_M02_010, StartMission2)
+    ScenarioFramework.Dialogue(OpStrings.C06_M02_010, StartMission2, true)
 end
 
 function StartMission2()
@@ -795,14 +704,16 @@ function StartMission2()
     -- After 4 minutes: Ops VO trigger
     ScenarioFramework.CreateTimerTrigger(M2OpsVO, 240)
 
-    -- Primary Objective 1
+    ---------------------------------
+    -- Primary Objective - Build Gate
+    ---------------------------------
     ScenarioInfo.M2P1 = Objectives.ArmyStatCompare(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        OpStrings.OpC06_M2P1_Title,     -- title
-        OpStrings.OpC06_M2P1_Desc,      -- description
-        'build',                        -- action
-        {                               -- target
+        'primary',
+        'incomplete',
+        OpStrings.OpC06_M2P1_Title,
+        OpStrings.OpC06_M2P1_Desc,
+        'build',
+        {
             Armies = {'HumanPlayers'},
             StatName = 'Units_Active',
             CompareOp = '>=',
@@ -811,8 +722,10 @@ function StartMission2()
         }
     )
     ScenarioInfo.M2P1:AddResultCallback(
-        function()
-            ScenarioFramework.Dialogue(OpStrings.C06_M02_050, GateBuilt)
+        function(result)
+            if result then
+                ScenarioFramework.Dialogue(OpStrings.C06_M02_050, GateBuilt, true)
+            end
         end
     )
 
@@ -820,53 +733,145 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, M2P1Time)
 end
 
-function M2MobileFactoriesThread()
-    -- Mobile Factories
-    local factory1 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory1')
-    local factory2 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory2')
-    local cm1 = IssueMove({factory1}, ScenarioUtils.MarkerToPosition('MobileFactory1'))
-    local cm2 = IssueMove({factory2}, ScenarioUtils.MarkerToPosition('MobileFactory2'))
+function GateBuilt()
+    -----------------------------------
+    -- Primary Objective - Download QAI
+    -----------------------------------
+    local gates = ScenarioFramework.GetListOfHumanUnits(categories.urb0304, false)
+    ScenarioInfo.M2P2 = Objectives.Basic(
+        'primary',
+        'incomplete',
+        OpStrings.OpC06_M2P2_Title,
+        OpStrings.OpC06_M2P2_Desc,
+        Objectives.GetActionIcon('timer'),
+        {
+            Units = gates,
+        }
+    )
 
-    repeat
-        WaitSeconds(5)
-    until IsCommandDone(cm1) and IsCommandDone(cm2)
+    -- Trigger will fire if all of the players gates are destroyed
+    ScenarioFramework.CreateArmyStatTrigger(GateDestroyed, ArmyBrains[Player1], 'GateDestroyed',
+        {{StatType = 'Units_Active', CompareType = 'LessThan', Value = 1, Category = categories.urb0304}})
 
-    local location
-    for num, loc in ArmyBrains[uef].PBM.Locations do
-        if loc.LocationType == 'MobileFactories' then
-            location = loc
-            break
+    -- Trigger will fire when CDR is near the gate
+    ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.Player1CDR, ArmyBrains[Player1],
+        categories.urb0304, 10)
+
+    -- M2P2 Objective Reminder
+    ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, M2P2Time)
+end
+
+function GateDestroyed()
+    if ScenarioInfo.M2P2.Active then
+        ScenarioFramework.Dialogue(OpStrings.C06_M02_040, nil, true)
+
+        if ScenarioInfo.CDRNearGate then
+            ScenarioInfo.CDRNearGate:Destroy()
         end
-    end
 
-    if not factory1:IsDead() then
-        location.PrimaryFactories.Land = factory1
-        IssueFactoryRallyPoint({factory1}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
-        if not factory2:IsDead() then
-            IssueFactoryAssist({factory2}, factory1)
-            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
-            while not ( factory1:IsDead() and factory2:IsDead() ) do
-                WaitSeconds(10)
-            end
-            if not factory2:IsDead() then
-                location.PrimaryFactories.Land = factory2
-            end
-        end
-    else
-        if not factory2:IsDead() then
-            location.PrimaryFactories.Land = factory2
-            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
+        ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.Player1CDR, ArmyBrains[Player1], categories.urb0304, 10)
+
+        if ScenarioInfo.DownloadTimer then
+            ScenarioFramework.ResetUITimer()
+            ScenarioInfo.DownloadTimer:Destroy()
         end
     end
 end
 
+function CDRNearGate()
+    local position = ScenarioInfo.Player1CDR:GetPosition()
+    local rect = Rect(position[1] - 10, position[3] - 10, position[1] + 10, position[3] + 10)
+    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.COMMAND, true, true, ArmyBrains[Player1])
+    ScenarioInfo.DownloadTimer = ScenarioFramework.CreateTimerTrigger(DownloadFinished, 120, true)
+    ScenarioFramework.Dialogue(OpStrings.C06_M02_060)
+
+    -- Send in UEF attack on CDR
+    if not ScenarioInfo.CDRGateAttack then
+        ScenarioInfo.CDRGateAttack = true
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2CDRAttack_D' .. Difficulty, 'StaggeredChevronFormation')
+        platoon:AttackTarget(ScenarioInfo.Player1CDR)
+    end
+end
+
+function LeftGate()
+    if ScenarioInfo.M2P2.Active and not ScenarioInfo.Player1CDR.Dead then
+        ScenarioFramework.Dialogue(OpStrings.C06_M02_070, nil, true)
+        ScenarioFramework.ResetUITimer()
+        ScenarioInfo.DownloadTimer:Destroy()
+
+        -- Trigger will fire when CDR is near the gate
+        ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.Player1CDR, ArmyBrains[Player1], categories.urb0304, 10)
+    end
+end
+
+function DownloadFinished()
+    ScenarioFramework.Dialogue(OpStrings.C06_M02_090, nil, true)
+    ScenarioInfo.M2P2:ManualResult(true)
+
+    ScenarioInfo.ControlCenter:SetCapturable(true)
+
+    ---------------------------------------------
+    -- Primary Objective - Capture Control Center
+    ---------------------------------------------
+    ScenarioInfo.M2P3 = Objectives.Capture(
+        'primary',
+        'incomplete',
+        OpStrings.OpC06_M2P3_Title,
+        OpStrings.OpC06_M2P3_Desc,
+        {
+            Units = {
+                ScenarioInfo.ControlCenter,
+            },
+        }
+    )
+    ScenarioInfo.M2P3:AddResultCallback(
+        function(result, units)
+            if result then
+                -- Make the control center not targetable, if killed by splash damage op fails
+                ScenarioInfo.ControlCenter = units[1]
+                ScenarioInfo.ControlCenter:SetDoNotTarget(true)
+                ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
+                ScenarioFramework.CreateUnitDestroyedTrigger(PlayerLose, ScenarioInfo.ControlCenter)
+
+                -- control center captured cam
+                local camInfo = {
+                    blendTime = 1.0,
+                    holdTime = 4,
+                    orientationOffset = {-2.6, 0.3, 0},
+                    positionOffset = {0, 0.5, 0},
+                    zoomVal = 30,
+                }
+                ScenarioFramework.OperationNISCamera(ScenarioInfo.ControlCenter, camInfo)
+
+                ScenarioFramework.Dialogue(OpStrings.C06_M02_130, IntroMission3, true)
+            end
+        end
+    )
+
+    -- M2P3 Objective Reminder
+    ScenarioFramework.CreateTimerTrigger(M2P3Reminder1, M2P3Time)
+end
+
+function M2MobileFactoriesThread()
+    -- Mobile Factories
+    local fatboys = {}
+    for i = 1, 2 do
+        local fatboy = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory' .. i)
+        table.insert(fatboys, fatboy)
+        IssueMove({fatboy}, ScenarioUtils.MarkerToPosition('MobileFactoryMove' .. i))
+
+        local engineers = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'MobileFactoryEngineers' ..i, 'NoFormation')
+        engineers:GuardTarget(fatboy.ExternalFactory)
+
+    end
+    UEFAI.MobileFactoryAI(fatboys)
+end
+
 function M2AeonAirAttack()
-    if(ScenarioInfo.MissionNumber == 2) then
-        for i = 1, ScenarioInfo.Options.Difficulty do
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2AirPatrol', 'ChevronFormation')
-            platoon.PlatoonData = {}
-            platoon.PlatoonData.PatrolChain = 'ControlCenterAir_Chain'
-            platoon:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
+    if ScenarioInfo.MissionNumber == 2 then
+        for i = 1, Difficulty do
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2AirPatrol', 'GrowthFormation')
+            ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('ControlCenterAir_Chain')))
         end
 
         ScenarioFramework.CreateTimerTrigger(M2AeonAirAttack, Random(300, 600))
@@ -874,7 +879,7 @@ function M2AeonAirAttack()
 end
 
 function M2JerichoVO()
-    if(not ScenarioInfo.Jericho:IsDead()) then
+    if(not ScenarioInfo.Jericho.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_020)
     else
         ScenarioFramework.Dialogue(OpStrings.C06_M02_025)
@@ -890,16 +895,16 @@ function Taunt()
     local choice = Random(0, 1)
     if(choice == 0) then
         -- Play Aiko taunt
-        if(not ScenarioInfo.Aiko:IsDead() and aikoTaunt <= 8) then
+        if(not ScenarioInfo.Aiko.Dead and aikoTaunt <= 8) then
             PlayAikoTaunt()
-        elseif(not ScenarioInfo.Arnold:IsDead() and arnoldTaunt <= 16) then
+        elseif(not ScenarioInfo.Arnold.Dead and arnoldTaunt <= 16) then
             PlayArnoldTaunt()
         end
     else
         -- Play Arnold taunt
-        if(not ScenarioInfo.Arnold:IsDead() and arnoldTaunt <= 16) then
+        if(not ScenarioInfo.Arnold.Dead and arnoldTaunt <= 16) then
             PlayArnoldTaunt()
-        elseif(not ScenarioInfo.Aiko:IsDead() and aikoTaunt <= 8) then
+        elseif(not ScenarioInfo.Aiko.Dead and aikoTaunt <= 8) then
             PlayAikoTaunt()
         end
     end
@@ -917,249 +922,137 @@ function PlayArnoldTaunt()
     ScenarioFramework.CreateTimerTrigger(Taunt, Random(600, 900))
 end
 
-function GateBuilt()
-    -- Primary Objective 2
-    local gates = ScenarioFramework.GetListOfHumanUnits(categories.urb0304, false)
-    ScenarioInfo.M2P2 = Objectives.Basic(
-        'primary',                          -- type
-        'incomplete',                       -- complete
-        OpStrings.OpC06_M2P2_Title,         -- title
-        OpStrings.OpC06_M2P2_Desc,          -- description
-        Objectives.GetActionIcon('timer'),  -- action
-        {                                   -- target
-            Units = gates,
-        }
-    )
-
-    -- Trigger will fire if all of the players gates are destroyed
-    ScenarioFramework.CreateArmyStatTrigger(GateDestroyed, ArmyBrains[Player1], 'GateDestroyed',
-        {{StatType = 'Units_Active', CompareType = 'LessThan', Value = 1, Category = categories.urb0304}})
-
-    -- Trigger will fire when CDR is near the gate
-    ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
-        categories.urb0304, 10)
-
-    -- M2P2 Objective Reminder
-    ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, M2P2Time)
-end
-
-function GateDestroyed()
-    if(ScenarioInfo.M2P2.Active) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M02_040)
-        if(ScenarioInfo.CDRNearGate) then
-            ScenarioInfo.CDRNearGate:Destroy()
-        end
-        ScenarioInfo.CDRNearGate = ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
-            categories.urb0304, 10)
-        if(ScenarioInfo.DownloadTimer) then
-            ScenarioFramework.ResetUITimer()
-            ScenarioInfo.DownloadTimer:Destroy()
-        end
-    end
-end
-
-function CDRNearGate()
-    local position = ScenarioInfo.PlayerCDR:GetPosition()
-    local rect = Rect(position[1] - 10, position[3] - 10, position[1] + 10, position[3] + 10)
-    ScenarioFramework.CreateAreaTrigger(LeftGate, rect, categories.COMMAND, true, true, ArmyBrains[Player1])
-    ScenarioInfo.DownloadTimer = ScenarioFramework.CreateTimerTrigger(DownloadFinished, 120, true)
-    ScenarioFramework.Dialogue(OpStrings.C06_M02_060)
-
-    -- Send in UEF attack on CDR
-    if(not ScenarioInfo.CDRGateAttack) then
-        ScenarioInfo.CDRGateAttack = true
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2CDRAttack_D' .. ScenarioInfo.Options.Difficulty, 'StaggeredChevronFormation')
-        platoon:AttackTarget(ScenarioInfo.PlayerCDR)
-    end
-end
-
-function LeftGate()
-    if(ScenarioInfo.M2P2.Active and not ScenarioInfo.PlayerCDR:IsDead()) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M02_070)
-        ScenarioFramework.ResetUITimer()
-        ScenarioInfo.DownloadTimer:Destroy()
-
-        -- Trigger will fire when CDR is near the gate
-        ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.PlayerCDR, ArmyBrains[Player1],
-            categories.urb0304, 10)
-    end
-end
-
-function DownloadFinished()
-    ScenarioFramework.Dialogue(OpStrings.C06_M02_090)
-    ScenarioInfo.M2P2:ManualResult(true)
-
-    ScenarioInfo.ControlCenter:SetCapturable(true)
-
-    -- Primary Objective 3
-    ScenarioInfo.M2P3 = Objectives.Capture(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        OpStrings.OpC06_M2P3_Title,     -- title
-        OpStrings.OpC06_M2P3_Desc,      -- description
-        {                               -- target
-            Units = {ScenarioInfo.ControlCenter},
-            NumRequired = 1,
-        }
-    )
-    ScenarioInfo.M2P3:AddResultCallback(
-        function(result)
-            if(result) then
-                ScenarioFramework.Dialogue(OpStrings.C06_M02_130)
-
-                -- Make the control center not targetable, if killed by splash damage op fails
-                local unit = ScenarioFramework.GetListOfHumanUnits(categories.uec1902, false)
-                ScenarioInfo.ControlCenter = unit[1]
-                ScenarioInfo.ControlCenter:SetDoNotTarget(true)
-                ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
-                ScenarioFramework.CreateUnitDestroyedTrigger(ControlCenterLost, ScenarioInfo.ControlCenter)
-
-                -- control center captured cam
-                local camInfo = {
-                    blendTime = 1.0,
-                    holdTime = 4,
-                    orientationOffset = { -2.6, 0.3, 0 },
-                    positionOffset = { 0, 0.5, 0 },
-                    zoomVal = 30,
-                }
-                ScenarioFramework.OperationNISCamera( ScenarioInfo.ControlCenter, camInfo )
-
-                IntroMission3()
-            end
-        end
-    )
-
-    -- M2P3 Objective Reminder
-    ScenarioFramework.CreateTimerTrigger(M2P3Reminder1, M2P3Time)
-end
-
-function ControlCenterLost()
-    PlayerLose()
-end
-
 function M2P1Reminder1()
-    if(ScenarioInfo.M2P1.Active) then
+    if ScenarioInfo.M2P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_150)
         ScenarioFramework.CreateTimerTrigger(M2P1Reminder2, SubsequentTime)
     end
 end
 
 function M2P1Reminder2()
-    if(ScenarioInfo.M2P1.Active) then
+    if ScenarioInfo.M2P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_155)
         ScenarioFramework.CreateTimerTrigger(M2P1Reminder3, SubsequentTime)
     end
 end
 
 function M2P1Reminder3()
-    if(ScenarioInfo.M2P1.Active) then
+    if ScenarioInfo.M2P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
         ScenarioFramework.CreateTimerTrigger(M2P1Reminder1, SubsequentTime)
     end
 end
 
 function M2P2Reminder1()
-    if(ScenarioInfo.M2P2.Active) then
+    if ScenarioInfo.M2P2.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_160)
         ScenarioFramework.CreateTimerTrigger(M2P2Reminder2, SubsequentTime)
     end
 end
 
 function M2P2Reminder2()
-    if(ScenarioInfo.M2P2.Active) then
+    if ScenarioInfo.M2P2.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_165)
         ScenarioFramework.CreateTimerTrigger(M2P2Reminder3, SubsequentTime)
     end
 end
 
 function M2P2Reminder3()
-    if(ScenarioInfo.M2P2.Active) then
+    if ScenarioInfo.M2P2.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
         ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, SubsequentTime)
     end
 end
 
 function M2P3Reminder1()
-    if(ScenarioInfo.M2P3.Active) then
+    if ScenarioInfo.M2P3.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_170)
         ScenarioFramework.CreateTimerTrigger(M2P3Reminder2, SubsequentTime)
     end
 end
 
 function M2P3Reminder2()
-    if(ScenarioInfo.M2P3.Active) then
+    if ScenarioInfo.M2P3.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
         ScenarioFramework.CreateTimerTrigger(M2P3Reminder1, SubsequentTime)
     end
 end
 
------------
+------------
 -- Mission 3
------------
+------------
 function IntroMission3()
     ScenarioInfo.MissionNumber = 3
 
-    ScenarioFramework.SetSharedUnitCap(720)
-    if(ScenarioInfo.Options.Difficulty == 3) then
-        ScenarioUtils.CreateArmyGroup('UEF', 'HLRA_D3')
+    ---------
+    -- UEF AI
+    ---------
+    UEFAI.M3UEFMainBaseNavalAttacks()
+    UEFAI.M3UEFMainBaseConditionalBuilds()
+    if Difficulty == 3 then
+        UEFAI.UEFMainBaseSpawnHLRA()
     end
+
+    -- Atlantis Assault
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3NavyFleet_D' .. Difficulty, 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'UEF_Atlantis_Attack_Chain')
+
+    ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. Difficulty, 'StaggeredChevronFormation')
+    ScenarioInfo.Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'Atlantis')
+    ScenarioFramework.CreateUnitDeathTrigger(UEFAI.StartBuildingAtlantis, ScenarioInfo.Atlantis)
+
+    IssueTransportLoad(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits(), ScenarioInfo.Atlantis)
+    IssueDive({ScenarioInfo.Atlantis})
+
+    ScenarioFramework.GroupPatrolChain({ScenarioInfo.Atlantis}, 'UEF_Atlantis_Attack_Chain')
+
+    ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[Player1], categories.ALLUNITS, 80)
+
+    -- Unit cap
+    ScenarioFramework.SetSharedUnitCap(1200)
 
     -- Adjust buildable categories
-    ScenarioFramework.PlayUnlockDialogue()
-    ScenarioFramework.RemoveRestriction(Player1, categories.urb2305 +    -- Strategic Missile Launcher
-                                   categories.urs0304)     -- Strategic Missile Submarine
+    ScenarioFramework.RemoveRestrictionForAllHumans(
+        categories.urb2305 +    -- Cybran Strategic Missile Launcher
+        categories.urs0304 +    -- Cybran Strategic Missile Submarine
 
-    local tblArmy = ListArmies()
-    for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Player2 then
-            ScenarioFramework.RemoveRestriction(iArmy,
-                categories.urb2305 +    -- Strategic Missile Launcher
-                categories.urs0304)     -- Strategic Missile Submarine
-        end
-    end
+        categories.ueb2305 +    -- UEF Strategic Missile Launcher
+        categories.ues0304 +    -- UEF Strategic Missile Submarine
 
-    ScenarioFramework.Dialogue(OpStrings.C06_M03_010, StartMission3)
+        categories.uab2305 +    -- Aeon Strategic Missile Launcher
+        categories.uas0304,     -- Aeon Strategic Missile Submarine
+        true
+    )
+
+    ScenarioFramework.Dialogue(OpStrings.C06_M03_010, StartMission3, true)
 end
 
 function StartMission3()
     ScenarioFramework.SetPlayableArea('M3Area')
 
     -- Nuke Aeon once Player breaks into UEF base
-    for k, v in ArmyBrains[uef]:GetListOfUnits(categories.ueb2305, false) do
+    for k, v in ArmyBrains[UEF]:GetListOfUnits(categories.ueb2305, false) do
         v:GiveNukeSiloAmmo(5)
     end
-    ScenarioFramework.CreateAreaTrigger(StartNukeAeon, ScenarioUtils.AreaToRect('UEFBaseArea'), categories.ALLUNITS,
-        true, false, ArmyBrains[Player1], 1, false)
 
-    -- Atlantis Assault
-    ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. ScenarioInfo.Options.Difficulty, 'StaggeredChevronFormation')
-    ScenarioInfo.Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'Atlantis')
-    IssueTransportLoad(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits(), ScenarioInfo.Atlantis)
-    IssueDive({ScenarioInfo.Atlantis})
-    for i = 1, 9 do
-        IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
-        ScenarioInfo.AtlantisBoats:Patrol(ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
-    end
-    ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[Player1], categories.ALLUNITS, 80)
-
-    -- After 4 minutes: Aiko VO
-    ScenarioFramework.CreateTimerTrigger(M3AikoVO, 240)
-
-    -- Primary Objective 1
+    ----------------------------------------
+    -- Primary Objective - Capture Black Sun
+    ----------------------------------------
     ScenarioInfo.M3P1 = Objectives.Capture(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        OpStrings.OpC06_M3P1_Title,     -- title
-        OpStrings.OpC06_M3P1_Desc,      -- description
-        {                               -- target
-            Units = {ScenarioInfo.BlackSunWeapon},
-            NumRequired = 1,
+        'primary',
+        'incomplete',
+        OpStrings.OpC06_M3P1_Title,
+        OpStrings.OpC06_M3P1_Desc,
+        {
+            Units = {
+                ScenarioInfo.BlackSunWeapon,
+            },
         }
     )
     ScenarioInfo.M3P1:AddResultCallback(
-        function(result)
-            if(result) then
-                local unit = ScenarioFramework.GetListOfHumanUnits(categories.uec1901, false)
+        function(result, units)
+            if result then
+                ScenarioInfo.BlackSunWeapon = units[1]
 
                 -- Primary Objective 2
                 ScenarioInfo.M3P2 = Objectives.Basic(
@@ -1169,17 +1062,19 @@ function StartMission3()
                     OpStrings.OpC06_M3P2_Desc,          -- description
                     Objectives.GetActionIcon('kill'),   -- action
                     {                                   -- target
-                        Units = unit,
+                        Units = {
+                            ScenarioInfo.BlackSunWeapon,
+                        },
                     }
                 )
-                unit[1]:AddSpecialToggleEnable(BlackSunFired)
-                unit[1]:SetCanTakeDamage(false)
-                unit[1]:SetCanBeKilled(false)
-                unit[1]:SetReclaimable(false)
-                unit[1]:SetCapturable(false)
-                unit[1]:SetDoNotTarget(true)
+                ScenarioInfo.BlackSunWeapon:AddSpecialToggleEnable(BlackSunFired)
+                ScenarioInfo.BlackSunWeapon:SetCanTakeDamage(false)
+                ScenarioInfo.BlackSunWeapon:SetCanBeKilled(false)
+                ScenarioInfo.BlackSunWeapon:SetReclaimable(false)
+                ScenarioInfo.BlackSunWeapon:SetCapturable(false)
+                ScenarioInfo.BlackSunWeapon:SetDoNotTarget(true)
 
-                ScenarioFramework.Dialogue(OpStrings.C06_M03_060)
+                ScenarioFramework.Dialogue(OpStrings.C06_M03_060, nil, true)
 
                 -- Show the captured Black Sun
                 local camInfo = {
@@ -1189,7 +1084,7 @@ function StartMission3()
                     positionOffset = { 0, 1, 0 },
                     zoomVal = 75,
                 }
-                ScenarioFramework.OperationNISCamera( unit[1], camInfo )
+                ScenarioFramework.OperationNISCamera(ScenarioInfo.BlackSunWeapon, camInfo)
 
                 -- M3P2 Objective Reminder
                 ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, M3P2Time)
@@ -1198,80 +1093,78 @@ function StartMission3()
     )
 
     -- M3P1 Objective Reminder
-    ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, M3P1Time)
+    ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 300)
+
+    -- After 4 minutes: Aiko VO
+    ScenarioFramework.CreateTimerTrigger(M3AikoVO, 240)
+
+    -- Trigget to nuke Aeon base once players' units get close to the base.
+    for _, playerId in ScenarioInfo.HumanPlayers do 
+        ScenarioFramework.CreateAreaTrigger(NukeAeon, 'UEFBaseArea', categories.ALLUNITS, true, false, ArmyBrains[playerId], 1, false)
+    end
 end
 
 function StartAtlantisAI()
-    ForkThread(AtlantisAI)
-end
-
-function AtlantisAI()
+    -- Release the air units
     IssueClearCommands({ScenarioInfo.Atlantis})
     IssueTransportUnload({ScenarioInfo.Atlantis}, ScenarioInfo.Atlantis:GetPosition())
-    for k, v in ScenarioInfo.AtlantisPlanes:GetPlatoonUnits() do
-        while(v:IsUnitState('Attached')) do
+
+    for _, unit in ScenarioInfo.AtlantisPlanes:GetPlatoonUnits() do
+        while not unit.Dead and unit:IsUnitState('Attached') do
             WaitSeconds(.5)
         end
     end
-    IssueDive({ScenarioInfo.Atlantis})
-    IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('PlayerAir_Patrol3'))
-    IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('PlayerAir_Patrol2'))
-    IssueClearCommands(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits())
-    ScenarioInfo.AtlantisPlanes:Stop()
-    ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerBase'))
-    ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol2'))
-    ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol3'))
+
+    if not ScenarioInfo.Atlantis.Dead then
+        IssueDive({ScenarioInfo.Atlantis})
+        IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('PlayerAir_Patrol3'))
+        IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('PlayerAir_Patrol2'))
+    end
+
+    if ArmyBrains[UEF]:PlatoonExists(ScenarioInfo.AtlantisPlanes) then
+        IssueClearCommands(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits())
+        ScenarioInfo.AtlantisPlanes:Stop()
+        ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerBase'))
+        ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol2'))
+        ScenarioInfo.AtlantisPlanes:Patrol(ScenarioUtils.MarkerToPosition('PlayerAir_Patrol3'))
+    end
 
     ScenarioFramework.Dialogue(OpStrings.C06_M02_100)
 end
 
-function StartNukeAeon()
-    ForkThread(NukeAeon)
-end
-
 function NukeAeon()
-    if(not ScenarioInfo.Arnold:IsDead() and ArmyBrains[aeon]:GetCurrentUnits(categories.STRUCTURE) > 20) then
-        ScenarioInfo.AeonNuked = true
-        local nukes = ArmyBrains[uef]:GetListOfUnits(categories.ueb2305, false)
-        if(not nukes[1]:IsDead()) then
-            IssueClearCommands({ScenarioInfo.Arnold})
+    if ScenarioInfo.AeonNuked then
+        return
+    end
+
+    ScenarioInfo.AeonNuked = true
+
+    if (not ScenarioInfo.Arnold.Dead and ArmyBrains[Aeon]:GetCurrentUnits(categories.STRUCTURE) > 20) then
+        local nukes = ArmyBrains[UEF]:GetListOfUnits(categories.ueb2305, false)
+
+        if not nukes[1].Dead then
             IssueNuke({nukes[1]}, ScenarioInfo.Arnold:GetPosition())
             WaitSeconds(10)
         end
+
         local availableNukes = {}
         for i = 2, table.getn(nukes) do
             table.insert(availableNukes, nukes[i])
         end
+
         for k, v in availableNukes do
-            if(not v:IsDead()) then
+            if not v.Dead then
                 IssueNuke({v}, ScenarioUtils.MarkerToPosition('Nuke' .. k))
                 WaitSeconds(10)
             end
         end
+
         WaitSeconds(30)
-        -- TODO: place trigger for when last nuke has detonated
-        for i = 1, 5 do
-            local units = GetUnitsInRect(ScenarioUtils.AreaToRect('Death' .. i))
-            local aeonUnits = {}
-            if(units) then
-                for k, v in units do
-                    if(not v:IsDead() and v:GetAIBrain() == ArmyBrains[aeon]) then
-                        table.insert(aeonUnits, v)
-                    end
-                end
-            end
-            if(aeonUnits) then
-                for k, v in aeonUnits do
-                    v:Kill()
-                end
-            end
-            WaitSeconds(1.5)
-        end
     end
 end
 
 function BlackSunFired()
-    if(not ScenarioInfo.OpEnded) then
+    if not ScenarioInfo.OpEnded then
         ScenarioFramework.FlushDialogueQueue()
         ScenarioFramework.EndOperationSafety()
         ScenarioInfo.OpComplete = true
@@ -1283,59 +1176,141 @@ function BlackSunFired()
 end
 
 function M3AikoVO()
-    if(ScenarioInfo.Aiko and not ScenarioInfo.Aiko:IsDead()) then
+    if ScenarioInfo.Aiko and not ScenarioInfo.Aiko.Dead then
         ScenarioFramework.Dialogue(OpStrings.C06_M03_030)
     end
 end
 
 function AikoDestroyed()
     ScenarioFramework.Dialogue(OpStrings.C06_M03_050)
-    ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Aiko, 7 )
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Aiko, 7)
 end
 
 function ArnoldDestroyed()
     ScenarioFramework.Dialogue(OpStrings.C06_M03_055)
-    ScenarioFramework.CDRDeathNISCamera( ScenarioInfo.Arnold, 7 )
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Arnold, 7)
 end
 
 function M3P1Reminder1()
-    if(ScenarioInfo.M3P1.Active) then
+    if ScenarioInfo.M3P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M03_070)
-        ScenarioFramework.CreateTimerTrigger(M3P1Reminder2, SubsequentTime)
+        ScenarioFramework.CreateTimerTrigger(M3P1Reminder2, 600)
     end
 end
 
 function M3P1Reminder2()
-    if(ScenarioInfo.M3P1.Active) then
+    if ScenarioInfo.M3P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M03_075)
-        ScenarioFramework.CreateTimerTrigger(M3P1Reminder3, SubsequentTime)
+        ScenarioFramework.CreateTimerTrigger(M3P1Reminder3, 600)
     end
 end
 
 function M3P1Reminder3()
-    if(ScenarioInfo.M3P1.Active) then
+    if ScenarioInfo.M3P1.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
-        ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, SubsequentTime)
+        ScenarioFramework.CreateTimerTrigger(M3P1Reminder1, 600)
     end
 end
 
 function M3P2Reminder1()
-    if(ScenarioInfo.M3P2.Active) then
+    if ScenarioInfo.M3P2.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M03_080)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder2, SubsequentTime)
+        ScenarioFramework.CreateTimerTrigger(M3P2Reminder2, 60)
     end
 end
 
 function M3P2Reminder2()
-    if(ScenarioInfo.M3P2.Active) then
+    if ScenarioInfo.M3P2.Active then
         ScenarioFramework.Dialogue(OpStrings.C06_M03_085)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder3, SubsequentTime)
+        ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, 180)
     end
 end
 
-function M3P2Reminder3()
-    if(ScenarioInfo.M3P2.Active) then
-        ScenarioFramework.Dialogue(OpStrings.C06_M01_076)
-        ScenarioFramework.CreateTimerTrigger(M3P2Reminder1, SubsequentTime)
+-----------
+-- End Game
+-----------
+function ControlCenterDestroyed()
+    if not ScenarioInfo.OpEnded then
+        ScenarioFramework.EndOperationSafety()
+        ScenarioInfo.OpComplete = false
+        ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioInfo.ControlCenter:GetPosition(), 0, ArmyBrains[Player1])
+
+        -- Control center destroyed cam
+        -- ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
+        local camInfo = {
+            blendTime = 2.5,
+            holdTime = nil,
+            orientationOffset = { 0, 0.3, 0 },
+            positionOffset = { 0, 0.5, 0 },
+            zoomVal = 30,
+            spinSpeed = 0.03,
+            overrideCam = true,
+        }
+        ScenarioFramework.OperationNISCamera( ScenarioInfo.ControlCenter, camInfo )
+
+        ScenarioInfo.M1P1:ManualResult(false)
+        ScenarioFramework.Dialogue(OpStrings.C06_M01_090, StartKillGame, true)
     end
 end
+
+function PlayerLose()
+    if not ScenarioInfo.OpEnded then
+        ScenarioFramework.EndOperationSafety()
+        ScenarioInfo.OpComplete = false
+
+        -- Control Center destroyed cam
+        -- ScenarioFramework.EndOperationCamera(ScenarioInfo.ControlCenter)
+        local camInfo = {
+            blendTime = 2.5,
+            holdTime = nil,
+            orientationOffset = { 0, 0.3, 0 },
+            positionOffset = { 0, 0.5, 0 },
+            zoomVal = 30,
+            spinSpeed = 0.03,
+            overrideCam = true,
+        }
+        ScenarioFramework.OperationNISCamera( ScenarioInfo.ControlCenter, camInfo )
+
+        ScenarioFramework.Dialogue(OpStrings.C06_M03_090, StartKillGame, true)
+    end
+end
+
+function PlayerKilled(deadCommander)
+    if DEBUG then
+        return
+    end
+    ScenarioFramework.PlayerDeath(deadCommander, OpStrings.C06_D01_010)
+end
+
+function StartKillGame()
+    ForkThread(KillGame)
+end
+
+function KillGame()
+    if not ScenarioInfo.OpComplete then
+        WaitSeconds(15)
+    end
+    ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
+end
+
+------------------
+-- Debug Functions
+------------------
+--[[
+function OnCtrlF3()
+    for _, v in ArmyBrains[UEF]:GetListOfUnits(categories.NAVAL * categories.MOBILE, false) do
+        v:Kill()
+    end
+    for _, v in ArmyBrains[Aeon]:GetListOfUnits(categories.NAVAL * categories.MOBILE, false) do
+        v:Kill()
+    end
+end
+
+function OnCtrlF4()
+    if ScenarioInfo.MissionNumber == 1 then
+        IntroMission2()
+    elseif ScenarioInfo.MissionNumber == 2 then
+        IntroMission3()
+    end
+end
+--]]
