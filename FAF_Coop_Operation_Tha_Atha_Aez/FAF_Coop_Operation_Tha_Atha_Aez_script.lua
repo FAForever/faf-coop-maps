@@ -269,7 +269,7 @@ function IntAssaultP1()
 
         for i = 1, 3 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P1UDrop'.. i .. '_D' .. Difficulty, 'AttackFormation')
-            ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P1UDrop' .. i, 'P1UDropattack', true)
+            CustomFunctions.PlatoonAttackWithTransports(platoon, 'P1UDrop' .. i, 'P1UDropattack', 'P2UB1MK', true)
             AddUnitsToObjTable(platoon)
         end
 
