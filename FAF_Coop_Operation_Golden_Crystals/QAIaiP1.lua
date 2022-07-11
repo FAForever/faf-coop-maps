@@ -13,7 +13,6 @@ function QAIbase1AI()
 
     QAIbase1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP1base1', 'QAIP1base1MK', 40, {P1Qbase1 = 600})
     QAIbase1:StartNonZeroBase({{7, 10, 12}, {5, 8, 10}})
-    QAIbase1:SetActive('AirScouting', true)
 
     QP1B1landattacks()
     QP1B1Airattacks()
@@ -200,17 +199,18 @@ function QP1B1landattacks()
     
     local quantity = {}
 
+    quantity = {4, 5, 6}
     local Temp = {
        'QP1B1landAttackTemp0',
        'NoPlan',
-       { 'url0107', 1, 6, 'Attack', 'GrowthFormation' },
+       { 'url0107', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        { 'url0202', 1, 4, 'Attack', 'GrowthFormation' },
        }
     local Builder = {
         BuilderName = 'QP1B1AttackBuilder0',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 200,
+        Priority = 190,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'QAIP1base1',
@@ -434,7 +434,7 @@ function QAIbase2AI()
 
     QAIbase2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP1base2', 'QAIP1base2MK', 40, {P1Qbase2 = 600})
     QAIbase2:StartNonZeroBase({{7, 10, 12}, {5, 8, 10}})
-    QAIbase2:SetActive('AirScouting', true)
+
     
     QP1B2landattacks()
     QP1B2Airattacks() 
@@ -444,17 +444,18 @@ function QP1B2landattacks()
     
     local quantity = {}
 
+    quantity = {4, 5, 6}
     local Temp = {
        'QP1B2landAttackTemp0',
        'NoPlan',
-       { 'url0107', 1, 6, 'Attack', 'GrowthFormation' },
-       { 'url0103', 1, 4, 'Attack', 'GrowthFormation' },
+       { 'url0107', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+       { 'url0202', 1, 4, 'Attack', 'GrowthFormation' },
        }
     local Builder = {
         BuilderName = 'QP1B2landAttackBuilder0',
         PlatoonTemplate = Temp,
         InstanceCount = 2,
-        Priority = 200,
+        Priority = 190,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'QAIP1base2',
@@ -541,7 +542,7 @@ function QP1B2landattacks()
     Temp = {
        'QP1B2landAttackTemp4',
        'NoPlan',
-       { 'drlk204', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+       { 'drl0204', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        { 'url0103', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        }
     Builder = {
@@ -593,7 +594,7 @@ function QP1B2landattacks()
        'QP1B2landAttackTemp6',
        'NoPlan',
        { 'url0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-       { 'url0307', 1, 1, 'Attack', 'GrowthFormation' },
+       { 'url0306', 1, 1, 'Attack', 'GrowthFormation' },
        }
     Builder = {
         BuilderName = 'QP1B2landAttackBuilder6',

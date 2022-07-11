@@ -124,7 +124,7 @@ function QP2B1landattacks()
     local Builder = {
         BuilderName = 'QP2B1AttackBuilder0',
         PlatoonTemplate = Temp,
-        InstanceCount = 6,
+        InstanceCount = 8,
         Priority = 100,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -197,7 +197,7 @@ function QP2B1landattacks()
     Builder = {
         BuilderName = 'QP2B1AttackBuilder3',
         PlatoonTemplate = Temp,
-        InstanceCount = 5,
+        InstanceCount = 7,
         Priority = 110,
         PlatoonType = 'Land',
         RequiresConstruction = true,

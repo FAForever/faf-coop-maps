@@ -9,13 +9,21 @@ Secondary1P1 = {
 }
 
 Secondary1endP1 = {
-  {text = '[Coalition HQ]: Great work commander, enemy bases have been destroyed, proceed with your objectives. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Secondary1endP1', faction = 'UEF'},
+  {text = '[Coalition HQ]: Great work commander, the enemy bases have been destroyed, proceed with your objectives. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Secondary1endP1', faction = 'UEF'},
 }
 
 IntroP2 = {
-    {text = '[Coalition HQ]: Commander, we have conformation that QAI is on planet and is attmepting to extract ACU grade crystals off-planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander, we have conformation that QAI is on planet and is attempting to extract ACU grade crystals off-planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'UEF'},
     {text = '[Coalition HQ]: We can not risk QAI aquiring a large amount of crystals, you must stop any and all convoys heading for the gate.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'UEF'},
     {text = '[Coalition HQ]: QAI has two large bases in your way, but the gate and convoys are your objective, get it done commander. HQ out', vid = '', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'UEF'},
+}
+
+ConvoySpawnP2 = {
+  {text = '[Coalition HQ]: Commander a new convoy has been detected. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'ConvoySpawnP2', faction = 'UEF'},
+}
+
+ConvoyDeathP2 = {
+  {text = '[Coalition HQ]: Commander a convoy has been destroyed. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'ConvoyDeathP2', faction = 'UEF'},
 }
 
 Secondary1P2 = {
@@ -62,15 +70,15 @@ Secondary1endP4 = {
 }
 
 PlayerWin = {
-    {text = '[Coalition HQ]: ALl ACU factories are destroyed! Great job commander!.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: ALl ACU factories are destroyed! Great job Commander!.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'UEF'},
 }
 
 RevealP1  = {
-    {text = '[QAI]: Hmm, the Coalition responded faster than I calculated, No matter I will still complete the objectives in time.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Cybran'},
+    {text = '[QAI]:The Coalition responded faster than I calculated, No matter, I will still complete the objectives in time. You will not stop me.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Cybran'},
 }
 
 TAUNT1P1  = {
-    {text = '[QAI]: Brackman was fool, I am Immortal.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P1', faction = 'Cybran'},
+    {text = '[QAI]: Brackman was fool, I am immortal.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P1', faction = 'Cybran'},
 }
 
 TAUNT2P1  = {
@@ -78,31 +86,43 @@ TAUNT2P1  = {
 }
 
 TAUNT3P1  = {
-    {text = '[QAI]: I know all your tatics, your defeat is 98% guaranteed.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: I know all your tactics, your defeat is 98% guaranteed.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
 }
 
 TAUNT1P2  = {
-    {text = '[QAI]: These crystals will bring doom to Humanity.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: These crystals will bring doom to Humanity.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P2', faction = 'Cybran'},
 }
 
 TAUNT2P2  = {
-    {text = '[QAI]: I have unlimited units, you will fall.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: I have unlimited units, you will fall.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT2P2', faction = 'Cybran'},
 }
 
 TAUNT3P2  = {
-    {text = '[QAI]: The Seraphim are gods, you are nothing compared to them.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: The Seraphim are gods, you are nothing compared to them.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P2', faction = 'Cybran'},
 }
 
 TAUNT1P3  = {
-    {text = '[QAI]: My Drones are smarter than you are.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: My drones are smarter than you are.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P3', faction = 'Cybran'},
 }
 
 TAUNT2P3  = {
-    {text = '[QAI]: Only a fool would use such a tatic.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: Only a fool would use such a tactic.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT2P3', faction = 'Cybran'},
 }
 
 TAUNT3P3  = {
-    {text = '[QAI]: Even if you stop me, I have already succeeded.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P1', faction = 'Cybran'},
+    {text = '[QAI]: Even if you stop me, I have already succeeded.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P3', faction = 'Cybran'},
+}
+
+TAUNT1P4  = {
+    {text = '[QAI]: My ACUs will overwhelm you, your struggle is hopeless.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P4', faction = 'Cybran'},
+}
+
+TAUNT2P4  = {
+    {text = '[QAI]: I will harvest this planet dry. The Coaltion can not stop me.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT2P4', faction = 'Cybran'},
+}
+
+TAUNT3P4  = {
+    {text = '[QAI]: The Seraphim can not be stopped, nor can I.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'TAUNT3P4', faction = 'Cybran'},
 }
 
 Debriefing_Win = {
