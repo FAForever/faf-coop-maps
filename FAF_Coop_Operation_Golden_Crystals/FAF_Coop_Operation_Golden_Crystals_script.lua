@@ -183,7 +183,7 @@ function MissionP1()
     ScenarioInfo.M1P1:AddResultCallback(
     function(result)
             if(result) then
-                ForkThread(IntroP2)
+                ForkThread(StartIntroP2)
             end
         end
     )
@@ -191,8 +191,8 @@ function MissionP1()
     ScenarioFramework.CreateArmyIntelTrigger(SecondaryMissionP1, ArmyBrains[Player1], 'LOSNow', false, true,  categories.FACTORY, true, ArmyBrains[QAI] )   
 
     if ExpansionTimer then
-        local M1MapExpandDelay = {35*60, 30*60, 25*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP2, M1MapExpandDelay[Difficulty])
+        local M1MapExpandDelay = {45*60, 35*60, 28*60}
+        ScenarioFramework.CreateTimerTrigger(StartIntroP2, M1MapExpandDelay[Difficulty])
     end
 end
 
@@ -253,19 +253,29 @@ function P1QOffmapattacks()
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', attackGroups[Random(1, attackGroups.num)] .. '_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(platoon, 'P1QOffmapattack' .. Random(1, 3))
 
-            WaitSeconds(1*60)
+            WaitSeconds(Random(120, 240))
         end
     end
 end
 
 --Part 2 Functions
 
+function StartIntroP2()
+
+    ForkThread(IntroP2)
+end
+
 function IntroP2()
-    
+    ScenarioFramework.FlushDialogueQueue()
+    while ScenarioInfo.DialogueLock do
+        WaitSeconds(0.2)
+    end
     if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
+
+    WaitSeconds(3)
 
     ScenarioFramework.SetPlayableArea('AREA_2', true)   
     
@@ -447,22 +457,75 @@ function Convoy4()
 end
 
 function Convoy5()
+    if ScenarioInfo.M7P2.Active then
+        if ScenarioFramework.NumCatUnitsInArea(categories.STRUCTURE * categories.CIVILIAN, 'P2objsec2', ArmyBrains[QAI]) > 0 then
+
+            ScenarioInfo.Convoy5 = {}
+            ScenarioFramework.Dialogue(OpStrings.ConvoySpawnP2, nil, true)
+            local Convoy4 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy5', 'AttackFormation')
+            ScenarioFramework.PlatoonPatrolChain(Convoy5, 'P2QConvoys1')
+            ScenarioFramework.CreateGroupDeathTrigger(ConvoyDestroyed, Convoy5)
+    
+            for k, v in Convoy5:GetPlatoonUnits() do
+                ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TeleportOut, v, ScenarioUtils.MarkerToPosition( 'ConvoyMK' ), 10)
+            end
+
+            local ConvyTrigger5 = {5*60, 4*60, 3*60}
+            ScenarioFramework.CreateTimerTrigger(Convoy6, ConvyTrigger5[Difficulty])
+    
+            for k, v in Convoy5:GetPlatoonUnits() do
+                ScenarioInfo.M2P2:AddBasicUnitTarget(v)
+            end
+
+        else
+            ScenarioFramework.CreateTimerTrigger(Convoy6, 10)
+        end
+    end
+end
+
+function Convoy6()
+    if ScenarioInfo.M7P2.Active then
+        if ScenarioFramework.NumCatUnitsInArea(categories.STRUCTURE * categories.CIVILIAN, 'P2objsec1', ArmyBrains[QAI]) > 0 then
+
+            ScenarioInfo.Convoy6 = {}
+            ScenarioFramework.Dialogue(OpStrings.ConvoySpawnP2, nil, true)
+            local Convoy4 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy6', 'AttackFormation')
+            ScenarioFramework.PlatoonPatrolChain(Convoy6, 'P2QConvoys1')
+            ScenarioFramework.CreateGroupDeathTrigger(ConvoyDestroyed, Convoy6)
+    
+            for k, v in Convoy6:GetPlatoonUnits() do
+                ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TeleportOut, v, ScenarioUtils.MarkerToPosition( 'ConvoyMK' ), 10)
+            end
+
+            local ConvyTrigger6 = {5*60, 4*60, 3*60}
+            ScenarioFramework.CreateTimerTrigger(Convoy7, ConvyTrigger6[Difficulty])
+    
+            for k, v in Convoy6:GetPlatoonUnits() do
+                ScenarioInfo.M2P2:AddBasicUnitTarget(v)
+            end
+
+        else
+            ScenarioFramework.CreateTimerTrigger(Convoy7, 10)
+        end
+    end
+end
+
+function Convoy7()
    if ScenarioInfo.M7P2.Active then
 
-        ScenarioInfo.Convoy5 = {}
+        ScenarioInfo.Convoy7 = {}
         ScenarioFramework.Dialogue(OpStrings.ConvoySpawnP2, nil, true)
-        local Convoy5 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy5', 'AttackFormation')
-        ScenarioFramework.PlatoonPatrolChain(Convoy5, 'P2QConvoys3')
-        ScenarioFramework.CreateGroupDeathTrigger(ConvoyDestroyed, Convoy5)
+        local Convoy5 = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P2Convoy7', 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(Convoy7, 'P2QConvoys3')
+        ScenarioFramework.CreateGroupDeathTrigger(Endconvoys, Convoy7)
     
-        for k, v in Convoy5:GetPlatoonUnits() do
+        for k, v in Convoy7:GetPlatoonUnits() do
             ScenarioFramework.CreateUnitToMarkerDistanceTrigger(TeleportOut, v, ScenarioUtils.MarkerToPosition( 'ConvoyMK' ), 10)
         end
 
-        for k, v in Convoy5:GetPlatoonUnits() do
+        for k, v in Convoy7:GetPlatoonUnits() do
             ScenarioInfo.M2P2:AddBasicUnitTarget(v)
         end
-        ScenarioFramework.CreateUnitDeathTrigger(Endconvoys)
     end
 end
 
@@ -477,12 +540,14 @@ function ConvoyDestroyed()
 end
 
 function MissionP2()
+    local quantity = {}
+    quantity = {18, 14, 10}
 
     ScenarioInfo.M7P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
         'Destroy the Gate',                -- title
-        'If 8 Trucks escape this mission is a loss. destroy the convoys as they appear or the gate.', -- description
+        'If '..quantity[Difficulty]..' Trucks escape this mission is a loss. destroy the convoys as they appear or the gate.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P2Gate}  
@@ -491,7 +556,7 @@ function MissionP2()
     ScenarioInfo.M7P2:AddResultCallback(
         function(result)
             if result then
-                ForkThread(IntroP3)  
+                ForkThread(StartIntroP3)  
             else
                 PlayerLose()
             end
@@ -499,8 +564,8 @@ function MissionP2()
     )
 
     if ExpansionTimer then
-        local M2MapExpandDelay = {35*60, 30*60, 25*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP3, M2MapExpandDelay[Difficulty])
+        local M2MapExpandDelay = {45*60, 35*60, 25*60}
+        ScenarioFramework.CreateTimerTrigger(StartIntroP3, M2MapExpandDelay[Difficulty])
     end
 end
 
@@ -552,14 +617,14 @@ function CounterAttackP2()
     local trigger = {}
     local platoon
 
-    -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
-    quantity = {250, 200, 150}
-    trigger = {50, 40, 30}
+    -- sends Gunships if player has more than [60, 50, 40] Tech 2 and Tech 3 Units, up to 10, 1 group per 14, 11, 10
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.TECH1)
+    quantity = {150, 100, 50}
+    trigger = {40, 30, 20}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 6) then
-            num = 6
+        if(num > 5) then
+            num = 5
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'P2QGunships', 'GrowthFormation', 5)
@@ -588,8 +653,8 @@ function CounterAttackP2()
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 6) then
-            num = 6
+        if(num > 5) then
+            num = 5
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'P2QFighters', 'GrowthFormation', 5)
@@ -611,7 +676,7 @@ end
 function Missionfailcheck()
     local quantity = {}
    
-    quantity = {16, 12, 8}
+    quantity = {18, 14, 10}
     if (ConvoyCounter == quantity[Difficulty]) then
      ScenarioInfo.M7P2:ManualResult(false)
     end
@@ -620,7 +685,7 @@ end
 function EnableStealthOnAir()
     local T3AirUnits = {}
     while true do
-        for _, v in ArmyBrains[QAI]:GetListOfUnits(categories.ura0303 + categories.ura0304, false) do
+        for _, v in ArmyBrains[QAI]:GetListOfUnits(categories.ura0303 + categories.ura0304 + categories.ura0401, false) do
             if not ( T3AirUnits[v:GetEntityId()] or v:IsBeingBuilt() ) then
                 v:ToggleScriptBit('RULEUTC_StealthToggle')
                 T3AirUnits[v:GetEntityId()] = true
@@ -631,9 +696,17 @@ function EnableStealthOnAir()
 end
 
 ---part 3 functions
+    
+function StartIntroP3()
+
+    ForkThread(IntroP3)
+end
 
 function IntroP3()
-
+    ScenarioFramework.FlushDialogueQueue()
+    while ScenarioInfo.DialogueLock do
+        WaitSeconds(0.2)
+    end
     if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
@@ -642,6 +715,8 @@ function IntroP3()
     if  ScenarioInfo.M2P2.Active then
         ScenarioInfo.M2P2:ManualResult(true)
     end
+
+    WaitSeconds(3)
 
     ScenarioFramework.SetPlayableArea('AREA_3', true)  
 
@@ -680,6 +755,15 @@ function IntroP3()
     ScenarioUtils.CreateArmyGroup('QAI', 'P3QOuterD_D'.. Difficulty)
     ScenarioUtils.CreateArmyGroup('QAI', 'P3QWalls')
     ScenarioUtils.CreateArmyGroup('QAI', 'P3Crystals')
+
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 2.0
+    buffAffects.MassProduction.Mult = 2.0
+
+       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end  
 
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_1')
@@ -736,16 +820,7 @@ function IntroP3()
             end
         )
         Cinematics.SetInvincible('AREA_1', true)
-    Cinematics.ExitNISMode()
-
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2.0
-    buffAffects.MassProduction.Mult = 2.0
-
-       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end    
+    Cinematics.ExitNISMode()  
 
     ForkThread(MissionP3)
     ForkThread(MissionSecondaryP3)
@@ -806,16 +881,16 @@ function MissionP3()
         }
     )
 
-    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', IntroP4)
+    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', StartIntroP4)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M2P3)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
     if ScenarioInfo.M7P2.Active then
-        ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M7P2)
+        ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M7P2)
     end
 
     if ExpansionTimer then
         local M3MapExpandDelay = {45*60, 35*60, 25*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP4, M3MapExpandDelay[Difficulty])
+        ScenarioFramework.CreateTimerTrigger(StartIntroP4, M3MapExpandDelay[Difficulty])
     end
 end
 
@@ -895,7 +970,7 @@ function CounterAttackP3()
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
     quantity = {200, 150, 100}
-    trigger = {50, 40, 30}
+    trigger = {90, 70, 50}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
         if(num > 10) then
@@ -908,7 +983,7 @@ function CounterAttackP3()
     end
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.TECH1)
     quantity = {250, 200, 150}
     trigger = {70, 60, 50}
     if num > quantity[Difficulty] then
@@ -993,12 +1068,22 @@ end
 
 --Part 4 functions
 
-function IntroP4()
+function StartIntroP4()
 
+    ForkThread(IntroP4)
+end
+
+function IntroP4()
+    ScenarioFramework.FlushDialogueQueue()
+    while ScenarioInfo.DialogueLock do
+        WaitSeconds(0.2)
+    end
     if ScenarioInfo.MissionNumber ~= 3 then
         return
     end
     ScenarioInfo.MissionNumber = 4
+
+    WaitSeconds(3)
 
     ScenarioFramework.SetPlayableArea('AREA_4', true)   
     
@@ -1403,7 +1488,8 @@ end
 function PlayerWin()
     if not ScenarioInfo.OpEnded then
         ScenarioInfo.OpComplete = true
-        ScenarioFramework.Dialogue(OpStrings.PlayerWin, KillGame, true)
+        ScenarioFramework.Dialogue(OpStrings.PlayerWin, nil, true)
+        KillGame()
     end
 end
 
