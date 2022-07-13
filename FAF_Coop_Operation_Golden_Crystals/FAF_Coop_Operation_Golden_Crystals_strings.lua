@@ -9,12 +9,12 @@ Secondary1P1 = {
 }
 
 Secondary1endP1 = {
-  {text = '[Coalition HQ]: Great work commander, the enemy bases have been destroyed, proceed with your objectives. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Secondary1endP1', faction = 'UEF'},
+  {text = '[Coalition HQ]: Great work Commander, the enemy bases have been destroyed, proceed with your objectives. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Secondary1endP1', faction = 'UEF'},
 }
 
 IntroP2 = {
-    {text = '[Coalition HQ]: Commander, we have conformation that QAI is on planet and is attempting to extract ACU grade crystals off-planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'UEF'},
-    {text = '[Coalition HQ]: We can not risk QAI aquiring a large amount of crystals, you must stop any and all convoys heading for the gate.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander, we have confirmation that QAI is on planet and is attempting to extract ACU grade crystals off-planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: We can not risk QAI aquiring a large amount of crystals, you must stop as many convoys as you can heading for the gate.', vid = '', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'UEF'},
     {text = '[Coalition HQ]: QAI has two large bases in your way, but the gate and convoys are your objective, get it done commander. HQ out', vid = '', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'UEF'},
 }
 
@@ -36,7 +36,8 @@ Secondary1endP2 = {
 
 IntroP3 = {
     {text = '[Coalition HQ]: Commander, We are detecting two ACUs on planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'UEF'},
-    {text = '[Coalition HQ]: We need to destroy QAI\'s operation on this planet, Destroy all enemy commanders.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: We have having a hard time piercing the Crystals, but we beleive QAI might have more mining operations on planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: We need to destroy QAI\'s operation on this planet, Destroy all of his commanders.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_3', faction = 'UEF'},
 }
 
 Secondary1P3 = {
@@ -57,7 +58,7 @@ Secondary2endP3 = {
 
 IntroP4 = {
     {text = '[Coalition HQ]: Commander, We are detecting a massive energy signature to your east.', vid = '', bank = 'JJ_VO2', cue = 'Intro3_1', faction = 'UEF'},
-    {text = '[Coalition HQ]: What the hell?! QAI has set up an ACU factory!', vid = '', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: What the hell?! QAI has set up an ACU factory! He is using the Crystals to build an army behind our lines!', vid = '', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'UEF'},
     {text = '[Coalition HQ]: It is not the only one, we are detecting two more in the area, QAI is trying to overwhelm you with ACUs. Destroy all of it commander, HQ out. ', vid = '', bank = 'JJ_VO2', cue = 'Intro3_2', faction = 'UEF'},
 }
 

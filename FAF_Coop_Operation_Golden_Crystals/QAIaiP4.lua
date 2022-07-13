@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua')
+local CustomFunctions = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua'
 
 local Player1 = 1
 local QAI = 3
@@ -377,7 +377,7 @@ function P4QB3Exp()
 
     local opai = nil
     local quantity = {}
-    quantity = {2, 4, 6}
+    quantity = {1, 2, 3}
     opai = QAIP4base3:AddOpAI('P4End',
         {
             Amount = 1,
