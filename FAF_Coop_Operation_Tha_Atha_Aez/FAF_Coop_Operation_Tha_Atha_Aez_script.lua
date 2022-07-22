@@ -49,7 +49,7 @@ local Player4 = ScenarioInfo.Player4
 local AssignedObjectives = {}
 
 local P2Offmaptriggered = false
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local SupportBtimer = {7*60, 6*60, 5*60}  
 

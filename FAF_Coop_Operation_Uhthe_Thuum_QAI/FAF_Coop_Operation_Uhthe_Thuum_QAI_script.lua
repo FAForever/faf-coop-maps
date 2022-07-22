@@ -43,7 +43,7 @@ local Nodes = ScenarioInfo.Nodes
 local QAI = ScenarioInfo.QAI
 
 local TimedAttackP1 = {16*60, 14*60, 12*60}
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local Debug = false
 local NIS1InitialDelay = 3
