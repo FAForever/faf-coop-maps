@@ -26,7 +26,7 @@ ScenarioInfo.Player3 = 5
 ScenarioInfo.Player4 = 6
 
 local Difficulty = ScenarioInfo.Options.Difficulty
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local Player1 = ScenarioInfo.Player1
 local Seraphim = ScenarioInfo.Seraphim

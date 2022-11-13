@@ -42,7 +42,7 @@ local Player4 = ScenarioInfo.Player4
 local Debug = false
 
 local AssignedObjectives = {}
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local NIS1InitialDelay = 3
 
