@@ -37,7 +37,7 @@ local Player3 = ScenarioInfo.Player3
 local Player4 = ScenarioInfo.Player4
 
 local AssignedObjectives = {}
-local ExpansionTimer = ScenarioInfo.Options.Expansion
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local SkipNIS2 = false
 
