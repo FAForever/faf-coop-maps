@@ -1,5 +1,60 @@
 # Changelog
 
+## Patch 8.0.0
+
+### General
+- Fix for Timed Expansion option not working in some missions
+
+### Aeon Campaign
+
+#### Operation Beginnings (6th mission)
+- UEF - Cybran skirmishes in the first part of the mission.
+- Reworked last part of the mission.
+- New Aeon bases on the corner islands.
+- More overall attacks, including experimentals, game enders.
+
+### UEF Campaign
+
+#### Operation Forge (5th mission)
+- Research facilities can't be given now.
+- Losing one of the research facilities should no longer break the mission in later parts.
+- SMDs should be properly counted for all players now.
+- The aeon nuke attack after loading the SMDs will no longer kill one of the research facilities.
+- Aeon will keep nuking players on hard difficulty, until you destroy all the nukes.
+- TMDs added into most of the bases, you can no longer cheese the mission with ACU TML.
+- Added more pgens into aeon and cybran bases, they should no longer e stall.
+- Added more shields into enemy bases.
+- Improved players acu spawning sequence, they should now leave the gate one by one.
+
+### FA Campaign
+
+#### Opration Mind Games (5th mission)
+- Fletcher build his base much faster without stalling.
+- Hex5 now builds more Experimentals.
+
+### Custom Missions
+
+#### Operation Golden Crystals
+- Improved attacks.
+
+#### Operation Blockade
+- Added point defense on far right island.
+- Reduced the 2 T3 mex, to 1 T2 and 1 T1.
+- Adjusted more Air attack paths to fly over Island.
+- Adjusted one hover attack to go to that island.
+
+#### Novax Station Assault
+- Added last part of the mission.
+- Rebalance of some of the attacks in the first two parts.
+
+#### Operation Tight Spot
+- Brand new mission.
+
+### Contributors
+- Shadowlorda1
+- speed2
+- UnassumingKiwi
+
 ## Patch 7.0.1 (June 12th, 2022)
 
 Fixes the naming convetion of Holy Raid and fixes a small scripting bug.
