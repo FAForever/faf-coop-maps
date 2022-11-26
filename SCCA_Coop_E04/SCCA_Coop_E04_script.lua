@@ -755,6 +755,7 @@ function M2OnTruckFoundTimer()
     ScenarioInfo.M2EscapeTruck = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Escape_Truck', 'TravellingFormation')
     for k,unit in ScenarioInfo.M2EscapeTruck:GetPlatoonUnits() do
         ScenarioFramework.PauseUnitDeath(unit)
+        unit.CanBeGiven = false
     end
 
     local m2p2Group = ScenarioInfo.M2EscapeTruck:GetPlatoonUnits()
