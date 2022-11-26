@@ -25,18 +25,18 @@ function CybranM2BaseAI()
     
     CybranM2Base:SetActive('AirScouting', true)
 
-    -- Spawn support factories a bit later, else they sometimes bug out and can't build higher tech units.
-    ForkThread(function()
-        WaitSeconds(1)
-        CybranM2Base:AddBuildGroupDifficulty('M2_Cybran_Base_Support_Factories', 100, true)
-    end)
-
     CybranM2BaseAirAttacks()
     CybranM2BaseLandAttacks()
     CybranM2BaseNavalAttacks()
 end
 
 function CybranM2BaseAirAttacks()
+    local DefaultPatrolChains = {
+        'M2_Cybran_Base_AirAttack_Chain_1',
+        'M2_Cybran_Base_AirAttack_Chain_2',
+        'M2_Cybran_Base_AirAttack_Chain_3',
+    }
+
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -68,9 +68,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 110,
         }
@@ -86,9 +84,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 110,
         }
@@ -105,9 +101,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -123,9 +117,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -141,9 +133,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -159,9 +149,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -177,9 +165,7 @@ function CybranM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_AirAttack_Chain_1',
-                                'M2_Cybran_Base_AirAttack_Chain_2',
-                                'M2_Cybran_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -260,9 +246,9 @@ function CybranM2TorpBombersSnipe()
     quantity = {8, 10, 12}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirSnipe_1',
         {
-            MasterPlatoonFunction = { '/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI' },
+            MasterPlatoonFunction = {SPAIFileName, 'CategoryHunterPlatoonAI'},
             PlatoonData = {
-                CategoryList = { categories.uas0401 },
+                CategoryList = {categories.uas0401},
             },
             Priority = 130,
         }
@@ -360,6 +346,11 @@ function CybranM2BaseLandAttacks()
 end
 
 function CybranM2BaseNavalAttacks()
+    local DefaultPatrolChains = {
+        'M2_Cybran_Base_NavalAttack_Chain_1',
+        'M2_Cybran_Base_NavalAttack_Chain_2',
+    }
+
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -394,8 +385,7 @@ function CybranM2BaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Base_NavalAttack_Chain_1',
-                                'M2_Cybran_Base_NavalAttack_Chain_2'},
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Destroyer', 'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -464,10 +454,7 @@ function CybranM2BaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {
-                    'M2_Cybran_Base_NavalAttack_Chain_1',
-                    'M2_Cybran_Base_NavalAttack_Chain_2',
-                },
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Cruiser', 'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -514,11 +501,6 @@ function CybranM2IslandBaseAI(baseType)
         )
         CybranM2IslandBase:StartNonZeroBase({{4, 5, 6}, {3, 4, 4}})
 
-        ForkThread(function()
-            WaitSeconds(1)
-            CybranM2IslandBase:AddBuildGroupDifficulty('M2_Cybran_Island_Naval_Base_Support_Factories', 100, true)
-        end)
-
         CybranM2IslandBaseNavalAttacks()
 
     elseif baseType == 'Arty' then 
@@ -555,6 +537,11 @@ end
 
 -- Island Naval Attacks
 function CybranM2IslandBaseNavalAttacks()
+    local DefaultPatrolChains = {
+        'M2_Cybran_Island_Naval_Attack_Chain_1',
+        'M2_Cybran_Island_Naval_Attack_Chain_2',
+    }
+
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -565,8 +552,7 @@ function CybranM2IslandBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Island_Naval_Attack_Chain_1',
-                               'M2_Cybran_Island_Naval_Attack_Chain_2'}
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -589,8 +575,7 @@ function CybranM2IslandBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Island_Naval_Attack_Chain_1',
-                               'M2_Cybran_Island_Naval_Attack_Chain_2'}
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -613,8 +598,7 @@ function CybranM2IslandBaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_Cybran_Island_Naval_Attack_Chain_1',
-                               'M2_Cybran_Island_Naval_Attack_Chain_2'}
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Destroyer', 'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -735,5 +719,7 @@ function CybranM2IslandBaseArtyAI()
     LOG('*speed2: Arty activation wait time: ' .. waitTime[Difficulty])
     WaitSeconds(waitTime[Difficulty] * 60.0)
 
-    arty:SetFireState('ReturnFire') -- ReturnFire -- HoldFire -- GroundFire
+    if arty and not arty.Dead then
+        arty:SetFireState('ReturnFire') -- ReturnFire -- HoldFire -- GroundFire
+    end
 end

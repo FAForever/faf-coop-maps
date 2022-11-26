@@ -14,21 +14,23 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 ----------
 function OrderCarrierFactory()
     -- Adding build location for AI
-	ArmyBrains[Order]:PBMAddBuildLocation('M1_Order_Carrier_Start_Marker', 150, 'AircraftCarrier1')
+    ArmyBrains[Order]:PBMAddBuildLocation('M1_Order_Carrier_Start_Marker', 150, 'AircraftCarrier1')
 
-	local Carrier = ScenarioInfo.M1_Order_Carrier
-	local location
+    local Carrier = ScenarioInfo.M1_Order_Carrier
+    if not Carrier then
+        return
+    end
+
     for num, loc in ArmyBrains[Order].PBM.Locations do
         if loc.LocationType == 'AircraftCarrier1' then
-            location = loc
+            loc.PrimaryFactories.Air = Carrier
             OrderCarrierAttacks()
             break
         end
     end
-	location.PrimaryFactories.Air = Carrier
-	
-	while (ScenarioInfo.MissionNumber == 1 and Carrier and not Carrier:IsDead()) do
-        if  table.getn(Carrier:GetCargo()) > 0 and Carrier:IsIdleState() then
+    
+    while ScenarioInfo.MissionNumber == 1 and not Carrier.Dead do
+        if Carrier:IsIdleState() and Carrier:GetCargo()[1] then
             IssueClearCommands({Carrier})
             IssueTransportUnload({Carrier}, Carrier:GetPosition())
         end
@@ -38,9 +40,9 @@ end
 
 -- Platoons built by carrier
 function OrderCarrierAttacks()
-	local torpBomberNum = {6, 4, 3}
-    local swiftWindNum = {7, 5, 4}
-    local gunshipNum = {8, 6, 5}
+    local torpBomberNum = {5, 4, 3}
+    local swiftWindNum = {6, 5, 4}
+    local gunshipNum = {7, 6, 5}
 
     local Temp = {
         'M1_Order_Carrier_Air_Attack_1',
@@ -61,10 +63,10 @@ function OrderCarrierAttacks()
         PlatoonAIFunction = {ThisFile, 'GivePlatoonToPlayer'},
         PlatoonData = {
             PatrolChain = 'M1_Oder_Naval_Def_Chain',
-            FuelMultiplier = 2,
+            FuelMultiplier = 4,
         },      
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    ArmyBrains[Order]:PBMAddPlatoon(Builder)
 end
 
 ----------
@@ -73,29 +75,23 @@ end
 function OrderTempestFactory()
     ArmyBrains[Order]:PBMAddBuildLocation('M1_Order_Tempest_Start_Marker', 150, 'Tempest1')
 
-    local Tempest = ScenarioInfo.M1_Order_Tempest
-    local location
     for num, loc in ArmyBrains[Order].PBM.Locations do
         if loc.LocationType == 'Tempest1' then
-            location = loc
+            loc.PrimaryFactories.Sea = ScenarioInfo.M1_Order_Tempest
             OrderTempestAttacks()
-            break
+            return
         end
     end
-    location.PrimaryFactories.Sea = Tempest
 end
 
 function OrderTempestAttacks()
-    local destroyerNum = {3, 2, 1}
-    local frigateNum = {7, 5, 3}
-    local aaBoatNum = {8, 6, 2}
-
     local Temp = {
         'M1_Order_Tempest_Naval_Attack_1',
         'NoPlan',
         { 'uas0201', 1, 1, 'Attack', 'AttackFormation' },  -- Destroyer
         { 'uas0103', 1, 3, 'Attack', 'AttackFormation' },  -- Frigate
         { 'uas0102', 1, 1, 'Attack', 'AttackFormation' },  -- AA Boat
+        { 'uas0203', 1, 1, 'Attack', 'AttackFormation' },  -- Submarine
     }
     local Builder = {
         BuilderName = 'M1_Order_Tempest_Naval_Builder_1',
@@ -111,7 +107,7 @@ function OrderTempestAttacks()
             PatrolChain = 'M1_Oder_Naval_Def_Chain',
         },    
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    ArmyBrains[Order]:PBMAddPlatoon(Builder)
 end
 
 -----------------------
@@ -121,15 +117,15 @@ function GivePlatoonToPlayer(platoon)
     local givenUnits = {}
     local data = platoon.PlatoonData
 
-	for _, unit in platoon:GetPlatoonUnits() do
-        while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+    for _, unit in platoon:GetPlatoonUnits() do
+        while (not unit.Dead and unit:IsUnitState('Attached')) do
             WaitSeconds(1)
         end
         local tempUnit
-        if ScenarioInfo.HumanPlayers['Player2'] then
-            tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player2')
-        else
+        if ScenarioInfo.UseOrderAI then
             tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player1')
+        else
+            tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player2')
         end
         table.insert(givenUnits, tempUnit)
     end
@@ -147,42 +143,36 @@ function MoveAndGivePlatoonToPlayer(platoon)
     local givenUnits = {}
     local data = platoon.PlatoonData
 
-    if(data) then
-        if(data.MoveRoute or data.MoveChain) then
-            local movePositions = {}
-            if data.MoveChain then
-                movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
-            else
-                for k, v in data.MoveRoute do
-                    if type(v) == 'string' then
-                        table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
-                    else
-                        table.insert(movePositions, v)
-                    end
-                end
-            end
-            if(data.UseTransports) then
-                for k, v in movePositions do
-                    platoon:MoveToLocation(v, data.UseTransports)
-                end
-            else
-                for k, v in movePositions do
-                    platoon:MoveToLocation(v, false)
-                end
-            end
-        else
-            error('*SCENARIO PLATOON AI ERROR: MoveToRoute or MoveChain not defined', 2)
-        end
+    if not data then
+        error('*MoveAndGivePlatoonToPlayer: PlatoonData not defined', 2)
+    elseif not (data.MoveRoute or data.MoveChain) then
+        error('*MoveAndGivePlatoonToPlayer: MoveToRoute or MoveChain not defined', 2)
+    end
+
+    local movePositions = {}
+    if data.MoveChain then
+        movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
     else
-        error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)
+        for _, v in data.MoveRoute do
+            if type(v) == 'string' then
+                table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
+            else
+                table.insert(movePositions, v)
+            end
+        end
+    end
+
+    for _, v in movePositions do
+        platoon:MoveToLocation(v, false)
     end
 
     WaitSeconds(1)
 
     for _, unit in platoon:GetPlatoonUnits() do
-        while (not unit:IsDead() and unit:IsUnitState('Moving')) do
+        while (not unit.Dead and unit:IsUnitState('Moving')) do
             WaitSeconds(1)
         end
+
         local tempUnit = ScenarioFramework.GiveUnitToArmy(unit, 'Player1')
         table.insert(givenUnits, tempUnit)
     end
