@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Operation Tight Spot',
-    description = "Coallition scouting mission in the QAI's controlled teritory that went wrong. Fight the QAI's forces to survive and escape from the planet.",
+    description = "Coalition scouting mission in the QAI's controlled territory that went wrong. Fight the QAI's forces to survive and escape from the planet.",
     type = 'campaign_coop',
     starts = true,
     preview = '',
