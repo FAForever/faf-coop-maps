@@ -306,6 +306,8 @@ function SpawnPlayers()
         
         table.insert(ScenarioInfo.PlayerCDRs, ScenarioInfo['Player' .. i .. 'CDR'])
 
+        i = i + 1
+
         WaitSeconds(1.8)
     end
 end
