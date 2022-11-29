@@ -2161,7 +2161,7 @@ end
 ------------------
 -- Debug Functions
 ------------------
----[[
+--[[
 function OnCtrlF3()
     M3GameEnderSpiders()
 end
