@@ -669,6 +669,11 @@ function M1SnipePlayer()
         return
     end
 
+    -- Fail the objective to build the transport
+    if ScenarioInfo.M1P2.Active then
+        ScenarioInfo.M1P2:ManualResult(false)
+    end
+
     ScenarioFramework.Dialogue(OpStrings.M1ReinforcementsDestroyed, nil, true)
 
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'M1_ASFs', 'NoFormation', 5)
