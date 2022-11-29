@@ -846,6 +846,9 @@ function IntroMission2NISPart2()
         WaitSeconds(.2)
     end
 
+    -- If the player has a shield upgrade, disable it, so it doesn't deplete E storage
+    ScenarioInfo.Player1CDR:DisableShield()
+
     -- Kill the transport as soon as it drops the ACU
     ScenarioInfo.PlayerTransport.CanTakeDamage = true
     ScenarioInfo.PlayerTransport.CanBeKilled = true
