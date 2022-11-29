@@ -887,9 +887,12 @@ function IntroMission2NISPart2()
     Cinematics.CameraMoveToMarker('Cam_M2_Intro_4', 5)
 
     -- Attack the CZAR
-    units = ScenarioUtils.CreateArmyGroup('QAI', 'M2_NIS_ASFs_2')
-    IssueAttack(units, ScenarioInfo.CZAR)
-    ScenarioFramework.GroupPatrolChain(units, 'M2_Loyalist_Initial_Patrol_Chain')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M2_NIS_ASFs_2', 'NoFormation')
+    platoon:ForkThread(ScenarioPlatoonAI.PlatoonEnableStealth)
+    platoon:AttackTarget(ScenarioInfo.CZAR)
+    -- Try to clear any remaining Loyalist units and then move to patrol over NE base
+    ScenarioFramework.PlatoonAttackChain(platoon, 'M2_Loyalist_Initial_Patrol_Chain')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_NE_Air_Patrol_Chain')
 
     -- "QAI's air everywhere"
     ScenarioFramework.Dialogue(OpStrings.M2Intro5, nil, true)
