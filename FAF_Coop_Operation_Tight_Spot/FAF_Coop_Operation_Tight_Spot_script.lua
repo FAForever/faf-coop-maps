@@ -1977,8 +1977,6 @@ function QAIExperimentalAttack(platoon)
     local data = platoon.PlatoonData
 
     if not ScenarioInfo.M3CharisAttackLaunched then
-        ScenarioFramework.Dialogue(OpStrings.M3CharisAttackStart)
-
         -- If the player waits too long, start the attack anyway.
         M3SetNewTarget(ScenarioUtils.MarkerToPosition('M3_Loyalist_Forced_Attack_Target'), true)
     end
