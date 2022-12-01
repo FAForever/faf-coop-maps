@@ -1952,7 +1952,7 @@ function PlatoonTargetSpecificUnitWhenClose(platoon)
     local target = false
     while aiBrain:PlatoonExists(platoon) do
         if not target or target.Dead then
-            local unit = platoon:FindClosestUnit('Attack', 'Enemy', true, categories.EXPERIMENTAL)
+            local unit = platoon:FindClosestUnit('Attack', 'Enemy', true, categories.EXPERIMENTAL * categories.LAND)
             if unit and unit ~= target and VDist3(unit:GetPosition(), platoon:GetPlatoonPosition()) < 50 then
                 target = unit
                 platoon:Stop()
