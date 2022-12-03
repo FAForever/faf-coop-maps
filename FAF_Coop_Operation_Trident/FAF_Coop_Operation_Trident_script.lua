@@ -696,6 +696,10 @@ function M1SendCitySupport()
 end
 
 function M1LaunchAeonAttack()
+    if not ScenarioInfo.M1P1.Active then
+        return
+    end
+
     -- Notify the player that the impendent  doom is coming
     ScenarioFramework.Dialogue(OpStrings.M1AeonFinalAttack, nil, true)
 
