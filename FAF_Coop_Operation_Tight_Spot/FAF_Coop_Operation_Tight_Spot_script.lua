@@ -1209,7 +1209,6 @@ function IntroMission3()
         ScenarioUtils.CreateArmyGroup('QAI', 'M3_Walls')
 
         -- Patrols
-        local platoon
 
         -- Main base
         -- Air
@@ -1260,6 +1259,12 @@ function IntroMission3()
         for _, pos in ScenarioUtils.ChainToPositions('M3_QAI_Plateau_Static_Patrol_Chain') do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Plateau_Static_Patrol', 'GrowthFormation')
             platoon:AggressiveMoveToLocation(pos)
+        end
+
+        -- Gunships
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Plateau_Gunship_Patrol', 'NoFormation')
+        for _, unit in platoon:GetPlatoonUnits() do
+            ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Plateau_Air_Patrol_Chain')))
         end
 
         -- NIS units
@@ -1578,15 +1583,6 @@ function M3BuildGateReminder2()
 
         ScenarioFramework.CreateTimerTrigger(M3GameEnderSpiders, 10 * 60)
     end
-end
-
-function M3OffMapAttacks()
-    if ScenarioInfo.M3OffMapAttacksStarted then
-        return
-    end
-    ScenarioInfo.M3OffMapAttacksStarted = true
-
-
 end
 
 function M3CheckGates()
