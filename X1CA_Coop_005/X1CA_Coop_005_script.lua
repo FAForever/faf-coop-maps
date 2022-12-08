@@ -112,7 +112,6 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
-    -- TODO: recheck these numbers, probably too high
     ScenarioFramework.SetSharedUnitCap(1000)
     SetArmyUnitCap(Fletcher, 400)
     SetArmyUnitCap(Hex5, 800)
