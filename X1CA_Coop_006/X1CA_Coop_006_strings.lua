@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X06>Operation: Overlord'
+OPERATION_DESCRIPTION = '<LOC X1CA_006_description>Using Gate codes recovered from the remains of QAI, Coalition forces can now gate directly to Earth, where the Seraphim are constructing a Quantum Arch. Once complete, the Arch will let the Seraphim summon untold reinforcements. The Arch must be destroyed, no matter the cost.'
 
 
 
@@ -26,15 +27,24 @@ OPERATION_NAME = '<LOC OPNAME_X06>Operation: Overlord'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X06_B01_000_010>10-August-3847'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_010>Gotta keep this one short and sweet, Commander. The Seraphim are rushing to complete their Arch, and we need to prevent that from happening. With QAI destroyed and the Order descending into anarchy, this is the time to strike.'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_020>The mission is simple: You will go to Earth and destroy the Arch. Fletcher and Rhiza will gate in first and clear the area around your LZ. Once you\'re on the ground, build up your forces and attack.'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_030>The destruction of the Arch does not mean the end of the Seraphim threat, however. The Rift still must be sealed. Once the Arch is destroyed, I will travel to Earth and enter the Rift. Once inside, I shall close it forever.'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_045>There\'s no reason for you to do that, Princess Burke. We\'ve got techs working on a solution. They just need a little more time.'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_060>We have no way of knowing what is happening on the Seraphim side of the Rift. What if they are constructing an Arch on that side as well? We cannot take that chance. We are out of time.'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_070>Look what happened when you came out of hiding. What do you think is going to happen if you die? Things will go from bad to worse.'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_080>The Seraphim represent our greatest threat. Without them, Kael is nothing. She is easily defeated. But the Seraphim are a danger as long as the Rift remains. It must be closed.'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_090>Commander, you have your orders. You gate immediately.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X06_B01_000_010>10-August-3847'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_010>Gotta keep this one short and sweet, Commander. The Seraphim are rushing to complete their Arch, and we need to prevent that from happening. With QAI destroyed and the Order descending into anarchy, this is the time to strike.'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_020>The mission is simple: You will go to Earth and destroy the Arch. Fletcher and Rhiza will gate in first and clear the area around your LZ. Once you\'re on the ground, build up your forces and attack.'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_030>The destruction of the Arch does not mean the end of the Seraphim threat, however. The Rift still must be sealed. Once the Arch is destroyed, I will travel to Earth and enter the Rift. Once inside, I shall close it forever.'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_045>There\'s no reason for you to do that, Princess Burke. We\'ve got techs working on a solution. They just need a little more time.'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_060>We have no way of knowing what is happening on the Seraphim side of the Rift. What if they are constructing an Arch on that side as well? We cannot take that chance. We are out of time.'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_070>Look what happened when you came out of hiding. What do you think is going to happen if you die? Things will go from bad to worse.'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X06_B01_001_080>The Seraphim represent our greatest threat. Without them, Kael is nothing. She is easily defeated. But the Seraphim are a danger as long as the Rift remains. It must be closed.'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X06_B01_001_090>Commander, you have your orders. You gate immediately.'},
+  },
+  movies = {'X06.sfd'},
+  voice = {
+    {Cue = 'X06_B01', Bank = 'Briefings'},
+  },
+  bgsound = {
+    {Cue = 'X06_B01', Bank = 'Op_Briefing'},
+  },
 }
 
 --------------------------------

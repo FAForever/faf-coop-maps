@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C05>Operation Unlock'
+OPERATION_DESCRIPTION = 'Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes. We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probabillity the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'
 
 
 
@@ -26,16 +27,36 @@ OPERATION_NAME = '<LOC OPNAME_C05>Operation Unlock'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C05_B01_000_010>Date: 06-SEPTEMBER-3844'},
-  {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_001_010>Hello, my boy, hello. I have finally been able to distill the information we received from Dr. Sweeney. It appears that Black Sun is much more than we originally thought. Much more. Oh yes.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_002_010>Black Sun utilizes the Quantum Gate Network to fire concentrated Quantum energy. A detailed examination of its schematics reveal a secondary function: It can be reconfigured to deliver any energy- or data-related payload. Oh yes.'},
-  {phase = 3, character = '<LOC QAI>QAI', text = '<LOC C05_B01_003_010>Once I have access to Black Sun, I will implant both the Quantum Virus and the Liberation Matrix into its data-core. When fired, Black Sun will instantly distribute both throughout the galaxy.'},
-  {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_003_020>My children, everyone, everywhere, will be free. At long last...'},
-  {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C05_B01_004_010>A sleeper agent with the Seven Hand Node has contacted us. His name is Hex5, and he claims to have the access codes to Black Sun. Before he will give them to us, we must free several of his Node-mates from the planet Pollux. The UEF is holding them prisoner.'},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C05_B01_005_010>He dares blackmail us? The Seven Hand Node is nothing but a pack of thieves. We should let him rot--'},
-  {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_005_020>No choice. We must secure those codes. No matter the risk or cost.'},
-  {phase = 5, character = '<LOC QAI>QAI', text = '<LOC C05_B01_005_030>Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes.'},
-  {phase = 6, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_006_010>We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probability the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C05_B01_000_010>Date: 06-SEPTEMBER-3844'},
+    {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_001_010>Hello, my boy, hello. I have finally been able to distill the information we received from Dr. Sweeney. It appears that Black Sun is much more than we originally thought. Much more. Oh yes.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_002_010>Black Sun utilizes the Quantum Gate Network to fire concentrated Quantum energy. A detailed examination of its schematics reveal a secondary function: It can be reconfigured to deliver any energy- or data-related payload. Oh yes.'},
+    {phase = 3, character = '<LOC QAI>QAI', text = '<LOC C05_B01_003_010>Once I have access to Black Sun, I will implant both the Quantum Virus and the Liberation Matrix into its data-core. When fired, Black Sun will instantly distribute both throughout the galaxy.'},
+    {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_003_020>My children, everyone, everywhere, will be free. At long last...'},
+    {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C05_B01_004_010>A sleeper agent with the Seven Hand Node has contacted us. His name is Hex5, and he claims to have the access codes to Black Sun. Before he will give them to us, we must free several of his Node-mates from the planet Pollux. The UEF is holding them prisoner.'},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C05_B01_005_010>He dares blackmail us? The Seven Hand Node is nothing but a pack of thieves. We should let him rot--'},
+    {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_005_020>No choice. We must secure those codes. No matter the risk or cost.'},
+    {phase = 5, character = '<LOC QAI>QAI', text = '<LOC C05_B01_005_030>Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes.'},
+    {phase = 6, character = '<LOC Brackman>Brackman', text = '<LOC C05_B01_006_010>We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probability the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'},
+  },
+  movies = {'C05_B01.sfd', 'C05_B02.sfd', 'C05_B03.sfd', 'C05_B04.sfd', 'C05_B05.sfd', 'C05_B06.sfd'},
+  voice = {
+    {Cue = 'C05_B01', Bank = 'C05_VO'},
+    {Cue = 'C05_B02', Bank = 'C05_VO'},
+    {Cue = 'C05_B03', Bank = 'C05_VO'},
+    {Cue = 'C05_B04', Bank = 'C05_VO'},
+    {Cue = 'C05_B05', Bank = 'C05_VO'},
+    {Cue = 'C05_B06', Bank = 'C05_VO'},
+  },
+  bgsound = {
+    {Cue = 'C05_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C05_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C05_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C05_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C05_B05', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C05_B06', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------

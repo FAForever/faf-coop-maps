@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A03>Operation High Tide'
+OPERATION_DESCRIPTION = 'Ten days ago we launched an offensive against UEF forces positioned on Matar.\nDespite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable.\nYou will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest.'
 
 
 
@@ -26,12 +27,26 @@ OPERATION_NAME = '<LOC OPNAME_A03>Operation High Tide'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A03_B01_000_010>Date: 23-AUGUST-3844'},
-  {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_001_010>You have performed well thus far, Knight, but your trials are far from over. Ten days ago we launched an offensive against UEF forces positioned on Matar.'},
-  {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_002_010>Despite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable. You will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest. '},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_003_010>I assume that the Princess has no objection with this strategy, Toth?'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A03_B01_003_020>No. She objects to the wholesale slaughter of innocent civilians.'},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_003_030>No one is innocent in this war, Toth. Everyone has blood on their hands. You have your orders, Knight. Carry them out.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A03_B01_000_010>Date: 23-AUGUST-3844'},
+    {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_001_010>You have performed well thus far, Knight, but your trials are far from over. Ten days ago we launched an offensive against UEF forces positioned on Matar.'},
+    {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_002_010>Despite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable. You will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest. '},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_003_010>I assume that the Princess has no objection with this strategy, Toth?'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A03_B01_003_020>No. She objects to the wholesale slaughter of innocent civilians.'},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A03_B01_003_030>No one is innocent in this war, Toth. Everyone has blood on their hands. You have your orders, Knight. Carry them out.'},
+  },
+  movies = {'A03_B01.sfd', 'A03_B02.sfd', 'A03_B03.sfd'},
+  voice = {
+    {Cue = 'A03_B01', Bank = 'A03_VO'},
+    {Cue = 'A03_B02', Bank = 'A03_VO'},
+    {Cue = 'A03_B03', Bank = 'A03_VO'},
+  },
+  bgsound = {
+    {Cue = 'A03_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A03_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A03_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
 }
 
 --------------------------------

@@ -13,9 +13,10 @@ local OpStrings = import('/maps/SCCA_Coop_R05/SCCA_Coop_R05_strings.lua')
 operationData = 
 {
     key = 'SCCA_Coop_R05',
-    long_name = OpStrings.OPERATION_NAME,
     feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13908',
-    opBriefingText = OpStrings.BriefingData,
+    opName = OpStrings.OPERATION_NAME,
+    opDesctiption = OpStrings.OPERATION_DESCRIPTION,
+    opBriefing = OpStrings.BriefingData,
     opDebriefingSuccess = OpStrings.R05_DB01_010,
     opDebriefingFailure = OpStrings.R05_DB01_020,
 }

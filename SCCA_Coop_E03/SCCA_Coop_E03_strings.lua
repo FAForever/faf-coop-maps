@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E03>Operation Metal Shark'
+OPERATION_DESCRIPTION = 'We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.\nColonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here.'
 
 
 
@@ -26,12 +27,28 @@ OPERATION_NAME = '<LOC OPNAME_E03>Operation Metal Shark'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E03_B01_000_010>Date: 25-AUGUST-3844'},
-  {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_001_010>Excellent work, Lieutenant. Because of the skill you displayed on Luthien and Colonel Arnold\'s recommendation, you are hereby promoted to Captain. Congratulations.'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_002_010>We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_003_010>Colonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here. '},
-  {phase = 4, character = '<LOC Arnold>Arnold', text = '<LOC E03_B01_004_010>Did they fix the blasted Gates? '},
-  {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_004_020>Our techs say that the Gates are functioning properly. Time is short, so I expect Matar to be liberated in a matter of hours. Be ready to gate at 17:30. Dismissed.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E03_B01_000_010>Date: 25-AUGUST-3844'},
+    {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_001_010>Excellent work, Lieutenant. Because of the skill you displayed on Luthien and Colonel Arnold\'s recommendation, you are hereby promoted to Captain. Congratulations.'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_002_010>We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_003_010>Colonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here. '},
+    {phase = 4, character = '<LOC Arnold>Arnold', text = '<LOC E03_B01_004_010>Did they fix the blasted Gates? '},
+    {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E03_B01_004_020>Our techs say that the Gates are functioning properly. Time is short, so I expect Matar to be liberated in a matter of hours. Be ready to gate at 17:30. Dismissed.'},
+  },
+  movies = {'E03_B01.sfd', 'E03_B02.sfd', 'E03_B03.sfd', 'E03_B04.sfd',},
+  voice = {
+    {Cue = 'E03_B01', Bank = 'E03_VO'},
+    {Cue = 'E03_B02', Bank = 'E03_VO'},
+    {Cue = 'E03_B03', Bank = 'E03_VO'},
+    {Cue = 'E03_B04', Bank = 'E03_VO'},
+  },
+  bgsound = {
+    {Cue = 'E03_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E03_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E03_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E03_B04', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
 }
 
 --------------------------------

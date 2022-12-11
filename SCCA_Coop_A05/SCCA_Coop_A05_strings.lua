@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A05>Operation Shining Star'
+OPERATION_DESCRIPTION = '<LOC A05_B01_003_010>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.'
 
 
 
@@ -26,14 +27,32 @@ OPERATION_NAME = '<LOC OPNAME_A05>Operation Shining Star'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A05_B01_000_010>DATE: 09-SEPTEMBER-3844'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC A05_B01_001_010>You performed well on Procyon, Champion, but there are more ill tidings. The Cybrans are preparing to deploy a Quantum Virus via Black Sun. The Virus will destroy the Gate Network. '},
-  {phase = 2, character = '<LOC Princess>Princess', text = '<LOC A05_B01_002_005>Marxon learned of the Cybran super weapon through one of his agents and immediately launched an all-out assault against the UEF. Avatar Marxon has lost all reason. '},
-  {phase = 2, character = '<LOC Toth>Toth', text = '<LOC A05_B01_002_007>Marxon is not enlightening. He has abandoned The Way and has ordered his Commanders to slaughter everyone, military and civilian alike. Marxon\'s strength lies in the Commanders that follow him, but we believe that many will abandon him if given the opportunity.  '},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A05_B01_003_010>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders. You will go to Eridani and press the Princesses\' case. All who refuse you must be silenced.'},
-  {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A05_B01_003_020>Rhiza, despite her flaws, is a firm believer in The Way and is well respected in the military. If she abandons the Avatar, many others will follow. Ariel is an enigma. I do not know her mind.'},
-  {phase = 4, character = '<LOC Princess>Princess', text = '<LOC A05_B01_004_010>One last word, my Champion. The \"otherness\" I sensed on Procyon is an AI that was created by the Cybrans. The AI uses the Quantum Gate Network as part of its consciousness. It is the reason my visions have been cloudy. News of the Cybran\'s plan has given me an idea: Could I also use Black Sun to move my consciousness into the Quantum Realm? I would use Black Sun\'s power to connect with every human in the galaxy. And end the Infinite War.'},
-  {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A05_B01_005_019>We now believe that our ancestors were wrong to start this conflict. The original teachings of the Seraphim have been corrupted, and The Way is now little more than a weapon. The Princess will correct this. I began the process by ensuring her placement on the throne, and now you will be her sword. Go forth and show Marxon how a true believer in The Way fights.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A05_B01_000_010>DATE: 09-SEPTEMBER-3844'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC A05_B01_001_010>You performed well on Procyon, Champion, but there are more ill tidings. The Cybrans are preparing to deploy a Quantum Virus via Black Sun. The Virus will destroy the Gate Network. '},
+    {phase = 2, character = '<LOC Princess>Princess', text = '<LOC A05_B01_002_005>Marxon learned of the Cybran super weapon through one of his agents and immediately launched an all-out assault against the UEF. Avatar Marxon has lost all reason. '},
+    {phase = 2, character = '<LOC Toth>Toth', text = '<LOC A05_B01_002_007>Marxon is not enlightening. He has abandoned The Way and has ordered his Commanders to slaughter everyone, military and civilian alike. Marxon\'s strength lies in the Commanders that follow him, but we believe that many will abandon him if given the opportunity.  '},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A05_B01_003_010>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders. You will go to Eridani and press the Princesses\' case. All who refuse you must be silenced.'},
+    {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A05_B01_003_020>Rhiza, despite her flaws, is a firm believer in The Way and is well respected in the military. If she abandons the Avatar, many others will follow. Ariel is an enigma. I do not know her mind.'},
+    {phase = 4, character = '<LOC Princess>Princess', text = '<LOC A05_B01_004_010>One last word, my Champion. The \"otherness\" I sensed on Procyon is an AI that was created by the Cybrans. The AI uses the Quantum Gate Network as part of its consciousness. It is the reason my visions have been cloudy. News of the Cybran\'s plan has given me an idea: Could I also use Black Sun to move my consciousness into the Quantum Realm? I would use Black Sun\'s power to connect with every human in the galaxy. And end the Infinite War.'},
+    {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A05_B01_005_019>We now believe that our ancestors were wrong to start this conflict. The original teachings of the Seraphim have been corrupted, and The Way is now little more than a weapon. The Princess will correct this. I began the process by ensuring her placement on the throne, and now you will be her sword. Go forth and show Marxon how a true believer in The Way fights.'},
+  },
+  movies = {'A05_B01.sfd', 'A05_B02.sfd', 'A05_B03.sfd', 'A05_B04.sfd', 'A05_B05.sfd'},
+  voice = {
+    {Cue = 'A05_B01', Bank = 'A05_VO'},
+    {Cue = 'A05_B02', Bank = 'A05_VO'},
+    {Cue = 'A05_B03', Bank = 'A05_VO'},
+    {Cue = 'A05_B04', Bank = 'A05_VO'},
+    {Cue = 'A05_B05', Bank = 'A05_VO'},
+  },
+  bgsound = {
+    {Cue = 'A05_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A05_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A05_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A05_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A05_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
 }
 
 --------------------------------

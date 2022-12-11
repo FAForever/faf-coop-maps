@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X05>Operation: Mind Games'
+OPERATION_DESCRIPTION = '<LOC X1CA_005_description>Because of the events on Hades, QAI must be destroyed once and for all. Using intelligence acquired from the Seven Hand Node, the Coalition has learned that QAI\'s mainframe is on the planet Pearl II. Your mission is to establish a foothold on Pearl II, thus clearing the way for Dr. Brackman, who will arrive and personally shut down QAI.'
 
 
 
@@ -26,15 +27,24 @@ OPERATION_NAME = '<LOC OPNAME_X05>Operation: Mind Games'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X05_B01_000_010>09-August-3847'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X05_B01_001_010>The Quantum Rift the Seraphim used to initially cross into our galaxy is unstable, which has prevented them from summoning reinforcements. We have learned, however, that they are constructing a Quantum Arch in an effort to stabilize the Rift. When the Arch is completed, the Seraphim will be able to call forth untold numbers of reinforcements.'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X05_B01_001_020>We cannot allow that to happen.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_010>We have initiated raids against the Seven Hand Node, seizing any intelligence that might be useful. Oh yes. In one of those raids, we learned that QAI\'s primary mainframe is on Pearl II.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_020>QAI must be destroyed, my child, must be destroyed. I will accompany you to Pearl II and personally shut it down. Oh yes. We shall then use its Gate codes to gate directly to Earth, bypassing the other systems.'},
-  {phase = 2, character = '<LOC Princess>Princess', text = '<LOC X05_B01_002_030>This is our only chance to destroy the Arch before it is operational. If we are unable to get those codes, we have no hope of reaching Earth. The surrounding systems are simply too heavily defended.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_040>QAI is an abomination. I was wrong to have ever constructed it. So wrong. Oh yes. Too many mistakes that must be overcome. But this is one I can correct. One I will correct. No matter the cost.'},
-  {phase = 2, character = '<LOC Princess>Princess', text = '<LOC X05_B01_002_050>Commander, you will gate in and establish a beachhead. Once the area is secure, Brigadier Fletcher will join you, followed by Dr. Brackman.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_060>I will see you soon, my child. See you soon.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X05_B01_000_010>09-August-3847'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X05_B01_001_010>The Quantum Rift the Seraphim used to initially cross into our galaxy is unstable, which has prevented them from summoning reinforcements. We have learned, however, that they are constructing a Quantum Arch in an effort to stabilize the Rift. When the Arch is completed, the Seraphim will be able to call forth untold numbers of reinforcements.'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC X05_B01_001_020>We cannot allow that to happen.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_010>We have initiated raids against the Seven Hand Node, seizing any intelligence that might be useful. Oh yes. In one of those raids, we learned that QAI\'s primary mainframe is on Pearl II.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_020>QAI must be destroyed, my child, must be destroyed. I will accompany you to Pearl II and personally shut it down. Oh yes. We shall then use its Gate codes to gate directly to Earth, bypassing the other systems.'},
+    {phase = 2, character = '<LOC Princess>Princess', text = '<LOC X05_B01_002_030>This is our only chance to destroy the Arch before it is operational. If we are unable to get those codes, we have no hope of reaching Earth. The surrounding systems are simply too heavily defended.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_040>QAI is an abomination. I was wrong to have ever constructed it. So wrong. Oh yes. Too many mistakes that must be overcome. But this is one I can correct. One I will correct. No matter the cost.'},
+    {phase = 2, character = '<LOC Princess>Princess', text = '<LOC X05_B01_002_050>Commander, you will gate in and establish a beachhead. Once the area is secure, Brigadier Fletcher will join you, followed by Dr. Brackman.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X05_B01_002_060>I will see you soon, my child. See you soon.'},
+  },
+  movies = {'X05.sfd'},
+  voice = {
+    {Cue = 'X05_B01', Bank = 'Briefings'},
+  },
+  bgsound = {
+    {Cue = 'X05_B01', Bank = 'Op_Briefing'},
+  },
 }
 
 --------------------------------

@@ -4,7 +4,9 @@ operationData =
 {
     key = 'X1CA_Coop_006',
     feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13915',
-    opBriefingText = OpStrings.BriefingData,
+    opName = OpStrings.OPERATION_NAME,
+    opDesctiption = OpStrings.OPERATION_DESCRIPTION,
+    opBriefing = OpStrings.BriefingData,
     opMovies = {
         postOpMovies = {
             factionDependant = true,

@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C03>Operation Defrag'
+OPERATION_DESCRIPTION = 'The Aeon will defeat the UEF within 22 days. Secondary calculations show there is a 54.229 percent chance the UEF will fire Black Sun before they fall to the Aeon. Either outcome signals the end of the Cybran Nation.\nTime is against us. Perhaps Dr. Sweeney will be able to offer us some guidance. No doubt that the UEF misses one of its top scientists, but he\'s our guest now.'
 
 
 
@@ -26,15 +27,31 @@ OPERATION_NAME = '<LOC OPNAME_C03>Operation Defrag'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C03_B01_000_010>Date: 27-AUGUST-3844'},
-  {phase = 1, character = '<LOC QAI>QAI', text = '<LOC C03_B01_001_010>Full integration of the Seraphim Technology is complete. My operational systems are now 84.593 percent more efficient.'},
-  {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_001_020>Outstanding! And the Virus?'},
-  {phase = 1, character = '<LOC QAI>QAI', text = '<LOC C03_B01_001_030>It stands at 90 percent completion. The delivery system for both the Virus and the Liberation Matrix remains problematic. I require 61 days to fully seed the Quantum Gate Network. '},
-  {phase = 2, character = '<LOC QAI>QAI', text = '<LOC C03_B01_002_010>The Aeon will defeat the UEF within 22 days. Secondary calculations show there is a 54.229 percent chance the UEF will fire Black Sun before they fall to the Aeon. Either outcome signals the end of the Cybran Nation.'},
-  {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_003_010>Time is against us. Perhaps Dr. Sweeney will be able to offer us some guidance. No doubt that the UEF misses one of its top scientists, but he\'s our guest now. Oh yes. Ah, Commander. A pity about Mach. He was such a good boy. So full of promise.'},
-  {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C03_B01_004_010>Alert: Detecting UEF power signatures entering our orbit. They are landing. I am routing an urgent message to Elite Commander Dostya. '},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C03_B01_004_020>What? The UEF located our base on Minerva? Impossible! I am on my way, Dr. Brackman.'},
-  {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_004_030>No time, no time. My boy is only one Gate from us. I must escape from Minerva. Tip of the spear.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C03_B01_000_010>Date: 27-AUGUST-3844'},
+    {phase = 1, character = '<LOC QAI>QAI', text = '<LOC C03_B01_001_010>Full integration of the Seraphim Technology is complete. My operational systems are now 84.593 percent more efficient.'},
+    {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_001_020>Outstanding! And the Virus?'},
+    {phase = 1, character = '<LOC QAI>QAI', text = '<LOC C03_B01_001_030>It stands at 90 percent completion. The delivery system for both the Virus and the Liberation Matrix remains problematic. I require 61 days to fully seed the Quantum Gate Network. '},
+    {phase = 2, character = '<LOC QAI>QAI', text = '<LOC C03_B01_002_010>The Aeon will defeat the UEF within 22 days. Secondary calculations show there is a 54.229 percent chance the UEF will fire Black Sun before they fall to the Aeon. Either outcome signals the end of the Cybran Nation.'},
+    {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_003_010>Time is against us. Perhaps Dr. Sweeney will be able to offer us some guidance. No doubt that the UEF misses one of its top scientists, but he\'s our guest now. Oh yes. Ah, Commander. A pity about Mach. He was such a good boy. So full of promise.'},
+    {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C03_B01_004_010>Alert: Detecting UEF power signatures entering our orbit. They are landing. I am routing an urgent message to Elite Commander Dostya. '},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C03_B01_004_020>What? The UEF located our base on Minerva? Impossible! I am on my way, Dr. Brackman.'},
+    {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C03_B01_004_030>No time, no time. My boy is only one Gate from us. I must escape from Minerva. Tip of the spear.'},
+  },
+  movies = {'C03_B01.sfd', 'C03_B02.sfd', 'C03_B03.sfd', 'C03_B04.sfd'},
+  voice = {
+    {Cue = 'C03_B01', Bank = 'C03_VO'},
+    {Cue = 'C03_B02', Bank = 'C03_VO'},
+    {Cue = 'C03_B03', Bank = 'C03_VO'},
+    {Cue = 'C03_B04', Bank = 'C03_VO'},
+  },
+  bgsound = {
+    {Cue = 'C03_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C03_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C03_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C03_B04', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------
