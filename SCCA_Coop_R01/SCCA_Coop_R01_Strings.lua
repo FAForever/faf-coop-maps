@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C01>Operation Liberation'
+OPERATION_DESCRIPTION = 'All of the Symbionts on Theban 2 have been enslaved by the UEF\'s loyalty programming. We have initiated a wideband broadcast of the Symbiont Liberation Matrix; by the time we arrive, our brothers and sisters will be free and ready to evacuate.\nUnfortunately, the Aeon have also set their sights on Theban 2 and have launched an offensive against local UEF forces. Defeat the Aeon and UEF armies in your sector in order to free the Symbionts. I will engage the primary UEF commander.'
 
 
 
@@ -26,16 +27,34 @@ OPERATION_NAME = '<LOC OPNAME_C01>Operation Liberation'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C01_B01_000_010>Date: 06-AUGUST-3844'},
-  {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_001_010>I am Elite Commander Dostya, Dr. Brackman\'s personal military attaché. This will be your first live operation.\n'},
-  {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_002_010>You will accompany me to Theban 2. There is a large Symbiont population there, and your objective is to liberate a small colony in sector M13. '},
-  {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_003_005>All of the Symbionts on Theban 2 have been enslaved by the UEF\'s loyalty programming. We have initiated a wideband broadcast of the Symbiont Liberation Matrix; by the time we arrive, our brothers and sisters will be free and ready to evacuate.\n'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_004_010>Unfortunately, the Aeon have also set their sights on Theban 2 and have launched an offensive against local UEF forces. Defeat the Aeon and UEF armies in your sector in order to free the Symbionts. I will engage the primary UEF commander.'},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_010>Follow my orders to the letter if you want to come out of this alive.'},
-  {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C01_B01_005_020>Wanted to pass along some advice to our new Commander.'},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_030>Dr. Brackman, this is quite an honor.'},
-  {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C01_B01_005_040>Remember what I said: Tip of the spear. And listen to Dostya. She has a flawless record. That is all. '},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_050>Do not judge the Doctor, Commander. He is a great man, a genius. He just thinks a little sideways. We gate in 30. Dostya out.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C01_B01_000_010>Date: 06-AUGUST-3844'},
+    {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_001_010>I am Elite Commander Dostya, Dr. Brackman\'s personal military attaché. This will be your first live operation.\n'},
+    {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_002_010>You will accompany me to Theban 2. There is a large Symbiont population there, and your objective is to liberate a small colony in sector M13. '},
+    {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_003_005>All of the Symbionts on Theban 2 have been enslaved by the UEF\'s loyalty programming. We have initiated a wideband broadcast of the Symbiont Liberation Matrix; by the time we arrive, our brothers and sisters will be free and ready to evacuate.\n'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_004_010>Unfortunately, the Aeon have also set their sights on Theban 2 and have launched an offensive against local UEF forces. Defeat the Aeon and UEF armies in your sector in order to free the Symbionts. I will engage the primary UEF commander.'},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_010>Follow my orders to the letter if you want to come out of this alive.'},
+    {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C01_B01_005_020>Wanted to pass along some advice to our new Commander.'},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_030>Dr. Brackman, this is quite an honor.'},
+    {phase = 5, character = '<LOC Brackman>Brackman', text = '<LOC C01_B01_005_040>Remember what I said: Tip of the spear. And listen to Dostya. She has a flawless record. That is all. '},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C01_B01_005_050>Do not judge the Doctor, Commander. He is a great man, a genius. He just thinks a little sideways. We gate in 30. Dostya out.'},
+  },
+  movies = {'C01_B01.sfd', 'C01_B02.sfd', 'C01_B03.sfd', 'C01_B04.sfd', 'C01_B05.sfd'},
+  voice = {
+    {Cue = 'C01_B01', Bank = 'C01_VO'},
+    {Cue = 'C01_B02', Bank = 'C01_VO'},
+    {Cue = 'C01_B03', Bank = 'C01_VO'},
+    {Cue = 'C01_B04', Bank = 'C01_VO'},
+    {Cue = 'C01_B05', Bank = 'C01_VO'},
+  },
+  bgsound = {
+    {Cue = 'C01_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C01_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C01_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C01_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C01_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------

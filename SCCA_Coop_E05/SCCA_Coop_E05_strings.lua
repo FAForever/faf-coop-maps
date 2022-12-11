@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E05>Operation Forge'
+OPERATION_DESCRIPTION = 'The Aeon are bypassing our defensive lines and the Cybran virus is wreaking havoc with our Quantum Gates. The data you retrieved on Minerva wasn\'t enough; our techs won\'t be able to isolate and neutralize the virus in time.\nOur only option is to deploy Project: Black Sun before the Cybrans manage to infect the entire Gate Network. Black Sun uses the Quantum Gates to magnify and deliver a shockwave to any location in the galaxy. Black Sun can destroy any planet.\nhe final Black Sun components are being readied on Pisces IV. You are to ensure that those components reach Earth. The Pisces Gate has been isolated from the Network and the techs assure me that it\'ll work.'
 
 
 
@@ -26,13 +27,31 @@ OPERATION_NAME = '<LOC OPNAME_E05>Operation Forge'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E05_B01_000_010>Date: 30-AUGUST-3844'},
-  {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E05_B01_001_010>The end is drawing near, Captain. We stand on the verge of losing everything the UEF has fought for: unity, order and the preservation of our way of life. If we fail, the galaxy will fall into the hands of madmen and terrorists. We cannot allow that to happen. General?'},
-  {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_001_020>The Aeon are bypassing our defensive lines and the Cybran virus is wreaking havoc with our Quantum Gates. The data you retrieved on Minerva wasn\'t enough; our techs won\'t be able to isolate and neutralize the virus in time.'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_002_010>We\'ve already lost the Eridani, Pollux and Seton systems. Over two dozen full-scale battles are raging against the Aeon, and Symbiont sleeper cells are rioting in almost every city. Every Commander we can commit is trying to hold the line and frankly, it\'s not enough. We\'re losing.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_003_010>Our only option is to deploy Project: Black Sun before the Cybrans manage to infect the entire Gate Network. Black Sun uses the Quantum Gates to magnify and deliver a shockwave to any location in the galaxy. Black Sun can destroy any planet.'},
-  {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_004_010>The final Black Sun components are being readied on Pisces IV. You are to ensure that those components reach Earth. The Pisces Gate has been isolated from the Network and the techs assure me that it\'ll work.'},
-  {phase = 5, character = '<LOC Riley>Riley', text = '<LOC E05_B01_005_010>Without Black Sun, we have no chance of winning the Infinite War. Our only choice would be to deploy Option Zero. I pray that that never happens. Our fate rests in your hands.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E05_B01_000_010>Date: 30-AUGUST-3844'},
+    {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E05_B01_001_010>The end is drawing near, Captain. We stand on the verge of losing everything the UEF has fought for: unity, order and the preservation of our way of life. If we fail, the galaxy will fall into the hands of madmen and terrorists. We cannot allow that to happen. General?'},
+    {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_001_020>The Aeon are bypassing our defensive lines and the Cybran virus is wreaking havoc with our Quantum Gates. The data you retrieved on Minerva wasn\'t enough; our techs won\'t be able to isolate and neutralize the virus in time.'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_002_010>We\'ve already lost the Eridani, Pollux and Seton systems. Over two dozen full-scale battles are raging against the Aeon, and Symbiont sleeper cells are rioting in almost every city. Every Commander we can commit is trying to hold the line and frankly, it\'s not enough. We\'re losing.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_003_010>Our only option is to deploy Project: Black Sun before the Cybrans manage to infect the entire Gate Network. Black Sun uses the Quantum Gates to magnify and deliver a shockwave to any location in the galaxy. Black Sun can destroy any planet.'},
+    {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E05_B01_004_010>The final Black Sun components are being readied on Pisces IV. You are to ensure that those components reach Earth. The Pisces Gate has been isolated from the Network and the techs assure me that it\'ll work.'},
+    {phase = 5, character = '<LOC Riley>Riley', text = '<LOC E05_B01_005_010>Without Black Sun, we have no chance of winning the Infinite War. Our only choice would be to deploy Option Zero. I pray that that never happens. Our fate rests in your hands.'},
+  },
+  movies = {'E05_B01.sfd', 'E05_B02.sfd', 'E05_B03.sfd', 'E05_B04.sfd', 'E05_B05.sfd'},
+  voice = {
+    {Cue = 'E05_B01', Bank = 'E05_VO'},
+    {Cue = 'E05_B02', Bank = 'E05_VO'},
+    {Cue = 'E05_B03', Bank = 'E05_VO'},
+    {Cue = 'E05_B04', Bank = 'E05_VO'},
+    {Cue = 'E05_B05', Bank = 'E05_VO'},
+  },
+  bgsound = {
+    {Cue = 'E05_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E05_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E05_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E05_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E05_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
 }
 
 --------------------------------

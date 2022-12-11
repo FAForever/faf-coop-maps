@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E02>Operation Snow Blind'
+OPERATION_DESCRIPTION = 'While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.'
 
 
 
@@ -26,13 +27,29 @@ OPERATION_NAME = '<LOC OPNAME_E02>Operation Snow Blind'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E02_B01_000_010>Date: 16-AUGUST-3844'},
-  {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_001_010>While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_002_010>The strategic importance of Luthien cannot be overstated. The planet is rich in natural resources and home to a small Research and Development Facility that is doing work vital to the UEF; it must not fall to the Aeon.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_003_010>Colonel Arnold will oversee the OP. Lieutenant, you will support the Colonel. Questions?'},
-  {phase = 3, character = '<LOC Arnold>Arnold', text = '<LOC E02_B01_003_020>How much longer am I going to be holding this guy\'s hand? '},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_003_030>You have your orders, Colonel.'},
-  {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_004_010>A word of warning, Lieutenant. The Aeon are brain-washing monsters who have only one purpose, to spread their so-called \'Way.\' Do not listen to anything they say. Attack and kill them with extreme prejudice. You gate in 30.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E02_B01_000_010>Date: 16-AUGUST-3844'},
+    {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_001_010>While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_002_010>The strategic importance of Luthien cannot be overstated. The planet is rich in natural resources and home to a small Research and Development Facility that is doing work vital to the UEF; it must not fall to the Aeon.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_003_010>Colonel Arnold will oversee the OP. Lieutenant, you will support the Colonel. Questions?'},
+    {phase = 3, character = '<LOC Arnold>Arnold', text = '<LOC E02_B01_003_020>How much longer am I going to be holding this guy\'s hand? '},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_003_030>You have your orders, Colonel.'},
+    {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E02_B01_004_010>A word of warning, Lieutenant. The Aeon are brain-washing monsters who have only one purpose, to spread their so-called \'Way.\' Do not listen to anything they say. Attack and kill them with extreme prejudice. You gate in 30.'},
+  },
+  movies = {'E02_B01.sfd', 'E02_B02.sfd', 'E02_B03.sfd', 'E02_B04.sfd',},
+  voice = {
+    {Cue = 'E02_B01', Bank = 'E02_VO'},
+    {Cue = 'E02_B02', Bank = 'E02_VO'},
+    {Cue = 'E02_B03', Bank = 'E02_VO'},
+    {Cue = 'E02_B04', Bank = 'E02_VO'},
+  },
+  bgsound = {
+    {Cue = 'E02_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E02_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E02_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E02_B04', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
 }
 
 --------------------------------

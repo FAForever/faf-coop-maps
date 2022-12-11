@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E04>Operation Vaccine'
+OPERATION_DESCRIPTION = 'We have an emergency. Our techs have determined the Cybrans are behind the recent problems with our Gates.\nSomehow, they managed to hack into the Quantum Gate Network and install a virus.\nIt\'s spreading throughout the entire system, and the Cybrans could use it to shut down specific Gates. If that happens, they will have us cornered and isolated.\nIntel has managed to decrypt a number of virus-related transmissions, and they are originating from Minerva.'
 
 
 
@@ -26,12 +27,30 @@ OPERATION_NAME = '<LOC OPNAME_E04>Operation Vaccine'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E04_B01_000_010>Date: 27-AUGUST-3844'},
-  {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E04_B01_001_010>War rages across the galaxy as the UEF stands firm against the tyranny of the Aeon Illuminate and Cybran Nation. Let me assure you that we will never surrender, never cave to the crazed demands of our enemies. Colonel Zachary Arnold understood the threat we face. He understood that the only option is absolute...'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_002_010>I\'m sorry to interrupt, Captain, but we have an emergency. Our techs have determined the Cybrans are behind the recent problems with our Gates.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_003_010>Somehow, they managed to hack into the Quantum Gate Network and install a virus. It\'s spreading throughout the entire system, and the Cybrans could use it to shut down specific Gates. If that happens, they will have us cornered and isolated.'},
-  {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_004_010>Intel has managed to decrypt a number of virus-related transmissions, and they are originating from Minerva. Although it\'s deep in Cybran-controlled space, we managed to scan the planet. It\'s home to the largest Cybran colony that we have ever seen. Our sweep pinpointed an area with multiple Research Facilities; we suspect that those Facilities are responsible for the virus. You will gate in, collect information from the Facilities, and then get off-planet as quickly as possible. \n\n'},
-  {phase = 5, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_005_010>I will be blunt, Captain. This mission cannot fail. If we lose control of the Gates, the war is lost. You gate in one hour. Good luck.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E04_B01_000_010>Date: 27-AUGUST-3844'},
+    {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E04_B01_001_010>War rages across the galaxy as the UEF stands firm against the tyranny of the Aeon Illuminate and Cybran Nation. Let me assure you that we will never surrender, never cave to the crazed demands of our enemies. Colonel Zachary Arnold understood the threat we face. He understood that the only option is absolute...'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_002_010>I\'m sorry to interrupt, Captain, but we have an emergency. Our techs have determined the Cybrans are behind the recent problems with our Gates.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_003_010>Somehow, they managed to hack into the Quantum Gate Network and install a virus. It\'s spreading throughout the entire system, and the Cybrans could use it to shut down specific Gates. If that happens, they will have us cornered and isolated.'},
+    {phase = 4, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_004_010>Intel has managed to decrypt a number of virus-related transmissions, and they are originating from Minerva. Although it\'s deep in Cybran-controlled space, we managed to scan the planet. It\'s home to the largest Cybran colony that we have ever seen. Our sweep pinpointed an area with multiple Research Facilities; we suspect that those Facilities are responsible for the virus. You will gate in, collect information from the Facilities, and then get off-planet as quickly as possible. \n\n'},
+    {phase = 5, character = '<LOC Clarke>Clarke', text = '<LOC E04_B01_005_010>I will be blunt, Captain. This mission cannot fail. If we lose control of the Gates, the war is lost. You gate in one hour. Good luck.'},
+  },
+  movies = {'E04_B01.sfd', 'E04_B02.sfd', 'E04_B03.sfd', 'E04_B04.sfd', 'E04_B05.sfd'},
+  voice = {
+    {Cue = 'E04_B01', Bank = 'E04_VO'},
+    {Cue = 'E04_B02', Bank = 'E04_VO'},
+    {Cue = 'E04_B03', Bank = 'E04_VO'},
+    {Cue = 'E04_B04', Bank = 'E04_VO'},
+    {Cue = 'E04_B05', Bank = 'E04_VO'},
+  },
+  bgsound = {
+    {Cue = 'E04_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E04_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E04_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E04_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E04_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
 }
 
 --------------------------------

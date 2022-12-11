@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C06>Operation Freedom'
+OPERATION_DESCRIPTION = 'Your Mission is to seize control of Black Sun and upload QAI\'s data-core directly into it\'s Control Center. Firing the weapon will then release both the Quantum Virus and the Liberation Matrix. The Gates will shut down. Everyone, everywhere will be free. There will be peace.'
 
 
 
@@ -26,15 +27,31 @@ OPERATION_NAME = '<LOC OPNAME_C06>Operation Freedom'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C06_B01_000_010>Date: 14-SEPTEMBER-3844'},
-  {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_001_010>It is almost done. I have lived for over a thousand years...a long time. I have watched the war...seen so many die. It must end. We must be free. It\'s up to you, my boy.'},
-  {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_002_010>All of our sleeper cells on Earth have activated and are assaulting strategic UEF installations. This has allowed Jericho and his team to construct a base for you near Black Sun. They will assist in any way possible.'},
-  {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_003_010>Your mission is to seize control of Black Sun and upload QAI\'s data-core directly into its Control Center. Firing the weapon will then release both the Quantum Virus and the Liberation Matrix.'},
-  {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_003_020>The Gates will shut down. Everyone, everywhere, will be free. There will be peace.'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_004_010>You understand, Commander, this is a one-way trip. If you are successful, it will be at least five years before we can re-establish contact.'},
-  {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_004_020>He understands, oh yes. Earth will be yours, son. The Symbionts will follow you. A new beginning, a new life. Guide Earth. Make it great.'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_004_030>It is time. Do svidanya, Commander. It has been an honor.'},
-  {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_004_040>Be safe.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C06_B01_000_010>Date: 14-SEPTEMBER-3844'},
+    {phase = 1, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_001_010>It is almost done. I have lived for over a thousand years...a long time. I have watched the war...seen so many die. It must end. We must be free. It\'s up to you, my boy.'},
+    {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_002_010>All of our sleeper cells on Earth have activated and are assaulting strategic UEF installations. This has allowed Jericho and his team to construct a base for you near Black Sun. They will assist in any way possible.'},
+    {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_003_010>Your mission is to seize control of Black Sun and upload QAI\'s data-core directly into its Control Center. Firing the weapon will then release both the Quantum Virus and the Liberation Matrix.'},
+    {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_003_020>The Gates will shut down. Everyone, everywhere, will be free. There will be peace.'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_004_010>You understand, Commander, this is a one-way trip. If you are successful, it will be at least five years before we can re-establish contact.'},
+    {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_004_020>He understands, oh yes. Earth will be yours, son. The Symbionts will follow you. A new beginning, a new life. Guide Earth. Make it great.'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C06_B01_004_030>It is time. Do svidanya, Commander. It has been an honor.'},
+    {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C06_B01_004_040>Be safe.'},
+  },
+  movies = {'C06_B01.sfd', 'C06_B02.sfd', 'C06_B03.sfd', 'C06_B04.sfd',},
+  voice = {
+    {Cue = 'C06_B01', Bank = 'C06_VO'},
+    {Cue = 'C06_B02', Bank = 'C06_VO'},
+    {Cue = 'C06_B03', Bank = 'C06_VO'},
+    {Cue = 'C06_B04', Bank = 'C06_VO'},
+  },
+  bgsound = {
+    {Cue = 'C06_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C06_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C06_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C06_B04', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------

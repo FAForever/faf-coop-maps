@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C02>Operation Artifact'
+OPERATION_DESCRIPTION = 'I have a special mission for you. Oh yes. QAI needs to accelerate its development of the Quantum Virus. Must finish before Black Sun is deployed. QAI requires a specific piece of Seraphim technology, a Quantum Interface Device. Its...core is Seraphim tech. Amazing technology. Oh yes. The Seraphim were the precursors to the Aeon.'
 
 
 
@@ -26,12 +27,30 @@ OPERATION_NAME = '<LOC OPNAME_C02>Operation Artifact'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C02_B01_000_010>Date: 13-AUGUST-3844'},
-  {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_001_010>Jericho\'s sleeper cell was able to extract vital intelligence from the UEF. General Clarke is overseeing the production of a planet-killing weapon called Black Sun. This is an extremely grave situation. Time is against us.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC C02_B01_002_010>I have a special mission for you. Oh yes. QAI needs to accelerate its development of the Quantum Virus. Must finish before Black Sun is deployed. QAI requires a specific piece of Seraphim technology, a Quantum Interface Device. Its...core is Seraphim tech. Amazing technology. Oh yes. The Seraphim were the precursors to the Aeon. '},
-  {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_003_010>Orionis is an Aeon holy planet. You will gate into the middle of an Aeon Temple complex. There is no return Gate, so you will be accompanied by Mach of the Wired Tigers Node. He will play a key support role and construct a return Gate and collect the Tech.'},
-  {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C02_B01_004_010>A foolish people, the Aeon. They do not understand what they have. I have just a few...pieces of Seraphim technology. Have studied them for centuries. Oh yes. They are beautiful, marvelously crafted. But the Aeon, they put them on shelves. Pray to them.'},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_005_010>The Aeon on Orionis are absolute fanatics. They will attack you without mercy. Subdue them and secure as much of the Tech as you can. Mach will collect the Tech and prepare it for the return trip. Do not, under any circumstances, attempt to interface with the Tech. The two of you gate in 30. Good luck.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C02_B01_000_010>Date: 13-AUGUST-3844'},
+    {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_001_010>Jericho\'s sleeper cell was able to extract vital intelligence from the UEF. General Clarke is overseeing the production of a planet-killing weapon called Black Sun. This is an extremely grave situation. Time is against us.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC C02_B01_002_010>I have a special mission for you. Oh yes. QAI needs to accelerate its development of the Quantum Virus. Must finish before Black Sun is deployed. QAI requires a specific piece of Seraphim technology, a Quantum Interface Device. Its...core is Seraphim tech. Amazing technology. Oh yes. The Seraphim were the precursors to the Aeon. '},
+    {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_003_010>Orionis is an Aeon holy planet. You will gate into the middle of an Aeon Temple complex. There is no return Gate, so you will be accompanied by Mach of the Wired Tigers Node. He will play a key support role and construct a return Gate and collect the Tech.'},
+    {phase = 4, character = '<LOC Brackman>Brackman', text = '<LOC C02_B01_004_010>A foolish people, the Aeon. They do not understand what they have. I have just a few...pieces of Seraphim technology. Have studied them for centuries. Oh yes. They are beautiful, marvelously crafted. But the Aeon, they put them on shelves. Pray to them.'},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC C02_B01_005_010>The Aeon on Orionis are absolute fanatics. They will attack you without mercy. Subdue them and secure as much of the Tech as you can. Mach will collect the Tech and prepare it for the return trip. Do not, under any circumstances, attempt to interface with the Tech. The two of you gate in 30. Good luck.'},
+  },
+  movies = {'C02_B01.sfd', 'C02_B02.sfd', 'C02_B03.sfd', 'C02_B04.sfd', 'C02_B05.sfd'},
+  voice = {
+    {Cue = 'C02_B01', Bank = 'C02_VO'},
+    {Cue = 'C02_B02', Bank = 'C02_VO'},
+    {Cue = 'C02_B03', Bank = 'C02_VO'},
+    {Cue = 'C02_B04', Bank = 'C02_VO'},
+    {Cue = 'C02_B05', Bank = 'C02_VO'},
+  },
+  bgsound = {
+    {Cue = 'C02_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C02_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C02_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C02_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C02_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------

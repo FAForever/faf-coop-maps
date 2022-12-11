@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A01>Operation Joust'
+OPERATION_DESCRIPTION = 'This is Rigel, a lightly populated UEF world.\nYour task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.\nRemember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.'
 
 
 
@@ -26,14 +27,28 @@ OPERATION_NAME = '<LOC OPNAME_A01>Operation Joust'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A01_B01_000_010>Date: 09-AUGUST-3844'},
-  {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_001_010>Hello, Knight. I am Avatar Marxon. You will report directly to me and only to me.'},
-  {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A01_B01_001_020>The Princess still holds command over the military, Marxon. You would be wise to remember that.'},
-  {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_001_030>Do not presume to lecture me, Evaluator Toth. We stand on the brink of victory because of my actions. I am the Aeon military.'},
-  {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_002_010>This is Rigel, a lightly populated UEF world. Your task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A01_B01_003_010>Remember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.'},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_003_020>There is one only thing that will bring peace: The complete and utter destruction of the Cybran and UEF. '},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_003_030>Crusader Rhiza awaits you, Knight. You gate immediately.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A01_B01_000_010>Date: 09-AUGUST-3844'},
+    {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_001_010>Hello, Knight. I am Avatar Marxon. You will report directly to me and only to me.'},
+    {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A01_B01_001_020>The Princess still holds command over the military, Marxon. You would be wise to remember that.'},
+    {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_001_030>Do not presume to lecture me, Evaluator Toth. We stand on the brink of victory because of my actions. I am the Aeon military.'},
+    {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_002_010>This is Rigel, a lightly populated UEF world. Your task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A01_B01_003_010>Remember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.'},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_003_020>There is one only thing that will bring peace: The complete and utter destruction of the Cybran and UEF. '},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A01_B01_003_030>Crusader Rhiza awaits you, Knight. You gate immediately.'},
+  },
+  movies = {'A01_B01.sfd', 'A01_B02.sfd', 'A01_B03.sfd'},
+  voice = {
+    {Cue = 'A01_B01', Bank = 'A01_VO'},
+    {Cue = 'A01_B02', Bank = 'A01_VO'},
+    {Cue = 'A01_B03', Bank = 'A01_VO'},
+  },
+  bgsound = {
+    {Cue = 'A01_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A01_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A01_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
 }
 
 --------------------------------

@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E01>Operation Black Earth'
+OPERATION_DESCRIPTION = 'Intel reports that two Cybran Commanders gated to Capella over an hour ago.\nWe presume they\'re attempting to inflame the Symbiont population.'
 
 
 
@@ -26,13 +27,27 @@ OPERATION_NAME = '<LOC OPNAME_E01>Operation Black Earth'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E01_B01_000_010>Date: 02-AUGUST-3844'},
-  {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_001_010>Lieutenant, you are being assigned to Colonel Arnold for the duration of your probationary period. His word is law.'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_002_010>Intel reports that two Cybran Commanders gated to Capella over an hour ago. We presume they\'re attempting to inflame the Symbiont population.'},
-  {phase = 2, character = '<LOC Arnold>Arnold', text = '<LOC E01_B01_002_020>Why is our time being wasted with this OP? The local forces there should be able to handle it.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_003_005>Because of President Riley\'s insistence that we fight across multiple fronts, we had to pull troops away from Capella for other OPs. As a result, the Research Facilities on Capella are only lightly defended. The Cybrans must not be allowed to compromise our work.'},
-  {phase = 3, character = '<LOC Arnold>Arnold', text = '<LOC E01_B01_003_010>Are we there to secure Capella for good? Or are we going to let it fall to the Cybrans in a month?'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_003_020>You have your orders, Colonel. You gate at 11:30 hours. Dismissed.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E01_B01_000_010>Date: 02-AUGUST-3844'},
+    {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_001_010>Lieutenant, you are being assigned to Colonel Arnold for the duration of your probationary period. His word is law.'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_002_010>Intel reports that two Cybran Commanders gated to Capella over an hour ago. We presume they\'re attempting to inflame the Symbiont population.'},
+    {phase = 2, character = '<LOC Arnold>Arnold', text = '<LOC E01_B01_002_020>Why is our time being wasted with this OP? The local forces there should be able to handle it.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_003_005>Because of President Riley\'s insistence that we fight across multiple fronts, we had to pull troops away from Capella for other OPs. As a result, the Research Facilities on Capella are only lightly defended. The Cybrans must not be allowed to compromise our work.'},
+    {phase = 3, character = '<LOC Arnold>Arnold', text = '<LOC E01_B01_003_010>Are we there to secure Capella for good? Or are we going to let it fall to the Cybrans in a month?'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E01_B01_003_020>You have your orders, Colonel. You gate at 11:30 hours. Dismissed.'},
+  },
+  movies = {'E01_B01.sfd', 'E01_B02.sfd', 'E01_B03.sfd'},
+  voice = {
+    {Cue = 'E01_B01', Bank = 'E01_VO'},
+    {Cue = 'E01_B02', Bank = 'E01_VO'},
+    {Cue = 'E01_B03', Bank = 'E01_VO'},
+  },
+  bgsound = {
+    {Cue = 'E01_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E01_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E01_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
 }
 
 --------------------------------

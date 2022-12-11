@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X01>Operation: Black Day'
+OPERATION_DESCRIPTION = '<LOC X1CA_001_description>Fort Clarke, located on the planet Griffin IV, is the UEF\'s last stronghold. Seraphim and Order forces are attacking the fort with overwhelming force. If Fort Clarke falls, the UEF is finished. You will defeat the enemy commanders on Griffin IV and end the siege of Fort Clarke.'
 
 
 
@@ -26,14 +27,24 @@ OPERATION_NAME = '<LOC OPNAME_X01>Operation: Black Day'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X01_B01_000_010>29-July-3847'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X01_B01_001_010>I don\'t know how the hell this happened, but those bastards found us. They\'ve made planetfall and are attacking Fort Clarke and the outlying civilian centers.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_010>This is the end of the road for us, Commander. Fort Clarke is our last base of operations, and all of our evacuation routes have been severed. If we falter today, the Seraphim and their lackeys will have free reign to butcher every last human in the galaxy.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_020>We have no other choice but to dig in and hold the line. General Fletcher is already on-planet and leading the defense of Fort Clarke. We want to open up a second front, which is why you\'re gating in south of his position.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_030>This is your LZ. There are two Order bases at this location, and they are providing reinforcements for the Order\'s assault on Fort Clarke. You will destroy all Order structures and then push inland.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_040>Continue north until you link up with Fletcher. Once the siege on Fort Clarke has been lifted, the two of you will directly assault and destroy the Seraphim commander.'},
-  {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X01_B01_003_010>Failure is not an option, Commander.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X01_B01_000_010>29-July-3847'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X01_B01_001_010>I don\'t know how the hell this happened, but those bastards found us. They\'ve made planetfall and are attacking Fort Clarke and the outlying civilian centers.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_010>This is the end of the road for us, Commander. Fort Clarke is our last base of operations, and all of our evacuation routes have been severed. If we falter today, the Seraphim and their lackeys will have free reign to butcher every last human in the galaxy.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_020>We have no other choice but to dig in and hold the line. General Fletcher is already on-planet and leading the defense of Fort Clarke. We want to open up a second front, which is why you\'re gating in south of his position.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_030>This is your LZ. There are two Order bases at this location, and they are providing reinforcements for the Order\'s assault on Fort Clarke. You will destroy all Order structures and then push inland.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X01_B01_002_040>Continue north until you link up with Fletcher. Once the siege on Fort Clarke has been lifted, the two of you will directly assault and destroy the Seraphim commander.'},
+    {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X01_B01_003_010>Failure is not an option, Commander.'},
+  },
+  movies = {'X01.sfd'},
+  voice = {
+    {Cue = 'X01_B01', Bank = 'Briefings'},
+  },
+  bgsound = {
+    {Cue = 'X01_B01', Bank = 'Op_Briefing'},
+  },
 }
+
 
 --------------------------------
 -- Opnode ID: DB01
