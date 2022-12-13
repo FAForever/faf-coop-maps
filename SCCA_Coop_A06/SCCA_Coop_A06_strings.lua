@@ -47,6 +47,16 @@ BriefingData = {
   style = 'aeon',
 }
 
+OperationMovies = {
+  postOpMovies = {
+    success = {
+      {vid = '/movies/FMV_Aeon_Outro_1.sfd', sfx = 'FMV_Aeon_Outro_1', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Outro_1', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_Credits.sfd', sfx = 'FMV_Aeon_Credits', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Credits', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_Aeon_Outro_2.sfd', sfx = 'FMV_Aeon_Outro_2', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Outro_2', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+    },
+  },
+}
+
 --------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing

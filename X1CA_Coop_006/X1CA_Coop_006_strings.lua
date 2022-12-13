@@ -47,6 +47,29 @@ BriefingData = {
   },
 }
 
+OperationMovies = {
+  postOpMovies = {
+    factionDependant = true,
+    success = {
+      uef = {
+        {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+        {vid = '/movies/Credits_UEF.sfd', sfx = 'X_FMV_UEF_Credits', sfxBank = 'FMV_BG', voice = 'SCX_UEF_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+        {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+      },
+      cybran = {
+        {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+        {vid = '/movies/Credits_Cybran.sfd', sfx = 'X_FMV_Cybran_Credits', sfxBank = 'FMV_BG', voice = 'SCX_Cybran_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+        {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+      },
+      aeon = {
+        {vid = '/movies/FMV_SCX_Outro.sfd', sfx = 'X_FMV_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Outro_VO', voiceBank = 'X_FMV'},
+        {vid = '/movies/Credits_Aeon.sfd', sfx = 'X_FMV_Aeon_Credits', sfxBank = 'FMV_BG', voice = 'SCX_Aeon_Credits_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+        {vid = '/movies/FMV_SCX_Post_Outro.sfd', sfx = 'X_FMV_Post_Outro', sfxBank = 'FMV_BG', voice = 'SCX_Post_Outro_VO', voiceBank = 'X_FMV', subtitles = 'default'},
+      },
+    },
+  },
+}
+
 --------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
