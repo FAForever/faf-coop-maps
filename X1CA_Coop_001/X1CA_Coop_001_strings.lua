@@ -45,6 +45,13 @@ BriefingData = {
   },
 }
 
+OperationMovies = {
+  preBriefingMovies = {
+    {vid = '/movies/FMV_SCX_Intro.sfd', sfx = 'X_FMV_Intro', sfxBank = 'FMV_BG', voice = 'SCX_INTRO_VO', voiceBank = 'FMV', subtitles = 'default'},
+    {vid = '/movies/timeline.sfd', sfx = 'X_Timeline', sfxBank = 'FMV_BG', subtitles = 'default'},
+  },
+}
+
 
 --------------------------------
 -- Opnode ID: DB01

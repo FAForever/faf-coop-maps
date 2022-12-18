@@ -17,6 +17,7 @@ operationData =
     opName = OpStrings.OPERATION_NAME,
     opDesctiption = OpStrings.OPERATION_DESCRIPTION,
     opBriefing = OpStrings.BriefingData,
+    opMovies = OpStrings.OperationMovies,
     opDebriefingSuccess = OpStrings.R01_DB01_010,
     opDebriefingFailure = OpStrings.R01_DB01_020,
 }

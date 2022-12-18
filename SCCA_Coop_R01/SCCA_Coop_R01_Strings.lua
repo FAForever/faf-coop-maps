@@ -57,6 +57,16 @@ BriefingData = {
   style = 'cybran',
 }
 
+OperationMovies = {
+  preBriefingMovies = {
+    {vid = '/movies/FMV_Campaign_Intro.sfd', sfx = 'FMV_Campaign_Intro', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Campaign_Intro', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+    {vid = '/movies/FMV_Cybran_Intro_1.sfd', sfx = 'FMV_Cybran_Intro_1', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Cybran_Intro_1', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+  },
+  preOpMovies = {
+    {vid = '/movies/FMV_Cybran_Intro_2.sfd', sfx = 'FMV_Cybran_Intro_2', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Cybran_Intro_2', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+  },
+}
+
 --------------------------------
 -- Opnode ID: DB01
 -- Operation Debriefing
