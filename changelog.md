@@ -1,6 +1,42 @@
 # Changelog
 
-## Patch 8.0.0
+## Patch 8.0.1
+
+### General
+- Added briefing data for original missions. Briefings will be available after the next game patch.
+- Added pre and post operation movies data.
+- Last Aeon, Cybran and UEF mission will now play the final movies.
+
+### FA Campaign
+
+#### Operation Mindgames (5th mission)
+- Fixed players 2-4 not spawning correctly.
+- Increased Fletcher's unit cap.
+
+### UEF Campaign
+
+#### Operation Vaccine (4th mission)
+- Dr. Sweeney's truck can't be given anymore to prevent mission from stucking.
+
+### Custom missions
+
+#### Operation Trident
+- Big Aeon attack to destroy the civilian city will no longer trigger when the player's secures the city in time.
+
+#### Operation Tight Spot
+- Fixed spelling in description.
+- More zoomed out initial cam, ACU now moves from the front line, towards the air factory
+- Fail build transport objective if CZAR dies
+- Disable ACU shield after landing
+- Move QAI's ASFs from player starting location
+- QAI's spiderbots patrolling the main base won't try to target air experimentals anymore
+- Extra QAI's T3 gunship patrol over the plateau
+- Small terrain change near QAI's defences to prevent going around them
+
+### Contributors
+- speed2
+
+## Patch 8.0.0 (November 26th, 2022)
 
 ### General
 - Fix for Timed Expansion option not working in some missions
