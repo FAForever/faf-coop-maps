@@ -997,27 +997,26 @@ function EndgameCheck()
     if Difficulty == 3 then
 
         ScenarioInfo.M1P5 = Objectives.CategoriesInArea(
-        'primary',                      -- type
-        'incomplete',                   -- complete
-        'Destroy all Enemy forces',                 -- title
-        'Clean out all bases.',  -- description
-        'kill',                         -- action
-        {                               -- target
-            MarkUnits = true,
-            ShowProgress = true,
-            ShowFaction = 'Seraphim',
-            Requirements = {
-                {   
-                    Area = 'AREA_3',
-                    Category = categories.FACTORY + (categories.ECONOMIC * categories.TECH2) + (categories.ECONOMIC * categories.TECH3),
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = Seraphim2,
+            'primary',                      -- type
+            'incomplete',                   -- complete
+            'Destroy all Enemy forces',                 -- title
+            'Clean out all bases.',  -- description
+            'kill',                         -- action
+            {                               -- target
+                MarkUnits = true,
+                ShowProgress = true,
+                ShowFaction = 'Seraphim',
+                Requirements = {
+                    {   
+                        Area = 'AREA_3',
+                        Category = categories.FACTORY + (categories.ECONOMIC * categories.TECH2) + (categories.ECONOMIC * categories.TECH3),
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Seraphim2,
+                    },
                 },
-            },
-            },
-        }
-    )
+            }
+        )
     
         ScenarioInfo.M3HardObjectives = Objectives.CreateGroup('M3HardObjectives', PlayerWin)
         ScenarioInfo.M3HardObjectives:AddObjective(ScenarioInfo.M1P5)
