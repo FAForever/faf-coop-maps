@@ -1,6 +1,26 @@
 # Changelog
 
-## Patch 8.0.1
+## Patch 8.0.2 (January 1st, 2023)
+
+### Aeon Campaign
+
+#### Operation Beginnings (6th mission)
+- Fixed the script breaking when trying to teleport Marxon while taking a lot of damage.
+
+### Cybran Campaign
+
+#### Operation Artifact (2nd mission)
+- Increased area detection around the gate for finishing the mission.
+
+### Custom missions
+
+#### Operation Blockade
+- Fixed syntax error that prevented starting the mission.
+
+### Contributors
+- speed2
+
+## Patch 8.0.1 (December 31st, 2022)
 
 ### General
 - Added briefing data for original missions. Briefings will be available after the next game patch.
