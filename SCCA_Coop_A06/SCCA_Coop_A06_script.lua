@@ -963,6 +963,7 @@ function IntroMission3()
     ScenarioInfo.AeonCommander = ScenarioFramework.SpawnCommander('Aeon', 'Commander', false, LOC '{i Marxon}', true, false,
         {'CrysalisBeam', 'ShieldHeavy', 'EnhancedSensors'})
     ScenarioFramework.CreateUnitDamagedTrigger(MarxonDamaged1, ScenarioInfo.AeonCommander, .5)
+    ScenarioInfo.AeonCommander.CanBeKilled = false
 
     ScenarioFramework.RefreshRestrictions('Aeon')
 
@@ -1171,6 +1172,8 @@ function MarxonDamaged1()
         ForkThread(TeleportSW)
     elseif ScenarioFramework.NumCatUnitsInArea(categories.STRUCTURE - categories.WALL, 'M3_SE_Base_Area', ArmyBrains[Aeon]) > 50 then
         ForkThread(TeleportSE)
+    else
+        ScenarioInfo.AeonCommander.CanBeKilled = true
     end
 end
 
@@ -1187,6 +1190,8 @@ end
 function MarxonDamaged2()
     if ScenarioFramework.NumCatUnitsInArea(categories.STRUCTURE - categories.WALL, 'M3_SE_Base_Area', ArmyBrains[Aeon]) > 50 then
         ForkThread(TeleportSE)
+    else
+        ScenarioInfo.AeonCommander.CanBeKilled = true
     end
 end
 
@@ -1197,6 +1202,7 @@ function TeleportSE()
     Warp(ScenarioInfo.AeonCommander, ScenarioUtils.MarkerToPosition('M2_SE_Teleport'))
     --ScenarioFramework.CreateUnitDamagedTrigger(MarxonDamaged2, ScenarioInfo.AeonCommander, .8)
     ScenarioInfo.AeonCommander:SetCanTakeDamage(true)
+    ScenarioInfo.AeonCommander.CanBeKilled = true
     UpdateACUPlatoon('M3_SE_Base')
 end
 
