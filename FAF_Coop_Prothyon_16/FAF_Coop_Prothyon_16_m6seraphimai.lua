@@ -363,6 +363,24 @@ function SeraphimM6IslandBaseNavalT3Attacks()
     )
     opai:SetChildActive('T1', false)
 
+    -- Sonars
+    opai = SeraphimM6IslandBase:AddOpAI('M6_Island_Base_Sonar_1',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
+
+    opai = SeraphimM6IslandBase:AddOpAI('M6_Island_Base_Sonar_2',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 --[[
 function SeraphimM6IslandBaseNavalAttacks()
