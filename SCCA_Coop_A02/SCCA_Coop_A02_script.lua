@@ -1285,7 +1285,9 @@ function TransportAssault(platoon, landingLocation, patrolChain, airUnits)
         end
     else
         for _, v in transports do
-            aiBrain:AssignUnitsToPlatoon('TransportPool', {v}, 'Scout', 'None')
+            if not(v:IsDead()) then
+                aiBrain:AssignUnitsToPlatoon('TransportPool', {v}, 'Scout', 'None')
+            end
         end
     end
 end
