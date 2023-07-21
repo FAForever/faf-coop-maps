@@ -676,6 +676,10 @@ function M2AssignSecretBaseObjective()
             end
         end
     )
+    --Sometimes this objective can trigger before the objective group is created since this is linked to when one of the naval base units is detected
+    while not(ScenarioInfo.M2ObjectiveGroup.AddObjective) do
+        WaitSeconds(1)
+    end
     ScenarioInfo.M2ObjectiveGroup:AddObjective(ScenarioInfo.M2P3Objective)
 
     ScenarioFramework.CreateTimerTrigger(M2CruiserWarning, 60) -- the cruiser will launch soon -- kill it
