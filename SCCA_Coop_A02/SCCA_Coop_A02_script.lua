@@ -891,6 +891,15 @@ function StartMission3()
         true
     )
 
+    if ScenarioInfo.M3Attackers then
+        --Redundancy for if the player has managed to kill all attackers before this triggers
+        local bAttacksAlreadyDead = true
+        for iUnit, oUnit in ScenarioInfo.M3Attackers do            
+            if not(oUnit:IsDead()) then bAttacksAlreadyDead = false break end
+        end        
+        if bAttacksAlreadyDead then M3DestroyCybranBases() end
+    end
+    
     -- If the player doesn't complete the objectives soon, remind him that it's important
     ScenarioFramework.CreateTimerTrigger(M3P2Reminder, 300)
     ScenarioFramework.CreateTimerTrigger(M3P4Reminder, 600)
