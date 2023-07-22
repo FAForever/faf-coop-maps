@@ -677,7 +677,7 @@ function M2AssignSecretBaseObjective()
         end
     )
     --Sometimes this objective can trigger before the objective group is created since this is linked to when one of the naval base units is detected
-    while not(ScenarioInfo.M2ObjectiveGroup.AddObjective) do
+    while not(ScenarioInfo.M2ObjectiveGroup) do
         WaitSeconds(1)
     end
     ScenarioInfo.M2ObjectiveGroup:AddObjective(ScenarioInfo.M2P3Objective)
