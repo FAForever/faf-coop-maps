@@ -830,7 +830,7 @@ function M2AttackFive()
 
     -- Air Attack NW
     WaitSeconds(37)
-    local navyCounter = GetNumOfHumanUnits(categories.NAVAL, 'West_Lake_Area')
+    local navyCounter = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL, 'West_Lake_Area')
     if navyCounter > 5 then
         local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_NW_Air_Naval_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Naval_Chain')
