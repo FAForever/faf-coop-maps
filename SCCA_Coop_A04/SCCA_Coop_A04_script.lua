@@ -662,10 +662,10 @@ function StartMission2()
 
     -- M2 Misc Triggers
     -- Taunts
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 2 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 5 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 7 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 11 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 2 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 5 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 7 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 11 * 60)
 
     -- Objective reminder
     ScenarioFramework.CreateTimerTrigger(M2ObjectiveReminder, 300)
