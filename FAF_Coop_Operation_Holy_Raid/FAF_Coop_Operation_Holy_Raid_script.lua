@@ -254,8 +254,10 @@ function StartMission1()
         end
     )
 
-    WaitSeconds(3*60)
-    ForkThread(AttackCheck)  
+    if ExpansionTimer then
+        WaitSeconds(3*60)
+        ForkThread(AttackCheck)  
+    end
 end
 
 function AttackCheck()
