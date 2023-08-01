@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X03>Operation: Red Flag'
+OPERATION_DESCRIPTION = '<LOC X1CA_003_description>Princess Burke has returned, but she is in grave danger. Seraphim forces have her trapped on the planet Blue Sky, and she has no chance of escaping. You will go to Blue Sky, destroy the Seraphim commanders, and save Princess Burke.'
 
 
 
@@ -26,12 +27,21 @@ OPERATION_NAME = '<LOC OPNAME_X03>Operation: Red Flag'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X03_B01_000_010>02-August-3847'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X03_B01_001_010>I know you just returned from Copernicus, Commander, but we have an urgent mission for you.'},
-  {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_002_010>It appears that the return of Princess Burke has unleashed a high degree of in-fighting amongst the Order. Oh yes. Our agents tell us that as many as a third of the Aeon have abandoned the Order and now fight on the behalf of the Princess. A splendid development. Splendid.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X03_B01_002_020>This is Blue Sky, some kind of secret retreat that Toth cooked up when Burke first became Princess. Unfortunately, it\'s not much of a secret anymore and the Seraphim have placed it square in their crosshairs.'},
-  {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X03_B01_003_010>Your mission is to get Princess Burke the hell out of there. That old hag Kael is already trying to discredit Burke\'s message, and if they get their hands on her, Princess Burke is going to die a slow and agonizing death. We can\'t let that happen.'},
-  {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_003_020>Rhiza is already on-planet and awaits your arrival. You gate immediately. Be safe, my child. Be safe.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X03_B01_000_010>02-August-3847'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X03_B01_001_010>I know you just returned from Copernicus, Commander, but we have an urgent mission for you.'},
+    {phase = 2, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_002_010>It appears that the return of Princess Burke has unleashed a high degree of in-fighting amongst the Order. Oh yes. Our agents tell us that as many as a third of the Aeon have abandoned the Order and now fight on the behalf of the Princess. A splendid development. Splendid.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X03_B01_002_020>This is Blue Sky, some kind of secret retreat that Toth cooked up when Burke first became Princess. Unfortunately, it\'s not much of a secret anymore and the Seraphim have placed it square in their crosshairs.'},
+    {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X03_B01_003_010>Your mission is to get Princess Burke the hell out of there. That old hag Kael is already trying to discredit Burke\'s message, and if they get their hands on her, Princess Burke is going to die a slow and agonizing death. We can\'t let that happen.'},
+    {phase = 3, character = '<LOC Brackman>Brackman', text = '<LOC X03_B01_003_020>Rhiza is already on-planet and awaits your arrival. You gate immediately. Be safe, my child. Be safe.'},
+  },
+  movies = {'X03.sfd'},
+  voice = {
+    {Cue = 'X03_B01', Bank = 'Briefings'},
+  },
+  bgsound = {
+    {Cue = 'X03_B01', Bank = 'Op_Briefing'},
+  },
 }
 
 --------------------------------

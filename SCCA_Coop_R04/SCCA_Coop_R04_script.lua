@@ -902,7 +902,7 @@ function IntroMission3()
     -- Needs to be invincible
     ScenarioInfo.Mainframe = ScenarioUtils.CreateArmyUnit('Neutral', 'Mainframe')
     ScenarioInfo.Mainframe:SetCustomName(LOC '{i R04_MainframeName}')
-    ScenarioInfo.Mainframe.SetCanTakeDamage(false)
+    ScenarioInfo.Mainframe:SetCanTakeDamage(false)
 
     -- Show the location of the nodes and mainframe
     ScenarioFramework.CreateVisibleAreaLocation(5, ScenarioInfo.Node3:GetPosition(), 10, ArmyBrains[Player1])

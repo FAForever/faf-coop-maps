@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A06>Operation Beginnings'
+OPERATION_DESCRIPTION = '<LOC A06_B01_002_010>Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.'
 
 
 
@@ -26,10 +27,34 @@ OPERATION_NAME = '<LOC OPNAME_A06>Operation Beginnings'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A06_B01_000_010>Date: 14-SEPTEMBER-3844'},
-  {phase = 1, character = '<LOC Princess>Princess', text = '<LOC A06_B01_001_010>While you were on Eridani, Marxon attempted to seize control of the Illuminate. I escaped unharmed, but others weren\'t as fortunate. Several of my ministers were killed, including Toth. She was murdered. Marxon continues his march toward Earth. The galaxy stands on the cusp of full-scale destruction. We must not allow that to happen.'},
-  {phase = 2, character = '<LOC Princess>Princess', text = '<LOC A06_B01_002_010>Black Sun is the key; everyone desires it. The UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it. You have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun. You must also stop Marxon.'},
-  {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A06_B01_003_010>I will attune myself with the Black Sun and spread my consciousness throughout the galaxy. Doing so may kill me, but I must reach everyone\'s heart if I am to end this war. When Marxon is defeated and Black Sun is in your hands, I will come to Earth. Go now, my Champion. It is time to meet our fate.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A06_B01_000_010>Date: 14-SEPTEMBER-3844'},
+    {phase = 1, character = '<LOC Princess>Princess', text = '<LOC A06_B01_001_010>While you were on Eridani, Marxon attempted to seize control of the Illuminate. I escaped unharmed, but others weren\'t as fortunate. Several of my ministers were killed, including Toth. She was murdered. Marxon continues his march toward Earth. The galaxy stands on the cusp of full-scale destruction. We must not allow that to happen.'},
+    {phase = 2, character = '<LOC Princess>Princess', text = '<LOC A06_B01_002_010>Black Sun is the key; everyone desires it. The UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it. You have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun. You must also stop Marxon.'},
+    {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A06_B01_003_010>I will attune myself with the Black Sun and spread my consciousness throughout the galaxy. Doing so may kill me, but I must reach everyone\'s heart if I am to end this war. When Marxon is defeated and Black Sun is in your hands, I will come to Earth. Go now, my Champion. It is time to meet our fate.'},
+  },
+  movies = {'A06_B01.sfd', 'A06_B02.sfd', 'A06_B03.sfd'},
+  voice = {
+    {Cue = 'A06_B01', Bank = 'A06_VO'},
+    {Cue = 'A06_B02', Bank = 'A06_VO'},
+    {Cue = 'A06_B03', Bank = 'A06_VO'},
+  },
+  bgsound = {
+    {Cue = 'A06_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A06_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A06_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
+}
+
+OperationMovies = {
+  postOpMovies = {
+    success = {
+      {vid = '/movies/FMV_Aeon_Outro_1.sfd', sfx = 'FMV_Aeon_Outro_1', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Outro_1', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_Credits.sfd', sfx = 'FMV_Aeon_Credits', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Credits', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_Aeon_Outro_2.sfd', sfx = 'FMV_Aeon_Outro_2', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_Aeon_Outro_2', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+    },
+  },
 }
 
 --------------------------------

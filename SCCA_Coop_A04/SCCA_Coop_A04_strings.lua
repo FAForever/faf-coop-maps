@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A04>Operation Entity'
+OPERATION_DESCRIPTION = 'This is Procyon, a planet deep in Cybran territory. We know little of it save its name.\nIn my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly.\nYou must go to Procyon and discover what it is.'
 
 
 
@@ -26,15 +27,33 @@ OPERATION_NAME = '<LOC OPNAME_A04>Operation Entity'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A04_B01_000_010>Date: 29-AUGUST-3844'},
-  {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A04_B01_001_010>Harmony to you, Knight. You performed well on Matar, but the situation has become complicated. Commander Arnold was personally enlightened by the Princess, but he revealed some troubling news. '},
-  {phase = 2, character = '<LOC Toth>Toth', text = '<LOC A04_B01_002_010>The UEF is constructing a weapon of horrific power called Black Sun. It can destroy entire planets. Avatar Marxon is already lobbying for an all-out attack on Earth.'},
-  {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A04_B01_003_010>Hello, Knight. I wish we could meet under better circumstances. The Avatar\'s war drums are getting louder, and it will be difficult to hold him in check.'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A04_B01_003_020>That is why the Princess has removed you from the service of Avatar Marxon. From this day forward, you will serve the Princess directly. You will be her Champion.'},
-  {phase = 4, character = '<LOC Toth>Toth', text = '<LOC A04_B01_004_010>This is Procyon, a planet deep in Cybran territory. We know little of it save its name.'},
-  {phase = 4, character = '<LOC Princess>Princess', text = '<LOC A04_B01_004_020>In my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly. You must go to Procyon and discover what it is.'},
-  {phase = 5, character = '<LOC Princess>Princess', text = '<LOC A04_B01_005_010>Fear not, Champion. I sense greatness in you. '},
-  {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A04_B01_005_020>You gate to Procyon immediately. Go forth with grace, Champion of the Illuminate.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A04_B01_000_010>Date: 29-AUGUST-3844'},
+    {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A04_B01_001_010>Harmony to you, Knight. You performed well on Matar, but the situation has become complicated. Commander Arnold was personally enlightened by the Princess, but he revealed some troubling news. '},
+    {phase = 2, character = '<LOC Toth>Toth', text = '<LOC A04_B01_002_010>The UEF is constructing a weapon of horrific power called Black Sun. It can destroy entire planets. Avatar Marxon is already lobbying for an all-out attack on Earth.'},
+    {phase = 3, character = '<LOC Princess>Princess', text = '<LOC A04_B01_003_010>Hello, Knight. I wish we could meet under better circumstances. The Avatar\'s war drums are getting louder, and it will be difficult to hold him in check.'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A04_B01_003_020>That is why the Princess has removed you from the service of Avatar Marxon. From this day forward, you will serve the Princess directly. You will be her Champion.'},
+    {phase = 4, character = '<LOC Toth>Toth', text = '<LOC A04_B01_004_010>This is Procyon, a planet deep in Cybran territory. We know little of it save its name.'},
+    {phase = 4, character = '<LOC Princess>Princess', text = '<LOC A04_B01_004_020>In my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly. You must go to Procyon and discover what it is.'},
+    {phase = 5, character = '<LOC Princess>Princess', text = '<LOC A04_B01_005_010>Fear not, Champion. I sense greatness in you. '},
+    {phase = 5, character = '<LOC Toth>Toth', text = '<LOC A04_B01_005_020>You gate to Procyon immediately. Go forth with grace, Champion of the Illuminate.'},
+  },
+  movies = {'A04_B01.sfd', 'A04_B02.sfd', 'A04_B03.sfd', 'A04_B04.sfd', 'A04_B05.sfd'},
+  voice = {
+    {Cue = 'A04_B01', Bank = 'A04_VO'},
+    {Cue = 'A04_B02', Bank = 'A04_VO'},
+    {Cue = 'A04_B03', Bank = 'A04_VO'},
+    {Cue = 'A04_B04', Bank = 'A04_VO'},
+    {Cue = 'A04_B05', Bank = 'A04_VO'},
+  },
+  bgsound = {
+    {Cue = 'A04_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A04_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A04_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A04_B04', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A04_B05', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
 }
 
 --------------------------------

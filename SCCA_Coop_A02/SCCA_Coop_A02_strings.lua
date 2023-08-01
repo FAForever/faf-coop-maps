@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A02>Operation Machine Purge'
+OPERATION_DESCRIPTION = 'This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans.\nZeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory.\nYou will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population.\nLeave none alive.'
 
 
 
@@ -26,16 +27,30 @@ OPERATION_NAME = '<LOC OPNAME_A02>Operation Machine Purge'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC A02_B01_000_010>Date: 17-AUGUST-3844'},
-  {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A02_B01_001_010>Harmony to you, Knight. Congratulations on completing your first assignment.'},
-  {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_001_020>I have received Crusader Rhiza\'s report on your performance on Rigel. She spoke highly of you; well done. You will now receive your next mission.'},
-  {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_002_010>This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans. Zeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory. You will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population. Leave none alive.'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_005>The Princess requires that all civilians be protected so that they may be offered The Way.'},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_010>The operation is paramount. Everyone is expendable.'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_020>The Princess was quite clear on the matter.'},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_030>The Princess is not of a military mind. There is no time for such niceties. We will press our advantage, no matter the cost.'},
-  {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_040>Go with grace, Knight. Marxon and I shall settle our differences elsewhere.'},
-  {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_050>You have your orders, Commander.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC A02_B01_000_010>Date: 17-AUGUST-3844'},
+    {phase = 1, character = '<LOC Toth>Toth', text = '<LOC A02_B01_001_010>Harmony to you, Knight. Congratulations on completing your first assignment.'},
+    {phase = 1, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_001_020>I have received Crusader Rhiza\'s report on your performance on Rigel. She spoke highly of you; well done. You will now receive your next mission.'},
+    {phase = 2, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_002_010>This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans. Zeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory. You will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population. Leave none alive.'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_005>The Princess requires that all civilians be protected so that they may be offered The Way.'},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_010>The operation is paramount. Everyone is expendable.'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_020>The Princess was quite clear on the matter.'},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_030>The Princess is not of a military mind. There is no time for such niceties. We will press our advantage, no matter the cost.'},
+    {phase = 3, character = '<LOC Toth>Toth', text = '<LOC A02_B01_003_040>Go with grace, Knight. Marxon and I shall settle our differences elsewhere.'},
+    {phase = 3, character = '<LOC Marxon>Marxon', text = '<LOC A02_B01_003_050>You have your orders, Commander.'},
+  },
+  movies = {'A02_B01.sfd', 'A02_B02.sfd', 'A02_B03.sfd'},
+  voice = {
+    {Cue = 'A02_B01', Bank = 'A02_VO'},
+    {Cue = 'A02_B02', Bank = 'A02_VO'},
+    {Cue = 'A02_B03', Bank = 'A02_VO'},
+  },
+  bgsound = {
+    {Cue = 'A02_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A02_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'A02_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'aeon',
 }
 
 --------------------------------

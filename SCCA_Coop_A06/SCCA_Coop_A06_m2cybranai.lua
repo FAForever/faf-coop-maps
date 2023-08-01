@@ -20,7 +20,6 @@ function CybranM2BaseAI()
     CybranM2Base:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Base', 'M2_Cybran_Base_Marker', 150, {M2_Base = 100})
     CybranM2Base:StartNonZeroBase({{6, 10, 14}, {6, 9, 12}})
     CybranM2Base:SetActive('AirScouting', true)
-    CybranM2Base:AddBuildGroup('M2_Base_Support_Factories', 100, true)
 
     CybranM2BaseAirAttacks()
     CybranM2BaseLandAttacks()
@@ -35,9 +34,9 @@ function CybranM2BaseAirAttacks()
     -- Transport builder, maintain 8 transports
     opai = CybranM2Base:AddOpAI('EngineerAttack', 'M2_TransportBuilder',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
+            MasterPlatoonFunction = {SPAIFileName, 'TransportPool'},
             PlatoonData = {
-                TransportReturn = 'M2_Cybran_Base_Marker',
+                TransportMoveLocation = 'M2_Cybran_Base_Marker',
             },
             Priority = 1000,
         }
@@ -53,9 +52,9 @@ function CybranM2BaseAirAttacks()
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {
-                    'M2_Cybran_Amphibious_Chain_1',
-                    'M2_Cybran_Amphibious_Chain_2',
-                    'M2_Cybran_Amphibious_Chain_3',
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_3',
                 },
             },
             Priority = 100,
@@ -63,34 +62,70 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
 
+    quantity = {9, 15, 24}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_2',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
             PlatoonData = {
                 PatrolChains = {
-                    'M2_Cybran_Amphibious_Chain_1',
-                    'M2_Cybran_Amphibious_Chain_2',
-                    'M2_Cybran_Amphibious_Chain_3',
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_3',
                 },
             },
             Priority = 110,
         }
     )
-    opai:SetChildQuantity('StratBombers', 3)
+    opai:SetChildQuantity('Bombers', quantity[Difficulty])
 
-    quantity = {6, 9, 12}
-    trigger = {10, 11, 12}
+    quantity = {9, 12, 15}
+    trigger = {20, 15, 10}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {
-                    'M2_Cybran_Amphibious_Chain_1',
-                    'M2_Cybran_Amphibious_Chain_2',
-                    'M2_Cybran_Amphibious_Chain_3',
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_3',
+                },
+            },
+            Priority = 110,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
+
+    quantity = {2, 3, 6}
+    opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_4',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_3',
                 },
             },
             Priority = 120,
+        }
+    )
+    opai:SetChildQuantity('StratBombers', quantity[Difficulty])
+
+    quantity = {6, 9, 12}
+    trigger = {10, 11, 12}
+    opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_5',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_3',
+                },
+            },
+            Priority = 130,
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
@@ -112,7 +147,6 @@ function CybranM2BaseLandAttacks()
                 PatrolChains = {
                     'M2_Cybran_Amphibious_Chain_1',
                     'M2_Cybran_Amphibious_Chain_2',
-                    'M2_Cybran_Amphibious_Chain_3',
                 },
             },
             Priority = 100,
@@ -170,9 +204,13 @@ function CybranM2BaseNavalAttacks()
     quantity = {{3, 3}, {6, 3}, {12, 6}}
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_1',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M1_Cybran_Naval_Attack_Chain'
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
             },
             Priority = 100,
         }
@@ -181,23 +219,50 @@ function CybranM2BaseNavalAttacks()
 
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_2',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M1_Cybran_Naval_Attack_Chain'
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
             },
             Priority = 110,
         }
     )
     opai:SetChildQuantity({'Destroyers', 'Frigates'}, {3, 6})
 
-    quantity = {{2, 1}, {3, 1, 4}, {4, 2, 6}}
+    quantity = {2, 4, 6}
+    trigger = {15, 12, 9}
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_3',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M1_Cybran_Naval_Attack_Chain'
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
             },
             Priority = 120,
+        }
+    )
+    opai:SetChildQuantity('Destroyers', 3)
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
+        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+
+    quantity = {{2, 1}, {3, 1, 4}, {4, 2, 6}}
+    opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_4',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
+            },
+            Priority = 130,
         }
     )
     if Difficulty >= 2 then
@@ -208,26 +273,34 @@ function CybranM2BaseNavalAttacks()
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
-    opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_4',
+    opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_5',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M1_Cybran_Naval_Attack_Chain'
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
             },
-            Priority = 130,
+            Priority = 140,
         }
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, {1, 4})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
         'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 6, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
-    opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_5',
+    opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_6',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChain = 'M1_Cybran_Naval_Attack_Chain'
+                PatrolChains = {
+                    'M1_Cybran_Naval_Attack_Chain',
+                    'M1_Cybran_Naval_Attack_Chain_1',
+                    'M1_Cybran_Naval_Attack_Chain_2'
+                },
             },
-            Priority = 140,
+            Priority = 150,
         }
     )
     opai:SetChildQuantity('Battleships', 3)

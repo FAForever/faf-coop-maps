@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E06>Operation Stone Wall'
-
+OPERATION_DESCRIPTION = 'Black Sun facility is located here, on the island of Ni\'ihua in the Hawaiian chain.\nYour job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility;\n she will offer her unconditional assistance. You now have full access to the UEF arsenal.'
 
 
 --------------------------------
@@ -26,12 +26,36 @@ OPERATION_NAME = '<LOC OPNAME_E06>Operation Stone Wall'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC E06_B01_000_010>Date: 24-SEPTEMBER-3844'},
-  {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E06_B01_001_010>Our long struggle is at last drawing to a close, Major. Your actions on this day will determine whether or not the UEF prevails against its enemies.'},
-  {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_001_020>The Aeon army is closing in on all fronts and Cybran sleeper cells here on Earth have become active, inciting riots across the entire planet. It\'s getting ugly. And it\'s gonna get worse.'},
-  {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_002_010>Black Sun facility is located here, on the island of Ni\'ihua in the Hawaiian chain. Your job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility; she will offer her unconditional assistance. You now have full access to the UEF arsenal.'},
-  {phase = 3, character = '<LOC Riley>Riley', text = '<LOC E06_B01_003_010>Our fate rests in your hands, Major. Godspeed.'},
-  {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_003_020>Behind you stand generations of soldiers that gave their lives during the course of this war. Do not let them down. You gate in 30.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC E06_B01_000_010>Date: 24-SEPTEMBER-3844'},
+    {phase = 1, character = '<LOC Riley>Riley', text = '<LOC E06_B01_001_010>Our long struggle is at last drawing to a close, Major. Your actions on this day will determine whether or not the UEF prevails against its enemies.'},
+    {phase = 1, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_001_020>The Aeon army is closing in on all fronts and Cybran sleeper cells here on Earth have become active, inciting riots across the entire planet. It\'s getting ugly. And it\'s gonna get worse.'},
+    {phase = 2, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_002_010>Black Sun facility is located here, on the island of Ni\'ihua in the Hawaiian chain. Your job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility; she will offer her unconditional assistance. You now have full access to the UEF arsenal.'},
+    {phase = 3, character = '<LOC Riley>Riley', text = '<LOC E06_B01_003_010>Our fate rests in your hands, Major. Godspeed.'},
+    {phase = 3, character = '<LOC Clarke>Clarke', text = '<LOC E06_B01_003_020>Behind you stand generations of soldiers that gave their lives during the course of this war. Do not let them down. You gate in 30.'},
+  },
+  movies = {'E06_B01.sfd', 'E06_B02.sfd', 'E06_B03.sfd'},
+  voice = {
+    {Cue = 'E06_B01', Bank = 'E06_VO'},
+    {Cue = 'E06_B02', Bank = 'E06_VO'},
+    {Cue = 'E06_B03', Bank = 'E06_VO'},
+  },
+  bgsound = {
+    {Cue = 'E06_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E06_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'E06_B03', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'uef',
+}
+
+OperationMovies = {
+  postOpMovies = {
+    success = {
+      {vid = '/movies/FMV_UEF_Outro_1.sfd', sfx = 'FMV_UEF_Outro_1', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_UEF_Outro_1', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_Credits.sfd', sfx = 'FMV_UEF_Credits', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_UEF_Credits', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+      {vid = '/movies/FMV_UEF_Outro_2.sfd', sfx = 'FMV_UEF_Outro_2', sfxBank = 'FMV_BG_Vanilla', voice = 'FMV_UEF_Outro_2', voiceBank = 'FMV_Vanilla', subtitles = 'default'},
+    },
+  },
 }
 
 --------------------------------

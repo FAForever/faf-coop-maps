@@ -1821,6 +1821,11 @@ function SACUescape()
             end
 
             IssueTransportLoad({ScenarioInfo.UEFSACU}, ScenarioInfo.sACUTransport)
+
+            while(not ScenarioInfo.UEFSACU:IsDead() and not ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
+                WaitSeconds(1)
+            end
+
             IssueMove({ScenarioInfo.sACUTransport}, ScenarioUtils.MarkerToPosition('M5_Transport_Marker1'))
             IssueTransportUnload({ScenarioInfo.sACUTransport}, ScenarioUtils.MarkerToPosition('M5_Transport_Drop'))
 
@@ -1832,16 +1837,12 @@ function SACUescape()
                 end
             end
 
-            while(not ScenarioInfo.UEFSACU:IsDead() and not ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
-                WaitSeconds(.5)
-            end
-
             ScenarioFramework.CreateUnitToMarkerDistanceTrigger(SACUInBuilding, ScenarioInfo.UEFSACU, ScenarioUtils.MarkerToPosition('UEF_Secondary_Escort_Marker'), 5)
 
             WaitSeconds(5)
 
             while(not ScenarioInfo.UEFSACU:IsDead() and ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
-                WaitSeconds(.5)
+                WaitSeconds(1)
             end
 
             IssueMove({ScenarioInfo.UEFSACU}, ScenarioUtils.MarkerToPosition('UEF_Secondary_Escort_Marker'))

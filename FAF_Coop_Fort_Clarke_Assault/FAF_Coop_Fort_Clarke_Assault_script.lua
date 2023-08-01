@@ -376,7 +376,7 @@ function NISUnits()
         ScenarioFramework.CreateUnitToMarkerDistanceTrigger(DestroyUnit, unit, 'M1_NIS_Destroy_Marker', 10)
     end
 
-    WaitSeconds(13)
+    WaitSeconds(15)
 
     ScenarioInfo.UnitNames[Seraphim]['NIS_Bomber_1']:Kill()
 

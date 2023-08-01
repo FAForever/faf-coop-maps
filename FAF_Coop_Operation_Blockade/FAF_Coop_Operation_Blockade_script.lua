@@ -359,12 +359,7 @@ function IntroP2()
         Buff.ApplyBuff(u, 'CheatIncome')
     end
     
-    ForkThread(
-        function()
-            WaitSeconds(3*60)
-            MissionP2Secondary()
-        end
-    )  
+    ScenarioFramework.CreateTimerTrigger(MissionP2Secondary, 3*60)
 end 
 
 function MissionP2()
@@ -475,13 +470,17 @@ function SeraCommanderKilled()
 
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU, 4)
     ScenarioFramework.Dialogue(OpStrings.Death1P2, nil, true)
-    ForkThread(P2KillSeraBase)  
+    if Difficulty < 3 then
+        ForkThread(P2KillSeraBase)  
+    end
 end
 
 function SeraCommanderSKilled()
 
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraSACU, 4)
-    ForkThread(P2SKillSeraBase)  
+    if Difficulty < 3 then
+        ForkThread(P2SKillSeraBase)  
+    end
 end
 
 function P2KillSeraBase()
@@ -656,7 +655,7 @@ function IntroP3()
 
     local Antinukes = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb4302, false)
     for _, v in Antinukes do
-        v:GiveTacticalSiloAmmo(3)
+        v:GiveTacticalSiloAmmo(5)
     end
 
     ScenarioUtils.CreateArmyGroup('Seraphim2', 'P3Bwalls')
@@ -926,7 +925,7 @@ function MissionP3()
         end
     )
 
-    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', PlayerWin)
+    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', EndgameCheck)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M2P3)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
     if ScenarioInfo.M1P1.Active then
@@ -966,9 +965,11 @@ end
 
 function SeraCommander2Killed()
 
-    ScenarioFramework.Dialogue(OpStrings.Death2P3, nil, true)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU2, 3)
-    P3KillSera2Base()  
+        ScenarioFramework.Dialogue(OpStrings.Death2P3, nil, true)
+        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU2, 3)
+        if Difficulty < 3 then 
+            P3KillSera2Base()  
+        end
 end
 
 function P3KillSera2Base()
@@ -983,17 +984,49 @@ end
 
 function nukeparty()
     local SeraNuke = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb2305, false)
-    SeraNuke[2]:GiveNukeSiloAmmo(3)
-    WaitSeconds(30)
-    IssueNuke({SeraNuke[2]}, ScenarioUtils.MarkerToPosition('Nuke1'))
-    WaitSeconds(10)
-    IssueNuke({SeraNuke[2]}, ScenarioUtils.MarkerToPosition('Nuke2'))
+    SeraNuke[1]:GiveNukeSiloAmmo(3)
     local plat = ArmyBrains[Seraphim2]:MakePlatoon('', '')
-        ArmyBrains[Seraphim2]:AssignUnitsToPlatoon(plat, {SeraNuke[2]}, 'Attack', 'NoFormation')
+        ArmyBrains[Seraphim2]:AssignUnitsToPlatoon(plat, {SeraNuke[1]}, 'Attack', 'NoFormation')
         plat:ForkAIThread(plat.NukeAI)
 end
 
 -- End functions
+
+function EndgameCheck()
+
+    if Difficulty == 3 then
+
+        ScenarioInfo.M1P5 = Objectives.CategoriesInArea(
+            'primary',                      -- type
+            'incomplete',                   -- complete
+            'Destroy all Enemy forces',                 -- title
+            'Clean out all bases.',  -- description
+            'kill',                         -- action
+            {                               -- target
+                MarkUnits = true,
+                ShowProgress = true,
+                ShowFaction = 'Seraphim',
+                Requirements = {
+                    {   
+                        Area = 'AREA_3',
+                        Category = categories.FACTORY + (categories.ECONOMIC * categories.TECH2) + (categories.ECONOMIC * categories.TECH3),
+                        CompareOp = '<=',
+                        Value = 0,
+                        ArmyIndex = Seraphim2,
+                    },
+                },
+            }
+        )
+    
+        ScenarioInfo.M3HardObjectives = Objectives.CreateGroup('M3HardObjectives', PlayerWin)
+        ScenarioInfo.M3HardObjectives:AddObjective(ScenarioInfo.M1P5)
+        if ScenarioInfo.M5P2.Active then
+            ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M5P2)
+        end
+    else
+        PlayerWin()
+    end
+end
 
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then

@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X02>Operation: Dawn'
+OPERATION_DESCRIPTION = '<LOC X1CA_002_description>Aeon Loyalists, led by Crusader Rhiza, were captured while conducting sabotage and intelligence missions against Order and QAI positions. You must rescue the Loyalists being held by QAI and defeat all enemy commanders operating on the planet.'
 
 
 
@@ -26,17 +27,26 @@ OPERATION_NAME = '<LOC OPNAME_X02>Operation: Dawn'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X02_B01_000_010>01-August-3847'},
-  {phase = 1, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_001_010>Covert Aeon Loyalists infiltrated the Order over a year ago. Their efforts have provided us with important intelligence, and they have also assisted us in spreading the word and truth of the Princess.'},
-  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_010>However, the entire Loyalist network is now in grave peril.'},
-  {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_020>QAI has been using Copernicus as a staging ground for attacks into Coalition space. In an effort to stem those attacks, a group of Loyalists launched a secret operation against QAI\'s position.'},
-  {phase = 3, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_003_010>The operation ended in failure. QAI knew the attack was coming, and it captured three Loyalist leaders. We know from past OPs that QAI will implant them with AI chips. If that happens, our entire covert network will be in grave peril.'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_010>The importance of this operation cannot be understated, Commander. It is now obvious that our security protocols have been breached. There is simply no other way our enemies could\'ve known both the secret location of Fort Clarke and about our covert actions on this planet.'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_020>This situation must be dealt with before it spirals out of control.'},
-  {phase = 4, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_004_030>Loyalists are still operating on-planet, but they have been unable to launch a rescue mission. You will gate in here, reinforce their position and then rescue the Loyalists being held by QAI.'},
-  {phase = 4, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_004_040>Once they are secure, you will destroy QAI\'s base. That horror of a machine is aided by an Order commander named Celene. She was once very loyal to the Princess but fell victim to Kael\'s lies.'},
-  {phase = 5, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_005_010>A Loyalist spy named Thalia will be your on-planet liaison. She will have more intelligence for you once you arrive. You gate immediately.'},
-  {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_005_020>Watch your back, Commander. Good hunting.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X02_B01_000_010>01-August-3847'},
+    {phase = 1, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_001_010>Covert Aeon Loyalists infiltrated the Order over a year ago. Their efforts have provided us with important intelligence, and they have also assisted us in spreading the word and truth of the Princess.'},
+    {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_010>However, the entire Loyalist network is now in grave peril.'},
+    {phase = 2, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_002_020>QAI has been using Copernicus as a staging ground for attacks into Coalition space. In an effort to stem those attacks, a group of Loyalists launched a secret operation against QAI\'s position.'},
+    {phase = 3, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_003_010>The operation ended in failure. QAI knew the attack was coming, and it captured three Loyalist leaders. We know from past OPs that QAI will implant them with AI chips. If that happens, our entire covert network will be in grave peril.'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_010>The importance of this operation cannot be understated, Commander. It is now obvious that our security protocols have been breached. There is simply no other way our enemies could\'ve known both the secret location of Fort Clarke and about our covert actions on this planet.'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_004_020>This situation must be dealt with before it spirals out of control.'},
+    {phase = 4, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_004_030>Loyalists are still operating on-planet, but they have been unable to launch a rescue mission. You will gate in here, reinforce their position and then rescue the Loyalists being held by QAI.'},
+    {phase = 4, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_004_040>Once they are secure, you will destroy QAI\'s base. That horror of a machine is aided by an Order commander named Celene. She was once very loyal to the Princess but fell victim to Kael\'s lies.'},
+    {phase = 5, character = '<LOC Rhiza>Rhiza', text = '<LOC X02_B01_005_010>A Loyalist spy named Thalia will be your on-planet liaison. She will have more intelligence for you once you arrive. You gate immediately.'},
+    {phase = 5, character = '<LOC Dostya>Dostya', text = '<LOC X02_B01_005_020>Watch your back, Commander. Good hunting.'},
+  },
+  movies = {'X02.sfd'},
+  voice = {
+    {Cue = 'X02_B01', Bank = 'Briefings'},
+  },
+  bgsound = {
+    {Cue = 'X02_B01', Bank = 'Op_Briefing'},
+  },
 }
 
 --------------------------------

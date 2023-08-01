@@ -4,7 +4,9 @@ operationData =
 {
     key = 'X1CA_Coop_003',
     feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13912',
-    opBriefingText = OpStrings.BriefingData,
+    opName = OpStrings.OPERATION_NAME,
+    opDesctiption = OpStrings.OPERATION_DESCRIPTION,
+    opBriefing = OpStrings.BriefingData,
     opDebriefingSuccess = OpStrings.X03_DB01_010,
     opDebriefingFailure = OpStrings.X03_DB01_020,
 }

@@ -57,10 +57,83 @@ function MultipleExperimentalsThread(platoon)
     end
 end
 
+--- Adds the platoon to the base's guard pool from which other platoons can request guards.
+function AddToNavalGuardPool(platoon)
+    local data = platoon.PlatoonData
+    local base = platoon:GetBrain().BaseManagers[data.LocationType]
+    if not base.NavalGuardPlatoons then
+        base.NavalGuardPlatoons = {}
+    end
+
+    table.insert(base.NavalGuardPlatoons, platoon)
+    platoon:AddDestroyCallback(RemoveFromNavalGuardPool)
+
+    if data.RallyPoint then
+        platoon:MoveToLocation(ScenarioUtils.MarkerToPosition(data.RallyPoint), false)
+    end
+end
+
+function RemoveFromNavalGuardPool(brain, platoon)
+    local base = brain.BaseManagers[platoon.PlatoonData.LocationType]
+    if not base.NavalGuardPlatoons then
+        return
+    end
+
+    table.removeByValue(base.NavalGuardPlatoons, platoon)
+end
+
+function GetAvailableGuardUnit(brain, baseName, cats, num)
+    num = num or 1
+    local availablePlatoons = brain.BaseManagers[baseName].NavalGuardPlatoons
+    if not availablePlatoons then
+        return
+    end
+
+    local result = {}
+
+    for _, platoon in availablePlatoons do
+        for _, unit in platoon:GetPlatoonUnits() do
+            if EntityCategoryContains(cats, unit) then
+                table.insert(result, unit)
+
+                if table.getn(result) == num then
+                    return result
+                end
+            end
+        end
+    end
+end
+
+function RequestAmphibiousGuard(platoon)
+    local baseName = platoon.PlatoonData.LocationType
+    local brain = platoon:GetBrain()
+
+    for _, unit in platoon:GetPlatoonUnits() do
+        local guardUnits = nil
+        if unit.techCategory == "TECH1" then
+            continue
+        elseif unit.techCategory == "TECH2" then
+            if EntityCategoryContains(categories.CRUISER, unit) then
+                guardUnits = GetAvailableGuardUnit(brain, baseName, categories.ual0307, 1)
+            else
+                guardUnits = GetAvailableGuardUnit(brain, baseName, categories.ual0307 + categories.ual0205, 1)
+            end
+        else
+            guardUnits = GetAvailableGuardUnit(brain, baseName, categories.ual0307 + categories.ual0205, 2)
+        end
+
+        if guardUnits then
+            brain:AssignUnitsToPlatoon(platoon, guardUnits, 'support', 'NoFormation')
+            IssueClearCommands(guardUnits)
+            IssueGuard(guardUnits, unit)
+        end
+    end 
+end
+
 function EnableStealthOnAir()
     local T3AirUnits = {}
     while true do
-        for _, v in ArmyBrains[Cybran]:GetListOfUnits(categories.ura0303 + categories.ura0304, false) do
+        for _, v in ArmyBrains[Cybran]:GetListOfUnits(categories.ura0303 + categories.ura0304 + categories.ura0401, false) do
             if not ( T3AirUnits[v:GetEntityId()] or v:IsBeingBuilt() ) then
                 v:ToggleScriptBit('RULEUTC_StealthToggle')
                 T3AirUnits[v:GetEntityId()] = true

@@ -567,6 +567,25 @@ function SeraphimM5MainBaseNavalAttacks()
         },
     }
     ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+
+    -- Sonars
+    opai = SeraphimM5MainBase:AddOpAI('M5_Sera_Main_Base_Sonar_1',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
+
+    opai = SeraphimM5MainBase:AddOpAI('M5_Sera_Main_Base_Sonar_2',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 -------------------
@@ -943,6 +962,16 @@ function SeraphimM5IslandWestBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {'default_brain', {'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY + categories.uel0203, '<='})
+
+    -- Sonar
+    opai = SeraphimM5IslandWestT2NavalBase:AddOpAI('M5_Sera_Island_West_Base_T2_Naval_Sonar',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 ---------------------------------
@@ -1137,6 +1166,16 @@ function SeraphimM5IslandMiddleBaseNavalAttacks()
         opai:SetChildActive('T2', false)
         opai:SetChildActive('T3', false)
     end
+
+    -- Sonar
+    opai = SeraphimM5IslandMiddleT2NavalBase:AddOpAI('M5_Sera_Island_Middle_Base_T2_Naval_Sonar',
+        {
+            Amount = 1,
+            KeepAlive = true,
+            MaxAssist = 1,
+            Retry = true,
+        }
+    )
 end
 
 function CDROnWater(category)

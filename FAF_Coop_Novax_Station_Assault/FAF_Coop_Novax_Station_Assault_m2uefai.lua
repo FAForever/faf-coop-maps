@@ -27,6 +27,7 @@
 
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 ---------
 -- Locals
@@ -51,12 +52,6 @@ function UEFM2BaseAI()
     UEFM2Base:SetActive('AirScouting', true)
     -- UEFM2Base:SetSupportACUCount(1)
     -- UEFM2Base:SetSACUUpgrades({'ResourceAllocation', 'RadarJammer', 'SensorRangeEnhancer'}, true)
-    ForkThread(
-        function()
-            WaitSeconds(1)
-            UEFM2Base:AddBuildGroupDifficulty('M2_UEF_Base_Support_Factories', 110, true)
-        end
-    )
 
     UEFM2BaseLandAttacks()
     UEFM2BaseAirAttacks()
@@ -64,8 +59,15 @@ function UEFM2BaseAI()
 end
 
 function UEFM2BaseAirAttacks()
+    local DefaultPatrolChains = {
+        'M2_UEF_Base_AirAttack_Chain_1',
+        'M2_UEF_Base_AirAttack_Chain_2',
+        'M2_UEF_Base_AirAttack_Chain_3',
+    }
+
     local opai = nil
     local quantity = {}
+    local trigger = {}
 
     -- Transport Builder
     opai = UEFM2Base:AddOpAI('EngineerAttack', 'M2_UEF_TransportBuilder',
@@ -89,9 +91,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 110,
         }
@@ -107,9 +107,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 110,
         }
@@ -126,9 +124,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -144,9 +140,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -162,9 +156,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -180,9 +172,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -198,9 +188,7 @@ function UEFM2BaseAirAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {'M2_UEF_Base_AirAttack_Chain_1',
-                                'M2_UEF_Base_AirAttack_Chain_2',
-                                'M2_UEF_Base_AirAttack_Chain_3'},
+                PatrolChains = DefaultPatrolChains,
             },
             Priority = 120,
         }
@@ -369,6 +357,13 @@ function UEFM2BaseLandAttacks()
 end
 
 function UEFM2BaseNavalAttacks()
+    local DefaultPatrolChains = {
+        'M2_UEF_Base_NavalAttack_Chain_1',
+        'M2_UEF_Base_NavalAttack_Chain_2',
+        'M2_UEF_Base_NavalAttack_Chain_3',
+        'M2_UEF_Base_NavalAttack_Chain_4',
+    }
+
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -380,12 +375,7 @@ function UEFM2BaseNavalAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {
-                        'M2_UEF_Base_NavalAttack_Chain_1',
-                        'M2_UEF_Base_NavalAttack_Chain_2',
-                        'M2_UEF_Base_NavalAttack_Chain_3',
-                        'M2_UEF_Base_NavalAttack_Chain_4'
-                    },
+                    PatrolChains = DefaultPatrolChains,
                 },
                 EnabledTypes = {'Submarine'},
                 MaxFrigates = quantity[Difficulty],
@@ -409,12 +399,7 @@ function UEFM2BaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {
-                        'M2_UEF_Base_NavalAttack_Chain_1',
-                        'M2_UEF_Base_NavalAttack_Chain_2',
-                        'M2_UEF_Base_NavalAttack_Chain_3',
-                        'M2_UEF_Base_NavalAttack_Chain_4'
-                    },
+                    PatrolChains = DefaultPatrolChains,
                 },
             EnabledTypes = {'Destroyer', 'Submarine'},
             MaxFrigates = quantity[Difficulty],
@@ -437,12 +422,7 @@ function UEFM2BaseNavalAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {
-                        'M2_UEF_Base_NavalAttack_Chain_1',
-                        'M2_UEF_Base_NavalAttack_Chain_2',
-                        'M2_UEF_Base_NavalAttack_Chain_3',
-                        'M2_UEF_Base_NavalAttack_Chain_4'
-                    },
+                    PatrolChains = DefaultPatrolChains,
                 },
                 MaxFrigates = quantity[Difficulty],
                 MinFrigates = quantity[Difficulty],
@@ -468,12 +448,7 @@ function UEFM2BaseNavalAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {
-                        'M2_UEF_Base_NavalAttack_Chain_1',
-                        'M2_UEF_Base_NavalAttack_Chain_2',
-                        'M2_UEF_Base_NavalAttack_Chain_3',
-                        'M2_UEF_Base_NavalAttack_Chain_4'
-                    },
+                    PatrolChains = DefaultPatrolChains,
                 },
                 MaxFrigates = quantity[Difficulty],
                 MinFrigates = quantity[Difficulty],
@@ -497,12 +472,7 @@ function UEFM2BaseNavalAttacks()
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
-                PatrolChains = {
-                    'M2_UEF_Base_NavalAttack_Chain_1',
-                    'M2_UEF_Base_NavalAttack_Chain_2',
-                    'M2_UEF_Base_NavalAttack_Chain_3',
-                    'M2_UEF_Base_NavalAttack_Chain_4'
-                },
+                PatrolChains = DefaultPatrolChains,
             },
             EnabledTypes = {'Cruiser', 'Utility'},
             MaxFrigates = quantity[Difficulty],
@@ -596,25 +566,50 @@ end
 
 -- Island Nuke Ai
 function UEFM2IslandBaseNukeAI()
-    -- TODO: Use grab from area instead
-    --       Don't target ACU first
     local nuke = ArmyBrains[UEF]:GetListOfUnits(categories.NUKE * categories.STRATEGIC * categories.STRUCTURE * categories.TECH3, false)[1]
 
     if not nuke then
+        WANR('*speed2: UEFM2IslandBaseNukeAI: No Nuke found... Aborting.')
         return
     end
 
-    local waitTime = {Random(27.0, 21.0), Random(23.0, 27.0), Random(19.0, 23.0)}
+    IssueStop({nuke})
+
+    local waitTime = {Random(27.0, 31.0), Random(23.0, 27.0), Random(19.0, 23.0)}
     LOG('*speed2: Nuke activation wait time: ' .. waitTime[Difficulty])
     WaitSeconds(waitTime[Difficulty] * 60.0)
 
-    -- Activate Nuke
-    local plat = ArmyBrains[UEF]:MakePlatoon('', '')
-    ArmyBrains[UEF]:AssignUnitsToPlatoon(plat, {nuke}, 'Attack', 'NoFormation')
-    plat:ForkAIThread(plat.NukeAI)
+    local delay = {11, 8, 5}
+    while nuke and not nuke.Dead do
+        local marker = nil
+        local numUnits = 0
+        local searching = true
+        while searching do
+            WaitSeconds(5)
+            for i = 1, 17 do
+                local num = table.getn(ArmyBrains[UEF]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M2_Nuke_Marker_' .. i), 30, 'enemy'))
+                if(num > 3) then
+                    if(num > numUnits) then
+                        numUnits = num
+                        marker = 'M2_Nuke_Marker_' .. i
+                    end
+                end
+                if(i == 17 and marker) then
+                    searching = false
+                end
+            end
+        end
+        if nuke and not nuke.Dead then
+            nuke:GiveNukeSiloAmmo(1)
+            IssueNuke({nuke}, ScenarioUtils.MarkerToPosition(marker))
+        end
+        
+        WaitSeconds(delay[Difficulty] * 60)
+    end
 end
 
 -- Island SACU Attacks
 function UEFM2IslandBaseSACUAttacks()
 
 end
+

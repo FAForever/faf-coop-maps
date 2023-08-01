@@ -142,12 +142,11 @@ function QP1B1Airattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 
-    quantity = {1, 2, 3}
+    quantity = {2, 3, 4}
     Temp = {
         'Q1B1AirAttackTemp5',
         'NoPlan',   
         { 'dra0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-        { 'ura0102', 1, 4, 'Attack', 'GrowthFormation' },
         }
     Builder = {
         BuilderName = 'Q1B1AirAttackBuilder5',
@@ -168,12 +167,11 @@ function QP1B1Airattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 
-    quantity = {1, 2, 3}
+    quantity = {2, 3, 4}
     Temp = {
         'Q1B1AirAttackTemp6',
         'NoPlan',   
         { 'dra0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-        { 'ura0102', 1, 4, 'Attack', 'GrowthFormation' },
         }
     Builder = {
         BuilderName = 'Q1B1AirAttackBuilder6',
@@ -346,13 +344,12 @@ function QP1B1landattacks()
     Temp = {
        'QP1B1landAttackTemp6',
        'NoPlan',
-       { 'url0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        { 'url0111', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
        }
     Builder = {
         BuilderName = 'QP1B1AttackBuilder6',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 3,
         Priority = 205,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -573,14 +570,14 @@ function QP1B2landattacks()
     Builder = {
         BuilderName = 'QP1B2landAttackBuilder5',
         PlatoonTemplate = Temp,
-        InstanceCount = 3,
+        InstanceCount = 2,
         Priority = 205,
         PlatoonType = 'Land',
         RequiresConstruction = true,
         LocationType = 'QAIP1base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 2, categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+        {'default_brain',  {'HumanPlayers'}, 4, categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -676,7 +673,7 @@ function QP1B2Airattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 7}
+    quantity = {4, 5, 6}
     Temp = {
        'QP1B2AirAttackTemp3',
        'NoPlan',
@@ -692,7 +689,7 @@ function QP1B2Airattacks()
         LocationType = 'QAIP1base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 6, categories.ALLUNITS - categories.TECH1}},
+        {'default_brain',  {'HumanPlayers'}, 5, categories.ALLUNITS - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -706,7 +703,6 @@ function QP1B2Airattacks()
        'QP1B2AirAttackTemp4',
        'NoPlan',
        { 'ura0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-       { 'xra0105', 1, 3, 'Attack', 'GrowthFormation' },
        }
     Builder = {
         BuilderName = 'QP1B2AirAttackBuilder4',
@@ -718,7 +714,7 @@ function QP1B2Airattacks()
         LocationType = 'QAIP1base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.ALLUNITS - categories.TECH1}},
+        {'default_brain',  {'HumanPlayers'}, 20, categories.ALLUNITS - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -727,12 +723,11 @@ function QP1B2Airattacks()
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 3, 4}
+    quantity = {3, 5, 6}
     Temp = {
        'QP1B2AirAttackTemp5',
        'NoPlan',
        { 'dra0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-       { 'ura0102', 1, 4, 'Attack', 'GrowthFormation' },
        }
     Builder = {
         BuilderName = 'QP1B2AirAttackBuilder5',

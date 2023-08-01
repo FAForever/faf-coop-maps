@@ -662,10 +662,10 @@ function StartMission2()
 
     -- M2 Misc Triggers
     -- Taunts
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 2 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 5 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 7 * 60)
-    ScenarioFramework.CreateTimerTrigger(PlayTaunt, 11 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 2 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 5 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 7 * 60)
+    ScenarioFramework.CreateTimerTrigger(PlayRandomTaunt, 11 * 60)
 
     -- Objective reminder
     ScenarioFramework.CreateTimerTrigger(M2ObjectiveReminder, 300)
@@ -830,7 +830,7 @@ function M2AttackFive()
 
     -- Air Attack NW
     WaitSeconds(37)
-    local navyCounter = GetNumOfHumanUnits(categories.NAVAL, 'West_Lake_Area')
+    local navyCounter = ScenarioFramework.GetNumOfHumanUnits(categories.NAVAL, 'West_Lake_Area')
     if navyCounter > 5 then
         local nwAirPlat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2A5_NW_Air_Naval_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonAttackChain(nwAirPlat, 'Cybran_M2_West_NW_Mainframe_Naval_Chain')

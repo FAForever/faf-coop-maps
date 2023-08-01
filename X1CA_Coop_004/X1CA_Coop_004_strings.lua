@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_X04>Operation: Meltdown'
+OPERATION_DESCRIPTION = '<LOC X1CA_004_description>Coalition Command has received unverified intel that the Seraphim are massing on the planet Hades -- control of Hades will let the Seraphim attack any location within Coalition-controlled space. Elite Commander Dostya will join you for this mission, and the two of you will eliminate any Seraphim forces found on Hades.'
 
 
 
@@ -26,14 +27,23 @@ OPERATION_NAME = '<LOC OPNAME_X04>Operation: Meltdown'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC X04_B01_000_010>06-August-3847'},
-  {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X04_B01_001_010>We\'re getting reports that two Seraphim commanders have landed on the planet Hades. My guess is that they\'re planning on launching a major offensive and securing Hades is the first step. We\'re hoping to catch them with their pants down, so you and Dostya are going to pay them a little visit.'},
-  {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC X04_B01_002_010>For the past three years we have been unable to glean a single scrap of intel regarding the Seraphim\'s movements, and now we find ourselves possessing this information? It strikes me as rather convenient.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_020>The intel came from a Cybran sleeper cell hidden in Seraphim-controlled space. You saying we shouldn\'t trust them?'},
-  {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC X04_B01_002_030>There are few people that I trust, especially in light of recent events. But a Cybran would never turn his back on his brothers and sisters, especially at a time like this.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_040>All we know is that two Seraphim commanders have started to build Quantum Gates. Even if the intel is suspect, we can\'t risk letting the Seraphim complete those Gates. If they come online, they\'d be able to attack any system. And we can\'t take that chance.'},
-  {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_050>The OP is pretty simple: Seek out and destroy the Seraphim commanders operating on the planet. Brackman has completed his work on the Seraphim translator -- it\'s being uploaded into your ACU as we speak.'},
-  {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X04_B01_003_010>We\'ll provide additional intel as it becomes available. Good luck.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC X04_B01_000_010>06-August-3847'},
+    {phase = 1, character = '<LOC Hall>Hall', text = '<LOC X04_B01_001_010>We\'re getting reports that two Seraphim commanders have landed on the planet Hades. My guess is that they\'re planning on launching a major offensive and securing Hades is the first step. We\'re hoping to catch them with their pants down, so you and Dostya are going to pay them a little visit.'},
+    {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC X04_B01_002_010>For the past three years we have been unable to glean a single scrap of intel regarding the Seraphim\'s movements, and now we find ourselves possessing this information? It strikes me as rather convenient.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_020>The intel came from a Cybran sleeper cell hidden in Seraphim-controlled space. You saying we shouldn\'t trust them?'},
+    {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC X04_B01_002_030>There are few people that I trust, especially in light of recent events. But a Cybran would never turn his back on his brothers and sisters, especially at a time like this.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_040>All we know is that two Seraphim commanders have started to build Quantum Gates. Even if the intel is suspect, we can\'t risk letting the Seraphim complete those Gates. If they come online, they\'d be able to attack any system. And we can\'t take that chance.'},
+    {phase = 2, character = '<LOC Hall>Hall', text = '<LOC X04_B01_002_050>The OP is pretty simple: Seek out and destroy the Seraphim commanders operating on the planet. Brackman has completed his work on the Seraphim translator -- it\'s being uploaded into your ACU as we speak.'},
+    {phase = 3, character = '<LOC Hall>Hall', text = '<LOC X04_B01_003_010>We\'ll provide additional intel as it becomes available. Good luck.'},
+  },
+  movies = {'X04.sfd'},
+    voice = {
+      {Cue = 'X04_B01', Bank = 'Briefings'},
+    },
+    bgsound = {
+      {Cue = 'X04_B01', Bank = 'Op_Briefing'},
+    },
 }
 
 --------------------------------

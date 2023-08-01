@@ -59,6 +59,13 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 -- How long should we wait at the beginning of the NIS to allow slower machines to catch up?
 local NIS1InitialDelay = 3
 
+--------------
+-- Debug only!
+--------------
+local SkipNIS1 = false
+local SkipNIS2 = false
+local SkipNIS3 = false
+
 ----------------
 -- Taunt Managers
 ----------------
@@ -105,14 +112,13 @@ function OnPopulate(scenario)
     end
 
     -- Unit cap
-    -- TODO: recheck these numbers, probably too high
     ScenarioFramework.SetSharedUnitCap(1000)
-    SetArmyUnitCap(Fletcher, 300)
+    SetArmyUnitCap(Fletcher, 400)
     SetArmyUnitCap(Hex5, 800)
     SetArmyUnitCap(QAI, 900)
 
     -- Disable friendly AI sharing resources to players
-    GetArmyBrain(Fletcher):SetResourceSharing(false)
+    ArmyBrains[Fletcher]:SetResourceSharing(false)
 
     ------------
     -- M1 Hex5 AI
@@ -158,8 +164,8 @@ function OnPopulate(scenario)
     ----------------------
     ScenarioInfo.Prison = ScenarioUtils.CreateArmyUnit('Hex5', 'M1_Hex5_Prison')
     ScenarioInfo.Prison:SetDoNotTarget(true)
-    ScenarioInfo.Prison:SetCanTakeDamage(false)
-    ScenarioInfo.Prison:SetCanBeKilled(false)
+    ScenarioInfo.Prison.CanTakeDamage = false
+    ScenarioInfo.Prison.CanBeKilled = false
     ScenarioInfo.Prison:SetReclaimable(false)
     ScenarioUtils.CreateArmyGroup('Hex5', 'M1_Hex5_Prison_D' .. Difficulty)
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Hex5', 'M1_Hex5_Prison_LandDef_D' .. Difficulty, 'GrowthFormation')
@@ -229,74 +235,80 @@ end
 function IntroMission1NIS()
     ScenarioFramework.SetPlayableArea('M1Area', false)
 
-    Cinematics.EnterNISMode()
+    if not SkipNIS1 then
+        Cinematics.EnterNISMode()
 
-    local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M1_Vis_1'), 0, ArmyBrains[Player1])
-    local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('M1_Vis_2'), 0, ArmyBrains[Player1])
-    local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('M1_Vis_3'), 0, ArmyBrains[Player1])
+        local VisMarker1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'M1_Vis_1', 0, ArmyBrains[Player1])
+        local VisMarker2 = ScenarioFramework.CreateVisibleAreaLocation(20, 'M1_Vis_2', 0, ArmyBrains[Player1])
+        local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, 'M1_Vis_3', 0, ArmyBrains[Player1])
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
-    -- Let slower machines catch up before we get going
-    WaitSeconds(NIS1InitialDelay)
+        -- Let slower machines catch up before we get going
+        WaitSeconds(NIS1InitialDelay)
 
-    WaitSeconds(1)
-    ScenarioFramework.Dialogue(OpStrings.X05_M01_010, nil, true)
-    WaitSeconds(3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 5)
-    WaitSeconds(3)
+        WaitSeconds(1)
+        ScenarioFramework.Dialogue(OpStrings.X05_M01_010, nil, true)
+        WaitSeconds(3)
+        Cinematics.CameraMoveToMarker('Cam_1_2', 5)
+        WaitSeconds(3)
 
-    ScenarioFramework.Dialogue(OpStrings.X05_M01_011, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X05_M01_011, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
-    WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
-    WaitSeconds(2)
-    ForkThread(function()
+        Cinematics.CameraMoveToMarker('Cam_1_3', 3)
         WaitSeconds(2)
-        VisMarker1:Destroy()
-        VisMarker2:Destroy()
-        VisMarker3:Destroy()
-        WaitSeconds(4)
-        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_1'), 60)
-        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_2'), 30)
-        ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_3'), 30)
-    end)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 4)
+        Cinematics.CameraMoveToMarker('Cam_1_4', 3)
+        WaitSeconds(2)
+        ForkThread(function()
+            WaitSeconds(2)
+            VisMarker1:Destroy()
+            VisMarker2:Destroy()
+            VisMarker3:Destroy()
+            WaitSeconds(4)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_1'), 60)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_2'), 30)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('M1_Vis_3'), 30)
+        end)
+        Cinematics.CameraMoveToMarker('Cam_1_5', 4)
 
-    if (LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
-    elseif (LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'CybranPlayer', 'Warp', true, true, PlayerDeath)
-    elseif (LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEFPlayer', 'Warp', true, true, PlayerDeath)
+        ForkThread(SpawnPlayers)
+
+        ScenarioFramework.Dialogue(OpStrings.X05_M01_012, nil, true)
+        WaitSeconds(2)
+
+        Cinematics.ExitNISMode()
+    else
+        Cinematics.CameraMoveToMarker('Cam_1_5', 0)
+        Cinematics.CameraRevertRotation()
+
+        ForkThread(SpawnPlayers)
+
+        WaitSeconds(0.1)
     end
-
-    -- spawn coop players too
-    ScenarioInfo.CoopCDR = {}
-    local tblArmy = ListArmies()
-    coop = 1
-    for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-            if (factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
-            elseif (factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
-            else
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
-            end
-            coop = coop + 1
-            WaitSeconds(0.5)
-        end
-    end
-
-    ScenarioFramework.Dialogue(OpStrings.X05_M01_012, nil, true)
-    WaitSeconds(2)
-
-    Cinematics.ExitNISMode()
 
     IntroMission1()
+end
+
+function SpawnPlayers()
+    local i = 1
+    ScenarioInfo.PlayerCDRs = {}
+
+    for name, index in ScenarioInfo.HumanPlayers do
+        local factionIdx = ArmyBrains[index]:GetFactionIndex()
+        if factionIdx == 1 then
+            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
+        elseif factionIdx == 2 then
+            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
+        else
+            ScenarioInfo['Player' .. i .. 'CDR'] = ScenarioFramework.SpawnCommander('Player' .. i, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
+        end
+        
+        table.insert(ScenarioInfo.PlayerCDRs, ScenarioInfo['Player' .. i .. 'CDR'])
+
+        i = i + 1
+
+        WaitSeconds(1.8)
+    end
 end
 
 -----------
@@ -341,7 +353,7 @@ function StartMission1()
                 -- Warp in and buff Fletcher
                 ScenarioInfo.FletcherCDR = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', 'Warp', LOC '{i Fletcher}', false, false, 
                     {'ResourceAllocation', 'AdvancedEngineering', 'T3Engineering', 'LeftPod', 'RightPod'})
-                ScenarioInfo.FletcherCDR:SetCanBeKilled(false)
+                ScenarioInfo.FletcherCDR.CanBeKilled = false
                 ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
                 FletcherTM:AddTauntingCharacter(ScenarioInfo.FletcherCDR)
                 IntroMission2()
@@ -494,25 +506,30 @@ function IntroMission2()
 
             ScenarioFramework.CreateTimerTrigger(ResetBuildInterval, 300)
 
-            ScenarioFramework.CreateArmyStatTrigger(M2T1FactoryBuilt, ArmyBrains[Fletcher], 'M2T1FactoryBuilt',
-                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.FACTORY * categories.TECH1 * categories.AIR}})
+            ScenarioFramework.CreateArmyStatTrigger(M2TAir1FactoryBuilt, ArmyBrains[Fletcher], 'M2TAir1FactoryBuilt',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH1 * categories.AIR}})
 
-            ScenarioFramework.CreateArmyStatTrigger(M2T3FactoryBuilt, ArmyBrains[Fletcher], 'M2T3FactoryBuilt',
-                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.uel0309}})
+            ScenarioFramework.CreateArmyStatTrigger(M2T3AirFactoryBuilt, ArmyBrains[Fletcher], 'M2T3AirFactoryBuilt',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 5, Category = categories.uel0309}})
 
-            ScenarioFramework.CreateArmyStatTrigger(   M2FletcherAI.M2FletcherBaseAirAttacks, ArmyBrains[Fletcher], '2+T3AirFacs',
-                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0302}})
+            ScenarioFramework.CreateArmyStatTrigger(M2T1LandFactoryBuilt, ArmyBrains[Fletcher], 'M2T1LandFactoryBuilt',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH1 * categories.LAND}})
 
-            ScenarioFramework.CreateArmyStatTrigger(   M2FletcherAI.FletcherBaseLandAttacks, ArmyBrains[Fletcher], '2+T3LandFacs',
+            ScenarioFramework.CreateArmyStatTrigger(M2T3LandFactoryBuilt, ArmyBrains[Fletcher], 'M2T3LandFactoryBuilt',
                 {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0301}})
 
-            ForkThread(function()
-                WaitSeconds(2)
-                ArmyBrains[Fletcher]:GiveStorage('ENERGY', 20000)
-                ArmyBrains[Fletcher]:GiveStorage('MASS', 10000)
-                WaitSeconds(2)
-                ArmyBrains[Fletcher]:GiveResource('MASS', 10000)
-            end)
+            ScenarioFramework.CreateArmyStatTrigger(M2FletcherAI.FletcherEngineerCount1, ArmyBrains[Fletcher], 'FletcherEngineerCount1',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3}})
+
+            ScenarioFramework.CreateArmyStatTrigger(M2FletcherAI.FletcherEngineerCount2, ArmyBrains[Fletcher], 'FletcherEngineerCount2',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 8, Category = categories.ENERGYPRODUCTION * categories.STRUCTURE * categories.TECH3}})
+
+            ScenarioFramework.CreateArmyStatTrigger(M2FletcherAI.FletcherEngineerCount3, ArmyBrains[Fletcher], 'FletcherEngineerCount3',
+                {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 6, Category = categories.SHIELD * categories.STRUCTURE}})
+            
+
+            ArmyBrains[Fletcher]:GiveStorage('Mass', 20000)
+            ArmyBrains[Fletcher]:GiveResource('Mass', 20000)
            
             ------------
             -- M2 Hex5 AI
@@ -668,7 +685,7 @@ function IntroMission2()
 end
 
 function EconomyDestroyed()
-    if(ScenarioInfo.Hex5CDR and not ScenarioInfo.Hex5CDR:IsDead()) then
+    if(ScenarioInfo.Hex5CDR and not ScenarioInfo.Hex5CDR.Dead) then
         ScenarioInfo.Hex5CDR:CreateEnhancement('StealthGeneratorRemove')
         ScenarioInfo.Hex5CDR:CreateEnhancement('CloakingGeneratorRemove')
     end
@@ -676,34 +693,36 @@ end
 
 function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2Area', false)
-    Cinematics.EnterNISMode()
-    Cinematics.SetInvincible('M1Area')
+    if not SkipNIS2 then
+        Cinematics.EnterNISMode()
+        Cinematics.SetInvincible('M1Area')
 
-    -- Ensure that Fletcher starts building his base sooner rather than later
-    ArmyBrains[Fletcher]:PBMSetCheckInterval(2)
+        -- Ensure that Fletcher starts building his base sooner rather than later
+        ArmyBrains[Fletcher]:PBMSetCheckInterval(2)
 
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
-    WaitSeconds(1)
+        WaitSeconds(1)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 0)
+        WaitSeconds(1)
 
-    -- Play faction appropriate dialogue from Fletcher
-    if (LeaderFaction == 'uef') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_040, nil, true)
-    elseif (LeaderFaction == 'cybran') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_050, nil, true)
-    elseif (LeaderFaction == 'aeon') then
-        ScenarioFramework.Dialogue(OpStrings.X05_M01_060, nil, true)
+        -- Play faction appropriate dialogue from Fletcher
+        if (LeaderFaction == 'uef') then
+            ScenarioFramework.Dialogue(OpStrings.X05_M01_040, nil, true)
+        elseif (LeaderFaction == 'cybran') then
+            ScenarioFramework.Dialogue(OpStrings.X05_M01_050, nil, true)
+        elseif (LeaderFaction == 'aeon') then
+            ScenarioFramework.Dialogue(OpStrings.X05_M01_060, nil, true)
+        end
+
+        WaitSeconds(1)
+        Cinematics.CameraMoveToMarker('Cam_2_2', 3)
+
+        Cinematics.SetInvincible('M1Area', true)
+        Cinematics.ExitNISMode()
+        -- Post-NIS comment from Brackman
+        ScenarioFramework.Dialogue(OpStrings.X05_M01_190)
+        -- Set back to default
+        ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
     end
-
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 3)
-
-    Cinematics.SetInvincible('M1Area', true)
-    Cinematics.ExitNISMode()
-    -- Post-NIS comment from Brackman
-    ScenarioFramework.Dialogue(OpStrings.X05_M01_190)
-    -- Set back to default
-    ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
 
     M2Counterattack()
     StartMission2()
@@ -713,38 +732,26 @@ function ResetBuildInterval()
     ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
 end
 
-function M2T1FactoryBuilt()
+function M2TAir1FactoryBuilt()
     local factory = ArmyBrains[Fletcher]:GetListOfUnits(categories.FACTORY * categories.AIR, false)
     IssueGuard({ScenarioInfo.FletcherCDR}, factory[1])
 end
 
-function M2T3FactoryBuilt()
-    local factory = ArmyBrains[Fletcher]:GetListOfUnits(categories.FACTORY * categories.AIR, false)
-
+function M2T3AirFactoryBuilt()
     IssueStop({ScenarioInfo.FletcherCDR})
     IssueClearCommands({ScenarioInfo.FletcherCDR})
-
-    IssueGuard({ScenarioInfo.FletcherCDR}, factory[2])
-
-    ScenarioFramework.CreateArmyStatTrigger(M2T3AirFactory2Built, ArmyBrains[Fletcher], 'M2T3AirFactory2Built',
-        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 2, Category = categories.ueb0302}})
 end
 
-function M2T3AirFactory2Built()
+function M2T1LandFactoryBuilt()
     local factory = ArmyBrains[Fletcher]:GetListOfUnits(categories.FACTORY * categories.LAND, false)
-
-    IssueStop({ScenarioInfo.FletcherCDR})
-    IssueClearCommands({ScenarioInfo.FletcherCDR})
-
     IssueGuard({ScenarioInfo.FletcherCDR}, factory[1])
-
-    ScenarioFramework.CreateArmyStatTrigger(M2T3LandFactoryBuilt, ArmyBrains[Fletcher], 'M2T3LandFactoryBuilt',
-        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb0301}})
 end
 
 function M2T3LandFactoryBuilt()
     IssueStop({ScenarioInfo.FletcherCDR})
     IssueClearCommands({ScenarioInfo.FletcherCDR})
+
+    M2FletcherAI.FletcherBaseLandAttacks()
 end
 
 function M2Counterattack()
@@ -983,7 +990,7 @@ function StartMission2()
                 -- torch Hex5s remaining units
                 -- local units = ArmyBrains[Hex5]:GetListOfUnits(categories.ALLUNITS, false)
                 -- for k,v in units do
-                    -- if v and (not v:IsDead()) then
+                    -- if v and (not v.Dead) then
                         -- v:Kill()
                     -- end
                 -- end
@@ -1017,7 +1024,7 @@ function StartMission2()
            {{ StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.ueb1301, },}) -- starting to build up economy
 
     ScenarioFramework.CreateArmyStatTrigger(M2FletcherTech2Dialogue, ArmyBrains[Fletcher], 'FletcherTech2',
-           {{ StatType = 'Units_BeingBuilt', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH2, },}) -- starting to build T3 factory
+           {{ StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH2, },}) -- starting to build T3 factory
 
     ScenarioFramework.CreateArmyStatTrigger(M2FletcherTech3Dialogue, ArmyBrains[Fletcher], 'FletcherTech3',
             {{ StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.uel0309, },}) -- has hit tech 3
@@ -1166,7 +1173,7 @@ end
 function KillOrder()
     local units = ArmyBrains[Hex5]:GetListOfUnits(categories.ALLUNITS, false)
     for k,v in units do
-        if(not v:IsDead()) then
+        if(not v.Dead) then
             v:Kill()
         end
     end
@@ -1287,9 +1294,9 @@ function IntroMission3()
             ---------------
             ScenarioInfo.QAIBuildingGroup = ScenarioUtils.CreateArmyGroup('QAI', 'M3_Main_Objective_Buildings')
             for k, v in ScenarioInfo.QAIBuildingGroup do
-                v:SetCanBeKilled(false)
+                v.CanBeKilled = false
                 v:SetDoNotTarget(true)
-                v:SetCanTakeDamage(false)
+                v.CanTakeDamage = false
                 v:SetReclaimable(false)
                 v:SetCapturable(false)
             end
@@ -1311,20 +1318,20 @@ function IntroMission3()
             --------------------------------
             -- Aeon Secondary Objective Units
             --------------------------------
-            if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
+            if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia.Dead) then
                 ScenarioUtils.CreateArmyGroup('Order', 'M3_Order_ResearchBase_D' .. Difficulty)
                 local units = ScenarioUtils.CreateArmyGroup('Order', 'M3_Order_NonObjective_Buildings')
                 for k,v in units do
-                    v:SetCanBeKilled(false)
+                    v.CanBeKilled = false
                     v:SetDoNotTarget(true)
-                    v:SetCanTakeDamage(false)
+                    v.CanTakeDamage = false
                     v:SetReclaimable(false)
                     v:SetCapturable(false)
                 end
                 ScenarioInfo.ResearchStation = ScenarioUtils.CreateArmyUnit('Order', 'M3_Order_Obj_Building')
-                ScenarioInfo.ResearchStation:SetCanBeKilled(false)
+                ScenarioInfo.ResearchStation.CanBeKilled = false
                 ScenarioInfo.ResearchStation:SetDoNotTarget(true)
-                ScenarioInfo.ResearchStation:SetCanTakeDamage(false)
+                ScenarioInfo.ResearchStation.CanTakeDamage = false
                 ScenarioInfo.ResearchStation:SetReclaimable(false)
                 ScenarioInfo.OrderColossus = ScenarioUtils.CreateArmyUnit('Order', 'M3_Order_Obj_Colos')
                 ScenarioFramework.CreateUnitDeathTrigger(M3ColossusDeath, ScenarioInfo.OrderColossus)
@@ -1357,32 +1364,33 @@ function IntroMission3NIS()
     ScenarioFramework.SetPlayableArea('M3Area', false)
 
     -- Visibility on QAI
-    ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M3_Vis_1'), 2, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(40, 'M3_Vis_1', 2, ArmyBrains[Player1])
 
-    Cinematics.EnterNISMode()
-    Cinematics.SetInvincible('M2Area')
+    if not SkipNIS3 then
+        Cinematics.EnterNISMode()
+        Cinematics.SetInvincible('M2Area')
 
-    WaitSeconds(1)
+        WaitSeconds(1)
 
-    ScenarioFramework.Dialogue(OpStrings.X05_M02_201, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X05_M02_201, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1_2'), 0)
-    WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 4)
-    WaitSeconds(1)
+        Cinematics.CameraMoveToMarker('Cam_3_1_2', 0)
+        WaitSeconds(1)
+        Cinematics.CameraMoveToMarker('Cam_3_1', 4)
+        WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 4)
+        Cinematics.CameraMoveToMarker('Cam_3_2', 3)
+        Cinematics.CameraMoveToMarker('Cam_3_3', 4)
 
-    ScenarioFramework.Dialogue(OpStrings.X05_M02_202, nil, true)
-    ScenarioFramework.Dialogue(OpStrings.X05_M02_203, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X05_M02_202, nil, true)
+        ScenarioFramework.Dialogue(OpStrings.X05_M02_203, nil, true)
 
-    -- WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_4'), 3)
-    WaitSeconds(3)
+        Cinematics.CameraMoveToMarker('Cam_3_4', 3)
+        WaitSeconds(3)
 
-    Cinematics.SetInvincible('M2Area', true)
-    Cinematics.ExitNISMode()
+        Cinematics.SetInvincible('M2Area', true)
+        Cinematics.ExitNISMode()
+    end
 
     M3Counterattack()
     StartMission3()
@@ -1652,9 +1660,9 @@ end
 function StartMission3()
     -- Just in case any of this was un-done by the SetInvincible call earlier...
     for k, v in ScenarioInfo.QAIBuildingGroup do
-        v:SetCanBeKilled(false)
+        v.CanBeKilled = false
         v:SetDoNotTarget(true)
-        v:SetCanTakeDamage(false)
+        v.CanTakeDamage = false
         v:SetReclaimable(false)
         v:SetCapturable(false)
     end
@@ -1718,7 +1726,7 @@ function StartMission3()
    )
     table.insert(AssignedObjectives, ScenarioInfo.M3P2)
 
-    if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia:IsDead()) then
+    if(LeaderFaction == 'aeon' and ScenarioInfo.Amalia and not ScenarioInfo.Amalia.Dead) then
         -------------------------------------------------------
         -- Secondary Objective 1 Aeon - Capture Science Building
         -------------------------------------------------------
@@ -1734,7 +1742,7 @@ function StartMission3()
        )
         ScenarioInfo.M3S1:AddResultCallback(
             function(result)
-                if(result and ScenarioInfo.OrderColossus and not ScenarioInfo.OrderColossus:IsDead()) then
+                if(result and ScenarioInfo.OrderColossus and not ScenarioInfo.OrderColossus.Dead) then
                     ScenarioFramework.GiveUnitToArmy(ScenarioInfo.OrderColossus, Player1)
                      ScenarioFramework.Dialogue(OpStrings.X05_M03_320)
                 elseif (not result) then
@@ -1760,7 +1768,7 @@ function StartMission3()
 end
 
 function M3S1Failed()
-    if (ScenarioInfo.M3S1.Active and ScenarioInfo.OrderColossus and not ScenarioInfo.OrderColossus:IsDead()) then
+    if (ScenarioInfo.M3S1.Active and ScenarioInfo.OrderColossus and not ScenarioInfo.OrderColossus.Dead) then
         ScenarioInfo.M3S1:ManualResult(false)
         ScenarioFramework.Dialogue(OpStrings.X05_M03_340)
         ScenarioInfo.OrderColossus:SetAllWeaponsEnabled(true)
@@ -1779,17 +1787,16 @@ function M3ColossusDeath()
 end
 
 function MoveBrackman(location)
-    if(ScenarioInfo.BrackmanCrab and not ScenarioInfo.BrackmanCrab:IsDead()) then
+    if(ScenarioInfo.BrackmanCrab and not ScenarioInfo.BrackmanCrab.Dead) then
         IssueStop({ScenarioInfo.BrackmanCrab})
         IssueClearCommands({ScenarioInfo.BrackmanCrab})
         IssueMove({ScenarioInfo.BrackmanCrab}, location)
     end
 end
 
- -- Brackman taking damage warnings
-
+-- Brackman taking damage warnings
 function M2BrackmanTakingDamage1()
-    if not ScenarioInfo.BrackmanCrab:IsDead() then
+    if not ScenarioInfo.BrackmanCrab.Dead then
         ScenarioFramework.Dialogue(OpStrings.X05_M03_020)
     end
 end
@@ -1810,7 +1817,11 @@ end
 
 function FinalNIS()
     -- Keep the player from dying during this
-    ScenarioInfo.PlayerCDR:SetCanBeKilled(false)
+    for _, ACU in ScenarioInfo.PlayerCDRs do
+        if not ACU.Dead then
+            ACU.CanBeKilled = false
+        end
+    end
 
     ScenarioFramework.FlushDialogueQueue()
     while(ScenarioInfo.DialogueLock) do
@@ -1838,24 +1849,24 @@ function FinalNIS()
     SetAlliance(QAI, UEFArmy, 'Neutral')
     SetAlliance(QAI, Order, 'Neutral')
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Intro_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_Intro_1', 0)
 
     local tempUnits = ArmyBrains[QAI]:GetListOfUnits(categories.ALLUNITS, false)
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueClearCommands({ unit })
         end
     end
 
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_SW', ArmyBrains[QAI])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_SW'))
         end
     end
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_SW', ArmyBrains[Player1])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueClearCommands({ unit })
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_SW'))
         end
@@ -1863,13 +1874,13 @@ function FinalNIS()
 
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_SE', ArmyBrains[QAI])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_SE'))
         end
     end
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_SE', ArmyBrains[Player1])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueClearCommands({ unit })
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_SE'))
         end
@@ -1877,13 +1888,13 @@ function FinalNIS()
 
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_NW', ArmyBrains[QAI])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_NW'))
         end
     end
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_NW', ArmyBrains[Player1])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueClearCommands({ unit })
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_NW'))
         end
@@ -1891,13 +1902,13 @@ function FinalNIS()
 
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_NE', ArmyBrains[QAI])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_NE'))
         end
     end
     tempUnits = ScenarioFramework.GetCatUnitsInArea(categories.MOBILE, 'Final_NIS_Area_NE', ArmyBrains[Player1])
     for k, unit in tempUnits do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             IssueClearCommands({ unit })
             IssueMove({ unit },  ScenarioUtils.MarkerToPosition('NIS_Final_Destination_NE'))
         end
@@ -1913,9 +1924,9 @@ function FinalNIS()
     ScenarioInfo.NISCrab:ShowBone('Missile_Turret', true)
 
     ScenarioInfo.NISCrab:AdjustHealth(ScenarioInfo.NISCrab, healthValue)
-    ScenarioInfo.NISCrab:SetCanBeKilled(false)
+    ScenarioInfo.NISCrab.CanBeKilled = false
     ScenarioInfo.NISCrab:SetDoNotTarget(true)
-    ScenarioInfo.NISCrab:SetCanTakeDamage(false)
+    ScenarioInfo.NISCrab.CanTakeDamage = false
 
     -- Let QAI be targetted
     ScenarioInfo.QAIBuilding:SetDoNotTarget(false)
@@ -1924,29 +1935,29 @@ function FinalNIS()
     ScenarioInfo.NISCrab:EnableHackPegLauncher()
 
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Intro_2'), 3)
+    Cinematics.CameraMoveToMarker('Cam_4_Intro_2', 3)
     WaitSeconds(1)
 
     -- Brackman starting things up
     ScenarioFramework.Dialogue(OpStrings.X05_M03_322, FinalNISPart2, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_Crab_1', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_2'), 8)
+    Cinematics.CameraMoveToMarker('Cam_4_Crab_2', 8)
 end
 
 function FinalNISPart2()
     -- QAI being confident
     ScenarioFramework.Dialogue(OpStrings.X05_M03_323, AttackQAI, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_1'), 0)
-    -- WaitSeconds(1)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_2'), 6)
+    Cinematics.CameraMoveToMarker('Cam_4_QAI_1', 0)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker('Cam_4_QAI_2', 6)
 end
 
 function AttackQAI()
     -- Brackman being sneaky
     ScenarioFramework.Dialogue(OpStrings.X05_M03_324, FinalNISPart4, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_Shot_1', 0)
     WaitSeconds(3)
 
     SetAllianceOneWay(Brackman, QAI, 'Enemy')
@@ -1961,40 +1972,40 @@ function AttackQAI()
         end
    )
 
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_2'), 4)
-    -- WaitSeconds(0.2)
+    Cinematics.CameraMoveToMarker('Cam_4_Shot_2', 4)
+    WaitSeconds(0.2)
 
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_3'), 1.5)
-    -- WaitSeconds(1)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Shot_4'), 8)
+    Cinematics.CameraMoveToMarker('Cam_4_Shot_3', 1.5)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker('Cam_4_Shot_4', 8)
 end
 
 function FinalNISPart4()
     -- QAI becoming afraid
     WaitSeconds(3)
     ScenarioFramework.Dialogue(OpStrings.X05_M03_325, FinalNISPart5, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_1'), 0)
-    -- WaitSeconds(1)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_2'), 6)
+    --Cinematics.CameraMoveToMarker('Cam_4_QAI_1', 0)
+    --WaitSeconds(1)
+    --Cinematics.CameraMoveToMarker('Cam_4_QAI_2', 6)
 end
 
 function FinalNISPart5()
     -- "Goodbye, QAI..."
     ScenarioFramework.Dialogue(OpStrings.X05_M03_326, KillQAI, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_3'), 0)
-    -- WaitSeconds(1)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Crab_4'), 3)
+    Cinematics.CameraMoveToMarker('Cam_4_Crab_3', 0)
+    WaitSeconds(1)
+    Cinematics.CameraMoveToMarker('Cam_4_Crab_4', 3)
 end
 
 function KillQAI()
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_3'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_QAI_3', 0)
     WaitSeconds(1)
-    if (ScenarioInfo.QAIBuilding and not ScenarioInfo.QAIBuilding:IsDead()) then
-        ScenarioInfo.QAIBuilding:SetCanBeKilled(true)
+    if (ScenarioInfo.QAIBuilding and not ScenarioInfo.QAIBuilding.Dead) then
+        ScenarioInfo.QAIBuilding.CanBeKilled = true
         ScenarioInfo.QAIBuilding:Kill()
     end
     ForkThread(KillQAIBuildingGroup)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_QAI_4'), 2)
+    Cinematics.CameraMoveToMarker('Cam_4_QAI_4', 2)
     WaitSeconds(1)
 
     -- "Goodbye."
@@ -2015,20 +2026,20 @@ function FinalNISOver()
     WaitSeconds(2)
 
     -- Show the outlying buildings that aren't shown by the crab's line-of-sight
-    ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioUtils.MarkerToPosition('Final_NIS_Vismarker_1'), 1, ArmyBrains[Player1])
-    ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioUtils.MarkerToPosition('Final_NIS_Vismarker_2'), 1, ArmyBrains[Player1])
-    ScenarioFramework.CreateVisibleAreaLocation(3, ScenarioUtils.MarkerToPosition('Final_NIS_Vismarker_3'), 1, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(3, 'Final_NIS_Vismarker_1', 1, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(3, 'Final_NIS_Vismarker_2', 1, ArmyBrains[Player1])
+    ScenarioFramework.CreateVisibleAreaLocation(3, 'Final_NIS_Vismarker_3', 1, ArmyBrains[Player1])
 
     WaitSeconds(1)
 
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Overview'), 10)
+    Cinematics.CameraMoveToMarker('Cam_4_Overview', 10)
 end
 
 function KillQAIBuildingGroup()
     for k, unit in ScenarioInfo.QAIBuildingGroup do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             WaitSeconds(0.3)
-            unit:SetCanBeKilled(true)
+            unit.CanBeKilled = true
             unit:Kill()
         end
     end
@@ -2053,10 +2064,10 @@ end
 
 function SetupM2Taunts()
     Hex5TM:AddEnemiesKilledTaunt('TAUNT23', ArmyBrains[Player1], (categories.DEFENSE - (categories.SHIELD + categories.WALL)), 2)
-    Hex5TM:AddDamageTaunt('TAUNT24', ScenarioInfo.PlayerCDR, .02)
+    Hex5TM:AddDamageTaunt('TAUNT24', ScenarioInfo.Player1CDR, .02)
     Hex5TM:AddEnemiesKilledTaunt('TAUNT21', ArmyBrains[Player1], (categories.DEFENSE - (categories.SHIELD + categories.WALL)), 7)
     Hex5TM:AddUnitsKilledTaunt('TAUNT22', ArmyBrains[Player1], categories.SHIELD, 2)
-    Hex5TM:AddDamageTaunt('TAUNT26', ScenarioInfo.PlayerCDR, .30)
+    Hex5TM:AddDamageTaunt('TAUNT26', ScenarioInfo.Player1CDR, .30)
 
     QAITM:AddUnitsKilledTaunt('TAUNT11', ArmyBrains[Hex5], categories.ura0401, 1)
 
@@ -2104,7 +2115,7 @@ end
 -- Objective Reminders
 -----------------
 
- -- M1
+-- M1
 function M1P1Reminder1()
     if(ScenarioInfo.M1P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X05_M01_020)
@@ -2145,7 +2156,7 @@ function M1S2Reminder2()
     end
 end
 
- -- M3
+-- M3
 function M3P1Reminder1()
     if(ScenarioInfo.M3P1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X05_M03_110)
@@ -2170,5 +2181,18 @@ end
 function M3S1Reminder2()
     if(ScenarioInfo.M3S1.Active) then
         ScenarioFramework.Dialogue(OpStrings.X05_M03_310)
+    end
+end
+
+------------------
+-- Debug Functions
+------------------
+function OnCtrlF4()
+    if ScenarioInfo.MissionNumber == 1 then
+        for _, unit in ArmyBrains[Hex5]:GetListOfUnits(categories.ALLUNITS, false) do
+            if not unit.Dead then
+                unit:Kill()
+            end
+        end
     end
 end

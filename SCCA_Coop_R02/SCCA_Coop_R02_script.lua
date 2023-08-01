@@ -2317,7 +2317,7 @@ end
 
 function M3P1Complete()
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
-    ScenarioFramework.CreateUnitNearTypeTrigger(M3PlayerReachedGate, ScenarioInfo.M3Gate, ArmyBrains[Player1], categories.COMMAND, 2)
+    ScenarioFramework.CreateUnitNearTypeTrigger(M3PlayerReachedGate, ScenarioInfo.M3Gate, ArmyBrains[Player1], categories.COMMAND, 5)
     ScenarioFramework.KillBaseInArea(ArmyBrains[CybranJanus], 'Mach_BaseDestroy_Area')
     ScenarioInfo.JanusDead = true
 

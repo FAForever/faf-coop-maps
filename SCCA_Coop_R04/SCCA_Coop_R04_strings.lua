@@ -17,6 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C04>Operation Mainframe Tango'
+OPERATION_DESCRIPTION = 'This is Procyon, an out-of-the-way planet with a small population. Our sensors indicate that the Aeon have landed and are establishing millitary operations. We cannot allow them to seize the planet. Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.'
 
 
 
@@ -26,13 +27,29 @@ OPERATION_NAME = '<LOC OPNAME_C04>Operation Mainframe Tango'
 --------------------------------
 
 BriefingData = {
-  {phase = 0, character = '<LOC Date>Date', text = '<LOC C04_B01_000_010>Date: 29-AUGUST-3844'},
-  {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_001_010>The situation is quickly spiraling out of control. Abandoning Minerva consumed precious resources, and now we have a new situation that must be dealt with.'},
-  {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_002_010>This is Procyon, an out-of-the-way planet with a small population. Our sensors indicate that the Aeon have landed and are establishing military operations. We cannot allow them to seize the planet.'},
-  {phase = 2, character = '<LOC QAI>QAI', text = '<LOC C04_B01_002_020>Procyon holds my primary Mainframe. If the Aeon destroy those facilities, I will be unable to complete the Quantum Virus.'},
-  {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_003_010>The Quantum Virus is designed to overload the Gate Network, causing the Gates to explode. As they are destroyed, they will create Quantum Wakes that will prevent all Quantum travel for several years. We will be isolated and protected. The Symbionts will be free and the Aeon will no longer be able to hunt us. '},
-  {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C04_B01_004_005>I am integral to this plan. If I cannot access the Quantum Gate Network, the Virus will not achieve the desired saturation point.'},
-  {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_004_010>Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.'},
+  text = {
+    {phase = 0, character = '<LOC Date>Date', text = '<LOC C04_B01_000_010>Date: 29-AUGUST-3844'},
+    {phase = 1, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_001_010>The situation is quickly spiraling out of control. Abandoning Minerva consumed precious resources, and now we have a new situation that must be dealt with.'},
+    {phase = 2, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_002_010>This is Procyon, an out-of-the-way planet with a small population. Our sensors indicate that the Aeon have landed and are establishing military operations. We cannot allow them to seize the planet.'},
+    {phase = 2, character = '<LOC QAI>QAI', text = '<LOC C04_B01_002_020>Procyon holds my primary Mainframe. If the Aeon destroy those facilities, I will be unable to complete the Quantum Virus.'},
+    {phase = 3, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_003_010>The Quantum Virus is designed to overload the Gate Network, causing the Gates to explode. As they are destroyed, they will create Quantum Wakes that will prevent all Quantum travel for several years. We will be isolated and protected. The Symbionts will be free and the Aeon will no longer be able to hunt us. '},
+    {phase = 4, character = '<LOC QAI>QAI', text = '<LOC C04_B01_004_005>I am integral to this plan. If I cannot access the Quantum Gate Network, the Virus will not achieve the desired saturation point.'},
+    {phase = 4, character = '<LOC Dostya>Dostya', text = '<LOC C04_B01_004_010>Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.'},
+  },
+  movies = {'C04_B01.sfd', 'C04_B02.sfd', 'C04_B03.sfd', 'C04_B04.sfd',},
+  voice = {
+    {Cue = 'C04_B01', Bank = 'C04_VO'},
+    {Cue = 'C04_B02', Bank = 'C04_VO'},
+    {Cue = 'C04_B03', Bank = 'C04_VO'},
+    {Cue = 'C04_B04', Bank = 'C04_VO'},
+  },
+  bgsound = {
+    {Cue = 'C04_B01', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C04_B02', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C04_B03', Bank = 'Op_Briefing_Vanilla'},
+    {Cue = 'C04_B04', Bank = 'Op_Briefing_Vanilla'},
+  },
+  style = 'cybran',
 }
 
 --------------------------------
