@@ -210,8 +210,10 @@ function MissionP1()
 
     ScenarioFramework.CreateTimerTrigger(IntAssaultP1, 20)
 
-    WaitSeconds(60)
-    ScenarioFramework.Dialogue(OpStrings.UEFReveal1, nil, true)
+    if ExpansionTimer then
+        WaitSeconds(60)
+        ScenarioFramework.Dialogue(OpStrings.UEFReveal1, nil, true)
+    end
 end
 
 function IntAssaultP1()
