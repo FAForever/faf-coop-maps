@@ -822,10 +822,12 @@ end
 
 function M2MobileFactoriesThread()
     -- Mobile Factories
-    local factory1 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory1')
-    local factory2 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory2')
-    local cm1 = IssueMove({factory1}, ScenarioUtils.MarkerToPosition('MobileFactory1'))
-    local cm2 = IssueMove({factory2}, ScenarioUtils.MarkerToPosition('MobileFactory2'))
+    local fatboy1 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory1')
+    local fatboy2 = ScenarioUtils.CreateArmyUnit('UEF', 'MobileFactory2')
+    local factory1 = fatboy1.ExternalFactory
+    local factory2 = fatboy2.ExternalFactory
+    local cm1 = IssueMove({fatboy1}, ScenarioUtils.MarkerToPosition('MobileFactory1'))
+    local cm2 = IssueMove({fatboy2}, ScenarioUtils.MarkerToPosition('MobileFactory2'))
 
     repeat
         WaitSeconds(5)
@@ -839,23 +841,26 @@ function M2MobileFactoriesThread()
         end
     end
 
-    if not factory1:IsDead() then
+    if not fatboy1:IsDead() then
         location.PrimaryFactories.Land = factory1
-        IssueFactoryRallyPoint({factory1}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
-        if not factory2:IsDead() then
+        IssueClearFactoryCommands({factory1})
+        IssueFactoryRallyPoint({factory1}, ScenarioUtils.MarkerToPosition('Rally Point 11') )
+        if not fatboy2:IsDead() then
+            IssueClearFactoryCommands({factory2})
             IssueFactoryAssist({factory2}, factory1)
-            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
-            while not ( factory1:IsDead() and factory2:IsDead() ) do
+            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('Rally Point 11') )
+            while not ( fatboy1:IsDead() and fatboy2:IsDead() ) do
                 WaitSeconds(10)
             end
-            if not factory2:IsDead() then
+            if not fatboy2:IsDead() then
                 location.PrimaryFactories.Land = factory2
             end
         end
     else
-        if not factory2:IsDead() then
+        if not fatboy2:IsDead() then
             location.PrimaryFactories.Land = factory2
-            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('UEF_Mobile_Fac_Build_Location_Marker') )
+            IssueClearFactoryCommands({factory2})
+            IssueFactoryRallyPoint({factory2}, ScenarioUtils.MarkerToPosition('Rally Point 11') )
         end
     end
 end

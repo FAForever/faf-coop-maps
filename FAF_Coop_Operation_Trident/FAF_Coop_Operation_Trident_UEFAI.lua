@@ -195,24 +195,33 @@ function M2UEFAtlantisBaseAI()
             WaitSeconds(1)
 
             -- Mark it as a primary factory so it produces air units
-            local Carrier = ScenarioInfo.M2Atlantis
-            local location
-            for num, loc in ArmyBrains[UEF].PBM.Locations do
-                if loc.LocationType == 'M2_UEF_Sea_Base' then
-                    location = loc
+            local carrier = ScenarioInfo.M2Atlantis
+            local factory = carrier.ExternalFactory
+
+            for _, location in ArmyBrains[UEF].PBM.Locations do
+                if location.LocationType == 'M2_UEF_Sea_Base' then
+                    location.PrimaryFactories.Air = factory
                     break
                 end
             end
-            location.PrimaryFactories.Air = Carrier
             
             -- Gotta release the units once the platoon is built
-            while Carrier and not Carrier.Dead do
-                if table.getn(Carrier:GetCargo()) > 0 and Carrier:IsIdleState() then
-                    IssueClearCommands({Carrier})
-                    IssueTransportUnload({Carrier}, ScenarioUtils.MarkerToPosition('Rally Point 06'))
+            carrier.ReleaseUnitsThread = carrier:ForkThread(function(self)
+                local factory = self.ExternalFactory
+
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, ScenarioUtils.MarkerToPosition('Rally Point 06'))
+    
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
+
+                    WaitSeconds(1)
                 end
-                WaitSeconds(1)
-            end
+            end)
         end
     )
 end

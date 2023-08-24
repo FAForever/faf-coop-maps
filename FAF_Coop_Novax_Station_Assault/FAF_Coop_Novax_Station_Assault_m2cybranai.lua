@@ -626,23 +626,27 @@ function CybranM2IslandBaseCarrierAttacks()
     local units = ArmyBrains[Cybran]:GetListOfUnits(categories.CARRIER, false)
     for i = 1, 2 do
         local carrier = units[i]
-        carrier:SetCustomName('Carrier' .. i)
     
-        local location
-        for num, loc in ArmyBrains[Cybran].PBM.Locations do
-            if loc.LocationType == 'M2_Cybran_Carrier_' .. i then
-                location = loc
+        for _, location in ArmyBrains[Cybran].PBM.Locations do
+            if location.LocationType == 'M2_Cybran_Carrier_' .. i then
+                location.PrimaryFactories.Air = carrier.ExternalFactory
                 break
             end
         end
-        location.PrimaryFactories.Air = carrier
-        
-        ForkThread(function()
-            while carrier and not carrier:IsDead() do
-                if table.getn(carrier:GetCargo()) > 0 and carrier:IsIdleState() then
-                    IssueClearCommands({carrier})
-                    IssueTransportUnload({carrier}, carrier:GetPosition())
+
+        carrier:ForkThread(function(self)
+            local factory = self.ExternalFactory
+
+            while true do
+                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                    IssueClearCommands({self})
+                    IssueTransportUnload({self}, carrier:GetPosition())
+
+                    repeat
+                        WaitSeconds(3)
+                    until not self:IsUnitState("TransportUnloading")
                 end
+
                 WaitSeconds(1)
             end
         end)

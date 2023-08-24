@@ -3382,10 +3382,10 @@ Scenario = {
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
                     ['position'] = VECTOR3( 2055.5, 23.7891, 1284.5 ),
                 },
-                ['Rally Point 05'] = {
+                ['Naval Rally Point 08'] = {
                     ['hint'] = BOOLEAN( true ),
                     ['color'] = STRING( 'FF808000' ),
-                    ['type'] = STRING( 'Rally Point' ),
+                    ['type'] = STRING( 'Naval Rally Point' ),
                     ['prop'] = STRING( '/env/common/props/markers/M_Defensive_prop.bp' ),
                     ['orientation'] = VECTOR3( 0, -0, 0 ),
                     ['position'] = VECTOR3( 2215.5, 17.5, 2221.5 ),

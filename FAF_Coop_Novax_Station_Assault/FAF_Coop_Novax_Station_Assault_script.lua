@@ -176,10 +176,10 @@ function OnPopulate(scenario)
 
     -- Move Carrier to starting position together with the fleet
     IssueMove({ScenarioInfo.M1_Order_Carrier}, ScenarioUtils.MarkerToPosition('M1_Order_Carrier_Start_Marker'))
-    IssueMove(ScenarioInfo.M1_Carrier_Fleet, ScenarioUtils.MarkerToPosition('Rally Point 05'))
+    IssueMove(ScenarioInfo.M1_Carrier_Fleet, ScenarioUtils.MarkerToPosition('Naval Rally Point 08'))
 
     ForkThread(function()
-        while (ScenarioInfo.M1_Order_Carrier and not ScenarioInfo.M1_Order_Carrier.Dead and ScenarioInfo.M1_Order_Carrier:IsUnitState('Moving')) do
+        while (not ScenarioInfo.M1_Order_Carrier.Dead and ScenarioInfo.M1_Order_Carrier:IsUnitState('Moving')) do
             WaitSeconds(.5)
         end
 
@@ -236,7 +236,7 @@ function OnPopulate(scenario)
     IssueMove({ScenarioInfo.M1_Order_Tempest}, ScenarioUtils.MarkerToPosition('M1_Order_Tempest_Start_Marker'))
 
     ForkThread(function()
-        while (ScenarioInfo.M1_Order_Tempest and not ScenarioInfo.M1_Order_Tempest.Dead and ScenarioInfo.M1_Order_Tempest:IsUnitState('Moving')) do
+        while (not ScenarioInfo.M1_Order_Tempest.Dead and ScenarioInfo.M1_Order_Tempest:IsUnitState('Moving')) do
             WaitSeconds(.5)
         end
 
@@ -675,7 +675,7 @@ function M1SubmarineAttack()
     ScenarioFramework.PlatoonMoveRoute(ScenarioInfo.SubmarinePlatoon, {'M1_UEF_Submarine_Marker'})
 
     -- Attack tempest if carries is dead
-    if ScenarioInfo.M1_Order_Carrier and not ScenarioInfo.M1_Order_Carrier.Dead then
+    if not ScenarioInfo.M1_Order_Carrier.Dead then
         ScenarioInfo.SubmarinePlatoon:AttackTarget(ScenarioInfo.M1_Order_Carrier)
     else
         ScenarioInfo.SubmarinePlatoon:AttackTarget(ScenarioInfo.M1_Order_Tempest)
@@ -737,6 +737,8 @@ function IntroMission2()
     ArmyBrains[Order]:PBMRemoveBuildLocation(nil, 'AircraftCarrier1')
     ArmyBrains[Order]:PBMRemoveBuildLocation(nil, 'Tempest1')
 
+    ScenarioInfo.M1_Order_Carrier.ReleaseUnitsThread:Destroy()
+
     -- Move Carrier, Tempest and Sonar close to the island, make sure they won't die when moving
     local data = {
         ['M2_Order_Carrier_Marker_2'] = ScenarioInfo.M1_Order_Carrier,
@@ -746,6 +748,9 @@ function IntroMission2()
     for marker, unit in data do
         if unit and not unit.Dead then
             IssueClearCommands({unit})
+            if unit.ExternalFactory then
+                IssueClearCommands({unit.ExternalFactory})
+            end
             IssueMove({unit}, ScenarioUtils.MarkerToPosition(marker))
             unit:SetCanTakeDamage(false)
         end
@@ -836,7 +841,7 @@ function IntroMission2()
                 counter = counter + 1
             end
 
-            while (ScenarioInfo.M1_Order_Tempest and not ScenarioInfo.M1_Order_Tempest.Dead and ScenarioInfo.M1_Order_Tempest:IsUnitState('Moving')) do
+            while (not ScenarioInfo.M1_Order_Tempest.Dead and ScenarioInfo.M1_Order_Tempest:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
 
@@ -845,33 +850,40 @@ function IntroMission2()
 
         -- If there are any units left in the carrier, make them patrol once carrier arrives to the island
         ForkThread(function()
+            local carrier = ScenarioInfo.M1_Order_Carrier
             WaitSeconds(1) -- This makes sure that the carrier gets moving before we start the check below
 
-            while (ScenarioInfo.M1_Order_Carrier and not ScenarioInfo.M1_Order_Carrier.Dead and ScenarioInfo.M1_Order_Carrier:IsUnitState('Moving')) do
+            while (not carrier.Dead and carrier:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
 
-            if ScenarioInfo.M1_Order_Carrier and not ScenarioInfo.M1_Order_Carrier.Dead then
-                if table.getn(ScenarioInfo.M1_Order_Carrier:GetCargo()) > 0  then
-                    IssueClearCommands({ScenarioInfo.M1_Order_Carrier})
-                    IssueTransportUnload({ScenarioInfo.M1_Order_Carrier}, ScenarioInfo.M1_Order_Carrier:GetPosition())
+            if carrier.Dead then
+                return
+            end
 
-                    -- Just to be sure all units are out
-                    WaitSeconds(5)
+            if table.getn(carrier:GetCargo()) > 0 then
+                IssueClearCommands({carrier})
+                IssueTransportUnload({carrier}, carrier:GetPosition())
 
-                    local plat = ArmyBrains[Order]:MakePlatoon('', '')
-                    for _, unit in ArmyBrains[Order]:GetListOfUnits(categories.AIR * categories.MOBILE, false) do
-                        ArmyBrains[Order]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
-                        IssueClearCommands({unit})
-                        ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Order_Base_AirDef_Chain')))
-                    end
+                -- Just to be sure all units are out
+                repeat
+                    WaitSeconds(3)
+                until carrier.Dead or not carrier:IsUnitState("TransportUnloading")
+
+                local plat = ArmyBrains[Order]:MakePlatoon('', '')
+                for _, unit in ArmyBrains[Order]:GetListOfUnits(categories.AIR * categories.MOBILE, false) do
+                    ArmyBrains[Order]:AssignUnitsToPlatoon(plat, {unit}, 'Attack', 'NoFormation')
+                    IssueClearCommands({unit})
+                    ScenarioFramework.GroupPatrolRoute({unit}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Order_Base_AirDef_Chain')))
                 end
             end
 
-            M2OrderAI.OrderM2CarriersAI(ScenarioInfo.M1_Order_Carrier)
+            if not carrier.Dead then
+                M2OrderAI.OrderM2CarriersAI(carrier)
+            end
         end)
 
-        if Difficulty <= 2 and ScenarioInfo.M1_Order_Sonar and not ScenarioInfo.M1_Order_Sonar.Dead then
+        if Difficulty <= 2 and not ScenarioInfo.M1_Order_Sonar.Dead then
             -- Make T3 Sonar Patrol, rebuild if killed
             local platoon = ArmyBrains[Order]:MakePlatoon('', '')
             ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.M1_Order_Sonar}, 'Attack', 'NoFormation')
