@@ -1489,11 +1489,12 @@ function PlayerWin()
     if not ScenarioInfo.OpEnded then
         ScenarioInfo.OpComplete = true
         ScenarioFramework.Dialogue(OpStrings.PlayerWin, nil, true)
-        KillGame()
+        ForkThread(KillGame)
     end
 end
 
 function KillGame()
+    WaitSeconds(5)
     UnlockInput()
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
 end

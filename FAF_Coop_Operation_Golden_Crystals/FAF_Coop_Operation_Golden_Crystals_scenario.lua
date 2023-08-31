@@ -9,7 +9,19 @@ ScenarioInfo = {
     map = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals.scmap',
     save = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_save.lua',
     script = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_script.lua',
-    map_version = 1,
+    norushradius = 200.000000,
+    norushoffsetX_Player1 = 0.000000,
+    norushoffsetY_Player1 = 0.000000,
+    norushoffsetX_Civilians = 0.000000,
+    norushoffsetY_Civilians = 0.000000,
+    norushoffsetX_QAI = 0.000000,
+    norushoffsetY_QAI = 0.000000,
+    norushoffsetX_Player2 = 0.000000,
+    norushoffsetY_Player2 = 0.000000,
+    norushoffsetX_Player3 = 0.000000,
+    norushoffsetY_Player3 = 0.000000,
+    norushoffsetX_Player4 = 0.000000,
+    norushoffsetY_Player4 = 0.000000,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -17,6 +29,5 @@ ScenarioInfo = {
             },
             customprops = {
             },
-            factions = { {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'} },
         },
     }}
