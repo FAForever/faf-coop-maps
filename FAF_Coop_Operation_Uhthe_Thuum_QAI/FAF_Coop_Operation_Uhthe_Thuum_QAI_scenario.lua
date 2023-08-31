@@ -10,7 +10,6 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_save.lua',
     script = '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_script.lua',
     norushradius = 0.000000,
-    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -18,6 +17,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-			factions = { {'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'} },
+            factions = { {'seraphim'}, {'seraphim', 'aeon'}, {'seraphim', 'aeon'}, {'seraphim', 'aeon'} },
         },
     }}

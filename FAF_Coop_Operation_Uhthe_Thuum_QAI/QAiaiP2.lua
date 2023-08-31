@@ -11,7 +11,7 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 function P2Q1base1AI()
 
     Q1P2Base1:InitializeDifficultyTables(ArmyBrains[QAI], 'P2QAIBase1', 'P2Q1B1MK', 80, {P2Qbase1 = 500})
-    Q1P2Base1:StartNonZeroBase({{1104, 8, 7}, {9, 7, 6}})
+    Q1P2Base1:StartNonZeroBase({{11, 8, 7}, {9, 7, 6}})
     
     P2QlandDefenses1()
     P2QAirDefenses1()
@@ -21,7 +21,7 @@ function P2QAirDefenses1()
 
     local quantity = {}
 
-    quantity = {3, 2, 1} 
+    quantity = {4, 3, 2} 
     local Temp = {
         'P2QB1DefenseTemp0',
         'NoPlan',      
@@ -74,6 +74,28 @@ function P2QAirDefenses1()
         PlatoonTemplate = Temp,
         InstanceCount = 3,
         Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P2QAIBase1',
+        PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
+        PlatoonData = {
+            PatrolChain = 'P2QAirD1'
+        },
+    }
+    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+
+    quantity = {5, 4, 3} 
+    Temp = {
+        'P2QB1DefenseTemp3',
+        'NoPlan',
+        { 'ura0102', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'ura0103', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
+    }
+    Builder = {
+        BuilderName = 'P2QB1DefenseBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 2,
+        Priority = 50,
         PlatoonType = 'Air',
         RequiresConstruction = true,
         LocationType = 'P2QAIBase1',
