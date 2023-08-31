@@ -10,7 +10,7 @@ IntroP1 = {
 }
 -- Let the player know some of the story going on for the Campaign
 MidP1 = {
-    {text = '[Coalition HQ]: Dozens of Seraphim and Order commanders are escaping to open space.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Dozens of Seraphim and Order Commanders are escaping to open space.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'UEF'},
     {text = '[Coalition HQ]: We have several squads of commanders attempting to intercept and destroy them, but we can not cover every planet.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'UEF'},
     {text = '[Coalition HQ]: We can not allow the Seraphim to use this world as an escape route, finish your objectives Commander, HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'UEF'},
 }
@@ -34,14 +34,14 @@ IntroP2 = {
 
 -- Huh I was wondering what those large booms were.
 MidP2 = {
-    {text = '[Coalition HQ]: Commander we are detecting several Seraphim support commanders across the area.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander we are detecting several Seraphim Support Commanders across the area.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'UEF'},
     {text = '[Coalition HQ]: Be careful some of them are equiped with overcharge attacks.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'UEF'},
     {text = '[Coalition HQ]: Intel on the other Seraphim commander shows that he is building up several nuke launchers. Make sure you have several nuke defense up before you move on to him, HQ out.', vid = '', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'UEF'},
 }
 
 -- Hey look! someone else we have to kill!
 SecondaryP2 = {
-    {text = '[Coalition HQ]: Commander, we just detected a qauntum warp, a seraphim commander has just gated in. Kill him before he can become a threat. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander, we just detected a qauntum warp, a Seraphim Commander has just gated in. Kill him before he can become a threat. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
 }
 
 -- Shame! Would have loved the hunt for him!
@@ -51,14 +51,14 @@ SecondaryEndP2 = {
 
 -- Big king Seraphim trying to flea like the coward he is!
 IntroP3 = {
-    {text = '[Coalition HQ]: Commander the last gate is being guarded by a experienced Seraphim commander.', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-1', faction = 'UEF'},
-    {text = '[Coalition HQ]:  Damn it, his gate is powering up! We just used a quantum Jammer to stop him, but its effects will wear off soon!', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-2', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander the last gate is being guarded by a experienced Seraphim Commander.', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-1', faction = 'UEF'},
+    {text = '[Coalition HQ]:  Damn it, his gate is powering up! We just used a Quantum Jammer to stop him, but its effects will wear off soon!', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-2', faction = 'UEF'},
     {text = '[Coalition HQ]: Kill the Seraphim commander before he can gate out, HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP5-3', faction = 'UEF'},
 }
 
 -- King has some goons to deal with.
 SecondaryP3 = {
-    {text = '[Coalition HQ]: Commander, This experienced Seraphim has 3 hardened Support commanders across the zone, They are the last Seraphim presence on planet.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander, This experienced Seraphim has 3 hardened Support Commanders across the zone, They are the last Seraphim presence on planet.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
     {text = '[Coalition HQ]: Kill them if you are able to, HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
 }
 
@@ -80,7 +80,7 @@ RevealP1  = {
 
 -- yeah, but were any of those kills in ACUs?
 TAUNT1P1 = {
-    {text = '[Vuth-Vuthroz]: I have killed thosands of Humans, a few more will not be a problem!', vid = 'Abasi.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P1', faction = 'Seraphim'},
+    {text = '[Vuth-Vuthroz]: I have killed thosands of humans, a few more will not be a problem!', vid = 'Abasi.sfd', bank = 'JJ_VO2', cue = 'TAUNT1P1', faction = 'Seraphim'},
 }
 
 -- What, you some sort of rich Seraphim snob?
@@ -123,12 +123,12 @@ TAUNT1P3  = {
     {text = '[Lord Yuth-Azeath]: Your attack\'s are pathetic, just like you!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
 
--- Ahh so your atmitting you are a coward aye?
+-- Ahh so you are admitting you are a coward aye?
 TAUNT2P3  = {
     {text = '[Lord Yuth-Azeath]: I do not have to defeat you, just outlast you!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
 
--- I dont think you have enough gasoline for that son.
+-- I dont think you have enough gasoline for that.
 TAUNT3P3  = {
     {text = '[Lord Yuth-Azeath]: This galaxy will burn, we will be unstoppable!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
@@ -143,5 +143,5 @@ Debriefing_Win = {
 }
 
 Debriefing_Lose = {
-    {text = '[Coalition HQ]: The Seraphim have fully escaped into open space. It will be extremely difficult without our top commander.', vid = '', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
+    {text = '[Coalition HQ]: The Seraphim have fully escaped into open space. It will be extremely difficult without our top commanders.', vid = '', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
 }
