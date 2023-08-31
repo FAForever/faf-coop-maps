@@ -47,7 +47,7 @@ function P1UB1landAttacks()
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
     
     quantity = {2, 3, 4}
-    trigger = {24, 22, 20}
+    trigger = {28, 24, 20}
     Temp = {
         'P2UB1LandAttackTemp2',
         'NoPlan',
@@ -99,7 +99,7 @@ function P1UB1landAttacks()
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
-    trigger = {6, 5, 4}
+    trigger = {8, 6, 4}
     Temp = {
         'P2UB1LandAttackTemp4',
         'NoPlan',
@@ -126,7 +126,7 @@ function P1UB1landAttacks()
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
     quantity = {2, 2, 3}
-    trigger = {40, 37, 35}
+    trigger = {42, 38, 36}
     Temp = {
         'P2UB1LandAttackTemp5',
         'NoPlan',
@@ -179,6 +179,16 @@ function P1UB1landAttacks()
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    opai = UEFbase1:AddOpAI('EngineerAttack', 'M2B1_West_Reclaim_Engineers',
+    {
+        MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
+        PlatoonData = {
+            PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
+        },
+        Priority = 500,
+    })
+    opai:SetChildQuantity('T1Engineers', 4)
 end
  
 function P1UB1Airattacks()
@@ -186,7 +196,7 @@ function P1UB1Airattacks()
     local quantity = {}
     local trigger = {}
 
-    quantity = {2, 3, 4}
+    quantity = {3, 4, 5}
     local Temp = {
         'P2UB1AirAttackTemp0',
         'NoPlan',
@@ -478,6 +488,16 @@ function P1UB2landattacks()
         },
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+
+    opai = UEFbase2:AddOpAI('EngineerAttack', 'M2B2_West_Reclaim_Engineers',
+    {
+        MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
+        PlatoonData = {
+            PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
+        },
+        Priority = 500,
+    })
+    opai:SetChildQuantity('T1Engineers', 4)
 end
  
 function P1UB2Airattacks()
@@ -485,7 +505,7 @@ function P1UB2Airattacks()
     local quantity = {}
     local trigger = {}
 
-    quantity = {2, 3, 4}
+    quantity = {3, 4, 5}
     local Temp = {
         'P2UB2AirAttackTemp0',
         'NoPlan',
