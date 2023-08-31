@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = 'Coalition Mission 2: Operation Holy Raid',
-    description = 'This planet houses a secret coalition research facility, Somehow Order forces have found it and are laying seige to the defenses. Stop them and protect the research at all costs.',
+    description = 'This planet houses a secret Coalition research facility, Somehow Order forces have found it and are laying seige to the defenses. Stop them and protect the research at all costs.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
@@ -10,7 +10,6 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_save.lua',
     script = '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_script.lua',
     norushradius = 0.000000,
-    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -18,6 +17,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-            factions = { {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'}, {'uef', 'aeon', 'cybran'} },
+            factions = { {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'} },
         },
     }}

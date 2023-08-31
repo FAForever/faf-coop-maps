@@ -13,6 +13,9 @@ local Order1base2P4 = BaseManager.CreateBaseManager()
 local Order1base3P4 = BaseManager.CreateBaseManager()
 local Order1base4P4 = BaseManager.CreateBaseManager()
 
+local Order1EXP1P4 = BaseManager.CreateBaseManager()
+local Order1EXP2P4 = BaseManager.CreateBaseManager()
+
 
 function Order2base1P4AI()
 
@@ -131,7 +134,8 @@ function O2P4B1landattacks()
     local Temp = {
         'O2P4B1landAttackTemp1',
         'NoPlan',
-        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    
         }
     local Builder = {
         BuilderName = 'O2P4B1AttackBuilder1',
@@ -148,11 +152,10 @@ function O2P4B1landattacks()
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
     
-    quantity = {4, 4, 6}
+    quantity = {4, 6, 8}
     Temp = {
         'O2P4B1landAttackTemp2',
-        'NoPlan',
-        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },   
+        'NoPlan',  
         { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },  
         { 'dalk003', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },  
         }
@@ -175,12 +178,10 @@ function O2P4B1landattacks()
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 3, 4}
+    quantity = {4, 5, 6}
     Temp = {
         'O2P4B1landAttackTemp3',
         'NoPlan',
-        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },   
-        { 'ual0111', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },  
         { 'ual0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
         { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },  
         }
@@ -208,8 +209,7 @@ function O2P4B1landattacks()
         'O2P4B1landAttackTemp4',
         'NoPlan',
         { 'xal0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-        { 'dal0310', 1, 4, 'Attack', 'GrowthFormation' },
-        { 'dalk003', 1, 4, 'Attack', 'GrowthFormation' },    
+        { 'dal0310', 1, 4, 'Attack', 'GrowthFormation' },  
         }
     Builder = {
         BuilderName = 'O2P4B1AttackBuilder4',
@@ -229,21 +229,44 @@ function O2P4B1landattacks()
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )    
+
+    quantity = {1, 2, 3}
+    Temp = {
+        'O2P4B1landAttackTemp5',
+        'NoPlan',
+        { 'ual0301_Rambo', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },        
+    }
+    Builder = {
+        BuilderName = 'O2P4B1AttackBuilder5',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Gate',
+        RequiresConstruction = true,
+        LocationType = 'P4Order1base1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+           PatrolChains = {'O2P4B1Landattack1','O2P4B1Landattack2'}
+        },
+    }
+    ArmyBrains[Order2]:PBMAddPlatoon( Builder )
 end
 
 function Exp1O2P4B1()
 
     local opai = nil
     local quantity = {}
-    quantity = {3, 4, 5}
+    quantity = {2, 4, 6}
     opai = Order1base1P4:AddOpAI('Gbot4',
         {
-            Amount = 2,
+            Amount = 4,
             KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+            PlatoonAIFunction = {CustomFunctions, 'AddExperimentalToPlatoon'},
             PlatoonData = {
-            PatrolChains = {'O2P4B1Landattack1','O2P4B1Landattack2'}
-       },
+                Name = 'M4_GB_Platoon1',
+                NumRequired = 2,
+                PatrolChain = 'O2P4B1Landattack' .. Random(1, 2),
+            },
             MaxAssist = quantity[Difficulty],
             Retry = true,
         }
@@ -269,7 +292,8 @@ function O2P4B2landattacks()
     local Temp = {
         'O2P4B2landAttackTemp1',
         'NoPlan',
-        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+        { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'ual0307', 1, 4, 'Attack', 'GrowthFormation' },    
         }
     local Builder = {
         BuilderName = 'O2P4B2AttackBuilder1',
@@ -292,7 +316,6 @@ function O2P4B2landattacks()
         'NoPlan',
         { 'xal0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },     
         { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },
-        { 'dalk003', 1, 2, 'Attack', 'GrowthFormation' },  
         }
     Builder = {
         BuilderName = 'O2P4B2AttackBuilder2',
@@ -317,7 +340,8 @@ function O2P4B2landattacks()
     Temp = {
         'O2P4B2landAttackTemp3',
         'NoPlan',
-        { 'ual0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+        { 'ual0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    
         }
     Builder = {
         BuilderName = 'O2P4B2AttackBuilder3',
@@ -338,11 +362,12 @@ function O2P4B2landattacks()
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 6, 8}
+    quantity = {5, 7, 10}
     Temp = {
         'O2P4B2landAttackTemp4',
         'NoPlan',
-        { 'dalk003', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+        { 'dalk003', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    
         }
     Builder = {
         BuilderName = 'O2P4B2AttackBuilder4',
@@ -361,7 +386,28 @@ function O2P4B2landattacks()
            PatrolChains = {'O2P4B2Landattack1','O2P4B2Landattack2', 'O2P4B2Landattack3'}
         },
     }
-    ArmyBrains[Order2]:PBMAddPlatoon( Builder )    
+    ArmyBrains[Order2]:PBMAddPlatoon( Builder )  
+
+    quantity = {1, 2, 3}
+    Temp = {
+        'O2P4B2landAttackTemp5',
+        'NoPlan',
+        { 'ual0301_Rambo', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },        
+    }
+    Builder = {
+        BuilderName = 'O2P4B2AttackBuilder5',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Gate',
+        RequiresConstruction = true,
+        LocationType = 'P4Order1base2',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        PlatoonData = {
+           PatrolChains = {'O2P4B2Landattack1','O2P4B2Landattack2', 'O2P4B2Landattack3'}
+        },
+    }
+    ArmyBrains[Order2]:PBMAddPlatoon( Builder )  
 end
 
 function O2P4B2Airattacks()
@@ -493,7 +539,7 @@ function Exp1O2P4B2()
     quantity = {3, 4, 5}
     opai = Order1base2P4:AddOpAI({'Gbot5','Saucer1'},
         {
-            Amount = 2,
+            Amount = quantity[Difficulty],
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -508,12 +554,10 @@ end
 function Order2base3P4AI()
 
     Order1base3P4:InitializeDifficultyTables(ArmyBrains[Order2], 'P4Order1base3', 'P4A2B3MK', 70, {P4A2Base3 = 100})
-    Order1base3P4:StartNonZeroBase({{14, 16, 18}, {4, 6, 8}})
+    Order1base3P4:StartNonZeroBase({{6, 9, 12}, {4, 6, 8}})
     Order1base3P4:SetActive('AirScouting', true)   
-    Order1base3P4.MaximumConstructionEngineers = 5
 
     O2P4B3Airattacks()
-    Exp1O2P4B3()
     O2P4B3landattacks()
 
     Order1base3P4:AddBuildGroupDifficulty('P4Arty', 90)    
@@ -527,7 +571,8 @@ function O2P4B3landattacks()
     local Temp = {
        'O2P4B3landAttackTemp1',
        'NoPlan',
-       { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+       { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+       { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    
        }
     local Builder = {
         BuilderName = 'O2P4B3AttackBuilder1',
@@ -544,11 +589,10 @@ function O2P4B3landattacks()
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
     
-    quantity = {2, 3, 4}
+    quantity = {4, 5, 6}
     Temp = {
        'O2P4B3landAttackTemp2',
-       'NoPlan',
-       { 'ual0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },   
+       'NoPlan',  
        { 'dalk003', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },  
        { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },  
        }
@@ -575,7 +619,8 @@ function O2P4B3landattacks()
     Temp = {
        'O2P4B3landAttackTemp3',
        'NoPlan',
-       { 'ual0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },    
+       { 'ual0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+       { 'ual0307', 1, 2, 'Attack', 'GrowthFormation' },    
        }
     Builder = {
         BuilderName = 'O2P4B3AttackBuilder3',
@@ -698,25 +743,6 @@ function O2P4B3Airattacks()
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
 end
 
-function Exp1O2P4B3()
-
-    local opai = nil
-    local quantity = {}
-    quantity = {3, 4, 5}
-    opai = Order1base3P4:AddOpAI({'Saucer2','Gbot6'},
-        {
-            Amount = 2,
-            KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
-           PatrolChains = {'O2P4B3Airattack1','O2P4B3Airattack2','O2P4B3Airattack3'}
-       },
-            MaxAssist = quantity[Difficulty],
-            Retry = true,
-        }
-    )   
-end
-
 function Order2base4P4AI()
 
     Order1base4P4:InitializeDifficultyTables(ArmyBrains[Order2], 'P4Order1base4', 'P4A2B4MK', 70, {P4A2Base4 = 500})
@@ -778,6 +804,27 @@ function O2P4B4landattacks()
         PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},     
         PlatoonData = {
            MoveChain = 'O2P4B4Landattack1'
+        },
+    }
+    ArmyBrains[Order2]:PBMAddPlatoon( Builder )
+
+    quantity = {1, 2, 3}
+    Temp = {
+        'O2P4B4landAttackTemp3',
+        'NoPlan',
+        { 'ual0301_Rambo', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },        
+    }
+    Builder = {
+        BuilderName = 'O2P4B4AttackBuilder3',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Gate',
+        RequiresConstruction = true,
+        LocationType = 'P4Order1base4',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'}, 
+        PlatoonData = {
+           PatrolChain = 'O2P4B4Landattack1'
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -907,15 +954,77 @@ function Exp1O2P4B4()
 
     local opai = nil
     local quantity = {}
-    quantity = {2, 3, 4}
+    quantity = {2, 4, 6}
     opai = Order1base4P4:AddOpAI('Gbot7',
         {
-            Amount = 2,
+            Amount = 4,
             KeepAlive = true,
-            PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
-       PlatoonData = {
-           PatrolChain = 'O2P4B4Landattack1'
-       },
+            PlatoonAIFunction = {CustomFunctions, 'AddExperimentalToPlatoon'},
+            PlatoonData = {
+                Name = 'M4_GB_Platoon2',
+                NumRequired = 2,
+                PatrolChain = 'O2P4B1Landattack' .. Random(1, 2),
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+        }
+    )   
+end
+
+function Order2EXP1P4AI()
+
+    Order1EXP1P4:InitializeDifficultyTables(ArmyBrains[Order2], 'P4Order1EXP1', 'P4A2X1MK', 30, {P4A2ExpBase1 = 100})
+    Order1EXP1P4:StartNonZeroBase({2, 4, 6})
+
+    Order1base3P4:AddExpansionBase('P4Order1EXP1', 1)
+    Exp1O2P4X1()  
+end
+
+function Exp1O2P4X1()
+
+    local opai = nil
+    local quantity = {}
+    quantity = {4, 6, 8}
+    opai = Order1EXP1P4:AddOpAI('Gbot6',
+        {
+            Amount = 6,
+            KeepAlive = true,
+            PlatoonAIFunction = {CustomFunctions, 'AddExperimentalToPlatoon'},
+            PlatoonData = {
+                Name = 'M4_GB_Platoon3',
+                NumRequired = 3,
+                PatrolChain = 'O2P4B3Landattack' .. Random(1, 3),
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+        }
+    )   
+end
+
+function Order2EXP2P4AI()
+
+    Order1EXP2P4:InitializeDifficultyTables(ArmyBrains[Order2], 'P4Order1EXP2', 'P4A2X2MK', 30, {P4A2ExpBase2 = 100})
+    Order1EXP2P4:StartNonZeroBase({2, 4, 6})
+
+    Order1base3P4:AddExpansionBase('P4Order1EXP2', 1)
+    Exp1O2P4X2() 
+end
+
+function Exp1O2P4X2()
+
+    local opai = nil
+    local quantity = {}
+    quantity = {4, 6, 8}
+    opai = Order1EXP2P4:AddOpAI('Saucer2',
+        {
+            Amount = 4,
+            KeepAlive = true,
+            PlatoonAIFunction = {CustomFunctions, 'AddExperimentalToPlatoon'},
+            PlatoonData = {
+                Name = 'M4_CZAR_Platoon1',
+                NumRequired = 2,
+                PatrolChain = 'O2P4B4Airattack' .. Random(1, 3),
+            },
             MaxAssist = quantity[Difficulty],
             Retry = true,
         }
