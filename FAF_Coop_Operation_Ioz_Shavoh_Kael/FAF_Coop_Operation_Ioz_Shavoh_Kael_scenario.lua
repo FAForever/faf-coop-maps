@@ -10,7 +10,6 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_save.lua',
     script = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_script.lua',
     norushradius = 0.000000,
-    map_version = 2,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -18,6 +17,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-			factions = { {'seraphim'}, {'aeon', 'seraphim', 'cybran'}, {'aeon', 'seraphim', 'cybran'}, {'aeon', 'seraphim', 'cybran'} },
+            factions = { {'seraphim'}, {'seraphim','aeon','cybran'}, {'seraphim','aeon','cybran'}, {'seraphim','aeon','cybran'} },
         },
     }}

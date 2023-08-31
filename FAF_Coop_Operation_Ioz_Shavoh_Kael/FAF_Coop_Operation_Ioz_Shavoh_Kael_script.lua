@@ -17,13 +17,12 @@ local P4OrderAI = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/OrderaiP4.lua
 local P3UEFAI = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/UEFaiP3.lua')
 local P4UEFAI = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/UEFaiP4.lua')
 local OpStrings = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_strings.lua') 
-local CustomFunctions = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_CustomFunctions.lua'
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_CustomFunctions.lua')
 
 local TauntManager = import('/lua/TauntManager.lua')
 
 local ORDERTM = TauntManager.CreateTauntManager('ORDERTM', '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_strings.lua')
 local UEFTM = TauntManager.CreateTauntManager('UEFTM', '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_strings.lua')
-
 
 ScenarioInfo.Player1 = 1
 ScenarioInfo.Kael = 2
@@ -46,6 +45,14 @@ local Order = ScenarioInfo.Order
 local KOrder = ScenarioInfo.KOrder
 local UEF = ScenarioInfo.UEF
 
+local LeaderFaction
+local LocalFaction
+local AIs = {UEF, Order, KOrder, Kael}
+local BuffCategories = {
+    BuildPower = (categories.FACTORY * categories.STRUCTURE) + categories.ENGINEER,
+    Economy = categories.ECONOMIC,
+}
+
 local SkipNIS2 = false
 local SkipNIS3 = false
 
@@ -55,7 +62,7 @@ local AssignedObjectives = {}
 
 local NIS1InitialDelay = 3
 
-function OnPopulate(self)
+function OnPopulate(scen)
 
     ScenarioUtils.InitializeScenarioArmies()
         
@@ -78,12 +85,14 @@ function OnPopulate(self)
         end
     end
 
-    SetArmyUnitCap(KOrder, 2000)
-    SetArmyUnitCap(Order, 2000)
+    SetArmyUnitCap(KOrder, 3000)
+    SetArmyUnitCap(Order, 3000)
+    SetArmyUnitCap(Kael, 3000)
+    SetArmyUnitCap(UEF, 3000)
     ScenarioFramework.SetSharedUnitCap(4800)
 end
 
-function OnStart(self)
+function OnStart(scen)
     
     ScenarioFramework.SetPlayableArea('AREA_1', false)   
     
@@ -106,18 +115,16 @@ function OnStart(self)
     P1OrderAI.P1KO1Base1AI()
     P1OrderAI.P1O1Base1AI()
     
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
+    for _, army in AIs do
+        ArmyBrains[army].IMAPConfig = {
+                OgridRadius = 0,
+                IMAPSize = 0,
+                Rings = 0,
+        }
+        ArmyBrains[army]:IMAPConfiguration()
+    end
 
-       for _, u in GetArmyBrain(KOrder):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
-
-       for _, u in GetArmyBrain(Order):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end     
+    ForkThread(BuffAIEconomy)   
     GetArmyBrain(Order):SetResourceSharing(false)
     
     ForkThread(IntroP1)
@@ -166,7 +173,7 @@ function IntroP1()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 4)
         WaitSeconds(5)
     
-        local M1Units2 = ScenarioUtils.CreateArmyGroupAsPlatoon('KOrder', 'P1KO1group3', 'GrowthFormation')
+        local M1Units2 = ScenarioUtils.CreateArmyGroupAsPlatoon('KOrder', 'P1KO1group3_D'.. Difficulty, 'GrowthFormation')
         for _, v in M1Units2:GetPlatoonUnits() do
             ScenarioFramework.GroupAttackChain({v}, 'P1KOIntCutscene1')
         end
@@ -187,8 +194,9 @@ function IntroP1()
     
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam5'), 4)
         WaitSeconds(3)
+        ScenarioFramework.Dialogue(OpStrings.Intro2P1, nil, true)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam6'), 2)
-    
+        
         ForkThread(
             function()
                 WaitSeconds(2)
@@ -221,8 +229,6 @@ function IntroP1()
         end
     end 
    
-    ScenarioFramework.Dialogue(OpStrings.Intro2P1, nil, true)
-   
     for k, v in Orderunits:GetPlatoonUnits() do
         if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
                 ScenarioFramework.GiveUnitToArmy( v, Player1 )
@@ -230,29 +236,26 @@ function IntroP1()
     end
 
     local Orderunits2 = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_M1', ArmyBrains[Order])
-            for k, v in Orderunits2 do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
-                    ScenarioFramework.GiveUnitToArmy( v, Player1 )
-                end
-            end
+    for k, v in Orderunits2 do
+        if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
+            ScenarioFramework.GiveUnitToArmy( v, Player1 )
+        end
+    end
             
     ForkThread(Mission1)
-    
-    SetupORDERTM1TauntTriggers()
     
     ForkThread(
         function()
             WaitSeconds(90) 
             ScenarioFramework.Dialogue(OpStrings.Intro3P1, nil, true)
-   
+            SetupORDERTM1TauntTriggers()
         end
     )
-   
+
     ForkThread(
         function()
             WaitSeconds(12*60) 
             ScenarioFramework.Dialogue(OpStrings.MidP1, nil, true)
-   
         end
     )
 
@@ -265,6 +268,12 @@ end
 
 function Mission1()
 
+    local function MissionNameAnnouncement()
+        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, "Mission by Shadowlorda1")
+    end
+
+    ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 12)
+
     ScenarioInfo.M1P1 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
@@ -272,8 +281,7 @@ function Mission1()
         'Destroy the traitorous Order forces.',  -- description
         {                               -- target
             ShowProgress = true,
-            Units = ScenarioInfo.M1ObjectiveUnits
-            
+            Units = ScenarioInfo.M1ObjectiveUnits 
         }
     )
     
@@ -297,60 +305,34 @@ function Mission1()
             },
         }
     )
-    ScenarioInfo.M2P1:AddResultCallback(
-    function(result)
-        if(result) then
-            if ScenarioInfo.MissionNumber == 1 then
-                ForkThread(IntroP2) 
-            else  
 
-            end
-        end
-    end
-    )
+    ScenarioInfo.M1Objectives = Objectives.CreateGroup('M1Objectives', StartIntroP2)
+    ScenarioInfo.M1Objectives:AddObjective(ScenarioInfo.M2P1)
+    ScenarioInfo.M1Objectives:AddObjective(ScenarioInfo.M1P1)
    
     if ExpansionTimer then
-        local M1MapExpandDelay = {45*60, 40*60, 30*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP2, M1MapExpandDelay[Difficulty])
+        local M1MapExpandDelay = {50*60, 40*60, 30*60}
+        ScenarioFramework.CreateTimerTrigger(StartIntroP2, M1MapExpandDelay[Difficulty])
     end
-    ScenarioFramework.CreateArmyIntelTrigger(SecondaryMissionP1, ArmyBrains[Player1], 'LOSNow', false, true, categories.uab5202, true, ArmyBrains[KOrder])
-end
-
-function SecondaryMissionP1()
-   
-    ScenarioFramework.Dialogue(OpStrings.Secondary1P1, nil, true)
-    
-    ScenarioInfo.M2P1S1 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
-        'incomplete',                   -- complete
-        'Destroy Air Staging Facility',                 -- title
-        'QAI has detected a weakness in the Order defenses, abuse it.',  -- description
-        'kill',                         -- action
-        {                               -- target
-            MarkUnits = true,
-            ShowProgress = true,
-            Requirements = {
-                {   
-                    Area = 'AREA_MS1',
-                    Category = categories.uab5202,
-                    CompareOp = '<=',
-                    Value = 0,
-                    ArmyIndex = KOrder,
-                },
-            },
-        }
-    )
+    ScenarioFramework.CreateArmyIntelTrigger(SecondaryMissionP1, ArmyBrains[Player1], 'LOSNow', false, true, categories.CARRIER, true, ArmyBrains[KOrder])
 end
 
 --Part 2
 
+function StartIntroP2()
+    ForkThread(IntroP2)
+end
+
 function IntroP2()
+    ScenarioFramework.FlushDialogueQueue()
     
-    if ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3 then
+    if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
-    
+
+    WaitSeconds(5)
+
     ScenarioFramework.SetPlayableArea('AREA_2', true)
     
     ScenarioUtils.CreateArmyGroup('Order', 'P2O1Bwalls')
@@ -411,14 +393,14 @@ function IntroP2()
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 0)
             WaitSeconds(4)
 
-            ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', true, OrderACUdeath,
+            ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', false, OrderACUdeath,
                 {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
                 ScenarioInfo.P2O1ACU:SetAutoOvercharge(true)
                 ScenarioInfo.P2O1ACU:SetVeterancy(1 + Difficulty)
     
                 ScenarioInfo.P2O1ACU:AddBuildRestriction(categories.zab9603 + categories.uab0303 + categories.uab2205 + categories.uab2109 + categories.uab2304 + categories.uab0203 + categories.uab0103)
     
-            ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Crusader Kelean', true, KOrderACUdeath,
+            ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Crusader Keleana', false, KOrderACUdeath,
                 {'CrysalisBeam', 'ResourceAllocation', 'ResourceAllocationAdvanced', 'HeatSink'})
                 ScenarioInfo.P2KO1ACU:SetAutoOvercharge(true)
                 ScenarioInfo.P2KO1ACU:SetVeterancy(1 + Difficulty)
@@ -427,7 +409,7 @@ function IntroP2()
     
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 0)
         WaitSeconds(7)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 5)
+        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 6)
         WaitSeconds(3)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam4'), 2)
         WaitSeconds(3)
@@ -457,77 +439,69 @@ function IntroP2()
         units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'P2O1Exp', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'P2OB1Landdefense1')
 
+        local AntinukesOK = ArmyBrains[KOrder]:GetListOfUnits(categories.uab4302, false)
+        for _, v in AntinukesOK do
+            v:GiveTacticalSiloAmmo(5)
+        end
+
+        local AntinukesO = ArmyBrains[Order]:GetListOfUnits(categories.uab4302, false)
+        for _, v in AntinukesO do
+            v:GiveTacticalSiloAmmo(5)
+        end
+
         Cinematics.SetInvincible('AREA_1', true) 
     Cinematics.ExitNISMode()
     
     ForkThread(Mission2)
     ForkThread(CounterAttackP2)
+    ForkThread(SecondaryMissionP2)
     
     else
     
-    for _, player in ScenarioInfo.HumanPlayers do
-        SetAlliance(player, Order, 'Enemy')
-        SetAlliance(Order, player, 'Enemy')
-        SetAlliance(KOrder, Order, 'Ally')
-        SetAlliance(Order, KOrder, 'Ally')
-    end
+        for _, player in ScenarioInfo.HumanPlayers do
+            SetAlliance(player, Order, 'Enemy')
+            SetAlliance(Order, player, 'Enemy')
+            SetAlliance(KOrder, Order, 'Ally')
+            SetAlliance(Order, KOrder, 'Ally')
+        end
     
-    ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', true, false,
+        ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', true, false,
         {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
     
-    ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Crusader Kelean', true, false,
+        ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Executioner Keleana', true, false,
         {'CrysalisBeam', 'ResourceAllocation', 'ResourceAllocationAdvanced', 'HeatSink'})
     
-    ScenarioUtils.CreateArmyGroup('Order', 'P2O1OuterD')
-    ScenarioUtils.CreateArmyGroup('KOrder', 'P2KO1OuterD')
-    ForkThread(Mission2)
+        ScenarioUtils.CreateArmyGroup('Order', 'P2O1OuterD')
+        ScenarioUtils.CreateArmyGroup('KOrder', 'P2KO1OuterD')
+        ForkThread(Mission2)
     end
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 1.5
 
-       for _, u in GetArmyBrain(KOrder):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
-
-       for _, u in GetArmyBrain(Order):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
     SetupORDERTM2TauntTriggers()
     
     ForkThread(
         function()
-        WaitSeconds(120)
-    
-        ScenarioFramework.Dialogue(OpStrings.MidP2, nil, true)
+            WaitSeconds(3*60)
+            ScenarioFramework.Dialogue(OpStrings.MidP2, nil, true)
         end
     )
 end
 
 function RemoveP1O1ACU()
+
     ScenarioInfo.P1O1ACU:Destroy()
 end
 
 function Nukeparty()
 
     local AeonNuke = ArmyBrains[Order]:GetListOfUnits(categories.uab2305, false)
-    if ScenarioInfo.MissionNumber == 2 then
         WaitSeconds(2)
         IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
-        WaitSeconds(7*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke4'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke5'))
-        WaitSeconds(5*60)
-        return
-    end
+        WaitSeconds(6*60)
+        if not AeonNuke.Dead then
+            local plat = ArmyBrains[Order]:MakePlatoon('', '')
+            ArmyBrains[Order]:AssignUnitsToPlatoon(plat, {AeonNuke[1]}, 'Attack', 'NoFormation')
+            plat:ForkAIThread(plat.NukeAI)
+        end
 end
 
 function Mission2()
@@ -536,7 +510,7 @@ function Mission2()
         'primary',                      -- type
         'incomplete',                   -- complete
         'Kill Commander Havra',                -- title
-        'The Order commander has betrayed us, kill her.', -- description
+        'The Order Commander has betrayed us, kill her.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P2O1ACU}  
@@ -545,16 +519,7 @@ function Mission2()
     ScenarioInfo.M1P2:AddResultCallback(
         function(result)
             if (result) then
-                if ScenarioInfo.MissionNumber == 2 then
-                    if ScenarioInfo.M2P2.Active then
-                        ForkThread(P2KillOrderBase)
-                    else
-                        ForkThread(P2KillOrderBase)
-                        ForkThread(IntroP3)
-                    end
-                else
-                    ForkThread(P2KillOrderBase)
-                end 
+                ForkThread(P2KillOrderBase)
             end
         end
     )
@@ -562,8 +527,8 @@ function Mission2()
     ScenarioInfo.M2P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Kill Commander Kelean',                -- title
-        'Kael\'s commander has convinced our Order commander to betray us, kill her.', -- description
+        'Kill Commander Keleana',                -- title
+        'Kael\'s Commander has convinced our Order Commander to betray us, kill her.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P2KO1ACU}  
@@ -572,64 +537,11 @@ function Mission2()
     ScenarioInfo.M2P2:AddResultCallback(
         function(result)
             if result then
-                if ScenarioInfo.MissionNumber == 2 then
-                    if ScenarioInfo.M1P2.Active then
-                        ForkThread(P2KillKOrderBase)
-                    else
-                        ForkThread(P2KillKOrderBase)
-                        ForkThread(IntroP3) 
-                    end  
-                else   
-                    ForkThread(P2KillKOrderBase)
-                end
+                ForkThread(P2KillKOrderBase)
             end
         end
     )
     
-    ForkThread(
-        function()
-    
-        WaitSeconds(60)
-    
-        for _, Player in ScenarioInfo.HumanPlayers do
-    
-        ScenarioFramework.RemoveRestriction(Player,
-            categories.xsa0402 + -- Exp bomber
-            categories.uaa0310  -- Exp Carrier          
-        )
-
-        end
-    
-        ScenarioInfo.M1P2S1 = Objectives.CategoriesInArea(
-            'secondary',                      -- type
-            'incomplete',                   -- complete
-            'Build A Experimental Bomber',                 -- title
-            'We have given you the blueprints to a T4 bomber, use it.',  -- description
-            'build',                         -- action
-            {                               -- target
-                ShowProgress = true,
-                Requirements = {
-                    {   
-                        Area = 'AREA_1',
-                        Category = categories.xsa0402,
-                        CompareOp = '>=',
-                        Value = 1,
-                        ArmyIndex = Player1,
-                    }, 
-                },
-                Category = categories.xsa0402,
-            }
-        )
-        ScenarioInfo.M1P2S1:AddResultCallback(
-            function(result)
-                if ( not result) then
-        
-                end
-            end
-        )
-        end
-    )
-
     ScenarioInfo.M1P2S2 = Objectives.Protect(
     'secondary',                      -- type
     'incomplete',                   -- complete
@@ -638,29 +550,51 @@ function Mission2()
         {                               -- target
             MarkUnits = true,
              Units = {ScenarioInfo.P1P1ACU}  
-           
-        }
-            
+        }  
     )
-    ScenarioInfo.M1P2S2:AddResultCallback(
-        function(result)
-            if (result) then
-               
+    ScenarioInfo.M2P2:AddResultCallback(
+        function(result, unit)
+            if (not result and not ScenarioInfo.OpEnded) then
+                ScenarioFramework.CDRDeathNISCamera(unit)
             end
         end
-    )   
+    )
+
+    ScenarioInfo.M2Objectives = Objectives.CreateGroup('M2Objectives', IntroStartP3)
+    ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M1P2)
+    ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M2P2)
+
     if ExpansionTimer then
         local M2MapExpandDelay = {35*60, 30*60, 25*60}
         ScenarioFramework.CreateTimerTrigger(IntroP3, M2MapExpandDelay[Difficulty])
     end
 end
 
-function RemoveCommandCapFromPlatoon(platoon)
-    for _, unit in platoon:GetPlatoonUnits() do
-        unit:RemoveCommandCap('RULEUCC_Reclaim')
-        unit:RemoveCommandCap('RULEUCC_Repair')
-        unit:RemoveCommandCap('RULEUCC_Guard')
-    end
+function SecondaryMissionP2()
+
+        WaitSeconds(60)
+    
+        for _, Player in ScenarioInfo.HumanPlayers do
+            ScenarioFramework.RemoveRestriction(Player,
+                categories.xsa0402 + -- Exp bomber
+                categories.uaa0310  -- Exp Carrier          
+            )
+        end
+
+        ScenarioInfo.M1P2S1 = Objectives.ArmyStatCompare(
+        'secondary',                      -- type
+        'incomplete',                   -- complete
+        'Build A Experimental Bomber',                 -- title
+        'We have given you the blueprints to a T4 bomber, use it.',  -- description
+        'build',                        -- action
+        {                               -- target
+            Armies = {'HumanPlayers'},
+            StatName = 'Units_Active',
+            CompareOp = '>=',
+            Value = 1,
+            Category = categories.xsa0402,
+        }
+    )
 end
 
 function KOrderACUdeath()
@@ -741,10 +675,15 @@ function CounterAttackP2()
 end
 
 --Part 3
+function IntroStartP3()
+
+    ForkThread(IntroP3)
+end
 
 function IntroP3()
+    ScenarioFramework.FlushDialogueQueue()
     
-    if ScenarioInfo.MissionNumber == 3 or ScenarioInfo.MissionNumber == 4 then
+    if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 3
@@ -757,10 +696,12 @@ function IntroP3()
     
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_2') 
-            local basereveal2 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Vision1P3'), 0, ArmyBrains[Player1])
-            local basereveal3 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Vision2P3'), 0, ArmyBrains[Player1])
+            local basereveal2 = ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('Vision1P3'), 0, ArmyBrains[Player1])
+            local basereveal3 = ScenarioFramework.CreateVisibleAreaLocation(80, ScenarioUtils.MarkerToPosition('Vision2P3'), 0, ArmyBrains[Player1])
     
-            ScenarioUtils.CreateArmyGroup('UEF', 'P3ECO')
+            P3UEFAI.M3UEFECOBaseAI()
+            ArmyBrains[UEF]:GiveResource('MASS', 25000)
+            ArmyBrains[UEF]:GiveResource('ENERGY', 35000)
     
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UAssault1_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(platoon, 'P3ULandchain1')
@@ -783,10 +724,15 @@ function IntroP3()
             P3UEFAI.M3UEFFatboyBaseAI()
             P3UEFAI.M3UEFAtlantisBase2AI()
             P3UEFAI.M3UEFFatboyBase2AI()
+
+            local AntinukesU = ArmyBrains[UEF]:GetListOfUnits(categories.ueb4302, false)
+            for _, v in AntinukesU do
+                v:GiveTacticalSiloAmmo(5)
+            end
     
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 0)
-            WaitSeconds(4)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 1)
+            WaitSeconds(5)
+            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 5)
             WaitSeconds(4)
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam6'), 2)
     
@@ -804,7 +750,7 @@ function IntroP3()
     
             ForkThread(
                 function()
-                    WaitSeconds(2)
+                    WaitSeconds(1)
                     basereveal2:Destroy()
                     basereveal3:Destroy()
                 end
@@ -812,21 +758,7 @@ function IntroP3()
         Cinematics.SetInvincible('AREA_2', true) 
     Cinematics.ExitNISMode()
     
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
-
-       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
-    ArmyBrains[UEF]:GiveResource('MASS', 8000)
-    ArmyBrains[UEF]:GiveResource('ENERGY', 8000)
-    
     ForkThread(MissionP3)
-    ForkThread(UEFP3base1)
-    ForkThread(UEFP3base2)
     ScenarioFramework.CreateTimerTrigger(P3COffmapattacks2, 60)
     ForkThread(P3COffmapattacks1)
     ForkThread(CounterAttackP3)
@@ -838,11 +770,11 @@ end
 
 function MissionP3()
     
-    ScenarioInfo.M3P1 = Objectives.Kill(
+    ScenarioInfo.M1P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
         'Clear the Experimental Threats',                 -- title
-        'A UEF commander has moved several experimentals into the area, destroy them.',  -- description
+        'A UEF Commander has moved several experimentals into the area, destroy them.',  -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -850,21 +782,19 @@ function MissionP3()
         
         }
     )
-    ScenarioInfo.M3P1:AddResultCallback(
-        function(result)
-            if(result) then
-                if ScenarioInfo.MissionNumber == 3 then
-                    ForkThread(IntroP4)
-                else
 
-                end
-            end
-        end
-    )
+    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', StartIntroP4)
+    ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
+    if ScenarioInfo.M1P2.Active then
+        ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M1P2)
+    end
+    if ScenarioInfo.M2P2.Active then
+        ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M2P2)
+    end 
    
     if ExpansionTimer then
         local M3MapExpandDelay = {30*60, 25*60, 20*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP4, M3MapExpandDelay[Difficulty])
+        ScenarioFramework.CreateTimerTrigger(StartIntroP4, M3MapExpandDelay[Difficulty])
     end
 end
 
@@ -876,7 +806,7 @@ function SecondaryMissionP3()
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Destroy the UEF Resource Island',                 -- title
-        'The UEF commander has a resource base on a small island.',  -- description
+        'The UEF Commander has a resource base on a small island.',  -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -901,30 +831,6 @@ function SecondaryMissionP3()
     )
 end
 
-function UEFP3base1()
-    
-    AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'UEFUP3base1' )
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[UEF], 'UEF', 'P3UDefense1', 'UEFUP3base1')
-    
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'UEF', 'P3UENG1', 'NoFormation' )
-    plat.PlatoonData.MaintainBaseTemplate = 'UEFUP3base1'
-    plat.PlatoonData.PatrolChain = 'P3UENG1'
-    plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
-end
-
-function UEFP3base2()
-    
-    AIBuildStructures.CreateBuildingTemplate( ArmyBrains[UEF], 'UEF', 'UEFUP3base2' )
-    AIBuildStructures.AppendBuildingTemplate(ArmyBrains[UEF], 'UEF', 'P3UDefense2', 'UEFUP3base2')
-    
-    AIBuildStructures.AppendBuildingTemplate( ArmyBrains[UEF], 'UEF', 'P3ECO', 'UEFUP3base2')
-    
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'UEF', 'P3UENG2', 'NoFormation' )
-    plat.PlatoonData.MaintainBaseTemplate = 'UEFUP3base2'
-    plat.PlatoonData.PatrolChain = 'P3UENG2'
-    plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
-end
-
 function P3COffmapattacks1()
 
     while ScenarioInfo.MissionNumber == 3 do
@@ -935,7 +841,7 @@ function P3COffmapattacks1()
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3Uoffattack3_D'.. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P3UB1airattack' .. Random(1, 3))
 
-        WaitSeconds(Random(190, 210))
+        WaitSeconds(Random(180, 240))
     end
 end
 
@@ -947,11 +853,10 @@ function P3COffmapattacks2()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P3UOffmapattack2')
         
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3Uoffattack4_D'.. Difficulty, 'GrowthFormation')
-
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P3ULandchain1')
 
 
-        WaitSeconds(Random(160, 210))
+        WaitSeconds(Random(160, 220))
     end
 end
 
@@ -966,7 +871,7 @@ function TimerCounter()
             ScenarioFramework.GroupAttackChain({v}, 'P3Uairchain4')
         end
 
-        else
+    else
     
     end
 end
@@ -1037,21 +942,63 @@ function CounterAttackP3()
         end
     end
 
-    for i = 1, 3 do
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P3UAssaultDrop', 'GrowthFormation', 5)
-        ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P3UDropchain1', 'P3ULandchain3', true)
+    local battleships = ScenarioFramework.GetListOfHumanUnits( categories.BATTLESHIP)
+    local num = table.getn(battleships)
+    if num > 0 then
+        quantity = {3, 2, 1}
+        if num > quantity[Difficulty] then
+            num = 4
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UAssaultTorp', 'GrowthFormation')
+            IssueAttack(platoon:GetPlatoonUnits(), battleships[i])
+            IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
+        end
+    end
+
+    local EXP = ScenarioFramework.GetListOfHumanUnits( categories.EXPERIMENTAL)
+    local num = table.getn(EXP)
+    if num > 0 then
+        quantity = {3, 2, 1}
+        if num > quantity[Difficulty] then
+            num = 4
+        end
+        for i = 1, num do
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UAssaultGunship', 'GrowthFormation')
+            IssueAttack(platoon:GetPlatoonUnits(), EXP[i])
+            IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UAssaultBomber', 'GrowthFormation')
+            IssueAttack(platoon:GetPlatoonUnits(), battleships[i])
+            IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
+            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UAssaultTorp', 'GrowthFormation')
+            IssueAttack(platoon:GetPlatoonUnits(), battleships[i])
+            IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
+        end
+    end
+
+    for i = 1, 5 do
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P3UAssaultDrop', 'GrowthFormation', 5)
+        CustomFunctions.PlatoonAttackWithTransports(platoon, 'P3UDropchain1', 'P3ULandchain3', 'P3UBECO', true)
     end
 end
 
 --Part 4
 
+function StartIntroP4()
+
+    ForkThread(IntroP4)
+end
+
 function IntroP4()
+    ScenarioFramework.FlushDialogueQueue()
     
-    if ScenarioInfo.MissionNumber == 4 then
+    if ScenarioInfo.MissionNumber ~= 3 then
         return
     end
     ScenarioInfo.MissionNumber = 4
     
+    WaitSeconds(5)
+
     ScenarioFramework.SetPlayableArea('AREA_4', true)
     
     Cinematics.EnterNISMode()
@@ -1103,11 +1050,20 @@ function IntroP4()
             ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P4KSeadefense2')))
         end
 
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Kael', 'P4KAssaultNaval1_D'.. Difficulty, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(units, 'P4Kintattack1')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Kael', 'P4KAssaultNaval2_D'.. Difficulty, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(units, 'P4Kintattack2')
+        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Kael', 'P4KAssaultNaval3_D'.. Difficulty, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(units, 'P4Kintattack3')
+
         ScenarioInfo.Palace = ScenarioUtils.CreateArmyUnit('Kael', 'Kaelpalace')
-            ScenarioInfo.Palace:SetCustomName("Kael's Palace")
+            ScenarioInfo.Palace:SetCustomName("Kael\'s Palace")
+            ScenarioInfo.Palace:SetMaxHealth(10000)
+            ScenarioInfo.Palace:SetHealth(ScenarioInfo.Palace, 10000)
             ScenarioInfo.Palace:SetReclaimable(false)
             ScenarioInfo.Palace:SetCapturable(false)
-    
+
         ScenarioUtils.CreateArmyGroup('Kael', 'P4KOuterD_D'.. Difficulty)
         ScenarioUtils.CreateArmyGroup('Kael', 'P4KWalls')
         ScenarioUtils.CreateArmyGroup('Kael', 'P4KCivilain')
@@ -1117,14 +1073,24 @@ function IntroP4()
         P4OrderAI.P4Kaelbase1AI()
         P4OrderAI.P4Kaelbase2AI()
         P4OrderAI.P4Kaelbase3AI()
+
+        local AntinukesK = ArmyBrains[Kael]:GetListOfUnits(categories.uab4302, false)
+        for _, v in AntinukesK do
+            v:GiveTacticalSiloAmmo(5)
+        end
+
+        local AntinukesU = ArmyBrains[UEF]:GetListOfUnits(categories.ueb4302, false)
+        for _, v in AntinukesU do
+            v:GiveTacticalSiloAmmo(5)
+        end
     
-        ScenarioInfo.P4UACU = ScenarioFramework.SpawnCommander('UEF', 'UACU1', false, 'Brigadier General Valerie', true, UEFACUdeath,
-            {'T3Engineering', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
+        ScenarioInfo.P4UACU = ScenarioFramework.SpawnCommander('UEF', 'UACU1', false, 'Brigadier General Valerie', false, UEFACUdeath,
+            {'T3Engineering', 'Shield', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
             ScenarioInfo.P4UACU:SetAutoOvercharge(true)
             ScenarioInfo.P4UACU:SetVeterancy(1 + Difficulty)
 
-        ScenarioInfo.P4KACU = ScenarioFramework.SpawnCommander('Kael', 'P4KACU', false, 'Kael\'s High Executioner', true, KaelACUdeath,
-            {'T3Engineering', 'ShieldHeavy', 'EnhancedSensors'})
+        ScenarioInfo.P4KACU = ScenarioFramework.SpawnCommander('Kael', 'P4KACU', false, 'Kael\'s High Executioner', false, KaelACUdeath,
+            {'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
             ScenarioInfo.P4KACU:SetAutoOvercharge(true)
             ScenarioInfo.P4KACU:SetVeterancy(1 + Difficulty)
     
@@ -1157,15 +1123,6 @@ function IntroP4()
         
         Cinematics.SetInvincible('AREA_3', true)
     Cinematics.ExitNISMode()
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2.0
-
-       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-            Buff.ApplyBuff(u, 'CheatIncome')
-       end
        
     ForkThread(function()
             -- Wait for satellite to be launched
@@ -1180,6 +1137,7 @@ function IntroP4()
     
     ForkThread(MissionP4)
     ForkThread(P4Specialattack)
+    ForkThread(P4USpecialattack)
     ForkThread(CounterAttackP4)
     
     ScenarioFramework.CreateArmyIntelTrigger(MissionSecondaryP4, ArmyBrains[Player1], 'LOSNow', false, true, categories.xab1401, true, ArmyBrains[Kael])
@@ -1198,8 +1156,8 @@ function MissionP4()
         }
     )
     ScenarioInfo.M1P4:AddResultCallback(
-        function(result)
-            PlayerWin() 
+        function(result, unit)
+            ScenarioFramework.CDRDeathNISCamera(unit)
         end
     )
     
@@ -1207,7 +1165,7 @@ function MissionP4()
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Kill The UEF Commander',                -- title
-        'To the north of your posistion is a UEF commander, although not the target, kill her if given the chance.', -- description
+        'To the north of your position is a UEF Commander, although not the target, kill her if given the chance.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P4UACU}  
@@ -1223,7 +1181,7 @@ function MissionP4()
         'secondary',                      -- type
         'incomplete',                   -- complete
         'Kill Kael\'s Commander',                -- title
-        'To the north of Kael is Her personal Champion commander, although not the target, kill her if given the chance.', -- description
+        'To the north of Kael is her personal Champion, although not the target, kill her if given the chance.', -- description
         {                              -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P4KACU}  
@@ -1234,6 +1192,15 @@ function MissionP4()
             ForkThread(P4KillOrderBase)
         end
     )
+
+    ScenarioInfo.M4Objectives = Objectives.CreateGroup('M4Objectives', PlayerWin)
+    ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M1P4)
+    if ScenarioInfo.M1P3.Active then
+        ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M1P3)
+    end
+    if ScenarioInfo.M2P3.Active then
+        ScenarioInfo.M4Objectives:AddObjective(ScenarioInfo.M2P3)
+    end   
 end
 
 function MissionSecondaryP4()
@@ -1259,31 +1226,27 @@ function MissionSecondaryP4()
             Category = categories.xab1401,
         }
    )
-    ScenarioInfo.S1P4:AddResultCallback(
-        function(result)
-            if(result) then
-    
-            end
-        end
-   )
 end
 
 function P4KillOrderBase()
-    local CUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_MS2', ArmyBrains[Kael])
+    if Difficulty < 3 then
+        local CUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_MS2', ArmyBrains[Kael])
             for k, v in CUnits do
                 if v and not v.Dead then
                 v:Kill()
                 WaitSeconds(Random(0.001, 0.003))
                 end
             end
+    end
 end
 
 function P4KillUEFBase()
-
-    for _, unit in ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS, false) do
-        if unit and not unit.Dead then
-            unit:Kill()
-            WaitSeconds(Random(0.1, 0.3))
+    if Difficulty < 3 then
+        for _, unit in ArmyBrains[UEF]:GetListOfUnits(categories.ALLUNITS, false) do
+            if unit and not unit.Dead then
+                unit:Kill()
+                WaitSeconds(Random(0.1, 0.3))
+            end
         end
     end
 end
@@ -1297,6 +1260,7 @@ end
 function KaelACUdeath()
         
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.P4KACU, 3)
+    ScenarioFramework.Dialogue(OpStrings.ACUDeath4, nil, true)
 end
 
 function P4Specialattack()
@@ -1305,37 +1269,55 @@ function P4Specialattack()
     
     if  ScenarioInfo.Specialfunction == 1 then
     
-        ScenarioUtils.CreateArmyGroup('Kael', 'P4KSpecial1_D'.. Difficulty)
+        ScenarioUtils.CreateArmyGroup('Kael', 'P4KSpeical1_D'.. Difficulty)
     
         else
         if  ScenarioInfo.Specialfunction == 2 then
         
-            ScenarioUtils.CreateArmyGroup('Kael', 'P4KSpecial2_D'.. Difficulty)
+            ScenarioUtils.CreateArmyGroup('Kael', 'P4KSpeical2_D'.. Difficulty)
             ForkThread(Nukeparty2)
-        
         end
     end
 end
 
-function Nukeparty2()
+function P4USpecialattack()
+    
+    ScenarioInfo.USpecialfunction = Random(1, 2)
+    
+    if  ScenarioInfo.USpecialfunction == 1 then
+    
+        P4UEFAI.M4UEFSBase1AI()
+    
+        else
+        if  ScenarioInfo.USpecialfunction == 2 then
+        
+            P4UEFAI.M4UEFSBase2AI()
+        end
+    end
+end
 
+--Kael Nuke AI during Phase 3, platoon.lua is used in this case
+function Nukeparty2()
+    --Get a table of all UEF SMLs
     local AeonNuke2 = ArmyBrains[Kael]:GetListOfUnits(categories.uab2305, false)
-    local AeonNuke3 = ArmyBrains[Kael]:GetListOfUnits(categories.uab2305, false)
-    if ScenarioInfo.MissionNumber == 4 then
-        WaitSeconds(2)
-        IssueNuke({AeonNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
-        IssueNuke({AeonNuke3[1]}, ScenarioUtils.MarkerToPosition('Nuke2'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        IssueNuke({AeonNuke3[1]}, ScenarioUtils.MarkerToPosition('Nuke3'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke4'))
-        IssueNuke({AeonNuke3[1]}, ScenarioUtils.MarkerToPosition('Nuke4'))
-        WaitSeconds(5*60)
-        IssueNuke({AeonNuke2[1]}, ScenarioUtils.MarkerToPosition('Nuke5'))
-        IssueNuke({AeonNuke3[1]}, ScenarioUtils.MarkerToPosition('Nuke5'))
-        WaitSeconds(5*60)
-    end 
+        
+        --Only do something if there is at least 1 SML in the table
+        if table.getn(AeonNuke2) > 0 then
+            for k, v in AeonNuke2 do
+                --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
+                if not v.SiloAIEnabled and not v:IsDead() then
+                    --Make a single unit platoon for each SML
+                    local SiloPlatoon = ArmyBrains[Kael]:MakePlatoon('','')
+                    ArmyBrains[Kael]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')
+                    --Platoon gets the AI function called
+                    SiloPlatoon:ForkAIThread(SiloPlatoon.NukeAI)
+                    --Flag to check if the NukeAI has already been called for the SML instance
+                    v.SiloAIEnabled = true
+                end
+            end
+        end
+    --Check for SMLs every 60 seconds
+    ScenarioFramework.CreateTimerTrigger(Nukeparty2, 60)
 end
 
 function CounterAttackP4()
@@ -1350,8 +1332,8 @@ function CounterAttackP4()
     trigger = {40, 35, 30}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 6) then
+            num = 6
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Kael', 'P4KAssaultGunships', 'GrowthFormation', 5)
@@ -1365,8 +1347,8 @@ function CounterAttackP4()
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 6) then
+            num = 6
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Kael', 'P4KAssaultIntercept', 'GrowthFormation', 5)
@@ -1380,18 +1362,13 @@ function CounterAttackP4()
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 6) then
+            num = 6
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Kael', 'P4KAssaultTorps', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(platoon, 'P4Kintattack' .. Random(1, 5))
         end
-    end
-
-    for i = 1, 3 do
-        units = ScenarioUtils.CreateArmyGroupAsPlatoon('Kael', 'P4KAssaultNaval'.. i ..'_D', 'AttackFormation')
-        ScenarioFramework.PlatoonPatrolChain(units, 'P4Kintattack' .. i)
     end
 
     -- sends Strats if player has more than [30, 20, 10] Defenses, up to 3, 1 group per 3, 2, 1
@@ -1400,8 +1377,8 @@ function CounterAttackP4()
     trigger = {35, 25, 15}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 6) then
+            num = 6
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P3UAssaultBomber', 'GrowthFormation', 5)
@@ -1415,8 +1392,8 @@ function CounterAttackP4()
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 6) then
+            num = 6
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UAssaultIntercept', 'GrowthFormation', 5)
@@ -1424,14 +1401,52 @@ function CounterAttackP4()
         end
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UAssaultLand1_D'.. Difficulty, 'AttackFormation')
-        ScenarioFramework.PlatoonPatrolChain(units, 'P4UIntattack2')
+    ScenarioInfo.CzarPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('Kael', 'P4KAirdefense', 'StaggeredChevronFormation')
+    ScenarioInfo.Czar = ScenarioUtils.CreateArmyUnit('Kael', 'P4KCzar')
+    
+    IssueTransportLoad(ScenarioInfo.CzarPlanes:GetPlatoonUnits(), ScenarioInfo.Czar)
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UAssaultLand2_D'.. Difficulty, 'AttackFormation')
+    
+    ScenarioFramework.GroupPatrolChain({ScenarioInfo.Czar}, 'P4Kintattack2')
+
+    
+    ScenarioFramework.CreateUnitNearTypeTrigger(CzarAI, ScenarioInfo.Czar, ArmyBrains[Player1], categories.ALLUNITS, 70)
+
+
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UAssaultLand1_D'.. Difficulty, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'P4UIntattack3')
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UAssaultNaval1_D'.. Difficulty, 'AttackFormation')
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4UAssaultLand2_D'.. Difficulty, 'AttackFormation')
+        ScenarioFramework.PlatoonPatrolChain(units, 'P4UIntattack2')
+
+    units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P4Uintialattack1_D'.. Difficulty, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(units, 'P4UIntattack1')
+end
+
+function CzarAI()
+    --Release aircraft
+    IssueClearCommands({ScenarioInfo.Czar})
+    IssueTransportUnload({ScenarioInfo.Czar}, ScenarioInfo.Czar:GetPosition())
+    
+    for _, unit in ScenarioInfo.CzarPlanes:GetPlatoonUnits() do
+        while not unit.Dead and unit:IsUnitState('Attached') do
+            WaitSeconds(.5)
+        end
+    end
+    
+    --Dive, and patrol player base area
+    if not ScenarioInfo.Czar.Dead then
+        IssuePatrol({ScenarioInfo.Czar}, ScenarioUtils.MarkerToPosition('Player1'))
+        IssuePatrol({ScenarioInfo.Czar}, ScenarioUtils.MarkerToPosition('Player2'))
+    end
+    --Aircraft patrols the player base area
+    if ArmyBrains[Kael]:PlatoonExists(ScenarioInfo.CzarPlanes) then
+        IssueClearCommands(ScenarioInfo.CzarPlanes:GetPlatoonUnits())
+        ScenarioInfo.CzarPlanes:Stop()
+        ScenarioInfo.CzarPlanes:Patrol(ScenarioUtils.MarkerToPosition('Player1'))
+        ScenarioInfo.CzarPlanes:Patrol(ScenarioUtils.MarkerToPosition('Player2'))
+        ScenarioInfo.CzarPlanes:Patrol(ScenarioUtils.MarkerToPosition('Player3'))
+    end
 end
 
 --Misc Functions
@@ -1477,6 +1492,37 @@ function PlayerLose()
         WaitSeconds(3)
        KillGame()
   end  
+end
+
+-- Buffs resource producing structures, (and ACU variants.)
+function BuffAIEconomy()
+    -- Resource production multipliers, depending on the Difficulty
+    local Rate = {1.5, 2.0, 2.5}
+    -- Buff definitions
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = Rate[Difficulty]
+    buffAffects.MassProduction.Mult = Rate[Difficulty]
+    
+    while true do
+        if not table.empty(AIs) then
+            for i, j in AIs do
+                local economy = ArmyBrains[j]:GetListOfUnits(BuffCategories.Economy, false)
+                -- Check if there is anything to buff
+                if table.getn(economy) > 0 then
+                    for k, v in economy do
+                        -- Apply buff to the entity if it hasn't been buffed yet
+                        if not v.EcoBuffed then
+                            Buff.ApplyBuff( v, 'CheatIncome' )
+                            -- Flag the entity as buffed
+                            v.EcoBuffed = true
+                        end
+                    end
+                end
+            end
+        end
+        WaitSeconds(60)
+    end
 end
 
 -- taunts
