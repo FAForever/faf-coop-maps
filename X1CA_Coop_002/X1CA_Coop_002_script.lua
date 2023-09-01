@@ -140,15 +140,24 @@ function OnPopulate()
     ----------------------
     -- Order Initial Attack
     ----------------------
-
-    --ScenarioInfo.M1OrderAttack = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
     ScenarioInfo.M1OrderAttackPlatoons = {}
     ScenarioInfo.M1OrderAttack = {}
 
+    -- Spawn the attacking group up to 3 times based on number of players
+    local i = 3
+    local numPlayer = 0
+    for _, _ in ScenarioInfo.HumanPlayers do
+        numPlayer = numPlayer + 1
+    end
 
-    for k, player in ScenarioInfo.HumanPlayers do
+    if numPlayer == 1 then
+        i = 1
+    elseif numPlayer <= 3 then
+        i = 2
+    end
+
+    for x = 1, i do
         local armyGroup = ScenarioUtils.CreateArmyGroup('Order', 'M1_Starting_Attack_Group_D' .. Difficulty)
-        local playerPlatoons = {}
         for _, v in armyGroup do
             local platoon = ArmyBrains[Order]:MakePlatoon('', '')
             ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
@@ -156,7 +165,6 @@ function OnPopulate()
             table.insert(ScenarioInfo.M1OrderAttackPlatoons, platoon)
             table.insert(ScenarioInfo.M1OrderAttack, v)
         end
-
     end
 
     ----------------
@@ -320,32 +328,33 @@ function IntroNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
     Cinematics.ExitNISMode()
 
-    if(LeaderFaction == 'aeon') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', 'Warp', true, true, PlayerDeath)
-    elseif(LeaderFaction == 'uef') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'UEF_ACU', 'Warp', true, true, PlayerDeath)
-    elseif(LeaderFaction == 'cybran') then
-        ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Cybran_ACU', 'Warp', true, true, PlayerDeath)
-    end
+    ForkThread(function()
+        -- Spawn Players
+        ScenarioInfo.PlayersACUs = {}
+        local tblArmy = ListArmies()
+        local i = 1
 
-    -- spawn coop players too
-    ScenarioInfo.CoopCDR = {}
-    local tblArmy = ListArmies()
-    coop = 1
-    for iArmy, strArmy in pairs(tblArmy) do
-        if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
-            if(factionIdx == 1) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
-            elseif(factionIdx == 2) then
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
+        while tblArmy[ScenarioInfo['Player' .. i]] do
+            local factionId = GetArmyBrain('Player' .. i):GetFactionIndex()
+            local commander
+            if factionId == 1 then
+                commander = ScenarioFramework.SpawnCommander('Player' .. i, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
+            elseif factionId == 2 then
+                commander = ScenarioFramework.SpawnCommander('Player' .. i, 'AeonPlayer', 'Warp', true, true, PlayerDeath)
             else
-                ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
+                commander = ScenarioFramework.SpawnCommander('Player' .. i, 'CybranPlayer', 'Warp', true, true, PlayerDeath)
             end
-            coop = coop + 1
-            WaitSeconds(0.5)
+
+            ScenarioInfo['Player' .. i .. 'CDR'] = commander
+            table.insert(ScenarioInfo.PlayersACUs, commander)
+
+            WaitTicks(Random(8, 22))
+
+            i = i + 1
         end
-    end
+    end)
+
+    WaitSeconds(2)
 
     IntroMission1()
 end
@@ -357,13 +366,8 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     for k, v in ScenarioInfo.M1OrderAttackPlatoons do
-        if(ArmyBrains[Order]:PlatoonExists(v)) then
-            local r = Random(1, table.getsize(ScenarioInfo.HumanPlayers))
-            if (r==1) then
-                v:AttackTarget(ScenarioInfo.PlayerCDR)
-            else
-                v:AttackTarget(ScenarioInfo.CoopCDR[r-1])
-            end
+        if ArmyBrains[Order]:PlatoonExists(v) then
+            v:AttackTarget(table.random(ScenarioInfo.PlayersACUs))
         end
     end
 
@@ -700,7 +704,7 @@ function IntroMission2NIS()
             ['type'] = STRING('Camera Info'),
             ['prop'] = STRING('/env/common/props/markers/M_Camera_prop.bp'),
             ['orientation'] = VECTOR3(-3.14159, 1.19772, 0),
-            ['position'] = ScenarioInfo.PlayerCDR:GetPosition(),
+            ['position'] = ScenarioInfo.Player1CDR:GetPosition(),
         }
         Cinematics.CameraMoveToMarker(fakeMarker1, 0)
 
@@ -1583,7 +1587,7 @@ end
 -----------------
 function SetupCeleneM1Taunt()
     CeleneTM:AddEnemiesKilledTaunt('TAUNT8', ArmyBrains[Order], categories.MOBILE, 60)              -- Order destroys 60 mobile units
-    CeleneTM:AddDamageTaunt('TAUNT13', ScenarioInfo.PlayerCDR, .15)                                 -- Player CDR is reduced to 90% health
+    CeleneTM:AddDamageTaunt('TAUNT13', ScenarioInfo.Player1CDR, .15)                                 -- Player CDR is reduced to 90% health
     if(LeaderFaction == 'cybran') then
         CeleneTM:AddEnemiesKilledTaunt('X02_M01_060', ArmyBrains[Order], categories.STRUCTURE, 10)  -- Order destroyes 10 structures
     end
@@ -1593,7 +1597,7 @@ function SetupCeleneM2Taunt()
     CeleneTM:AddStartBuildTaunt('TAUNT2', ArmyBrains[Player1], categories.EXPERIMENTAL, 2 )          -- Celene responds to experimental
     CeleneTM:AddStartBuildTaunt('TAUNT3', ArmyBrains[Player1], categories.EXPERIMENTAL, 3 )          -- Celene responds to experimental
     CeleneTM:AddUnitKilledTaunt('TAUNT9', ScenarioInfo.UnitNames[Order]['M2_TauntUnit'])            -- taunt when an opening stream unit is killed
-    CeleneTM:AddDamageTaunt('TAUNT12', ScenarioInfo.PlayerCDR, .01)                                 -- Player CDR touched
+    CeleneTM:AddDamageTaunt('TAUNT12', ScenarioInfo.Player1CDR, .01)                                 -- Player CDR touched
     CeleneTM:AddUnitsKilledTaunt('TAUNT10', ArmyBrains[Player1], categories.STRUCTURE, 10)           -- Player loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT11', ArmyBrains[Order], categories.STRUCTURE, 18)            -- Order loses some structures
     CeleneTM:AddUnitsKilledTaunt('TAUNT4', ArmyBrains[Loyalist], categories.STRUCTURE, 2)           -- Loyalist lose a structure, tuant relating to them
@@ -1622,7 +1626,7 @@ end
 
 function SetupQAIM4Taunt()
     QAITM:AddAreaTaunt('TAUNT28', 'M1_Playable_Area', categories.ALLUNITS, ArmyBrains[QAI], 10)     -- QAI gets substantively into M1 area
-    QAITM:AddDamageTaunt('TAUNT29', ScenarioInfo.PlayerCDR, .02)                                    -- Player CDR is touched
+    QAITM:AddDamageTaunt('TAUNT29', ScenarioInfo.Player1CDR, .02)                                    -- Player CDR is touched
 
     if(LeaderFaction == 'uef') then                                        -- faction specific taunts, player gets hit a bit
         QAITM:AddUnitsKilledTaunt('TAUNT30', ArmyBrains[Player1], categories.STRUCTURE, 4)
