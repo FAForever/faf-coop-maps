@@ -795,7 +795,9 @@ function IntroMission4()
 end
 
 function StartMission4()
-    ScenarioFramework.CreateAreaTrigger(M4IslandApproach, ScenarioUtils.AreaToRect('Aeon_Island_Area'), categories.ALLUNITS, true, false, ArmyBrains[Player1], 1, false)
+    for _, armyId in ScenarioInfo.HumanPlayers do
+        ScenarioFramework.CreateAreaTrigger(M4IslandApproach, 'Aeon_Island_Area', categories.ALLUNITS, true, false, ArmyBrains[armyId], 1, false)
+    end
 
     -- After 4 minutes
     ScenarioFramework.CreateTimerTrigger(M4ErisTaunt1, 240)
@@ -819,6 +821,11 @@ function StartMission4()
 end
 
 function M4IslandApproach()
+    if ScenarioInfo.M4IslandApproachedByPlayers then
+        return
+    end
+    ScenarioInfo.M4IslandApproachedByPlayers = true
+
     ScenarioFramework.Dialogue(OpStrings.E03_M04_020, AddObjectiveM4P2)
 end
 
