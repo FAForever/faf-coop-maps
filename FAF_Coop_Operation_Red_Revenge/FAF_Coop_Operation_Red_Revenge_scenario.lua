@@ -10,22 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_save.lua',
     script = '/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_script.lua',
     norushradius = 80.000000,
-    norushoffsetX_Player1 = 0.000000,
-    norushoffsetY_Player1 = 0.000000,
-    norushoffsetX_Order = 0.000000,
-    norushoffsetY_Order = 0.000000,
-    norushoffsetX_Seraphim = 0.000000,
-    norushoffsetY_Seraphim = 0.000000,
-    norushoffsetX_QAI = 0.000000,
-    norushoffsetY_QAI = 0.000000,
-    norushoffsetX_UEF = 0.000000,
-    norushoffsetY_UEF = 0.000000,
-    norushoffsetX_Player2 = 0.000000,
-    norushoffsetY_Player2 = 0.000000,
-    norushoffsetX_Player3 = 0.000000,
-    norushoffsetY_Player3 = 0.000000,
-    norushoffsetX_Player4 = 0.000000,
-    norushoffsetY_Player4 = 0.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -33,5 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
+            factions = { {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'} },
         },
     }}
