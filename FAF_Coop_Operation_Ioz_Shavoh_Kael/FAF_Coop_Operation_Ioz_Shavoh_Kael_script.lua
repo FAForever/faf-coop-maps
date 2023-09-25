@@ -314,7 +314,6 @@ function Mission1()
         local M1MapExpandDelay = {50*60, 40*60, 30*60}
         ScenarioFramework.CreateTimerTrigger(StartIntroP2, M1MapExpandDelay[Difficulty])
     end
-    ScenarioFramework.CreateArmyIntelTrigger(SecondaryMissionP1, ArmyBrains[Player1], 'LOSNow', false, true, categories.CARRIER, true, ArmyBrains[KOrder])
 end
 
 --Part 2
@@ -853,7 +852,7 @@ function P3COffmapattacks2()
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P3UOffmapattack2')
         
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3Uoffattack4_D'.. Difficulty, 'GrowthFormation')
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'P3ULandchain1')
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'P3ULandchain2')
 
 
         WaitSeconds(Random(160, 220))

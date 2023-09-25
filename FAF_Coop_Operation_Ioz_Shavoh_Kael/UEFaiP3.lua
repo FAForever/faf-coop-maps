@@ -1,10 +1,9 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local CustomFunctions = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_CustomFunctions.lua'
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Thisl_Eniz/FAF_Coop_Operation_Thisl_Eniz_CustomFunctions.lua') 
+local CustomFunctions = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_CustomFunctions.lua'
 
 local Player1 = 1
 local UEF = 5
@@ -25,59 +24,53 @@ function M3UEFECOBaseAI()
 end
 
 function M3UEFFatboyBaseAI()
-    P3UBase1:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFFatboybase1', 'P3UB2MK1', 15, {P3USbase2 = 100})
-    P3UBase1:StartNonZeroBase({{6, 8, 10}, {2, 4, 6}})
-    P3UBase1:SetMaximumConstructionEngineers(4)
+    P3UBase1:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFFatboybase1', 'P3UB2MK1', 20, {P3USbase2 = 100})
+    P3UBase1:StartNonZeroBase({{5, 7, 9}, {2, 3, 4}})
+    P3UBase1:SetMaximumConstructionEngineers(5)
     P3UBase1:AddBuildGroup('P3UDefense1', 90)
 
     if Difficulty == 3 then
         ArmyBrains[UEF]:PBMSetCheckInterval(6)
     end
+    
+    local M2_Fatboy1 = ScenarioInfo.M2_Fatboy1
 
-    M3UEFFatboyattacks1()
-    
-    local M2_Fatboy = ScenarioInfo.M2_Fatboy 
-    local location
-            for num, loc in ArmyBrains[UEF].PBM.Locations do
-                if loc.LocationType == 'P3UEFFatboybase1' then
-                    location = loc
-                    break
-                end
-            end
-    
-    if not M2_Fatboy:IsDead() then
-        location.PrimaryFactories.Land = M2_Fatboy
-        IssueFactoryRallyPoint({M2_Fatboy}, ScenarioUtils.MarkerToPosition('Rally Point 19') )
+    for _, location in ArmyBrains[UEF].PBM.Locations do
+        if location.LocationType == 'P3UEFFatboybase1' then
+            location.PrimaryFactories.Land = M2_Fatboy1.ExternalFactory
+            M3UEFFatboyattacks1()
+            break
+        end
     end
+
+    IssueClearFactoryCommands({M2_Fatboy1.ExternalFactory})
+    IssueFactoryRallyPoint({M2_Fatboy1.ExternalFactory}, ScenarioUtils.MarkerToPosition("Rally Point 19"))
 end
 
 function M3UEFFatboyBase2AI()
-    P3UBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFFatboybase2', 'P3UB2MK2', 15, {P3USbase3 = 100})
-    P3UBase3:StartNonZeroBase({{2, 4, 6}, {2, 4, 6}})
+    P3UBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFFatboybase2', 'P3UB2MK2', 20, {P3USbase3 = 100})
+    P3UBase3:StartNonZeroBase({{2, 3, 4}, {2, 3, 4}})
 
     if Difficulty == 3 then
         ArmyBrains[UEF]:PBMSetCheckInterval(6)
     end
 
-    M3UEFFatboyattacks2()
-    
-    local M2_Fatboy2 = ScenarioInfo.M2_Fatboy2 
-    local location
-            for num, loc in ArmyBrains[UEF].PBM.Locations do
-                if loc.LocationType == 'P3UEFFatboybase2' then
-                    location = loc
-                    break
-                end
-            end
-    
-    if not M2_Fatboy2:IsDead() then
-        location.PrimaryFactories.Land = M2_Fatboy2
-        IssueFactoryRallyPoint({M2_Fatboy2}, ScenarioUtils.MarkerToPosition('Rally Point 21') )
+    local M2_Fatboy2 = ScenarioInfo.M2_Fatboy2
+
+    for _, location in ArmyBrains[UEF].PBM.Locations do
+        if location.LocationType == 'P3UEFFatboybase2' then
+            location.PrimaryFactories.Land = M2_Fatboy2.ExternalFactory
+            M3UEFFatboyattacks2()
+            break
+        end
     end
+
+    IssueClearFactoryCommands({M2_Fatboy2.ExternalFactory})
+    IssueFactoryRallyPoint({M2_Fatboy2.ExternalFactory}, ScenarioUtils.MarkerToPosition("Rally Point 21"))
 end
 
 function M3UEFAtlantisBaseAI()
-    P3UBase2:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFseabase', 'P3UB1MK1', 27, {P3USbase = 100})
+    P3UBase2:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFseabase', 'P3UB1MK1', 30, {P3USbase = 100})
     P3UBase2:StartNonZeroBase(2)
 
     M3UEFAtlantisBaseAirAttacks()
@@ -88,27 +81,35 @@ function M3UEFAtlantisBaseAI()
             WaitSeconds(1)
 
             local Carrier1 = ScenarioInfo.M2Atlantis 
-            local location
-            for num, loc in ArmyBrains[UEF].PBM.Locations do
-                if loc.LocationType == 'P3UEFseabase' then
-                    location = loc
+            for _, location in ArmyBrains[UEF].PBM.Locations do
+                if location.LocationType == 'P3UEFseabase' then
+                    location.PrimaryFactories.Air = Carrier1.ExternalFactory
                     break
                 end
             end
-            location.PrimaryFactories.Air = Carrier1
-            while Carrier1 and not Carrier1.Dead do
-                if table.getn(Carrier1:GetCargo()) > 0 and Carrier1:IsIdleState() then
-                    IssueClearCommands({Carrier1})
-                    IssueTransportUnload({Carrier1}, ScenarioUtils.MarkerToPosition('Rally Point 14'))
+
+            Carrier1:ForkThread(function(self)
+                local factory = self.ExternalFactory
+
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, ScenarioUtils.MarkerToPosition('Rally Point 20'))
+    
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
+
+                    WaitSeconds(1)
                 end
-                WaitSeconds(1)
-            end
+            end)
         end
     )
 end
 
 function M3UEFAtlantisBase2AI()
-    P3UBase4:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFseabase2', 'P3UB1MK2', 27, {P3USbase4 = 100})
+    P3UBase4:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFseabase2', 'P3UB1MK2', 30, {P3USbase4 = 100})
     P3UBase4:StartNonZeroBase(2)
 
     M3UEFAtlantisBaseAirAttacks2()
@@ -119,21 +120,29 @@ function M3UEFAtlantisBase2AI()
             WaitSeconds(1)
 
             local Carrier2 = ScenarioInfo.M2Atlantis2 
-            local location
-            for num, loc in ArmyBrains[UEF].PBM.Locations do
-                if loc.LocationType == 'P3UEFseabase2' then
-                    location = loc
+            for _, location in ArmyBrains[UEF].PBM.Locations do
+                if location.LocationType == 'P3UEFseabase2' then
+                    location.PrimaryFactories.Air = Carrier2.ExternalFactory
                     break
                 end
             end
-            location.PrimaryFactories.Air = Carrier2
-            while Carrier2 and not Carrier2.Dead do
-                if table.getn(Carrier2:GetCargo()) > 0 and Carrier2:IsIdleState() then
-                    IssueClearCommands({Carrier2})
-                    IssueTransportUnload({Carrier2}, ScenarioUtils.MarkerToPosition('Rally Point 20'))
+
+            Carrier2:ForkThread(function(self)
+                local factory = self.ExternalFactory
+
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, ScenarioUtils.MarkerToPosition('Rally Point 14'))
+    
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
+
+                    WaitSeconds(1)
                 end
-                WaitSeconds(1)
-            end
+            end)
         end
     )  
 end
@@ -405,7 +414,7 @@ function M3UEFFatboyattacks1()
     {
         MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
         PlatoonData = {
-            PatrolChain = 'P3ULandchain1',
+            PatrolChains = {'P3ULandchain1','P3ULandchain2'},
         },
         Priority = 500,
     })
@@ -495,7 +504,7 @@ function M3UEFFatboyattacks2()
     {
         MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
         PlatoonData = {
-            PatrolChain = 'P3ULandchain2',
+            PatrolChains = {'P3ULandchain1','P3ULandchain2'},
         },
         Priority = 500,
     })

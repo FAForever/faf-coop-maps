@@ -17,70 +17,81 @@ ScenarioInfo.Player4 = 8
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
+-- TODO: Create new build location with carrier.
 function CarrierAI(platoon)
     platoon:Stop()
-
     local aiBrain = platoon:GetBrain()
     local data = platoon.PlatoonData
     local carriers = platoon:GetPlatoonUnits()
     local movePositions = {}
 
-    if not data then
-        error('*Carrier AI ERROR: PlatoonData not defined', 2)
-    elseif not (data.MoveRoute or data.MoveChain) then
-        error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
-    end
-
-    if data.MoveChain then
-        movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
-    else
-        for k, v in data.MoveRoute do
-            if type(v) == 'string' then
-                table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
+    if(data) then
+        if(data.MoveRoute or data.MoveChain) then
+            if data.MoveChain then
+                movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
             else
-                table.insert(movePositions, v)
+                for k, v in data.MoveRoute do
+                    if type(v) == 'string' then
+                        table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
+                    else
+                        table.insert(movePositions, v)
+                    end
+                end
             end
+
+            local numCarriers = table.getn(carriers)
+            local numPositions = table.getn(movePositions)
+
+            if numCarriers <= numPositions then
+                for i = 1, numCarriers do
+                    ForkThread(function(i)
+                        local carrier = carriers[i]
+                        IssueMove( {carriers[i]}, movePositions[i] )
+
+                        while (not carrier.Dead and carrier:IsUnitState('Moving')) do
+                            WaitSeconds(.5)
+                        end
+                        
+                        if carrier.Dead then
+                            return
+                        end
+
+                        for _, location in aiBrain.PBM.Locations do
+                            if location.LocationType == data.Location .. i then
+                                location.PrimaryFactories.Air = factory
+                                break
+                            end
+                        end
+
+                        carrier:ForkThread(function(self)
+                            local factory = self.ExternalFactory
+            
+                            while true do
+                                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                                    IssueClearCommands({self})
+                                    IssueTransportUnload({self}, carrier:GetPosition())
+                
+                                    repeat
+                                        WaitSeconds(3)
+                                    until not self:IsUnitState("TransportUnloading")
+                                end
+            
+                                WaitSeconds(1)
+                            end
+                        end)
+                    end, i)
+                end             
+            else
+                error('*Carrier AI ERROR: Less move positions than carriers', 2)
+            end
+        else
+            error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
         end
-    end
-
-    local numCarriers = table.getn(carriers)
-    local numPositions = table.getn(movePositions)
-
-    if numPositions < numCarriers then
-        error('*Carrier AI ERROR: Less move positions than carriers', 2)
-    end
-
-    for i = 1, numCarriers do
-        ForkThread(function(i)
-            IssueMove({carriers[i]}, movePositions[i])
-
-            while not carriers[i].Dead and carriers[i]:IsUnitState('Moving') do
-                WaitSeconds(.5)
-            end
-
-            if carriers[i].Dead then
-                return
-            end
-
-            for num, loc in aiBrain.PBM.Locations do
-                if loc.LocationType == data.Location .. i then
-                    loc.PrimaryFactories.Air = carriers[i]
-                    break
-                end
-            end
-
-            while not carriers[i].Dead do
-                if table.getn(carriers[i]:GetCargo()) > 0 and carriers[i]:IsIdleState() then
-                    IssueClearCommands({carriers[i]})
-                    IssueTransportUnload({carriers[i]}, carriers[i]:GetPosition())
-                end
-                WaitSeconds(1)
-            end
-        end, i)
+    else
+        error('*Carrier AI ERROR: PlatoonData not defined', 2)
     end
 end
 
--- Wait for the units to leave the carrier before giving the orders
 function PatrolThread(platoon)
     local data = platoon.PlatoonData
 
@@ -91,12 +102,12 @@ function PatrolThread(platoon)
     end
 
     platoon:Stop()
-    if data then
-        if data.PatrolRoute or data.PatrolChain then
+    if(data) then
+        if(data.PatrolRoute or data.PatrolChain) then
             if data.PatrolChain then
                 ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioUtils.ChainToPositions(data.PatrolChain))
             else
-                for _,v in data.PatrolRoute do
+                for k,v in data.PatrolRoute do
                     if type(v) == 'string' then
                         platoon:Patrol(ScenarioUtils.MarkerToPosition(v))
                     else
@@ -105,13 +116,12 @@ function PatrolThread(platoon)
                 end
             end
         else
-            error('*CUSTOM FUNCTIONS AI ERROR: PatrolRoute or PatrolChain not defined', 2)
+            error('*SCENARIO PLATOON AI ERROR: PatrolRoute or PatrolChain not defined', 2)
         end
     else
-        error('*CUSTOM FUNCTIONS AI ERROR: PlatoonData not defined', 2)
+        error('*SCENARIO PLATOON AI ERROR: PlatoonData not defined', 2)
     end
 end
-
 ------------------------------------------------------------------
 --  MoveChainPickerThread
 --      Gives a platoon a random move chain from a set of chains
