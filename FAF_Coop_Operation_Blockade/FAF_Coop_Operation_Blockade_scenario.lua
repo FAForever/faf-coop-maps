@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_save.lua',
     script = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_script.lua',
     norushradius = 0.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
