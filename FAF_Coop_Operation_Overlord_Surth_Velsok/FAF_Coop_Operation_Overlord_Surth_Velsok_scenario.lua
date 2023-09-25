@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_save.lua',
     script = '/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_script.lua',
     norushradius = 80.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
