@@ -10,6 +10,7 @@ ScenarioInfo = {
     save = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_save.lua',
     script = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_script.lua',
     norushradius = 0.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
