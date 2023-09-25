@@ -410,7 +410,7 @@ function P2C1B2EXPattacks()
     local trigger = {}
     
     quantity = {1, 2, 3}
-    trigger = {45, 35, 30}
+    trigger = {45, 40, 35}
     opai = C1P2Base2:AddOpAI('C1Bot1',
         {
             Amount = quantity[Difficulty],
@@ -485,7 +485,7 @@ function P2C1B2Landattacks()
     }
     ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )  
     
-    local Tquantity = {3, 4, 6}
+    local Tquantity = {2, 3, 4}
     -- T2 Transport Platoon
     local Temp = {
         'M2_Cybran_North_Transport_Platoon',
@@ -501,7 +501,7 @@ function P2C1B2Landattacks()
         RequiresConstruction = true,
         LocationType = 'P2Cybran1Base2',
         BuildConditions = {
-            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty], poolName}},
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
         PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
         PlatoonData = {

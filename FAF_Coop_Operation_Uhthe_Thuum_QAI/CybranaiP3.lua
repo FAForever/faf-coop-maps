@@ -272,7 +272,7 @@ function P3C2B1Landattacks()
         RequiresConstruction = true,
         LocationType = 'P3Cybran2Base1',
         BuildConditions = {
-            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty], poolName}},
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
         PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
         PlatoonData = {
@@ -309,7 +309,6 @@ function P3C2B1Landattacks()
         },
     }
     ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
-
 
     quantity = {1, 2, 3}
     Temp = {
@@ -835,23 +834,27 @@ function CybranM3IslandBaseCarrierAttacks()
     local units = ArmyBrains[Cybran2]:GetListOfUnits(categories.CARRIER, false)
     for i = 1, 2 do
         local carrier = units[i]
-        carrier:SetCustomName('Carrier' .. i)
     
-        local location
-        for num, loc in ArmyBrains[Cybran2].PBM.Locations do
-            if loc.LocationType == 'R1Carrier' .. i then
-                location = loc
+        for _, location in ArmyBrains[Cybran2].PBM.Locations do
+            if location.LocationType == 'R1Carrier' .. i then
+                location.PrimaryFactories.Air = carrier.ExternalFactory
                 break
             end
         end
-        location.PrimaryFactories.Air = carrier
-        
-        ForkThread(function()
-            while carrier and not carrier:IsDead() do
-                if table.getn(carrier:GetCargo()) > 0 and carrier:IsIdleState() then
-                    IssueClearCommands({carrier})
-                    IssueTransportUnload({carrier}, carrier:GetPosition())
+
+        carrier:ForkThread(function(self)
+            local factory = self.ExternalFactory
+
+            while true do
+                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                    IssueClearCommands({self})
+                    IssueTransportUnload({self}, carrier:GetPosition())
+
+                    repeat
+                        WaitSeconds(3)
+                    until not self:IsUnitState("TransportUnloading")
                 end
+
                 WaitSeconds(1)
             end
         end)
@@ -1034,23 +1037,27 @@ function CybranM3IslandBaseCarrierAttacks2()
     local units = ArmyBrains[Cybran2]:GetListOfUnits(categories.CARRIER, false)
     for i = 1, 2 do
         local carrier = units[i]
-        carrier:SetCustomName('Carrier' .. i)
     
-        local location
-        for num, loc in ArmyBrains[Cybran2].PBM.Locations do
-            if loc.LocationType == 'R2Carrier' .. i then
-                location = loc
+        for _, location in ArmyBrains[Cybran2].PBM.Locations do
+            if location.LocationType == 'R2Carrier' .. i then
+                location.PrimaryFactories.Air = carrier.ExternalFactory
                 break
             end
         end
-        location.PrimaryFactories.Air = carrier
-        
-        ForkThread(function()
-            while carrier and not carrier:IsDead() do
-                if table.getn(carrier:GetCargo()) > 0 and carrier:IsIdleState() then
-                    IssueClearCommands({carrier})
-                    IssueTransportUnload({carrier}, carrier:GetPosition())
+
+        carrier:ForkThread(function(self)
+            local factory = self.ExternalFactory
+
+            while true do
+                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                    IssueClearCommands({self})
+                    IssueTransportUnload({self}, carrier:GetPosition())
+
+                    repeat
+                        WaitSeconds(3)
+                    until not self:IsUnitState("TransportUnloading")
                 end
+
                 WaitSeconds(1)
             end
         end)

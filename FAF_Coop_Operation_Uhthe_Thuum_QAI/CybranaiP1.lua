@@ -232,7 +232,7 @@ function P1C1B1Landattacks()
         RequiresConstruction = true,
         LocationType = 'P1Cybran1Base1',
         BuildConditions = {
-            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty], poolName}},
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
         PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
         PlatoonData = {
@@ -546,7 +546,7 @@ function P1C1B2Landattacks()
         RequiresConstruction = true,
         LocationType = 'P1Cybran1Base2',
         BuildConditions = {
-            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty], poolName}},
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
         PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
         PlatoonData = {
