@@ -1,5 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua'
 
 local Player1 = 1
@@ -91,7 +94,7 @@ function QP3B1Airattacks()
         LocationType = 'QAIP3base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Diffficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -159,12 +162,12 @@ function QP3B1landattacks()
         LocationType = 'QAIP3base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.WALLS}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.WALL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-       PlatoonData = {
+        PlatoonData = {
            PatrolChains = {'P3QB1landattack1', 'P3QB1landattack2', 'P3QB1landattack3'}
-       },
+        },
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
 
