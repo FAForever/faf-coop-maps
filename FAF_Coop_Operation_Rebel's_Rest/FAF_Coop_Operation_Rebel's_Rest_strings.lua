@@ -3,23 +3,23 @@
 IntroP1 = {
     {text = '[Coalition HQ]: Commander, The UEF traitors have taken over the prison systems and complexes.', vid = '', bank = '', cue = 'IntroP1_1', faction = 'UEF'},
     {text = '[Coalition HQ]: The UEF has a SACU setting up a base in this area.', vid = '', bank = '', cue = 'IntroP1_2', faction = 'UEF'},
-    {text = '[Coalition HQ]: You need to clear out this part of the island before we move on the prisons. HQ out.', vid = '', bank = '', cue = 'IntroP1_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: You need to clear out this part of the island before we move on the prisons. HQ out.', vid = '', bank = '', cue = 'IntroP1_3', faction = 'UEF'},
 }
 
 Jammer1P1 = {
     {text = '[Coalition HQ]: Commander we are picking up several Quantum jammers coming online. They cutting off any additional commanders gating in. You will not be able to call in SACUs.', vid = '', vidx = '', bank = '', cue = 'Jammer1P1', faction = 'UEF'},
-    {text = '[Coalition HQ]: They seem to also be modified to cause disrupt large quantum signatures. That means certian high value experimentals are not usable while the Jammers are up.', vid = '', vidx = '', bank = '', cue = 'Jammer2P1', faction = 'UEF'},
+    {text = '[Coalition HQ]: They seem to also be modified to  disrupt large quantum signatures. That means certian high value experimentals are not usable while the Jammers are up.', vid = '', vidx = '', bank = '', cue = 'Jammer2P1', faction = 'UEF'},
     {text = '[Coalition HQ]: We will attempt to locate them, but you are just going to have to make do for now. HQ out.', vid = '', vidx = '', bank = '', cue = 'Jammer3P1', faction = 'UEF'},
 }
 
 Reveal1P1 = {
     {text = '[Major Becca]: Colonel I am detecting Coalition forces. We need to speed this evac up.', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = 'Reveal1P1', faction = 'UEF'},
-    {text = '[Colonel Griff]: No, we are going to kill these terrorist lovers. The true UEF would never abandon true patriots!', vid = 'GeneralHall.sfd', vidx = '', bank = '', cue = 'Reveal1P2', faction = 'UEF'},
+    {text = '[Colonel Griff]: No, we are going to kill these terrorist lovers. The real UEF would never abandon true patriots!', vid = 'GeneralHall.sfd', vidx = '', bank = '', cue = 'Reveal1P2', faction = 'UEF'},
 }
 
 EndP1 = {
-    {text = '[Major Becca]: Max nooo! You will pay for that!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = 'Reveal1P1', faction = 'UEF'},
-    {text = '[Coalition HQ]: Good work Commander. One less traitor to deal with.', vid = '', bank = '', cue = 'EndP1_1', faction = 'UEF'},
+    {text = '[Major Becca]: Max nooo! You will pay for that!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = 'EndP1_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Good work Commander. One less traitor to deal with.', vid = '', bank = '', cue = 'EndP1_2', faction = 'UEF'},
 }
 
 --Part 2 Dialogues
@@ -31,7 +31,7 @@ IntroP2 = {
 }
 
 SecondaryendP2 = {
-    {text = '[Coalition HQ]: The Naval and Air bases are clear, great work Commander.', vid = '', bank = '', cue = 'SecondaryMidP2_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: The Naval and Air bases are clear, great work Commander.', vid = '', bank = '', cue = 'SecondaryendP2_1', faction = 'UEF'},
 }
 
 M1ObjectivecompleteP2 = {
@@ -46,8 +46,8 @@ IntroP3 = {
 }
 
 SecondaryObj1P3 = {
-    {text = '[Coalition HQ]: Commander, the main control center for the Prison defenses is located on a island to your south-east.', vid = '', bank = '', cue = 'IntroP3_1', faction = 'UEF'},
-    {text = '[Coalition HQ]: If you can capture that we can turn the prison defenses on the traitors, HQ out.', vid = '', bank = '', cue = 'IntroP3_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander, the main control center for the Prison defenses is located on a island to your south-east.', vid = '', bank = '', cue = 'SecondaryObj1P3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: If you can capture that we can turn the prison defenses on the traitors, HQ out.', vid = '', bank = '', cue = 'SecondaryObj1P3_2', faction = 'UEF'},
 }
 
 SecondaryObjP3Complete1 = {
@@ -73,19 +73,19 @@ Intro2P4 = {
 }
 
 Secondary2P4 = {
-    {text = '[Coalition HQ]: Commander we are detecting several Mavors under construction around you, take them out! HQ out', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander we are detecting several Mavors under construction around you, take them out! HQ out', vid = '', bank = '', cue = 'Secondary2P4_1', faction = 'UEF'},
 }
 
 Secondary2completeP4 = {
-    {text = '[Coalition HQ]: We no longer are picking up any Mavor signals, Good work. HQ out', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: We no longer are picking up any Mavor signals, Good work. HQ out', vid = '', bank = '', cue = 'Secondary2completeP4_1', faction = 'UEF'},
 }
 
 Secondary1P4 = {
-    {text = '[Coalition HQ]: We were able to located the Jammers. There are 3 located around, you destroy them. HQ out.', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: We were able to located the Jammers. There are 3 located around, you destroy them. HQ out.', vid = '', bank = '', cue = 'Secondary1P4_1', faction = 'UEF'},
 }
 
 SecondarycompleteP4 = {
-    {text = '[Coalition HQ]: We are able to send SACUs in now. You should also be able to access all your experimental units now. HQ out.', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: We are able to send SACUs in now. You should also be able to access all your experimental units now. HQ out.', vid = '', bank = '', cue = 'SecondarycompleteP4_1', faction = 'UEF'},
 }
 
 ACUDeadP4 = {
@@ -99,6 +99,8 @@ ACUDead2P4 = {
 PlayerWin = {
     {text = '[Coalition HQ]: The traitors are both dead. Come home Commander.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
+
+--Taunts
 
 TAUNT1P1 = {
     {text = '[Major Becca]: The true UEF would have never sided with terrorists and fanatics!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = '', faction = 'UEF'},
@@ -141,7 +143,7 @@ TAUNT3P3 = {
 }
 
 TAUNT4P3 = {
-    {text = '[Major Becca]: General Fletcher was a true hero!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = '', faction = 'UEF'},
+    {text = '[Major Becca]: General Fletcher will be avenged!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 TAUNT5P3 = {

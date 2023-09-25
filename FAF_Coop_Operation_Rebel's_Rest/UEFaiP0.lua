@@ -82,7 +82,6 @@ function P0U1B1Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
-    trigger = {6, 5, 4}
     Temp = {
         'P0U1B1AAttackTemp1',
         'NoPlan',
@@ -104,7 +103,7 @@ function P0U1B1Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
-    trigger = {70, 50, 40}
+    trigger = {80, 70, 60}
     Temp = {
         'P0U1B1AAttackTemp2',
         'NoPlan',
@@ -131,11 +130,11 @@ function P0U1B1Airattacks()
 
     quantity = {1, 2, 2}
     quantity2 = {4, 5, 7}
-    trigger = {8, 7, 6}
+    trigger = {10, 9, 8}
     Temp = {
         'P0U1B1AAttackTemp3',
         'NoPlan',
-        { 'uea0103', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uea0103', 1, quantity2[Difficulty], 'Attack', 'GrowthFormation' },
         { 'uea0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
     }
     Builder = {
@@ -163,7 +162,7 @@ function P0U1B1Landattacks()
     local quantity = {}
     local trigger = {}
 
-    quantity = {4, 6, 8}
+    quantity = {2, 4, 8}
     local Temp = {
         'P0U1B1LAttackTemp0',
         'NoPlan',
@@ -184,8 +183,8 @@ function P0U1B1Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 6}
-    trigger = {20, 16, 14}
+    quantity = {2, 4, 6}
+    trigger = {20, 18, 16}
     Temp = {
         'P0U1B1LAttackTemp1',
         'NoPlan',
@@ -201,7 +200,7 @@ function P0U1B1Landattacks()
         LocationType = 'P0UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.STRUCTURE}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.WALL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -210,7 +209,7 @@ function P0U1B1Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 6}
+    quantity = {3, 4, 6}
     trigger = {12, 10, 8}
     Temp = {
         'P0U1B1LAttackTemp2',
@@ -236,8 +235,8 @@ function P0U1B1Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 6}
-    trigger = {10, 6, 4}
+    quantity = {3, 5, 6}
+    trigger = {8, 6, 5}
     Temp = {
         'P0U1B1LAttackTemp3',
         'NoPlan',
@@ -262,7 +261,7 @@ function P0U1B1Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
-    quantity = {8, 9, 10}
+    quantity = {6, 8, 10}
     trigger = {55, 45, 35}
     Temp = {
         'P0U1B1LAttackTemp4',
@@ -290,7 +289,7 @@ function P0U1B1Landattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )  
 
     quantity = {2, 3, 4}
-    trigger = {9, 7, 5}
+    trigger = {9, 7, 6}
     Temp = {
         'P0U1B1LAttackTemp5',
         'NoPlan',
@@ -317,7 +316,7 @@ function P0U1B1Landattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder ) 
 
     quantity = {2, 3, 4}
-    trigger = {9, 7, 5}
+    trigger = {9, 7, 6}
     Temp = {
         'P0U1B1LAttackTemp6',
         'NoPlan',
@@ -344,7 +343,7 @@ function P0U1B1Landattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder ) 
 
     quantity = {2, 3, 7}
-    trigger = {4, 2, 1}
+    trigger = {5, 4, 3}
     Temp = {
         'P0U1B1LAttackTemp7',
         'NoPlan',
@@ -361,7 +360,7 @@ function P0U1B1Landattacks()
         LocationType = 'P0UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3 }},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {

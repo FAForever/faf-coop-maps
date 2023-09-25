@@ -185,13 +185,13 @@ function IntroP0()
     ScenarioFramework.CreateTimerTrigger(MidP0, 90)
     local quantity = {}
 
-    quantity = {14, 10, 8}
+    quantity = {18, 14, 10}
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.CreateAreaTrigger(OffmapattacksP0, 'AREA_1', categories.ALLUNITS * categories.TECH2 - categories.ENGINEER, true, false, ArmyBrains[player], quantity[Difficulty])
+        ScenarioFramework.CreateAreaTrigger(Offmapattacks0P0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
     end
-    quantity = {30, 25, 20}
+    quantity = {55, 45, 35}
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.CreateAreaTrigger(Offmapattacks2P0, 'AREA_1', categories.ALLUNITS - categories.TECH1 + categories.ENGINEER, true, false, ArmyBrains[player], quantity[Difficulty])
+        ScenarioFramework.CreateAreaTrigger(Offmapattacks2P0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
     end   
 end
 
@@ -304,15 +304,11 @@ function StartIntroP1()
 end
 
 function IntroP1()
-    ScenarioFramework.FlushDialogueQueue()
-    while ScenarioInfo.DialogueLock do
-        WaitSeconds(0.2)
-    end
     if ScenarioInfo.MissionNumber ~= 0 then
         return
     end
     ScenarioInfo.MissionNumber = 1
-
+     WaitSeconds(5)
     ScenarioFramework.SetPlayableArea('AREA_2', true)
 
     P1UEFAI.P1U1Base1AI()
@@ -459,8 +455,8 @@ function P1Intattacks()
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 8) then
-            num = 8
+        if(num > 5) then
+            num = 5
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF1', 'P1U1fighters', 'GrowthFormation', 5)
@@ -474,8 +470,8 @@ function P1Intattacks()
     trigger = {20, 10, 5}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 6) then
-            num = 6
+        if(num > 3) then
+            num = 3
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF1', 'P1U1fighters2', 'GrowthFormation', 5)
@@ -489,8 +485,8 @@ function P1Intattacks()
     trigger = {60, 50, 40}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 7) then
-            num = 7
+        if(num > 5) then
+            num = 5
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF1', 'P1U1Bombers', 'GrowthFormation', 5)
@@ -504,8 +500,8 @@ function P1Intattacks()
     trigger = {15, 10, 5}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 5) then
-            num = 5
+        if(num > 3) then
+            num = 3
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF1', 'P1U1gunships', 'GrowthFormation', 5)
@@ -515,12 +511,12 @@ function P1Intattacks()
 
     -- sends Transport drops if player has more than [40, 30, 20] TECH 2, up to 4, 1 group per 20, 15, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.TECH1)
-    quantity = {40, 30, 20}
-    trigger = {20, 15, 10}
+    quantity = {40, 35, 30}
+    trigger = {30, 25, 20}
     if num > quantity[Difficulty] then
         num = math.ceil(num/trigger[Difficulty])
-        if(num > 4) then
-            num = 4
+        if(num > 3) then
+            num = 3
         end
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF1', 'P1U1Drop2', 'GrowthFormation')
@@ -543,16 +539,12 @@ function StartIntroP2()
 end
 
 function IntroP2()
-    ScenarioFramework.FlushDialogueQueue()
-    while ScenarioInfo.DialogueLock do
-        WaitSeconds(0.2)
-    end
     if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
     ScenarioInfo.MissionNumber = 2
 
-    WaitSeconds(3)
+    WaitSeconds(5)
 
     ScenarioFramework.SetPlayableArea('AREA_3', true)
 
@@ -642,7 +634,7 @@ function MissionP2()
     ScenarioInfo.M1P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy the northeastern prison complex',                -- title
+        'Destroy The Northeastern Prison Complex',                -- title
         'We need to stop the prison break at all costs.', -- description
         {                              -- target
             MarkUnits = true,
@@ -660,7 +652,7 @@ function MissionP2()
     ScenarioInfo.M2P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy the southern prison complex',                -- title
+        'Destroy The Southern Prison Complex',                -- title
         'We need to stop the prison break at all costs.', -- description
         {                              -- target
             MarkUnits = true,
@@ -678,7 +670,7 @@ function MissionP2()
     ScenarioInfo.M3P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy the northwestern prison complex',                -- title
+        'Destroy The Northwestern Prison Complex',                -- title
         'We need to stop the prison break at all costs.', -- description
         {                              -- target
             MarkUnits = true,
@@ -692,7 +684,6 @@ function MissionP2()
             end
         end
     )
-
 
     ScenarioInfo.M2Objectives = Objectives.CreateGroup('M2Objectives', StartIntroP3)
     ScenarioInfo.M2Objectives:AddObjective(ScenarioInfo.M1P2)
@@ -853,16 +844,12 @@ function StartIntroP3()
 end
 
 function IntroP3()
-    ScenarioFramework.FlushDialogueQueue()
-    while ScenarioInfo.DialogueLock do
-        WaitSeconds(0.2)
-    end
     if ScenarioInfo.MissionNumber ~= 2 then
         return
     end
     ScenarioInfo.MissionNumber = 3
 
-    WaitSeconds(3)
+    WaitSeconds(5)
 
     ScenarioFramework.SetPlayableArea('AREA_4', true)
 

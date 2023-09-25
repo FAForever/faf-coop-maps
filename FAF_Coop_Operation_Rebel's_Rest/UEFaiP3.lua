@@ -1,6 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Rebel\'s_Rest/FAF_Coop_Operation_Rebel\'s_Rest_CustomFunctions.lua'
 
 local Player1 = 1
@@ -68,6 +70,7 @@ end
 function P3U1B1Airattacks()
     
     local quantity = {}
+    local trigger = {}
     
     quantity = {4, 5, 6}
     local Temp = {
@@ -94,6 +97,7 @@ function P3U1B1Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
     quantity = {6, 7, 9}
+    trigger = {25, 20, 15}
     Temp = {
         'P3U1B1AttackTemp1',
         'NoPlan',
@@ -109,7 +113,7 @@ function P3U1B1Airattacks()
         LocationType = 'P3UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.AIR * categories.MOBILE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -140,6 +144,7 @@ function P3U1B1Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
     quantity = {3, 4, 6}
+    trigger = {20, 16, 12}
     Temp = {
         'P3U1B1AttackTemp3',
         'NoPlan',
@@ -156,7 +161,7 @@ function P3U1B1Airattacks()
         LocationType = 'P3UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -192,36 +197,70 @@ function P3U1B1Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
-    opai = P3U1Base1:AddOpAI('EngineerAttack', 'M3B1_UEF1_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P3U1B1MK',
-        },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T3Transports', 2)
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P3UEF1Base1_TransportPool'
     
-    quantity = {6, 9, 12}
-    opai = P3U1Base1:AddOpAI('BasicLandAttack', 'M3B1_UEF1_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop2',
-                TransportReturn = 'P3U1B1MK',
-            },
-            Priority = 210,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
+    local quantity = {2, 3, 4}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M3_UEF1_B1_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M3_UEF1_B1_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF1Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P3UEF1Base1',
+        },
+    }
+    ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 2, 3}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M3_UEF1B1_Land_Assault',
+        PlatoonTemplate = {
+            'M3_UEF1B1_Land_Assault_Template',
+            'NoPlan',
+            {'xel0305', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 Tank
+            {'uel0304', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 Arty
+            {'uel0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
+        },
+        InstanceCount = 4,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P2UEF2Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {2, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P3DropAttack1',
+            LandingChain = 'P3Drop2',
+            TransportReturn = 'P3U1B1MK',
+            BaseName = 'P3UEF1Base1',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 end
 
 function P3U1B1Navalattacks()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {2, 3, 4}
     local Temp = {
@@ -247,6 +286,7 @@ function P3U1B1Navalattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
+    trigger = {5, 4, 3}
     Temp = {
         'P3U1B1NAttackTemp1',
         'NoPlan',
@@ -263,7 +303,7 @@ function P3U1B1Navalattacks()
         LocationType = 'P3UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 3, categories.BATTLESHIP}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
@@ -273,6 +313,7 @@ function P3U1B1Navalattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
     quantity = {1, 2, 3}
+    trigger = {30, 25, 20}
     Temp = {
         'P3U1B1NAttackTemp2',
         'NoPlan',
@@ -289,7 +330,7 @@ function P3U1B1Navalattacks()
         LocationType = 'P3UEF1Base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 25, categories.NAVAL * categories.MOBILE}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
@@ -335,6 +376,7 @@ end
 function P3U1B2Airattacks()
     
     local quantity = {}
+    local trigger = {}
     
     quantity = {4, 5, 6}
     local Temp = {
@@ -361,6 +403,7 @@ function P3U1B2Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
     quantity = {6, 7, 9}
+    trigger = {25, 20, 15}
     Temp = {
         'P3U1B2AttackTemp1',
         'NoPlan',
@@ -376,7 +419,7 @@ function P3U1B2Airattacks()
         LocationType = 'P3UEF1Base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.AIR * categories.MOBILE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -407,6 +450,7 @@ function P3U1B2Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
     quantity = {4, 6, 8}
+    trigger = {25, 20, 15}
     Temp = {
         'P3U1B2AttackTemp3',
         'NoPlan',
@@ -423,7 +467,7 @@ function P3U1B2Airattacks()
         LocationType = 'P3UEF1Base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.NAVAL * categories.MOBILE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -481,6 +525,7 @@ end
 function P3U1B2Landattacks()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {5, 7, 9}
     
@@ -543,13 +588,14 @@ end
 function P3U1B3Airattacks()
     
     local quantity = {}
+    local trigger = {}
     
     quantity = {4, 5, 6}
     local Temp = {
         'P3U1B3AttackTemp0',
         'NoPlan',
         { 'uea0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
-        { 'uea0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'uea0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
         { 'uea0305', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
         { 'uea0304', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
     }
@@ -569,6 +615,7 @@ function P3U1B3Airattacks()
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
     
     quantity = {6, 7, 9}
+    trigger = {25, 20, 15}
     Temp = {
         'P3U1B3AttackTemp1',
         'NoPlan',
@@ -584,7 +631,7 @@ function P3U1B3Airattacks()
         LocationType = 'P3UEF1Base3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.AIR * categories.MOBILE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -619,6 +666,7 @@ function P3U1B3Landattacks()
 
     local opai = nil
     local quantity = {}
+    local trigger = {}
 
     quantity = {4, 5, 6}
     
@@ -663,53 +711,70 @@ function P3U1B3Landattacks()
     }
     ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 
-    opai = P3U1Base3:AddOpAI('EngineerAttack', 'M3B3_UEF1_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P3U1B3MK',
-        },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T3Transports', 2)
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.xea0306})
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P3UEF1Base3_TransportPool'
     
-    quantity = {6, 9, 12}
-    opai = P3U1Base3:AddOpAI('BasicLandAttack', 'M3B3_UEF1_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U1B3MK',
-            },
-            Priority = 210,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-
-    quantity = {6, 9, 12}
-    opai = P3U1Base3:AddOpAI('BasicLandAttack', 'M3B3_UEF1_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U1B3MK',
-            },
-            Priority = 210,
-        }
-    )
-    opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
+    local quantity = {2, 3, 4}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M3_UEF1_B3_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M3_UEF1_B3_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF1Base3',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P3UEF1Base3',
+        },
+    }
+    ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 2, 3}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M3_UEF1B3_Land_Assault',
+        PlatoonTemplate = {
+            'M3_UEF1B3_Land_Assault_Template',
+            'NoPlan',
+            {'xel0305', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 Tank
+            {'uel0304', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 Arty
+            {'uel0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
+        },
+        InstanceCount = 4,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF1Base3',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {2, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P3DropAttack1',
+            LandingChain = 'P3Drop1',
+            TransportReturn = 'P3U1B3MK',
+            BaseName = 'P3UEF1Base3',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF1]:PBMAddPlatoon( Builder )
 end
 
 function P3U1B3Navalattacks()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {2, 3, 4}
     local Temp = {
@@ -1076,78 +1141,65 @@ function P3U2B1Landattacks()
     }
     ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
 
-    opai = P3U2Base1:AddOpAI('EngineerAttack', 'M3B1_UEF2_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P3U2B1MK',
-        },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T3Transports', 2)
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.xea0306})
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P3UEF2Base1_TransportPool'
     
-    quantity = {6, 9, 12}
-    opai = P3U2Base1:AddOpAI('BasicLandAttack', 'M4B1_UEF2_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U2B1MK',
-            },
-            Priority = 130,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-
-    quantity = {6, 9, 12}
-    opai = P3U2Base1:AddOpAI('BasicLandAttack', 'M4B1_UEF2_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U2B1MK',
-            },
-            Priority = 120,
-        }
-    )
-    opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-
-    quantity = {6, 9, 12}
-    opai = P3U2Base1:AddOpAI('BasicLandAttack', 'M4B1_UEF2_TransportAttack_3',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U2B1MK',
-            },
-            Priority = 110,
-        }
-    )
-    opai:SetChildQuantity('MobileMissilePlatforms', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-
-    quantity = {6, 9, 12}
-    opai = P3U2Base1:AddOpAI('BasicLandAttack', 'M4B1_UEF2_TransportAttack_4',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack1', 
-                LandingChain = 'P3Drop1',
-                TransportReturn = 'P3U2B1MK',
-            },
-            Priority = 100,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
+    local quantity = {2, 3, 4}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M3_UEF2_B1_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M3_UEF2_B1_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF2Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P3UEF2Base1',
+        },
+    }
+    ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 2, 3}
+    local Quantity2 = {3, 4, 9}
+    Builder = {
+        BuilderName = 'M3_UEF2B1_Land_Assault',
+        PlatoonTemplate = {
+            'M3_UEF2B1_Land_Assault_Template',
+            'NoPlan',
+            {'xel0305', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 Tank
+            {'uel0304', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T3 Arty
+            {'uel0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
+            {'uel0307', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 sheild
+        },
+        InstanceCount = 4,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF2Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P3DropAttack1',
+            LandingChain = 'P3Drop1',
+            TransportReturn = 'P3U2B1MK',
+            BaseName = 'P3UEF2Base1',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
 
    quantity = {{4, 0}, {5, 0}, {6, 0}}
     opai = P3U2Base1:AddOpAI('EngineerAttack', 'M3_UEF2B1_Assist_Engineers_1',
@@ -1781,33 +1833,63 @@ function P3U2B4Landattacks()
     }
     ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
 
-    opai = P3U2Base4:AddOpAI('EngineerAttack', 'M3B4_UEF2_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P3U2B4MK',
-        },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T3Transports', 3)
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.xea0306})
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P3UEF2Base4_TransportPool'
     
-    quantity = {6, 12, 18}
-    opai = P3U2Base4:AddOpAI('BasicLandAttack', 'M3B4_UEF2_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3DropAttack2', 
-                LandingChain = 'P3Drop2',
-                TransportReturn = 'P3U2B4MK',
-            },
-            Priority = 210,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
+    local quantity = {2, 3, 4}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M3_UEF2_B3_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M3_UEF2_B3_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF2Base4',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P3UEF2Base4',
+        },
+    }
+    ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 2, 4}
+    local Quantity2 = {3, 4, 12}
+    Builder = {
+        BuilderName = 'M3_UEF2B3_Land_Assault',
+        PlatoonTemplate = {
+            'M3_UEF2B3_Land_Assault_Template',
+            'NoPlan',
+            {'xel0305', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 Tank
+            {'uel0307', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 sheild
+        },
+        InstanceCount = 4,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P3UEF2Base4',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P3DropAttack2',
+            LandingChain = 'P3Drop2',
+            TransportReturn = 'P3U2B4MK',
+            BaseName = 'P3UEF2Base4',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF2]:PBMAddPlatoon( Builder )
 
     -- Extra engineers assisting T2 naval factories, all T2 factories has to be built
     -- Count is {X, 0} since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.

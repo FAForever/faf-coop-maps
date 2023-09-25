@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = "Coalition Mission 4: Operation Rebel's Rest",
-    description = '',
+    description = 'We  have another situation developing on a Prison world deep in UEF space. Two UEF commanders have gone rogue in support of the late Commander Fletcher. They need to be stopped before they unleash the crimmal population of Rebel\'s rest.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
@@ -10,18 +10,7 @@ ScenarioInfo = {
     save = "/maps/FAF_Coop_Operation_Rebel's_Rest/FAF_Coop_Operation_Rebel's_Rest_save.lua",
     script = "/maps/FAF_Coop_Operation_Rebel's_Rest/FAF_Coop_Operation_Rebel's_Rest_script.lua",
     norushradius = 0.000000,
-    norushoffsetX_Player1 = 0.000000,
-    norushoffsetY_Player1 = 0.000000,
-    norushoffsetX_UEF1 = 0.000000,
-    norushoffsetY_UEF1 = 0.000000,
-    norushoffsetX_UEF2 = 0.000000,
-    norushoffsetY_UEF2 = 0.000000,
-    norushoffsetX_Player2 = 0.000000,
-    norushoffsetY_Player2 = 0.000000,
-    norushoffsetX_Player3 = 0.000000,
-    norushoffsetY_Player3 = 0.000000,
-    norushoffsetX_Player4 = 0.000000,
-    norushoffsetY_Player4 = 0.000000,
+    map_version = 1,
     Configurations = {
         ['standard'] = {
             teams = {
@@ -29,5 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
+            factions = { {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'}, {'uef','aeon','cybran'} },
         },
     }}
