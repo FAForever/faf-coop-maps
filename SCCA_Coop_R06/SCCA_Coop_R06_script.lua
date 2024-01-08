@@ -1138,7 +1138,7 @@ function StartMission3()
     IssueDive({ScenarioInfo.Atlantis})
     for i = 1, 9 do
         IssuePatrol({ScenarioInfo.Atlantis}, ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
-        ScenarioInfo.AtlantisBoats:Patrol(ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i))
+        if not(IsDestroyed(ScenarioInfo.AtlantisBoats)) then ScenarioInfo.AtlantisBoats:Patrol(ScenarioUtils.MarkerToPosition('AtlantisAttack' .. i)) end
     end
     ScenarioFramework.CreateUnitNearTypeTrigger(StartAtlantisAI, ScenarioInfo.Atlantis, ArmyBrains[Player1], categories.ALLUNITS, 80)
 
