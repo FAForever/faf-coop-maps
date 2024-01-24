@@ -1,6 +1,6 @@
 -- ****************************************************************************
 -- **
--- **  File     :  /maps/SCCA_Coop_R06/SCCA_Coop_R06_operation.lua
+-- **  File     :  /maps/scca_coop_r06.v0018/SCCA_Coop_R06_operation.lua
 -- **  Author(s):  Evan Pongress
 -- **
 -- **  Summary  :  Operation data for OpR6
@@ -12,7 +12,7 @@ local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
 
 operationData = 
 {
-    key = 'SCCA_Coop_R06',
+	key = 'SCCA_Coop_R06',
     feedbackURL = 'http://forums.faforever.com/viewtopic.php?f=78&t=13909',
     opName = OpStrings.OPERATION_NAME,
     opDesctiption = OpStrings.OPERATION_DESCRIPTION,

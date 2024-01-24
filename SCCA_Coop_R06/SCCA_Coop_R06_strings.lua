@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C06>Operation Freedom'
-OPERATION_DESCRIPTION = 'Your Mission is to seize control of Black Sun and upload QAI\'s data-core directly into it\'s Control Center. Firing the weapon will then release both the Quantum Virus and the Liberation Matrix. The Gates will shut down. Everyone, everywhere will be free. There will be peace.'
+OPERATION_DESCRIPTION = 'Having the Black Sun access codes secured, Cybran forces attempt a daring operation on Earth itself to take control of Black Sun, before the UEF could fire it, and before the Aeon could destroy it. There\'s no turning back now, it\'s do or die.'
 
 
 
@@ -186,6 +186,12 @@ OpR6_Bonus2_Title = '<LOC C06_M01_OBJ_020_121>Firefight'
 -- Secondary Objectives
 OpR6_Bonus2_Desc = '<LOC C06_M01_OBJ_020_122>You defeated over %s enemy units.'
 
+-- Secondary Objectives
+OpC06_M1S1_Title = '<LOC C06_M01_OBJ_030_111>Eliminate the Aeon Commander'
+
+-- Secondary Objectives
+OpC06_M1S1_Desc = '<LOC C06_M01_OBJ_030_112>Commander Arnold is a threat to both you, and the success of the operation. Eliminate him if the opportunity presents itself.'
+
 
 
 --------------------------------
@@ -236,9 +242,9 @@ C06_M02_070 = {
   {text = '<LOC C06_M02_070_010>[{i Ops}]: Sir, the upload was interrupted! Move your ACU back to the Gate to restart it. Ops out.', vid = 'C06_Ops_M02_00578.sfd', bank = 'C06_VO', cue = 'C06_Ops_M02_00578', faction = 'Cybran'},
 }
 
--- When the Control Center is attacked
+-- Download complete, Aiko request reinforcements, prelude to Phase 3.
 C06_M02_080 = {
-  {text = '<LOC C06_M02_080_010>[{i Aiko}]: This is Captain Aiko. Black Sun is under heavy attack by Cybran and Aeon forces. Requesting assistance. I repeat, Black Sun is under attack. We need all the help we can get! Aiko out.', vid = 'C06_Aiko_M02_00579.sfd', bank = 'C06_VO', cue = 'C06_Aiko_M02_00579', faction = 'UEF'},
+  {text = '<LOC C06_M02_080_010>[{i Aiko}]: This is Major Aiko. Black Sun is under heavy attack by Cybran and Aeon forces. Requesting assistance. I repeat, Black Sun is under attack. We need all the help we can get! Aiko out.', vid = 'C06_Aiko_M02_00579.sfd', bank = 'C06_VO', cue = 'C06_Aiko_M02_00579', faction = 'UEF'},
 }
 
 -- Download complete. PO#2 finished
@@ -315,6 +321,13 @@ OpC06_M2P3_Title = '<LOC C06_M02_OBJ_010_231>Capture Black Sun Control Center'
 -- Primary Objectives
 OpC06_M2P3_Desc = '<LOC C06_M02_OBJ_010_232>The QAI must integrate itself with the Control Center\'s systems. This will enable it to reprogram Black Sun to distribute the Quantum Virus and the Symbiont Release Matrix upon firing.'
 
+-- Secondary Objectives
+OpC06_M2S1_Title = '<LOC C06_M02_OBJ_010_241>The Star Wars Project'
+
+-- Secondary Objectives
+OpC06_M2S1_Desc = '<LOC C06_M02_OBJ_010_242>The gloves are coming off, and both Aeon and UEF forces will use Strategic Missiles, if it helps securing victory for themselves. Construct at least %s Guardian SMDs at your base (in close proximity) to prepare for a potential Nuclear strike once you\'ve captured the Control Center.'
+
+
 
 
 --------------------------------
@@ -330,10 +343,11 @@ C06_M03_010 = {
   {text = '<LOC C06_M03_010_020>[{i Dostya}]: Commander, new orders! You must capture Black Sun so QAI can complete its integration! Move quickly! ', vid = 'C06_Dostya_M03_00592.sfd', bank = 'C06_VO', cue = 'C06_Dostya_M03_00592', faction = 'Cybran'},
 }
 
--- 4 minutes into mission
+-- If the Atlantis surfaces
 C06_M03_030 = {
   {text = '<LOC C06_M03_030_010>[{i Aiko}]: I will not let you have Black Sun!', vid = 'C06_Aiko_M03_00594.sfd', bank = 'C06_VO', cue = 'C06_Aiko_M03_00594', faction = 'UEF'},
   {text = '<LOC C06_M03_030_020>[{i Clarke}]: This is General Clarke! Stop them!', vid = 'C06_Clarke_M03_00595.sfd', bank = 'C06_VO', cue = 'C06_Clarke_M03_00595', faction = 'UEF'},
+  {text = '<LOC C06_M02_100_010>[{i Ops}]: Incoming UEF forces! Ops out.', vid = 'C06_Ops_M02_00581.sfd', bank = 'C06_VO', cue = 'C06_Ops_M02_00581', faction = 'Cybran'},
 }
 
 -- If Aiko is killed
@@ -341,9 +355,14 @@ C06_M03_050 = {
   {text = '<LOC C06_M03_050_010>[{i Aiko}]: Aaaaaaaaagh! ', vid = 'C06_Aiko_M03_00596.sfd', bank = 'C06_VO', cue = 'C06_Aiko_M03_00596', faction = 'UEF'},
 }
 
--- If Arnold is Killed
+-- If Arnold is killed
 C06_M03_055 = {
   {text = '<LOC C06_M03_055_010>[{i Arnold}]: Princess!', vid = 'C06_Arnold_M03_01106.sfd', bank = 'C06_VO', cue = 'C06_Arnold_M03_01106', faction = 'Aeon'},
+}
+
+-- If Blake is killed
+C06_M03_100 = {
+  {text = '<LOC A05_M02_110_010>[{i Blake}]: Aaaaargh', vid = 'A05_Blake_M02_00998.sfd', bank = 'A05_VO', cue = 'A05_Blake_M02_00998', faction = 'UEF'},
 }
 
 -- When Black Sun is captured. PO#1 completed
@@ -478,7 +497,37 @@ TAUNT15 = {
   {text = '<LOC C06_T01_150_010>[{i Arnold}]: Earth is ours!', vid = 'C06_Arnold_T01_00557.sfd', bank = 'C06_VO', cue = 'C06_Arnold_T01_00557', faction = 'Aeon'},
 }
 
--- Taunt16
+-- Taunt16 ( Arnold )
 TAUNT16 = {
   {text = '<LOC C06_T01_160_010>[{i Arnold}]: You will soon be extinct.', vid = 'C06_Arnold_T01_00558.sfd', bank = 'C06_VO', cue = 'C06_Arnold_T01_00558', faction = 'Aeon'},
+}
+
+-- Taunt 17 ( Blake )
+TAUNT17 = {
+  {text = '<LOC A05_T01_100_010>[{i Blake}]: The UEF will never stop waging war against the Aeon.', vid = 'A05_Blake_T01_00947.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00947', faction = 'UEF'},
+}
+
+-- Taunt 18
+TAUNT18 = {
+  {text = '<LOC A05_T01_110_010>[{i Blake}]: Vengeance will be mine!', vid = 'A05_Blake_T01_00948.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00948', faction = 'UEF'},
+}
+
+-- Taunt 19
+TAUNT19 = {
+  {text = '<LOC A05_T01_130_010>[{i Blake}]: You abandoned your humanity a long time ago.', vid = 'A05_Blake_T01_00950.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00950', faction = 'UEF'},
+}
+
+-- Taunt 20
+TAUNT20 = {
+  {text = '<LOC A05_T01_140_010>[{i Blake}]: Soon the Aeon will be extinct.', vid = 'A05_Blake_T01_00951.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00951', faction = 'UEF'},
+}
+
+-- Taunt 21
+TAUNT21 = {
+  {text = '<LOC A05_T01_150_010>[{i Blake}]: You will answer for your crimes!', vid = 'A05_Blake_T01_00952.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00952', faction = 'UEF'},
+}
+
+-- Taunt 22 ( Blake )
+TAUNT22 = {
+  {text = '<LOC A05_T01_160_010>[{i Blake}]: I will not allow you to escape!', vid = 'A05_Blake_T01_00953.sfd', bank = 'A05_VO', cue = 'A05_Blake_T01_00953', faction = 'UEF'},
 }
