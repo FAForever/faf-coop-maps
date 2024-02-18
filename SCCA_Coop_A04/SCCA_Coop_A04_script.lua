@@ -888,7 +888,9 @@ function M2EastLandAssault(units, transports)
     end
     if aiBrain:PlatoonExists(transports) then
         transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_East_Transport_Return'), false)
-        aiBrain:AssignUnitsToPlatoon('TransportPool', transports:GetPlatoonUnits(), 'Scout', 'None')
+        if aiBrain:PlatoonExists('TransportPool') then
+            aiBrain:AssignUnitsToPlatoon('TransportPool', transports:GetPlatoonUnits(), 'Scout', 'None')
+        end
     end
     if aiBrain:PlatoonExists(units) then
         units:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('Mainframe_Marker'))
