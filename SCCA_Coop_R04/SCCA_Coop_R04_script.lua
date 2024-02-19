@@ -914,58 +914,59 @@ function IntroMission3()
 end
 
 function StartMission3()
-    if not(ScenarioInfo.M3P1Started == true) then
-        ScenarioInfo.M3P1Started = true
-        ScenarioFramework.Dialogue(OpStrings.C04_M03_020, nil, true)
-    
-        -----------------------------------
-        -- Primary Objective - Capture Node
-        -----------------------------------
-        ScenarioInfo.M3P1Objective = Objectives.Basic(
-            'primary',
-            'incomplete',
-            OpStrings.M3P1Text,
-            OpStrings.M3P1Detail,
-            Objectives.GetActionIcon('capture'),
-            {
-                Units = {ScenarioInfo.Node3},
-                MarkUnits = true,
-            }
-        )
-    
-        -----------------------------------
-        -- Primary Objective - Capture Node
-        -----------------------------------
-        ScenarioInfo.M3P2Objective = Objectives.Basic(
-            'primary',
-            'incomplete',
-            OpStrings.M3P2Text,
-            OpStrings.M3P2Detail,
-            Objectives.GetActionIcon('capture'),
-            {
-                Units = {ScenarioInfo.Node4},
-                MarkUnits = true,
-            }
-        )
-    
-        ----------------------------------------
-        -- Primary Objective - Protect Mainframe
-        ----------------------------------------
-        ScenarioInfo.M3P4Objective = Objectives.Basic(
-            'primary',
-            'incomplete',
-            OpStrings.M3P4Text,
-            OpStrings.M3P4Detail,
-            Objectives.GetActionIcon('protect'),
-            {
-                Areas = {'Aeon_Base_M3'},
-                ShowFaction = 'Aeon',
-            }
-        )
-    
-        -- Reminder
-        ScenarioFramework.CreateTimerTrigger(M3P1Reminder, 900)
+    if ScenarioInfo.M3P1Started == true then
+        return
     end
+    ScenarioInfo.M3P1Started = true
+    ScenarioFramework.Dialogue(OpStrings.C04_M03_020, nil, true)
+
+    -----------------------------------
+    -- Primary Objective - Capture Node
+    -----------------------------------
+    ScenarioInfo.M3P1Objective = Objectives.Basic(
+        'primary',
+        'incomplete',
+        OpStrings.M3P1Text,
+        OpStrings.M3P1Detail,
+        Objectives.GetActionIcon('capture'),
+        {
+            Units = {ScenarioInfo.Node3},
+            MarkUnits = true,
+        }
+    )
+
+    -----------------------------------
+    -- Primary Objective - Capture Node
+    -----------------------------------
+    ScenarioInfo.M3P2Objective = Objectives.Basic(
+        'primary',
+        'incomplete',
+        OpStrings.M3P2Text,
+        OpStrings.M3P2Detail,
+        Objectives.GetActionIcon('capture'),
+        {
+            Units = {ScenarioInfo.Node4},
+            MarkUnits = true,
+        }
+    )
+
+    ----------------------------------------
+    -- Primary Objective - Protect Mainframe
+    ----------------------------------------
+    ScenarioInfo.M3P4Objective = Objectives.Basic(
+        'primary',
+        'incomplete',
+        OpStrings.M3P4Text,
+        OpStrings.M3P4Detail,
+        Objectives.GetActionIcon('protect'),
+        {
+            Areas = {'Aeon_Base_M3'},
+            ShowFaction = 'Aeon',
+        }
+    )
+
+    -- Reminder
+    ScenarioFramework.CreateTimerTrigger(M3P1Reminder, 900)    
 end
 
 function M3BaseDamaged(unit)
