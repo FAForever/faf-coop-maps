@@ -466,6 +466,11 @@ function IntroMission2()
 end
 
 function StartMission2()
+    if ScenarioInfo.M2P1Started == true then
+        return
+    end
+
+    ScenarioInfo.M2P1Started = true
     ---------------------------------------------
     -- Primary Objective - Defeath Aeon Attackers
     ---------------------------------------------
@@ -526,7 +531,7 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2LaunchAttackReoccurring, M2ReoccuringBaseAttackInitialDelay[Difficulty])
 
     -- If the player doesn't complete the objective soon, remind him that it's important
-    ScenarioFramework.CreateTimerTrigger(M2P1Reminder, 300)
+    ScenarioFramework.CreateTimerTrigger(M2P1Reminder, 300)    
 end
 
 function M2SpawnAttackers()
@@ -664,6 +669,7 @@ function M2Dialogue3()
 end
 
 function M2BaseSaved()
+    if not(ScenarioInfo.M2P1Objective.Active) then StartMission2() end
     ScenarioFramework.Dialogue(OpStrings.C04_M02_050)
 
     -- update objectives
