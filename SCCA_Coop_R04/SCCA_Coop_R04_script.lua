@@ -920,6 +920,10 @@ function IntroMission3()
 end
 
 function StartMission3()
+    if ScenarioInfo.M3P1Started == true then
+        return
+    end
+    ScenarioInfo.M3P1Started = true
     ScenarioFramework.Dialogue(OpStrings.C04_M03_020, nil, true)
 
     -----------------------------------
@@ -968,7 +972,7 @@ function StartMission3()
     )
 
     -- Reminder
-    ScenarioFramework.CreateTimerTrigger(M3P1Reminder, 900)
+    ScenarioFramework.CreateTimerTrigger(M3P1Reminder, 900)    
 end
 
 function M3BaseDamaged(unit)
@@ -1071,6 +1075,7 @@ end
 
 -- Northwest node
 function Node3Captured(newNodeHandle)
+    if not(ScenarioInfo.M3P1Started) then StartMission3() end
     ScenarioInfo.Node3 = newNodeHandle
     ScenarioInfo.Node3Captured = true
     ScenarioFramework.CreateUnitDeathTrigger(NodeDied, ScenarioInfo.Node3)
@@ -1098,6 +1103,7 @@ function Node3Captured(newNodeHandle)
 end
 
 function Node4Captured(newNodeHandle)
+    if not(ScenarioInfo.M3P1Started) then StartMission3() end
     ScenarioInfo.Node4 = newNodeHandle
     ScenarioInfo.Node4Captured = true
     ScenarioFramework.CreateUnitDeathTrigger(NodeDied, ScenarioInfo.Node4)
