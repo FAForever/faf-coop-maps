@@ -1,6 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_CustomFunctions.lua'
 
 local Player1 = 1
@@ -27,6 +29,7 @@ end
 function P3B1seraLand()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {6, 8, 12}
     local Temp = {
@@ -52,6 +55,7 @@ function P3B1seraLand()
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
     
     quantity = {6, 8, 10}
+    trigger = {30, 25, 20}
     Temp = {
         'SeralandP3B1AttackTemp1',
         'NoPlan',
@@ -67,7 +71,7 @@ function P3B1seraLand()
         LocationType = 'SeraphimB1P3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 30, categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
@@ -77,6 +81,7 @@ function P3B1seraLand()
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
 
     quantity = {5, 6, 7}
+    trigger = {4, 3, 2}
     Temp = {
         'SeralandP3B1AttackTemp2',
         'NoPlan',
@@ -93,7 +98,7 @@ function P3B1seraLand()
         LocationType = 'SeraphimB1P3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 2, categories.EXPERIMENTAL}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
@@ -106,6 +111,7 @@ end
 function P3B1seraAir()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {12, 14, 16}
     local Temp = {
@@ -151,6 +157,7 @@ function P3B1seraAir()
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
     
     quantity = {6, 9, 12}
+    trigger = {40, 35, 30}
     Temp = {
         'SeraAirP3B1AttackTemp1',
         'NoPlan',
@@ -166,7 +173,7 @@ function P3B1seraAir()
         LocationType = 'SeraphimB1P3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 30, categories.STRUCTURE * categories.DEFENSE - categories.WALL}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.WALL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
@@ -176,6 +183,7 @@ function P3B1seraAir()
     ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
     
     quantity = {12, 15, 18}
+    trigger = {40, 30, 20}
     Temp = {
        'SeraAirP3B1AttackTemp2',
        'NoPlan',
@@ -191,7 +199,7 @@ function P3B1seraAir()
        LocationType = 'SeraphimB1P3',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 20, categories.AIR * categories.MOBILE}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
@@ -264,6 +272,7 @@ end
 function P3B1seraNaval()
 
     local quantity = {}
+    local trigger = {}
 
     quantity = {2, 2, 4}
     local Temp = {

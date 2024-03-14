@@ -9,6 +9,10 @@ local Cybran2 = 5
 local C2P3Base1 = BaseManager.CreateBaseManager()
 local C2P3Base2 = BaseManager.CreateBaseManager()
 local C2P3Base3 = BaseManager.CreateBaseManager()
+
+local C2P3R1 = BaseManager.CreateBaseManager()
+local C2P3R2 = BaseManager.CreateBaseManager()
+
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 -- Main Cybran Base
@@ -16,7 +20,7 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 function C2P3Base1AI()
 
     C2P3Base1:InitializeDifficultyTables(ArmyBrains[Cybran2], 'P3Cybran2Base1', 'P3C2B1MK', 80, {P3C2base1 = 100})
-    C2P3Base1:StartNonZeroBase({{10, 17, 24}, {8, 14, 20}})
+    C2P3Base1:StartNonZeroBase({{10, 18, 26}, {8, 14, 20}})
     C2P3Base1:SetActive('AirScouting', true)
     C2P3Base1:SetSupportACUCount(1)
     C2P3Base1:SetSACUUpgrades({'ResourceAllocation', 'Switchback', 'SelfRepairSystem'}, true)
@@ -225,8 +229,10 @@ end
 
 function P3C2B1Landattacks()
 
+    local opai = nil
     local quantity = {}
     local trigger = {}
+    local poolName = 'P3Cybran2Base1_TransportPool'
 
     quantity = {4, 6, 10} 
     local Temp = {
@@ -248,38 +254,61 @@ function P3C2B1Landattacks()
         },
     }
     ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
     
-    quantity = {3, 4, 5}
-    opai = C2P3Base1:AddOpAI('EngineerAttack', 'M3_Cybran_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P3C2B1MK',
+    local Tquantity = {3, 4, 5}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M3_Cybran_Transport_Platoon',
+        'NoPlan',
+        { 'ura0104', 1, Tquantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M3_Cybran_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P3Cybran2Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
-        Priority = 1000,
-    })
-    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', quantity[Difficulty], categories.ura0104})
-
-    quantity = {6, 8, 10}
-
-    opai = C2P3Base1:AddOpAI('BasicLandAttack', 'M3_Cybran_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P3C2B1LandattackDropA', 
-                LandingChain = 'P3C2B1LandattackDrop',
-                TransportReturn = 'P3C2B1MK',
-                MovePath = 'P3C2B1LandattackDropM',
-            },
-            Priority = 105,
-        }
-    )
-    opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P3Cybran2Base1',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+    
+    local Quantity = {2, 3, 4}
+    Builder = {
+        BuilderName = 'M3_Cybran_TransportAttack_1',
+        PlatoonTemplate = {
+            'M3_Cybran_TransportAttack_1_Template',
+            'NoPlan',
+            {'xrl0305', 1, Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 bot
+            {'url0304', 1, Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 arty
+            {'url0205', 1, Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 aa
+        },
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P3Cybran2Base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {Tquantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P3C2B1LandattackDropA',
+            LandingChain = 'P3C2B1LandattackDrop',
+            TransportReturn = 'P3C2B1MK',
+            BaseName = 'P3Cybran2Base1',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
 
     quantity = {1, 2, 3}
     Temp = {
@@ -307,15 +336,15 @@ function P3C2B1EXPattacks()
     local opai = nil
     local quantity = {}
 
-    quantity = {2, 3, 4} 
+    quantity = {2, 4, 6} 
     opai = C2P3Base1:AddOpAI('P3C2EXPbug1',
         {
-            Amount = 2,
+            Amount = quantity[Difficulty],
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
             PlatoonData = {
             PatrolChains = {'P3C2B1Airattack3', 'P3C2B1Airattack4'}
-        },
+            },
             MaxAssist = quantity[Difficulty],
             Retry = true,
         }
@@ -327,7 +356,7 @@ end
 function C2P3Base2AI()
 
     C2P3Base2:InitializeDifficultyTables(ArmyBrains[Cybran2], 'P3Cybran2Base2', 'P3C2B2MK', 100, {P3C2base2 = 100})
-    C2P3Base2:StartNonZeroBase({{12, 18, 24}, {10, 15, 21}})
+    C2P3Base2:StartNonZeroBase({{10, 16, 22}, {8, 12, 16}})
     C2P3Base2:SetActive('AirScouting', true)
     
     P3C2B2Landattacks()
@@ -603,15 +632,16 @@ function P3C2B2EXPattacks()
     local opai = nil
     local quantity = {}
     
+    quantity = {2, 4, 6}
     opai = C2P3Base2:AddOpAI('P3C2EXPbot1',
         {
-            Amount = 2,
+            Amount = quantity[Difficulty],
             KeepAlive = true,
             PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
             PlatoonData = {
             MoveChains = {'P3C2B2Expattack1', 'P3C2B2Expattack2', 'P3C2B2Expattack3'}
         },
-            MaxAssist = 4,
+            MaxAssist = quantity[Difficulty],
             Retry = true,
         }
     )
@@ -622,7 +652,7 @@ end
 function C2P3Base3AI()
 
     C2P3Base3:InitializeDifficultyTables(ArmyBrains[Cybran2], 'P3Cybran2Base3', 'P3C2B3MK', 70, {P3C2base3 = 100})
-    C2P3Base3:StartNonZeroBase({{6, 9, 12}, {4, 6, 8}})
+    C2P3Base3:StartNonZeroBase({{6, 10, 14}, {4, 6, 8}})
     C2P3Base3:SetActive('AirScouting', true)
     
     P3C2B3Airattacks()
@@ -633,11 +663,11 @@ function P3C2B3EXPattacks()
     local opai = nil
     local quantity = {}
     
-    quantity = {2, 3, 4}
+    quantity = {2, 4, 6}
 
     opai = C2P3Base3:AddOpAI('P3C2EXPbot2',
         {
-            Amount = 2,
+            Amount = quantity[Difficulty],
             KeepAlive = true,
             PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
             PlatoonData = {
@@ -734,11 +764,11 @@ function P3C2B3Landattacks()
     local quantity = {}
     local trigger = {}
 
-    quantity = {4, 7, 10}
+    quantity = {4, 6, 10}
     local Temp = {
         'P3C2B3andLAttackTemp0',
         'NoPlan',
-        { 'Url0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
+        { 'url0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
     }
     local Builder = {
         BuilderName = 'P3C2B3LandAttackBuilder0',
@@ -755,7 +785,7 @@ function P3C2B3Landattacks()
     }
     ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 6}
+    quantity = {2, 4, 6}
     trigger = {40, 35, 30}
     Temp = {
         'P3C2B3andLAttackTemp1',
@@ -782,3 +812,408 @@ function P3C2B3Landattacks()
     ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
 end
 
+function P3R1Base1AI()
+
+    C2P3R1:InitializeDifficultyTables(ArmyBrains[Cybran2], 'P3Cybran2R1', 'P3R1MK', 70, {P3C2Random1 = 100})
+    C2P3R1:StartNonZeroBase(1)
+    
+    CybranM3IslandBaseCarrierAttacks()
+end
+
+-- Island Carrier Attacks
+function CybranM3IslandBaseCarrierAttacks()
+    local quantity = {}
+    local trigger = {}
+
+    -- Initiate build locations
+    for i = 1, 2 do
+        ArmyBrains[Cybran2]:PBMAddBuildLocation('M3_Cybran_Carrier_Marker_' .. i, 50, 'R1Carrier' .. i)
+    end
+
+    -- TODO: Set carriers as factories for locations
+    local units = ArmyBrains[Cybran2]:GetListOfUnits(categories.CARRIER, false)
+    for i = 1, 2 do
+        local carrier = units[i]
+    
+        for _, location in ArmyBrains[Cybran2].PBM.Locations do
+            if location.LocationType == 'R1Carrier' .. i then
+                location.PrimaryFactories.Air = carrier.ExternalFactory
+                break
+            end
+        end
+
+        carrier:ForkThread(function(self)
+            local factory = self.ExternalFactory
+
+            while true do
+                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                    IssueClearCommands({self})
+                    IssueTransportUnload({self}, carrier:GetPosition())
+
+                    repeat
+                        WaitSeconds(3)
+                    until not self:IsUnitState("TransportUnloading")
+                end
+
+                WaitSeconds(1)
+            end
+        end)
+    end
+
+    -- Build units
+    -- Carrier 1
+    quantity = {5, 7, 9}
+    local Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_0',
+        'NoPlan',
+        { 'ura0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    local Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier1',
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack1',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    -- Build units
+    -- Carrier 1
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_1',
+        'NoPlan',
+        { 'xra0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 105,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier1',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack1',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_2',
+        'NoPlan',
+        { 'ura0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 3,
+        Priority = 110,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier1',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack1',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+
+    -- Build units
+    -- Carrier 2
+    quantity = {5, 7, 9}
+    local Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_0',
+        'NoPlan',
+        { 'ura0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    local Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier2',
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+    
+    -- Carrier 2
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_1',
+        'NoPlan',
+        { 'xra0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Torp Bomber
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier2',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_2',
+        'NoPlan',
+        { 'ura0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 3,
+        Priority = 110,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R1Carrier2',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P3C2B3Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+end
+
+function P3R1Base2AI()
+
+    C2P3R2:InitializeDifficultyTables(ArmyBrains[Cybran2], 'P3Cybran2R2', 'P3R2MK', 70, {P3C2Random2 = 100})
+    C2P3R2:StartNonZeroBase(1)
+
+    CybranM3IslandBaseCarrierAttacks2()
+end
+
+-- Island Carrier Attacks
+function CybranM3IslandBaseCarrierAttacks2()
+    local quantity = {}
+    local trigger = {}
+
+    -- Initiate build locations
+    for i = 1, 2 do
+        ArmyBrains[Cybran2]:PBMAddBuildLocation('M3_Cybran_Carrier_MarkerR2_' .. i, 50, 'R2Carrier' .. i)
+    end
+
+    -- TODO: Set carriers as factories for locations
+    local units = ArmyBrains[Cybran2]:GetListOfUnits(categories.CARRIER, false)
+    for i = 1, 2 do
+        local carrier = units[i]
+    
+        for _, location in ArmyBrains[Cybran2].PBM.Locations do
+            if location.LocationType == 'R2Carrier' .. i then
+                location.PrimaryFactories.Air = carrier.ExternalFactory
+                break
+            end
+        end
+
+        carrier:ForkThread(function(self)
+            local factory = self.ExternalFactory
+
+            while true do
+                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                    IssueClearCommands({self})
+                    IssueTransportUnload({self}, carrier:GetPosition())
+
+                    repeat
+                        WaitSeconds(3)
+                    until not self:IsUnitState("TransportUnloading")
+                end
+
+                WaitSeconds(1)
+            end
+        end)
+    end
+
+    -- Build units
+    -- Carrier 1
+    quantity = {5, 7, 9}
+    local Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_0',
+        'NoPlan',
+        { 'ura0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    local Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 105,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier1',
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B2Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    -- Build units
+    -- Carrier 1
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_1',
+        'NoPlan',
+        { 'xra0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 105,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier1',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B2Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    quantity = {3, 4, 6}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier1_Air_Attack_2',
+        'NoPlan',
+        { 'ura0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier1_Air_Builder_2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 3,
+        Priority = 110,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier1',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B2Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    -- Build units
+    -- Carrier 1
+    quantity = {5, 7, 9}
+    local Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_0',
+        'NoPlan',
+        { 'ura0203', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Gunship
+    }
+    local Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_0',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 105,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier2',
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B1Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    -- Carrier 2
+    quantity = {4, 6, 8}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_1',
+        'NoPlan',
+        { 'xra0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Torp Bomber
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_1',
+        PlatoonTemplate = Temp,
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier2',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B1Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+
+    -- Carrier 2
+    quantity = {4, 6, 8}
+    trigger = {50, 45, 40}
+    Temp = {
+        'M3_Cybran_Carrier2_Air_Attack_2',
+        'NoPlan',
+        { 'ura0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation' }, -- T2 Torp Bomber
+    }
+    Builder = {
+        BuilderName = 'M3_Cybran_Carrier2_Air_Builder_2',
+        PlatoonTemplate = Temp,
+        InstanceCount = 3,
+        Priority = 110,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'R2Carrier2',
+        BuildConditions = {
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
+        PlatoonData = {
+            PatrolChain = 'P2C1B1Airattack2',
+        },
+    }
+    ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
+end

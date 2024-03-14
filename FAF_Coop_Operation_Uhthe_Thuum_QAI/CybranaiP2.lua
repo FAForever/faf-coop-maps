@@ -1,6 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_CustomFunctions.lua'
 
 local Player1 = 1
@@ -19,10 +21,9 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 function P2C1base1AI()
 
     C1P2Base1:InitializeDifficultyTables(ArmyBrains[Cybran1], 'P2Cybran1Base1', 'P2C1B1MK', 70, {P2C1base1 = 100})
-    C1P2Base1:StartNonZeroBase({{8, 10, 12}, {4, 6, 8}})
+    C1P2Base1:StartNonZeroBase({{6, 9, 13}, {4, 6, 8}})
     C1P2Base1:SetActive('AirScouting', true)
 
-    
     P2C1B1Airattacks()
     P2C1B1EXPattacks()   
 end
@@ -143,6 +144,22 @@ function P2C1B1Airattacks()
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
             {'default_brain', {'HumanPlayers'}, trigger[Difficulty],  categories.TECH3 * categories.NAVAL * categories.MOBILE, '>='})
+
+    quantity = {5, 9, 12}
+    trigger = {9, 6, 3}
+    opai = C1P2Base1:AddOpAI('AirAttacks', 'M2_Cybran_Air_Attack_3',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'CategoryHunterPlatoonAI'},
+            PlatoonData = {
+              CategoryList = { categories.EXPERIMENTAL * categories.NAVAL * categories.MOBILE},
+            },
+            Priority = 160,
+        }
+    )
+    opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
+            {'default_brain', {'HumanPlayers'}, trigger[Difficulty],  categories.EXPERIMENTAL * categories.NAVAL * categories.MOBILE, '>='})
 end
 
 function P2C1B1EXPattacks()
@@ -150,7 +167,7 @@ function P2C1B1EXPattacks()
     local quantity = {}
     local trigger = {}
     
-    quantity = {2, 3, 4}
+    quantity = {2, 3, 5}
     trigger = {45, 40, 35}  
     opai = C1P2Base1:AddOpAI('C1Bug1',
         {
@@ -176,7 +193,7 @@ end
 function P2C1base2AI()
 
     C1P2Base2:InitializeDifficultyTables(ArmyBrains[Cybran1], 'P2Cybran1Base2', 'P2C1B2MK', 90, {P2C1base2 = 100})
-    C1P2Base2:StartNonZeroBase({{10, 14, 17}, {7, 11, 14}})
+    C1P2Base2:StartNonZeroBase({{8, 13, 17}, {7, 11, 14}})
     C1P2Base2:SetActive('AirScouting', true)
 
     P2C1B2Landattacks()
@@ -216,7 +233,7 @@ function P2C1B2Navalattacks()
     Temp = {
         'P2C1B2NAttackTemp1',
         'NoPlan',
-        { 'urs0203', 1, 6, 'Attack', 'GrowthFormation' }, 
+        { 'urs0203', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' }, 
         { 'xrs0204', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },       
     }
     Builder = {
@@ -239,7 +256,7 @@ function P2C1B2Navalattacks()
     ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
     
     quantity = {2, 3, 4}
-    trigger = {25, 20, 15} 
+    trigger = {30, 25, 20} 
     Temp = {
         'P2C1B2NAttackTemp2',
         'NoPlan',
@@ -265,10 +282,13 @@ function P2C1B2Navalattacks()
     ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
 
     quantity = {1, 2, 2}
+    quantity2 = {2, 3, 4}
+    trigger = {2, 1, 1}
     Temp = {
         'P2C1B2NAttackTemp3',
         'NoPlan',
         { 'urs0302', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },
+        { 'xrs0204', 1, quantity2[Difficulty], 'Attack', 'GrowthFormation' },
     }
     Builder = {
         BuilderName = 'P2C1B2NAttackBuilder3',
@@ -280,7 +300,7 @@ function P2C1B2Navalattacks()
         LocationType = 'P2Cybran1Base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.MOBILE}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
@@ -390,10 +410,10 @@ function P2C1B2EXPattacks()
     local trigger = {}
     
     quantity = {1, 2, 3}
-    trigger = {35, 30, 25}
+    trigger = {45, 40, 35}
     opai = C1P2Base2:AddOpAI('C1Bot1',
         {
-            Amount = 2,
+            Amount = quantity[Difficulty],
             KeepAlive = true,
             PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
             PlatoonData = {
@@ -414,6 +434,8 @@ function P2C1B2Landattacks()
 
     local quantity = {}
     local trigger = {}
+    local opai = nil
+    local poolName = 'P2Cybran1Base2_TransportPool'
 
     quantity = {2, 3, 4} 
     local Temp = {
@@ -462,50 +484,125 @@ function P2C1B2Landattacks()
         },
     }
     ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )  
-
-    quantity = {1, 2, 3} 
-    opai = C1P2Base2:AddOpAI('EngineerAttack', 'M2_Cybran_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P2C1B2MK',
+    
+    local Tquantity = {2, 3, 4}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M2_Cybran_North_Transport_Platoon',
+        'NoPlan',
+        { 'ura0104', 1, Tquantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M2_Cybran_North_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P2Cybran1Base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
         },
-        Priority = 1000,
-    })
-    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', quantity[Difficulty], categories.ura0104})
-   
-    quantity = {2, 4, 6}
-    opai = C1P2Base2:AddOpAI('BasicLandAttack', 'M2_Cybran_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P2C1B2dropattack1', 
-                LandingChain = 'P2C1B2drop1',
-                TransportReturn = 'P2C1B2MK',
-            },
-            Priority = 110,
-        }
-    )
-    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P2Cybran1Base2',
+        },
+    }
+    ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
+    
+    local T3Quantity = {2, 3, 4}
+    local T2Quantity = {2, 3, 4}
+    Builder = {
+        BuilderName = 'M2_Cybran_TransportAttack_1',
+        PlatoonTemplate = {
+            'M2_Cybran_TransportAttack_1_Template',
+            'NoPlan',
+            {'url0303', 1, T3Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 bot
+            {'url0202', 1, T2Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 tank
+            {'url0205', 1, T2Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
+        },
+        InstanceCount = 4,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P2Cybran1Base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P2C1B2dropattack1',
+            LandingChain = 'P2C1B2drop1',
+            TransportReturn = 'P2C1B1MK',
+            BaseName = 'P2Cybran1Base2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
+    
+    local T3Quantity = {2, 3, 4}
+    local T2Quantity = {2, 3, 4}
+    trigger = {14, 10, 6}
+    Builder = {
+        BuilderName = 'M2_Cybran_TransportAttack_2',
+        PlatoonTemplate = {
+            'M2_Cybran_TransportAttack_2_Template',
+            'NoPlan',
+            {'url0303', 1, T3Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 Tank
+            {'url0304', 1, T3Quantity[Difficulty], 'Artillery', 'GrowthFormation'},    -- T1 Tank
+        },
+        InstanceCount = 2,
+        Priority = 110,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P2Cybran1Base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P2C1B2dropattack1',
+            LandingChain = 'P2C1B2drop1',
+            TransportReturn = 'P2C1B1MK',
+            BaseName = 'P2Cybran1Base2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 4, 6}
-    opai = C1P2Base2:AddOpAI('BasicLandAttack', 'M2_Cybran_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'P2C1B2dropattack1', 
-                LandingChain = 'P2C1B2drop1',
-                TransportReturn = 'P2C1B2MK',
-            },
-            Priority = 105,
-        }
-    )
-    opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
+    local T3Quantity = {4, 5, 7}
+    local T2Quantity = {0, 2, 2}
+    trigger = {50, 45, 40}
+    Builder = {
+        BuilderName = 'M2_Cybran_TransportAttack_3',
+        PlatoonTemplate = {
+            'M2_Cybran_TransportAttack_3_Template',
+            'NoPlan',
+            {'url0303', 1, T3Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 Tank
+            {'url0306', 1, T2Quantity[Difficulty], 'Artillery', 'GrowthFormation'},    -- T1 Tank
+        },
+        InstanceCount = 2,
+        Priority = 200,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P2Cybran1Base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P2C1B2dropattack1',
+            LandingChain = 'P2C1B2drop1',
+            TransportReturn = 'P2C1B1MK',
+            BaseName = 'P2Cybran1Base2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Cybran1]:PBMAddPlatoon( Builder )
 end
 
 -- Cybran 2 offmap base
@@ -525,7 +622,7 @@ function P2C2B1Landattacks()
     local quantity = {}
     local trigger = {}
 
-    quantity = {2, 4, 6} 
+    quantity = {3, 4, 6} 
     local Temp = {
         'P2C2B1LAttackTemp0',
         'NoPlan',
@@ -557,7 +654,7 @@ function P2C2B1Landattacks()
     Builder = {
         BuilderName = 'P2C2B1LAttackBuilder1',
         PlatoonTemplate = Temp,
-        InstanceCount = 2,
+        InstanceCount = 3,
         Priority = 110,
         PlatoonType = 'Land',
         RequiresConstruction = true,
@@ -631,8 +728,8 @@ end
 
 function P2C2B1base1EXD()
 
-    C2P2Base1:AddBuildGroup('P2C2base1EXD_D' .. Difficulty, 800, false)
-    C2P2Base1.MaximumConstructionEngineers = 4
+    C2P2Base1:AddBuildGroupDifficulty('P2C2base1EXD', 90)
+    C2P2Base1:SetMaximumConstructionEngineers(4)  
     
     P2C2B1Navalattacks()  
 end
@@ -665,7 +762,7 @@ function P2C2B1Navalattacks()
     ArmyBrains[Cybran2]:PBMAddPlatoon( Builder )
     
     quantity = {3, 5, 6}
-    trigger = {6, 5, 3}
+    trigger = {8, 5, 3}
     Temp = {
         'P2C2B1NAttackTemp1',
         'NoPlan',

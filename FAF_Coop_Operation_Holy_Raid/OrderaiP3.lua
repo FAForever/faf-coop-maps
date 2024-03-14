@@ -20,7 +20,11 @@ function Order1base1P3AI()
     Order1base1P3:InitializeDifficultyTables(ArmyBrains[Order1], 'P3Order1base1', 'Order1base1MK2', 90, {P2A1base1 = 100})
     Order1base1P3:StartNonZeroBase({{14, 19, 24}, {10, 15, 20}})
     Order1base1P3:SetActive('AirScouting', true)
-    
+
+    Order1base1P3:AddExpansionBase('P3Order1base2', 2)
+    Order1base1P3:AddExpansionBase('P3Order1base3', 2)
+    Order1base1P3:AddExpansionBase('P3Order1base4', 2)
+
     O1P3B1AirDefense()
     O1P3B1Airattacks()
     O1P3B1landattacks()
@@ -366,6 +370,7 @@ function Order1base3P3AI()
 
     Order1base3P3:InitializeDifficultyTables(ArmyBrains[Order1], 'P3Order1base3', 'Order1base3MK2', 50, {P2A1base3 = 100})
     Order1base3P3:StartNonZeroBase({{3, 5, 7}, {2, 4, 6}})
+    Order1base3P3:AddExpansionBase('Order1base2', 2)
    
    O1P3B3landattacks()
 end
@@ -561,8 +566,11 @@ function Order2base1P3AI()
     Order2base1P3:Initialize(ArmyBrains[Order2], 'P3Order2base1', 'Order2base1MK2', 70, {P2A2base1 = 100})
     Order2base1P3:StartNonZeroBase({{8, 12, 14}, {6, 10, 12}})
    
+    Order2base1P3:AddExpansionBase('Order2base1', 2)
+
     O2P3B1landattacks()
-    O2P3B1Airattacks() 
+    O2P3B1Airattacks()
+    Exp1O2P3B1() 
 end
 
 function O2P3B1landattacks()
@@ -722,6 +730,27 @@ function O2P3B1Airattacks()
     )
     opai:SetChildQuantity('GuidedMissiles', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})  
+end
+
+function Exp1O2P3B1()
+
+    local opai = nil
+    local quantity = {}
+    quantity = {2, 3, 4}
+    opai = Order2base1P3:AddOpAI('P3A2Bot1',
+        {
+            Amount = 4,
+            KeepAlive = true,
+            PlatoonAIFunction = {CustomFunctions, 'AddExperimentalToPlatoon'},
+            PlatoonData = {
+                Name = 'M3_GB_Platoon1',
+                NumRequired = 2,
+                PatrolChain = 'O2P3B1Landattack' .. Random(1, 2),
+            },
+            MaxAssist = quantity[Difficulty],
+            Retry = true,
+        }
+    )   
 end
 
 

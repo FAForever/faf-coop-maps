@@ -21,7 +21,7 @@ function OrderAirAttacks()
 
     local quantity = {}
 
-    quantity = {4, 3, 2}
+    quantity = {5, 3, 2}
     local Temp = {
         'P3S2AirDefenceTemp0',
         'NoPlan',
@@ -42,11 +42,11 @@ function OrderAirAttacks()
     }
     ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 3, 2}
+    quantity = {5, 3, 2}
     Temp = {
         'P3S2AirDefenceTemp1',
         'NoPlan',
-        { 'xaa0202', 1, 4, 'Attack', 'GrowthFormation' },  --T2 fighter
+        { 'xaa0202', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },  --T2 fighter
         { 'uaa0303', 1, quantity[Difficulty], 'Attack', 'GrowthFormation' },  --ASFs
     }
     Builder = {
@@ -64,7 +64,7 @@ function OrderAirAttacks()
     }
     ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
 
-    quantity = {7, 6, 5}
+    quantity = {8, 6, 5}
     Temp = {
         'P3S2AirDefenceTemp2',
         'NoPlan',
@@ -207,7 +207,7 @@ function OrderlandAttacks()
         },
         Priority = 115,
     })
-    opai:SetChildQuantity('T2Engineers', 5)
+    opai:SetChildQuantity('T1Engineers', 5)
 
     opai = Serabase2:AddOpAI('EngineerAttack', 'M3_West_Reclaim_Engineers2',
     {
@@ -217,5 +217,5 @@ function OrderlandAttacks()
         },
         Priority = 110,
     })
-    opai:SetChildQuantity('T2Engineers', 5)
+    opai:SetChildQuantity('T1Engineers', 5)
 end

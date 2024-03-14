@@ -1,6 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_CustomFunctions.lua'
 
 local Player1 = 1
@@ -17,12 +19,11 @@ function Order1base1AI()
 
     Order1base1:InitializeDifficultyTables(ArmyBrains[Order1], 'Order1base1', 'Order1base1MK', 80, {P1A1base1 = 100})
     Order1base1:StartNonZeroBase({{7, 12, 17}, {5, 10, 15}})
-    
-            
+        
     ForkThread(
         function()
             WaitSeconds(5)
-            Order1base1:AddBuildGroup('P1A1base1EXD_D' .. Difficulty, 800, false)
+            Order1base1:AddBuildGroup('P1A1base1EXD_D' .. Difficulty, 90)
         end
     )
     O1P2B1landDrops()
@@ -412,65 +413,97 @@ end
 
 function O1P2B1landDrops()
     
-    opai = Order1base1:AddOpAI('EngineerAttack', 'M2B1_Order1_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'Order1base1MK',
+    local opai = nil
+    local trigger = {}
+    local poolName = 'Order1base1_TransportPool'
+    
+    local quantity = {1, 2, 2}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M1_Order_Transport_Platoon',
+        'NoPlan',
+        { 'uaa0104', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M1_Order_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'Order1base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
         },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T2Transports', 2)
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.uaa0104})
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'Order1base1',
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )
     
-    quantity = {6, 9, 12}
-    opai = Order1base1:AddOpAI('BasicLandAttack', 'M2B1_Order_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B1Dropattack1', 
-                LandingChain = 'O1P2B1Drop1',
-                TransportReturn = 'Order1base1MK',
-            },
-            Priority = 210,
-        }
-    )
-    opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-    
-    quantity = {6, 9, 12}
-    opai = Order1base1:AddOpAI('BasicLandAttack', 'M2B1_Order_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B1Dropattack1', 
-                LandingChain = 'O1P2B1Drop1',
-                TransportReturn = 'Order1base1MK',
-            },
-            Priority = 205,
-        }
-    )
-    opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 160})
+    local Quantity1 = {2, 2, 3}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M1_Order_Land_Assault',
+        PlatoonTemplate = {
+            'M1_Order_Land_Assault_Template',
+            'NoPlan',
+            {'ual0201', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 Tank
+            {'ual0103', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T1 Arty
+            {'ual0104', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 AA
+        },
+        InstanceCount = 2,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Order1base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {1, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'O1P2B1Dropattack1',
+            LandingChain = 'O1P2B1Drop1',
+            TransportReturn = 'Order1base1MK',
+            BaseName = 'Order1base1',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )
 
-    quantity = {4, 5, 6}
-    opai = Order1base1:AddOpAI('BasicLandAttack', 'M2B1_Order_TransportAttack_3',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B1Dropattack1', 
-                LandingChain = 'O1P2B1Drop1',
-                TransportReturn = 'Order1base1MK',
-            },
-            Priority = 310,
-        }
-    )
-    opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 160})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 30, categories.ALLUNITS - categories.TECH1, '>='})
+    local Quantity1 = {2, 2, 3}
+    local Quantity2 = {3, 4, 6}
+    trigger = {25, 20, 15}
+    Builder = {
+        BuilderName = 'M1_Order_Land_Assault1',
+        PlatoonTemplate = {
+            'M1_Order_Land_Assault_Template1',
+            'NoPlan',
+            {'ual0202', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 Tank
+            {'ual0111', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 Arty
+            {'ual0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
+        },
+        InstanceCount = 2,
+        Priority = 250,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Order1base1',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {2, poolName}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.TECH1}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'O1P2B1Dropattack1',
+            LandingChain = 'O1P2B1Drop1',
+            TransportReturn = 'Order1base1MK',
+            BaseName = 'Order1base1',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )   
 end
 
 function Order1base2AI()
@@ -478,6 +511,8 @@ function Order1base2AI()
     Order1base2:InitializeDifficultyTables(ArmyBrains[Order1], 'Order1base2', 'Order1base2MK', 80, {P1A1base2 = 100})
     Order1base2:StartNonZeroBase({{7, 10, 12}, {5, 8, 10}})
     Order1base2:SetActive('AirScouting', true)
+
+    Order1base2:AddBuildGroup('P1A1base2EXD_D' .. Difficulty, 90)
 
     O1P2B2landDrops()
     O1P2B2AirDefense()
@@ -658,83 +693,97 @@ end
 
 function O1P2B2landDrops()
 
-    local quantity = {}
-
-    quantity = {2, 3, 4}
-    opai = Order1base2:AddOpAI('EngineerAttack', 'M2B2_Order1_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'Order1base2MK',
+    local opai = nil
+    local trigger = {}
+    local poolName = 'Order1base2_TransportPool'
+    
+    local quantity = {2, 2, 3}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M1_Order_B2_Transport_Platoon',
+        'NoPlan',
+        { 'uaa0107', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M1_OrderB2_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'Order1base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
         },
-        Priority = 1100,
-    })
-    opai:SetChildQuantity('T1Transports', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', quantity[Difficulty], categories.uaa0104})
-
-    quantity = {6, 8, 12}
-    opai = Order1base2:AddOpAI('BasicLandAttack', 'M2B2_Order_TransportAttack_1',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B2Dropattack1', 
-                LandingChain = 'O1P2B2Drop1',
-                TransportReturn = 'Order1base2MK',
-            },
-            Priority = 213,
-        }
-    )
-    opai:SetChildQuantity('LightTanks', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'Order1base2',
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )
     
-    quantity = {6, 8, 12}
-    opai = Order1base2:AddOpAI('BasicLandAttack', 'M2B2_Order_TransportAttack_2',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B2Dropattack2', 
-                LandingChain = 'O1P2B2Drop2',
-                TransportReturn = 'Order1base2MK',
-            },
-            Priority = 212,
-        }
-    )
-    opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-    
-    quantity = {6, 8, 12}
-    opai = Order1base2:AddOpAI('BasicLandAttack', 'M2B2_Order_TransportAttack_3',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B2Dropattack1', 
-                LandingChain = 'O1P2B2Drop1',
-                TransportReturn = 'Order1base2MK',
-            },
-            Priority = 211,
-        }
-    )
-    opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 160})
+    local Quantity1 = {2, 2, 3}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M1_OrderB2_Land_Assault',
+        PlatoonTemplate = {
+            'M1_Order_LandB2_Assault_Template',
+            'NoPlan',
+            {'ual0201', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 Tank
+            {'ual0103', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T1 Arty
+            {'ual0104', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 AA
+        },
+        InstanceCount = 2,
+        Priority = 150,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Order1base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {2, poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'O1P2B2Dropattack1',
+            LandingChain = 'O1P2B2Drop' .. Random(1, 2),
+            TransportReturn = 'Order1base2MK',
+            BaseName = 'Order1base2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )
 
-    quantity = {8, 12, 18}
-    opai = Order1base2:AddOpAI('BasicLandAttack', 'M2B2_Order_TransportAttack_4',
-        {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-            PlatoonData = {
-                AttackChain =  'O1P2B2Dropattack1', 
-                LandingChain = 'O1P2B2Drop1',
-                TransportReturn = 'Order1base2MK',
-            },
-            Priority = 220,
-        }
-    )
-    opai:SetChildQuantity({'LightArtillery','LightTanks'}, quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
-    opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 35, categories.ALLUNITS - categories.TECH1, '>='})
+    local Quantity1 = {2, 3, 4}
+    local Quantity2 = {3, 4, 8}
+    trigger = {25, 20, 15}
+    Builder = {
+        BuilderName = 'M1_OrderB2_Land_Assault1',
+        PlatoonTemplate = {
+            'M1_Order_LandB2_Assault_Template1',
+            'NoPlan',
+            {'ual0201', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 Tank
+            {'ual0103', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T1 Arty
+            {'ual0104', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 AA
+        },
+        InstanceCount = 2,
+        Priority = 200,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'Order1base2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
+            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.TECH1}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'O1P2B2Dropattack1',
+            LandingChain = 'O1P2B2Drop' .. Random(1, 2),
+            TransportReturn = 'Order1base2MK',
+            BaseName = 'Order1base2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Order1]:PBMAddPlatoon( Builder )
 end
 
 function O1P2B2AirDefense()
@@ -934,7 +983,7 @@ function O2P2B1AirAttack()
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3'}
+           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3', 'O2P2B2Airattack4', 'O2P2B2Airattack5'}
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -960,7 +1009,7 @@ function O2P2B1AirAttack()
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3'}
+           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3', 'O2P2B2Airattack4', 'O2P2B2Airattack5'}
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -986,7 +1035,7 @@ function O2P2B1AirAttack()
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3'}
+           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3', 'O2P2B2Airattack4', 'O2P2B2Airattack5'}
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -1012,7 +1061,7 @@ function O2P2B1AirAttack()
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3'}
+           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3', 'O2P2B2Airattack4', 'O2P2B2Airattack5'}
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -1038,7 +1087,7 @@ function O2P2B1AirAttack()
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
-           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3'}
+           PatrolChains = {'O2P2B2Airattack1','O2P2B2Airattack2', 'O2P2B2Airattack3', 'O2P2B2Airattack4', 'O2P2B2Airattack5'}
         },
     }
     ArmyBrains[Order2]:PBMAddPlatoon( Builder )
@@ -1255,5 +1304,5 @@ function O2P2B1landattacks()
         },
         Priority = 300,
     })
-    opai:SetChildQuantity('T2Engineers', 4)
+    opai:SetChildQuantity('T1Engineers', 6)
 end
