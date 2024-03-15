@@ -1,0 +1,28 @@
+{
+    "PaintProps": [
+        {
+            "Blueprint": "env/tropical/props/trees/palm01_s4_prop.bp",
+            "ScaleMin": 1.0,
+            "ScaleMax": 1.0,
+            "RotationMin": 0,
+            "RotationMax": 360,
+            "Chance": 30
+        },
+        {
+            "Blueprint": "env/tropical/props/trees/palm02_s4_prop.bp",
+            "ScaleMin": 1.0,
+            "ScaleMax": 1.0,
+            "RotationMin": 0,
+            "RotationMax": 360,
+            "Chance": 30
+        },
+        {
+            "Blueprint": "env/tropical/props/trees/groups/ficus02_group3_prop.bp",
+            "ScaleMin": 1.0,
+            "ScaleMax": 1.0,
+            "RotationMin": 0,
+            "RotationMax": 360,
+            "Chance": 30
+        }
+    ]
+}

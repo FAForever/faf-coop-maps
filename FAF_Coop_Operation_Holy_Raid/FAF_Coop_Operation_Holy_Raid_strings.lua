@@ -33,7 +33,7 @@ SecondaryIntroP2 = {
 SecondaryMidP2 = {
     {text = '[Fredrick]: Damn it! My transports can\'t handle the AA they got there.', vid = '', bank = '', cue = 'SecondaryMidP2_1', faction = 'UEF'},
     {text = '[Fredrick]: If you clear those defenses out, I can send you some advanced units.', vid = '', bank = '', cue = 'SecondaryMidP2_1_2', faction = 'UEF'},
-    {text = '[Fredrick]: Its the least I can do for my Cybran buddy\'s family.', vid = '', bank = '', cue = 'SecondaryMidP2_3', faction = 'UEF'},
+    {text = '[Fredrick]: Its the least I can do for my Cybran buddy\'s family. In the mean time I will send some light attacks to harass the Order.', vid = '', bank = '', cue = 'SecondaryMidP2_3', faction = 'UEF'},
 }
 
 SecondaryObj1Complete = {
@@ -155,15 +155,15 @@ TAUNT4P2 = {
 }
 
 TAUNT5P2 = {
-    {text = '[Zertha]: The data here will serve the Seraphim well.', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Cybran'},
+    {text = '[Zertha]: The data here will serve the Seraphim well.', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Aeon'},
 }
 
 TAUNT6P2 = {
-    {text = '[Zertha]: You are but a fly within my tornado, I am your end.', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Cybran'},
+    {text = '[Zertha]: You are but a fly within my tornado, I am your end.', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Aeon'},
 }
 
 TAUNT7P2 = {
-    {text = '[Zertha]: Your attacks are weak and unorangized, I will show you true unity!', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Cybran'},
+    {text = '[Zertha]: Your attacks are weak and unorangized, I will show you true unity!', vid = 'Vedetta.sfd', vidx = '', bank = '', cue = '', faction = 'Aeon'},
 }
 
 Death1 = {
@@ -175,7 +175,7 @@ Death2 = {
 } 
   
 Objectivefailed1 = {
-{text = '[Coalition HQ]: the lab was destroyed commander this mission is a failure.', vid = '', bank = '', cue = '', faction = 'UEF'},
+{text = '[Coalition HQ]: the lab was destroyed, Commander this mission is a failure.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 Objectivefailed2 = {

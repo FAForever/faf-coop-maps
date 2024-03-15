@@ -37,9 +37,9 @@ BriefingData = {
   },
   movies = {'A03_B01.sfd', 'A03_B02.sfd', 'A03_B03.sfd'},
   voice = {
-    {Cue = 'A03_B01', Bank = 'A03_VO'},
     {Cue = 'A03_B02', Bank = 'A03_VO'},
     {Cue = 'A03_B03', Bank = 'A03_VO'},
+    {Cue = 'A03_B01', Bank = 'A03_VO'},
   },
   bgsound = {
     {Cue = 'A03_B01', Bank = 'Op_Briefing_Vanilla'},

@@ -18,6 +18,6 @@ ScenarioInfo = {
             },
             customprops = {
             },
-			factions = { {'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'}, {'aeon', 'seraphim'} },
+            factions = { {'seraphim'}, {'seraphim', 'aeon'}, {'seraphim', 'aeon'}, {'seraphim', 'aeon'} },
         },
     }}

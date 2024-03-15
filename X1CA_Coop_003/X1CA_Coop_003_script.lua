@@ -498,7 +498,7 @@ function IntroMission1()
 end
 
 function StartMission1()
-    local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.FACTORY * categories.STRUCTURE, false)
+    local units = ArmyBrains[Seraphim]:GetListOfUnits(categories.FACTORY * categories.STRUCTURE -categories.EXTERNALFACTORYUNIT, false)
 
     --------------------------------------------------
     -- Primary Objective 1 - Defeat Seraphim Naval Base

@@ -26,60 +26,66 @@ function P4AB1landattacks()
 
     local quantity = {}
 
-    quantity = {2, 3, 4}
-    opai = P4AeonBase1:AddOpAI('EngineerAttack', 'M4_AEON_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P4AB1MK',
-        },
-        Priority = 2000,
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P4Aeonbase_TransportPool'
+    
+    local quantity = {4, 5, 6}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M4_Aeon_Southern_Transport_Platoon',
+        'NoPlan',
+        { 'uaa0104', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
     }
-    )
-    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-
-    quantity = {6, 12, 18}
-    opai = P4AeonBase1:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_1',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB1DropAttack1', 
-                    LandingChain = 'P4AB1Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity({'HeavyTanks', 'MobileMissiles'}, quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-
-    quantity = {4, 6, 8}
-    opai = P4AeonBase1:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_2',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB1DropAttack1', 
-                    LandingChain = 'P4AB1Drop',
-                },
-                Priority = 205,
-            }
-        )
-        opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
-
-    quantity = {4, 6, 8}
-    opai = P4AeonBase1:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_3',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB1DropAttack1', 
-                    LandingChain = 'P4AB1Drop',
-                },
-                Priority = 210,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 60})      
+    local Builder = {
+        BuilderName = 'M4_Aeon_Southern_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P4Aeonbase',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P4Aeonbase',
+        },
+    }
+    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {2, 3, 4}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M4_Aeon_Land_Assault',
+        PlatoonTemplate = {
+            'M4_Aeon_Land_Assault_Template',
+            'NoPlan',
+            {'ual0202', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 Tank
+            {'ual0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 AA
+            {'ual0111', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 MML
+            {'ual0307', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 Sheild
+        },
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P4Aeonbase',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {4, poolName}},
+            {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P4AB1DropAttack1',
+            LandingChain = 'P4AB1Drop',
+            TransportReturn = 'P2AB1MK',
+            BaseName = 'P4Aeonbase',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 end
 
 function P4AB1Airattacks()
@@ -180,46 +186,65 @@ function P4UB1landattacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
-    quantity = {2, 2, 3}
-    opai = P4UEFBase1:AddOpAI('EngineerAttack', 'M4_UEF_TransportBuilder1',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P4UB1MK',
-        },
-        Priority = 2000,
-    }
-    )
-    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P4UEFbase_TransportPool'
     
-    quantity = {6, 6, 9}
-    opai = P4UEFBase1:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_1',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4UB1DropAttack1', 
-                    LandingChain = 'P4UB1Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
-
-        quantity = {6, 6, 9}
-    opai = P4UEFBase1:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_2',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4UB1DropAttack2', 
-                    LandingChain = 'P4UB1Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 90}) 
+    local quantity = {1, 1, 2}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M4_UEF_Southern_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
+    }
+    local Builder = {
+        BuilderName = 'M4_UEF_Southern_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P4UEFbase',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P4UEFbase',
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 1, 3}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M4_UEF_Land_Assault',
+        PlatoonTemplate = {
+            'M4_UEF_Land_Assault_Template',
+            'NoPlan',
+            {'uel0303', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 Bot
+            {'ual0304', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 A
+            {'dalk003', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 AA
+        },
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P4UEFbase',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+            {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P4UB1DropAttack2',
+            LandingChain = 'P4UB1Drop',
+            TransportReturn = 'P4UB1MK',
+            BaseName = 'P4UEFbase',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
 function P4UB1Airattacks()
@@ -304,46 +329,65 @@ function P4UB2landattacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 
-    quantity = {1, 2, 2}
-    opai = P4UEFBase2:AddOpAI('EngineerAttack', 'M4_UEF_TransportBuilder2',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P4UB2MK',
-        },
-        Priority = 2000,
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P4UEFbase_TransportPool'
+    
+    local quantity = {1, 2, 3}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M4_UEF_Southern_Transport_Platoon',
+        'NoPlan',
+        { 'xea0306', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
     }
-    )
-    opai:SetChildQuantity('T3Transports', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-
-    quantity = {6, 12, 12}
-    opai = P4UEFBase2:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_3',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4UB2DropAttack' .. Random(1, 2), 
-                    LandingChain = 'P4UB2Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
-
-        quantity = {6, 12, 12}
-    opai = P4UEFBase2:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack_4',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4UB2DropAttack' .. Random(1, 2), 
-                    LandingChain = 'P4UB2Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 90}) 
+    local Builder = {
+        BuilderName = 'M4_UEF_Southern_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P4UEFbase2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P4UEFbase2',
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {2, 3, 3}
+    local Quantity2 = {2, 6, 12}
+    Builder = {
+        BuilderName = 'M4_UEF_Land_Assault2',
+        PlatoonTemplate = {
+            'M4_UEF_Land_Assault_Template2',
+            'NoPlan',
+            {'uel0303', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 Bot
+            {'ual0304', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 A
+            {'dalk003', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 AA
+        },
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P4UEFbase2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
+            {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P4UB2DropAttack' .. Random(1, 2),
+            LandingChain = 'P4UB2Drop',
+            TransportReturn = 'P4UB2MK',
+            BaseName = 'P4UEFbase2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
 end
 
 function P4UB2Airattacks()
@@ -423,60 +467,66 @@ function P4AB2landattacks()
 
     local quantity = {}
 
-    quantity = {2, 3, 4}
-    opai = P4AeonBase2:AddOpAI('EngineerAttack', 'M4_AEON_TransportBuilder2',
-    {
-        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-        PlatoonData = {
-            TransportReturn = 'P4AB2MK',
-        },
-        Priority = 2000,
+    local opai = nil
+    local trigger = {}
+    local poolName = 'P4Aeonbase2_TransportPool'
+    
+    local quantity = {4, 5, 6}
+    -- T2 Transport Platoon
+    local Temp = {
+        'M4_Aeon_Northern_Transport_Platoon',
+        'NoPlan',
+        { 'uaa0104', 1, quantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
     }
-    )
-    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
-    opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-
-    quantity = {6, 12, 18}
-    opai = P4AeonBase2:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_4',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB2DropAttack1', 
-                    LandingChain = 'P4AB2Drop',
-                },
-                Priority = 200,
-            }
-        )
-        opai:SetChildQuantity({'HeavyTanks', 'MobileMissiles'}, quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 30})
-
-    quantity = {4, 6, 8}
-    opai = P4AeonBase2:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_5',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB2DropAttack1', 
-                    LandingChain = 'P4AB2Drop',
-                },
-                Priority = 205,
-            }
-        )
-        opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
-
-    quantity = {4, 6, 8}
-    opai = P4AeonBase2:AddOpAI('BasicLandAttack', 'M4_Aeon_TransportAttack_6',
-            {
-                MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
-                PlatoonData = {
-                    AttackChain =  'P4AB2DropAttack1', 
-                    LandingChain = 'P4AB2Drop',
-                },
-                Priority = 210,
-            }
-        )
-        opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
-        opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+    local Builder = {
+        BuilderName = 'M4_Aeon_Northern_Transport_Platoon',
+        PlatoonTemplate = Temp,
+        InstanceCount = 1,
+        Priority = 500,
+        PlatoonType = 'Air',
+        RequiresConstruction = true,
+        LocationType = 'P4Aeonbase2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {quantity[Difficulty], poolName}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+        PlatoonData = {
+            BaseName = 'P4Aeonbase2',
+        },
+    }
+    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    
+    local Quantity1 = {1, 2, 2}
+    local Quantity2 = {3, 4, 6}
+    Builder = {
+        BuilderName = 'M4_Aeon_Land_Assault2',
+        PlatoonTemplate = {
+            'M4_Aeon_Land_Assault_Template2',
+            'NoPlan',
+            {'ual0303', 1, Quantity2[Difficulty], 'Attack', 'GrowthFormation'},    -- T3 bot
+            {'ual0205', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 AA
+            {'ual0111', 1, Quantity1[Difficulty], 'Artillery', 'GrowthFormation'}, -- T2 MML
+            {'ual0307', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'}, -- T2 Sheild
+        },
+        InstanceCount = 5,
+        Priority = 100,
+        PlatoonType = 'Land',
+        RequiresConstruction = true,
+        LocationType = 'P4Aeonbase2',
+        BuildConditions = {
+            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {4, poolName}},
+            {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
+        },
+        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
+        PlatoonData = {
+            AttackChain = 'P4AB2DropAttack1',
+            LandingChain = 'P4AB2Drop',
+            TransportReturn = 'P4AB2MK',
+            BaseName = 'P4Aeonbase2',
+            GenerateSafePath = true,
+        },
+    }
+    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
 end
 
 function P4AB2Airattacks()

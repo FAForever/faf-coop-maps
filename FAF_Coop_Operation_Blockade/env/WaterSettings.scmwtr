@@ -1,0 +1,70 @@
+{
+    "HasWater": true,
+    "Elevation": 43.0,
+    "ElevationDeep": 20.0,
+    "ElevationAbyss": 10.0,
+    "SurfaceColor": {
+        "x": 0.28999999165534975,
+        "y": 0.47999998927116396,
+        "z": 0.7899999618530273
+    },
+    "ColorLerp": {
+        "x": 0.10000000149011612,
+        "y": 0.10000000149011612
+    },
+    "RefractionScale": 0.375,
+    "FresnelBias": 0.15000000596046449,
+    "FresnelPower": 1.5,
+    "UnitReflection": 0.5,
+    "SkyReflection": 1.0099999904632569,
+    "SunShininess": 50.0,
+    "SunStrength": 10.0,
+    "SunDirection": {
+        "x": 0.09954818338155747,
+        "y": -0.9626309275627136,
+        "z": 0.25185689330101015
+    },
+    "SunColor": {
+        "x": 0.8126999735832214,
+        "y": 0.4740999937057495,
+        "z": 0.3386000096797943
+    },
+    "SunReflection": 5.0,
+    "SunGlow": 0.10000000149011612,
+    "TexPathCubemap": "/textures/environment/envcube_tropicalop06a.dds",
+    "TexPathWaterRamp": "/textures/engine/waterramp_lava.dds",
+    "WaveTextures": [
+        {
+            "TexPath": "/textures/engine/waves.dds",
+            "NormalMovement": {
+                "x": 0.5000097751617432,
+                "y": -0.9499999284744263
+            },
+            "NormalRepeat": 0.0008999999845400453
+        },
+        {
+            "TexPath": "/textures/engine/waves.dds",
+            "NormalMovement": {
+                "x": 0.05000000074505806,
+                "y": -0.0949999988079071
+            },
+            "NormalRepeat": 0.008999999612569809
+        },
+        {
+            "TexPath": "/textures/engine/waves.dds",
+            "NormalMovement": {
+                "x": 0.009999999776482582,
+                "y": 0.029999999329447748
+            },
+            "NormalRepeat": 0.05000000074505806
+        },
+        {
+            "TexPath": "/textures/engine/waves.dds",
+            "NormalMovement": {
+                "x": 0.0005000000237487257,
+                "y": 0.0008999999845400453
+            },
+            "NormalRepeat": 0.5
+        }
+    ]
+}
