@@ -2,7 +2,6 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
--- TODO: Create new build location with carrier.
 function CarrierAI(platoon)
     platoon:Stop()
     local aiBrain = platoon:GetBrain()
@@ -10,61 +9,69 @@ function CarrierAI(platoon)
     local carriers = platoon:GetPlatoonUnits()
     local movePositions = {}
 
-    if(data) then
-        if(data.MoveRoute or data.MoveChain) then
-            if data.MoveChain then
-                movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
+    if not data then
+        error('*Carrier AI ERROR: PlatoonData not defined', 2)
+    elseif not (data.MoveRoute or data.MoveChain) then
+        error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
+    end
+
+
+    if data.MoveChain then
+        movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
+    else
+        for k, v in data.MoveRoute do
+            if type(v) == 'string' then
+                table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
             else
-                for k, v in data.MoveRoute do
-                    if type(v) == 'string' then
-                        table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
-                    else
-                        table.insert(movePositions, v)
-                    end
+                table.insert(movePositions, v)
+            end
+        end
+    end
+
+    local numCarriers = table.getn(carriers)
+    local numPositions = table.getn(movePositions)
+
+    if numPositions < numCarriers then
+        error('*Carrier AI ERROR: Less mvoe positions than carriers', 2)
+    end
+
+    for i = 1, numCarriers do
+        ForkThread(function(i)
+            local carrier = carriers[i]
+            IssueMove({carrier}, movePositions[i])
+
+            while (not carrier:IsDead() and carrier:IsUnitState('Moving')) do
+                WaitSeconds(.5)
+            end
+
+            if carrier.Dead then
+                return
+            end
+
+            for _, location in aiBrain.PBM.Locations do
+                if location.LocationType == data.Location .. i then
+                    location.PrimaryFactories.Air = carrier.ExternalFactory
+                    break
                 end
             end
 
-            local numCarriers = table.getn(carriers)
-            local numPositions = table.getn(movePositions)
+            carrier:ForkThread(function(self)
+                local factory = self.ExternalFactory
 
-            if numCarriers <= numPositions then
-                for i = 1, numCarriers do
-                    ForkThread(function(i)
-                        IssueMove( {carriers[i]}, movePositions[i] )
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, carrier:GetPosition())
+    
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
 
-                        while (carriers[i] and not carriers[i]:IsDead() and carriers[i]:IsUnitState('Moving')) do
-                            WaitSeconds(.5)
-                        end
-
-                        local location
-                        for num, loc in aiBrain.PBM.Locations do
-                            if loc.LocationType == data.Location .. i then
-                                location = loc
-                                break
-                            end
-                        end
-
-                        if not carriers[i]:IsDead() then
-                            location.PrimaryFactories.Air = carriers[i]
-                        end
-
-                        while (carriers[i] and not carriers[i]:IsDead()) do
-                            if  table.getn(carriers[i]:GetCargo()) > 0 and carriers[i]:IsIdleState() then
-                                IssueClearCommands(carriers[i])
-                                IssueTransportUnload({carriers[i]}, carriers[i]:GetPosition())
-                            end
-                            WaitSeconds(1)
-                        end
-                    end, i)
-                end             
-            else
-                error('*Carrier AI ERROR: Less mvoe positions than carriers', 2)
-            end
-        else
-            error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
-        end
-    else
-        error('*Carrier AI ERROR: PlatoonData not defined', 2)
+                    WaitSeconds(1)
+                end
+            end)
+        end, i)
     end
 end
 

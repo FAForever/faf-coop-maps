@@ -759,34 +759,6 @@ function StartMission2()
 
     -- M2P1 Objective Reminder
     ScenarioFramework.CreateTimerTrigger(M2P1Reminder, ObjectiveReminderTime)
-	-- Moved to part 1 for convenience
-	--[[local num = {5, 6, 7}
-	---------------------------------------------------
-	-- Secondary Objective 2 - Build SMDs
-	-- Reward for completion: Cybran T3 Heavy Artillery
-	---------------------------------------------------
-    ScenarioInfo.M2S1 = Objectives.ArmyStatCompare(
-        'secondary',                    -- type
-        'incomplete',                   -- complete
-        OpStrings.OpC06_M2S1_Title,     -- title
-        LOCF(OpStrings.OpC06_M2S1_Desc, num[Difficulty]),	-- description
-        'build',                        -- action
-        {                               -- target
-            Armies = {'HumanPlayers'},
-            StatName = 'Units_Active',
-            CompareOp = '>=',
-            Value = num[Difficulty],
-            Category = (categories.urb4302),
-			ShowProgress = true,
-        }
-    )
-    ScenarioInfo.M2S1:AddResultCallback(
-        function(result)
-			if result then
-				ScenarioFramework.RemoveRestrictionForAllHumans(categories.urb2302, true) -- Cybran Long Range Heavy Artillery
-			end
-        end
-    )]]
 end
 
 function GateBuilt()

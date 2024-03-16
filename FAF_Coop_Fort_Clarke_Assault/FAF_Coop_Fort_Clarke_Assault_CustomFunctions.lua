@@ -29,31 +29,40 @@ function CarrierAI(platoon)
             if numCarriers <= numPositions then
                 for i = 1, numCarriers do
                     ForkThread(function(i)
+                        local carrier = carriers[i]
                         IssueMove( {carriers[i]}, movePositions[i] )
 
-                        while (carriers[i] and not carriers[i].Dead and carriers[i]:IsUnitState('Moving')) do
+                        while (not carrier.Dead and carrier:IsUnitState('Moving')) do
                             WaitSeconds(.5)
                         end
+                        
+                        if carrier.Dead then
+                            return
+                        end
 
-                        local location
-                        for num, loc in aiBrain.PBM.Locations do
-                            if loc.LocationType == data.Location .. i then
-                                location = loc
+                        for _, location in aiBrain.PBM.Locations do
+                            if location.LocationType == data.Location .. i then
+                                location.PrimaryFactories.Air = factory
                                 break
                             end
                         end
 
-                        if not carriers[i].Dead then
-                            location.PrimaryFactories.Air = carriers[i]
-                        end
-
-                        while (carriers[i] and not carriers[i].Dead) do
-                            if  table.getn(carriers[i]:GetCargo()) > 0 and carriers[i]:IsIdleState() then
-                                IssueClearCommands(carriers[i])
-                                IssueTransportUnload({carriers[i]}, carriers[i]:GetPosition())
+                        carrier:ForkThread(function(self)
+                            local factory = self.ExternalFactory
+            
+                            while true do
+                                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                                    IssueClearCommands({self})
+                                    IssueTransportUnload({self}, carrier:GetPosition())
+                
+                                    repeat
+                                        WaitSeconds(3)
+                                    until not self:IsUnitState("TransportUnloading")
+                                end
+            
+                                WaitSeconds(1)
                             end
-                            WaitSeconds(1)
-                        end
+                        end)
                     end, i)
                 end             
             else

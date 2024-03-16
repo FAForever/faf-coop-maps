@@ -28,45 +28,45 @@ function M3UEFFatboyBaseAI()
     P3UBase1:StartNonZeroBase({{5, 7, 9}, {2, 3, 4}})
     P3UBase1:SetMaximumConstructionEngineers(5)
     P3UBase1:AddBuildGroup('P3UDefense1', 90)
-
-    if Difficulty == 3 then
-        ArmyBrains[UEF]:PBMSetCheckInterval(6)
-    end
     
-    local M2_Fatboy1 = ScenarioInfo.M2_Fatboy1
+    local M2_Fatboy = ScenarioInfo.M2_Fatboy
+    if M2_Fatboy.Dead then
+        return
+    end
 
     for _, location in ArmyBrains[UEF].PBM.Locations do
         if location.LocationType == 'P3UEFFatboybase1' then
-            location.PrimaryFactories.Land = M2_Fatboy1.ExternalFactory
-            M3UEFFatboyattacks1()
+            location.PrimaryFactories.Land = M2_Fatboy.ExternalFactory
             break
         end
     end
 
-    IssueClearFactoryCommands({M2_Fatboy1.ExternalFactory})
-    IssueFactoryRallyPoint({M2_Fatboy1.ExternalFactory}, ScenarioUtils.MarkerToPosition("Rally Point 19"))
+    IssueClearFactoryCommands({M2_Fatboy.ExternalFactory})
+    IssueFactoryRallyPoint({M2_Fatboy.ExternalFactory}, ScenarioUtils.MarkerToPosition('Rally Point 19'))
+
+    M3UEFFatboyattacks1()
 end
 
 function M3UEFFatboyBase2AI()
     P3UBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P3UEFFatboybase2', 'P3UB2MK2', 20, {P3USbase3 = 100})
     P3UBase3:StartNonZeroBase({{2, 3, 4}, {2, 3, 4}})
 
-    if Difficulty == 3 then
-        ArmyBrains[UEF]:PBMSetCheckInterval(6)
-    end
-
     local M2_Fatboy2 = ScenarioInfo.M2_Fatboy2
+    if M2_Fatboy2.Dead then
+        return
+    end
 
     for _, location in ArmyBrains[UEF].PBM.Locations do
         if location.LocationType == 'P3UEFFatboybase2' then
             location.PrimaryFactories.Land = M2_Fatboy2.ExternalFactory
-            M3UEFFatboyattacks2()
             break
         end
     end
 
     IssueClearFactoryCommands({M2_Fatboy2.ExternalFactory})
-    IssueFactoryRallyPoint({M2_Fatboy2.ExternalFactory}, ScenarioUtils.MarkerToPosition("Rally Point 21"))
+    IssueFactoryRallyPoint({M2_Fatboy2.ExternalFactory}, ScenarioUtils.MarkerToPosition('Rally Point 21'))
+
+    M3UEFFatboyattacks2()
 end
 
 function M3UEFAtlantisBaseAI()
@@ -95,7 +95,7 @@ function M3UEFAtlantisBaseAI()
                     if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
                         IssueClearCommands({self})
                         IssueTransportUnload({self}, ScenarioUtils.MarkerToPosition('Rally Point 20'))
-    
+
                         repeat
                             WaitSeconds(3)
                         until not self:IsUnitState("TransportUnloading")

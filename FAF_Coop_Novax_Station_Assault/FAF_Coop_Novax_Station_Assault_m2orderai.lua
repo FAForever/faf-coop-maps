@@ -2,6 +2,7 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local CustomFunctions = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ScenarioPlatoonAI = import(SPAIFileName)
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ThisFile = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai.lua'
 
 ---------
@@ -401,26 +402,36 @@ end
 -----------
 -- Carriers
 -----------
-function OrderM2CarriersAI(unit)
+function OrderM2CarriersAI(carrier)
     ArmyBrains[Order]:PBMAddBuildLocation('M2_Order_Carrier_Marker_2', 40, 'M2_Order_Carrier_2')
 
-    if unit and not unit.Dead then
-        for num, loc in ArmyBrains[Order].PBM.Locations do
-            if loc.LocationType == 'M2_Order_Carrier_2' then
-                loc.PrimaryFactories.Air = unit
-                OrderM2CarrierAttacks()
-                break
-            end
-        end
-
-        while not unit.Dead do
-            if unit:IsIdleState() and unit:GetCargo()[1] then
-                IssueClearCommands({unit})
-                IssueTransportUnload({unit}, unit:GetPosition())
-            end
-            WaitSeconds(1)
+    for _, location in ArmyBrains[Order].PBM.Locations do
+        if location.LocationType == 'M2_Order_Carrier_2' then
+            location.PrimaryFactories.Air = carrier.ExternalFactory
+            OrderM2CarrierAttacks()
+            break
         end
     end
+
+    IssueClearFactoryCommands({carrier.ExternalFactory})
+    IssueFactoryRallyPoint({carrier.ExternalFactory}, ScenarioUtils.MarkerToPosition("Rally Point 00"))
+
+    carrier.ReleaseUnitsThread = carrier:ForkThread(function(self)
+        local factory = self.ExternalFactory
+
+        while true do
+            if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                IssueClearCommands({self})
+                IssueTransportUnload({self}, carrier:GetPosition())
+
+                repeat
+                    WaitSeconds(3)
+                until not self:IsUnitState("TransportUnloading")
+            end
+
+            WaitSeconds(1)
+        end
+    end)
 end
 
 function OrderM2CarrierAttacks()
@@ -582,18 +593,19 @@ end
 ----------
 -- Tempest
 ----------
-function OrderM2TempestAI(unit)
+function OrderM2TempestAI(tempest)
     ArmyBrains[Order]:PBMAddBuildLocation('M2_Order_Starting_Tempest', 60, 'M2_Tempest1')
 
-    if unit and not unit.Dead then
-        for num, loc in ArmyBrains[Order].PBM.Locations do
-            if loc.LocationType == 'M2_Tempest1' then
-                loc.PrimaryFactories.Sea = unit
-                OrderM2TempestAttacks()
-                break
-            end
+    for _, location in ArmyBrains[Order].PBM.Locations do
+        if location.LocationType == 'M2_Tempest1' then
+            location.PrimaryFactories.Sea = tempest.ExternalFactory
+            OrderM2TempestAttacks()
+            break
         end
     end
+
+    IssueClearFactoryCommands({tempest.ExternalFactory})
+    IssueFactoryRallyPoint({tempest.ExternalFactory}, ScenarioUtils.MarkerToPosition("Naval Rally Point 00"))
 end
 
 function OrderM2TempestAttacks()

@@ -53,30 +53,40 @@ function CarrierAI(platoon)
 
     for i = 1, numCarriers do
         ForkThread(function(i)
-            IssueMove({carriers[i]}, movePositions[i])
+            local carrier = carriers[i]
+            IssueMove({carrier}, movePositions[i])
 
-            while not carriers[i].Dead and carriers[i]:IsUnitState('Moving') do
+            while not carrier.Dead and carrier:IsUnitState('Moving') do
                 WaitSeconds(.5)
             end
 
-            if carriers[i].Dead then
+            if carrier.Dead then
                 return
             end
 
-            for num, loc in aiBrain.PBM.Locations do
-                if loc.LocationType == data.Location .. i then
-                    loc.PrimaryFactories.Air = carriers[i]
+            for _, location in aiBrain.PBM.Locations do
+                if location.LocationType == data.Location .. i then
+                    location.PrimaryFactories.Air = carrier.ExternalFactory
                     break
                 end
             end
 
-            while not carriers[i].Dead do
-                if table.getn(carriers[i]:GetCargo()) > 0 and carriers[i]:IsIdleState() then
-                    IssueClearCommands({carriers[i]})
-                    IssueTransportUnload({carriers[i]}, carriers[i]:GetPosition())
+            carrier:ForkThread(function(self)
+                local factory = self.ExternalFactory
+
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, carrier:GetPosition())
+    
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
+
+                    WaitSeconds(1)
                 end
-                WaitSeconds(1)
-            end
+            end)
         end, i)
     end
 end
@@ -671,6 +681,7 @@ local minASFs = 25
 function AtlantisThread(platoon)
     local brain = platoon:GetBrain()
     local atlantis = platoon:GetPlatoonUnits()[1]
+    local factory = atlantis.ExternalFactory
 
     local rect = ScenarioUtils.AreaToRect('M3_Atlantis_Guard_Area')
     local targetCats = categories.AIR * categories.MOBILE * categories.EXPERIMENTAL
@@ -711,9 +722,9 @@ function AtlantisThread(platoon)
     end
 
     local function deployASFs()
-        if atlantis:IsUnitState('Building') then
-            IssueStop({atlantis})
-            IssueClearCommands({atlantis})
+        if factory:IsUnitState('Building') then
+            IssueStop({factory})
+            IssueClearCommands({factory})
         end
 
         platoon:UnloadUnitsAtLocation(categories.uea0303, platoon:GetPlatoonPosition())
@@ -735,7 +746,7 @@ function AtlantisThread(platoon)
         local toBuild = maxASFs[Difficulty] - numASFsInPlatoon - cargo
         --LOG("Atlantis checking to build ASFs, needing: " .. toBuild)
         if toBuild > 0 then
-            IssueBuildFactory({atlantis}, 'uea0303', toBuild)
+            IssueBuildFactory({factory}, 'uea0303', toBuild)
         end
     end
 
@@ -752,7 +763,7 @@ function AtlantisThread(platoon)
             end
         end
 
-        if atlantis:IsIdleState() then
+        if atlantis:IsIdleState() and factory:IsIdleState() then
             buildASFs()
         end
 

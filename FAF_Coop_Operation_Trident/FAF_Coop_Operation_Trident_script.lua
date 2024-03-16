@@ -603,7 +603,7 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1LaunchAeonAttack, 25*60)
 
     -- Taunts
-    SetupUEFM1Taunts()
+    ForkThread(SetupUEFM1Taunts)
 end
 
 function MissionNameAnnouncement()
@@ -1455,10 +1455,13 @@ function SetupUEFM1Taunts()
     -- UEF taunt, when Player1 is spotted
     UEFTM:AddIntelCategoryTaunt('M1UEFDialogue', ArmyBrains[UEF], ArmyBrains[Player1], categories.ALLUNITS)
 
-    -- When player's ACU takes damage
-    if not SkipNIS1 then
-        UEFTM:AddDamageTaunt('TAUNT1', ScenarioInfo.Player1ACU, 0.2)
+    -- Player's ACU is given from the AI after it's dropped, so gotta wait for it to actually exist
+    while not ScenarioInfo.Player1ACU do
+        WaitSeconds(1)
     end
+    
+    -- When player's ACU takes damage
+    UEFTM:AddDamageTaunt('TAUNT1', ScenarioInfo.Player1ACU, 0.2)
 
     -- On losing first defensive structures
     UEFTM:AddUnitsKilledTaunt('TAUNT2', ArmyBrains[UEF], categories.STRUCTURE * categories.DEFENSE, 1)
