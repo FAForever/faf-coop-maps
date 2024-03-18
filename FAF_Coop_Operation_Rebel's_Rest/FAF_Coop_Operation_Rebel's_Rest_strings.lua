@@ -7,7 +7,7 @@ IntroP1 = {
 }
 
 Jammer1P1 = {
-    {text = '[Coalition HQ]: Commander we are picking up several Quantum jammers coming online. They cutting off any additional commanders gating in. You will not be able to call in SACUs.', vid = '', vidx = '', bank = '', cue = 'Jammer1P1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander we are picking up several Quantum jammers coming online. They are cutting off any additional commanders gating in. You will not be able to call in SACUs.', vid = '', vidx = '', bank = '', cue = 'Jammer1P1', faction = 'UEF'},
     {text = '[Coalition HQ]: They seem to also be modified to  disrupt large quantum signatures. That means certain high value experimentals are not usable while the Jammers are up.', vid = '', vidx = '', bank = '', cue = 'Jammer2P1', faction = 'UEF'},
     {text = '[Coalition HQ]: We will attempt to locate them, but you are just going to have to make do for now. HQ out.', vid = '', vidx = '', bank = '', cue = 'Jammer3P1', faction = 'UEF'},
 }
