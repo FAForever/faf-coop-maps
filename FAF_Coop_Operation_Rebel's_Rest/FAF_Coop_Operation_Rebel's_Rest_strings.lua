@@ -7,8 +7,8 @@ IntroP1 = {
 }
 
 Jammer1P1 = {
-    {text = '[Coalition HQ]: Commander we are picking up several Quantum jammers coming online. They cutting off any additional commanders gating in. You will not be able to call in SACUs.', vid = '', vidx = '', bank = '', cue = 'Jammer1P1', faction = 'UEF'},
-    {text = '[Coalition HQ]: They seem to also be modified to  disrupt large quantum signatures. That means certian high value experimentals are not usable while the Jammers are up.', vid = '', vidx = '', bank = '', cue = 'Jammer2P1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander we are picking up several Quantum jammers coming online. They are cutting off any additional commanders gating in. You will not be able to call in SACUs.', vid = '', vidx = '', bank = '', cue = 'Jammer1P1', faction = 'UEF'},
+    {text = '[Coalition HQ]: They seem to also be modified to  disrupt large quantum signatures. That means certain high value experimentals are not usable while the Jammers are up.', vid = '', vidx = '', bank = '', cue = 'Jammer2P1', faction = 'UEF'},
     {text = '[Coalition HQ]: We will attempt to locate them, but you are just going to have to make do for now. HQ out.', vid = '', vidx = '', bank = '', cue = 'Jammer3P1', faction = 'UEF'},
 }
 
@@ -41,7 +41,7 @@ M1ObjectivecompleteP2 = {
 -- Part 3 Dialogues
 IntroP3 = {
     {text = '[Coalition HQ]: The techs locked down the prisons again, but the UEF traitors are now just manually breaking each cell open.', vid = '', bank = '', cue = 'IntroP3_1', faction = 'UEF'},
-    {text = '[Coalition HQ]: Commander you have been given permission to destroy the prisons. We can not allow the crimmals to escape.', vid = '', bank = '', cue = 'IntroP3_2', faction = 'UEF'},
+    {text = '[Coalition HQ]: Commander you have been given permission to destroy the prisons. We can not allow the criminals to escape.', vid = '', bank = '', cue = 'IntroP3_2', faction = 'UEF'},
     {text = '[Coalition HQ]: There are 3 super max prison complexes in the area. Those are priority one, take them out. HQ out.', vid = '', bank = '', cue = 'IntroP3_3', faction = 'UEF'},
 }
 
@@ -55,7 +55,7 @@ SecondaryObjP3Complete1 = {
 }
 
 M1ObjectivecompleteP3 = {
-    {text = '[Coalition HQ]: Good work Commander, You just prevent some of the UEF\'s worst crimmals from escaping.', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
+    {text = '[Coalition HQ]: Good work Commander, You just prevent some of the UEF\'s worst criminals from escaping.', vid = '', bank = '', cue = 'M1ObjectivecompleteP3_1', faction = 'UEF'},
 }
 
 -- Part 4 Dialogues
@@ -64,7 +64,7 @@ IntroP4 = {
     {text = '[Coalition HQ]: Commander, It is time to go after the UEF traitors.', vid = '', bank = '', cue = 'IntroP4_1', faction = 'UEF'},
     {text = '[Coalition HQ]: The lead one is to your northeast and he has several more bases in the northern parts of the region.', vid = '', bank = '', cue = 'IntroP4_2', faction = 'UEF'},
     {text = '[Coalition HQ]: Just west of your position is the junior commander. It appears she has several novax satellites coming after you.', vid = '', bank = '', cue = 'IntroP4_3', faction = 'UEF'},
-    {text = '[Coalition HQ]: Take out both of the tratiors commander. HQ out.', vid = '', bank = '', cue = 'IntroP4_3', faction = 'UEF'},
+    {text = '[Coalition HQ]: Take out both of the traitors commander. HQ out.', vid = '', bank = '', cue = 'IntroP4_3', faction = 'UEF'},
 }
 
 Intro2P4 = {
@@ -119,7 +119,7 @@ TAUNT1P2 = {
 }
 
 TAUNT2P2 = {
-    {text = '[Major Becca]: I will extermiate you and your kind!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = '', faction = 'UEF'},
+    {text = '[Major Becca]: I will exterminate you and your kind!', vid = 'E03_Clarke_M02_0117.sfd', vidx = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 TAUNT3P2 = {
@@ -167,5 +167,5 @@ Debriefing_Win = {
 }
 
 Debriefing_Lose = {
-    {text = '[Coalition HQ]: half a dozen UEF colonies have rose up in insurrection. Dozens of former UEF prisioners are piloting ACUs. This is a disaster.', vid = '', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
+    {text = '[Coalition HQ]: half a dozen UEF colonies have rose up in insurrection. Dozens of former UEF prisoners are piloting ACUs. This is a disaster.', vid = '', bank = 'JJ_VO2', cue = 'Defeat-1', faction = 'UEF'},
 }

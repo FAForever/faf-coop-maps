@@ -14,7 +14,7 @@ Thalia1P1 = {
 }
 -- oh never mind.
 Thalia2P1 = {
-    {text = '[Crusader Thalia]: HQ I am having some werid ACU errors, I am unable to upgrade or construct T3 units.', vid = 'Thalia.sfd', vidx = '', bank = '', cue = 'Thalia2P1', faction = 'Aeon'},
+    {text = '[Crusader Thalia]: HQ I am having some weird ACU errors, I am unable to upgrade or construct T3 units.', vid = 'Thalia.sfd', vidx = '', bank = '', cue = 'Thalia2P1', faction = 'Aeon'},
     {text = '[Coalition HQ]: We are reading some strange jamming waves. The Seraphim are somehow blocking T3 access. We got techs working on a work around, but it looks like you are on your own. HQ, out.', vid = '', vidx = '', bank = '', cue = 'Thalia2P2', faction = 'UEF'},
     {text = '[Crusader Thalia]: Commander I will soon be heavily pressed to defend my own position, I will send what reinforcements I can, but that will be all I can send you.', vid = 'Thalia.sfd', vidx = '', bank = '', cue = 'Thalia2P3', faction = 'Aeon'}, 
 }
@@ -84,7 +84,7 @@ Thalia2P3 = {
 
 TechJamDown = {
     {text = '[Coalition HQ]: The Jammer is down! Other commanders are reporting complete access to T3. HQ out.', vid = '', vidx = '', bank = '', cue = 'TechJamDown1', faction = 'UEF'},
-    {text = '[General Valerie]: Commander, I am switching it stronger T3 attacks. I will start work on a Fatboy so we can clear the area faster. Valerie out.', vid = 'E06_Aiko_M01_0264.sfd', bank = '', cue = 'TechJamDown2', faction = 'UEF'},
+    {text = '[General Valerie]: Commander, I am switching to stronger T3 attacks. I will start work on a Fatboy so we can clear the area faster. Valerie out.', vid = 'E06_Aiko_M01_0264.sfd', bank = '', cue = 'TechJamDown2', faction = 'UEF'},
 }
 
 --Part 4 Dialogues
@@ -146,7 +146,7 @@ P1Taunt5 = {
 -- Taunts P2
 
 P2Taunt1 = {
-    {text = '[Oum-Eoshi]: You will never break my fortresses!', vid = 'X04_Oum-Eoshi_M03_03767.sfd', bank = '', cue = 'Death2_1', faction = 'Seraphim'},  
+    {text = '[Oum-Eoshi]: You will never break through my fortresses!', vid = 'X04_Oum-Eoshi_M03_03767.sfd', bank = '', cue = 'Death2_1', faction = 'Seraphim'},  
 }
 
 P2Taunt2 = {
@@ -168,11 +168,11 @@ P3Taunt2 = {
 }
 
 P3Taunt3 = {
-    {text = '[Executioner Keleana]: My devotion makes me stronger! Your unity makes you slopy!', vid = 'Celene.sfd', bank = '', cue = 'Death3_1', faction = 'Aeon'},
+    {text = '[Executioner Keleana]: My devotion makes me stronger! Your unity makes you sloppy!', vid = 'Celene.sfd', bank = '', cue = 'Death3_1', faction = 'Aeon'},
 }
 
 P3Taunt4 = {
-    {text = '[QAI]: I have optimized my tactics to insure your defeat.', vid = 'QAI.sfd', bank = '', cue = 'Death1_1', faction = 'Cybran'},
+    {text = '[QAI]: I have optimized my tactics to ensure your defeat.', vid = 'QAI.sfd', bank = '', cue = 'Death1_1', faction = 'Cybran'},
 }
 
 P3Taunt5 = {
@@ -190,7 +190,7 @@ P4Taunt1 = {
 }
 
 P4Taunt2 = {
-    {text = '[Oum-Eoshi]: Even without the Tech jammer I am still superior!', vid = 'X04_Oum-Eoshi_M03_03767.sfd', bank = '', cue = 'Death2_1', faction = 'Seraphim'},  
+    {text = '[Oum-Eoshi]: Even without the Tech Jammer, I remain superior!', vid = 'X04_Oum-Eoshi_M03_03767.sfd', bank = '', cue = 'Death2_1', faction = 'Seraphim'},  
 }
 
 P4Taunt3 = {
@@ -198,7 +198,7 @@ P4Taunt3 = {
 }
 
 P4Taunt4 = {
-    {text = '[Executioner Keleana]: Once we finish you the Seraphim\'s plans will become reality!', vid = 'Celene.sfd', bank = '', cue = 'Death3_1', faction = 'Aeon'},
+    {text = '[Executioner Keleana]: Once we destroy you, the Seraphim\'s plans will become reality!', vid = 'Celene.sfd', bank = '', cue = 'Death3_1', faction = 'Aeon'},
 }
 
 P4Taunt5 = {
