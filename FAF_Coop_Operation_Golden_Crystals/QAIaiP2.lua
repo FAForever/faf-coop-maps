@@ -1,9 +1,5 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local CustomFunctions = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua'
 
 local Player1 = 1
 local QAI = 3
@@ -46,9 +42,9 @@ function QP2B1Airattacks()
         RequiresConstruction = true,
         LocationType = 'QAIP2base1',
         PlatoonAIFunction = {SPAIFileName, 'RandomDefensePatrolThread'},     
-        PlatoonData = {
+       PlatoonData = {
            PatrolChain = 'P2QB1Airdefense1'
-        },
+       },
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
     
@@ -144,7 +140,7 @@ function QP2B1landattacks()
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
     
     quantity = {3, 4, 6}
-    trigger = {20, 15, 10}
+    trigger = {}
     Temp = {
        'QP2B1landAttackTemp1',
        'NoPlan',
@@ -160,12 +156,12 @@ function QP2B1landattacks()
         LocationType = 'QAIP2base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
+        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3 - categories.WALL}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-        PlatoonData = {
+       PlatoonData = {
            PatrolChains = {'P2QB1Landattack1', 'P2QB1Landattack2', 'P2QB1Landattack3'}
-        },
+       },
     }
     ArmyBrains[QAI]:PBMAddPlatoon( Builder )
     
@@ -391,96 +387,49 @@ end
 function QP2B2landattacks()
     local quantity = {}
 
-    local opai = nil
-    local trigger = {}
-    local poolName = 'QAIP2base2_TransportPool'
-    
-    local Tquantity = {2, 3, 4}
-    -- T2 Transport Platoon
-    local Temp = {
-        'M2_QAI_Transport_Platoon',
-        'NoPlan',
-        { 'ura0104', 1, Tquantity[Difficulty], 'Attack', 'None' }, -- T2 Transport
-    }
-    local Builder = {
-        BuilderName = 'M2_QAI_Transport_Platoon',
-        PlatoonTemplate = Temp,
-        InstanceCount = 1,
-        Priority = 500,
-        PlatoonType = 'Air',
-        RequiresConstruction = true,
-        LocationType = 'QAIP2base2',
-        BuildConditions = {
-            {CustomFunctions, 'HaveLessThanUnitsInTransportPool', {Tquantity[Difficulty] * 2, poolName}},
-        },
-        PlatoonAIFunction = {CustomFunctions, 'TransportPool'},
+    quantity = {2, 3, 4} 
+    opai = QAIP2base2:AddOpAI('EngineerAttack', 'M2_QAI_TransportBuilder1',
+    {
+        MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
-            BaseName = 'QAIP2base2',
+            TransportReturn = 'P2AB1MK',
         },
-    }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+        Priority = 1000,
+    })
+    opai:SetChildQuantity('T2Transports', quantity[Difficulty])
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.ura0104})
     
-    local Quantity1 = {2, 4, 6}
-    local Quantity = {1, 2, 3}
-    Builder = {
-        BuilderName = 'M2_Cybran_TransportAttack_1',
-        PlatoonTemplate = {
-            'M2_Cybran_TransportAttack_1_Template',
-            'NoPlan',
-            {'url0202', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 tank
-            {'url0205', 1, Quantity[Difficulty], 'Attack', 'GrowthFormation'},    -- T2 AA
-            {'url0111', 1, Quantity[Difficulty], 'Artillery', 'GrowthFormation'},    -- T2 MML
-        },
-        InstanceCount = 3,
-        Priority = 100,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'QAIP2base2',
-        BuildConditions = {
-            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {3, poolName}},
-        },
-        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
-        PlatoonData = {
-            AttackChain = 'P2QTransportdropattack',
-            LandingChain = 'P2QTransportdrop',
-            TransportReturn = 'QAIP2base2MK',
-            BaseName = 'QAIP2base2',
-            GenerateSafePath = true,
-        },
-    }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    quantity = {4, 6, 8}
+    opai = QAIP2base2:AddOpAI('BasicLandAttack', 'M2_QAI_TransportAttack_1',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+            PlatoonData = {
+                AttackChain =  'P2QTransportdropattack', 
+                LandingChain = 'P2QTransportdrop',
+                TransportReturn = 'QAIP2base2MK',
+            },
+            Priority = 150,
+        }
+    )
+    opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 
-    local Quantity1 = {2, 3, 4}
-    local Quantity = {2, 3, 4}
-    trigger = {25, 20, 15}
-    Builder = {
-        BuilderName = 'M2_Cybran_TransportAttack_2',
-        PlatoonTemplate = {
-            'M2_Cybran_TransportAttack_2_Template',
-            'NoPlan',
-            {'url0303', 1, Quantity1[Difficulty], 'Attack', 'GrowthFormation'},    -- T1 bot
-            {'url0111', 1, Quantity[Difficulty], 'Artillery', 'GrowthFormation'},    -- T1 bot
-        },
-        InstanceCount = 3,
-        Priority = 200,
-        PlatoonType = 'Land',
-        RequiresConstruction = true,
-        LocationType = 'QAIP2base2',
-        BuildConditions = {
-            {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {2, poolName}},
-            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
-        },
-        PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
-        PlatoonData = {
-            AttackChain = 'P2QTransportdropattack',
-            LandingChain = 'P2QTransportdrop',
-            TransportReturn = 'QAIP2base2MK',
-            BaseName = 'QAIP2base2',
-            GenerateSafePath = true,
-        },
-    }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder ) 
+    quantity = {8, 12, 16}
+    opai = QAIP2base2:AddOpAI('BasicLandAttack', 'M2_QAI_TransportAttack_2',
+        {
+            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+            PlatoonData = {
+                AttackChain =  'P2QTransportdropattack', 
+                LandingChain = 'P2QTransportdrop',
+                TransportReturn = 'QAIP2base2MK',
+            },
+            Priority = 160,
+        }
+    )
+    opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
+    opai:SetLockingStyle('DeathTimer', {LockTimer = 90})
 end
 
 function QP2B2Exp1()
@@ -496,8 +445,8 @@ function QP2B2Exp1()
             Amount = 2,
             KeepAlive = true,
             PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
-            PlatoonData = {
-            PatrolChains = {'P2QB2Airattack1','P2QB2Airattack2', 'P2QB2Airattack3', 'P2QB2Airattack4'}
+       PlatoonData = {
+           PatrolChains = {'P2QB2Airattack1','P2QB2Airattack2', 'P2QB2Airattack3', 'P2QB2Airattack4'}
        },
             MaxAssist = quantity[Difficulty],
             Retry = true,

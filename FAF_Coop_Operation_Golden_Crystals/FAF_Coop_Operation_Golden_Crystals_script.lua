@@ -37,14 +37,6 @@ local Player2 = ScenarioInfo.Player2
 local Player3 = ScenarioInfo.Player3
 local Player4 = ScenarioInfo.Player4
 
-local LeaderFaction
-local LocalFaction
-local AIs = {QAI}
-local BuffCategories = {
-    BuildPower = (categories.FACTORY * categories.STRUCTURE) + categories.ENGINEER,
-    Economy = categories.ECONOMIC,
-}
-
 local AssignedObjectives = {}
 local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
@@ -55,7 +47,7 @@ local Debug = false
 
 local NIS1InitialDelay = 3
 
-function OnPopulate(scen) 
+function OnPopulate(self) 
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
     
@@ -91,18 +83,9 @@ function OnPopulate(scen)
     ScenarioUtils.CreateArmyGroup('QAI', 'P1Crystals')
 end
  
-function OnStart(scen) 
+function OnStart(self) 
     ScenarioFramework.SetPlayableArea('AREA_1', false)  
-    
-    for _, army in AIs do
-        ArmyBrains[army].IMAPConfig = {
-                OgridRadius = 0,
-                IMAPSize = 0,
-                Rings = 0,
-        }
-        ArmyBrains[army]:IMAPConfiguration()
-    end
-
+     
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
     ForkThread(Intro1)
 end 
@@ -157,7 +140,15 @@ function Intro1()
     
     Cinematics.ExitNISMode()
     
-    ForkThread(BuffAIEconomy)   
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 2.0
+    buffAffects.MassProduction.Mult = 2.0
+
+       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end     
+    
     ForkThread(MissionP1)
     SetupQAIM1Taunts()
 
@@ -169,12 +160,6 @@ end
 function MissionP1()
 
     ScenarioInfo.MissionNumber = 1
-
-    local function MissionNameAnnouncement()
-        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, "Mission by Shadowlorda1, Map improved by !MarLo")
-    end
-
-    ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 12)
 
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
@@ -281,6 +266,10 @@ function StartIntroP2()
 end
 
 function IntroP2()
+    ScenarioFramework.FlushDialogueQueue()
+    while ScenarioInfo.DialogueLock do
+        WaitSeconds(0.2)
+    end
     if ScenarioInfo.MissionNumber ~= 1 then
         return
     end
@@ -327,6 +316,15 @@ function IntroP2()
         Cinematics.SetInvincible('AREA_1', true)
     Cinematics.ExitNISMode()
     
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 1.5
+    buffAffects.MassProduction.Mult = 2.0
+
+       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end     
+
     local ConvyTrigger0 = {5*60, 4*60, 1*60}
     ScenarioFramework.CreateTimerTrigger(Convoy1, ConvyTrigger0[Difficulty])
     ForkThread(CounterAttackP2)
@@ -758,6 +756,15 @@ function IntroP3()
     ScenarioUtils.CreateArmyGroup('QAI', 'P3QWalls')
     ScenarioUtils.CreateArmyGroup('QAI', 'P3Crystals')
 
+    buffDef = Buffs['CheatIncome']
+    buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = 2.0
+    buffAffects.MassProduction.Mult = 2.0
+
+       for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+               Buff.ApplyBuff(u, 'CheatIncome')
+       end  
+
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_1')
 
@@ -819,7 +826,7 @@ function IntroP3()
     ForkThread(MissionSecondaryP3)
     ForkThread(CounterAttackP3)
     ForkThread(P3T3Arty)
-    ScenarioFramework.CreateTimerTrigger(Nukeparty, 90)
+    ScenarioFramework.CreateTimerTrigger(Nukeparty, 60)
     SetupQAIM3Taunts() 
 end
 
@@ -1067,12 +1074,16 @@ function StartIntroP4()
 end
 
 function IntroP4()
+    ScenarioFramework.FlushDialogueQueue()
+    while ScenarioInfo.DialogueLock do
+        WaitSeconds(0.2)
+    end
     if ScenarioInfo.MissionNumber ~= 3 then
         return
     end
     ScenarioInfo.MissionNumber = 4
 
-    WaitSeconds(5)
+    WaitSeconds(3)
 
     ScenarioFramework.SetPlayableArea('AREA_4', true)   
     
@@ -1212,7 +1223,7 @@ function IntroP4()
 
     ForkThread(MissionP4)
     ForkThread(SecondaryMissionP4)
-    ScenarioFramework.CreateTimerTrigger(EnableQAINukeAI, 90)
+    ScenarioFramework.CreateTimerTrigger(Nukeparty2, 90)
     ForkThread(CounterAttackP4)
     ForkThread(P4QAIACUAttack1)
     ForkThread(P4QAIACUAttack2)
@@ -1418,28 +1429,20 @@ function CounterAttackP4()
     end 
 end
 
---UEF Nuke AI during Phase 3, platoon.lua is used in this case
-function EnableQAINukeAI()
-    --Get a table of all QAI SMLs
-    local QAISilos = ArmyBrains[QAI]:GetListOfUnits(categories.urb2305, false)
-        
-        --Only do something if there is at least 1 SML in the table
-        if table.getn(QAISilos) > 0 then
-            for k, v in QAISilos do
-                --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
-                if not v.SiloAIEnabled and not v:IsDead() then
-                    --Make a single unit platoon for each SML
-                    local SiloPlatoon = ArmyBrains[QAI]:MakePlatoon('','')
-                    ArmyBrains[QAI]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')
-                    --Platoon gets the AI function called
-                    SiloPlatoon:ForkAIThread(SiloPlatoon.NukeAI)
-                    --Flag to check if the NukeAI has already been called for the SML instance
-                    v.SiloAIEnabled = true
-                end
-            end
-        end
-    --Check for SMLs every 60 seconds
-    ScenarioFramework.CreateTimerTrigger(EnableQAINukeAI, 60)
+function Nukeparty2()
+
+    local QAINuke2 = ArmyBrains[QAI]:GetListOfUnits(categories.urb2305, false)
+    for _, v in QAINuke2 do
+        v:GiveNukeSiloAmmo(3)
+    end
+    local QAINukeP4s = {}
+    for _, v in QAINuke2 do
+        table.insert(QAINukeP4s, v)
+    end
+
+    local plat = ArmyBrains[QAI]:MakePlatoon('', '')
+    ArmyBrains[QAI]:AssignUnitsToPlatoon(plat, {QAINukeP4s[2]}, 'Attack', 'NoFormation')
+    plat:ForkAIThread(plat.NukeAI)
 end
 
 function EndgameCheck()
@@ -1531,38 +1534,6 @@ function PlayerLose()
        KillGame()
   end    
 end
-
--- Buffs resource producing structures, (and ACU variants.)
-function BuffAIEconomy()
-    -- Resource production multipliers, depending on the Difficulty
-    local Rate = {1.5, 2.0, 2.5}
-    -- Buff definitions
-    local buffDef = Buffs['CheatIncome']
-    local buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = Rate[Difficulty]
-    buffAffects.MassProduction.Mult = Rate[Difficulty]
-    
-    while true do
-        if not table.empty(AIs) then
-            for i, j in AIs do
-                local economy = ArmyBrains[j]:GetListOfUnits(BuffCategories.Economy, false)
-                -- Check if there is anything to buff
-                if table.getn(economy) > 0 then
-                    for k, v in economy do
-                        -- Apply buff to the entity if it hasn't been buffed yet
-                        if not v.EcoBuffed then
-                            Buff.ApplyBuff( v, 'CheatIncome' )
-                            -- Flag the entity as buffed
-                            v.EcoBuffed = true
-                        end
-                    end
-                end
-            end
-        end
-        WaitSeconds(60)
-    end
-end
-
 
 -- Taunts
 
