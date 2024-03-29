@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
     name = "Coalition Mission 4: Operation Rebel's Rest",
-    description = 'We  have another situation developing on a Prison world deep in UEF space. Two UEF commanders have gone rogue in support of the late Commander Fletcher. They need to be stopped before they unleash the crimmal population of Rebel\'s rest.',
+    description = 'We  have another situation developing on a Prison world deep in UEF space. Two UEF commanders have gone rogue in support of the late Commander Fletcher. They need to be stopped before they unleash the criminal population of Rebel\'s rest.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
