@@ -1798,6 +1798,7 @@ function PlayerCommanderDestroyed(unit)
         return
     end
 
+    ScenarioInfo.CDRDeath = true
     ScenarioFramework.PlayerDeath(unit, OpStrings.E06_D01_010)
 end
 
@@ -1817,8 +1818,6 @@ function BlackSunCannonDestroyed(unit)
 
     ScenarioInfo.BlackSunDestroyed = true
     if not ScenarioInfo.CDRDeath then
-		ScenarioInfo.OpComplete = false
-		ScenarioInfo.OpEnded = false
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.FlushDialogueQueue()
 		
