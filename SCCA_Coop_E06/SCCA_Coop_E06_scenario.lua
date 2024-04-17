@@ -1,7 +1,7 @@
 version = 3 -- Lua Version. Dont touch this
 ScenarioInfo = {
     name = "UEF Mission 6 - Stone Wall - Remastered",
-    description = "Black Sun facility is located here, on the island of Ni'ihua in the Hawaiian chain.\nYour job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility;\n she will offer her unconditional assistance. You now have full access to the UEF arsenal.",
+    description = "DISCLAIMER: There are several lobby options available for this map, be sure to check them out.\n\nBlack Sun facility is located here, on the island of Ni'ihua in the Hawaiian chain.\nYour job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility;\n she will offer her unconditional assistance. You now have full access to the UEF arsenal.",
     preview = '',
     map_version = 5,
     type = 'campaign_coop',
