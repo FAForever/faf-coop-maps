@@ -273,7 +273,7 @@ E06_M02_105 = {
 
 -- If Black Sun is destroyed
 E06_M02_110 = {
-  {text = '<LOC E06_M02_110_010>[{i Clarke}]: Attention UEF Forces, this is General Clarke. We have lost Black Sun, but we will never surrender! All units return to Earth Command. We will make our final stand there. Clarke out.\n\n', vid = 'E06_Clarke_M02_0294.sfd', bank = 'E06_VO', cue = 'E06_Clarke_M02_0294', faction = 'UEF'},
+  {text = '<LOC E06_M02_110_010>[{i Clarke}]: Attention UEF Forces, this is General Clarke. We have lost Black Sun, but we will never surrender! All units return to Earth Command. We will make our final stand there. Clarke out.', vid = 'E06_Clarke_M02_0294.sfd', bank = 'E06_VO', cue = 'E06_Clarke_M02_0294', faction = 'UEF'},
 }
 
 -- Objective Reminders for PO1, #1
@@ -644,4 +644,3 @@ TAUNT21 = {
 TAUNT22 = {
   {text = '<LOC A05_T01_010_010>[{i Ariel}]: The Avatar will bring peace to the galaxy.', vid = 'A05_Ariel_T01_00938.sfd', bank = 'A05_VO', cue = 'A05_Ariel_T01_00938', faction = 'Aeon'},
 }
-
