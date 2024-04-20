@@ -22,25 +22,42 @@ local ConditionCategories = {
     ExperimentalNaval = categories.EXPERIMENTAL * categories.NAVAL,
 	GameEnderStructure = categories.ueb2401 + (categories.STRATEGIC * categories.TECH3) + (categories.EXPERIMENTAL * categories.STRUCTURE) + categories.NUKE, --Merged Nukes and HLRAs
 }
--- -------------
+----------------
 -- Base Managers
--- -------------
+----------------
 local AeonMainBase = BaseManager.CreateBaseManager()
 
+
+-- Update engineer counts
+function UpdateEngineerQuantity()
+	AeonMainBase:SetEngineerCount({4, 8, 12})
+end
+
 function AeonMainBaseAI()
-	-- -----------
+	------------
     -- Aeon Base
-    -- -----------
+    ------------
     AeonMainBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M1_Aeon_Main_Base', 'AeonBase', 250,
 		{
 		MainBaseStructuresPreBuilt = 300,
 		}
 	)
-	AeonMainBase:StartNonZeroBase({4, 8, 12})
+	AeonMainBase:StartNonZeroBase({1, 2, 12})
 	AeonMainBase:SetMaximumConstructionEngineers(12)
 	ArmyBrains[Aeon]:PBMSetCheckInterval(5)
 	
-	AeonMainBase:AddBuildGroup('MainBaseStructuresPostBuilt_D' .. Difficulty, 200)
+	-- Spawn what's meant to be built instead, otherwise the Czar takes too long to finish
+	AeonMainBase:AddBuildGroup('MainBaseStructuresPostBuilt_D' .. Difficulty, 200, true)
+	
+	-- Add HLRA to be built on hard
+	-- They, and the Czar should finish around the 20 minute mark
+	if Difficulty == 3 then
+		AeonMainBase:AddBuildGroup('MainBaseStructuresHLRA', 150)
+	-- Update engineer numbers after 7.5 minutes for easy/normal, otherwise the Czar finishes in less than 10 mins
+	else
+		import('/lua/scenarioframework.lua').CreateTimerTrigger(UpdateEngineerQuantity, 450)
+	end
+	
 	AeonMainBase:SetConstructionAlwaysAssist(true)
 	
 	AeonMainBase:SetActive('AirScouting', true)
@@ -196,7 +213,7 @@ function AeonMainNavalAttacks()
 	local T2Quantity = {1, 2, 4}
 	local T1Quantity = {2, 4, 6}
 	
-	-- Phase 1 Aeon fleet to keep the players busy
+	-- Phase 1 Aeon fleets to keep the players busy
 	opai = AeonMainBase:AddOpAI('NavalAttacks', 'M1_Aeon_Main_Naval_Fleet',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -209,6 +226,19 @@ function AeonMainNavalAttacks()
         }
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers', 'Cruisers', 'Frigates', 'Submarines'}, {1, 2, 2, 4, 15})
+	
+	opai = AeonMainBase:AddOpAI('NavalAttacks', 'M1_Aeon_Secondary_Naval_Fleet',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = {
+                    'PlayerNavalAttack_Chain',
+                },
+            },
+            Priority = 100,
+        }
+    )
+    opai:SetChildQuantity({'Destroyers', 'Cruisers', 'Frigates', 'Submarines'}, {T2Quantity[Difficulty], T2Quantity[Difficulty], T1Quantity[Difficulty], T1Quantity[Difficulty]})
 	
 	-- Large Aeon Naval Fleet for attacking the players from Phase 2
 	local Temp = {

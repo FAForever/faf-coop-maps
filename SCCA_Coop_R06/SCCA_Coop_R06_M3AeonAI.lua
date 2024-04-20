@@ -14,16 +14,16 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local CustomFunctions = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_CustomFunctions.lua'
 local AIBehaviors = '/maps/SCCA_Coop_R06/SCCA_Coop_R06_AIBehaviors.lua'
--- -------------
+----------------
 -- Base Managers
--- -------------
+----------------
 local M3AeonSouthEasternBase = BaseManager.CreateBaseManager()
 
 function M3AeonSouthEasternBaseAI()
 
-	-- -----------
+	------------
     -- Aeon Base
-    -- -----------
+    ------------
     M3AeonSouthEasternBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_SouthEastern_Base', 'M3_Aeon_SouthEastern_Base_Marker', 210,
 		{
 		M3_Aeon_Southern_Base = 450,
