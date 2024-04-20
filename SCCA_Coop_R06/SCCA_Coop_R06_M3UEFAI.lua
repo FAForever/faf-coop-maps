@@ -6,9 +6,9 @@
 --------------------------------------------------------------------------------
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 
--- ------
+---------
 -- Locals
--- ------
+---------
 local UEF = 3
 local Difficulty = ScenarioInfo.Options.Difficulty
 local BMBC = '/lua/editor/BaseManagerBuildConditions.lua'
@@ -23,9 +23,9 @@ local ConditionCategories = {
     ExperimentalNaval = categories.EXPERIMENTAL * categories.NAVAL,
 	GameEnderStructure = categories.ueb2401 + (categories.STRATEGIC * categories.TECH3) + (categories.EXPERIMENTAL * categories.STRUCTURE) + categories.NUKE, --Merged Nukes and HLRAs
 }
--- -------------
+----------------
 -- Base Managers
--- -------------
+----------------
 local UEFMainBase = BaseManager.CreateBaseManager()
 local UEFNavalBase = BaseManager.CreateBaseManager()
 local M3UEFSouthWesternBase = BaseManager.CreateBaseManager()
@@ -51,9 +51,9 @@ function M3UEFBuildStrategicMissileLaunchers()
 end
 
 function UEFMainBaseAI()
-	-- -----------
+	-----------
     -- UEF Base
-    -- -----------
+    -----------
     UEFMainBase:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Main_Base', 'UEFBase', 180,
 		{
 		BaseStructuresPreBuilt = 450,
@@ -78,9 +78,9 @@ function UEFMainBaseAI()
 end
 
 function UEFMainNavalBaseAI()
-    -- -------------------
+    ----------------------
     -- UEF Naval Expansion
-    -- -------------------
+    ----------------------
     UEFNavalBase:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Main_Naval_Base', 'UEF_Main_Naval_Base_Marker', 105,
         {
 			Naval_Base = 150,
@@ -126,10 +126,10 @@ function UEFMainAirAttacks()
         PlatoonTemplate = {
 			'M3_UEF_Main_AirForce_Template',
 			'NoPlan',
-			{'uea0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Heavy Gunship
-			{'uea0304', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Strat Bomber
-			{'uea0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 ASF
-			{'uea0203', 1, quantity[Difficulty] * 2, 'Attack', 'AttackFormation'}, -- T2 Gunship
+			{'uea0305', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Heavy Gunship
+			{'uea0304', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Strat Bomber
+			{'uea0303', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 ASF
+			{'uea0203', 0, quantity[Difficulty] * 2, 'Attack', 'AttackFormation'}, -- T2 Gunship
 		},
         InstanceCount = Difficulty * 2,
         Priority = 130,
@@ -407,7 +407,7 @@ function UEFMainNavalAttacks()
     }
     ArmyBrains[UEF]:PBMAddPlatoon(Builder)
 	
-	--Atlantis attack for Phase 3
+	-- Atlantis attack for Phase 3
 	opai = UEFNavalBase:AddOpAI('M3_UEFMain_Atlantis',
         {
             Amount = 1,
@@ -535,9 +535,9 @@ function UEFMainExperimentalAttacks()
 end
 
 function M3UEFSouthWesternBaseAI()
-	-- ------------------------
+	---------------------------
     -- Southern UEF Island Base
-    -- ------------------------
+    ---------------------------
     M3UEFSouthWesternBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_UEF_SouthWestern_Base', 'M3_UEF_SouthWestern_Base_Marker', 180,
 		{
 		M3_UEF_SouthWestern_Base = 450,
@@ -632,7 +632,7 @@ function M3UEFSouthWesternLandAttacks()
 	local opai = nil
 	local quantity = {4, 8, 12}
 	
-	--Sends [8, 16, 24] Amphibious Tanks to the highest threat
+	-- Sends [8, 16, 24] Amphibious Tanks to the highest threat
 	for i = 1, 2  do
 		opai = M3UEFSouthWesternBase:AddOpAI('BasicLandAttack', 'M3_UEFSouthWestern_Amphibious_Assault' .. i,
 			{
@@ -723,10 +723,10 @@ function M3UEFSouthWesternAirAttacks()
         PlatoonTemplate = {
 			'M3_UEF_SouthWestern_AirForce_Template',
 			'NoPlan',
-			{'uea0305', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Heavy Gunship
-			{'uea0304', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Strat Bomber
-			{'uea0303', 1, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 ASF
-			{'uea0203', 1, quantity[Difficulty] * 2, 'Attack', 'AttackFormation'}, -- T2 Gunship
+			{'uea0305', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Heavy Gunship
+			{'uea0304', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 Strat Bomber
+			{'uea0303', 0, quantity[Difficulty], 'Attack', 'AttackFormation'}, -- T3 ASF
+			{'uea0203', 0, quantity[Difficulty] * 2, 'Attack', 'AttackFormation'}, -- T2 Gunship
 		},
         InstanceCount = Difficulty * 2,
         Priority = 100,
