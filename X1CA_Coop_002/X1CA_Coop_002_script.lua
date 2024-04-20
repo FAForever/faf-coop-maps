@@ -1097,9 +1097,9 @@ function IntroMission4()
             -------------
             -- Order Nukes
             -------------
-            ScenarioInfo.M4OrderNorthNuke:GiveNukeSiloAmmo(1)
-            ScenarioInfo.M4OrderCenterNuke:GiveNukeSiloAmmo(1)
-            ScenarioInfo.M4OrderSouthNuke:GiveNukeSiloAmmo(1)
+            if not(ScenarioInfo.M4OrderNorthNuke.Dead) then ScenarioInfo.M4OrderNorthNuke:GiveNukeSiloAmmo(1) end
+            if not(ScenarioInfo.M4OrderCenterNuke.Dead) then ScenarioInfo.M4OrderCenterNuke:GiveNukeSiloAmmo(1) end
+            if not(ScenarioInfo.M4OrderSouthNuke.Dead) then ScenarioInfo.M4OrderSouthNuke:GiveNukeSiloAmmo(1) end
 
             -----------
             -- M4 QAI AI
@@ -1232,7 +1232,7 @@ function IntroMission4()
             -- QAI Nukes
             -----------
             ScenarioInfo.M4QAIMainNuke = ScenarioInfo.UnitNames[QAI]['QAI_Nuke_Launcher']
-            ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(2)
+            if not(ScenarioInfo.M4QAIMainNuke.Dead) then ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(2) end
 
             ScenarioInfo.M4QAINorthNuke = ScenarioUtils.CreateArmyUnit('QAI', 'M4_QAI_North_Silo')
             ScenarioInfo.M4QAINorthNuke:GiveNukeSiloAmmo(1)
