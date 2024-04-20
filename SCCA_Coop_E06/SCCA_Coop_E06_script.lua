@@ -150,7 +150,7 @@ end
 -----------------
 -- Initialization
 -----------------
-function OnPopulate(scen)
+function OnPopulate()
     ScenarioUtils.InitializeScenarioArmies()
 	LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 	
@@ -247,6 +247,7 @@ function SpawnPlayer()
     ScenarioInfo.BlackSunCannon:SetCustomName(LOC '{i BlackSunCannon}')
     ScenarioInfo.BlackSunCannon:SetReclaimable(false)
     ScenarioInfo.BlackSunCannon:SetCapturable(false)
+	ScenarioInfo.BlackSunCannon:SetCanBeGiven(false)
     ScenarioInfo.BlackSunCannon:RemoveToggleCap('RULEUTC_SpecialToggle')
     ScenarioFramework.CreateUnitDestroyedTrigger(BlackSunCannonDestroyed, ScenarioInfo.BlackSunCannon)
 	
@@ -301,7 +302,7 @@ function M3SpawnAeon()
 	AeonAI.M3AeonSWBaseAI()
 end
 
-function OnStart(scen)
+function OnStart()
 	ScenarioFramework.SetUEFColor(Player1)
     ScenarioFramework.SetUEFAllyColor(BlackSun)
     ScenarioFramework.SetUEFAllyColor(Component)
@@ -372,14 +373,14 @@ end
 
 function IntroMission1()
     WaitSeconds(2.0)
-	ScenarioInfo.CoopCDR = {}
+	ScenarioInfo.HumanACUs = {}
 	
-	-- Spawn in player ACUs, and insert them into the CoopCDR table
+	-- Spawn in player ACUs, and insert them into the HumanACUs table
     ForkThread(function()
         local tblArmy = ListArmies()
         for name, _ in ScenarioInfo.HumanPlayers do
-            ScenarioInfo[name .. 'CDR'] = ScenarioFramework.SpawnCommander(name, name .. 'CDR', 'Warp', true, true, PlayerCommanderDestroyed)
-			table.insert(ScenarioInfo.CoopCDR, ScenarioInfo[name .. 'CDR'])
+            ScenarioInfo[name .. 'CDR'] = ScenarioFramework.SpawnCommander(name, name .. 'CDR', 'Warp', true, false, PlayerCommanderDestroyed)	-- No pause on death, otherwise the death is registered too late
+			table.insert(ScenarioInfo.HumanACUs, ScenarioInfo[name .. 'CDR'])
             WaitSeconds(2)
         end
     end)
@@ -1775,7 +1776,6 @@ function WinGame()
     if ScenarioInfo.M3P3Obj then
         ScenarioInfo.M3P3Obj:ManualResult(true)
     end
-    -- ScenarioFramework.PlayEndGameMovie(1 , WinGame)
 	
     ScenarioInfo.OpComplete = true
     ScenarioFramework.EndOperation(ScenarioInfo.OpComplete, ScenarioInfo.OpComplete, true)
@@ -1784,10 +1784,10 @@ end
 -- Player ACU died, but if other player ACUs are still alive, continue
 function PlayerCommanderDestroyed(unit)
     -- Abnormally, you don't necessarily 'lose' if you're killed on this mission: so long as Black Sun survives, and at least 1 player ACU remains
-
+	-- REMINDER: This won't work if there's a pause set on ACU death
     -- Are all the ACUs dead?
-    for k, commander in ScenarioInfo.CoopCDR do
-        if not commander:IsDead() then
+    for index, unit in ScenarioInfo.HumanACUs do
+        if not unit.Dead then
             -- Somebody is still alive
             return
         end
@@ -1798,6 +1798,7 @@ function PlayerCommanderDestroyed(unit)
         return
     end
 
+    ScenarioInfo.CDRDeath = true
     ScenarioFramework.PlayerDeath(unit, OpStrings.E06_D01_010)
 end
 
@@ -1819,8 +1820,13 @@ function BlackSunCannonDestroyed(unit)
     if not ScenarioInfo.CDRDeath then
         ScenarioFramework.EndOperationSafety()
         ScenarioFramework.FlushDialogueQueue()
-        ScenarioFramework.Dialogue(OpStrings.E06_M02_110, false, true)
-        ScenarioFramework.Dialogue(ScenarioStrings.PObjFail, ScenarioFramework.PlayerLose, true)
+		
+	-- There are 2 ways to do this, both should have the same results:
+		-- First, we fire off the dialogue, last param indicates if it is a critical dialogue, which forces it to play over any other queued ones.
+        --ScenarioFramework.Dialogue(OpStrings.E06_M02_110, ScenarioFramework.PlayerLose, true)
+		
+		-- Second, we call the lose function with the dialogue, add the table of objectives to manually set to failed, last param indicates if we want to ignore an already ongoing mission failure event
+		ScenarioFramework.PlayerLose(OpStrings.E06_M02_110, {ScenarioInfo.M1P1Obj}, true)
     end
 end
 
@@ -1878,4 +1884,3 @@ function PlayTaunt()
 		end
 	end
 end
-
