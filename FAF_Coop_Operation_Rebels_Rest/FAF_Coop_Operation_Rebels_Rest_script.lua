@@ -187,7 +187,7 @@ function IntroP0()
 
     quantity = {18, 14, 10}
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.CreateAreaTrigger(Offmapattacks0P0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
+        ScenarioFramework.CreateAreaTrigger(OffmapattacksP0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
     end
     quantity = {55, 45, 35}
     for _, player in ScenarioInfo.HumanPlayers do
