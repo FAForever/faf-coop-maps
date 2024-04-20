@@ -11,16 +11,16 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/Utilities.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/FAF_Coop_Operation_Rebel\'s_Rest_CustomFunctions.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Rebels_Rest/FAF_Coop_Operation_Rebels_Rest_CustomFunctions.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua') 
-local P0UEFAI = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/UEFaiP0.lua')
-local P1UEFAI = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/UEFaiP1.lua')
-local P2UEFAI = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/UEFaiP2.lua')
-local P3UEFAI = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/UEFaiP3.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Rebel\'s_Rest/FAF_Coop_Operation_Rebel\'s_Rest_strings.lua') 
+local P0UEFAI = import('/maps/FAF_Coop_Operation_Rebels_Rest/UEFaiP0.lua')
+local P1UEFAI = import('/maps/FAF_Coop_Operation_Rebels_Rest/UEFaiP1.lua')
+local P2UEFAI = import('/maps/FAF_Coop_Operation_Rebels_Rest/UEFaiP2.lua')
+local P3UEFAI = import('/maps/FAF_Coop_Operation_Rebels_Rest/UEFaiP3.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Rebels_Rest/FAF_Coop_Operation_Rebels_Rest_strings.lua') 
 local TauntManager = import('/lua/TauntManager.lua')
 
-local UEFTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/FAF_Coop_Operation_Rebel\'s_Rest/FAF_Coop_Operation_Rebel\'s_Rest_strings.lua')
+local UEFTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/FAF_Coop_Operation_Rebels_Rest/FAF_Coop_Operation_Rebels_Rest_strings.lua')
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
@@ -187,7 +187,7 @@ function IntroP0()
 
     quantity = {18, 14, 10}
     for _, player in ScenarioInfo.HumanPlayers do
-        ScenarioFramework.CreateAreaTrigger(Offmapattacks0P0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
+        ScenarioFramework.CreateAreaTrigger(OffmapattacksP0, 'AREA_1', categories.ALLUNITS - categories.TECH1, true, false, ArmyBrains[player], quantity[Difficulty])
     end
     quantity = {55, 45, 35}
     for _, player in ScenarioInfo.HumanPlayers do

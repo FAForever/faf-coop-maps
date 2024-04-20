@@ -3,7 +3,7 @@ local SPAIFileName = '/lua/scenarioplatoonai.lua'
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local CustomFunctions = '/maps/FAF_Coop_Operation_Rebel\'s_Rest/FAF_Coop_Operation_Rebel\'s_Rest_CustomFunctions.lua'
+local CustomFunctions = '/maps/FAF_Coop_Operation_Rebels_Rest/FAF_Coop_Operation_Rebels_Rest_CustomFunctions.lua'
 
 local Player1 = 1
 local UEF1 = 2
