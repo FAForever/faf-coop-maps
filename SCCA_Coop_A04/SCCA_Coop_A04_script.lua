@@ -890,7 +890,20 @@ function M2EastLandAssault(units, transports)
         transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_East_Transport_Return'), false)
         local TransportPool = aiBrain:GetPlatoonUniquelyNamed('TransportPool')
         if aiBrain:PlatoonExists(TransportPool) then
-            aiBrain:AssignUnitsToPlatoon(TransportPool, transports:GetPlatoonUnits(), 'Scout', 'None')
+            local tValidPlatoonUnits = {}
+            local tAllUnits = transports:GetPlatoonUnits()
+            local bHaveValidUnits = false
+            if tAllUnits[1] then
+                for iUnit, oUnit in tAllUnits do                    
+                    if not(oUnit.Dead) then                        
+                        table.insert(tValidPlatoonUnits, oUnit)
+                        bHaveValidUnits = true
+                    end
+                end
+            end            
+            if bHaveValidUnits then
+                aiBrain:AssignUnitsToPlatoon(TransportPool, tValidPlatoonUnits, 'Scout', 'None')
+            end
         end
     end
     if aiBrain:PlatoonExists(units) then
