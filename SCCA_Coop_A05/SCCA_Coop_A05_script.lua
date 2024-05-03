@@ -1326,7 +1326,7 @@ function ColosusObjective()
     -- Start moving the Colossus attack at player
     for num, loc in ScenarioUtils.ChainToPositions('Ariel_M3_Colossus_Chain') do
         if num >= 3 then
-            ScenarioInfo.ColHover:AggressiveMoveToLocation(loc)
+            if ArmyBrains[Ariel]:PlatoonExists(ScenarioInfo.ColHover) then ScenarioInfo.ColHover:AggressiveMoveToLocation(loc) end
         end
     end
 
