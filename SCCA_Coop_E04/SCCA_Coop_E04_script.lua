@@ -1218,7 +1218,7 @@ end
 function M3OnEngineerEscaped(units)
 
     for k, eng in units do
-        if not eng.GateStarted then
+        if not eng.GateStarted and not(eng.Dead) then            
             eng.GateStarted = true
             M3FleeingEngineersEscapedCount = M3FleeingEngineersEscapedCount + 1
             LOG('debugMatt:Engineer Escaped, count: '..M3FleeingEngineersEscapedCount)
