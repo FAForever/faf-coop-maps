@@ -1201,6 +1201,9 @@ end
 
 function TransportBuilt()
     -- Now that the transport is built, give the objective of transporting the commander to the research facility
+    if ScenarioInfo.M1P1.Active and not(ScenarioInfo.M4P15.Active) then --Fixes issue if player build air factory before the objective to build it triggered, and they havent built one since
+        AirFactoryBuilt()
+    end
     ScenarioInfo.M1P15:ManualResult(true)
 
     -- Stop the reminder text from playing
@@ -1274,6 +1277,8 @@ function ResearchFacilityRepaired()
     ScenarioInfo.ResearchFacilityRepaired = true
 
     -- complete the relevant objective
+    if ScenarioInfo.M1P1.Active then ScenarioInfo.M1P1:ManualResult(true) end --For issue where player builds air fac before objective to build it triggers
+    if ScenarioInfo.M1P15.Active then ScenarioInfo.M1P15:ManualResult(true) end
     ScenarioInfo.M1P3:ManualResult(true)
     ScenarioFramework.Dialogue(ScenarioStrings.PObjComp)
 
