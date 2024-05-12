@@ -480,13 +480,15 @@ function SiloAmmoThread(callback, areaName)
     local cats = categories.SILO * categories.ANTIMISSILE
 
     while not hasAmmo do
-        local units = ScenarioFramework.GetListOfHumanUnits(cats, rect)
+        --local units = ScenarioFramework.GetListOfHumanUnits(cats, rect)
         local units = GetUnitsInRect(rect)
-        for k,v in units do
-            if not v.Dead and v:GetTacticalSiloAmmoCount() > 0 then
-                if not hasAmmo then
-                    hasAmmo = true
-                    callback()
+        if units[1] then
+            for k,v in units do
+                if not v.Dead and v.GetTacticalSiloAmmoCount and EntityCategoryContains(cats, v.UnitId) and v:GetTacticalSiloAmmoCount() > 0 then
+                    if not hasAmmo then
+                        hasAmmo = true
+                        callback()
+                    end
                 end
             end
         end
