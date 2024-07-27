@@ -127,7 +127,7 @@ M1SpiderBotsSpotted1 = {
 -- MLs on the map, player doesn't have a transport
 M1SpiderBotsSpotted2 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M1SpiderBotsSpotted2>[{i HQ}]: There they are commander, you need that air transport right now!",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M1SpiderBotsSpotted2>[{i HQ}]: There they are commander, you need that transport right now!",
         vid = 'FAF_Coop_Operation_Tight_Spot_M1SpiderBotsSpotted2.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M1SpiderBotsSpotted2', faction = 'UEF'
     },
 }
@@ -238,7 +238,7 @@ M2LoyalistSpiderCounter = {
 -- Bonus objective done, capture engie station
 M2EngieStationCaptured = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2EngieStationCaptured>[{i HQ}]: Good thinking commmander, the extra build power of the Engineering Station will come in handy.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2EngieStationCaptured>[{i HQ}]: Good thinking commmander, the extra build power from that Engineering Station will come in handy.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2EngieStationCaptured.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2EngieStationCaptured', faction = 'UEF'
     },
 }
@@ -246,7 +246,7 @@ M2EngieStationCaptured = {
 -- Secondary objective to reclaim the CZAR
 M2ReclaimCZAR = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2ReclaimCZAR>[{i HQ}]: The wreckage of the crashed CZAR is a great source of mass, make sure to use it to build your base faster. Every second counts commander.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2ReclaimCZAR>[{i HQ}]: The wreckage of the crashed CZAR is a great source of mass, make sure you use it to build your base faster. Every second counts commander.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2ReclaimCZAR.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2ReclaimCZAR', faction = 'UEF'
     },
 }
@@ -256,7 +256,7 @@ M2ReclaimCZAR = {
 -- Scenario pick, stay and build the gate or leave to Charis' base
 M2PlayersChoice = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2Choice>[{i HQ}]: Alright commander, you have two choices. Either you're going to build your own gate to get out of this planet or you can try to push through to get to the Crusader Charis' base. We don't know how many units QAI has between you and Crusader Charis, but at the same time QAI can strike at your location at any moment. The choice is yours.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2Choice>[{i HQ}]: Alright commander, you have two choices. Either you build your own gate to get out of this planet or you can try and push through to Crusader Charis' base. We don't know how many units QAI has between you and Crusader Charis, but at the same time QAI can strike your location at any moment. The choice is yours.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2Choice.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2Choice', faction = 'UEF'
     },
 }
@@ -268,7 +268,7 @@ M2ChoiceMakeRun = "<LOC FAF_Coop_Operation_Tight_Spot_M2ChoiceMakeRun>Use Charis
 -- Reminder player to pick the plan
 M2ChoiceReminder = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2ChoiceReminder>[{i HQ}]: How do you want to proceed commander?",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2ChoiceReminder>[{i HQ}]: Well commander, how do you want to proceed?",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2ChoiceReminder.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2ChoiceReminder', faction = 'UEF'
     },
 }
@@ -284,7 +284,7 @@ M2ForceChoice = {
 -- Player picks to build the gate
 M2BuildGate = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2BuildGate_1>[{i HQ}]: Confirming the new plan to construct a Quantum Gate. Crusader Charis will stay on the planet and support you as she's able until you're ready to leave.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2BuildGate_1>[{i HQ}]: Confirming the new plan to construct a Quantum Gate. Crusader Charis will stay on planet to support you as long as she's able, and until you're ready to leave.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2BuildGate_1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2BuildGate_1', faction = 'UEF'
     },
     {
@@ -296,7 +296,7 @@ M2BuildGate = {
 -- Player picks to use Charis' gate
 M2UseCharisGate = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2UseCharisGate>[{i HQ}]: Confirming the new plan, you will move to crusader Charis' position and use her gate.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2UseCharisGate>[{i HQ}]: Confirming the new plan, you'll move to crusader Charis' position and use her gate.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M2UseCharisGate.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2UseCharisGate', faction = 'UEF'
     },
 }
@@ -327,7 +327,7 @@ M2B1Description = "<LOC FAF_Coop_Operation_Tight_Spot_M2B1Description>You captur
 -- Intro dialogue for building gate.
 M3BuildIntro1 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro1>[{i HQ}]: The scans show that the QAI is constructing bases everywhere around your position.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro1>[{i HQ}]: The scans show QAI is constructing bases everywhere around your position.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3BuildIntro1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3BuildIntro1', faction = 'UEF'
     },
 }
@@ -335,11 +335,11 @@ M3BuildIntro1 = {
 -- Intro dialogue for building gate.
 M3BuildIntro2 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro2>[{i HQ}]: There won't be any room for mistakes commander. Dig in, construct the Quantum Gate and get off the planet before QAI can launch any major offensive.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro2>[{i HQ}]: There won't be any room for mistakes here commander. Dig in, construct the Quantum Gate and get off planet before QAI can launch a major offensive.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3BuildIntro2.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3BuildIntro2', faction = 'UEF'
     },
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro3>[{i HQ}]: Keep in mind that the Quantum Gate will need some time to charge once it's build, so build it sooner rather than later. Good luck commander, you gonna need it.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3BuildIntro3>[{i HQ}]: Keep in mind the Quantum Gate will need some time to charge once it's build, so build it sooner rather than later. Good luck commander, you gonna need it.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3BuildIntro3.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3BuildIntro3', faction = 'UEF'
     },
 }
@@ -377,56 +377,56 @@ M3BuildGateReminder2 = {
 -- Gate is built
 M3GateBuilt = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateBuilt>[{i HQ}]: The Quantum Gate is online and charging. It's going to take few minutes before it's ready. You must defend it commander.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateBuilt>[{i HQ}]: The Quantum Gate is online and charging. It's gonna take few minutes before it's ready. You must defend it commander.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3GateBuilt.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateBuilt', faction = 'UEF'
     },
 }
 
 -- Gate dies, no other gate built.
-M2GateKilled1 = {
+M3GateKilled1 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2GateKilled1>[{i HQ}]: The Quantum Gate has been destroyed, you will another one.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M2GateKilled1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2GateKilled1', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateKilled1>[{i HQ}]: The Quantum Gate has been destroyed, you'll need to build another one.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateKilled1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateKilled1', faction = 'UEF'
     },
 }
 
 -- Gate dies, no other gate built.
-M2GateKilled2 = {
+M3GateKilled2 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2GateKilled2>[{i HQ}]: Ah hell, the Quantum Gate is down, build a new one commander.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M2GateKilled2.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2GateKilled2', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateKilled2>[{i HQ}]: Ah hell, the Quantum Gate is down, build a new one commander.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateKilled2.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateKilled2', faction = 'UEF'
     },
 }
 
 -- Gate dies, but there is another one charging already
-M2GateKilled3 = {
+M3GateKilled3 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2GateKilled3>[{i HQ}]: The Quantum Gate has been destroyed, but the other will be charged soon, make sure this one survives.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M2GateKilled3.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2GateKilled3', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateKilled3>[{i HQ}]: The first Quantum Gate has been destroyed, but the backup will finish charging soon, make sure it survives.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateKilled3.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateKilled3', faction = 'UEF'
     },
 }
 
 -- Gate dies, but there is another one charging already
-M2GateKilled4 = {
+M3GateKilled4 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2GateKilled4>[{i HQ}]: Ah hell, the Quantum Gate is down, but you can use the other one, it will be charged shortly.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M2GateKilled4.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2GateKilled4', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateKilled4>[{i HQ}]: Ah hell, you lost the gate! Just make sure you defend the backup, it will be charged shortly.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateKilled4.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateKilled4', faction = 'UEF'
     },
 }
 
 -- Gate dies, but there's another one already charged.
-M2GateKilled5 = {
+M3GateKilled5 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M2GateKilled5>[{i HQ}]: The Quantum Gate has been destroyed, but you have another one that is charged, use that one instead.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M2GateKilled5.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M2GateKilled5', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateKilled5>[{i HQ}]: The Quantum Gate has been destroyed, but you have another that is also charged. Use that one instead.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateKilled5.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateKilled5', faction = 'UEF'
     },
 }
 
 -- Gate is charged 25%
 M3GateChargin25 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateChargin25>[{i HQ}]: The Quantum Gate is 25% charged.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateChargin25.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateChargin25', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateCharging25>[{i HQ}]: The Quantum Gate is 25% charged.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3GateCharging25.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateCharging25', faction = 'UEF'
     },
 }
 
@@ -449,7 +449,7 @@ M3GateCharging75 = {
 -- Gate is charged
 M3GateCharged = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateCharged>[{i HQ}]: The Quantum Gate is fully charged commander, move your ACU to the gate.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3GateCharged>[{i HQ}]: The Quantum Gate is now fully charged commander, move your ACU to the gate.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3GateCharged.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3GateCharged', faction = 'UEF'
     },
 }
@@ -459,8 +459,8 @@ M3GateCharged = {
 -- Cinematics start, ACU's are entering the gate and gating out.
 M3PlayerAtGate_build = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3PlayerAtGate_build_1>[{i HQ}]: Come home commander, we're waiting for you.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M3PlayerAtGate_build_1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3PlayerAtGate_build_1', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3PlayerAtGate_build_1>[{i HQ}]: Come on home commander, we're waiting for you.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3PlayerAtGate_build_1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3PlayerAtGate_build1', faction = 'UEF' -- intentional typo in cue name, should be "build_1" needs rebuilding soundbank
     },
     {
         text = "<LOC FAF_Coop_Operation_Tight_Spot_M3PlayerAtGate_build_2>[Charis]: That was an impressive battle sister, I will see you on the other side.",
@@ -476,7 +476,7 @@ M3PlayerAtGate_build = {
 -- Cam at defensive line
 M3RunIntro1 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro1>[{i HQ}]: Alright commander, this walk is not gonna be easy, there's QAI's defensive line between you and crusader Charis.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro1>[{i HQ}]: Alright commander, this walk isn't gonna be easy, there's QAI's defensive line between you and crusader Charis.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3RunIntro1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3RunIntro1', faction = 'UEF'
     },
 }
@@ -484,7 +484,7 @@ M3RunIntro1 = {
 -- Cam at QAI's base
 M3RunIntro2 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro2>[{i HQ}]: One of the QAI's bases is right next to it, so expect heavy resistance.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro2>[{i HQ}]: One of QAI's bases is right next to it, so expect heavy resistance.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3RunIntro2.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3RunIntro2', faction = 'UEF'
     },
 }
@@ -508,7 +508,7 @@ M3RunIntro4 = {
 -- Final cam, zoomed out
 M3RunIntro5 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro5>[{i HQ}]: Garther as many units as you can and run to the gate. Commander Charis will hold the line as long as she can. Good luck commander.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3RunIntro5>[{i HQ}]: Garther as many units as you can and run to the gate. Commander Charis will hold the line for as long as possible. Good luck commander.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3RunIntro5.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3RunIntro5', faction = 'UEF'
     },
 }
@@ -518,7 +518,7 @@ M3RunIntro5 = {
 -- Post intro dialogue
 M3PostIntroPush = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3PostIntroPush_1>[{i HQ}]: QAI has significant ASF force in the area. It's gonna be a nightmare to keep track of them due to their Stealth ability. We don't recommend trying to move units by transports as they would be an easy prey. Also make sure to have enough Anti Air units near your ACU. HQ out.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3PostIntroPush_1>[{i HQ}]: QAI has a significant ASF force in the area. It's gonna be a nightmare to keep track of them due to their Stealth ability. We don't recommend trying to move units by transports as they would be an easy prey. Also make sure to have enough Anti-Air units near your ACU. HQ out.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3PostIntroPush_1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3PostIntroPush_1', faction = 'UEF'
     },
     {
@@ -542,7 +542,7 @@ M3PlayerAtGate_push = {
 -- Secondary objective to kill QAI
 M3QAISpotted = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3QAISpotted>[{i HQ}]: One of the QAI's ACU is the base between you and crusader Charis' base. Looks like you will have to go through it. If you get the change, teach that computer a lesson.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3QAISpotted>[{i HQ}]: One of the QAI ACUs is at the base between you and crusader Charis. Looks like you'll have to go through it. If you get the chance, teach that bloated bag of silicone a lesson.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3QAISpotted.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3QAISpotted', faction = 'UEF'
     },
 }
@@ -596,7 +596,7 @@ M3InvalidTarget = {
 -- Reminder to start the attack
 M3CharisReadyReminder1 = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3CharisReadyReminder1>[{i HQ}]: Charis is waiting for your command the start her assault.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3CharisReadyReminder1>[{i HQ}]: Commander Charis is waiting for your order to start her assault.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3CharisReadyReminder1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3CharisReadyReminder1', faction = 'UEF'
     },
 }
@@ -670,7 +670,7 @@ M3GameEnderDialogue2 = {
 -- Secondary objective, capture science buildings
 M3CaptureScienceFacility = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3CaptureScienceFacility>[{i HQ}]: Commander, a small research facility has been detected near your current position. Your top priority remains to get off the planet but try to capture it if you'll see an opening.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3CaptureScienceFacility>[{i HQ}]: Commander, a small research facility has been detected near your current position. Your top priority remains to get off planet, but if you see an opportunity ... try to capture it.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3CaptureScienceFacility.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3CaptureScienceFacility', faction = 'UEF'
     },
 }
@@ -678,7 +678,7 @@ M3CaptureScienceFacility = {
 -- Buildings captured
 M3ScienceFacilityCaptured = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3ScienceFacilityCaptured_1>[{i HQ}]: Well done! Our technicians are transferring the data. It'll take some time to decrypt them but hopefully we'll find something that would help us against QAI.",
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3ScienceFacilityCaptured_1>[{i HQ}]: Well done! Our technicians are transferring the data. It'll take some time to decrypt them but hopefully we'll find something that will help us against QAI.",
         vid = 'FAF_Coop_Operation_Tight_Spot_M3ScienceFacilityCaptured_1.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3ScienceFacilityCaptured_1', faction = 'UEF'
     },
     {
@@ -698,8 +698,8 @@ M3ScienceFacilityDead = {
 -- Show QAI's spiders
 M3ExtraIntelPush = {
     {
-        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3ExtraIntelPush>[{i HQ}]: The technicians managed to decrypt some of the data and establish a link to QAI's local network. It allows us to track some of the experimental units in the area.",
-        vid = 'FAF_Coop_Operation_Tight_Spot_M3ExtraIntelPush.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3ExtraIntelPush', faction = 'UEF'
+        text = "<LOC FAF_Coop_Operation_Tight_Spot_M3ExtraIntelPush>[{i HQ}]: The technicians managed to decrypt some of the data and establish a link to QAI's local network. It'll allows us to track some of the experimental units in the area. HQ out.",
+        vid = 'FAF_Coop_Operation_Tight_Spot_M3ExtraIntelPush.sfd', bank = 'FAF_Coop_Operation_Tight_Spot_VO', cue = 'M3ExtralntelPush', faction = 'UEF' -- Cue name has "intentional" typo in "Intel" as "L-ntel", requires rebuilding soundbank 
     },
 }
 

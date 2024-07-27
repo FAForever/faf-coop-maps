@@ -1589,13 +1589,13 @@ function M3CheckGates()
     local gate, charged = GetNextGate()
     if not gate then
         -- Build a new gate
-        ScenarioFramework.Dialogue(OpStrings['M2GateKilled' .. Random(1, 2)], M3BuildGate, true)
+        ScenarioFramework.Dialogue(OpStrings['M3GateKilled' .. Random(1, 2)], M3BuildGate, true)
     elseif charged then
         ScenarioInfo.PlayersGate = gate
-        ScenarioFramework.Dialogue(OpStrings.M2GateKilled5, M3LeavePlanet, true)
+        ScenarioFramework.Dialogue(OpStrings.M3GateKilled5, M3LeavePlanet, true)
     else
         -- Protect other gate that is charging
-        ScenarioFramework.Dialogue(OpStrings['M2GateKilled' .. Random(3, 4)], M3ChargeGate, true)
+        ScenarioFramework.Dialogue(OpStrings['M3GateKilled' .. Random(3, 4)], M3ChargeGate, true)
     end
 end
 
