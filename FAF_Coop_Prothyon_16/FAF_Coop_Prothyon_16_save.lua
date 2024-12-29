@@ -40,7 +40,7 @@ Scenario = {
             ['rectangle'] = RECTANGLE( 1012.5, 1243.5, 1265.5, 1481.5 ),
         },
         ['M5_UEF_Island_Base_Area'] = {
-            ['rectangle'] = RECTANGLE( 825.5, 680.5, 1000.5, 830.5 ),
+            ['rectangle'] = RECTANGLE( 785.5, 590.5, 1000.5, 830.5 ),
         },
         ['UEF_Evac_Area'] = {
             ['rectangle'] = RECTANGLE( 90.5, 1935.5, 120.5, 1965.5 ),
