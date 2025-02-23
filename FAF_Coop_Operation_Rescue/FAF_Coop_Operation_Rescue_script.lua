@@ -66,12 +66,10 @@ local RequiredTrucks = {6, 6, 6}
 ----------
 local TrucksAttacked = false
 local JammerSpotted = false
-local TrucksReachedDest = false
 local CommsRestored = false -- Used for details. I want multiple death messages.
 local CybTeleportedToPlayer = false
 local FacilitySpotted = false
 local AllTrucksAlive = false
-local AllTrucksRescued = false
 
 ----------------
 -- Timers
@@ -477,7 +475,6 @@ function M3Trucks()
     ScenarioInfo.TrucksDestroyed = 0
     ScenarioInfo.TrucksEscorted = 0
     ScenarioInfo.Trucks = {}
-    ScenarioInfo.TrucksRescued = {}
 
     -- Create Trucks
     for i = 1, MaxTrucks do
@@ -630,11 +627,8 @@ function M3_Handle_Cybran_Teleport()
 end
 
 function TruckRescued(unit)
-    for i,v in ScenarioInfo.Trucks do 
-        if(v == unit) then
-            table.remove(ScenarioInfo.Trucks, i)
-            table.insert(ScenarioInfo.TrucksRescued, unit)
-        end
+    if not ScenarioInfo.M3P1.Active then
+        return
     end
 
     IssueStop({unit})
@@ -643,27 +637,33 @@ function TruckRescued(unit)
     TrucksAtDest = TrucksAtDest + 1
     Objectives.UpdateBasicObjective(ScenarioInfo.M3P1, 'progress', LOCF('(%s/%s)', TrucksAtDest, 10 ))
 
-    if TrucksAtDest == MaxTrucks then
+    -- If not enough trucks
+    if (TrucksAtDest < RequiredTrucks[Difficulty]) then
+        return
+    end
+
+    if AllTrucksAlive then
         -- Bonus Objective here
-        AllTrucksRescued = true
         ScenarioInfo.M3B1:ManualResult(true)
     end
 
-    if TrucksAtDest >= RequiredTrucks[Difficulty] and AllTrucksRescued or TrucksAtDest >= RequiredTrucks[Difficulty] and not AllTrucksAlive then
-        if not TrucksReachedDest then
-            ScenarioInfo.M3P1:ManualResult(true)
-
-            ScenarioInfo.M3MovePing:Destroy()
-
-            -- Remove Trucks from the map using transports.
-            import('/lua/ai/aiutilities.lua').UseTransports(ScenarioInfo.TrucksRescued, ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
-            IssueMove(ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
-            ForkThread(M3DisableEngineerBase) -- Disable base if trucks have departed.
-            ForkThread(M3AttackPlayer)
-            ScenarioFramework.Dialogue(OpStrings.HQ_Mission3_1, Intro_Mission_4, true)
-            TrucksReachedDest = true
+    local aliveTructs = {}
+    for _, truck in ScenarioInfo.Trucks do
+        if not truck.Dead then
+            table.insert(aliveTructs, truck)
         end
     end
+
+    ScenarioInfo.M3P1:ManualResult(true)
+
+    ScenarioInfo.M3MovePing:Destroy()
+
+    -- Remove Trucks from the map using transports.
+    import('/lua/ai/aiutilities.lua').UseTransports(aliveTructs, ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
+    IssueMove(ScenarioInfo.Transports, ScenarioUtils.MarkerToPosition('TrucksRemove'))
+    ForkThread(M3DisableEngineerBase) -- Disable base if trucks have departed.
+    ForkThread(M3AttackPlayer)
+    ScenarioFramework.Dialogue(OpStrings.HQ_Mission3_1, Intro_Mission_4, true)
 end
 
 function M3TruckDamaged(truck)
