@@ -41,7 +41,7 @@ local NeutralCybran = ScenarioInfo.NeutralCybran
 local Difficulty = ScenarioInfo.Options.Difficulty
 local AssignedObjectives = {}
 
-local M1ReoccurringAttackDelay = {8*60, 6*60, 4*60}
+local M1ReoccurringAttackDelay = {9*60, 7*60, 5*60}
 
 local LeaderFaction
 local LocalFaction
@@ -278,13 +278,40 @@ function StartMission1()
     ScenarioFramework.CreateTimerTrigger(M1P1Reminder, 900)
 
     -- Set a scout to fly over the player's base after a delay
-    ScenarioFramework.CreateTimerTrigger(M1ScoutPlayer, 30)
+    ScenarioFramework.CreateTimerTrigger(M1ScoutPlayer, 60)
 
-    ScenarioFramework.CreateTimerTrigger(M1EarlyAttack1, 60)
-    ScenarioFramework.CreateTimerTrigger(M1EarlyAttack2, 90)
+    ScenarioFramework.CreateTimerTrigger(M1EarlyAttack1, 100)
+    ScenarioFramework.CreateTimerTrigger(M1EarlyAttack2, 180)
 
     -- Set the 'retaliation attack' to launch after a delay
-    ScenarioFramework.CreateTimerTrigger(M1AttackPlayer, 180)
+    ScenarioFramework.CreateTimerTrigger(M1AttackPlayer, 260)
+end
+
+function M1ScoutPlayer()
+    local scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
+    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
+        IssuePatrol({ scout }, PatrolPoint)
+    end
+
+    WaitSeconds(7)
+    -- Send a second one, just to make more of an impact
+    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
+    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
+        IssuePatrol({ scout }, PatrolPoint)
+    end
+
+    -- Adding land scouts so that the player is encouraged to build anti-ground defenses
+    WaitSeconds(30)
+    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1ScoutLand')
+    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
+        IssuePatrol({ scout }, PatrolPoint)
+    end
+
+    WaitSeconds(7)
+    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1ScoutLand')
+    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
+        IssuePatrol({ scout }, PatrolPoint)
+    end
 end
 
 function M1EarlyAttack1()
@@ -332,33 +359,6 @@ function M1AttackPlayer()
 
     -- Kick off the reoccurring attacks
     ScenarioFramework.CreateTimerTrigger(M1ReoccurringAttack, M1ReoccurringAttackDelay[Difficulty])
-end
-
-function M1ScoutPlayer()
-    local scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
-    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
-        IssuePatrol({ scout }, PatrolPoint)
-    end
-
-    WaitSeconds(7)
-    -- Send a second one, just to make more of an impact
-    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1Scout')
-    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
-        IssuePatrol({ scout }, PatrolPoint)
-    end
-
-    -- Adding land scouts so that the player is encouraged to build anti-ground defenses
-    WaitSeconds(30)
-    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1ScoutLand')
-    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
-        IssuePatrol({ scout }, PatrolPoint)
-    end
-
-    WaitSeconds(7)
-    scout = ScenarioUtils.CreateArmyUnit('Cybran', 'M1ScoutLand')
-    for k, PatrolPoint in ScenarioUtils.ChainToPositions('M1_Attack_Route' .. Random(1, 3)) do
-        IssuePatrol({ scout }, PatrolPoint)
-    end
 end
 
 function M1ReoccurringAttack()
