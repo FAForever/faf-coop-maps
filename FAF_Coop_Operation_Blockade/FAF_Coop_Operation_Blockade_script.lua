@@ -35,6 +35,14 @@ local Player2 = ScenarioInfo.Player2
 local Player3 = ScenarioInfo.Player3
 local Player4 = ScenarioInfo.Player4
 
+local LeaderFaction
+local LocalFaction
+local AIs = {Seraphim, Seraphim2}
+local BuffCategories = {
+    BuildPower = (categories.FACTORY * categories.STRUCTURE) + categories.ENGINEER,
+    Economy = categories.ECONOMIC,
+}
+
 local Debug = false
 local timeAttackP3 = {50*60, 35*60, 25*60}
 
@@ -42,7 +50,7 @@ local AssignedObjectives = {}
 
 local NIS1InitialDelay = 3
 
-function OnPopulate(Self)
+function OnPopulate(scen)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
     
@@ -72,6 +80,7 @@ function OnPopulate(Self)
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
+    ForkThread(P1RandomPicker)
     
     ScenarioUtils.CreateArmyGroup('Seraphim', 'Wreakbase1', true)
     ScenarioUtils.CreateArmyGroup('Seraphim', 'P1Bwalls')
@@ -80,20 +89,20 @@ function OnPopulate(Self)
     P1SeraphimAI.Seraphimbase1AI()
     P1SeraphimAI.Seraphimbase2AI()
 
-    ArmyBrains[Seraphim]:PBMSetCheckInterval(6)
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 1.5
-
-       for _, u in GetArmyBrain(Seraphim):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end       
+    ArmyBrains[Seraphim]:PBMSetCheckInterval(6)   
 end
 
-function OnStart(Self)
+function OnStart(scen)
     ScenarioFramework.SetPlayableArea('AREA_1', false)   
+
+    for _, army in AIs do
+        ArmyBrains[army].IMAPConfig = {
+                OgridRadius = 0,
+                IMAPSize = 0,
+                Rings = 0,
+        }
+        ArmyBrains[army]:IMAPConfiguration()
+    end
     
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
     ForkThread(Intro1)
@@ -161,6 +170,7 @@ function Intro1()
     Cinematics.ExitNISMode()
    
     ForkThread(MissionP1)
+    ForkThread(BuffAIEconomy)   
 
     SetupSeraP2TauntTriggers()
 
@@ -170,6 +180,12 @@ end
 function MissionP1()
     
     ScenarioInfo.MissionNumber = 1
+
+    local function MissionNameAnnouncement()
+        ScenarioFramework.SimAnnouncement(ScenarioInfo.name, "Mission by Shadowlorda1, Map by WasserMelon")
+    end
+
+    ScenarioFramework.CreateTimerTrigger(MissionNameAnnouncement, 12)
   
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
@@ -201,7 +217,7 @@ function MissionP1()
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
             if(result) then
-                ForkThread(IntroP2)
+                ForkThread(StartPart2)
             end 
         end
     )
@@ -212,7 +228,7 @@ function MissionP1()
 
     if ExpansionTimer then
         local M1MapExpandDelay = {40*60, 35*60, 30*60}
-        ScenarioFramework.CreateTimerTrigger(IntroP2, M1MapExpandDelay[Difficulty])  
+        ScenarioFramework.CreateTimerTrigger(StartPart2, M1MapExpandDelay[Difficulty])  
     end 
 end
 
@@ -260,7 +276,36 @@ function MidP1()
     ScenarioFramework.Dialogue(OpStrings.MidP1, nil, true)
 end
 
+function P1RandomPicker()
+    
+    ScenarioInfo.Specialfunction = Random(1, 3)
+    
+    if  ScenarioInfo.Specialfunction == 1 then
+    
+    P1SeraphimAI.SeraphimbaseR1AI()
+
+    else
+        if  ScenarioInfo.Specialfunction == 2 then
+        
+    
+            P1SeraphimAI.SeraphimbaseR2AI()
+
+        else
+            if  ScenarioInfo.Specialfunction == 3 then
+
+                P1SeraphimAI.SeraphimbaseR3AI()
+
+            end
+        end
+    end
+end
+
 --Part 2
+
+function StartPart2()
+
+    ForkThread(IntroP2)
+end 
 
 function IntroP2()
 
@@ -268,6 +313,8 @@ function IntroP2()
         return
     end
     ScenarioInfo.MissionNumber = 2
+
+    WaitSeconds(5)
 
     ScenarioFramework.SetPlayableArea('AREA_2', true)
    
@@ -346,20 +393,12 @@ function IntroP2()
     ForkThread(EnableOCOnACUs)
     SetupSeraP2TauntTriggers()
     
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 2
-
-    for _, u in GetArmyBrain(Seraphim):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
-
-    for _, u in GetArmyBrain(Seraphim2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end
-    
-    ScenarioFramework.CreateTimerTrigger(MissionP2Secondary, 3*60)
+    ForkThread(
+        function()
+            WaitSeconds(3*60)
+            MissionP2Secondary()
+        end
+    )  
 end 
 
 function MissionP2()
@@ -447,7 +486,7 @@ function MissionP2Secondary()
     end
     
     ScenarioInfo.M2S1P2 = Objectives.Kill(
-        'secondary',                    -- type
+        'secondary',                      -- type
         'incomplete',                   -- complete
         OpStrings.M2S1P2Title,          -- title
         OpStrings.M2S1P2Description,    -- description
@@ -470,17 +509,13 @@ function SeraCommanderKilled()
 
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU, 4)
     ScenarioFramework.Dialogue(OpStrings.Death1P2, nil, true)
-    if Difficulty < 3 then
-        ForkThread(P2KillSeraBase)  
-    end
+    ForkThread(P2KillSeraBase)  
 end
 
 function SeraCommanderSKilled()
 
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraSACU, 4)
-    if Difficulty < 3 then
-        ForkThread(P2SKillSeraBase)  
-    end
+    ForkThread(P2SKillSeraBase)  
 end
 
 function P2KillSeraBase()
@@ -655,7 +690,7 @@ function IntroP3()
 
     local Antinukes = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb4302, false)
     for _, v in Antinukes do
-        v:GiveTacticalSiloAmmo(5)
+        v:GiveTacticalSiloAmmo(3)
     end
 
     ScenarioUtils.CreateArmyGroup('Seraphim2', 'P3Bwalls')
@@ -704,8 +739,6 @@ function IntroP3()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 1)
         Cinematics.SetInvincible('AREA_2', true)
     Cinematics.ExitNISMode()
-    
-    ForkThread(nukeparty)
 
     ArmyBrains[Seraphim2]:GiveResource('MASS', 32000)
     ArmyBrains[Seraphim2]:GiveResource('ENERGY', 130000)
@@ -714,15 +747,7 @@ function IntroP3()
     ForkThread(P3Intattacks)
     ScenarioFramework.CreateArmyIntelTrigger(MissionP3Secondary, ArmyBrains[Player1], 'LOSNow', false, true, categories.xsl0301, true, ArmyBrains[Seraphim2]) 
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 2
-    buffAffects.MassProduction.Mult = 2
-
-    for _, u in GetArmyBrain(Seraphim2):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-        Buff.ApplyBuff(u, 'CheatIncome')
-    end 
-
+    ForkThread(EnableSeraNukeAI)
     SetupSeraP3TauntTriggers()
 end
 
@@ -895,7 +920,7 @@ function MissionP3()
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
-            Units = {ScenarioInfo.PSACU1, ScenarioInfo.PSACU2, ScenarioInfo.PSACU3},
+            Units = {ScenarioInfo.GateP3},
         }
    )
     ScenarioInfo.M2P3:AddResultCallback(
@@ -910,12 +935,12 @@ function MissionP3()
         'primary',                      -- type
         'incomplete',                   -- complete
         OpStrings.M3P3Title,            -- title
-        OpStrings.M3P3Description,      -- description
+        OpStrings.M3P3Description,      -- description          
         {                               -- target
-            Timer = (timeAttackP3[Difficulty]),
-            ExpireResult = 'Failed',
-        }
-    )
+           Timer = (timeAttackP3[Difficulty]),
+           ExpireResult = 'Failed',
+           }
+          )
 
     ScenarioInfo.M3P3:AddResultCallback(
         function(result)
@@ -925,7 +950,7 @@ function MissionP3()
         end
     )
 
-    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', EndgameCheck)
+    ScenarioInfo.M3Objectives = Objectives.CreateGroup('M3Objectives', PlayerWin)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M2P3)
     ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M1P3)
     if ScenarioInfo.M1P1.Active then
@@ -951,7 +976,7 @@ function MissionP3Secondary()
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
-            Units = {ScenarioInfo.SeraACU2},
+            Units = {ScenarioInfo.PSACU1, ScenarioInfo.PSACU2, ScenarioInfo.PSACU3},
         }
     )
     ScenarioInfo.M1S1P3:AddResultCallback(
@@ -965,11 +990,9 @@ end
 
 function SeraCommander2Killed()
 
-        ScenarioFramework.Dialogue(OpStrings.Death2P3, nil, true)
-        ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU2, 3)
-        if Difficulty < 3 then 
-            P3KillSera2Base()  
-        end
+    ScenarioFramework.Dialogue(OpStrings.Death2P3, nil, true)
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.SeraACU2, 3)
+    P3KillSera2Base()  
 end
 
 function P3KillSera2Base()
@@ -982,51 +1005,31 @@ function P3KillSera2Base()
         end
 end
 
-function nukeparty()
-    local SeraNuke = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb2305, false)
-    SeraNuke[1]:GiveNukeSiloAmmo(3)
-    local plat = ArmyBrains[Seraphim2]:MakePlatoon('', '')
-        ArmyBrains[Seraphim2]:AssignUnitsToPlatoon(plat, {SeraNuke[1]}, 'Attack', 'NoFormation')
-        plat:ForkAIThread(plat.NukeAI)
+--Seraphim2 Nuke AI during Phase 3, platoon.lua is used in this case
+function EnableSeraNukeAI()
+    --Get a table of all Seraphim2 SMLs
+    local SeraSilos = ArmyBrains[Seraphim2]:GetListOfUnits(categories.xsb2305, false)
+        
+        --Only do something if there is at least 1 SML in the table
+        if table.getn(SeraSilos) > 0 then
+            for k, v in SeraSilos do
+                --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
+                if not v.SiloAIEnabled and not v:IsDead() then
+                    --Make a single unit platoon for each SML
+                    local SiloPlatoon = ArmyBrains[Seraphim2]:MakePlatoon('','')
+                    ArmyBrains[Seraphim2]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')
+                    --Platoon gets the AI function called
+                    SiloPlatoon:ForkAIThread(SiloPlatoon.NukeAI)
+                    --Flag to check if the NukeAI has already been called for the SML instance
+                    v.SiloAIEnabled = true
+                end
+            end
+        end
+    --Check for SMLs every 60 seconds
+    ScenarioFramework.CreateTimerTrigger(EnableSeraNukeAI, 60)
 end
 
 -- End functions
-
-function EndgameCheck()
-
-    if Difficulty == 3 then
-
-        ScenarioInfo.M1P5 = Objectives.CategoriesInArea(
-            'primary',                      -- type
-            'incomplete',                   -- complete
-            OpStrings.M1P5Title,            -- title
-            OpStrings.M1P5Description,      -- description
-            'kill',                         -- action
-            {                               -- target
-                MarkUnits = true,
-                ShowProgress = true,
-                ShowFaction = 'Seraphim',
-                Requirements = {
-                    {   
-                        Area = 'AREA_3',
-                        Category = categories.FACTORY + (categories.ECONOMIC * categories.TECH2) + (categories.ECONOMIC * categories.TECH3),
-                        CompareOp = '<=',
-                        Value = 0,
-                        ArmyIndex = Seraphim2,
-                    },
-                },
-            }
-        )
-    
-        ScenarioInfo.M3HardObjectives = Objectives.CreateGroup('M3HardObjectives', PlayerWin)
-        ScenarioInfo.M3HardObjectives:AddObjective(ScenarioInfo.M1P5)
-        if ScenarioInfo.M5P2.Active then
-            ScenarioInfo.M3Objectives:AddObjective(ScenarioInfo.M5P2)
-        end
-    else
-        PlayerWin()
-    end
-end
 
 function PlayerWin()
     if(not ScenarioInfo.OpEnded) then
@@ -1072,6 +1075,37 @@ function PlayerDeath()
                 KillGame()
             end
        )
+    end
+end
+
+-- Buffs resource producing structures, (and ACU variants.)
+function BuffAIEconomy()
+    -- Resource production multipliers, depending on the Difficulty
+    local Rate = {1.5, 2.0, 2.5}
+    -- Buff definitions
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
+    buffAffects.EnergyProduction.Mult = Rate[Difficulty]
+    buffAffects.MassProduction.Mult = Rate[Difficulty]
+    
+    while true do
+        if not table.empty(AIs) then
+            for i, j in AIs do
+                local economy = ArmyBrains[j]:GetListOfUnits(BuffCategories.Economy, false)
+                -- Check if there is anything to buff
+                if table.getn(economy) > 0 then
+                    for k, v in economy do
+                        -- Apply buff to the entity if it hasn't been buffed yet
+                        if not v.EcoBuffed then
+                            Buff.ApplyBuff( v, 'CheatIncome' )
+                            -- Flag the entity as buffed
+                            v.EcoBuffed = true
+                        end
+                    end
+                end
+            end
+        end
+        WaitSeconds(60)
     end
 end
 
