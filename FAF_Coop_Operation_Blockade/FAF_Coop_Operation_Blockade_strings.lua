@@ -33,11 +33,11 @@ M1P1Title = '<LOC FAF_Coop_Operation_Blockade_M1P1Title>Destroy Seraphim Bases'
 
 M1P1Description = '<LOC FAF_Coop_Operation_Blockade_M1P1Description>Eliminate the Seraphim bases to move on the gates'
 
--- Bonus Objective
+-- Secondary Objective
 
 M1P1S1Title = '<LOC FAF_Coop_Operation_Blockade_M1P1S1Title>Destroy Seraphim Artillery Positions'
 
--- Bonus Objective
+-- Secondary Objective
 
 M1P1S1Description = '<LOC FAF_Coop_Operation_Blockade_M1P1S1Description>Destroy them to clear the water way for your navy.'
 
@@ -60,7 +60,7 @@ MidP2 = {
 
 -- Hey look! someone else we have to kill!
 SecondaryP2 = {
-    {text = '<LOC FAF_Coop_Operation_Blockade_016>[Coalition HQ]: Commander, we just detected a qauntum warp, a Seraphim commander has just gated in. Kill him before he can become a threat. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
+    {text = '<LOC FAF_Coop_Operation_Blockade_016>[Coalition HQ]: Commander, we just detected a qauntum warp, a Seraphim Commander has just gated in. Kill him before he can become a threat. HQ out.', vid = '', bank = 'JJ_VO2', cue = 'IntroP4-1', faction = 'UEF'},
 }
 
 -- Shame! Would have loved the hunt for him!
@@ -84,11 +84,11 @@ M2P2Title = '<LOC FAF_Coop_Operation_Blockade_M2P2Title>Kill the Seraphim Comman
 
 M2P2Description = '<LOC FAF_Coop_Operation_Blockade_M2P2Description>Eliminate the Seraphim Commander, He is guarding one of the gates.'
 
--- Bonus Objective
+-- Secondary Objective
 
 M2S1P2Title = '<LOC FAF_Coop_Operation_Blockade_M2S1P2Title>Kill New Seraphim Commander'
 
--- Bonus Objective
+-- Secondary Objective
 
 M2S1P2Description = '<LOC FAF_Coop_Operation_Blockade_M2S1P2Description>A Seraphim commander has just gated in. Kill them before they can become a threat.'
 
@@ -142,11 +142,11 @@ M3P3Title = '<LOC FAF_Coop_Operation_Blockade_M3P3Title>Time till Quantum Wake D
 
 M3P3Description = '<LOC FAF_Coop_Operation_Blockade_M3P3Description>The Seraphim only has to hold out a limited amount of time.'
 
--- Bonus Objective
+-- Secondary Objective
 
 M1S1P3Title = '<LOC FAF_Coop_Operation_Blockade_M1S1P3Title>Kill Seraphim Support Commanders'
 
--- Bonus Objective
+-- Secondary Objective
 
 M1S1P3Description = '<LOC FAF_Coop_Operation_Blockade_M1S1P3Description>There are several Support commanders helping the main Seraphim Commander, eliminate them.'
 
@@ -209,12 +209,12 @@ TAUNT1P3  = {
     {text = '<LOC FAF_Coop_Operation_Blockade_035>[Lord Yuth-Azeath]: Your attack\'s are pathetic, just like you!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
 
--- Ahh so your are admitting you are a coward aye?
+-- Ahh so you are admitting you are a coward aye?
 TAUNT2P3  = {
     {text = '<LOC FAF_Coop_Operation_Blockade_036>[Lord Yuth-Azeath]: I do not have to defeat you, just outlast you!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
 
--- I dont think you have enough gasoline for that son.
+-- I dont think you have enough gasoline for that.
 TAUNT3P3  = {
     {text = '<LOC FAF_Coop_Operation_Blockade_037>[Lord Yuth-Azeath]: This galaxy will burn, we will be unstoppable!', vid = 'Maahes.sfd', bank = 'JJ_VO2', cue = 'RevealP1', faction = 'Seraphim'},
 }
