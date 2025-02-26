@@ -51,14 +51,14 @@ OPERATION_DESCRIPTION = '<LOC FAF_Coop_Fort_Clarke_Assault_Description>Rework of
 -- Win/Lose
 -----------
 PlayerWin = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_001>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_PlayerWin>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 
 
 -- PO1 Factory West Destroyed / Actor:  / Update: 24/2/2016 / VO TODO
 BaseDestroyed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_002>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_BaseDestroyed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 ------------
@@ -67,14 +67,10 @@ BaseDestroyed = {
 
 -- Primary Objective
 M1P1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M1P1Title>Destroy UEF Forward Bases'
-
--- Primary Objective
 M1P1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M1P1Description>Secure the area around your starting location.'
 
--- Bonus Objective
+-- Secondary Objective
 M1S1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M1S1Title>Reclaim Experimental Bomber Wreck'
-
--- Bonus Objective
 M1S1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M1S1Description>Use the Mass from the wreckage to boost your economy.'
 
 
@@ -83,29 +79,25 @@ M1S1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M1S1Description>Use the Mas
 ------------
 -- Assign objective to kill Civilian City / Actor:  / Update: 24/2/2016 / VO TODO
 M2_Kill_Civs_Objective = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_003>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M2_Kill_Civs_Objective>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Objective to Destroy M2 UEF City complete / Actor:  / Update: 24/2/2016 / VO TODO
 M2_Civs_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_004>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M2_Civs_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Order Commander Killed / Actor:  / Update: 24/2/2016 / VO TODO
 M2_OrderCommanderKilled = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_005>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M2_OrderCommanderKilled>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Primary Objective
 M2P1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M2P1Title>Prepare your forces for the incoming couter attack'
-
--- Primary Objective
 M2P1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M2P1Description>Coalition forces are preparing major offensive against your positions. Build up your army to repel their attack.'
 
 -- Secondary Objective
 M2S1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M2S1Title>Annihilate Human City'
-
--- Secondary Objective
 M2S1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M2S1Description>Destroy UEF City south of your location.'
 
 
@@ -114,13 +106,11 @@ M2S1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M2S1Description>Destroy UEF
 ------------
 -- Experimentals from Counterattack killed / Actor:  / Update: 24/2/2016 / VO TODO
 M3_All_Exps_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_006>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M3_All_Exps_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Primary Objective
 M3P1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M3P1Title>Survive the Counterattack'
-
--- Primary Objective
 M3P1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M3P1Description>Prevent Coalition forces from overrunning your position.'
 
 
@@ -130,43 +120,39 @@ M3P1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M3P1Description>Prevent Coa
 
 -- Ythothas and T2 subs for player / Actor:  / Update: 24/2/2016 / VO TODO
 M4_Reinforcements = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_007>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_Reinforcements>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 
 -- Fork Clarke Destroyed / Actor:  / Update: 24/2/2016 / VO TODO
 M4_Fort_Clarke_Destroyd = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_008>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_Fort_Clarke_Destroyd>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Aeon ACU Killed / Actor:  / Update: 24/2/2016 / VO TODO
 M4_Aeon_ACU_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_009>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_Aeon_ACU_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Cybran ACU Killed / Actor:  / Update: 24/2/2016 / VO TODO
 M4_Cybran_ACU_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_010>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_Cybran_ACU_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- UEF ACU Killed / Actor:  / Update: 24/2/2016 / VO TODO
 M4_UEF_ACU_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_011>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_UEF_ACU_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- All ACUs Killed / Actor:  / Update: 24/2/2016 / VO TODO
 M4_All_ACUs_Killed = {
-    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_012>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
+    {text = '<LOC FAF_Coop_Fort_Clarke_Assault_M4_All_ACUs_Killed>[Seraphim]: Something.', vid = '', bank = '', cue = '', faction = 'Seraphim'},
 }
 
 -- Primary Objective
 M4P1Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M4P1Title>Destroy Fort Clarke'
-
--- Primary Objective
 M4P1Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M4P1Description>Destroy Fort Clarke.'
 
 -- Primary Objective
 M4P2Title = '<LOC FAF_Coop_Fort_Clarke_Assault_M4P2Title>Defeat Coalition Commanders'
-
--- Primary Objective
 M4P2Description = '<LOC FAF_Coop_Fort_Clarke_Assault_M4P2Description>Fort Clarke is being reinforced by 3 Coalition commanders. Don\'t let them stay in your way.'
