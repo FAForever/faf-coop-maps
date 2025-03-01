@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Mission 5 - Shining Star',
-    description = 'This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.',
+    name = '<LOC OPNAME_A05>Aeon Mission 5 - Shining Star',
+    description = '<LOC SCCA_A05_description>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

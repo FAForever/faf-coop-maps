@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A03>Operation High Tide'
-OPERATION_DESCRIPTION = 'Ten days ago we launched an offensive against UEF forces positioned on Matar.\nDespite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable.\nYou will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest.'
+OPERATION_DESCRIPTION = '<LOC SCCA_A03_description>Ten days ago we launched an offensive against UEF forces positioned on Matar.\nDespite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable.\nYou will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest.'
 
 
 

@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Fort Clarke Assault',
-    description = "Rework of the first FA mission from Seraphim point of view. Work in progress.",
+    name = '<LOC FAF_Coop_Fort_Clarke_Assault_Name>Fort Clarke Assault',
+    description = "<LOC FAF_Coop_Fort_Clarke_Assault_Description>Rework of the first FA mission from Seraphim point of view. Work in progress.",
     type = 'campaign_coop',
     starts = true,
     preview = '',

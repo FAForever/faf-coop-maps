@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E03>Operation Metal Shark'
-OPERATION_DESCRIPTION = 'We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.\nColonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here.'
+OPERATION_DESCRIPTION = '<LOC SCCA_E03_description>We have just received word that the Aeon are attacking Matar, an important rim-world. Undoubtedly, they\'re brainwashing the population or slaughtering them outright. You will drive the Aeon from Matar.\nColonel Arnold will maintain overall command responsibility. Colonel, you will be dropped here, while the Captain will be dropped here.'
 
 
 

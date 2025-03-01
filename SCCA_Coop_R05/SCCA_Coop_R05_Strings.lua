@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C05>Operation Unlock'
-OPERATION_DESCRIPTION = 'Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes. We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probabillity the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'
+OPERATION_DESCRIPTION = '<LOC SCCA_R05_description>Commander, you will free Hex5\'s comrades and get the Black Sun\'s access codes. We are running out of time, my boy. Out of time. The UEF will fall to the Aeon within 14 days. If that happens, there is a high probabillity the UEF will unleash Option Zero and destroy all life on Earth. We face our darkest hour. You must succeed. Your brothers and sisters are counting on you. Be safe.'
 
 
 

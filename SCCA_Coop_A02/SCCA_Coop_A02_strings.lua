@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A02>Operation Machine Purge'
-OPERATION_DESCRIPTION = 'This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans.\nZeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory.\nYou will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population.\nLeave none alive.'
+OPERATION_DESCRIPTION = '<LOC SCCA_A02_description>This is Zeta Canis. It was once a UEF colony, but it is now in the hands of those cursed Cybrans.\nZeta Canis offers little in resources, but its location makes it a prime staging area for strikes into UEF territory.\nYou will go to Zeta Canis, destroy any Cybran Commanders on the planet, and cleanse the civilian population.\nLeave none alive.'
 
 
 

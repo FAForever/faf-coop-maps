@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Novax Station Assault',
-    description = 'QAI has found a planet where the UEF develops new experimental weapons. They need to be stopped before they can finish their research. An Order commander has already launched their offensive. You will gate in, locate all UEF research stations and destroy them.',
+    name = '<LOC FAF_Coop_Operation_Novax_Station_Assault_Name>Novax Station Assault',
+    description = '<LOC FAF_Coop_Operation_Novax_Station_Assault_Description>QAI has found a planet where the UEF develops new experimental weapons. They need to be stopped before they can finish their research. An Order commander has already launched their offensive. You will gate in, locate all UEF research stations and destroy them.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

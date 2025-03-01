@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Cybran Mission 4 - Mainframe Tango',
-    description = 'This is Procyon, an out-of-the-way planet with a small population. Our sensors indicate that the Aeon have landed and are establishing millitary operations. We cannot allow them to seize the planet. Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.',
+    name = '<LOC OPNAME_R04>Cybran Mission 4 - Mainframe Tango',
+    description = '<LOC SCCA_R04_description>This is Procyon, an out-of-the-way planet with a small population. Our sensors indicate that the Aeon have landed and are establishing millitary operations. We cannot allow them to seize the planet. Commander, you will travel to Procyon and defeat the Aeon forces. Do not allow them to damage the QAI\'s Mainframe or secondary Processing Nodes. You gate ASAP.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
