@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Mission 1 - Joust',
-    description = "This is Rigel, a lightly populated UEF world.\nYour task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.\nRemember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.",
+    name = '<LOC OPNAME_A01>Aeon Mission 1 - Joust',
+    description = "<LOC SCCA_A01_description>This is Rigel, a lightly populated UEF world.\nYour task is to assist Crusader Rhiza, who is engaging the UEF along several fronts. She will evaluate your performance.\nRemember, Knight, our primary mission is to spread The Way to humanity. That is our calling. The Way will bring peace.",
     type = 'campaign_coop',
     starts = true,
     preview = '',
