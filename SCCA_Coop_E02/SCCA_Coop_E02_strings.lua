@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E02>Operation Snow Blind'
-OPERATION_DESCRIPTION = 'While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.'
+OPERATION_DESCRIPTION = '<LOC SCCA_E02_description>While you were busy on Capella, the Aeon pushed out of the Quarantine Zone and attacked our positions on Luthien. Our forces there are holding their own, but they will fall unless they\'re reinforced.'
 
 
 
