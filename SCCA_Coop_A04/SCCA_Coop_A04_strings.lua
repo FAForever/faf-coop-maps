@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A04>Operation Entity'
-OPERATION_DESCRIPTION = 'This is Procyon, a planet deep in Cybran territory. We know little of it save its name.\nIn my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly.\nYou must go to Procyon and discover what it is.'
+OPERATION_DESCRIPTION = '<LOC SCCA_A04_description>This is Procyon, a planet deep in Cybran territory. We know little of it save its name.\nIn my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly.\nYou must go to Procyon and discover what it is.'
 
 
 
