@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Mission 6 - Beginnings',
-    description = "Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.",
+    name = '<LOC OPNAME_A06>Aeon Mission 6 - Beginnings',
+    description = "<LOC SCCA_A06_description>Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.",
     preview = '',
     map_version = 3,
     type = 'campaign_coop',
