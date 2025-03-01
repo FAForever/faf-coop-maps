@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A06>Operation Beginnings'
-OPERATION_DESCRIPTION = '<LOC A06_B01_002_010>Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.'
+OPERATION_DESCRIPTION = '<LOC SCCA_A06_description>Black Sun is the key; everyone desires it.\nThe UEF and Cybrans wish to use it for their own goals, while Marxon rushes to destroy it.\nYou have no choice but to go to Earth and prevent the UEF and Cybran from using Black Sun.\nYou must also stop Marxon.'
 
 
 
