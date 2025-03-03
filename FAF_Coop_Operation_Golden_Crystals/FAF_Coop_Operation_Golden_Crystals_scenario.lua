@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = '<LOC FAF_Coop_Operation_Golden_Crystals_Name>Coalition Mission 3 :Operation Golden Crystals',
-    description = '<LOC FAF_Coop_Operation_Golden_Crystals_Description>We lost contact with an important Mining facility in the outer rim. Your team is being sent to investigate.',
+    name = 'Coalition Mission 3 :Operation Golden Crystals',
+    description = 'We lost contact with an important Mining facility in the outer rim. Your team is being sent to investigate.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
