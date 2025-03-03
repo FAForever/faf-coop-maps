@@ -179,9 +179,9 @@ function MissionP1()
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Build Tech 3 Radar',                 -- title
-        'We need to locate the power signature of the crystals. A Omni radar can help.',  -- description
-        'build',                         -- action
+        OpStrings.M1P1Title,            -- title
+        OpStrings.M1P1Description,      -- description
+        'build',                        -- action
         {                               -- target
             ShowProgress = true,
             Requirements = {
@@ -216,10 +216,10 @@ function SecondaryMissionP1()
     ScenarioFramework.Dialogue(OpStrings.Secondary1P1, nil, true)
 
     ScenarioInfo.M1P1S1 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Destroy the Cybran Bases',                 -- title
-        'You are surrounded by Cybran forces clear them out.',  -- description
+        OpStrings.M1P1S1Title,          -- title
+        OpStrings.M1P1S1Description,    -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -362,12 +362,12 @@ function Convoy1()
         -- Secondary Objective 1 - Capture Control Center
         ------------------------------------------------
         ScenarioInfo.M2P2 = Objectives.Basic(
-            'primary',                            -- type
-            'incomplete',                           -- status
-            'Destroy the Convoys',                -- title
-            'We can not allow the crystal to get off world.', -- description
+            'primary',                      -- type
+            'incomplete',                   -- complete
+            OpStrings.M2P2Title,            -- title
+            OpStrings.M2P2Description,      -- description
             Objectives.GetActionIcon('kill'),
-            {                                       -- target
+            {                               -- target
                 FlashVisible = true,
                 MarkUnits = true,
                 Units = Convoy1:GetPlatoonUnits(),
@@ -548,9 +548,9 @@ function MissionP2()
     ScenarioInfo.M7P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy the Gate',                -- title
-        'If '..quantity[Difficulty]..' Trucks escape this mission is a loss. destroy the convoys as they appear or the gate.', -- description
-        {                              -- target
+        OpStrings.M7P2Title,            -- title
+        LOCF(OpStrings.M7P2Description, quantity[Difficulty]),      -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P2Gate}  
         }
@@ -578,10 +578,10 @@ function MissionSecondaryP2()
     ScenarioFramework.Dialogue(OpStrings.Secondary1P2, nil, true)
 
     ScenarioInfo.M1P1S1 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Destroy the Cybran Depots',                 -- title
-        'Destroying the storage depots will prevent more getting off world.',  -- description
+        OpStrings.M1P2S1Title,          -- title
+        OpStrings.M1P2S1Description,    -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -855,9 +855,9 @@ function MissionP3()
     ScenarioInfo.M1P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Western QAI ACU',                -- title
-        'We detect two ACUs to your north, destroy them.', -- description
-        {                              -- target
+        OpStrings.M1P3Title,            -- title
+        OpStrings.M1P3Description,      -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P3QACU1},   
         }
@@ -866,9 +866,9 @@ function MissionP3()
     ScenarioInfo.M2P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Eastern QAI ACU',                -- title
-        'We detect two ACUs to your north, destroy them.', -- description
-        {                              -- target
+        OpStrings.M2P3Title,            -- title
+        OpStrings.M2P3Description,      -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P3QACU2},   
         }
@@ -894,11 +894,11 @@ function MissionSecondaryP3()
     ScenarioFramework.Dialogue(OpStrings.Secondary1P3, nil, true)
 
     ScenarioInfo.M1S1P3 = Objectives.Capture(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Capture the Control Center',                -- title
-        'The Central Command Structure for the mining operation is still intact, capture it.', -- description
-        {                              -- target
+        OpStrings.M1S1P3Title,          -- title
+        OpStrings.M1S1P3Description,    -- description
+        {                               -- target
             MarkUnits = true,
             ShowProgress = true,
             Units = {ScenarioInfo.P3Admin}, 
@@ -927,11 +927,11 @@ end
 function MissionSecondary2P3()
 
     ScenarioInfo.S2P3 = Objectives.Protect(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Protect the Control Center',                -- title
-        'The Central Command Structure for the mining operation is still intact, Protect it.', -- description
-        {                              -- target
+        OpStrings.S2P3Title,            -- title
+        OpStrings.S2P3Description,      -- description
+        {                               -- target
             MarkUnits = true,
             ShowProgress = true,
             Units = {ScenarioInfo.P3Admin}, 
@@ -1225,9 +1225,9 @@ function MissionP4()
     ScenarioInfo.M1P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Northern ACU Factory',                -- title
-        'QAI is using the Crystals to mass produce ACUs, Stop him.', -- description
-        {                              -- target
+        OpStrings.M1P4Title,            -- title
+        OpStrings.M1P4Description,      -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P4Gate3},   
         }
@@ -1237,9 +1237,9 @@ function MissionP4()
     ScenarioInfo.M2P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Northeastern ACU Factory',                -- title
-        'QAI is using the Crystals to mass produce ACUs, Stop him.', -- description
-        {                              -- target
+        OpStrings.M2P4Title,            -- title
+        OpStrings.M2P4Description,      -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P4Gate2},   
         }
@@ -1249,9 +1249,9 @@ function MissionP4()
     ScenarioInfo.M3P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Eastern ACU Factory',                -- title
-        'QAI is using the Crystals to mass produce ACUs, Stop him.', -- description
-        {                              -- target
+        OpStrings.M3P4Title,           -- title
+        OpStrings.M3P4Description,     -- description
+        {                               -- target
             MarkUnits = true,
             Units = {ScenarioInfo.P4Gate1},   
         }
@@ -1449,8 +1449,8 @@ function EndgameCheck()
         ScenarioInfo.M1P5 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy all Enemy forces',                 -- title
-        'Clean out all bases.',  -- description
+        OpStrings.M1P5Title,            -- title
+        OpStrings.M1P5Description,      -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -1606,3 +1606,4 @@ function SetupQAIM4Taunts()
     -- On losing structures
     QAITM:AddUnitsKilledTaunt('TAUNT3P4', ArmyBrains[QAI], categories.STRUCTURE - categories.WALL, 8)
 end
+

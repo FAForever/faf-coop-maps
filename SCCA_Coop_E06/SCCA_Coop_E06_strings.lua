@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E06>Operation Stone Wall'
-OPERATION_DESCRIPTION = 'Black Sun facility is located here, on the island of Ni\'ihua in the Hawaiian chain.\nYour job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility;\n she will offer her unconditional assistance. You now have full access to the UEF arsenal.'
+OPERATION_DESCRIPTION = '<LOC SCCA_E06_description>Black Sun facility is located here, on the island of Ni\'ihua in the Hawaiian chain.\nYour job is simple: You will protect Black Sun during the final stages of its completion. Once it is operational, you will fire it. Captain Aiko is currently in charge of security at the Facility;\n she will offer her unconditional assistance. You now have full access to the UEF arsenal.'
 
 
 --------------------------------

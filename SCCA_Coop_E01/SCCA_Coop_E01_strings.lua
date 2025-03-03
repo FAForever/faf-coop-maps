@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_E01>Operation Black Earth'
-OPERATION_DESCRIPTION = 'Intel reports that two Cybran Commanders gated to Capella over an hour ago.\nWe presume they\'re attempting to inflame the Symbiont population.'
+OPERATION_DESCRIPTION = '<LOC SCCA_E01_description>Intel reports that two Cybran Commanders gated to Capella over an hour ago.\nWe presume they\'re attempting to inflame the Symbiont population.'
 
 
 
