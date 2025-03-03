@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = '<LOC FAF_Coop_Operation_Blockade_Name>Coalition Mission 1: Operation Blockade',
-    description = '<LOC FAF_Coop_Operation_Blockade_Desciption>The Seraphim and their Order allies are attempting to flee into open space. This is one of the planet they are using as a fallback location. We must not let the Seraphim leave this planet, destroy them all.',
+    name = 'Coalition Mission 1: Operation Blockade',
+    description = 'The Seraphim and their Order allies are attempting to flee into open space. This is one of the planet they are using as a fallback location. We must not let the Seraphim leave this planet, destroy them all.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
