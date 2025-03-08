@@ -11,7 +11,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP1.lua')
 local P2SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP2.lua')
 local P3SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP3.lua')
@@ -116,8 +116,8 @@ function IntroP1()
     ScenarioInfo.Comtower:SetCustomName("Quantum Broadcast Station")
     ScenarioInfo.Comtower:SetReclaimable(false)
     ScenarioInfo.Comtower:SetCapturable(false)
-    ScenarioInfo.Comtower:SetCanTakeDamage(true)
-    ScenarioInfo.Comtower:SetCanBeKilled(true) 
+    ScenarioInfo.Comtower.CanTakeDamage = true
+    ScenarioInfo.Comtower.CanBeKilled = true 
     ScenarioInfo.Comtower:SetMaxHealth(10000)
     ScenarioInfo.Comtower:SetHealth(ScenarioInfo.Comtower, 10000)
      
@@ -304,9 +304,9 @@ function IntroP2()
         v:GiveTacticalSiloAmmo(5)
     end
     
-    ScenarioInfo.P2SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P2SACU', false, 'Overlord Surth-Velsok', true, false,
+    ScenarioInfo.P2SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P2SACU', nil, 'Overlord Surth-Velsok', true, nil,
     {'RateOfFire', 'DamageStabilization', 'DamageStabilizationAdvanced', 'AdvancedEngineering', 'T3Engineering'})
-    ScenarioInfo.P2SACU:SetCanBeKilled(false)
+    ScenarioInfo.P2SACU.CanBeKilled = false
     ScenarioInfo.P2SACU:SetAutoOvercharge(true)
     ScenarioInfo.P2SACU:SetVeterancy(1 + Difficulty)
     ScenarioFramework.CreateUnitDamagedTrigger(SeraACUDamaged, ScenarioInfo.P2SACU, .2)  
@@ -316,8 +316,8 @@ function IntroP2()
     ScenarioInfo.P2Gate:SetCustomName("Velsok's Gate")
     ScenarioInfo.P2Gate:SetReclaimable(false)
     ScenarioInfo.P2Gate:SetCapturable(false)
-    ScenarioInfo.P2Gate:SetCanTakeDamage(true)
-    ScenarioInfo.P2Gate:SetCanBeKilled(true)   
+    ScenarioInfo.P2Gate.CanTakeDamage = true
+    ScenarioInfo.P2Gate.CanBeKilled = true   
     
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SB1LandPatrol1_D' .. Difficulty, 'GrowthFormation')
     for _, v in units:GetPlatoonUnits() do
@@ -469,7 +469,7 @@ function SeraACUDamaged()
 end
 
 function SeraACUWarp1()
-    ScenarioInfo.P2SACU:SetCanTakeDamage(false)
+    ScenarioInfo.P2SACU.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.P2SACU, true)
     ScenarioInfo.M1P2:ManualResult(true)
 end
@@ -1039,13 +1039,13 @@ function IntroP4()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'P4CIntUnits1', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4SB1LandPatrol1' )
 
-    ScenarioInfo.P4SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P4SACU', false, 'Overlord Surth-Velsok', true, false,
+    ScenarioInfo.P4SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P4SACU', nil, 'Overlord Surth-Velsok', true, nil,
     {'RateOfFire', 'DamageStabilization', 'DamageStabilizationAdvanced', 'AdvancedEngineering', 'T3Engineering'})
     ScenarioInfo.P4SACU:SetAutoOvercharge(true)
     ScenarioInfo.P4SACU:SetVeterancy(1 + Difficulty)
     ScenarioInfo.P4SACU:AddBuildRestriction(categories.xsb2205 + categories.xsb2304 + categories.xsb4201 + categories.zsb9603 + categories.xsb0303)
     
-    ScenarioInfo.P4CACU = ScenarioFramework.SpawnCommander('Cybran', 'P4CACU', false, 'Elite Teko6', true, false,
+    ScenarioInfo.P4CACU = ScenarioFramework.SpawnCommander('Cybran', 'P4CACU', nil, 'Elite Teko6', true, nil,
     {'AdvancedEngineering', 'T3Engineering', 'StealthGenerator', 'CloakingGenerator', 'NaniteTorpedoTube'})
     ScenarioInfo.P4CACU:SetAutoOvercharge(true)
     ScenarioInfo.P4CACU:SetVeterancy(1 + Difficulty)

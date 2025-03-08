@@ -1,7 +1,7 @@
-# ----------------------------
-# Mission 1
-# Rescue Civilians
-#-----------------------------
+-- ----------------------------
+-- Mission 1
+-- Rescue Civilians
+-------------------------------
 --[<The game starts and you get to see the first base> Explain that Cybrans are the bad guys and some people are kidnapped (civilians or other term possible). And that we expect them to be held in this base]--
 M1_West_Base_View = {
   {text = '[UEF]: Commander, several civilians have been kidnapped by the Cybrans. Our scouts were able to trace them back to this base. They\'re preparing for battle, so you\'ll have to fight your way through their defenses.', vid = 'spinUEFBlue_10sec.sfd', bank = 'TCR_VO', cue = '1M1_West_Base_View', faction = 'UEF'},
@@ -37,10 +37,10 @@ M1_Too_Slow = {
   {text = '[UEF]: We just received new intel. Some of the kidnapped civilians were transferred to a different prison more to the east.', vid = 'spinUEFBlue_6sec.sfd', bank = 'TCR_VO', cue = '7M1_Too_Slow', faction = 'UEF'},
 }
 
-# ----------------------------
-# Mission 2
-# Rescue Civilians with Spider
-#-----------------------------
+-- ----------------------------
+-- Mission 2
+-- Rescue Civilians with Spider
+-------------------------------
 --[<no view> The 2nd phase of the mission has begun. Again you have to capture a prison to free the civilians.]--
 M2_Main_Objective = {
   {text = '[UEF]: Free the kidnapped civilians by capturing the Cybran Prison.', vid = 'spinUEFBlue_4sec.sfd', bank = 'TCR_VO', cue = '8M2_Main_Objective', faction = 'UEF'},
@@ -107,9 +107,9 @@ M2_Experimentals_Destroyed = {
 M2_Time_Is_Up = {
   {text = '[UEF]: You took too long and the Cybrans have started their next experimental assault.', vid = 'spinUEFBlue_4sec.sfd', bank = 'TCR_VO', cue = '19M2_Time_Is_Up', faction = 'UEF'},
 }
-# ----------------------------
-# End Game
-#-----------------------------
+-- ----------------------------
+-- End Game
+-------------------------------
 --[<no view> You captured the prison succesfully and have now completed our mission. Give congratulations.]--
 PlayerWin = {
   {text = '[UEF]: The civilians are safe. Congratulations commander.', vid = 'spinUEFBlue_4sec.sfd', bank = 'TCR_VO', cue = '20PlayerWin', faction = 'UEF'},

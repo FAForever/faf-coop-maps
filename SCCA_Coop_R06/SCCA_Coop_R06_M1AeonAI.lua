@@ -55,7 +55,7 @@ function AeonMainBaseAI()
 		AeonMainBase:AddBuildGroup('MainBaseStructuresHLRA', 150)
 	-- Update engineer numbers after 7.5 minutes for easy/normal, otherwise the Czar finishes in less than 10 mins
 	else
-		import('/lua/scenarioframework.lua').CreateTimerTrigger(UpdateEngineerQuantity, 450)
+		import('/lua/ScenarioFramework.lua').CreateTimerTrigger(UpdateEngineerQuantity, 450)
 	end
 	
 	AeonMainBase:SetConstructionAlwaysAssist(true)

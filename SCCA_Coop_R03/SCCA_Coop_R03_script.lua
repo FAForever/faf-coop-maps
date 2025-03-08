@@ -7,13 +7,13 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
+local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local OpStrings = import ('/maps/SCCA_Coop_R03/SCCA_Coop_R03_strings.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 local Objectives = ScenarioFramework.Objectives
@@ -356,7 +356,7 @@ end
 function PlayTaunt()
     TauntCount = TauntCount + 1
     if TauntCount <= 8 then
-        if (not ScenarioInfo.UefCDR) or (not ScenarioInfo.UefCDR:IsDead()) then
+        if (not ScenarioInfo.UefCDR) or (not ScenarioInfo.UefCDR.Dead) then
             ScenarioFramework.Dialogue(OpStrings['TAUNT' .. TauntCount])
             ScenarioFramework.CreateTimerTrigger(PlayTaunt, DelayBetweenTaunts)
         end
@@ -803,17 +803,17 @@ function StartMission2()
     -- Making the Brackman base invulnerable for now, remove if we get a shield that can keep the base alive
     -- MATT 10/5/06 let's make just part of brackmans base invincible
     for counter, unit in ScenarioInfo.BrackmanInvincible do
-        unit:SetCanTakeDamage(false)
+        unit.CanTakeDamage = false
     end
     for counter, unit in ScenarioInfo.BrackmanShields do
-    -- #unit:SetCanTakeDamage(false)
+    -- #unit.CanTakeDamage = false
         -- unit:CreateEnhancement('Shield2')
         -- LOG('debug: Op: shield upgrade ',counter)
         if (counter == 2) then
             -- bottom most shield
             -- unit:CreateEnhancement('Shield3')
             -- unit:CreateEnhancement('Shield4')
-            unit:SetCanTakeDamage(false)
+            unit.CanTakeDamage = false
         end
     end
 

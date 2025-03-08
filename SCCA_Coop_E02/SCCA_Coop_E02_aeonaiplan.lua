@@ -11,7 +11,7 @@ local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local AIBuildUnits = import('/lua/ai/aibuildunits.lua')
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 

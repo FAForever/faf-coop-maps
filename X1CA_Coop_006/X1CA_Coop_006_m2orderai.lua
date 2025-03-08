@@ -551,7 +551,6 @@ function OrderM2BaseNavalAttacks()
     trigger = {5, 4, 3}
     opai = OrderM2Base:AddNavalAI('M2_OrderNavalAttack7',
         {
-            MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
             PlatoonData = {
                 PatrolChains = {'M2_Order_NavalAttack_1_Chain', 'M2_Order_NavalAttack_2_Chain'},

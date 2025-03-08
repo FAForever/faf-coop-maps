@@ -19,7 +19,7 @@ local OpStrings = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clark
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 
 ----------
 -- Globals
@@ -521,7 +521,7 @@ function StartMission1()
         for _, prop in GetReclaimablesInRect(ScenarioUtils.AreaToRect('NIS_Area')) do
             if prop.IsWreckage and prop.AssociatedBP == 'xsa0402' then
                 ScenarioInfo.T4BomberWreck = prop
-                ScenarioInfo.T4BomberWreck:SetCanTakeDamage(false)
+                ScenarioInfo.T4BomberWreck.CanTakeDamage = false
                 ScenarioInfo.T4BomberWreck:SetMaxReclaimValues( 1, 20000 - 2000*Difficulty, 0)
                 break
             end
@@ -698,7 +698,7 @@ function IntroMission2()
     ScenarioUtils.CreateArmyGroup('UEF', 'M2_Arty')
 
     -- UEF ACU
-    ScenarioInfo.UEFCDR = ScenarioFramework.SpawnCommander('UEF', 'UEF_Commander', false, 'Gorton', false, false,--true, M4UEFCommanderKilled, 
+    ScenarioInfo.UEFCDR = ScenarioFramework.SpawnCommander('UEF', 'UEF_Commander', nil, 'Gorton', false, nil,--true, M4UEFCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','Shield','ShieldGeneratorField','ResourceAllocation'})
     ScenarioInfo.UEFCDR:SetVeterancy(2 + Difficulty)
 
@@ -722,7 +722,7 @@ function IntroMission2()
     M3CybranAI.CybranM3BaseAI()
 
     -- Cybran ACU
-    ScenarioInfo.CybranCDR = ScenarioFramework.SpawnCommander('Cybran', 'Cybran_Commander', false, 'Tokyto', false, false,--true, M4CybranCommanderKilled, 
+    ScenarioInfo.CybranCDR = ScenarioFramework.SpawnCommander('Cybran', 'Cybran_Commander', nil, 'Tokyto', false, nil,--true, M4CybranCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','StealthGenerator','CloakingGenerator','MicrowaveLaserGenerator'})
     ScenarioInfo.CybranCDR:SetVeterancy(2 + Difficulty)
 
@@ -734,7 +734,7 @@ function IntroMission2()
     M3AeonAI.AeonM3BaseAI()
 
     -- Aeon ACU
-    ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', false, 'Ithilis', false, false,--true, M4AeonCommanderKilled, 
+    ScenarioInfo.AeonCDR = ScenarioFramework.SpawnCommander('Aeon', 'Aeon_Commander', nil, 'Ithilis', false, nil,--true, M4AeonCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','Shield','ShieldHeavy','EnhancedSensors'})
     ScenarioInfo.AeonCDR:SetVeterancy(2 + Difficulty)
 
@@ -754,7 +754,7 @@ function IntroMission2()
     end
 
     -- Order CDR
-    ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, OrderCommanderKilled, 
+    ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', nil, LOC '{i Gari}', false, OrderCommanderKilled, 
         {'AdvancedEngineering','T3Engineering','ResourceAllocationAdvanced','EnhancedSensors'})
 
     ScenarioFramework.RefreshRestrictions('Order')

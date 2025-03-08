@@ -11,7 +11,7 @@ local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
@@ -185,7 +185,7 @@ function KillBase()
             local aeonUnits = {}
             if(units) then
                 for k, v in units do
-                    if(not v:IsDead() and v:GetAIBrain() == ArmyBrains[Aeon]) then
+                    if(not v.Dead and v:GetAIBrain() == ArmyBrains[Aeon]) then
                         table.insert(aeonUnits, v)
                     end
                 end
@@ -304,7 +304,7 @@ function StartMission1()
 end
 
 function Taunt()
-    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR:IsDead() and erisTaunt <= 8) then
+    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR.Dead and erisTaunt <= 8) then
         ScenarioFramework.Dialogue(OpStrings['TAUNT' .. erisTaunt])
         erisTaunt = erisTaunt + 1
         ScenarioFramework.CreateTimerTrigger(Taunt, Random(600, 900))
@@ -385,7 +385,7 @@ function M1EnemiesKilled2()
 end
 
 function ArnoldDeath()
-    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR:IsDead()) then
+    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR.Dead) then
 
         -- Arnolds base should be beat up
         for k, v in ScenarioInfo.ArnoldBase do
@@ -419,7 +419,7 @@ function ArnoldDeath()
 
         -- Destroy Arnold's Base
         for k,v in ScenarioInfo.ArnoldBase do
-            if not v:IsDead() then
+            if not v.Dead then
                 v:Kill()
             end
         end
@@ -433,7 +433,7 @@ function ArnoldDeath()
 end
 
 function ArnoldDeathConfirmed()
-    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR:IsDead()) then
+    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR.Dead) then
         WaitSeconds(10)
         ScenarioFramework.Dialogue(OpStrings.E03_M01_100, IntroMission2)
     end
@@ -582,8 +582,8 @@ function IntroMission3()
     -- Arnold's black box
     ScenarioInfo.ArnoldBox = ScenarioUtils.CreateArmyUnit('Arnold', 'Arnold_Black_Box')
     ScenarioInfo.ArnoldBox:SetCapturable(false)
-    ScenarioInfo.ArnoldBox:SetCanTakeDamage(false)
-    ScenarioInfo.ArnoldBox:SetCanBeKilled(false)
+    ScenarioInfo.ArnoldBox.CanTakeDamage = false
+    ScenarioInfo.ArnoldBox.CanBeKilled = false
 
     -- Island Defenses
     local defense = ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Defense_D' .. ScenarioInfo.Options.Difficulty)
@@ -860,19 +860,19 @@ function ErisKilled()
 end
 
 function M4ErisTaunt1()
-    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR:IsDead()) then
+    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR.Dead) then
         ScenarioFramework.Dialogue(OpStrings.E03_M04_030)
     end
 end
 
 function M4ErisTaunt2()
-    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR:IsDead()) then
+    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR.Dead) then
         ScenarioFramework.Dialogue(OpStrings.E03_M04_040)
     end
 end
 
 function M4ErisTaunt3()
-    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR:IsDead()) then
+    if(ScenarioInfo.AeonCDR and not ScenarioInfo.AeonCDR.Dead) then
         ScenarioFramework.Dialogue(OpStrings.E03_M04_050)
     end
 end

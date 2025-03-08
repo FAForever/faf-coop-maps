@@ -4,7 +4,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local CustomFunctions = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua')
-local EffectUtilities = import('/lua/effectutilities.lua')
+local EffectUtilities = import('/lua/EffectUtilities.lua')
 local M1UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m1uefai.lua')
 local M2UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m2uefai.lua')
 local M3UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua')
@@ -158,15 +158,15 @@ function OnPopulate(scenario)
     -----------------------
     ScenarioInfo.M1_Eco_Tech_Centre = ScenarioUtils.CreateArmyUnit('Objective', 'M1_Eco_Tech_Centre')
     ScenarioInfo.M1_Eco_Tech_Centre:SetDoNotTarget(true)
-    ScenarioInfo.M1_Eco_Tech_Centre:SetCanTakeDamage(false)
-    ScenarioInfo.M1_Eco_Tech_Centre:SetCanBeKilled(false)
+    ScenarioInfo.M1_Eco_Tech_Centre.CanTakeDamage = false
+    ScenarioInfo.M1_Eco_Tech_Centre.CanBeKilled = false
     ScenarioInfo.M1_Eco_Tech_Centre:SetReclaimable(false)
     ScenarioInfo.M1_Eco_Tech_Centre:SetCustomName("T2 Economy Tech Centre")
 
     ScenarioInfo.M1_T2_Land_Tech_Centre = ScenarioUtils.CreateArmyUnit('Objective', 'M1_T2_Land_Tech_Centre')
     ScenarioInfo.M1_T2_Land_Tech_Centre:SetDoNotTarget(true)
-    ScenarioInfo.M1_T2_Land_Tech_Centre:SetCanTakeDamage(false)
-    ScenarioInfo.M1_T2_Land_Tech_Centre:SetCanBeKilled(false)
+    ScenarioInfo.M1_T2_Land_Tech_Centre.CanTakeDamage = false
+    ScenarioInfo.M1_T2_Land_Tech_Centre.CanBeKilled = false
     ScenarioInfo.M1_T2_Land_Tech_Centre:SetReclaimable(false)
     ScenarioInfo.M1_T2_Land_Tech_Centre:SetCustomName("T2 Land Tech Centre")
 
@@ -175,8 +175,8 @@ function OnPopulate(scenario)
     for k,v in ScenarioInfo.M1_Other_Buildings do
         v:SetCapturable(false)
         v:SetReclaimable(false)
-        v:SetCanTakeDamage(false)
-        v:SetCanBeKilled(false)
+        v.CanTakeDamage = false
+        v.CanBeKilled = false
     end
 end
 
@@ -316,12 +316,12 @@ function IntroMission1NIS()
             -- This ForkThread will make all ACU's spawn at the same time
             ForkThread(function()
                 -- Spawn ACU without any effect and name it
-                ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', false, true)
+                ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', nil, true)
 
                 -- End the mission if player nearly dies
                 ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.Player1CDR, .99)
                 -- Make sure that player won't die during the first part of the mission
-                ScenarioInfo.Player1CDR:SetCanBeKilled(false)
+                ScenarioInfo.Player1CDR.CanBeKilled = false
 
                 -- Spawn transport, drop ACU to targer location
                 local transport = ScenarioUtils.CreateArmyUnit('Player1', 'Transport')
@@ -331,7 +331,7 @@ function IntroMission1NIS()
 
                 WaitSeconds(8)
 
-                while(not ScenarioInfo.Player1CDR:IsDead() and ScenarioInfo.Player1CDR:IsUnitState('Attached')) do
+                while(not ScenarioInfo.Player1CDR.Dead and ScenarioInfo.Player1CDR:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
 
@@ -340,7 +340,7 @@ function IntroMission1NIS()
 
                 WaitSeconds(1)
 
-                while(not transport:IsDead() and transport:IsUnitState('Moving')) do
+                while(not transport.Dead and transport:IsUnitState('Moving')) do
                     WaitSeconds(.5)
                 end
                 transport:Destroy()
@@ -391,10 +391,10 @@ function IntroMission1NIS()
     else
         -- This part is similart to above, just not moving camera around, for debugging.
         ForkThread(function()
-            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', false, true)
+            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', nil, true)
 
             ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.Player1CDR, .99)
-            ScenarioInfo.Player1CDR:SetCanBeKilled(false)
+            ScenarioInfo.Player1CDR.CanBeKilled = false
 
             local transport = ScenarioUtils.CreateArmyUnit('Player1', 'Transport')
 
@@ -403,7 +403,7 @@ function IntroMission1NIS()
 
             WaitSeconds(8)
 
-            while(not ScenarioInfo.Player1CDR:IsDead() and ScenarioInfo.Player1CDR:IsUnitState('Attached')) do
+            while(not ScenarioInfo.Player1CDR.Dead and ScenarioInfo.Player1CDR:IsUnitState('Attached')) do
                 WaitSeconds(.5)
             end
 
@@ -412,7 +412,7 @@ function IntroMission1NIS()
 
             WaitSeconds(1)
 
-            while(not transport:IsDead() and transport:IsUnitState('Moving')) do
+            while(not transport.Dead and transport:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
             transport:Destroy()
@@ -436,9 +436,9 @@ function IntroMission1NIS()
 end
 
 function CreateAndMoveCDRByTransport(brain, coop, position)
-    ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(brain, 'Commander', false, true)
+    ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(brain, 'Commander', nil, true)
     ScenarioFramework.CreateUnitDamagedTrigger(PlayerLoseToAI, ScenarioInfo.CoopCDR[coop], .99)
-    ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(false)
+    ScenarioInfo.CoopCDR[coop].CanBeKilled = false
 
     local transport = ScenarioUtils.CreateArmyUnit(brain, 'Transport')
 
@@ -447,7 +447,7 @@ function CreateAndMoveCDRByTransport(brain, coop, position)
 
     WaitSeconds(8)
 
-    while(not ScenarioInfo.CoopCDR[coop]:IsDead() and ScenarioInfo.CoopCDR[coop]:IsUnitState('Attached')) do
+    while(not ScenarioInfo.CoopCDR[coop].Dead and ScenarioInfo.CoopCDR[coop]:IsUnitState('Attached')) do
         WaitSeconds(.5)
     end
 
@@ -456,7 +456,7 @@ function CreateAndMoveCDRByTransport(brain, coop, position)
 
     WaitSeconds(1)
 
-    while(not transport:IsDead() and transport:IsUnitState('Moving')) do
+    while(not transport.Dead and transport:IsUnitState('Moving')) do
         WaitSeconds(.5)
     end
     transport:Destroy()
@@ -666,8 +666,8 @@ function IntroMission2()
     -----------------------
     ScenarioInfo.M2_T2_Air_Tech_Centre = ScenarioUtils.CreateArmyUnit('Objective', 'M2_T2_Air_Tech_Centre')
     ScenarioInfo.M2_T2_Air_Tech_Centre:SetDoNotTarget(true)
-    ScenarioInfo.M2_T2_Air_Tech_Centre:SetCanTakeDamage(false)
-    ScenarioInfo.M2_T2_Air_Tech_Centre:SetCanBeKilled(false)
+    ScenarioInfo.M2_T2_Air_Tech_Centre.CanTakeDamage = false
+    ScenarioInfo.M2_T2_Air_Tech_Centre.CanBeKilled = false
     ScenarioInfo.M2_T2_Air_Tech_Centre:SetReclaimable(false)
     ScenarioInfo.M2_T2_Air_Tech_Centre:SetCustomName("T2 Air Tech Centre")
 
@@ -678,16 +678,16 @@ function IntroMission2()
     for k,v in ScenarioInfo.M2_Other_Buildings do
         v:SetCapturable(false)
         v:SetReclaimable(false)
-        v:SetCanTakeDamage(false)
-        v:SetCanBeKilled(false)
+        v.CanTakeDamage = false
+        v.CanBeKilled = false
     end
 
     ScenarioInfo.UEFGate = ScenarioUtils.CreateArmyGroup('Objective', 'Quantum_Gate_Prebuild')
     for k,v in ScenarioInfo.UEFGate do
         v:SetCapturable(false)
         v:SetReclaimable(false)
-        v:SetCanTakeDamage(false)
-        v:SetCanBeKilled(false)
+        v.CanTakeDamage = false
+        v.CanBeKilled = false
     end
     
     IntroMission2NIS()
@@ -1135,7 +1135,7 @@ function SeraphimReveal()
             local unit = ScenarioUtils.CreateArmyUnit('Seraphim', 'Sera_Scout_' .. i)
             IssueMove({unit}, ScenarioUtils.MarkerToPosition('ScoutsDeath_' .. i))
             WaitSeconds(1)
-            while(not unit:IsDead() and unit:IsUnitState('Moving')) do
+            while(not unit.Dead and unit:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
             unit:Destroy()
@@ -1160,7 +1160,7 @@ function IntroMission4()
             -- Give civilian bases to 'UEFAlly' army. I didn't want them to give any intel until now, that's why there were in neutral army.
             local units = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS - categories.uec1101 - categories.uec1201 - categories.uec1301 - categories.uec1401 - categories.uec1501 - categories.xec1301 - categories.uec0001), 'M2_Area', ArmyBrains[Objective])
             for k, v in units do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Objective]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Objective]) then
                     ScenarioFramework.GiveUnitToArmy( v, UEFAlly )
                 end
             end
@@ -1168,7 +1168,7 @@ function IntroMission4()
             -- Give rest of the UEF base to player.
             local UEFunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'M3_Area', ArmyBrains[UEF])
             for k, v in UEFunits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[UEF]) then
                     ScenarioFramework.GiveUnitToArmy( v, Player1 )
                 end
             end
@@ -1194,14 +1194,14 @@ function IntroMission5()
     ScenarioInfo.MissionNumber = 5
 
     -- No invincible ACU anymore
-    ScenarioInfo.Player1CDR:SetCanBeKilled(true)
+    ScenarioInfo.Player1CDR.CanBeKilled = true
     -- Set up trigger if player dies
     ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.Player1CDR)
 
     coop = 1
     for iArmy, strArmy in pairs(ListArmies()) do
         if iArmy >= ScenarioInfo.Player2 then
-            ScenarioInfo.CoopCDR[coop]:SetCanBeKilled(true)
+            ScenarioInfo.CoopCDR[coop].CanBeKilled = true
             -- ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.CoopCDR[coop])
             coop = coop + 1
         end
@@ -1218,7 +1218,7 @@ function IntroMission5()
     ArmyBrains[UEF]:GiveResource('ENERGY', 30000)
 
     -- Spawn sACU
-    ScenarioInfo.UEFSACU = ScenarioFramework.SpawnCommander('UEF', 'M5_UEF_Island_sACU', false, 'sCDR Morax', true, false,
+    ScenarioInfo.UEFSACU = ScenarioFramework.SpawnCommander('UEF', 'M5_UEF_Island_sACU', nil, 'sCDR Morax', true, nil,
         {'AdvancedCoolingUpgrade', 'HighExplosiveOrdnance', 'Shield'})
 
     --------------
@@ -1288,9 +1288,9 @@ function IntroMission5()
     ---------------
     -- Seraphim ACU
     ---------------
-    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('Seraphim', 'M5_Sera_ACU', false, 'Zottoo-Zithutin', false, false,
+    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('Seraphim', 'M5_Sera_ACU', nil, 'Zottoo-Zithutin', false, nil,
         {'AdvancedEngineering', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
-    ScenarioInfo.SeraACU:SetCanBeKilled(false)
+    ScenarioInfo.SeraACU.CanBeKilled = false
     ScenarioInfo.SeraACU:SetCapturable(false)
     ScenarioInfo.SeraACU:SetReclaimable(false)
     ScenarioFramework.CreateUnitDamagedTrigger(SeraACUWarp, ScenarioInfo.SeraACU, .8)
@@ -1306,16 +1306,16 @@ function IntroMission5()
     end
     -- No more invincible civilian buildings
     for _, v in ScenarioInfo.M1_Other_Buildings do
-        v:SetCanTakeDamage(true)
-        v:SetCanBeKilled(true)
+        v.CanTakeDamage = true
+        v.CanBeKilled = true
     end
     for _, v in ScenarioInfo.M2_Other_Buildings do
-        v:SetCanTakeDamage(true)
-        v:SetCanBeKilled(true)
+        v.CanTakeDamage = true
+        v.CanBeKilled = true
     end
     for _, v in ScenarioInfo.UEFGate do
-        v:SetCanTakeDamage(true)
-        v:SetCanBeKilled(true)
+        v.CanTakeDamage = true
+        v.CanBeKilled = true
     end
 
     -----------
@@ -1609,7 +1609,7 @@ function SeraACUWarp()
 end
 
 function M5sACUTakingDamage1()
-    if not ScenarioInfo.UEFSACU:IsDead() then
+    if not ScenarioInfo.UEFSACU.Dead then
         ScenarioFramework.Dialogue(OpStrings.sACUTakesDmg)
     end
 end
@@ -1739,7 +1739,7 @@ function TruckRescued(unit)
             table.remove(ScenarioInfo.Trucks, k)
         end
     end
-    unit:SetCanBeKilled(false)
+    unit.CanBeKilled = false
     IssueStop({unit})
     IssueMove({unit}, ScenarioUtils.MarkerToPosition('UEF_Secondary_Escort_Marker'))
     ScenarioInfo.TrucksEscorted = ScenarioInfo.TrucksEscorted + 1
@@ -1822,7 +1822,7 @@ function SACUescape()
 
             IssueTransportLoad({ScenarioInfo.UEFSACU}, ScenarioInfo.sACUTransport)
 
-            while(not ScenarioInfo.UEFSACU:IsDead() and not ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
+            while(not ScenarioInfo.UEFSACU.Dead and not ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
                 WaitSeconds(1)
             end
 
@@ -1831,7 +1831,7 @@ function SACUescape()
 
             local AirUnits = ScenarioFramework.GetCatUnitsInArea(categories.AIR * categories.MOBILE - categories.uea0104, 'M5_UEF_Island_Base_Area', ArmyBrains[UEF])
             for k, unit in AirUnits do
-                if (unit and not unit:IsDead()) then
+                if (unit and not unit.Dead) then
                     IssueClearCommands({ unit })
                     IssueGuard({unit}, ScenarioInfo.sACUTransport)
                 end
@@ -1841,14 +1841,14 @@ function SACUescape()
 
             WaitSeconds(5)
 
-            while(not ScenarioInfo.UEFSACU:IsDead() and ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
+            while(not ScenarioInfo.UEFSACU.Dead and ScenarioInfo.UEFSACU:IsUnitState('Attached')) do
                 WaitSeconds(1)
             end
 
             IssueMove({ScenarioInfo.UEFSACU}, ScenarioUtils.MarkerToPosition('UEF_Secondary_Escort_Marker'))
 
             for k, unit in AirUnits do
-                if (unit and not unit:IsDead()) then
+                if (unit and not unit.Dead) then
                     IssueClearCommands({ unit })
                     IssueGuard({ unit }, ScenarioInfo.UEFSACU)
                 end

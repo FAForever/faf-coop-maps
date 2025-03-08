@@ -1,6 +1,7 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Utils = import("/lua/utilities.lua")
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 -- Wait for the units to leave the carrier before giving the orders
@@ -47,9 +48,9 @@ function PlayersACUsNearBase(aiBrain, baseName, distance)
     end
 
     for _, v in ScenarioInfo.PlayersACUs or {} do
-        if not v:IsDead() then
+        if not v.Dead then
             local position = v:GetPosition()
-            local value = VDist2(position[1], position[3], bPosition[1], bPosition[3])
+            local value = Utils.GetDistanceBetweenTwoPoints2(position[1], position[3], bPosition[1], bPosition[3])
 
             if value <= distance then
                 return true
@@ -68,9 +69,9 @@ function MercyThread(platoon)
 
     local target = false
     for _, v in ScenarioInfo.PlayersACUs or {} do
-        if not v:IsDead() then
+        if not v.Dead then
             local position = v:GetPosition()
-            local value = VDist2(position[1], position[3], bPosition[1], bPosition[3])
+            local value = Utils.GetDistanceBetweenTwoPoints2(position[1], position[3], bPosition[1], bPosition[3])
 
             if value <= data.Distance and platoon:CanAttackTarget('Attack', v) then
                 target = v

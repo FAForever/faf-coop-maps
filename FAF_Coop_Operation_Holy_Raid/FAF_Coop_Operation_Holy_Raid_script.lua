@@ -7,7 +7,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local P2OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP2.lua')
@@ -220,7 +220,7 @@ function P1Intattacks()
 
     -- Sends [1, 2, 3] Mercies at players' ACUs
     for _, v in ScenarioInfo.PlayersACUs do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Order1', 'P1IntattackAirSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
@@ -520,7 +520,7 @@ function P2PlayerReinforcements()
                 while (v:IsUnitState('Attached')) do
                     WaitSeconds(1)
                 end
-                if (v and not v:IsDead()) then
+                if (v and not v.Dead) then
                     ScenarioFramework.GiveUnitToArmy(v, 'Player1')
                 end
         
@@ -579,7 +579,7 @@ function IntroP3()
             
     ScenarioUtils.CreateArmyGroup('Order1', 'P2A1OuterD_D'.. Difficulty)
             
-    ScenarioInfo.P3O1ACU = ScenarioFramework.SpawnCommander('Order1', 'O1ACU', false, 'Executor Havra', false, OrderACUdeath,
+    ScenarioInfo.P3O1ACU = ScenarioFramework.SpawnCommander('Order1', 'O1ACU', nil, 'Executor Havra', false, OrderACUdeath,
     {'AdvancedEngineering','T3Engineering', 'Shield', 'ShieldHeavy', 'HeatSink'})
     ScenarioInfo.P3O1ACU:SetAutoOvercharge(true)
     ScenarioInfo.P3O1ACU:SetVeterancy(1 + Difficulty)
@@ -591,8 +591,8 @@ function IntroP3()
     ScenarioInfo.Blackbox:SetCustomName("UEF blackbox")
     ScenarioInfo.Blackbox:SetReclaimable(true)
     ScenarioInfo.Blackbox:SetCapturable(false)
-    ScenarioInfo.Blackbox:SetCanTakeDamage(false)
-    ScenarioInfo.Blackbox:SetCanBeKilled(false)
+    ScenarioInfo.Blackbox.CanTakeDamage = false
+    ScenarioInfo.Blackbox.CanBeKilled = false
     ScenarioInfo.Blackbox:SetDoNotTarget(true)
             
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit1', 'AttackFormation')
@@ -967,18 +967,18 @@ function IntroP4()
     ScenarioUtils.CreateArmyGroup('Order2', 'P4A2Walls')
     ScenarioUtils.CreateArmyGroup('Civilians', 'P3Wreaks', true)
      
-    ScenarioInfo.P4O2ACU = ScenarioFramework.SpawnCommander('Order2', 'O2ACU', false, 'Crusader Zertha', false, false,
+    ScenarioInfo.P4O2ACU = ScenarioFramework.SpawnCommander('Order2', 'O2ACU', nil, 'Crusader Zertha', false, nil,
     {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
-    ScenarioInfo.P4O2ACU:SetCanBeKilled(false)
+    ScenarioInfo.P4O2ACU.CanBeKilled = false
     ScenarioInfo.P4O2ACU:SetAutoOvercharge(true)
     ScenarioInfo.P4O2ACU:SetVeterancy(2 + Difficulty)
     ScenarioFramework.CreateUnitDamagedTrigger(Order2ACUWarp, ScenarioInfo.P4O2ACU, .8)
 
-    ScenarioInfo.P4O2ACUS1 = ScenarioFramework.SpawnCommander('Order2', 'O2ACUS1', false, 'Jalen', false, false,
+    ScenarioInfo.P4O2ACUS1 = ScenarioFramework.SpawnCommander('Order2', 'O2ACUS1', nil, 'Jalen', false, nil,
     {'Shield', 'ShieldHeavy', 'EngineeringFocusingModule', 'StabilitySuppressant'})
     ScenarioInfo.P4O2ACUS1:SetVeterancy(2 + Difficulty)
 
-    ScenarioInfo.P4O2ACUS2 = ScenarioFramework.SpawnCommander('Order2', 'O2ACUS2', false, 'Gyira', false, false,
+    ScenarioInfo.P4O2ACUS2 = ScenarioFramework.SpawnCommander('Order2', 'O2ACUS2', nil, 'Gyira', false, nil,
     {'Shield', 'ShieldHeavy', 'EngineeringFocusingModule', 'StabilitySuppressant'})
     ScenarioInfo.P4O2ACUS2:SetVeterancy(2 + Difficulty)
 

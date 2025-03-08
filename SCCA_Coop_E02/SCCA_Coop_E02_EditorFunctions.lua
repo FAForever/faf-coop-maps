@@ -7,7 +7,7 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
--- local ScenarioFramework = import('/lua/scenarioframework.lua')
+-- local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 -- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 -- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"

@@ -471,13 +471,13 @@ function IntroNISPart1()
     end
 
     for k, unit in ScenarioInfo.NIS1Over90 do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( false )
+        if (unit and not unit.Dead) then
+            unit.CanBeKilled = false
         end
     end
     for k, unit in ScenarioInfo.NIS1Over80 do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( false )
+        if (unit and not unit.Dead) then
+            unit.CanBeKilled = false
         end
     end
 
@@ -485,8 +485,8 @@ function IntroNISPart1()
         Cinematics.EnterNISMode()
 
         ScenarioInfo.NISAntiAir = ScenarioUtils.CreateArmyUnit('UEF', 'NIS_AA')
-        ScenarioInfo.NISAntiAir:SetCanBeKilled( false )
-        ScenarioInfo.NISGate:SetCanBeKilled( false )
+        ScenarioInfo.NISAntiAir.CanBeKilled = false
+        ScenarioInfo.NISGate.CanBeKilled = false
 
         -- Vis markers near base, artillery, etc.
         local delay = 25 + NIS1InitialDelay
@@ -535,7 +535,7 @@ function IntroNISPart1()
         end
         for i = 1, 2 do
             ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetDoNotTarget(true)
-            ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetCanTakeDamage(false)
+            ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i].CanTakeDamage = false
         end
 
         -- Make one in ten guys attack the anti-air gun to give some plausibility to its death
@@ -599,13 +599,13 @@ function IntroNISPart2()
     end
 
     -- Give the special NIS units to the player
-    if ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir:IsDead() then
+    if ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir.Dead then
         ScenarioInfo.NISAntiAir = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISAntiAir, Player1 )
     end
-    if ScenarioInfo.NISShield and not ScenarioInfo.NISShield:IsDead() then
+    if ScenarioInfo.NISShield and not ScenarioInfo.NISShield.Dead then
         ScenarioInfo.NISShield = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISShield, Player1 )
     end
-    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
+    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate.Dead then
         ScenarioInfo.NISGate = ScenarioFramework.GiveUnitToArmy( ScenarioInfo.NISGate, Player1 )
     end
 
@@ -613,17 +613,17 @@ function IntroNISPart2()
     local NIS1Over80PostConversion = {}
 
     for k, unit in ScenarioInfo.NIS1Over90 do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player1 )
             table.insert( NIS1Over90PostConversion, tempUnit )
-            tempUnit:SetCanBeKilled( false )
+            tempUnit.CanBeKilled = false
         end
     end
     for k, unit in ScenarioInfo.NIS1Over80 do
-        if (unit and not unit:IsDead()) then
+        if (unit and not unit.Dead) then
             local tempUnit = ScenarioFramework.GiveUnitToArmy( unit, Player1 )
             table.insert( NIS1Over80PostConversion, tempUnit )
-            tempUnit:SetCanBeKilled( false )
+            tempUnit.CanBeKilled = false
         end
     end
 
@@ -632,7 +632,7 @@ function IntroNISPart2()
     ScenarioInfo.NIS1Over90 = nil
 
     -- Give objective shield to player
-    if(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead()) then
+    if(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield.Dead) then
         local unit = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1ObjectiveShield, Player1)
         ScenarioInfo.M1ObjectiveShield = unit
         ScenarioFramework.CreateUnitDestroyedTrigger(M1ShieldDestroyed, ScenarioInfo.M1ObjectiveShield)
@@ -641,14 +641,14 @@ function IntroNISPart2()
     -- Swap beach units to player
     local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Player_Base_Area'))
     for k, v in units do
-        if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF]) then
+        if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[UEF]) then
             ScenarioFramework.GiveUnitToArmy( v, Player1 )
         end
     end
 
     -- Set the gate back to being unkillable
-    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
-        ScenarioInfo.NISGate:SetCanBeKilled( false )
+    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate.Dead then
+        ScenarioInfo.NISGate.CanBeKilled = false
     end
 
     -- Percivals back on patrol
@@ -688,10 +688,10 @@ function IntroNISPart2()
 
     if not SkipNIS1 then
         ScenarioInfo.PlayerCDR:SetDoNotTarget(true)
-        ScenarioInfo.PlayerCDR:SetCanTakeDamage(false)
+        ScenarioInfo.PlayerCDR.CanTakeDamage = false
 
         ForkThread( NISKillGunshipsSlowly )
-        ScenarioInfo.NISAntiAir:SetCanBeKilled( true )
+        ScenarioInfo.NISAntiAir.CanBeKilled = true
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp2'), 2)
 
         WaitSeconds(1)
@@ -702,7 +702,7 @@ function IntroNISPart2()
         ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
 
         ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
-        ScenarioInfo.PlayerCDR:SetCanTakeDamage(true)
+        ScenarioInfo.PlayerCDR.CanTakeDamage = true
         Cinematics.ExitNISMode()
 
         -- Get rid of intel on the enemy bases for the highest difficulty
@@ -718,14 +718,14 @@ function IntroNISPart2()
     end
     
     for k, unit in NIS1Over90PostConversion do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( true )
+        if (unit and not unit.Dead) then
+            unit.CanBeKilled = true
             unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.9), unit:GetMaxHealth() ))
         end
     end
     for k, unit in NIS1Over80PostConversion do
-        if (unit and not unit:IsDead()) then
-            unit:SetCanBeKilled( true )
+        if (unit and not unit.Dead) then
+            unit.CanBeKilled = true
             unit:SetHealth( unit, Random(( unit:GetMaxHealth() * 0.8), unit:GetMaxHealth() ))
         end
     end
@@ -738,18 +738,18 @@ function NIS1KillUnits()
     WaitSeconds(2)
 
     -- Kill the NIS shield if it's still there
-    if ScenarioInfo.NISShield and not ScenarioInfo.NISShield:IsDead() then
+    if ScenarioInfo.NISShield and not ScenarioInfo.NISShield.Dead then
         ScenarioInfo.NISShield:Kill()
     end
 
     -- Set gate killable so that the units firing on it in the NIS will kill it
-    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
-        ScenarioInfo.NISGate:SetCanBeKilled(true)
+    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate.Dead then
+        ScenarioInfo.NISGate.CanBeKilled = true
     end
     WaitSeconds(1)
 
     -- If it's still alive a second later, kill it ourselves
-    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate:IsDead() then
+    if ScenarioInfo.NISGate and not ScenarioInfo.NISGate.Dead then
         ScenarioInfo.NISGate:Kill()
     end
 end
@@ -757,7 +757,7 @@ end
 function NISKillGunshipsSlowly()
     local flipToggle = false
     for k, unit in ScenarioInfo.NISGunships do
-        if ( unit and not unit:IsDead()) then
+        if ( unit and not unit.Dead) then
             unit:Kill()
             if flipToggle then
                 WaitSeconds(0.3)
@@ -771,13 +771,13 @@ function NISKillGunshipsSlowly()
 end
 
 function NIS1KillUnits2()
-    if (ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir:IsDead()) then
+    if (ScenarioInfo.NISAntiAir and not ScenarioInfo.NISAntiAir.Dead) then
         ScenarioInfo.NISAntiAir:Kill()
     end
 
     local iterator = 2
     for k, unit in ScenarioInfo.NISGunships do
-        if ( unit and not unit:IsDead()) then
+        if ( unit and not unit.Dead) then
             iterator = iterator + 1
             if ( math.mod( iterator, 4 ) == 0 ) then
                 WaitSeconds(0.1)
@@ -788,8 +788,8 @@ function NIS1KillUnits2()
 
     for i = 1, 2 do
         WaitSeconds(0.1)
-        ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:SetCanTakeDamage(true)
-        if ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i] and not ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:IsDead() then
+        ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i].CanTakeDamage = true
+        if ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i] and not ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i].Dead then
             ScenarioInfo.UnitNames[Order]['Gunship_Tracker' .. i]:Kill()
         end
     end
@@ -952,7 +952,7 @@ function M1FirstBaseDestroyed()
 end
 
 function M1S2Reveal()
-    if ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead() then
+    if ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield.Dead then
         ScenarioFramework.Dialogue(VoiceOvers.RepairShield, M1S2Assign)
     end
 end
@@ -996,10 +996,10 @@ function M1ShieldDestroyed()
 end
 
 function CheckShieldHealth()
-    while(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead() and ScenarioInfo.M1ObjectiveShield:GetHealthPercent() ~= 1) do
+    while(ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield.Dead and ScenarioInfo.M1ObjectiveShield:GetHealthPercent() ~= 1) do
         WaitSeconds(1)
     end
-    if(ScenarioInfo.MissionNumber == 1 and ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield:IsDead()) then
+    if(ScenarioInfo.MissionNumber == 1 and ScenarioInfo.M1ObjectiveShield and not ScenarioInfo.M1ObjectiveShield.Dead) then
         ScenarioInfo.M1S2:ManualResult(true)
     end
 end
@@ -1008,7 +1008,7 @@ function M1S3Reveal()
     if ScenarioInfo.MissionNumber == 1 then
         local subsAlive = 0
         for k, sub in ScenarioInfo.M1Subs do
-            if sub and not sub:IsDead() then
+            if sub and not sub.Dead then
                 subsAlive = subsAlive + 1
             end
         end
@@ -1237,13 +1237,13 @@ function IntroMission2()
 
             -- Adjust the NIS units to have less health
             for k, unit in ScenarioInfo.NISCivilianDefenders do
-                if ( unit and not unit:IsDead() ) then
+                if ( unit and not unit.Dead ) then
                     unit:AdjustHealth(unit, (unit:GetHealth() * 0.8) * -1)
                 end
             end
 
             for k, unit in ScenarioInfo.NISOrderAttackers do
-                if ( unit and not unit:IsDead() ) then
+                if ( unit and not unit.Dead ) then
                     unit:AdjustHealth(unit, (unit:GetHealth() * 0.6) * -1)
                 end
             end
@@ -1291,12 +1291,12 @@ function IntroMission2NIS()
 
     -- Kill all of the featured attackers and defenders while the we're looking elsewhere
     for k, unit in ScenarioInfo.NISCivilianDefenders do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:Kill()
         end
     end
     for k, unit in ScenarioInfo.NISOrderAttackers do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:Kill()
         end
     end
@@ -1416,7 +1416,7 @@ end
 function OrderSecondaryAttack1()
     if(ScenarioInfo.OrderSecondaryAttack1 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack1)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack1:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -1427,7 +1427,7 @@ end
 function OrderSecondaryAttack2()
     if(ScenarioInfo.OrderSecondaryAttack2 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack2)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack2:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -1438,7 +1438,7 @@ end
 function OrderSecondaryAttack3()
     if(ScenarioInfo.OrderSecondaryAttack3 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack3)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack3:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -1449,7 +1449,7 @@ end
 function OrderSecondaryAttack4()
     if(ScenarioInfo.OrderSecondaryAttack4 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack4)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack4:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -1512,7 +1512,7 @@ function IntroMission3()
             end
 
             -- Order CDR
-            ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', false, LOC '{i Gari}', false, false, 
+            ScenarioInfo.OrderCDR = ScenarioFramework.SpawnCommander('Order', 'Order_ACU', nil, LOC '{i Gari}', false, nil, 
                 {'ShieldHeavy', 'EnhancedSensors', 'AdvancedEngineering' ,'T3Engineering'})
 
             -----------------------
@@ -2206,7 +2206,7 @@ end
 function MoveTrucks(location)
     if(ScenarioInfo.Trucks) then
         for k,v in ScenarioInfo.Trucks do
-            if(not v:IsDead()) then
+            if(not v.Dead) then
                 IssueStop({v})
                 IssueClearCommands({v})
                 IssueMove({v}, location)
@@ -2253,7 +2253,7 @@ function TruckRescued(unit)
             table.remove(ScenarioInfo.Trucks, k)
         end
     end
-    unit:SetCanBeKilled(false)
+    unit.CanBeKilled = false
     IssueStop({unit})
     IssueMove({unit}, ScenarioUtils.MarkerToPosition('UEF_M2_Secondary_Escort_Marker'))
     ScenarioInfo.TrucksEscorted = ScenarioInfo.TrucksEscorted + 1
@@ -2281,7 +2281,7 @@ function KillOrder()
     local units = ArmyBrains[Order]:GetListOfUnits(categories.ALLUNITS - categories.WALL, false)
     local waitNum = math.floor(table.getn(units) / 20)
     for k,v in units do
-        if(not v:IsDead()) then
+        if(not v.Dead) then
             v:Kill()
         end
         WaitSeconds(.1)
@@ -2443,7 +2443,7 @@ function IntroMission4()
             M4CounterAttack()
 
             -- CDR
-            ScenarioInfo.SeraphimCDR = ScenarioFramework.SpawnCommander('Seraphim', 'Seraphim_CDR', false, LOC '{i ShunUllevash}', false, M4SeraphCDRDeadDialogue, 
+            ScenarioInfo.SeraphimCDR = ScenarioFramework.SpawnCommander('Seraphim', 'Seraphim_CDR', nil, LOC '{i ShunUllevash}', false, M4SeraphCDRDeadDialogue, 
                 {'AdvancedEngineering', 'T3Engineering', 'RegenAura', 'DamageStabilization'})
             for i =1, 6 do
                 IssuePatrol({ScenarioInfo.SeraphimCDR}, ScenarioUtils.MarkerToPosition( 'M4_Seraph_CDRPatrol_' .. i ) )
@@ -2631,7 +2631,7 @@ end
 function KillDoomedFactory()
     WaitSeconds(1)
     local factory = ScenarioInfo.UnitNames[UEF]['Doomed_Factory']
-    if factory and not factory:IsDead() then
+    if factory and not factory.Dead then
         factory:AdjustHealth(factory, (factory:GetHealth() - 1) * -1)
     end
 end
@@ -2753,7 +2753,7 @@ function RevealM4P2()
     -- Nuke M3 Town (if civ structures are present)
     if ScenarioFramework.NumCatUnitsInArea( categories.ALLUNITS - categories.xec8003, ScenarioUtils.AreaToRect('M4_EasternTownArea'), ArmyBrains[Civilians] ) > 0 then
         local nuke = ScenarioInfo.UnitNames[Seraphim]['M4_Seraph_StratLauncher']
-        if(nuke and not nuke:IsDead()) then
+        if(nuke and not nuke.Dead) then
             nuke:GiveNukeSiloAmmo(1)
             IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M4_Seraph_Nuke_Marker'))
             ScenarioFramework.CreateTimerTrigger(M4NukeWarning, 9)
@@ -2777,7 +2777,7 @@ function M4NukeThread()
     local nuke = ScenarioInfo.UnitNames[Seraphim]['M4_Seraph_StratLauncher']
     local delay = {11, 8, 5}
 
-    while nuke and not nuke:IsDead() do
+    while nuke and not nuke.Dead do
         local marker = nil
         local numUnits = 0
         local searching = true
@@ -2796,7 +2796,7 @@ function M4NukeThread()
                 end
             end
         end
-        if nuke and not nuke:IsDead() then
+        if nuke and not nuke.Dead then
             nuke:GiveNukeSiloAmmo(1)
             IssueNuke({nuke}, ScenarioUtils.MarkerToPosition(marker))
         end
@@ -2810,7 +2810,7 @@ function DeathNIS(unit)
         function()
             local num_alive = 0
             for k, unit in ScenarioInfo.FinalUnits do
-                if (unit and not unit:IsDead()) then
+                if (unit and not unit.Dead) then
                     num_alive = num_alive + 1
                 end
             end
@@ -2847,14 +2847,14 @@ end
 
 function IncarnaAttack()
     local incarnas = {}
-    if(ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1:IsDead()) then
+    if(ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1.Dead) then
         IssueStop({ScenarioInfo.Incarna1})
         IssueClearCommands({ScenarioInfo.Incarna1})
         table.insert(incarnas, ScenarioInfo.Incarna1)
     end
 
     if(Difficulty == 3) then
-        if(ScenarioInfo.Incarna3 and not ScenarioInfo.Incarna3:IsDead()) then
+        if(ScenarioInfo.Incarna3 and not ScenarioInfo.Incarna3.Dead) then
             IssueStop({ScenarioInfo.Incarna3})
             IssueClearCommands({ScenarioInfo.Incarna3})
             table.insert(incarnas, ScenarioInfo.Incarna3)
@@ -2877,7 +2877,7 @@ end
 
 function IncarnaWarning()
     -- warn the player of the incoming attack
-    if((ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1:IsDead()) or (ScenarioInfo.Incarna3 and not ScenarioInfo.Incarna3:IsDead())) then
+    if((ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1.Dead) or (ScenarioInfo.Incarna3 and not ScenarioInfo.Incarna3.Dead)) then
         ScenarioFramework.Dialogue(OpStrings.X01_M03_290)
     end
 end

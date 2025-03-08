@@ -2,6 +2,7 @@ local AIUtils = import('/lua/ai/aiutilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Utils = import("/lua/utilities.lua")
 
 local UEF = 2
 local Cybran = 4
@@ -667,7 +668,7 @@ function UpdateASFsTargets(targetCats, rect, atlantisPos)
         table.sort(units, function(a, b)
             local posA = a:GetPosition()
             local posB = b:GetPosition()
-            return VDist2(posA[1], posA[3], atlantisPos[1], atlantisPos[3]) < VDist2(posB[1], posB[3], atlantisPos[1], atlantisPos[3])
+            return Utils.GetDistanceBetweenTwoPoints2(posA[1], posA[3], atlantisPos[1], atlantisPos[3]) < Utils.GetDistanceBetweenTwoPoints2(posB[1], posB[3], atlantisPos[1], atlantisPos[3])
         end)
     end
 

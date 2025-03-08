@@ -62,14 +62,14 @@ ScenarioInfo.OperationEnding                = false
 ----------------------------------------------------------------------------- #
 -- === LOCAL VARIABLES ======================================================= #
 ----------------------------------------------------------------------------- #
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
+local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local OpStrings = import('/maps/SCCA_Coop_R02/SCCA_Coop_R02_strings.lua')
 local OpEditorFns = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 local Objectives = ScenarioFramework.Objectives
@@ -588,8 +588,8 @@ function M1JanusLeaves()
     ForkThread (WarpInEffectThread,m1JanusCDRUnit)
     m1JanusCDRUnit:SetCapturable(false)
     m1JanusCDRUnit:SetReclaimable(false)
-    m1JanusCDRUnit:SetCanBeKilled(false)
-    m1JanusCDRUnit:SetCanTakeDamage(false)
+    m1JanusCDRUnit.CanBeKilled = false
+    m1JanusCDRUnit.CanTakeDamage = false
 
 
     ForkThread(TrackIntialJanusThread,m1JanusCDRUnit)
@@ -649,7 +649,7 @@ function WarpInEffectThread(unit)
 end
 
 function TrackIntialJanusThread(unit)
-    while not unit:IsDead() do
+    while not unit.Dead do
         WaitSeconds(1)
     end
     for _, player in ScenarioInfo.HumanPlayers do
@@ -725,8 +725,8 @@ function M1P2Complete()
     ScenarioInfo.CivilianTempleNETech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
     -- Make the tech impervious to everything
-    ScenarioInfo.CivilianTempleNETech:SetCanTakeDamage(false)
-    ScenarioInfo.CivilianTempleNETech:SetCanBeKilled(false)
+    ScenarioInfo.CivilianTempleNETech.CanTakeDamage = false
+    ScenarioInfo.CivilianTempleNETech.CanBeKilled = false
     ScenarioInfo.CivilianTempleNETech:SetReclaimable(false)
     ScenarioInfo.CivilianTempleNETech:SetCapturable(false)
 
@@ -873,8 +873,8 @@ function M1P3Complete()
     ScenarioInfo.CivilianTempleSETech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
     -- Make the tech impervious to everything
-    ScenarioInfo.CivilianTempleSETech:SetCanTakeDamage(false)
-    ScenarioInfo.CivilianTempleSETech:SetCanBeKilled(false)
+    ScenarioInfo.CivilianTempleSETech.CanTakeDamage = false
+    ScenarioInfo.CivilianTempleSETech.CanBeKilled = false
     ScenarioInfo.CivilianTempleSETech:SetReclaimable(false)
     ScenarioInfo.CivilianTempleSETech:SetCapturable(false)
 
@@ -975,8 +975,8 @@ end
 function M1TechTranslation(unit)
     ScenarioInfo.CapturedTech = unit
 
-    ScenarioInfo.CapturedTech:SetCanTakeDamage(false)
-    ScenarioInfo.CapturedTech:SetCanBeKilled(false)
+    ScenarioInfo.CapturedTech.CanTakeDamage = false
+    ScenarioInfo.CapturedTech.CanBeKilled = false
     ScenarioInfo.CapturedTech:SetCapturable(false)
     ScenarioInfo.CapturedTech:SetReclaimable(false)
 end
@@ -1005,8 +1005,8 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     local engineer = ScenarioInfo.UnitNames[CybranJanus]['M1_Tech_Pickup_Engineer']
 
     for counter, unit in pickupPlatoon:GetPlatoonUnits() do
-        unit:SetCanTakeDamage(false)
-        unit:SetCanBeKilled(false)
+        unit.CanTakeDamage = false
+        unit.CanBeKilled = false
         unit:SetCapturable(false)
         unit:SetReclaimable(false)
     end
@@ -2000,8 +2000,8 @@ function M2TempleDestroyed()
     ScenarioInfo.M2Tech:SetCustomName(LOC '<LOC opc2002_desc>Seraphim Tech')
 
     -- Make the tech impervious to everything
-    ScenarioInfo.M2Tech:SetCanTakeDamage(false)
-    ScenarioInfo.M2Tech:SetCanBeKilled(false)
+    ScenarioInfo.M2Tech.CanTakeDamage = false
+    ScenarioInfo.M2Tech.CanBeKilled = false
     ScenarioInfo.M2Tech:SetReclaimable(false)
     ScenarioInfo.M2Tech:SetCapturable(false)
 
@@ -2135,15 +2135,15 @@ function M3CreateUnits()
     ScenarioFramework.CreateUnitDeathTrigger(M3_AeonCDRDestroyed, ScenarioInfo.AeonCDR) -- For death nis
 
     ScenarioInfo.M3Gate = ScenarioUtils.CreateArmyUnit('FakeAeon', 'M3_Gate')
-    ScenarioInfo.M3Gate:SetCanTakeDamage(false)
-    ScenarioInfo.M3Gate:SetCanBeKilled(false)
+    ScenarioInfo.M3Gate.CanTakeDamage = false
+    ScenarioInfo.M3Gate.CanBeKilled = false
     ScenarioInfo.M3Gate:SetCapturable(false)
     ScenarioInfo.M3Gate:SetReclaimable(false)
 
     ScenarioInfo.M3Techs = ScenarioUtils.CreateArmyGroup('FakeJanus', 'M3_Janus_Tech')
     for counter, unit in ScenarioInfo.M3Techs do
-        unit:SetCanTakeDamage(false)
-        unit:SetCanBeKilled(false)
+        unit.CanTakeDamage = false
+        unit.CanBeKilled = false
         unit:SetCapturable(false)
         unit:SetReclaimable(false)
     end
@@ -2376,7 +2376,7 @@ function M3AeonCDRAttacksJanus()
     local aeonAirUnits = ArmyBrains[Aeon]:GetListOfUnits(categories.AIR + categories.MOBILE, false)
     local aeonUnitsExcluded = categories.ENGINEER + categories.SCOUT + categories.TRANSPORTATION + categories.ual0001
     local janusCDRPosition
-    if not ScenarioInfo.M3JanusCDR:IsDead() then
+    if not ScenarioInfo.M3JanusCDR.Dead then
         janusCDRPosition = ScenarioInfo.M3JanusCDR:GetPosition()
     else
         janusCDRPosition = ScenarioUtils.MarkerToPosition('Aeon_Alternate_AttackPoint')

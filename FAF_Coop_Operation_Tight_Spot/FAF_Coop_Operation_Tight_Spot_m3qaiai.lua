@@ -2,6 +2,7 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local OpScript = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Utils = import("/lua/utilities.lua")
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ThisFile = '/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3qaiai.lua'
@@ -1783,7 +1784,7 @@ end
 function QAIM3WestBaseAI(plan)
     if plan == 'push' then
         QAIM3WestBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_W_Base', 'M3_QAI_West_Base_Marker', 40, {M3_QAI_W_First = 105, M3_QAI_W = 100})
-        QAIM3WestBase:StartEmptyBase(8, 4)
+        QAIM3WestBase:StartEmptyBase({8, 4})
         QAIM3WestBase:SetMaximumConstructionEngineers(4)
         -- 'East' AA position (from the plateau view) in the 'West' base (from the player's view), great naming, but whatever! 
         QAIM3WestBase:AddBuildGroup('M3_Plateau_AA_Positions_East', 110)
@@ -2827,7 +2828,7 @@ function PlayersACUFarFromBase(brain, position, distance)
 
     for _, ACU in ScenarioInfo.PlayersACUs do
         local ACUPos = ACU:GetPosition()
-        if not ACU.Dead and VDist2(position[1], position[3], ACUPos[1], ACUPos[3]) > distance then
+        if not ACU.Dead and Utils.GetDistanceBetweenTwoPoints2(position[1], position[3], ACUPos[1], ACUPos[3]) > distance then
             return true
         end
     end

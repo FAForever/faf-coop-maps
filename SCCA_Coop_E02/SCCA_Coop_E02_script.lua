@@ -17,7 +17,7 @@
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
+local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_strings.lua')
@@ -1079,7 +1079,7 @@ end
 function HurtResearchFacility()
 
     -- If it's dead, the player has lost already, and we don't need to go through all of this
-    if ScenarioInfo.ResearchFacility:IsDead() then
+    if ScenarioInfo.ResearchFacility.Dead then
         return
     end
 
@@ -1125,7 +1125,7 @@ end
 function CheckResearchFacilityHealth()
 
     -- If it's dead, the player has lost already, and we don't need to go through all of these checks
-    if ScenarioInfo.ResearchFacility:IsDead() then
+    if ScenarioInfo.ResearchFacility.Dead then
         return
     end
 
@@ -1228,7 +1228,7 @@ function CommanderArrived()
 
     -- Give ally base buildings to the player
     for k, unit in ScenarioInfo.ResearchGroup do
-        if not unit:IsDead() then
+        if not unit.Dead then
             ScenarioFramework.GiveUnitToArmy(unit, Player1)
         end
     end
@@ -1386,7 +1386,7 @@ function WaitForUnload(Group1, Group2, Group3)
     WaitSeconds(2)
     local AllUnloaded = true
     for k, unit in Group1 do
-        if(not unit:IsDead()) and unit:IsUnitState('Attached') then
+        if(not unit.Dead) and unit:IsUnitState('Attached') then
             AllUnloaded = false
             break
         end
@@ -1504,8 +1504,8 @@ function BeginMission2()
     -- Create the Civilian Base
     ScenarioInfo.CivilianFacility = ScenarioUtils.CreateArmyUnit('AllyCivilian', 'Civilian_Facility')
     -- This building is now invulnerable
-    ScenarioInfo.CivilianFacility:SetCanTakeDamage(false)
-    ScenarioInfo.CivilianFacility:SetCanBeKilled(false)
+    ScenarioInfo.CivilianFacility.CanTakeDamage = false
+    ScenarioInfo.CivilianFacility.CanBeKilled = false
     ScenarioInfo.CivilianFacility:SetReclaimable(false)
     ScenarioInfo.CivilianFacility:SetCapturable(false)
     ScenarioInfo.CivilianFacility:SetCustomName(LOCF('<LOC planet_info_0040>Luthien'))
@@ -1605,7 +1605,7 @@ function M2ReinforcementWatch()
 
         if units then
             for k,unit in units do
-                if not unit:IsDead() and not unit:IsBeingBuilt() then
+                if not unit.Dead and not unit:IsBeingBuilt() then
                     if (Player1 == unit:GetArmy()) then
                         if EntityCategoryContains(categories.DIRECTFIRE, unit) and (tanks < CivilianReinforcementsNeededTanks)then
                             tanks = tanks+1
@@ -1700,7 +1700,7 @@ function AeonRadarSpotted()
         ScenarioFramework.Dialogue(OpStrings.E02_M03_010)
         -- Reveal where they are
         for k, radar in ScenarioInfo.RadarStations do
-            if not radar:IsDead() then
+            if not radar.Dead then
                 ScenarioFramework.CreateVisibleAreaLocation(5, radar:GetPosition(), 10, ArmyBrains[Player1])
             end
         end
@@ -1795,8 +1795,8 @@ end
 
 function DestroyTruckAfterDelay(Truck)
     -- make it invincible, etc. so that it doesn't die to splash damage or anything
-    Truck:SetCanTakeDamage(false)
-    Truck:SetCanBeKilled(false)
+    Truck.CanTakeDamage = false
+    Truck.CanBeKilled = false
     Truck:SetReclaimable(false)
     Truck:SetCapturable(false)
     WaitSeconds(10)
@@ -1989,7 +1989,7 @@ function BeginMission3()
     EnemyCommanderPlatoon.CDRData = {}
     EnemyCommanderPlatoon.CDRData.LeashPosition = 'M3_Commander_Leash'
     EnemyCommanderPlatoon.CDRData.LeashRadius = 75
-    EnemyCommanderPlatoon:ForkThread(import('/lua/ai/OpAI/OpBehaviors.lua').CDROverchargeBehavior)
+    EnemyCommanderPlatoon:ForkThread(import('/lua/ai/opai/OpBehaviors.lua').CDROverchargeBehavior)
     EnemyCommanderPlatoon:ForkAIThread(M3AeonCommanderAIThread)
 
     -- Track when the commander dies for the primary objective

@@ -435,7 +435,7 @@ function M1RhizaAirAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioUtils.ChainToPositions('M1_Rhiza_Air_Attack' .. Random(1,2) .. '_Chain')) -- ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Rhiza_Air_Attack' .. Random(1,2) .. '_Chain')))
                     end
                 end
@@ -446,7 +446,7 @@ function M1RhizaAirAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Air_Attack_Chain')
                         -- ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Rhiza_Air_Attack_Chain')))
                     end
@@ -458,7 +458,7 @@ function M1RhizaAirAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_AirAttack_Chain')
                         -- ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Rhiza_AirAttack_Chain')))
                     end
@@ -478,7 +478,7 @@ function M1RhizaNavalAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Rhiza_Naval_Attack' .. Random(1,2) .. '_Chain')))
                     end
                 end
@@ -489,7 +489,7 @@ function M1RhizaNavalAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Naval_Attack_' .. Random(1,3) .. '_Chain')
                     end
                 end
@@ -500,7 +500,7 @@ function M1RhizaNavalAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_NavalAttack_Chain')
                     end
                 end
@@ -519,7 +519,7 @@ function RhizaNavalDEFENSEAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Rhiza_NavalDef_Chain')
                     end
                 end
@@ -530,7 +530,7 @@ function RhizaNavalDEFENSEAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_NavalDef_Chain')
                     end
                 end
@@ -541,7 +541,7 @@ function RhizaNavalDEFENSEAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Rhiza_NavalAttack_Chain')))
                     end
                 end
@@ -580,7 +580,7 @@ function Colossus1AI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Colossus_1_Chain')
                     end
                 end
@@ -591,7 +591,7 @@ function Colossus1AI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_Colossus_Chain')
                     end
                 end
@@ -611,7 +611,7 @@ function Colossus2AI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Rhiza_Colossus_2_Chain')
                     end
                 end
@@ -622,7 +622,7 @@ function Colossus2AI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Rhiza_Colossus_Chain')
                     end
                 end

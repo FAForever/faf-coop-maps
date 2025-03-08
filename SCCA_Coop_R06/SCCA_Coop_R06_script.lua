@@ -8,8 +8,8 @@
 -------------------------------------------------------------------------------
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
-local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Weather = import('/lua/weather.lua')
 local M1AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M1AeonAI.lua')
@@ -165,11 +165,11 @@ function SpawnDebugPlayer()
 	M1CybranAI.M1CybranDebugBaseAI()
 	
     -- Jericho
-	ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Player1', 'Jericho', false, LOC('{i sCDR_Jericho}'), false, JerichoKilled,
+	ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Player1', 'Jericho', nil, LOC('{i sCDR_Jericho}'), false, JerichoKilled,
         {'ResourceAllocation', 'NaniteMissileSystem', 'Switchback'})
 		
 	-- Debug RedFog to test stuff, like enhancement building
-	ScenarioInfo.RedFog = ScenarioFramework.SpawnCommander('Cybran', 'Allied_Cybran_ACU', false, 'CDR RedFog', false, false)
+	ScenarioInfo.RedFog = ScenarioFramework.SpawnCommander('Cybran', 'Allied_Cybran_ACU', nil, 'CDR RedFog', false, nil)
     ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 end
 
@@ -179,7 +179,7 @@ function SpawnPlayer()
 	ScenarioUtils.CreateArmyGroup('Player1', 'Base_D' .. Difficulty)
 	
     -- Jericho
-	ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Player1', 'Jericho', false, LOC('{i sCDR_Jericho}'), false, JerichoKilled, {'ResourceAllocation', 'NaniteMissileSystem', 'Switchback'})
+	ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Player1', 'Jericho', nil, LOC('{i sCDR_Jericho}'), false, JerichoKilled, {'ResourceAllocation', 'NaniteMissileSystem', 'Switchback'})
     ScenarioFramework.CreateUnitGivenTrigger(JerichoGiven, ScenarioInfo.Jericho)
 	
 	local sonar = ScenarioUtils.CreateArmyUnit('Player1', 'MobileSonar')
@@ -219,14 +219,14 @@ function SpawnUEF()
 	M3UEFAI.UEFMainNavalBaseAI()
 	
 	-- UEF Commander
-	ScenarioInfo.Aiko = ScenarioFramework.SpawnCommander('UEF', 'Aiko', false, LOC('{i CDR_Aiko}'), false, AikoDestroyed, {'DamageStabilization', 'HeavyAntiMatterCannon', 'Shield'})
+	ScenarioInfo.Aiko = ScenarioFramework.SpawnCommander('UEF', 'Aiko', nil, LOC('{i CDR_Aiko}'), false, AikoDestroyed, {'DamageStabilization', 'HeavyAntiMatterCannon', 'Shield'})
 	ScenarioInfo.Aiko:SetAutoOvercharge(true)
 	ScenarioInfo.Aiko:SetVeterancy(5)
 	
 	-- Black Sun
     ScenarioInfo.BlackSunWeapon = ScenarioUtils.CreateArmyUnit('BlackSun', 'BlackSun')
-    ScenarioInfo.BlackSunWeapon:SetCanTakeDamage(false)
-    ScenarioInfo.BlackSunWeapon:SetCanBeKilled(false)
+    ScenarioInfo.BlackSunWeapon.CanTakeDamage = false
+    ScenarioInfo.BlackSunWeapon.CanBeKilled = false
     ScenarioInfo.BlackSunWeapon:SetReclaimable(false)
 	
 	-- Black Sun support structures
@@ -236,8 +236,8 @@ function SpawnUEF()
         v:SetCapturable(false)
         v:SetUnSelectable(true)
         v:SetDoNotTarget(true)
-        v:SetCanTakeDamage(false)
-        v:SetCanBeKilled(false)
+        v.CanTakeDamage = false
+        v.CanBeKilled = false
     end
 end
 
@@ -247,9 +247,9 @@ function SpawnAeon()
 	
 	-- Aeon Commander
 		-- This one spawns with enhancements
-	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', false, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed, {'Shield', 'ShieldHeavy', 'HeatSink', 'CrysalisBeam'})
+	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed, {'Shield', 'ShieldHeavy', 'HeatSink', 'CrysalisBeam'})
 		--This one doesn't spawn with enhancements
-	-- ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', false, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed)
+	-- ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), nil, ArnoldDestroyed)
 	ScenarioInfo.Arnold:SetAutoOvercharge(true)
 	ScenarioInfo.Arnold:SetVeterancy(5)
 	
@@ -448,7 +448,7 @@ function StartMission1()
 end
 
 function M1JerichoVO()
-    if(not ScenarioInfo.Jericho:IsDead()) then
+    if(not ScenarioInfo.Jericho.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_020)
     else
         ScenarioFramework.Dialogue(OpStrings.C06_M01_022)
@@ -602,8 +602,8 @@ function CzarDefeated()
     ScenarioInfo.M1P1:ManualResult(true)
 
     -- Make Control Center invulnerable
-    ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
-    ScenarioInfo.ControlCenter:SetCanBeKilled(false)
+    ScenarioInfo.ControlCenter.CanTakeDamage = false
+    ScenarioInfo.ControlCenter.CanBeKilled = false
     ScenarioInfo.ControlCenter:SetDoNotTarget(true)
 	
 	-- Start building a Czar for attacking
@@ -621,7 +621,7 @@ function CzarDefeated()
         ScenarioFramework.OperationNISCamera(ScenarioInfo.Czar, camInfo)
     end
 
-    if(not ScenarioInfo.Arnold:IsDead()) then
+    if(not ScenarioInfo.Arnold.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_100)
         ScenarioFramework.Dialogue(OpStrings.C06_M01_110, IntroMission2)
     else
@@ -812,7 +812,7 @@ function CDRNearGate()
 end
 
 function LeftGate()
-    if(ScenarioInfo.M2P2.Active and not ScenarioInfo.Player1CDR:IsDead()) then
+    if(ScenarioInfo.M2P2.Active and not ScenarioInfo.Player1CDR.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_070)
         ScenarioFramework.ResetUITimer()
         ScenarioInfo.DownloadTimer:Destroy()
@@ -848,9 +848,9 @@ function DownloadFinished()
                 local unit = ScenarioFramework.GetListOfHumanUnits(categories.uec1902, false)
                 ScenarioInfo.ControlCenter = unit[1]
 					ScenarioInfo.ControlCenter:SetDoNotTarget(true)
-				    ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
+				    ScenarioInfo.ControlCenter.CanTakeDamage = false
 					ScenarioInfo.ControlCenter:SetReclaimable(false)
-					ScenarioInfo.ControlCenter:SetCanBeKilled(false)
+					ScenarioInfo.ControlCenter.CanBeKilled = false
 					ScenarioInfo.ControlCenter:SetCapturable(false)
 					ScenarioInfo.ControlCenter:SetCanBeGiven(false)
                 ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
@@ -891,7 +891,7 @@ function M2MobileFactoriesThread()
 end
 
 function M2JerichoVO()
-    if(not ScenarioInfo.Jericho:IsDead()) then
+    if(not ScenarioInfo.Jericho.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M02_020)
     else
         ScenarioFramework.Dialogue(OpStrings.C06_M02_025)
@@ -961,12 +961,12 @@ function IntroMission3()
 	M3UEFAI.M3UEFSouthWesternBaseAI()
 	
 	-- M3 UEF sACU for the South Western island.
-	ScenarioInfo.SouthernUEF_sACU = ScenarioFramework.SpawnCommander('UEF', 'Michael_sACU', false, 'sCDR Michael', false, false,
+	ScenarioInfo.SouthernUEF_sACU = ScenarioFramework.SpawnCommander('UEF', 'Michael_sACU', nil, 'sCDR Michael', false, nil,
         {'Shield', 'AdvancedCoolingUpgrade', 'ResourceAllocation'})
 	ScenarioInfo.SouthernUEF_sACU:SetVeterancy(5)
 	
 	-- M3 UEF Commander for the South Western island
-	ScenarioInfo.Blake = ScenarioFramework.SpawnCommander('UEF', 'Blake_ACU', false, 'CDR Blake', false, BlakeDestroyed,
+	ScenarioInfo.Blake = ScenarioFramework.SpawnCommander('UEF', 'Blake_ACU', nil, 'CDR Blake', false, BlakeDestroyed,
         {'Shield', 'HeavyAntiMatterCannon', 'T3Engineering'})
 	ScenarioInfo.Blake:SetAutoOvercharge(true)
 	ScenarioInfo.Blake:SetVeterancy(5)
@@ -985,7 +985,7 @@ function IntroMission3()
 	M3AeonAI.M3AeonSouthEasternBaseAI()
 	
 	-- M3 Aeon sACU for the South Eastern island
-	ScenarioInfo.SouthernAeon_sACU = ScenarioFramework.SpawnCommander('Aeon', 'Matilda_sACU', false, 'sCDR Matilda', false, false,
+	ScenarioInfo.SouthernAeon_sACU = ScenarioFramework.SpawnCommander('Aeon', 'Matilda_sACU', nil, 'sCDR Matilda', false, nil,
         {'SystemIntegrityCompensator', 'EngineeringFocusingModule', 'ResourceAllocation'})
 	ScenarioInfo.SouthernAeon_sACU:SetVeterancy(5)
 	
@@ -1075,8 +1075,8 @@ function StartMission3()
                 )
                 unit[1]:AddSpecialToggleEnable(BlackSunFired)
 				unit[1]:AddSpecialToggleDisable(BlackSunFired)
-                unit[1]:SetCanTakeDamage(false)
-                unit[1]:SetCanBeKilled(false)
+                unit[1].CanTakeDamage = false
+                unit[1].CanBeKilled = false
                 unit[1]:SetReclaimable(false)
                 unit[1]:SetCapturable(false)
                 unit[1]:SetDoNotTarget(true)

@@ -10,7 +10,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')  
+local Utilities = import('/lua/utilities.lua')  
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local CustomFunctions = import('/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_CustomFunctions.lua') 
 local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP1.lua')
@@ -51,7 +51,7 @@ local UEFSPAWN = false
 local Debug = false
 
 local AssignedObjectives = {}
-
+local LeaderFaction, LocalFaction
 local NIS1InitialDelay = 3
  
 function OnPopulate(scenario)
@@ -101,8 +101,8 @@ function OnStart(scenario)
     ScenarioInfo.M1ObjectiveLab1:SetHealth(ScenarioInfo.M1ObjectiveLab1, 5000)
     ScenarioInfo.M1ObjectiveLab1:SetReclaimable(false)
     ScenarioInfo.M1ObjectiveLab1:SetCapturable(true)
-    ScenarioInfo.M1ObjectiveLab1:SetCanTakeDamage(false)
-    ScenarioInfo.M1ObjectiveLab1:SetCanBeKilled(false)
+    ScenarioInfo.M1ObjectiveLab1.CanTakeDamage = false
+    ScenarioInfo.M1ObjectiveLab1.CanBeKilled = false
     ScenarioInfo.M1ObjectiveLab1:SetDoNotTarget(true)
 
     ScenarioUtils.CreateArmyGroup('Seraphim', 'Walls')
@@ -460,7 +460,7 @@ function UEFIntroP1()
     ScenarioUtils.CreateArmyGroup('UEF', 'P1UECO')
     ScenarioFramework.Dialogue(OpStrings.EndP1, nil, true)
 
-    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UACU', 'Warp', 'General Valerie', true, false,
+    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UACU', 'Warp', 'General Valerie', true, nil,
     {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation', 'Shield'}) 
     ScenarioInfo.UEFACU:SetAutoOvercharge(true)
     ScenarioInfo.UEFACU:SetVeterancy(5 - Difficulty)
@@ -794,7 +794,7 @@ function IntroP3()
     P2SeraphimAI.P2Orderbase2AI()
     P2SeraphimAI.P2QAIbase1AI()
 
-    ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'P2QACU', false, 'QAI Drone', false, QAIACUdeath,
+    ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'P2QACU', nil, 'QAI Drone', false, QAIACUdeath,
         {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
         ScenarioInfo.P2QACU:SetAutoOvercharge(true)
         ScenarioInfo.P2QACU:SetVeterancy(1 + Difficulty)
@@ -1251,12 +1251,12 @@ function IntroP4()
             ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol3')))
         end  
 
-    ScenarioInfo.P3SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P3SACU', false, 'Oum-Eoshi', false, SeraACUdeath,
+    ScenarioInfo.P3SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P3SACU', nil, 'Oum-Eoshi', false, SeraACUdeath,
         {'AdvancedEngineering', 'T3Engineering', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
         ScenarioInfo.P3SACU:SetAutoOvercharge(true)
         ScenarioInfo.P3SACU:SetVeterancy(1 + Difficulty)
 
-    ScenarioInfo.P3OACU = ScenarioFramework.SpawnCommander('Order', 'P3OACU', false, 'Executioner Keleana', false, OrderACUdeath,
+    ScenarioInfo.P3OACU = ScenarioFramework.SpawnCommander('Order', 'P3OACU', nil, 'Executioner Keleana', false, OrderACUdeath,
         {'EnhancedSensors','Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering'})
         ScenarioInfo.P3OACU:SetAutoOvercharge(true)
         ScenarioInfo.P3OACU:SetVeterancy(1 + Difficulty)

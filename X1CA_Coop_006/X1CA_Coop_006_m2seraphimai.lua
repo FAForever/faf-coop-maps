@@ -263,7 +263,7 @@ end
 function M2SeraphimAirAttackAI(platoon)
     local moveNum = false
     while(ArmyBrains[Seraphim]:PlatoonExists(platoon)) do
-        if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
+        if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
             if(not moveNum) then
                 moveNum = 1
                 IssueStop(platoon:GetPlatoonUnits())
@@ -285,7 +285,7 @@ end
 function M2SeraphimNavalAttackAI(platoon)
     local moveNum = false
     while(ArmyBrains[Seraphim]:PlatoonExists(platoon)) do
-        if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
+        if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
             if(not moveNum) then
                 moveNum = 1
                 IssueStop(platoon:GetPlatoonUnits())

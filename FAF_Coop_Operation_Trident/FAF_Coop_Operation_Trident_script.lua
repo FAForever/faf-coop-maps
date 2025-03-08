@@ -274,16 +274,16 @@ function DropThread(allUnits, dropMarker, deleteMarker, army, moveChain)
                 unit:Destroy()
 
                 if army == Player1 then
-                    ScenarioInfo.Player1ACU = ScenarioFramework.SpawnCommander('Player1', 'Commander', false, true, true, PlayerDeath,
+                    ScenarioInfo.Player1ACU = ScenarioFramework.SpawnCommander('Player1', 'Commander', nil, true, true, PlayerDeath,
                         {'CoolingUpgrade', 'StealthGenerator'})
                     Warp(ScenarioInfo.Player1ACU, position, orientation)
                 elseif army == Player2 then
-                    ScenarioInfo.Player2ACU = ScenarioFramework.SpawnCommander('Player2', 'Commander', false, true, true, PlayerDeath,
+                    ScenarioInfo.Player2ACU = ScenarioFramework.SpawnCommander('Player2', 'Commander', nil, true, true, PlayerDeath,
                         {'AdvancedEngineering', 'ResourceAllocation', 'NaniteTorpedoTube'})
                     Warp(ScenarioInfo.Player2ACU, position, orientation)
                 elseif army == Cybran then
                     -- There's no real need to do the same for the Cybran AI as well, but this function is more convenient to set up the ACU
-                    ScenarioInfo.CybranACU = ScenarioFramework.SpawnCommander('Cybran', 'Commander', false, 'Wyxe', true, PlayerDeath,
+                    ScenarioInfo.CybranACU = ScenarioFramework.SpawnCommander('Cybran', 'Commander', nil, 'Wyxe', true, PlayerDeath,
                         {'AdvancedEngineering', 'ResourceAllocation', 'NaniteTorpedoTube'})
                     ScenarioInfo.CybranACU:SetAutoOvercharge(true)
                     Warp(ScenarioInfo.CybranACU, position, orientation)
@@ -827,7 +827,7 @@ function IntroMission2()
         {'CrysalisBeam', 'EnhancedSensors', 'Shield', 'ShieldHeavy'},
         {'AdvancedEngineering', 'EnhancedSensors', 'Shield', 'ShieldHeavy'},
     }
-    ScenarioInfo.AeonACU = ScenarioFramework.SpawnCommander('Aeon', 'Commander', false, 'Cora', false, false, upgrades[Random(1, table.getn(upgrades))])
+    ScenarioInfo.AeonACU = ScenarioFramework.SpawnCommander('Aeon', 'Commander', nil, 'Cora', false, nil, upgrades[Random(1, table.getn(upgrades))])
     ScenarioInfo.AeonACU:SetVeterancy(1 + Difficulty)
     ScenarioInfo.AeonACU:SetAutoOvercharge(true)
     ScenarioInfo.AeonACUPlatoon = ArmyBrains[Aeon]:MakePlatoon('', '')

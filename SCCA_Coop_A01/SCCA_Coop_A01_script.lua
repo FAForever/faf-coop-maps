@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local SimCamera = import('/lua/SimCamera.lua').SimCamera
@@ -546,7 +546,7 @@ function M3_BuildGunboatsObjective()
                 -- and both doesnt need a prompt, and will soon be hearing more dialogue anyway).
                 local airNumber = 0
                 for k,v in ScenarioInfo.M3_UEFInterceptorPatrol do
-                    if (not v:IsDead()) then
+                    if (not v.Dead) then
                         airNumber = airNumber + 1
                     end
                 end
@@ -813,7 +813,7 @@ function M7_BeginMission()
     for x,y in ScenarioInfo.FauxUEF_SpecialDef do
         y:SetReclaimable(false)
         y:SetCapturable(false)
-        y:SetCanBeKilled(false)
+        y.CanBeKilled = false
     end
 
     for i = 1,5 do
@@ -842,7 +842,7 @@ function M7_BeginMission()
     ScenarioInfo.M7_RhizaCommanderUnit:CreateEnhancement('Shield')
     ScenarioInfo.M7_RhizaCommanderUnit:SetReclaimable(false)
     ScenarioInfo.M7_RhizaCommanderUnit:SetCapturable(false)
-    ScenarioInfo.M7_RhizaCommanderUnit:SetCanBeKilled(false)
+    ScenarioInfo.M7_RhizaCommanderUnit.CanBeKilled = false
     for i = 1, 3 do
         IssuePatrol({ScenarioInfo.M7_RhizaCommanderUnit}, ScenarioUtils.MarkerToPosition('M7_Rhiza_BasePatrol_'..i))
     end
@@ -884,7 +884,7 @@ function M7_BeginMission()
     for k,v in ScenarioInfo.UefSpecialDef do
         v:SetReclaimable(false)
         v:SetCapturable(false)
-        v:SetCanBeKilled(false)
+        v.CanBeKilled = false
     end
 
     -- Naval groups, patrols - Main Island. Set the frigates to not use spoofing, so the scene isnt too overwhelming.
@@ -1126,7 +1126,7 @@ function M7_Objectives()
 end
 
 function M7_SubCommanderPatrol()
-    if (not ScenarioInfo.UEFSubCommander:IsDead()) then
+    if (not ScenarioInfo.UEFSubCommander.Dead) then
         -- clear cmds, assign patrol
         IssueStop({ScenarioInfo.UEFSubCommander})
         IssueClearCommands({ScenarioInfo.UEFSubCommander})
@@ -1306,7 +1306,7 @@ function M7_CreateCzar()
 
         ScenarioInfo.RhizaCzar:SetReclaimable(false)
         ScenarioInfo.RhizaCzar:SetCapturable(false)
-        ScenarioInfo.RhizaCzar:SetCanBeKilled(false)
+        ScenarioInfo.RhizaCzar.CanBeKilled = false
 
         -- reset czar viz radius back to bp default
         local bpIntel = ScenarioInfo.RhizaCzar:GetBlueprint().Intel
@@ -1361,7 +1361,7 @@ function M7_CreateCzar()
                 }
            )
         end
-        if (not ScenarioInfo.M7_FauxUEFCommanderUnit:IsDead()) then
+        if (not ScenarioInfo.M7_FauxUEFCommanderUnit.Dead) then
             -- Move to edge of island, queue unload of the aircraft being carried, and start a check for when that unload is done
             ScenarioInfo.CzarMoveCommand = ScenarioInfo.RhizaCzarPlat:MoveToLocation(ScenarioUtils.MarkerToPosition('RhizaCzar_Move3'), false)
             ForkThread(M7_CzarAircraftMoveThread)
@@ -1380,7 +1380,7 @@ function M7_CreateCzar()
             -- at the FauxUEF main base area.
             ScenarioFramework.CreateTimerTrigger(EndOperationCounter, 60)
         end
-        if ScenarioInfo.M7_FauxUEFCommanderUnit:IsDead() then
+        if ScenarioInfo.M7_FauxUEFCommanderUnit.Dead then
             -- Move to edge of island, queue unload of the aircraft being carried, and start a check for when that unload is done
             ScenarioInfo.CzarMoveCommand = ScenarioInfo.RhizaCzarPlat:MoveToLocation(ScenarioUtils.MarkerToPosition('RhizaCzar_Move3'), false)
             ForkThread(M7_CzarAircraftMoveThread)
@@ -1395,17 +1395,17 @@ function M7_CreateCzar()
 
         -- Now that we are at this point in the Op, its ok to let the player mess with the UEF/FauxUEF defenses designed to keep player out.
         for k,v in ScenarioInfo.UefSpecialDef do
-            if (not v:IsDead()) then
+            if (not v.Dead) then
                 v:SetReclaimable(true)
                 v:SetCapturable(true)
-                v:SetCanBeKilled(true)
+                v.CanBeKilled = true
             end
         end
         for k,v in ScenarioInfo.FauxUEF_SpecialDef do
-            if (not v:IsDead()) then
+            if (not v.Dead) then
                 v:SetReclaimable(true)
                 v:SetCapturable(true)
-                v:SetCanBeKilled(true)
+                v.CanBeKilled = true
             end
         end
 
@@ -1513,7 +1513,7 @@ end
 function SetGroupFlags(group)
     -- Sets a group of units to no cap/reclaim
     for k, v in group do
-        if (not v:IsDead()) then
+        if (not v.Dead) then
             v:SetReclaimable(false)
             v:SetCapturable(false)
         end

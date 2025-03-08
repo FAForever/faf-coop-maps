@@ -257,7 +257,7 @@ function FletcherTransportAI()
     end
 
     for k, v in allUnits do
-        while(not v:IsDead() and v:IsUnitState('Attached')) do
+        while(not v.Dead and v:IsUnitState('Attached')) do
             WaitSeconds(.5)
         end
     end
@@ -283,7 +283,7 @@ function FletcherTransportAI()
     WaitSeconds(1)
 
     for k, v in allTransports do
-        while(not v:IsDead() and v:IsUnitState('Moving')) do
+        while(not v.Dead and v:IsUnitState('Moving')) do
             WaitSeconds(.5)
         end
         v:Destroy()
@@ -530,11 +530,11 @@ function M1Subplot()
 end
 
 function M1ExperimentalBuilt()
-    if(ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1:IsDead()) then
+    if(ScenarioInfo.Incarna1 and not ScenarioInfo.Incarna1.Dead) then
         IssueStop({ScenarioInfo.Incarna1})
         IssueClearCommands({ScenarioInfo.Incarna1})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Incarna1}, 'M1_Seraph_Base_LandAttack_3_Chain')
-    elseif(ScenarioInfo.Incarna2 and not ScenarioInfo.Incarna2:IsDead()) then
+    elseif(ScenarioInfo.Incarna2 and not ScenarioInfo.Incarna2.Dead) then
         IssueStop({ScenarioInfo.Incarna2})
         IssueClearCommands({ScenarioInfo.Incarna2})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Incarna2}, 'M1_Seraph_Base_LandAttack_3_Chain')
@@ -581,8 +581,8 @@ function IntroMission2()
             -- Option Zero
             -------------
             ScenarioInfo.OptionZeroNuke = ScenarioUtils.CreateArmyUnit('OptionZero', 'M2_MZero_Nuke_1')
-            ScenarioInfo.OptionZeroNuke:SetCanTakeDamage(false)
-            ScenarioInfo.OptionZeroNuke:SetCanBeKilled(false)
+            ScenarioInfo.OptionZeroNuke.CanTakeDamage = false
+            ScenarioInfo.OptionZeroNuke.CanBeKilled = false
             ScenarioInfo.OptionZeroNuke:SetCapturable(false)
             ScenarioInfo.OptionZeroNuke:SetReclaimable(false)
             ScenarioInfo.OptionZeroNuke:SetIntelRadius('Vision', 0)
@@ -608,7 +608,7 @@ function M2Fletcher()
     --------------
     -- Fletcher ACU
     --------------
-    ScenarioInfo.FletcherACU = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', false, LOC '{i Fletcher}', true)
+    ScenarioInfo.FletcherACU = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', nil, LOC '{i Fletcher}', true)
     if(Difficulty > 1) then
         ScenarioInfo.FletcherACU:CreateEnhancement('DamageStabilization')
         ScenarioInfo.FletcherACU:CreateEnhancement('HeavyAntiMatterCannon')
@@ -635,7 +635,7 @@ function M2Fletcher()
             -- Wait for satellite to be launched
             WaitSeconds(5)
             local orbital = ArmyBrains[Fletcher]:GetListOfUnits(categories.xea0002, false)
-            if(orbital[1] and not orbital[1]:IsDead()) then
+            if(orbital[1] and not orbital[1].Dead) then
                 local platoon = ArmyBrains[Fletcher]:MakePlatoon('', '')
                 ArmyBrains[Fletcher]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
                 ScenarioFramework.PlatoonPatrolChain(platoon, 'M1_Fletcher_Orbital_Def_Chain')
@@ -653,7 +653,7 @@ function M2Order()
     -----------
     -- Order ACU
     -----------
-    ScenarioInfo.OrderACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_Vedetta', false, LOC '{i Vendetta}', true)
+    ScenarioInfo.OrderACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_Vedetta', nil, LOC '{i Vendetta}', true)
     if(Difficulty > 1) then
         ScenarioInfo.OrderACU:CreateEnhancement('Shield')
         ScenarioInfo.OrderACU:CreateEnhancement('ShieldHeavy')
@@ -698,7 +698,7 @@ function M2Rhiza()
     -----------
     -- Rhiza ACU
     -----------
-    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', false, LOC '{i Rhiza}', false, RhizaDies, 
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'M2_Rhiza', nil, LOC '{i Rhiza}', false, RhizaDies, 
         {'Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering', 'HeatSink'})
 
     -----------------------
@@ -833,7 +833,7 @@ function IntroMission2NIS()
 
     -- Make the Seraphim units fragile
     for k, unit in SeraphimUnits do
-        if unit and (not unit:IsDead()) then
+        if unit and (not unit.Dead) then
             unit:AdjustHealth(unit, (unit:GetHealth() - 1) * -1)
         end
     end
@@ -861,7 +861,7 @@ function IntroMission2NIS()
     -- This is intended to make the bad guys all attack one good guy.  The way that the missiles fly through
     -- the air to this particular target gives a particular camera a great shot.
     -- But for whatever reason, this doesn't seem to work.
-    if unitAttacker and unitTarget and not unitAttacker:IsDead() and not unitTarget:IsDead() then
+    if unitAttacker and unitTarget and not unitAttacker.Dead and not unitTarget.Dead then
         IssueClearCommands({ unitAttacker })
         IssueAttack({ unitAttacker }, unitTarget)
     end
@@ -869,16 +869,16 @@ function IntroMission2NIS()
     -- Tell all of the units to attack their new enemies
     local RhizaNum = table.getn(RhizaUnits)
     for k, unit in FletcherUnits do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             local target = RhizaUnits[ math.mod(k, RhizaNum)]
-            if target and not target:IsDead() then
+            if target and not target.Dead then
                 IssueAttack({ unit }, target)
             end
         end
     end
 
     for k, target in RhizaUnits do
-        if target and not target:IsDead() then
+        if target and not target.Dead then
             IssueAttack(FletcherUnits, target)
         end
     end
@@ -890,7 +890,7 @@ function IntroMission2NIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
 
     for k, target in FletcherUnits do
-        if target and not target:IsDead() then
+        if target and not target.Dead then
             IssueAttack(RhizaUnits, target)
         end
     end
@@ -916,10 +916,10 @@ function IntroMission2NIS()
 
                 RhizaUnitsDead = true
                 for k, unit in RhizaUnits do
-                    if unit and (not unit:IsDead()) and RhizaUnitsDead then
+                    if unit and (not unit.Dead) and RhizaUnitsDead then
                         RhizaUnitsDead = false
                     end
-                    if unit and (not unit:IsDead()) then
+                    if unit and (not unit.Dead) then
                         if LoopCount > 4 then
                             unit:AdjustHealth(unit, (unit:GetHealth() - 1) * -1)
                         end
@@ -928,7 +928,7 @@ function IntroMission2NIS()
 
                 FletcherUnitsDead = true
                 for k, unit in FletcherUnits do
-                    if unit and (not unit:IsDead()) and FletcherUnitsDead then
+                    if unit and (not unit.Dead) and FletcherUnitsDead then
                         FletcherUnitsDead = false
                     end
                 end
@@ -954,7 +954,7 @@ function IntroMission2NIS()
 
     -- Send the NIS units north to Rhiza's base
     for k, unit in FletcherUnits do
-        if unit and (not unit:IsDead()) then
+        if unit and (not unit.Dead) then
             IssueAggressiveMove({ unit }, ScenarioUtils.MarkerToPosition('M2_Seraph_Naval_East_15'))
         end
     end
@@ -1128,7 +1128,7 @@ function M2RhizaNuke()
             end
         end
         local nuke = ScenarioInfo.UnitNames[Rhiza]['M2_Rhiza_Nuke']
-        if(marker and nuke and not nuke:IsDead()) then
+        if(marker and nuke and not nuke.Dead) then
             nuke:GiveNukeSiloAmmo(2)
             IssueNuke({nuke}, ScenarioUtils.MarkerToPosition(marker))
         end
@@ -1383,7 +1383,7 @@ function M2ParagonSpotted()
 end
 
 function RevealM2S1()
-    if(ScenarioInfo.ControlCenterPossession == 0 and ScenarioInfo.ControlCenterBldg and not ScenarioInfo.ControlCenterBldg:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == 0 and ScenarioInfo.ControlCenterBldg and not ScenarioInfo.ControlCenterBldg.Dead) then
         ScenarioFramework.Dialogue(OpStrings.X06_M02_150, AssignM2S1)
     end
 end
@@ -1448,8 +1448,8 @@ function ControlCenterCaptured(newControlCenter, captor)
     end
 
     ScenarioInfo.OptionZeroNuke = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.OptionZeroNuke, army)
-    ScenarioInfo.OptionZeroNuke:SetCanTakeDamage(false)
-    ScenarioInfo.OptionZeroNuke:SetCanBeKilled(false)
+    ScenarioInfo.OptionZeroNuke.CanTakeDamage = false
+    ScenarioInfo.OptionZeroNuke.CanBeKilled = false
     ScenarioInfo.OptionZeroNuke:SetCapturable(false)
     ScenarioInfo.OptionZeroNuke:SetReclaimable(false)
     ScenarioInfo.OptionZeroNuke:SetIntelRadius('Vision', 0)
@@ -1518,7 +1518,7 @@ end
 
 function M2OptionZeroFletcherNuke()
     local nukeLocations = {'M2_Player_Nuke_Marker', 'M2_Player_Resource_Nuke_Marker'}
-    if(ScenarioInfo.ControlCenterPossession == Fletcher and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == Fletcher and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke.Dead) then
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeLocations[Random(1, 2)]))
         ScenarioInfo.NukeTimer = ScenarioFramework.CreateTimerTrigger(NukeTimer, 300)
@@ -1528,7 +1528,7 @@ end
 
 function M2OptionZeroOrderNuke()
     local nukeLocations = {'M2_Player_Nuke_Marker', 'M2_Player_Resource_Nuke_Marker'}
-    if(ScenarioInfo.ControlCenterPossession == Order and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == Order and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke.Dead) then
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeLocations[Random(1, 2)]))
         ScenarioInfo.NukeTimer = ScenarioFramework.CreateTimerTrigger(NukeTimer, 300)
@@ -1544,7 +1544,7 @@ function M2OptionZeroRhizaNuke()
     local numF = table.getn(ArmyBrains[Fletcher]:GetListOfUnits(categories.STRUCTURE, false))
     local M3nukeLocations = {'M3_Seraph_Return_Point_1', 'M3_Rhiza_Transport_3', 'M3_Rhiza_Transport_2', 'M2_Seraph_LandSouth_Def_3', 'M2_Seraph_LandSouth_Def_2'}
 
-    if(ScenarioInfo.ControlCenterPossession == Rhiza and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == Rhiza and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke.Dead) then
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
 
         if(ScenarioInfo.MissionNumber == 2) then
@@ -1555,7 +1555,7 @@ function M2OptionZeroRhizaNuke()
                 LOG('*DEBUG: Rhiza launched nuke at Seraphim')
 
             -- nuke Order / Fletcher
-            elseif(not ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
+            elseif(not ScenarioInfo.OrderACU.Dead and not ScenarioInfo.FletcherACU.Dead) then
                 if(numO >= numF) then    -- Nuke Vendetta
                     IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
                     LOG('*DEBUG: Rhiza launched nuke at Vendetta')
@@ -1565,12 +1565,12 @@ function M2OptionZeroRhizaNuke()
                 end
 
             -- nuke Fletcher
-            elseif(ScenarioInfo.OrderACU:IsDead() and not ScenarioInfo.FletcherACU:IsDead()) then
+            elseif(ScenarioInfo.OrderACU.Dead and not ScenarioInfo.FletcherACU.Dead) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[1]))
                 LOG('*DEBUG: Rhiza launched nuke at Fletcher')
 
             -- nuke Order
-            elseif(not ScenarioInfo.OrderACU:IsDead() and ScenarioInfo.FletcherACU:IsDead()) then
+            elseif(not ScenarioInfo.OrderACU.Dead and ScenarioInfo.FletcherACU.Dead) then
                 IssueNuke({ScenarioInfo.OptionZeroNuke}, ScenarioUtils.MarkerToPosition(nukeFletcherOrder[2]))
                 LOG('*DEBUG: Rhiza launched nuke at Vendetta')
 
@@ -1586,7 +1586,7 @@ function M2OptionZeroRhizaNuke()
 end
 
 function M2OptionZeroPlayerNuke(location)
-    if(ScenarioInfo.ControlCenterPossession == Player1 and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke:IsDead()) then
+    if(ScenarioInfo.ControlCenterPossession == Player1 and ScenarioInfo.OptionZeroNuke and not ScenarioInfo.OptionZeroNuke.Dead) then
         ScenarioInfo.NukePing:Destroy()
         ScenarioInfo.OptionZeroNuke:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.OptionZeroNuke}, location)
@@ -1651,7 +1651,7 @@ function IntroMission3()
             ----------------
             -- Thel-Uuthow CDR
             ----------------
-            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', false, LOC '{i ThelUuthow}', true)
+            ScenarioInfo.Tau = ScenarioFramework.SpawnCommander('Seraphim', 'Tau', nil, LOC '{i ThelUuthow}', true)
             if(Difficulty > 1) then
                 ScenarioInfo.Tau:CreateEnhancement('DamageStabilizationAdvanced')
                 ScenarioInfo.Tau:CreateEnhancement('RateOfFire')
@@ -1728,7 +1728,7 @@ function IntroMission3()
 end
 
 function RiftHealth()
-    while(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1:IsDead() and ScenarioInfo.Rift2 and not ScenarioInfo.Rift2:IsDead()) do
+    while(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1.Dead and ScenarioInfo.Rift2 and not ScenarioInfo.Rift2.Dead) do
         local health1 = ScenarioInfo.Rift1:GetHealth()
         local health2 = ScenarioInfo.Rift2:GetHealth()
 
@@ -1742,13 +1742,13 @@ function RiftHealth()
 end
 
 function Rift1Dead()
-    if(ScenarioInfo.Rift2 and not ScenarioInfo.Rift2:IsDead()) then
+    if(ScenarioInfo.Rift2 and not ScenarioInfo.Rift2.Dead) then
         ScenarioInfo.Rift2:Kill()
     end
 end
 
 function Rift2Dead()
-    if(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1:IsDead()) then
+    if(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1.Dead) then
         ScenarioInfo.Rift1:Kill()
     end
 end
@@ -1967,7 +1967,7 @@ function M3RiftGunships()
                     function()
                         EffectUtilities.SeraphimRiftIn(unit)
                         for j = 1, table.getn(exp) do
-                            if(exp[j] and not exp[j]:IsDead()) then
+                            if(exp[j] and not exp[j].Dead) then
                                 IssueAttack({unit}, exp[j])
                             end
                         end
@@ -2015,7 +2015,7 @@ function M3RiftAirSups()
                     function()
                         EffectUtilities.SeraphimRiftIn(unit)
                         for j = 1, table.getn(exp) do
-                            if(exp[j] and not exp[j]:IsDead()) then
+                            if(exp[j] and not exp[j].Dead) then
                                 IssueAttack({unit}, exp[j])
                             end
                         end
@@ -2050,7 +2050,7 @@ function NukePlayer()
                 end
             end
         end
-        if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:IsDead()) then
+        if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'].Dead) then
             ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:GiveNukeSiloAmmo(1)
             IssueNuke({ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']}, ScenarioUtils.MarkerToPosition(marker))
             ScenarioInfo.NukesLaunched = ScenarioInfo.NukesLaunched + 1
@@ -2225,7 +2225,7 @@ function Rift()
     -- ScenarioInfo.Count = 0
     ForkThread(
         function()
-            while(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1:IsDead() and ScenarioInfo.Rift2 and not ScenarioInfo.Rift2:IsDead()) do
+            while(ScenarioInfo.Rift1 and not ScenarioInfo.Rift1.Dead and ScenarioInfo.Rift2 and not ScenarioInfo.Rift2.Dead) do
                 if(GetArmyUnitCostTotal(Seraphim) < 1000) then
                     local tier = Random(1, 5)
                     -- use one of three selections/tiers of units that exists at each of ten locations.
@@ -2380,24 +2380,24 @@ function RiftNISWave()
 end
 
 function TempShieldDisable(unit)
-    if (unit and not unit:IsDead()) then
+    if (unit and not unit.Dead) then
         unit:DisableShield()
     end
     WaitSeconds(3.5)
-    if (unit and not unit:IsDead()) then
+    if (unit and not unit.Dead) then
         unit:EnableShield()
     end
 end
 
 function NukeRhiza1()
-    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:IsDead() and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
+    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'].Dead and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
         ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']}, ScenarioUtils.MarkerToPosition('Rhiza_Land_Nuke_Point'))
     end
 end
 
 function NukeRhiza2()
-    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:IsDead() and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
+    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'].Dead and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
         ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']}, ScenarioUtils.MarkerToPosition('Rhiza_Naval_Nuke_Point'))
     end
@@ -2405,7 +2405,7 @@ end
 
 function NukeRhiza3()
     -- TODO: new nuke point for this
-    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:IsDead() and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead()) then
+    if(ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'] and not ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke'].Dead and ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
         ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']:GiveNukeSiloAmmo(1)
         IssueNuke({ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke']}, ScenarioUtils.MarkerToPosition('Rhiza_Land_Nuke2_Point'))
     end

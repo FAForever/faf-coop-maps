@@ -7,7 +7,7 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local OpE3Script = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_script.lua')
 
 

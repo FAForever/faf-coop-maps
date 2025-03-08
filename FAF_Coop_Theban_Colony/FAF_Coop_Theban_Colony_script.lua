@@ -89,7 +89,7 @@ function OnPopulate(scenario)
         v:AdjustHealth(v, Random(0, v:GetHealth()/3) * -ScenarioInfo.Options.Difficulty)
     end
 
-    ScenarioInfo.Player_sACU = ScenarioFramework.SpawnCommander('Player1', 'Player_sACU', false, false, false, sACUDead,
+    ScenarioInfo.Player_sACU = ScenarioFramework.SpawnCommander('Player1', 'Player_sACU', nil, false, false, sACUDead,
         {'FocusConvertor', 'SelfRepairSystem', 'Switchback'})
     IssueAggressiveMove({ScenarioInfo.Player_sACU}, ScenarioUtils.MarkerToPosition('M1 Player Units Marker 14'))
 
@@ -385,7 +385,7 @@ function StartMission1()
     )
     ScenarioInfo.M1P1:AddResultCallback(
         function(result)
-            if (not result) then --and ScenarioInfo.Player_sACU:IsDead()) then
+            if (not result) then --and ScenarioInfo.Player_sACU.Dead) then
                 --IntroMission2()
                 PlayerLose()
             end

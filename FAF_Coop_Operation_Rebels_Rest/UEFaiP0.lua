@@ -388,7 +388,7 @@ function P0ADDTML()
             WaitSeconds(120)
             local TML = ArmyBrains[UEF1]:GetListOfUnits(categories.ueb2108, false)
             for _, v in TML do
-                if v and not v:IsDead() and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
+                if v and not v.Dead and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
                     local plat = ArmyBrains[UEF1]:MakePlatoon('', '')
                     ArmyBrains[UEF1]:AssignUnitsToPlatoon(plat, {v}, 'Attack', 'NoFormation')
                     plat:ForkAIThread(plat.TacticalAI)

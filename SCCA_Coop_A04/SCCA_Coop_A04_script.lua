@@ -129,8 +129,8 @@ function OnPopulate(scenario)
     -- Objective Structures
     ScenarioInfo.SWNode = ScenarioUtils.CreateArmyUnit('Nodes', 'SW_Node_Unit')
     ScenarioInfo.SWNode:SetCustomName('Node 73')
-    ScenarioInfo.SWNode:SetCanTakeDamage(false)
-    ScenarioInfo.SWNode:SetCanBeKilled(false)
+    ScenarioInfo.SWNode.CanTakeDamage = false
+    ScenarioInfo.SWNode.CanBeKilled = false
     ScenarioInfo.SWNode:SetReclaimable(false)
 
     -- Starting mass for AI, needs to be delayed a bit
@@ -402,8 +402,8 @@ function M1CaptureNodeObjective()
                     ScenarioInfo.M1NodeCapture = true
 
                     ScenarioInfo.SWNode:SetCustomName('Node 73')
-                    ScenarioInfo.SWNode:SetCanTakeDamage(false)
-                    ScenarioInfo.SWNode:SetCanBeKilled(false)
+                    ScenarioInfo.SWNode.CanTakeDamage = false
+                    ScenarioInfo.SWNode.CanBeKilled = false
 
                     -- First Node captured camera
                     local camInfo = {
@@ -582,8 +582,8 @@ function IntroMission2()
 
     -- SW Node
     ScenarioInfo.SWNode:SetReclaimable(false)
-    ScenarioInfo.SWNode:SetCanTakeDamage(true)
-    ScenarioInfo.SWNode:SetCanBeKilled(true)
+    ScenarioInfo.SWNode.CanTakeDamage = true
+    ScenarioInfo.SWNode.CanBeKilled = true
     ScenarioFramework.CreateUnitCapturedTrigger(nil, M2SWNodeCaptured, ScenarioInfo.SWNode)
     ScenarioFramework.CreateUnitDeathTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
     ScenarioFramework.CreateUnitReclaimedTrigger(M2NodeDestroyed, ScenarioInfo.SWNode)
@@ -701,7 +701,7 @@ function M2MainframeCaptured(unit, captor)
 
     if not ScenarioInfo.PlayerCapturedMainframe then
         for num, unit in ScenarioInfo.MainframeDefenses do
-            if not unit:IsDead() then
+            if not unit.Dead then
                 ScenarioFramework.GiveUnitToArmy(unit, captor:GetArmy())
             end
         end
@@ -971,7 +971,7 @@ function M2NWNodeCaptured(unit, captor)
         ScenarioInfo.NWNodeCapturedBool = true
         ScenarioFramework.Dialogue(OpStrings.A04_M02_030)
         for num, unit in ScenarioInfo.NWDefenses do
-            if not unit:IsDead() then
+            if not unit.Dead then
                 ScenarioFramework.GiveUnitToArmy(unit, captor:GetArmy())
             end
         end
@@ -1001,7 +1001,7 @@ function M2SENodeCaptured(unit, captor)
         ScenarioInfo.SENodeCapturedBool = true
         ScenarioFramework.Dialogue(OpStrings.A04_M02_040)
         for num, unit in ScenarioInfo.SEDefenses do
-            if not unit:IsDead() then
+            if not unit.Dead then
                 ScenarioFramework.GiveUnitToArmy(unit, captor:GetArmy())
             end
         end

@@ -21,7 +21,7 @@ function DropUnits(units, DropLocation, TransportDestination, attackChain, indes
             for _, unit in allUnits do
                 if EntityCategoryContains( categories.TRANSPORTATION, unit ) then
                     if indestructibleTransport then
-                        unit:SetCanTakeDamage(false);
+                        unit.CanTakeDamage = false;
                     end
                     table.insert(allTransports, unit )
                 else
@@ -38,7 +38,7 @@ function DropUnits(units, DropLocation, TransportDestination, attackChain, indes
             end
 
             for _, unit in landUnits do
-                while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+                while (not unit.Dead and unit:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
             end

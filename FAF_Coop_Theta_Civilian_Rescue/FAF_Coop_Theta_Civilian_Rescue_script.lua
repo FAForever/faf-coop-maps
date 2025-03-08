@@ -15,7 +15,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local OpStrings = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_strings.lua')
 local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
 
@@ -162,8 +162,8 @@ function IntroMission1()
     -- Create Objective building
     ScenarioInfo.M1_Cybran_Prison = ScenarioUtils.CreateArmyUnit('Cybran', 'M1_Cybran_Prison')
     ScenarioInfo.M1_Cybran_Prison:SetDoNotTarget(true)
-    ScenarioInfo.M1_Cybran_Prison:SetCanTakeDamage(false)
-    ScenarioInfo.M1_Cybran_Prison:SetCanBeKilled(false)
+    ScenarioInfo.M1_Cybran_Prison.CanTakeDamage = false
+    ScenarioInfo.M1_Cybran_Prison.CanBeKilled = false
     ScenarioInfo.M1_Cybran_Prison:SetReclaimable(false)
     ScenarioInfo.M1_Cybran_Prison:SetCustomName("Cybran Prison")
     
@@ -346,8 +346,8 @@ function IntroMission2()
     ----------------------------
     ScenarioInfo.M2_Cybran_Prison = ScenarioUtils.CreateArmyUnit('Cybran', 'M2_Cybran_Prison')
     ScenarioInfo.M2_Cybran_Prison:SetDoNotTarget(true)
-    ScenarioInfo.M2_Cybran_Prison:SetCanTakeDamage(false)
-    ScenarioInfo.M2_Cybran_Prison:SetCanBeKilled(false)
+    ScenarioInfo.M2_Cybran_Prison.CanTakeDamage = false
+    ScenarioInfo.M2_Cybran_Prison.CanBeKilled = false
     ScenarioInfo.M2_Cybran_Prison:SetReclaimable(false)
     ScenarioInfo.M2_Cybran_Prison:SetCustomName("Cybran Prison")
     
@@ -597,7 +597,7 @@ function KilledExperimentals()
     --Check if all experimentals are dead
     local exps = TCRUtil.GetAllCatUnitsInArea(categories.EXPERIMENTAL, 'M2_Area')
     for _,unit in exps do
-        if not unit:IsDead() then
+        if not unit.Dead then
             return
         end
     end
@@ -650,8 +650,8 @@ end
 function makeCDRImmortal()
     local units = TCRUtil.GetAllCatUnitsInArea(categories.COMMAND, 'M2_Area')
     for _,cdr in units do
-        cdr:SetCanTakeDamage(false)
-        cdr:SetCanBeKilled(false)
+        cdr.CanTakeDamage = false
+        cdr.CanBeKilled = false
     end
 end
 

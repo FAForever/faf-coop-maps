@@ -54,7 +54,7 @@ local LastUpdate = 0
 local NumBuilding = 0
 
 function UnitBuildPercentUpdate(unit, eng)
-    if unit:IsDead() then
+    if unit.Dead then
         return
     end
     if not eng.UnitBuildPercentSetup then
@@ -97,7 +97,7 @@ end
 
 function ExperimentalFinished(unit)
     NumBuilding = NumBuilding - 1
-    if not unit or unit:IsDead() then
+    if not unit or unit.Dead then
         return
     end
     ScriptFile.M2ExperimentalFinishBuild(unit)

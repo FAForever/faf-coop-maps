@@ -437,7 +437,7 @@ function Intro_Mission_3()
     ScenarioFramework.Dialogue(OpStrings.Evac, M3Trucks, true)
 
     -- Handle Cybran Base Stuff --
-    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'ACU', false, "Jerrax", false, false, {'MicrowaveLaserGenerator', 'Teleporter', 'T3Engineering'})
+    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'ACU', nil, "Jerrax", false, nil, {'MicrowaveLaserGenerator', 'Teleporter', 'T3Engineering'})
     ScenarioInfo.CybranCommander:SetAutoOvercharge(true)
     ScenarioUtils.CreateArmyGroup('Cybran', 'Blockade')
 
@@ -606,21 +606,21 @@ function M3Trucks()
 end
 
 function M3_Handle_Cybran_Teleport()
-    while not ScenarioInfo.CybranCommander:IsDead() do
+    while not ScenarioInfo.CybranCommander.Dead do
         local targets = GetArmyBrain('Player'.. Random(1, table.getsize(ScenarioInfo.HumanPlayers))):GetListOfUnits(categories.LAND * (categories.FACTORY + categories.MOBILE) - categories.WALL - categories.COMMAND, false)
         local target = targets[Random(1, table.getn(targets))]
         WaitSeconds(10)
 
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
+        ScenarioInfo.CybranCommander.CanTakeDamage = false
         Warp(ScenarioInfo.CybranCommander, target:GetPosition())
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
+        ScenarioInfo.CybranCommander.CanTakeDamage = true
         IssueAttack(ScenarioInfo.CybranCommander, target)
 
         WaitSeconds(5)
 
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(false)
+        ScenarioInfo.CybranCommander.CanTakeDamage = false
         Warp(ScenarioInfo.CybranCommander, ScenarioUtils.MarkerToPosition('M3_Cybran_Base_Marker'))
-        ScenarioInfo.CybranCommander:SetCanTakeDamage(true)
+        ScenarioInfo.CybranCommander.CanTakeDamage = true
 
         WaitSeconds(CybranTeleportTimer[Difficulty])
     end
@@ -747,7 +747,7 @@ end
 
 function MoveTruckAbility(location)
     for _, v in ScenarioInfo.Trucks do
-        if(v and not v:IsDead()) then
+        if(v and not v.Dead) then
             IssueStop({v})
             IssueClearCommands({v})
             IssueMove({v}, location)
@@ -817,7 +817,7 @@ function M4_Cybran_Nuke_Function()
 
     local delay = {10, 7, 4}
 
-    while Launcher and not Launcher:IsDead() do
+    while Launcher and not Launcher.Dead do
         local marker = nil
         local numUnits = 0
         local searching = true
@@ -836,7 +836,7 @@ function M4_Cybran_Nuke_Function()
                 end
             end
         end
-        if Launcher and not Launcher:IsDead() then
+        if Launcher and not Launcher.Dead then
             Launcher:GiveNukeSiloAmmo(1)
             IssueNuke({Launcher}, ScenarioUtils.MarkerToPosition(marker))
         end
@@ -849,7 +849,7 @@ function M4_Gate_Built()
     local gates = ArmyBrains[Player1]:GetListOfUnits(categories.ueb0304, false)
     ScenarioFramework.CreateUnitNearTypeTrigger(CDRNearGate, ScenarioInfo.Player1CDR, ArmyBrains[Player1], categories.ueb0304, 5)
  
-    if not ScenarioInfo.CybranCommander:IsDead() then
+    if not ScenarioInfo.CybranCommander.Dead then
         ScenarioFramework.Dialogue(OpStrings.M4_Cybran_Teleport, M3_Handle_Cybran_Teleport, true)
     end
 

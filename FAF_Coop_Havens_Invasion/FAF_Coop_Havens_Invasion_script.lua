@@ -418,7 +418,7 @@ function IntroMission2()
         {'LeftPod', 'RightPod', 'HeavyAntiMatterCannon'},
         {'LeftPod', 'RightPod', 'HeavyAntiMatterCannon', 'DamageStabilization'},
     }
-    ScenarioInfo.UEF_ACU = ScenarioFramework.SpawnCommander('UEF', 'UEF_ACU', false, 'UEF ACU', false, false, upgrades[Difficulty])
+    ScenarioInfo.UEF_ACU = ScenarioFramework.SpawnCommander('UEF', 'UEF_ACU', nil, 'UEF ACU', false, nil, upgrades[Difficulty])
     ScenarioInfo.UEF_ACU:SetAutoOvercharge(true)
     -- Restrict building Naval factory, Torp def, AA and sonar
     ScenarioInfo.UEF_ACU:AddBuildRestriction(categories.ueb0103 + categories.ueb2104 + categories.ueb2109 + categories.ueb3102)

@@ -12,12 +12,12 @@
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/scenarioframework.lua')
-local Utilities = import('/lua/Utilities.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local Utilities = import('/lua/utilities.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_strings.lua')
 local OpEditorFns = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua')
-local OpBehaviors = import('/lua/ai/opai/opbehaviors.lua')
+local OpBehaviors = import('/lua/ai/opai/OpBehaviors.lua')
 
 -- ===  Debug Variables === #
 local StartM2InsteadOfM1 = false
@@ -285,8 +285,8 @@ function OnPopulate(scenario)
 
     -- ! Quantum gate, which should be invincible
     ScenarioInfo.Gate = ScenarioUtils.CreateArmyUnit('City', 'Gate')
-    ScenarioInfo.Gate:SetCanTakeDamage(false)
-    ScenarioInfo.Gate:SetCanBeKilled(false)
+    ScenarioInfo.Gate.CanTakeDamage = false
+    ScenarioInfo.Gate.CanBeKilled = false
     ScenarioInfo.Gate:SetReclaimable(false)
     ScenarioInfo.Gate:SetCapturable(false)
     ScenarioInfo.Gate:SetUnSelectable(true)
@@ -565,7 +565,7 @@ end
 function FirstNukeNIS()
 -- NIS for the first nuke. Change delay on timer trigger which calls this nis to start the NIS at a good
 -- point during the launch process.
-    if not ScenarioInfo.AeonNuke1:IsDead() then
+    if not ScenarioInfo.AeonNuke1.Dead then
         local unit = ScenarioInfo.AeonNuke1
         local camInfo = {
             blendTime = 1.0,
@@ -668,7 +668,7 @@ end
 function AeonTripleNukeAttack()
     -- if not ScenarioInfo.TripleNukesLaunched then
         ScenarioInfo.TripleAttackNukesSent = 0
-        if not ScenarioInfo.AeonNuke1:IsDead() then
+        if not ScenarioInfo.AeonNuke1.Dead then
             -- if Difficulty == 1 then
             -- ScenarioInfo.Nuke1Target = ScenarioUtils.MarkerToPosition('Nuke1_Target_Easy')
             -- else
@@ -680,14 +680,14 @@ function AeonTripleNukeAttack()
             ScenarioInfo.TripleAttackNukesSent = ScenarioInfo.TripleAttackNukesSent + 1
         end
 
-        if not ScenarioInfo.AeonNuke2:IsDead() then
+        if not ScenarioInfo.AeonNuke2.Dead then
             ScenarioInfo.Nuke2Target = ScenarioUtils.MarkerToPosition('Research_Facility_3')
             ScenarioInfo.AeonNuke2:AddProjectileDamagedCallback(OnNukeShotDown)
             IssueNuke({ ScenarioInfo.AeonNuke2 }, ScenarioInfo.Nuke2Target)
             ScenarioInfo.TripleAttackNukesSent = ScenarioInfo.TripleAttackNukesSent + 1
         end
 
-        if not ScenarioInfo.AeonNuke3:IsDead() then
+        if not ScenarioInfo.AeonNuke3.Dead then
             LOG("debugmatt: Nuke3111")
             -- if Difficulty == 1 then
             -- ScenarioInfo.Nuke3Target = ScenarioUtils.MarkerToPosition('Nuke3_Target_Easy')

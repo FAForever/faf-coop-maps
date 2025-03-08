@@ -357,7 +357,7 @@ function M2OrderAirAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Combined_AirAttack_Chain')))
                     end
                 end
@@ -368,7 +368,7 @@ function M2OrderAirAttackAI(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.GroupPatrolChain({v}, 'M4_Order_Air_Attack' .. Random(1, 2) .. '_Chain')
                     end
                 end

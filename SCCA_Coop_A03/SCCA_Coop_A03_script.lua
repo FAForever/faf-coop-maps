@@ -62,10 +62,10 @@ function OnPopulate(scenario)
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
 
     -- Eris
-    ScenarioInfo.ErisCDR = ScenarioFramework.SpawnCommander('Eris', 'Eris', false, LOC '{i CDR_Eris}', false, false,
+    ScenarioInfo.ErisCDR = ScenarioFramework.SpawnCommander('Eris', 'Eris', nil, LOC '{i CDR_Eris}', false, nil,
         {'Shield', 'HeatSink', 'CrysalisBeam'})
-    ScenarioInfo.ErisCDR:SetCanTakeDamage(false)
-    ScenarioInfo.ErisCDR:SetCanBeKilled(false)
+    ScenarioInfo.ErisCDR.CanTakeDamage = false
+    ScenarioInfo.ErisCDR.CanBeKilled = false
     ScenarioInfo.ErisCDR:SetDoNotTarget(true)
     ScenarioInfo.ErisCDR:AdjustHealth(ScenarioInfo.ErisCDR, ScenarioInfo.ErisCDR:GetHealth() * -.8)
 
@@ -218,20 +218,20 @@ function StartMission1()
     local unit = nil
     local platoon = nil
     for _, v in ScenarioInfo.ErisBase do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 
     for _, v in ScenarioInfo.ErisEngineers do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
 
     platoon = ArmyBrains[Player1]:MakePlatoon('', '')
     for _, v in ScenarioInfo.ErisLandPatrol:GetPlatoonUnits() do
-        if not v:IsDead() then
+        if not v.Dead then
             local unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
             ArmyBrains[Player1]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
@@ -240,7 +240,7 @@ function StartMission1()
 
     platoon = ArmyBrains[Player1]:MakePlatoon('', '')
     for _, v in ScenarioInfo.ErisNavyPatrol:GetPlatoonUnits() do
-        if not v:IsDead() then
+        if not v.Dead then
             local unit = ScenarioFramework.GiveUnitToArmy(v, Player1)
             ArmyBrains[Player1]:AssignUnitsToPlatoon(platoon, {unit}, 'attack', 'AttackFormation')
         end
@@ -352,8 +352,8 @@ function ErisLeaves()
         -- Transport Eris
         ScenarioInfo.Escort = ScenarioUtils.CreateArmyGroupAsPlatoon('Eris', 'TransportEscort', 'GrowthFormation')
         for k, v in ScenarioInfo.Escort:GetPlatoonUnits() do
-            v:SetCanTakeDamage(false)
-            v:SetCanBeKilled(false)
+            v.CanTakeDamage = false
+            v.CanBeKilled = false
             v:SetDoNotTarget(true)
         end
         ScenarioInfo.Escort:MoveToLocation(ScenarioUtils.MarkerToPosition('Player1'), false)
@@ -361,8 +361,8 @@ function ErisLeaves()
         WaitSeconds(10)
 
         ScenarioInfo.Transport = ScenarioUtils.CreateArmyUnit('Eris', 'Transport')
-        ScenarioInfo.Transport:SetCanTakeDamage(false)
-        ScenarioInfo.Transport:SetCanBeKilled(false)
+        ScenarioInfo.Transport.CanTakeDamage = false
+        ScenarioInfo.Transport.CanBeKilled = false
         ScenarioInfo.Transport:SetDoNotTarget(true)
 
         IssueTransportLoad({ScenarioInfo.ErisCDR}, ScenarioInfo.Transport)
@@ -570,9 +570,9 @@ function IntroMission2()
     end
 
     -- Arnold's ACU
-    ScenarioInfo.ArnoldCDR = ScenarioFramework.SpawnCommander('UEF', 'Arnold', false, LOC '{i CDR_Arnold}', false, false,
+    ScenarioInfo.ArnoldCDR = ScenarioFramework.SpawnCommander('UEF', 'Arnold', nil, LOC '{i CDR_Arnold}', false, nil,
         {'DamageStabilization', 'Shield', 'HeavyAntiMatterCannon'})
-    ScenarioInfo.ArnoldCDR:SetCanBeKilled(false)
+    ScenarioInfo.ArnoldCDR.CanBeKilled = false
     ScenarioInfo.ArnoldCDR:SetAutoOvercharge(true)
     ScenarioInfo.ArnoldCDR:AddBuildRestriction(categories.UEF * categories.DEFENSE)
     ScenarioFramework.CreateUnitDamagedTrigger(ArnoldDamaged1, ScenarioInfo.ArnoldCDR, .5)
@@ -748,22 +748,22 @@ function ArnoldDamaged1()
 end
 
 function TeleportLandBase()
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(false)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.ArnoldCDR)
     Warp(ScenarioInfo.ArnoldCDR, ScenarioUtils.MarkerToPosition('M2_Land_Base_Marker'))
     ScenarioFramework.CreateUnitDamagedTrigger(ArnoldDamaged2, ScenarioInfo.ArnoldCDR, .8)
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(true)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = true
     UpdateACUPlatoon('M2_Land_Base')
     ScenarioFramework.Dialogue(OpStrings.A03_M02_020)
     ScenarioFramework.CreateTimerTrigger(ArnoldLandVO, 60)
 end
 
 function TeleportAirBase()
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(false)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.ArnoldCDR)
     Warp(ScenarioInfo.ArnoldCDR, ScenarioUtils.MarkerToPosition('M2_Air_Base_Marker'))
     ScenarioFramework.CreateUnitDamagedTrigger(ArnoldDamaged2, ScenarioInfo.ArnoldCDR, .8)
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(true)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = true
     UpdateACUPlatoon('M2_Air_Base')
     ScenarioFramework.Dialogue(OpStrings.A03_M02_020)
     ScenarioFramework.CreateTimerTrigger(ArnoldAirVO, 60)
@@ -810,10 +810,10 @@ function ArnoldDamaged2()
 end
 
 function TeleportMainBase()
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(false)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.ArnoldCDR)
     Warp(ScenarioInfo.ArnoldCDR, ScenarioUtils.MarkerToPosition('M3_Main_Base_Marker'))
-    ScenarioInfo.ArnoldCDR:SetCanTakeDamage(true)
+    ScenarioInfo.ArnoldCDR.CanTakeDamage = true
     UpdateACUPlatoon('None')
     ScenarioFramework.Dialogue(OpStrings.A03_M02_090, IntroMission3, true)
     ScenarioInfo.M2P1:ManualResult(true)

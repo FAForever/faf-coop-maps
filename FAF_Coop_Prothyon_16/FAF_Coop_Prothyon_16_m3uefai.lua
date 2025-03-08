@@ -872,7 +872,7 @@ function CDROnWater(category)
     local units = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
     local result = false
     for _,unit in units do
-        if(unit and not unit:IsDead() and unit:GetCurrentLayer() == 'Seabed') then
+        if(unit and not unit.Dead and unit:GetCurrentLayer() == 'Seabed') then
             result = true
             break
         end
@@ -884,7 +884,7 @@ end
 function M3AttackCDRWaterAI(platoon)
     local units = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
     for _,unit in units do
-        if(unit and not unit:IsDead() and unit:GetCurrentLayer() == 'Seabed') then
+        if(unit and not unit.Dead and unit:GetCurrentLayer() == 'Seabed') then
             platoon:AttackTarget(unit)
             return
         end

@@ -1,10 +1,8 @@
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local NavUtils = import("/lua/sim/navutils.lua")
-local AIUtils = import("/lua/ai/aiutilities.lua")
 local AIAttackUtils = import("/lua/ai/aiattackutilities.lua")
-local AIBehaviors = import("/lua/ai/aibehaviors.lua")
+local Utils = import("/lua/utilities.lua")
 
 local Cybran = 5
 local Difficulty = ScenarioInfo.Options.Difficulty
@@ -209,7 +207,7 @@ function LandAssaultWithTransports(platoon)
 	local PlatoonPosition = platoon:GetPlatoonPosition()
 	
 	-- Make sure we actually still have transports in our platoon
-	while VDist2(PlatoonPosition[1], PlatoonPosition[3], landingLocation[1], landingLocation[3]) > 105 and not TableEmpty(platoon:GetSquadUnits('Scout')) do
+	while Utils.GetDistanceBetweenTwoPoints2(PlatoonPosition[1], PlatoonPosition[3], landingLocation[1], landingLocation[3]) > 105 and not TableEmpty(platoon:GetSquadUnits('Scout')) do
 		-- Update landing location at the start of the loop, otherwise the platoon might pick a different landing zone at the very last second.
 		-- This can result in retarded behaviour, and we want to avoid that, if we are about to unload in 1 second, then UNLOAD, and not get yeeted because we just got a completely fresh set of commands
 		landingLocation = BrainChooseLowestThreatLocation(aiBrain, landingPositions, 1, 'AntiAir')
@@ -563,7 +561,7 @@ function GetTransportsThread(platoon)
                 for _, unit in pool:GetPlatoonUnits() do
                     if EntityCategoryContains(categories.TRANSPORTATION, unit) and not unit:IsUnitState('Busy') then
                         local unitPos = unit:GetPosition()
-                        local curr = {Unit = unit, Distance = VDist2(unitPos[1], unitPos[3], location[1], location[3]), Id = unit.UnitId}
+                        local curr = {Unit = unit, Distance = Utils.GetDistanceBetweenTwoPoints2(unitPos[1], unitPos[3], location[1], location[3]), Id = unit.UnitId}
                         TableInsert(transports, curr)
                     end
                 end
@@ -738,7 +736,6 @@ end
 --- Utility Function
 --- Takes transports in platoon, returns them to pool, flies them back to return location
 ---@param platoon Platoon
----@param data table
 function ReturnTransportsToPool(platoon)
     -- Put transports back in TPool
     local aiBrain = platoon:GetBrain()
@@ -937,7 +934,7 @@ function MultipleExperimentalsPatrolThread(platoon)
         if not platoon:IsPatrolling('Attack') then
             local numAlive = 0
             for _, v in platoon:GetPlatoonUnits() do
-                if not v:IsDead() then
+                if not v.Dead then
                     numAlive = numAlive + 1
                 end
             end
@@ -1301,7 +1298,7 @@ function AdvancedPatrolThread(platoon)
 	local startLocation = SortedAttackPositions[1]
 	local PlatoonPosition = platoon:GetPlatoonPosition()
 	
-	while VDist2(PlatoonPosition[1], PlatoonPosition[3], startLocation[1], startLocation[3]) > 90 do
+	while Utils.GetDistanceBetweenTwoPoints2(PlatoonPosition[1], PlatoonPosition[3], startLocation[1], startLocation[3]) > 90 do
 		-- Update locations, threat values, and loop again if we aren't close enough
 		SortedAttackPositions = BrainChooseLowestAttackRoute(aiBrain, AttackPositions, 1, threatType)
 		startLocation = SortedAttackPositions[1]
