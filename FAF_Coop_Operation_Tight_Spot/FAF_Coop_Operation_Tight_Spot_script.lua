@@ -118,7 +118,7 @@ function OnPopulate(scenario)
             if Difficulty <= 2 then
                 upgrades = {'HeatSink'}
             end
-            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', false, true, false, PlayerDeath, upgrades)
+            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', nil, true, false, PlayerDeath, upgrades)
             table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo.Player1CDR)
             IssueMove({ScenarioInfo.Player1CDR}, ScenarioUtils.MarkerToPosition('M1_ACU_Destination'))
             -- Make sure the ACU won't go below the min HP required in one of the bonus objectives.
@@ -246,7 +246,7 @@ function OnStart(scenario)
         ScenarioInfo.PlayersACUs = {}
         ForkThread(function()
             WaitSeconds(1)
-            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', false, true, false, PlayerDeath,
+            ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Aeon_ACU', nil, true, false, PlayerDeath,
                 {'HeatSink'})
             table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo.Player1CDR)
             Warp(ScenarioInfo.Player1CDR, ScenarioUtils.MarkerToPosition('M2_Player_Destination'))
@@ -1182,14 +1182,14 @@ function IntroMission3()
             platoon.PlatoonData = {}
         end
         platoon.PlatoonData.BaseName = 'M3_QAI_Plateau_Defense_Base'
-        platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerEngineerPlatoonSplit)
+        platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
 
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Plateau_West_Engineers', 'NoFormation')
         if not platoon.PlatoonData then
             platoon.PlatoonData = {}
         end
         platoon.PlatoonData.BaseName = 'M3_QAI_W_Base'
-        platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerEngineerPlatoonSplit)
+        platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
 
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_West_Reclaim_Engineers', 'NoFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_W_Base_EngineerChain')
@@ -1199,7 +1199,7 @@ function IntroMission3()
         ArmyBrains[QAI]:GiveResource('ENERGY', 50000)
 
         -- QAI ACU
-        ScenarioInfo.QAIACU = ScenarioFramework.SpawnCommander('QAI', 'QAI_ACU', false, 'QAI', false, false,
+        ScenarioInfo.QAIACU = ScenarioFramework.SpawnCommander('QAI', 'QAI_ACU', nil, 'QAI', false, nil,
             {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'CoolingUpgrade'})
         ScenarioInfo.QAIACU:SetAutoOvercharge(true)
 
@@ -1295,7 +1295,7 @@ function IntroMission3()
         ForkThread(M3ReinforcementsThread)
 
         -- Charis ACU
-        ScenarioInfo.CharisACU = ScenarioFramework.SpawnCommander('Loyalist', 'Charis_ACU', false, 'Charis', true, M3CharisDies,
+        ScenarioInfo.CharisACU = ScenarioFramework.SpawnCommander('Loyalist', 'Charis_ACU', nil, 'Charis', true, M3CharisDies,
             {'CrysalisBeam', 'HeatSink', 'ShieldHeavy'})
         ScenarioInfo.CharisACU:SetAutoOvercharge(true)
 
@@ -1741,7 +1741,7 @@ end
 
 function M3MazerACUAttack()
     for i = 1, 4 do
-        local ACU = ScenarioFramework.SpawnCommander('QAI', 'M3_ACU_' .. i, false, LOC('{i QAI}'), false, false,
+        local ACU = ScenarioFramework.SpawnCommander('QAI', 'M3_ACU_' .. i, nil, LOC('{i QAI}'), false, nil,
             {'MicrowaveLaserGenerator', 'CoolingUpgrade', 'StealthGenerator', 'CloakingGenerator'})
         ACU:SetAutoOvercharge(true)
         ACU:SetVeterancy(1 + Difficulty)

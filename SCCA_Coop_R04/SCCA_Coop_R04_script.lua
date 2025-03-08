@@ -8,7 +8,7 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local AIBuildStructures = import('/lua/ai/AIBuildStructures.lua')
+local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local M1AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m1aeonai.lua')
 local M3AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m3aeonai.lua')
@@ -89,9 +89,9 @@ function OnPopulate(scenario)
     ScenarioUtils.CreateArmyGroup('Aeon', 'M1_Walls_D2')
 
     -- Eris' ACU
-    ScenarioInfo.ErisACU = ScenarioFramework.SpawnCommander('Aeon', 'M1_Commander', false, LOC '{i CDR_Eris}', false, false,
+    ScenarioInfo.ErisACU = ScenarioFramework.SpawnCommander('Aeon', 'M1_Commander', nil, LOC '{i CDR_Eris}', false, nil,
         {'AdvancedEngineering', 'Teleporter', 'EnhancedSensors'})
-    ScenarioInfo.ErisACU:SetCanBeKilled(false)
+    ScenarioInfo.ErisACU.CanBeKilled = false
     ScenarioFramework.CreateUnitDamagedTrigger(M1CommanderDefeated, ScenarioInfo.ErisACU, .8)
 
     ScenarioFramework.RefreshRestrictions('Aeon')
@@ -825,7 +825,7 @@ function IntroMission3()
     M3AeonAI.AeonM3BaseAI()
 
     -- Eris ACU
-    ScenarioInfo.M3ErisACU = ScenarioFramework.SpawnCommander('Aeon', 'M3_Commander', false, LOC '{i CDR_Eris}', false, false,
+    ScenarioInfo.M3ErisACU = ScenarioFramework.SpawnCommander('Aeon', 'M3_Commander', nil, LOC '{i CDR_Eris}', false, nil,
         {'AdvancedEngineering', 'Teleporter', 'EnhancedSensors'})
     ScenarioInfo.M3ErisACU:SetDoNotTarget(true) -- prevent auto-targetting until the EMP goes off
 
@@ -908,7 +908,7 @@ function IntroMission3()
     -- Needs to be invincible
     ScenarioInfo.Mainframe = ScenarioUtils.CreateArmyUnit('Neutral', 'Mainframe')
     ScenarioInfo.Mainframe:SetCustomName(LOC '{i R04_MainframeName}')
-    ScenarioInfo.Mainframe:SetCanTakeDamage(false)
+    ScenarioInfo.Mainframe.CanTakeDamage = false
 
     -- Show the location of the nodes and mainframe
     ScenarioFramework.CreateVisibleAreaLocation(5, ScenarioInfo.Node3:GetPosition(), 10, ArmyBrains[Player1])

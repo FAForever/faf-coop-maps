@@ -40,7 +40,7 @@ function CarrierAI(platoon)
             local carrier = carriers[i]
             IssueMove({carrier}, movePositions[i])
 
-            while (not carrier:IsDead() and carrier:IsUnitState('Moving')) do
+            while (not carrier.Dead and carrier:IsUnitState('Moving')) do
                 WaitSeconds(.5)
             end
 
@@ -79,7 +79,7 @@ function PatrolThread(platoon)
     local data = platoon.PlatoonData
 
     for _, unit in platoon:GetPlatoonUnits() do
-        while (not unit:IsDead() and unit:IsUnitState('Attached')) do
+        while (not unit.Dead and unit:IsUnitState('Attached')) do
             WaitSeconds(1)
         end
     end

@@ -9,8 +9,8 @@
 -- ****************************************************************************
 
 local MainScript = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_script.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
-local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 -- ###############################################################################

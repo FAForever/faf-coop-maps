@@ -2,8 +2,9 @@ local AIUtils = import("/lua/ai/aiutilities.lua")
 local AIAttackUtils = import("/lua/ai/aiattackutilities.lua")
 local CustomFunctions = import("/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua")
 local NavUtils = import("/lua/sim/navutils.lua")
-local ScenarioFramework = import("/lua/scenarioframework.lua")
-local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
+local ScenarioFramework = import("/lua/ScenarioFramework.lua")
+local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
+local Utils = import("/lua/utilities.lua")
 
 -- Upvalued for performance
 local TableEmpty = table.empty
@@ -110,7 +111,7 @@ function NavalForceAI(self)
             cmdQ = AIPlatoonNavalAttackVector(aiBrain, self)
             stuckCount = 0
         -- If we've been stuck and unable to reach next marker? Ignore nearby stuff and pick another target
-        elseif self.LastPosition and VDist2Sq(self.LastPosition[1], self.LastPosition[3], pos[1], pos[3]) < (self.PlatoonData.StuckDistance or 64) then
+        elseif self.LastPosition and Utils.XZDistanceTwoVectorsSquared(self.LastPosition, pos) < (self.PlatoonData.StuckDistance or 64) then
             stuckCount = stuckCount + 1
             if stuckCount >= 3 then
                 self:StopAttack()
@@ -188,7 +189,7 @@ function AttackForceAI(self)
             cmdQ = AIPlatoonSquadAttackVector(aiBrain, self, false)
             stuckCount = 0
         -- if we've been stuck and unable to reach next marker? Ignore nearby stuff and pick another target
-        elseif self.LastPosition and VDist2Sq(self.LastPosition[1], self.LastPosition[3], pos[1], pos[3]) < (self.PlatoonData.StuckDistance or 32) then
+        elseif self.LastPosition and Utils.XZDistanceTwoVectorsSquared(self.LastPosition, pos) < (self.PlatoonData.StuckDistance or 32) then
             stuckCount = stuckCount + 1
             if stuckCount >= 3 then
                 self:StopAttack()
@@ -616,6 +617,7 @@ function AIPlatoonSquadAttackVector(aiBrain, platoon, bAggro)
 		
 		-- If we still don't have an attack position, get the default highest threat position, and use that.
         if not attackPos then
+            local threat
             attackPos, threat = aiBrain:GetHighestThreatPosition(1, true)
 			if not attackPos or 0 >= threat then
 				platoon:StopAttack()
@@ -666,7 +668,7 @@ function AIPlatoonSquadAttackVector(aiBrain, platoon, bAggro)
 
         local usedTransports = false
 		-- Try transports if we can't path to our destination, or the target is at least 500 units away
-        if (not path and reason == 'Unpathable') or bNeedTransports or VDist2Sq(position[1], position[3], attackPos[1], attackPos[3]) > 512*512 then
+        if (not path and reason == 'Unpathable') or bNeedTransports or Utils.XZDistanceTwoVectorsSquared(position, attackPos) > 512*512 then
 			usedTransports = SendPlatoonWithTransportsNoCheck(aiBrain, platoon, attackPos)
         end
 		
@@ -805,7 +807,7 @@ function SendPlatoonWithTransportsNoCheck(aiBrain, platoon, destination)
 		
 		-- While we are not close enough, re-evaluate our path to the drop zone
 		-- We are not updating the drop zone here, would take too much code refactoring
-		while VDist2(PlatoonPosition[1], PlatoonPosition[3], transportLocation[1], transportLocation[3]) > 105 and not TableEmpty(platoon:GetSquadUnits('Scout')) do
+		while Utils.XZDistanceTwoVectorsSquared(PlatoonPosition, transportLocation) > 105 and not TableEmpty(platoon:GetSquadUnits('Scout')) do
 			platoon:Stop()
 	
 			-- Transports get the 'Scout' role, if other units got it as well, you damn well better change it to something else

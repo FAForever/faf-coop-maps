@@ -10,7 +10,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local CustomFunctions = import('/maps/FAF_Coop_Operation_Rebels_Rest/FAF_Coop_Operation_Rebels_Rest_CustomFunctions.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua') 
 local P0UEFAI = import('/maps/FAF_Coop_Operation_Rebels_Rest/UEFaiP0.lua')
@@ -42,6 +42,7 @@ local AssignedObjectives = {}
 local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 local Debug = false
 local SkipNIS1 = true
+local LeaderFaction, LocalFaction
 
 local NIS1InitialDelay = 3
 
@@ -109,7 +110,7 @@ function IntroP0()
     P0UEFAI.P0U1Base1AI()
     ArmyBrains[UEF1]:PBMSetCheckInterval(8)
 
-    ScenarioInfo.P0SACU = ScenarioFramework.SpawnCommander('UEF1', 'UEFSACUP0', false, 'Captain Max', false, false,
+    ScenarioInfo.P0SACU = ScenarioFramework.SpawnCommander('UEF1', 'UEFSACUP0', nil, 'Captain Max', false, nil,
     {'ResourceAllocation', 'RadarJammer', 'SensorRangeEnhancer'})
     ScenarioInfo.P0SACU:SetVeterancy(2 + Difficulty)
 
@@ -319,8 +320,8 @@ function IntroP1()
     ScenarioInfo.NetworkCenter:SetCustomName("Network Center")
     ScenarioInfo.NetworkCenter:SetReclaimable(false)
     ScenarioInfo.NetworkCenter:SetCapturable(true)
-    ScenarioInfo.NetworkCenter:SetCanTakeDamage(false)
-    ScenarioInfo.NetworkCenter:SetCanBeKilled(false)
+    ScenarioInfo.NetworkCenter.CanTakeDamage = false
+    ScenarioInfo.NetworkCenter.CanBeKilled = false
     ScenarioInfo.NetworkCenter:SetDoNotTarget(true)
     
     Cinematics.EnterNISMode()
@@ -562,8 +563,8 @@ function IntroP2()
     ScenarioInfo.ControlCenter:SetCustomName("Control Center")
     ScenarioInfo.ControlCenter:SetReclaimable(false)
     ScenarioInfo.ControlCenter:SetCapturable(true)
-    ScenarioInfo.ControlCenter:SetCanTakeDamage(false)
-    ScenarioInfo.ControlCenter:SetCanBeKilled(false)
+    ScenarioInfo.ControlCenter.CanTakeDamage = false
+    ScenarioInfo.ControlCenter.CanBeKilled = false
     ScenarioInfo.ControlCenter:SetDoNotTarget(true)
 
     ScenarioInfo.Prison1 = ScenarioUtils.CreateArmyGroup('UEF2', 'P2U2Prison1')
@@ -721,14 +722,14 @@ function SecondaryCompleteP2()
 
     local PrisonPD1 = ScenarioFramework.GetCatUnitsInArea((categories.STRUCTURE * categories.DEFENSE), 'P2SecObj1', ArmyBrains[UEF2])
         for k, v in PrisonPD1 do
-            if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF2]) then
+            if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[UEF2]) then
                 ScenarioFramework.GiveUnitToArmy( v, Player1 )
             end
         end
 
     local PrisonPD2 = ScenarioFramework.GetCatUnitsInArea((categories.STRUCTURE * categories.DEFENSE), 'P2SecObj2', ArmyBrains[UEF2])
         for k, v in PrisonPD2 do
-            if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[UEF2]) then
+            if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[UEF2]) then
                 ScenarioFramework.GiveUnitToArmy( v, Player1 )
             end
         end
@@ -910,15 +911,15 @@ function IntroP3()
         },
     }
 
-    ScenarioInfo.P3U1ACU = ScenarioFramework.SpawnCommander('UEF1', 'U1ACU', false, 'Major Becca', false, UEF1CommanderKilled,
+    ScenarioInfo.P3U1ACU = ScenarioFramework.SpawnCommander('UEF1', 'U1ACU', nil, 'Major Becca', false, UEF1CommanderKilled,
     {'AdvancedEngineering', 'T3Engineering', 'LeftPod', 'RightPod', 'ResourceAllocation'})
-    ScenarioInfo.P3U1ACU:SetCanBeKilled(false)
+    ScenarioInfo.P3U1ACU.CanBeKilled = false
     ScenarioInfo.P3U1ACU:SetAutoOvercharge(true)
     ScenarioInfo.P3U1ACU:SetVeterancy(2 + Difficulty)
     Buff.ApplyBuff(ScenarioInfo.P3U1ACU, 'P3ACUEngBuildRate')
     ScenarioFramework.CreateUnitDamagedTrigger(ACUDamaged, ScenarioInfo.P3U1ACU, .3)
 
-    ScenarioInfo.P3U2ACU = ScenarioFramework.SpawnCommander('UEF2', 'U2ACU', false, 'Colonel Griff', false, UEF2CommanderKilled,
+    ScenarioInfo.P3U2ACU = ScenarioFramework.SpawnCommander('UEF2', 'U2ACU', nil, 'Colonel Griff', false, UEF2CommanderKilled,
     {'DamageStabilization', 'Shield', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
     ScenarioInfo.P3U2ACU:SetAutoOvercharge(true)
     ScenarioInfo.P3U2ACU:SetVeterancy(2 + Difficulty)
@@ -1360,11 +1361,11 @@ function ACUDamaged()
 end
 
 function TeleportB2()
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(false)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.P3U1ACU)
     Warp(ScenarioInfo.P3U1ACU, ScenarioUtils.MarkerToPosition('P3TeleMK1'))
     ScenarioFramework.CreateUnitDamagedTrigger(ACUDamaged2, ScenarioInfo.P3U1ACU, .5)
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(true)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = true
     UpdateACUPlatoon('P3UEF1Base2')
 end
 
@@ -1374,20 +1375,20 @@ function ACUDamaged2()
 end
 
 function TeleportB3()
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(false)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.P3U1ACU)
     Warp(ScenarioInfo.P3U1ACU, ScenarioUtils.MarkerToPosition('P3TeleMK2'))
     ScenarioFramework.CreateUnitDamagedTrigger(ACUDamaged2, ScenarioInfo.P3U1ACU, .8)
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(true)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = true
     UpdateACUPlatoon('P3UEF1Base3')
 end
 
 function TeleportB4()
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(false)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.P3U1ACU)
     Warp(ScenarioInfo.P3U1ACU, ScenarioUtils.MarkerToPosition('P3TeleMK3'))
-    ScenarioInfo.P3U1ACU:SetCanTakeDamage(true)
-     ScenarioInfo.P3U1ACU:SetCanBeKilled(true)
+    ScenarioInfo.P3U1ACU.CanTakeDamage = true
+     ScenarioInfo.P3U1ACU.CanBeKilled = true
     UpdateACUPlatoon('P3UEF1Base4')
 end
 

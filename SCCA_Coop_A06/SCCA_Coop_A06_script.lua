@@ -19,7 +19,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Weather = import('/lua/Weather.lua')
+local Weather = import('/lua/weather.lua')
 
 ----------
 -- Globals
@@ -268,8 +268,8 @@ function StartMission1()
                 -- TODO: new obj to protect it, if it dies at any point in the mission = fail, dialogue OpStrings.A06_M01_080
                 ScenarioInfo.BlackSunControlCenter = units[1]
                 ScenarioInfo.BlackSunControlCenter:SetCustomName(LOC '{i BlackSunControlTower}')
-                ScenarioInfo.BlackSunControlCenter:SetCanTakeDamage(false)
-                ScenarioInfo.BlackSunControlCenter:SetCanBeKilled(false)
+                ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
+                ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
                 ScenarioInfo.BlackSunControlCenter:SetReclaimable(false)
                 ScenarioInfo.BlackSunControlCenter:SetCanBeGiven(false)
                 ScenarioInfo.BlackSunControlCenter:SetDoNotTarget(true)
@@ -630,13 +630,13 @@ function IntroMission2()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M2_Walls')
 
     -- ACU
-    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'Commander', false, LOC '{i RedFog}', true, M2CybranCommanderKilled,
+    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'Commander', nil, LOC '{i RedFog}', true, M2CybranCommanderKilled,
         {'AdvancedEngineering', 'T3Engineering', 'StealthGenerator', 'CloakingGenerator', 'MicrowaveLaserGenerator'})
     -- Restrict building Naval factory, Torp def and AA
     ScenarioInfo.CybranCommander:AddBuildRestriction(categories.urb0103 + categories.zrb9603 + categories.urb2205 + categories.urb2304)
 
     -- sACU
-    ScenarioInfo.CybranSubCommander = ScenarioFramework.SpawnCommander('Cybran', 'SubCommander', false, LOC '{i sCDR_Jericho}', false, M2CybranCommanderKilled,
+    ScenarioInfo.CybranSubCommander = ScenarioFramework.SpawnCommander('Cybran', 'SubCommander', nil, LOC '{i sCDR_Jericho}', false, M2CybranCommanderKilled,
         {'NaniteMissileSystem', 'ResourceAllocation', 'Switchback'})
 
     -- T3 engineers for assisting naval factories
@@ -960,7 +960,7 @@ function IntroMission3()
     ScenarioUtils.CreateArmyGroup('Aeon', 'M3_Black_Sun_Base_Walls_D2')
 
     -- Marxon
-    ScenarioInfo.AeonCommander = ScenarioFramework.SpawnCommander('Aeon', 'Commander', false, LOC '{i Marxon}', true, false,
+    ScenarioInfo.AeonCommander = ScenarioFramework.SpawnCommander('Aeon', 'Commander', nil, LOC '{i Marxon}', true, nil,
         {'CrysalisBeam', 'ShieldHeavy', 'EnhancedSensors'})
     ScenarioFramework.CreateUnitDamagedTrigger(MarxonDamaged1, ScenarioInfo.AeonCommander, .5)
     ScenarioInfo.AeonCommander.CanBeKilled = false
@@ -968,10 +968,10 @@ function IntroMission3()
     ScenarioFramework.RefreshRestrictions('Aeon')
 
     -- Arnold
-    ScenarioInfo.FriendlyCommander = ScenarioFramework.SpawnCommander('Aeon', 'Friendly_Commander', false, LOC '{i CDR_Arnold}', false, false,
+    ScenarioInfo.FriendlyCommander = ScenarioFramework.SpawnCommander('Aeon', 'Friendly_Commander', nil, LOC '{i CDR_Arnold}', false, nil,
         {'CrysalisBeam', 'Shield', 'EnhancedSensors'})
-    ScenarioInfo.FriendlyCommander:SetCanTakeDamage(false)
-    ScenarioInfo.FriendlyCommander:SetCanBeKilled(false)
+    ScenarioInfo.FriendlyCommander.CanTakeDamage = false
+    ScenarioInfo.FriendlyCommander.CanBeKilled = false
     ScenarioInfo.FriendlyCommander:SetReclaimable(false)
     ScenarioInfo.FriendlyCommander:SetCapturable(false)
 
@@ -981,9 +981,9 @@ function IntroMission3()
 
     -- invincible by design
     ScenarioInfo.BlackSun = ScenarioUtils.CreateArmyUnit('Aeon', 'Black_Sun')
-    ScenarioInfo.BlackSun:SetCanTakeDamage(false)
+    ScenarioInfo.BlackSun.CanTakeDamage = false
     ScenarioInfo.BlackSun:SetDoNotTarget(true)
-    ScenarioInfo.BlackSun:SetCanBeKilled(false)
+    ScenarioInfo.BlackSun.CanBeKilled = false
     ScenarioInfo.BlackSun:SetReclaimable(false)
 
     -- we rotate these buildings, so they are unselectable (otherwise players would see
@@ -991,9 +991,9 @@ function IntroMission3()
     local SupportBuildings = ScenarioUtils.CreateArmyGroup('Aeon', 'Black_Sun_Support')
     for k, unit in SupportBuildings do
         unit:SetUnSelectable(true)
-        unit:SetCanTakeDamage(false)
+        unit.CanTakeDamage = false
         unit:SetDoNotTarget(true)
-        unit:SetCanBeKilled(false)
+        unit.CanBeKilled = false
         unit:SetReclaimable(false)
     end
 
@@ -1078,7 +1078,7 @@ function IntroMission3NIS()
     ScenarioFramework.CreateVisibleAreaLocation(26, ScenarioInfo.FriendlyCommander:GetPosition(), 4, ArmyBrains[Player1])
     ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.FriendlyCommander, 5)
 
-    ScenarioInfo.FriendlyCommander:SetCanBeKilled(true)
+    ScenarioInfo.FriendlyCommander.CanBeKilled = true
     ScenarioInfo.FriendlyCommander:Kill()
     ScenarioFramework.Dialogue(OpStrings.A06_M03_020, StartMission3, true)
 end
@@ -1178,12 +1178,12 @@ function MarxonDamaged1()
 end
 
 function TeleportSW()
-    ScenarioInfo.AeonCommander:SetCanTakeDamage(false)
+    ScenarioInfo.AeonCommander.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.AeonCommander)
     ScenarioFramework.Dialogue(RandomMarxonTaunt())
     Warp(ScenarioInfo.AeonCommander, ScenarioUtils.MarkerToPosition('M2_SW_Teleport'))
     ScenarioFramework.CreateUnitDamagedTrigger(MarxonDamaged2, ScenarioInfo.AeonCommander, .8)
-    ScenarioInfo.AeonCommander:SetCanTakeDamage(true)
+    ScenarioInfo.AeonCommander.CanTakeDamage = true
     UpdateACUPlatoon('M3_SW_Base')
 end
 
@@ -1196,12 +1196,12 @@ function MarxonDamaged2()
 end
 
 function TeleportSE()
-    ScenarioInfo.AeonCommander:SetCanTakeDamage(false)
+    ScenarioInfo.AeonCommander.CanTakeDamage = false
     ScenarioFramework.FakeTeleportUnit(ScenarioInfo.AeonCommander)
     ScenarioFramework.Dialogue(RandomMarxonTaunt())
     Warp(ScenarioInfo.AeonCommander, ScenarioUtils.MarkerToPosition('M2_SE_Teleport'))
     --ScenarioFramework.CreateUnitDamagedTrigger(MarxonDamaged2, ScenarioInfo.AeonCommander, .8)
-    ScenarioInfo.AeonCommander:SetCanTakeDamage(true)
+    ScenarioInfo.AeonCommander.CanTakeDamage = true
     ScenarioInfo.AeonCommander.CanBeKilled = true
     UpdateACUPlatoon('M3_SE_Base')
 end
@@ -1454,8 +1454,8 @@ end
 
 function OnShiftF3()
     ScenarioInfo.MissionNumber = 2
-    ScenarioInfo.BlackSunControlCenter:SetCanTakeDamage(false)
-    ScenarioInfo.BlackSunControlCenter:SetCanBeKilled(false)
+    ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
+    ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
     IntroMission3()
 end
 --]]

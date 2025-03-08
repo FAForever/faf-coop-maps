@@ -256,12 +256,12 @@ epicEprop = {
 
 -- Seraphim arrival intro 1 / Actor: Gyle / Update 28/09/2015 / VO not ready
 M4intro1 = {
-  {text = '[Gyle]: Excellent work Commander. Clean up the rest of the base, and then \- ', vid = '', bank = '', cue = '', faction = 'UEF'},
+  {text = '[Gyle]: Excellent work Commander. Clean up the rest of the base, and then - ', vid = '', bank = '', cue = '', faction = 'UEF'},
 } 
 
 -- Seraphim arrival intro 2 / Actor: Gyle / Update 28/09/2015 / VO not ready
 M4intro2 = {
-#(reopen trans)
+--(reopen trans)
   {text = '[Gyle]: Commander, halt all attacks on the AI. Regroup your forces and prepare to defend your positions. Our radars are picking up unidenti- Scratch that. You have hostiles inbound, Seraphim signatures.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 

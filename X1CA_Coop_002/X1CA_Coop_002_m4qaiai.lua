@@ -739,7 +739,7 @@ function QAISpiderThread()
         if not platoon:IsPatrolling('Attack') then
             local numAlive = 0
             for _, v in platoon:GetPlatoonUnits() do
-                if not v:IsDead() then
+                if not v.Dead then
                     numAlive = numAlive + 1
                 end
             end

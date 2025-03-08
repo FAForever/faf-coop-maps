@@ -689,7 +689,7 @@ function M2AssignSecretBaseObjective()
 end
 
 function M2CruiserWarning()
-    if not ScenarioInfo.SouthNavalFactory:IsDead() then
+    if not ScenarioInfo.SouthNavalFactory.Dead then
         ScenarioFramework.Dialogue(OpStrings.A02_M02_080, nil, true)
 
         -- Create the cruiser and start naval attacks
@@ -780,7 +780,7 @@ function IntroMission3()
         {'CoolingUpgrade', 'StealthGenerator'},
         {'CoolingUpgrade', 'StealthGenerator', 'NaniteTorpedoTube'},
     }
-    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'Commander', false, LOC '{i Leopard11}', true, false, upgrades[Difficulty])
+    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'Commander', nil, LOC '{i Leopard11}', true, nil, upgrades[Difficulty])
     ScenarioInfo.CybranCommander:SetAutoOvercharge(true)
     ScenarioInfo.CybranCommander:AddBuildRestriction(categories.CYBRAN * categories.DEFENSE)
 
@@ -899,7 +899,7 @@ function StartMission3()
         --Redundancy for if the player has managed to kill all attackers before this triggers
         local bAttacksAlreadyDead = true
         for iUnit, oUnit in ScenarioInfo.M3Attackers do            
-            if not(oUnit:IsDead()) then bAttacksAlreadyDead = false break end
+            if not(oUnit.Dead) then bAttacksAlreadyDead = false break end
         end        
         if bAttacksAlreadyDead then ScenarioInfo.M3P1Objective:ManualResult(true) end
     end
@@ -1120,19 +1120,19 @@ function M2Taunt2()
 end
 
 function M3Taunt1()
-    if not ScenarioInfo.CybranCommander:IsDead() then
+    if not ScenarioInfo.CybranCommander.Dead then
         ScenarioFramework.Dialogue(OpStrings.A02_M03_030)
     end
 end
 
 function M3Taunt2()
-    if not ScenarioInfo.CybranCommander:IsDead() then
+    if not ScenarioInfo.CybranCommander.Dead then
         PlayRandomTaunt()
     end
 end
 
 function M3Taunt3()
-    if not ScenarioInfo.CybranCommander:IsDead() then
+    if not ScenarioInfo.CybranCommander.Dead then
         PlayRandomTaunt()
     end
 end
@@ -1292,7 +1292,7 @@ function TransportAssault(platoon, landingLocation, patrolChain, airUnits)
     if ScenarioInfo.MissionNumber <= 2 then
         WaitSeconds(30)
         for _, v in transports do
-            if not v:IsDead() then
+            if not v.Dead then
                 v:Destroy()
             end
         end

@@ -228,7 +228,7 @@ function SeraphimM6IslandBaseNavalAttacks()
     --[[
     local NavyOSB = nil
     
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_1' , 5, 40, 60, 'S', 100, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_1' , 5, 40, 60, 'S', 100)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_Naval_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -239,7 +239,7 @@ function SeraphimM6IslandBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_2' , 5, 30, 50, 'S', 100, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_2' , 5, 30, 50, 'S', 100)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_Naval_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -250,7 +250,7 @@ function SeraphimM6IslandBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_3' , 5, 40, 50, 'S', 100, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_3' , 5, 40, 50, 'S', 100)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_Naval_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -261,7 +261,7 @@ function SeraphimM6IslandBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_4' , 5, 35, 55, 'S', 100, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_Naval_4' , 5, 35, 55, 'S', 100)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_Naval_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -319,7 +319,7 @@ function SeraphimM6IslandBaseNavalT3Attacks()
     local opai = nil
     local NavyOSB = nil
     
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_1' , 5, 100, 120, 'S', 120, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_1' , 5, 100, 120, 'S', 120)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_T3_Naval_1',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -330,7 +330,7 @@ function SeraphimM6IslandBaseNavalT3Attacks()
     )
     opai:SetChildActive('T1', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_2' , 5, 50, 70, 'S', 120, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_2' , 5, 50, 70, 'S', 120)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_T3_Naval_2',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -341,7 +341,7 @@ function SeraphimM6IslandBaseNavalT3Attacks()
     )
     opai:SetChildActive('T1', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_3' , 5, 80, 100, 'S', 120, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_3' , 5, 80, 100, 'S', 120)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_T3_Naval_3',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
@@ -352,7 +352,7 @@ function SeraphimM6IslandBaseNavalT3Attacks()
     )
     opai:SetChildActive('T1', false)
 
-    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_4' , 5, 55, 85, 'S', 120, nil, nil)
+    NavyOSB = NavalOSB.GenerateNavalOSB('M6_Sera_Island_T3_Naval_4' , 5, 55, 85, 'S', 120)
     opai = SeraphimM6IslandBase:AddOpAI(NavyOSB, 'M6_Sera_Island_T3_Naval_4',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},

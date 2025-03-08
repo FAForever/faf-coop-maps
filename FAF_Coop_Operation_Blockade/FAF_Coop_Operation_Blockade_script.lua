@@ -13,7 +13,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local TauntManager = import('/lua/TauntManager.lua')
 
 local SeraTM = TauntManager.CreateTauntManager('Sera1TM', '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_strings.lua')
@@ -329,7 +329,7 @@ function IntroP2()
     ScenarioUtils.CreateArmyGroup('Seraphim', 'P2Bwalls')
     ScenarioUtils.CreateArmyGroup('Seraphim2', 'P2SBwalls')
     
-    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('Seraphim', 'SeraCom1', false, 'Vuth-Vuthroz', false, SeraCommanderKilled,
+    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('Seraphim', 'SeraCom1', nil, 'Vuth-Vuthroz', false, SeraCommanderKilled,
     {'BlastAttack', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
     ScenarioInfo.SeraACU:SetAutoOvercharge(true)
     ScenarioInfo.SeraACU:SetVeterancy(1 + Difficulty)
@@ -695,20 +695,20 @@ function IntroP3()
 
     ScenarioUtils.CreateArmyGroup('Seraphim2', 'P3Bwalls')
 
-    ScenarioInfo.PSACU1 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub1', 'Gate', 'Touth-Yez', false, false,
+    ScenarioInfo.PSACU1 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub1', 'Gate', 'Touth-Yez', false, nil,
     {'EngineeringThroughput', 'Shield', 'Overcharge'})
     ScenarioInfo.PSACU1:SetAutoOvercharge(true)
     ScenarioInfo.PSACU1:SetVeterancy(2 + Difficulty)
-    ScenarioInfo.PSACU2 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub2', 'Gate', 'Verkhez-Thui', false, false,
+    ScenarioInfo.PSACU2 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub2', 'Gate', 'Verkhez-Thui', false, nil,
     {'EngineeringThroughput', 'Shield', 'Overcharge'})
     ScenarioInfo.PSACU2:SetAutoOvercharge(true)
     ScenarioInfo.PSACU2:SetVeterancy(2 + Difficulty)
-    ScenarioInfo.PSACU3 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub3', 'Gate', 'Thuio-Zui', false, false,
+    ScenarioInfo.PSACU3 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraSub3', 'Gate', 'Thuio-Zui', false, nil,
     {'EngineeringThroughput', 'Shield', 'Overcharge'})
     ScenarioInfo.PSACU3:SetAutoOvercharge(true)
     ScenarioInfo.PSACU3:SetVeterancy(2 + Difficulty)
     
-    ScenarioInfo.SeraACU2 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraCom2', false, ' Lord Yuth-Azeath', false, false,
+    ScenarioInfo.SeraACU2 = ScenarioFramework.SpawnCommander('Seraphim2', 'SeraCom2', nil, ' Lord Yuth-Azeath', false, nil,
     {'RegenAura', 'AdvancedRegenAura', 'ResourceAllocation', 'ResourceAllocationAdvanced', 'DamageStabilization', 'DamageStabilizationAdvanced'})
     ScenarioInfo.SeraACU2:SetAutoOvercharge(true)
     ScenarioInfo.SeraACU2:SetVeterancy(2 + Difficulty)
@@ -1014,7 +1014,7 @@ function EnableSeraNukeAI()
         if table.getn(SeraSilos) > 0 then
             for k, v in SeraSilos do
                 --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
-                if not v.SiloAIEnabled and not v:IsDead() then
+                if not v.SiloAIEnabled and not v.Dead then
                     --Make a single unit platoon for each SML
                     local SiloPlatoon = ArmyBrains[Seraphim2]:MakePlatoon('','')
                     ArmyBrains[Seraphim2]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')

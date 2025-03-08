@@ -14,7 +14,7 @@ local Objectives = import('/lua/SimObjectives.lua')
 local OpStrings = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_Strings.lua')
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioStrings = import('/lua/ScenarioStrings.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 ----------
@@ -539,7 +539,7 @@ function SiloAmmoThread(callback, areaName)
     while not hasAmmo do
         local units = GetUnitsInRect(rect)
         for k,v in units do
-            if not v:IsDead() and EntityCategoryContains(categories.SILO * categories.ANTIMISSILE, v) then
+            if not v.Dead and EntityCategoryContains(categories.SILO * categories.ANTIMISSILE, v) then
                 if v:GetTacticalSiloAmmoCount() > 0 then
                     if not hasAmmo then
                         hasAmmo = true
@@ -707,7 +707,7 @@ function M1LandAttack(units, transports, direction)
     end
     if ArmyBrains[Ariel]:PlatoonExists(transports) then
         for num, unit in transports:GetPlatoonUnits() do
-            if not unit:IsDead() then
+            if not unit.Dead then
                 unit:Destroy()
             end
         end
@@ -778,7 +778,7 @@ function IntroMission2()
     M2UEFAI.UEFM2ArtySouthBaseAI()
 
     -- Blake's ACU
-    ScenarioInfo.BlakeUnit = ScenarioFramework.SpawnCommander('UEF', 'Blake_Unit', false, LOC '{i CDR_Blake}', true, false,
+    ScenarioInfo.BlakeUnit = ScenarioFramework.SpawnCommander('UEF', 'Blake_Unit', nil, LOC '{i CDR_Blake}', true, nil,
         {'Shield', 'DamageStabilization', 'ResourceAllocation'})
     ScenarioInfo.BlakeUnit:SetAutoOvercharge(true)
 
@@ -1214,7 +1214,7 @@ function IntroMission3()
     -----------
     M3ArielAI.ArielM3BaseAI()
 
-    ScenarioInfo.ArielCDR = ScenarioFramework.SpawnCommander('Ariel', 'Ariel_ACU', false, LOC '{i CDR_Ariel}', true, false,
+    ScenarioInfo.ArielCDR = ScenarioFramework.SpawnCommander('Ariel', 'Ariel_ACU', nil, LOC '{i CDR_Ariel}', true, nil,
         {'CrysalisBeam', 'Shield', 'ShieldHeavy', 'HeatSink'})
 
     ScenarioUtils.CreateArmyGroup('Ariel', 'M3_Extra_Mass')

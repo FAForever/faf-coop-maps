@@ -279,7 +279,7 @@ function RhizaAirPlatoonsAI(platoon)
         if(ScenarioInfo.MissionNumber == 2) then
 
             -- First attack Seraphim and Order
-            if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU:IsDead()) then
+            if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU.Dead) then
                 if(not moveNum) then
                     moveNum = 1
                     IssueStop(platoon:GetPlatoonUnits())
@@ -288,7 +288,7 @@ function RhizaAirPlatoonsAI(platoon)
                 end
                
             -- Now attack Fletcher
-            else -- if(ScenarioInfo.OrderACU:IsDead()) then
+            else -- if(ScenarioInfo.OrderACU.Dead) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())
@@ -464,7 +464,7 @@ function RhizaNavalAI(platoon)
         if(ScenarioInfo.MissionNumber == 2) then
 
             -- First attack Seraphim and Order
-            if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU:IsDead()) then
+            if(ScenarioInfo.OrderACU and not ScenarioInfo.OrderACU.Dead) then
                 if(not moveNum) then
                     moveNum = 1
                     IssueStop(platoon:GetPlatoonUnits())
@@ -473,7 +473,7 @@ function RhizaNavalAI(platoon)
                 end
                
             -- Now attack Fletcher
-            else -- if(ScenarioInfo.OrderACU:IsDead()) then
+            else -- if(ScenarioInfo.OrderACU.Dead) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())
@@ -503,7 +503,7 @@ function RhizaNavyToFletcherFirstAI(platoon)
         if(ScenarioInfo.MissionNumber == 2) then
 
             -- First attack Fletcher
-            if(ScenarioInfo.FletcherACU and not ScenarioInfo.FletcherACU:IsDead()) then
+            if(ScenarioInfo.FletcherACU and not ScenarioInfo.FletcherACU.Dead) then
                 if(not moveNum) then
                     moveNum = 1
                     IssueStop(platoon:GetPlatoonUnits())
@@ -512,7 +512,7 @@ function RhizaNavyToFletcherFirstAI(platoon)
                 end
                
             -- Now attack Seraphim/Order
-            else -- if(ScenarioInfo.OrderACU:IsDead()) then
+            else -- if(ScenarioInfo.OrderACU.Dead) then
                 if(not moveNum or moveNum ~= 2) then
                     moveNum = 2
                     IssueStop(platoon:GetPlatoonUnits())

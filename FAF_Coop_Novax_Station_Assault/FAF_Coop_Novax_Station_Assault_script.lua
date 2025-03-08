@@ -752,14 +752,14 @@ function IntroMission2()
                 IssueClearCommands({unit.ExternalFactory})
             end
             IssueMove({unit}, ScenarioUtils.MarkerToPosition(marker))
-            unit:SetCanTakeDamage(false)
+            unit.CanTakeDamage = false
         end
     end
 
     -- Units can take damage again once on the playable area
     local function UnitDamageableAgain(unit)
         if unit then
-            unit:SetCanTakeDamage(true)
+            unit.CanTakeDamage = true
         end
     end
 
@@ -809,7 +809,7 @@ function IntroMission2()
         -- Order AI
         -----------
         -- Spawn Order ACU, sACU
-        ScenarioInfo.OrderACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_ACU', 'Warp', 'Order Commander', false, false, -- TODO: Come up with a name
+        ScenarioInfo.OrderACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_ACU', 'Warp', 'Order Commander', false, nil, -- TODO: Come up with a name
             {'ResourceAllocationAdvanced', 'EnhancedSensors', 'AdvancedEngineering', 'T3Engineering'})
         ForkThread(function()
             -- For some mysteriour reason this doesn't work without the delay
@@ -818,7 +818,7 @@ function IntroMission2()
             ScenarioInfo.OrderACU:AddBuildRestriction(categories.uab2205)
         end)
 
-        ScenarioInfo.OrdersACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_sACU', 'Warp', 'Order sCDR', false, false, -- TODO: Come up with a name
+        ScenarioInfo.OrdersACU = ScenarioFramework.SpawnCommander('Order', 'M2_Order_sACU', 'Warp', 'Order sCDR', false, nil, -- TODO: Come up with a name
             {'EngineeringFocusingModule', 'ResourceAllocation'})
 
         -- Order base AI and mobile factories AI
@@ -916,16 +916,16 @@ function IntroMission2()
             {{StatType = 'Economy_Stored_Mass', CompareType = 'GreaterThanOrEqual', Value = 7000}})
     else
         -- Spawn Player2 ACU
-        ScenarioInfo.Player2CDR = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, false,
+        ScenarioInfo.Player2CDR = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, nil,
             {'ResourceAllocation', 'AdvancedEngineering', 'T3Engineering'})
 
         -- Spawn Player4 or sACU for Player2
         local tblArmy = ListArmies()
         if tblArmy[ScenarioInfo.Player4] then
-            ScenarioInfo.Player4CDR = ScenarioFramework.SpawnCommander('Player4', 'sACU', 'Warp', true, false, false,
+            ScenarioInfo.Player4CDR = ScenarioFramework.SpawnCommander('Player4', 'sACU', 'Warp', true, false, nil,
                 {'EngineeringFocusingModule', 'ResourceAllocation'})
         else
-            ScenarioFramework.SpawnCommander('Player2', 'sACU', 'Warp', false, false, false,
+            ScenarioFramework.SpawnCommander('Player2', 'sACU', 'Warp', false, false, nil,
                 {'EngineeringFocusingModule', 'ResourceAllocation'})
         end
 
@@ -1147,11 +1147,11 @@ function IntroMission2NIS()
             {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation'})
 
         if tblArmy[ScenarioInfo.Player3] then
-            ScenarioInfo.Player3CDR = ScenarioFramework.SpawnCommander('Player3', 'sACU', false, true, false, false,
+            ScenarioInfo.Player3CDR = ScenarioFramework.SpawnCommander('Player3', 'sACU', nil, true, false, nil,
                 {'EngineeringThroughput', 'EnhancedSensors'})
         else
             -- TODO: name for the sACU
-            ScenarioFramework.SpawnCommander('Player1', 'sACU', 'Warp', false, false, false,
+            ScenarioFramework.SpawnCommander('Player1', 'sACU', 'Warp', false, false, nil,
                 {'EngineeringThroughput', 'EnhancedSensors'})
         end
 
@@ -1163,15 +1163,15 @@ function IntroMission2NIS()
         ArmyBrains[Order]:PBMSetCheckInterval(6)
     else
         -- Spawn Player1 and Player3
-        ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, false,
+        ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, nil,
             {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation'})
 
         if tblArmy[ScenarioInfo.Player3] then
-            ScenarioInfo.Player3CDR = ScenarioFramework.SpawnCommander('Player3', 'sACU', 'Warp', true, false, false,
+            ScenarioInfo.Player3CDR = ScenarioFramework.SpawnCommander('Player3', 'sACU', 'Warp', true, false, nil,
                 {'EngineeringThroughput', 'EnhancedSensors'})
         else
             -- TODO: name for the sACU
-            ScenarioFramework.SpawnCommander('Player1', 'sACU', 'Warp', false, false, false,
+            ScenarioFramework.SpawnCommander('Player1', 'sACU', 'Warp', false, false, nil,
                 {'EngineeringThroughput', 'EnhancedSensors'})
         end
     end
@@ -1378,7 +1378,7 @@ function M2SpawnQAI()
     end
 
     -- Gate in ACU
-    ScenarioInfo.QAI_Commander = ScenarioFramework.SpawnCommander('QAI', 'QAI_Commander', 'Warp', 'QAI', false, false,
+    ScenarioInfo.QAI_Commander = ScenarioFramework.SpawnCommander('QAI', 'QAI_Commander', 'Warp', 'QAI', false, nil,
         {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation'})
 
     WaitSeconds(5)
@@ -1642,7 +1642,7 @@ function IntroMission3()
     -- Cybran AI
     ------------
     -- Cybran ACU -- TODO: Name
-    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'M3_Cybran_Commander', false, 'Cybran Commander', false, false,
+    ScenarioInfo.CybranCommander = ScenarioFramework.SpawnCommander('Cybran', 'M3_Cybran_Commander', nil, 'Cybran Commander', false, nil,
         {'AdvancedEngineering', 'T3Engineering', 'Teleporter', 'MicrowaveLaserGenerator'})
 
     -- Main Base
@@ -1711,7 +1711,7 @@ function IntroMission3()
     -- UEF AI
     ---------
     -- UEF ACU -- TODO: Name
-    ScenarioInfo.UEFCommander = ScenarioFramework.SpawnCommander('UEF', 'M3_Commander', false, 'UEF Commander', false, UEFCommanderKilled,
+    ScenarioInfo.UEFCommander = ScenarioFramework.SpawnCommander('UEF', 'M3_Commander', nil, 'UEF Commander', false, UEFCommanderKilled,
         {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation', 'Shield'})
 
     ScenarioInfo.M3AtlantisPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3_Base_Atlantis', 'AttackFormation')

@@ -6,18 +6,15 @@
 --
 --  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 ------------------------------------------------------------------------------
-local Objectives = import('/lua/scenarioframework.lua').Objectives
+local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local OpStrings = import('/maps/scca_coop_e06/scca_coop_e06_strings.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
-local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
-local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
-local Weather = import('/lua/weather.lua')
-local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local CustomFunctions = import('/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua')
-local Buff = import('/lua/sim/buff.lua')
+local Buff = import('/lua/sim/Buff.lua')
 local SimUtils = import('/lua/SimUtils.lua')
 
 local AeonAI = import('/maps/scca_coop_e06/scca_coop_e06_aeonai.lua')
@@ -156,19 +153,19 @@ function OnPopulate()
 	
     -- Components
     ScenarioInfo.DeathTransport = ScenarioUtils.CreateArmyUnit('Black_Sun', 'Death_Transport_Unit')
-    ScenarioInfo.DeathTransport:SetCanBeKilled(false)
+    ScenarioInfo.DeathTransport.CanBeKilled = false
     ScenarioInfo.InvincibleTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'Invincible_Transports', 'ChevronFormation')
     ScenarioInfo.InvincibleComponents = ScenarioUtils.CreateArmyGroup('Black_Sun', 'Extra_Components')
     for num,unit in ScenarioInfo.InvincibleComponents do
-        unit:SetCanTakeDamage(false)
-        unit:SetCanBeKilled(false)
+        unit.CanTakeDamage = false
+        unit.CanBeKilled = false
         unit:SetDoNotTarget(true)
         unit:SetReclaimable(false)
         unit:SetCapturable(false)
     end
     for num,unit in ScenarioInfo.InvincibleTransports:GetPlatoonUnits() do
-        unit:SetCanTakeDamage(false)
-        unit:SetCanBeKilled(false)
+        unit.CanTakeDamage = false
+        unit.CanBeKilled = false
         unit:SetDoNotTarget(true)
     end
 	
@@ -223,7 +220,7 @@ function SpawnPlayer()
 	-- Initial Navy, with basic veterancy
 	local navy = ScenarioUtils.CreateArmyGroup('Player1', 'Starting_Navy')
 	for _, unit in navy do
-		if unit and not unit:IsDead() then
+		if unit and not unit.Dead then
 			unit:SetVeterancy(6 - Difficulty)
 		end
 	end
@@ -235,8 +232,8 @@ function SpawnPlayer()
 	
 	-- Control Center
     ScenarioInfo.BlackSunControlCenter = ScenarioUtils.CreateArmyUnit('Black_Sun', 'Black_Sun_Control_Center')
-    ScenarioInfo.BlackSunControlCenter:SetCanBeKilled(false)
-    ScenarioInfo.BlackSunControlCenter:SetCanTakeDamage(false)
+    ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
+    ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
     ScenarioInfo.BlackSunControlCenter:SetReclaimable(false)
     ScenarioInfo.BlackSunControlCenter:SetDoNotTarget(true)
     ScenarioInfo.BlackSunControlCenter:SetCustomName(LOC '{i BlackSunControlTower}')
@@ -256,15 +253,15 @@ function SpawnPlayer()
     for k, v in supportBuildings do
 		v:SetDoNotTarget(true)
         v:SetUnSelectable(true)
-        v:SetCanTakeDamage(false)
-        v:SetCanBeKilled(false)
+        v.CanTakeDamage = false
+        v.CanBeKilled = false
     end
 end
 
 function M1SpawnAeon()
 	-- Spawn in Ariel as the Aeon Commander for part 2, and restrict her from building anything on the sea
 	-- In SC1 we couldn't encounter her during the UEF campaign, so I picked her character for the otherwise unknown Aeon Commander for this Phase
-	ScenarioInfo.Ariel = ScenarioFramework.SpawnCommander('Aeon', 'Ariel_ACU', false, LOC('{i CDR_Ariel}'), true, M2KillAeonBase, {'ShieldHeavy', 'CrysalisBeam', 'HeatSink'})
+	ScenarioInfo.Ariel = ScenarioFramework.SpawnCommander('Aeon', 'Ariel_ACU', nil, LOC('{i CDR_Ariel}'), true, M2KillAeonBase, {'ShieldHeavy', 'CrysalisBeam', 'HeatSink'})
 	-- Prevent Ariel from building stuff on water
 	-- T1 Naval Factory, T3 Naval Support Factory, T2 Torpedo Launcher, T3 SAM Launcher, T2 TMD, T2 Sonar
 	ScenarioInfo.Ariel:AddBuildRestriction(categories.uab0103 + categories.zab9603 + categories.uab2205 + categories.uab2304 + categories.uab4201 + categories.uab3202)
@@ -277,14 +274,14 @@ end
 function M2SpawnCybran()
 	if ScenarioInfo.Options.FullMapAccess == 2 then
 		-- Spawn in RedFog, and restrict him from building Naval factory, Torp def and AA
-		ScenarioInfo.RedFog = ScenarioFramework.SpawnCommander('Cybran', 'RedFog_ACU', false, LOC('{i RedFog}'), true, false, {'T3Engineering', 'CloakingGenerator', 'MicrowaveLaserGenerator'})
+		ScenarioInfo.RedFog = ScenarioFramework.SpawnCommander('Cybran', 'RedFog_ACU', nil, LOC('{i RedFog}'), true, nil, {'T3Engineering', 'CloakingGenerator', 'MicrowaveLaserGenerator'})
 		-- T1 Naval Factory, T3 Naval Support Factory, T2 Torpedo Launcher, T3 SAM Launcher, T2 Sonar
 		ScenarioInfo.RedFog:AddBuildRestriction(categories.urb0103 + categories.zrb9603 + categories.urb2205 + categories.urb2304 + categories.urb3202)
 		ScenarioInfo.RedFog:SetVeterancy(Difficulty + 2)
 		ScenarioInfo.RedFog:SetAutoOvercharge(true)
 		
 		-- Spawn in Jericho
-		ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Cybran', 'Jericho_sACU', false, LOC '{i sCDR_Jericho}', false, false, {'NaniteMissileSystem', 'ResourceAllocation', 'Switchback'})
+		ScenarioInfo.Jericho = ScenarioFramework.SpawnCommander('Cybran', 'Jericho_sACU', nil, LOC '{i sCDR_Jericho}', false, nil, {'NaniteMissileSystem', 'ResourceAllocation', 'Switchback'})
 		ScenarioInfo.Jericho:SetVeterancy(Difficulty + 2)
 	end
 
@@ -294,7 +291,7 @@ end
 
 function M3SpawnAeon()
 	if ScenarioInfo.Options.FullMapAccess == 2 then
-		ScenarioInfo.SE_sACU = ScenarioFramework.SpawnCommander('Aeon', 'Matilda_sACU', false, 'sCDR Matilda', false, false)
+		ScenarioInfo.SE_sACU = ScenarioFramework.SpawnCommander('Aeon', 'Matilda_sACU', nil, 'sCDR Matilda', false, nil)
 		ScenarioInfo.SE_sACU:SetVeterancy(Difficulty + 2)
 	end
 	
@@ -424,9 +421,9 @@ function MoveComponents(unloadCmd)
     end
     for num, unit in ScenarioInfo.InvincibleTransports:GetPlatoonUnits() do
         if unit then
-            unit:SetCanTakeDamage(true)
-            unit:SetCanBeKilled(true)
-            if not unit:IsDead() then
+            unit.CanTakeDamage = true
+            unit.CanBeKilled = true
+            if not unit.Dead then
                 ScenarioFramework.GiveUnitToArmy(unit, Player1)
             end
         end
@@ -437,7 +434,7 @@ function MoveComponents(unloadCmd)
 end
 
 function IntroKillTransport(unit)
-    unit:SetCanBeKilled(true)
+    unit.CanBeKilled = true
 
     -- Transport dying camera
     local camInfo = {
@@ -505,8 +502,8 @@ function ComponentSightedThread()
     ScenarioInfo.BlackSunComponent = ScenarioUtils.CreateArmyUnit('Component', 'Black_Sun_Component_Unit')
     ScenarioInfo.BlackSunComponent = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.BlackSunComponent, Player1)
     Warp(ScenarioInfo.BlackSunComponent, ScenarioUtils.MarkerToPosition('INTRO_Component_Move'))
-    ScenarioInfo.BlackSunComponent:SetCanTakeDamage(false)
-    ScenarioInfo.BlackSunComponent:SetCanBeKilled(false)
+    ScenarioInfo.BlackSunComponent.CanTakeDamage = false
+    ScenarioInfo.BlackSunComponent.CanBeKilled = false
     ScenarioInfo.BlackSunComponent:SetReclaimable(false)
     ScenarioInfo.BlackSunComponent:SetCapturable(false)
 
@@ -574,15 +571,15 @@ function ComponentSightedThread()
         if not ScenarioInfo.BlackSunComponent:BeenDestroyed() then
             parent = ScenarioInfo.BlackSunComponent:GetParent()
             if parent and IsUnit(parent) then
-                parent:SetCanTakeDamage(false)
-                parent:SetCanBeKilled(false)
+                parent.CanTakeDamage = false
+                parent.CanBeKilled = false
 
                 while not ScenarioInfo.BlackSunComponent:BeenDestroyed() and ScenarioInfo.BlackSunComponent:IsUnitState('Attached') do
                     WaitSeconds(2)
                 end
 
-                parent:SetCanTakeDamage(true)
-                parent:SetCanBeKilled(true)
+                parent.CanTakeDamage = true
+                parent.CanBeKilled = true
             end
         end
         WaitSeconds(1)
@@ -709,7 +706,7 @@ function M2NukeAttackStart()
     local nukeLaunchers = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
 	
 	-- Make sure there's at least 1 SML, and Ariel is still alive
-	if nukeLaunchers[1] and ScenarioInfo.Ariel and not ScenarioInfo.Ariel:IsDead() then
+	if nukeLaunchers[1] and ScenarioInfo.Ariel and not ScenarioInfo.Ariel.Dead then
 		-- Zoom in on the nuke launcher in Ariel's base, fire off a dialogue
 		local camInfo = {
 				blendTime = 1.0,
@@ -727,7 +724,7 @@ function M2NukeAttackStart()
 	ScenarioFramework.CreateTimerTrigger(ArielTaunt, 30)
 	
     for num, unit in nukeLaunchers do
-        if not unit:IsDead() then
+        if not unit.Dead then
             IssueNuke({unit}, ScenarioUtils.MarkerToPosition('Aeon_M2_Nuke_Target'))
             break
         end
@@ -738,12 +735,12 @@ end
 
 -- Nuke clumping thread for Phase 2
 function M2AeonNukeClump()
-	while ScenarioInfo.Ariel and not ScenarioInfo.Ariel:IsDead() do
+	while ScenarioInfo.Ariel and not ScenarioInfo.Ariel.Dead do
 		local clumpNum = GetLowestNonNegativeClumpThread(Aeon)
 		if clumpNum > 0 then
 			local nukeLaunchers = ArmyBrains[Aeon]:GetListOfUnits(categories.uab2305, false)
 			for num, unit in nukeLaunchers do
-				if not unit:IsDead() and unit:GetNukeSiloAmmoCount() > 0 then
+				if not unit.Dead and unit:GetNukeSiloAmmoCount() > 0 then
 					IssueNuke({unit}, ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_' .. clumpNum))
 					WaitSeconds(15)
 					IssueClearCommands({unit})
@@ -762,7 +759,7 @@ function M2KillAeonBase()
 			-- Kill all units belonging to Aeon inside the rectangle with a slight delay
 			local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M2_Aeon_Base_Area'))
 			for _, unit in units do
-				if (unit and not unit:IsDead()) and unit:GetAIBrain() == ArmyBrains[Aeon] then
+				if (unit and not unit.Dead) and unit:GetAIBrain() == ArmyBrains[Aeon] then
 					unit:Kill()
 					WaitSeconds(0.25)
 				end
@@ -771,7 +768,7 @@ function M2KillAeonBase()
 			-- Kill any remaining units that slipped because of the delay
 			units = GetUnitsInRect(ScenarioUtils.AreaToRect('M2_Aeon_Base_Area'))
 			for _, unit in units do
-				if (unit and not unit:IsDead()) and unit:GetAIBrain() == ArmyBrains[Aeon] then
+				if (unit and not unit.Dead) and unit:GetAIBrain() == ArmyBrains[Aeon] then
 				unit:Kill()
 				end
 			end
@@ -872,7 +869,7 @@ function M2TransferUnitsToPlayer()
         WaitSeconds(2)
         if not ArmyBrains[BlackSun]:PlatoonExists(transports) then
             for k, v in units do
-                if not v:IsDead() then
+                if not v.Dead then
                     ScenarioFramework.GiveUnitToArmy(v, Player1)
                 end
             end
@@ -885,12 +882,12 @@ function M2TransferUnitsToPlayer()
 		--ScenarioFramework.Dialogue(OpStrings.E06_M02_055)	-- This one doesn't exist in the strings.lua file, no idea if a VO was made for it
 	end
     for k,v in units do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.GiveUnitToArmy(v,Player1)
         end
     end
     for k,v in transports:GetPlatoonUnits() do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
@@ -942,7 +939,7 @@ function M2CybranAttackBegin()
 		local clumpNum = GetLowestNonNegativeClumpThread(Cybran)
 		if clumpNum > 0 then
 			for num, unit in nukeLaunchers do
-				if not unit:IsDead() then
+				if not unit.Dead then
 					IssueNuke({unit}, ScenarioUtils.MarkerToPosition('Nuke_Me_Clump_' .. clumpNum))
 				end
 			end
@@ -1098,8 +1095,8 @@ function M2BlackSunControlCenterCaptured(newUnit, captor)
 						WaitTicks(1)
 						
 						ScenarioInfo.BlackSunControlCenter:SetCustomName(LOC '{i BlackSunControlTower}')
-						ScenarioInfo.BlackSunControlCenter:SetCanTakeDamage(false)
-						ScenarioInfo.BlackSunControlCenter:SetCanBeKilled(false)
+						ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
+						ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
 						ScenarioInfo.BlackSunControlCenter:SetReclaimable(false)
 						--ScenarioInfo.BlackSunControlCenter:SetCanBeGiven(false)	-- Prevents re-capture by Cybrans
 						ScenarioInfo.BlackSunControlCenter:SetDoNotTarget(true)
@@ -1544,7 +1541,7 @@ function M3ArnoldAIThread()
 	end
 	
 	-- Spawn Arnold
-	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold_ACU', 'Warp', LOC('{i CDR_Arnold}'), true, false, {'ShieldHeavy', 'FAF_CrysalisBeamAdvanced', 'HeatSink'})
+	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold_ACU', 'Warp', LOC('{i CDR_Arnold}'), true, nil, {'ShieldHeavy', 'FAF_CrysalisBeamAdvanced', 'HeatSink'})
 	ScenarioInfo.Arnold:SetVeterancy(Difficulty + 2)
 	ScenarioInfo.Arnold:SetAutoOvercharge(true)
 	-- Bool used for taunts
@@ -1588,7 +1585,7 @@ function M3ArnoldAIThread()
     platoon:Stop()
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'), false)
     while ArmyBrains[Aeon]:PlatoonExists(platoon) do
-        if not ScenarioInfo.BlackSunCannon:IsDead() and not ScenarioInfo.Arnold:IsDead() and (Utilities.XZDistanceTwoVectors(ScenarioInfo.Arnold:GetPosition(), ScenarioInfo.BlackSunCannon:GetPosition()) < 25) then
+        if not ScenarioInfo.BlackSunCannon.Dead and not ScenarioInfo.Arnold.Dead and (Utilities.XZDistanceTwoVectors(ScenarioInfo.Arnold:GetPosition(), ScenarioInfo.BlackSunCannon:GetPosition()) < 25) then
             IssueClearCommands({ScenarioInfo.Arnold})
             --IssueOverCharge({ScenarioInfo.Arnold}, ScenarioInfo.BlackSunCannon)
             IssueAttack({ScenarioInfo.Arnold}, ScenarioInfo.BlackSunCannon)
@@ -1615,13 +1612,13 @@ function M3FinalAttackCzarAI(platoon, cargoPlatoons)
             local PlatoonPosition = platoon:GetPlatoonPosition()
             local target = platoon:FindClosestUnit('attack', 'Enemy', false, categories.ALLUNITS - categories.WALL)
             local targetPos = false
-            if target and not target:IsDead() then
+            if target and not target.Dead then
                 targetPos = target:GetPosition()
             end
             if targetPos ~= false then
                 PlatoonPosition = platoon:GetPlatoonPosition()
                 -- Iff closest non-wall is less than 100 away, release the 'cargo'
-                if VDist2(PlatoonPosition[1], PlatoonPosition[3], targetPos[1], targetPos[3]) < 100 then
+                if Utilities.GetDistanceBetweenTwoPoints2(PlatoonPosition[1], PlatoonPosition[3], targetPos[1], targetPos[3]) < 100 then
                     released = true
                     IssueStop({Czar})
                     IssueClearCommands({Czar})
@@ -1710,10 +1707,10 @@ function M3EnableCannon()
         }
     )
 	
-	if not ScenarioInfo.BlackSunCannon:IsDead() then
+	if not ScenarioInfo.BlackSunCannon.Dead then
         ScenarioInfo.BlackSunCannon:AddToggleCap('RULEUTC_SpecialToggle')
-        ScenarioInfo.BlackSunCannon:SetCanTakeDamage(false)
-        ScenarioInfo.BlackSunCannon:SetCanBeKilled(false)
+        ScenarioInfo.BlackSunCannon.CanTakeDamage = false
+        ScenarioInfo.BlackSunCannon.CanBeKilled = false
         ScenarioInfo.BlackSunCannon:AddSpecialToggleEnable(M3BlackSunFired)
 		-- The ability is a toggleable one, make sure both enabling and disabling triggers a game win
         ScenarioInfo.BlackSunCannon:AddSpecialToggleDisable(M3BlackSunFired)
@@ -1746,8 +1743,8 @@ end
 -- Sets the given unit as invunerable, but not uncaptureable
 function SetUnitEssential(unit)
 	unit:SetDoNotTarget(true)
-    unit:SetCanBeKilled(false)
-    unit:SetCanTakeDamage(false)
+    unit.CanBeKilled = false
+    unit.CanTakeDamage = false
     unit:SetReclaimable(false)
 end
 
@@ -1848,7 +1845,7 @@ end
 -- Taunts
 ---------
 function RedFogTaunt()
-	if ScenarioInfo.Options.FullMapAccess == 1 or (ScenarioInfo.RedFog and not ScenarioInfo.RedFog:IsDead()) then
+	if ScenarioInfo.Options.FullMapAccess == 1 or (ScenarioInfo.RedFog and not ScenarioInfo.RedFog.Dead) then
 		ScenarioFramework.Dialogue(OpStrings['TAUNT' .. Random(1, 8)])
 		ScenarioFramework.CreateTimerTrigger(PlayTaunt, 180)
 	else
@@ -1858,7 +1855,7 @@ function RedFogTaunt()
 end
 
 function ArnoldTaunt()
-	if (not ScenarioInfo.ArnoldSpawned) or (ScenarioInfo.Arnold and not ScenarioInfo.Arnold:IsDead()) then
+	if (not ScenarioInfo.ArnoldSpawned) or (ScenarioInfo.Arnold and not ScenarioInfo.Arnold.Dead) then
 		ScenarioFramework.Dialogue(OpStrings['TAUNT' .. Random(9, 16)])
 		ScenarioFramework.CreateTimerTrigger(PlayTaunt, 180)
 	else
@@ -1868,7 +1865,7 @@ function ArnoldTaunt()
 end
 
 function ArielTaunt()
-	if ScenarioInfo.Ariel and not ScenarioInfo.Ariel:IsDead() then
+	if ScenarioInfo.Ariel and not ScenarioInfo.Ariel.Dead then
 		ScenarioFramework.Dialogue(OpStrings['TAUNT' .. Random(17, 22)])
 		ScenarioFramework.CreateTimerTrigger(ArielTaunt, 180)
 	end

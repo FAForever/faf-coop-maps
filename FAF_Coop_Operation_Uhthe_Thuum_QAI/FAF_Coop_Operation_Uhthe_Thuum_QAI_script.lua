@@ -9,7 +9,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local OpStrings = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_strings.lua')
 local CustomFunctions = import('/maps/FAF_Coop_Operation_Uhthe_Thuum_QAI/FAF_Coop_Operation_Uhthe_Thuum_QAI_CustomFunctions.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')  
@@ -94,8 +94,8 @@ function OnPopulate(scen)
         ScenarioInfo.Node1:SetCustomName("QAI Data Node 1")
         ScenarioInfo.Node1:SetReclaimable(false)
         ScenarioInfo.Node1:SetCapturable(true)
-        ScenarioInfo.Node1:SetCanTakeDamage(false)
-        ScenarioInfo.Node1:SetCanBeKilled(false)
+        ScenarioInfo.Node1.CanTakeDamage = false
+        ScenarioInfo.Node1.CanBeKilled = false
         ScenarioInfo.Node1:SetDoNotTarget(true)
 end
 
@@ -130,8 +130,8 @@ function OnStart(scen)
     ScenarioUtils.CreateArmyGroup('Nodes', 'Mainframe_Defenses')
     
     ScenarioInfo.MF1 = ScenarioUtils.CreateArmyUnit('Nodes', 'Mainframe_Unit')
-    ScenarioInfo.MF1:SetCanTakeDamage(false)
-    ScenarioInfo.MF1:SetCanBeKilled(false)
+    ScenarioInfo.MF1.CanTakeDamage = false
+    ScenarioInfo.MF1.CanBeKilled = false
     
     GetArmyBrain(Nodes):SetResourceSharing(false)
     GetArmyBrain(QAI):SetResourceSharing(false)
@@ -167,7 +167,7 @@ function IntroP1()
         WaitSeconds(4)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 5)
         WaitSeconds(3)
-        ScenarioInfo.P1QACU = ScenarioFramework.SpawnCommander('QAI', 'P1QACU', 'Warp', 'QAI', false, false)
+        ScenarioInfo.P1QACU = ScenarioFramework.SpawnCommander('QAI', 'P1QACU', 'Warp', 'QAI', false, nil)
         ScenarioInfo.P1QACU:PlayCommanderWarpInEffect()
         WaitSeconds(4)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam4'), 3)
@@ -390,8 +390,8 @@ function IntroP2()
         ScenarioInfo.Node2:SetCustomName("QAI Data Node 2")
         ScenarioInfo.Node2:SetReclaimable(false)
         ScenarioInfo.Node2:SetCapturable(true)
-        ScenarioInfo.Node2:SetCanTakeDamage(false)
-        ScenarioInfo.Node2:SetCanBeKilled(false)
+        ScenarioInfo.Node2.CanTakeDamage = false
+        ScenarioInfo.Node2.CanBeKilled = false
         ScenarioInfo.Node2:SetDoNotTarget(true)
     
     P2CybranAI.P2C1base1AI()
@@ -415,14 +415,14 @@ function IntroP2()
         ArmyBrains[Cybran2]:PBMSetCheckInterval(8)
     end
     
-    ScenarioInfo.P2C1ACU = ScenarioFramework.SpawnCommander('Cybran1', 'C1ACU', false, 'Commander Corva', true, false,
+    ScenarioInfo.P2C1ACU = ScenarioFramework.SpawnCommander('Cybran1', 'C1ACU', nil, 'Commander Corva', true, nil,
     { 'AdvancedEngineering', 'T3Engineering', 'StealthGenerator', 'CloakingGenerator', 'NaniteTorpedoTube'})
     ScenarioInfo.P2C1ACU:SetAutoOvercharge(true)
     ScenarioInfo.P2C1ACU:SetVeterancy(1 + Difficulty)
     
     ScenarioInfo.P2C1ACU:AddBuildRestriction(categories.urb2301 + categories.urb1302 + categories.urb1202 + categories.urb1103 + categories.urb1106 + categories.urb1105 + categories.urb1201 + categories.urb2101)
     
-    ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'QACU', false, 'QAI', false, false,
+    ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'QACU', nil, 'QAI', false, nil,
     {'AdvancedEngineering', 'T3Engineering', 'ResourceAllocation'})
     ScenarioInfo.P2QACU:SetAutoOvercharge(true)
     ScenarioInfo.P2QACU:SetVeterancy(4 - Difficulty)
@@ -847,7 +847,7 @@ function IntroP3()
     
     ScenarioFramework.SetPlayableArea('AREA_3', true)
     
-    ScenarioInfo.P3C2ACU = ScenarioFramework.SpawnCommander('Cybran2', 'C2ACU', false, 'Elite Commander Vladimir', true, false,
+    ScenarioInfo.P3C2ACU = ScenarioFramework.SpawnCommander('Cybran2', 'C2ACU', nil, 'Elite Commander Vladimir', true, nil,
     {'AdvancedEngineering', 'T3Engineering', 'StealthGenerator', 'CloakingGenerator', 'MicrowaveLaserGenerator'})
     ScenarioInfo.P3C2ACU:SetAutoOvercharge(true)
     ScenarioInfo.P3C2ACU:SetVeterancy(2 + Difficulty)
@@ -945,7 +945,7 @@ function IntroP3()
         
         local qaiuunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[QAI])
             for k, v in qaiuunits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[QAI]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[QAI]) then
                     ScenarioFramework.GiveUnitToArmy( v, Player1 )
                 end
             end
@@ -958,7 +958,7 @@ function IntroP3()
 
         local Nodeunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[Nodes])
             for k, v in Nodeunits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Nodes]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Nodes]) then
                     ScenarioFramework.GiveUnitToArmy( v, QAI )
                 end
             end
@@ -1132,7 +1132,7 @@ function Nukeparty2()
         if table.getn(CybranNuke2) > 0 then
             for k, v in CybranNuke2 do
                 --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
-                if not v.SiloAIEnabled and not v:IsDead() then
+                if not v.SiloAIEnabled and not v.Dead then
                     --Make a single unit platoon for each SML
                     local SiloPlatoon = ArmyBrains[Cybran2]:MakePlatoon('','')
                     ArmyBrains[Cybran2]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')

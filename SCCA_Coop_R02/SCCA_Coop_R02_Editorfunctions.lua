@@ -10,9 +10,9 @@
 -- ****************************************************************************
 
 local OpScript = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_script.lua')
-local ScenarioFramework = import( '/lua/scenarioframework.lua' )
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import( '/lua/sim/ScenarioUtilities.lua' )
+local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 
 -- ###################################################################################################################
 -- ## ChooseAttackLocation

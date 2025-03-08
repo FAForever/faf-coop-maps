@@ -9,7 +9,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')  
+local Utilities = import('/lua/utilities.lua')  
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local P1OrderAI = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/OrderaiP1.lua')
 local P2OrderAI = import('/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/OrderaiP2.lua')
@@ -141,7 +141,7 @@ function IntroP1()
     
         ScenarioInfo.M1ObjectiveUnits = {}
     
-        ScenarioInfo.P1O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1SACU', false, 'Jareth', true, false,
+        ScenarioInfo.P1O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1SACU', nil, 'Jareth', true, nil,
             {'StabilitySuppressant', 'ShieldHeavy', 'EngineeringFocusingModule'})
     
         local basereval1 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('Vision1P1'), 0, ArmyBrains[Player1])
@@ -230,14 +230,14 @@ function IntroP1()
     end 
    
     for k, v in Orderunits:GetPlatoonUnits() do
-        if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
+        if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Order]) then
                 ScenarioFramework.GiveUnitToArmy( v, Player1 )
         end
     end
 
     local Orderunits2 = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_M1', ArmyBrains[Order])
     for k, v in Orderunits2 do
-        if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
+        if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Order]) then
             ScenarioFramework.GiveUnitToArmy( v, Player1 )
         end
     end
@@ -260,7 +260,7 @@ function IntroP1()
     )
 
     else
-        ScenarioFramework.SpawnCommander( 'Player1', 'ACUP1', 'Warp', true, true, false)
+        ScenarioFramework.SpawnCommander( 'Player1', 'ACUP1', 'Warp', true, true, nil)
         
         ForkThread(Mission1)
     end 
@@ -342,7 +342,7 @@ function IntroP2()
     
     ForkThread(RemoveP1O1ACU)
     
-    ScenarioInfo.P1P1ACU = ScenarioFramework.SpawnCommander('Player1', 'P1SACU', false, 'Jareth', true, false,
+    ScenarioInfo.P1P1ACU = ScenarioFramework.SpawnCommander('Player1', 'P1SACU', nil, 'Jareth', true, nil,
     {'StabilitySuppressant', 'ShieldHeavy', 'EngineeringFocusingModule'})
     
     if not SkipNIS3 then
@@ -392,14 +392,14 @@ function IntroP2()
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 0)
             WaitSeconds(4)
 
-            ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', false, OrderACUdeath,
+            ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', nil, 'Executioner Havra', false, OrderACUdeath,
                 {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
                 ScenarioInfo.P2O1ACU:SetAutoOvercharge(true)
                 ScenarioInfo.P2O1ACU:SetVeterancy(1 + Difficulty)
     
                 ScenarioInfo.P2O1ACU:AddBuildRestriction(categories.zab9603 + categories.uab0303 + categories.uab2205 + categories.uab2109 + categories.uab2304 + categories.uab0203 + categories.uab0103)
     
-            ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Crusader Keleana', false, KOrderACUdeath,
+            ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', nil, 'Crusader Keleana', false, KOrderACUdeath,
                 {'CrysalisBeam', 'ResourceAllocation', 'ResourceAllocationAdvanced', 'HeatSink'})
                 ScenarioInfo.P2KO1ACU:SetAutoOvercharge(true)
                 ScenarioInfo.P2KO1ACU:SetVeterancy(1 + Difficulty)
@@ -425,7 +425,7 @@ function IntroP2()
     
         local Orderunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_M4', ArmyBrains[Order])
             for k, v in Orderunits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Order]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Order]) then
                     ScenarioFramework.GiveUnitToArmy( v, Player1 )
                 end
             end
@@ -464,10 +464,10 @@ function IntroP2()
             SetAlliance(Order, KOrder, 'Ally')
         end
     
-        ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', false, 'Executioner Havra', true, false,
+        ScenarioInfo.P2O1ACU = ScenarioFramework.SpawnCommander('Order', 'O1ACU', nil, 'Executioner Havra', true, nil,
         {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
     
-        ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', false, 'Executioner Keleana', true, false,
+        ScenarioInfo.P2KO1ACU = ScenarioFramework.SpawnCommander('KOrder', 'KO1ACU', nil, 'Executioner Keleana', true, nil,
         {'CrysalisBeam', 'ResourceAllocation', 'ResourceAllocationAdvanced', 'HeatSink'})
     
         ScenarioUtils.CreateArmyGroup('Order', 'P2O1OuterD')
@@ -713,11 +713,11 @@ function IntroP3()
     
             ForkThread(TimerCounter)
     
-            ScenarioInfo.M2Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Atlantis', 'NoFormation')
-            ScenarioInfo.M2Atlantis2 = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Atlantis2', 'NoFormation')
+            ScenarioInfo.M2Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Atlantis')
+            ScenarioInfo.M2Atlantis2 = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Atlantis2')
     
-            ScenarioInfo.M2_Fatboy = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Fatboy', 'NoFormation')
-            ScenarioInfo.M2_Fatboy2 = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Fatboy2', 'NoFormation')
+            ScenarioInfo.M2_Fatboy = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Fatboy')
+            ScenarioInfo.M2_Fatboy2 = ScenarioUtils.CreateArmyUnit('UEF', 'M2_Fatboy2')
     
             P3UEFAI.M3UEFAtlantisBaseAI()
             P3UEFAI.M3UEFFatboyBaseAI()
@@ -882,7 +882,7 @@ function CounterAttackP3()
     local platoon
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 40, 35, 30
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
     quantity = {200, 150, 100}
     trigger = {40, 35, 30}
     if num > quantity[Difficulty] then
@@ -942,7 +942,7 @@ function CounterAttackP3()
     end
 
     local battleships = ScenarioFramework.GetListOfHumanUnits( categories.BATTLESHIP)
-    local num = table.getn(battleships)
+    num = table.getn(battleships)
     if num > 0 then
         quantity = {3, 2, 1}
         if num > quantity[Difficulty] then
@@ -956,7 +956,7 @@ function CounterAttackP3()
     end
 
     local EXP = ScenarioFramework.GetListOfHumanUnits( categories.EXPERIMENTAL)
-    local num = table.getn(EXP)
+    num = table.getn(EXP)
     if num > 0 then
         quantity = {3, 2, 1}
         if num > quantity[Difficulty] then
@@ -1083,12 +1083,12 @@ function IntroP4()
             v:GiveTacticalSiloAmmo(5)
         end
     
-        ScenarioInfo.P4UACU = ScenarioFramework.SpawnCommander('UEF', 'UACU1', false, 'Brigadier General Valerie', false, UEFACUdeath,
+        ScenarioInfo.P4UACU = ScenarioFramework.SpawnCommander('UEF', 'UACU1', nil, 'Brigadier General Valerie', nil, UEFACUdeath,
             {'T3Engineering', 'Shield', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
             ScenarioInfo.P4UACU:SetAutoOvercharge(true)
             ScenarioInfo.P4UACU:SetVeterancy(1 + Difficulty)
 
-        ScenarioInfo.P4KACU = ScenarioFramework.SpawnCommander('Kael', 'P4KACU', false, 'Kael\'s High Executioner', false, KaelACUdeath,
+        ScenarioInfo.P4KACU = ScenarioFramework.SpawnCommander('Kael', 'P4KACU', nil, 'Kael\'s High Executioner', nil, KaelACUdeath,
             {'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
             ScenarioInfo.P4KACU:SetAutoOvercharge(true)
             ScenarioInfo.P4KACU:SetVeterancy(1 + Difficulty)
@@ -1127,7 +1127,7 @@ function IntroP4()
             -- Wait for satellite to be launched
             WaitSeconds(5)
             local orbital = ArmyBrains[UEF]:GetListOfUnits(categories.xea0002, false)
-            if(orbital[1] and not orbital[1]:IsDead()) then
+            if(orbital[1] and not orbital[1].Dead) then
                 local platoon = ArmyBrains[UEF]:MakePlatoon('', '')
                 ArmyBrains[UEF]:AssignUnitsToPlatoon(platoon, {orbital[1]}, 'Attack', 'GrowthFormation')
                 ScenarioFramework.PlatoonPatrolChain(platoon, 'P4UIntattack2')
@@ -1304,7 +1304,7 @@ function Nukeparty2()
         if table.getn(AeonNuke2) > 0 then
             for k, v in AeonNuke2 do
                 --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
-                if not v.SiloAIEnabled and not v:IsDead() then
+                if not v.SiloAIEnabled and not v.Dead then
                     --Make a single unit platoon for each SML
                     local SiloPlatoon = ArmyBrains[Kael]:MakePlatoon('','')
                     ArmyBrains[Kael]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')

@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Objectives = import( '/lua/ScenarioFramework.lua' ).Objectives
 local SimCamera = import('/lua/SimCamera.lua').SimCamera
@@ -737,13 +737,13 @@ function M2_Hex5Appears()
 
     ScenarioInfo.M2_Hex5_Commander:SetReclaimable(false)
     ScenarioInfo.M2_Hex5_Commander:SetCapturable(false)
-    ScenarioInfo.M2_Hex5_Commander:SetCanBeKilled(false)
-    ScenarioInfo.M2_Hex5_Commander:SetCanTakeDamage(false)
+    ScenarioInfo.M2_Hex5_Commander.CanBeKilled = false
+    ScenarioInfo.M2_Hex5_Commander.CanTakeDamage = false
 
     ScenarioInfo.M2_Hex5_Transport:SetReclaimable(false)
     ScenarioInfo.M2_Hex5_Transport:SetCapturable(false)
-    ScenarioInfo.M2_Hex5_Transport:SetCanBeKilled(false)
-    ScenarioInfo.M2_Hex5_Transport:SetCanTakeDamage(false)
+    ScenarioInfo.M2_Hex5_Transport.CanBeKilled = false
+    ScenarioInfo.M2_Hex5_Transport.CanTakeDamage = false
 
     ScenarioInfo.M2_Hex5_Commander:SetCustomName(LOC '{i R05_Hex5Name}')
 
@@ -1058,7 +1058,7 @@ function BeginMission3()
     ScenarioFramework.CreateAreaTrigger( M3_PlayerAtUEFBackBase, ScenarioUtils.AreaToRect('M3_UEFBackBaseArea'), categories.LAND, true, false, ArmyBrains[Player1], 1, false)
 
     -- Destroy Hex5's offmap generator from M2
-    if not ScenarioInfo.Hex5_Offmap_Generator:IsDead() then
+    if not ScenarioInfo.Hex5_Offmap_Generator.Dead then
         ScenarioInfo.Hex5_Offmap_Generator:Destroy()
     end
 
@@ -1211,7 +1211,7 @@ end
 function M3_InitialGunshipTaunt()
     M3_InitGunshipPlatsKilled = M3_InitGunshipPlatsKilled + 1
     if M3_InitGunshipPlatsKilled == 3 then
-        if (not ScenarioInfo.M3_UEFMainBase_Commander:IsDead()) then
+        if (not ScenarioInfo.M3_UEFMainBase_Commander.Dead) then
             ScenarioFramework.Dialogue(OpStrings.TAUNT7)
         end
     end
@@ -1266,7 +1266,7 @@ function M3_UEFGunshipVirusThread()
     -- Clear any gunships that factories may be building
     local uefFactories = ArmyBrains[UEF]:GetListOfUnits(categories.FACTORY * categories.AIR, false)
     for k,v in uefFactories do
-        if (not v:IsDead()) and v.UnitBeingBuilt and not v.UnitBeingBuilt:IsDead() and EntityCategoryContains(categories.uea0203 + categories.uea0305, v.UnitBeingBuilt) then
+        if (not v.Dead) and v.UnitBeingBuilt and not v.UnitBeingBuilt.Dead and EntityCategoryContains(categories.uea0203 + categories.uea0305, v.UnitBeingBuilt) then
             IssueClearCommands({v})
         end
     end
@@ -1280,7 +1280,7 @@ function M3_UEFGunshipVirusThread()
     ScenarioInfo.VarTable['M3_VirusUpload'] = true  -- let pbm know that gunships can no longer be made
     local uefGunships = ArmyBrains[UEF]:GetListOfUnits(categories.uea0203 + categories.uea0305, false)
     for k, v in uefGunships do
-        if not v:IsDead() then -- check that the gunship hasnt already been killed in the meantime.
+        if not v.Dead then -- check that the gunship hasnt already been killed in the meantime.
 
             local pos = v:GetPosition()
             local spec = {

@@ -9,7 +9,7 @@
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
 local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local Objectives = ScenarioFramework.Objectives
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E04/SCCA_Coop_E04_strings.lua')
@@ -18,7 +18,7 @@ local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioPlatoonAI = import ('/lua/ScenarioPlatoonAI.lua')
 local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
 
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 
 
 -- Import camera class
@@ -526,8 +526,8 @@ function StartMission2()
     local researchLab = ScenarioUtils.CreateArmyUnit('Cybran_Research', 'M2_Science_Building')
 
     -- As of 6/30/06 lab can't be destroyed (Klinkhammers was hitting it accidently
-    researchLab:SetCanTakeDamage(false)
-    researchLab:SetCanBeKilled(false)
+    researchLab.CanTakeDamage = false
+    researchLab.CanBeKilled = false
 
     objGroup2 = Objectives.CreateGroup('Mission2', M2Success, 3)
 
@@ -732,8 +732,8 @@ function M2OnTruckFoundTimer()
     ScenarioFramework.Dialogue(OpStrings.E04_M02_070)
     ScenarioFramework.SetPlayableArea('M2_Playable_Area_2')
     ScenarioInfo.M3Gate = ScenarioUtils.CreateArmyUnit('Cybran_Research', 'M3_Gate')
-    ScenarioInfo.M3Gate:SetCanTakeDamage(false)
-    ScenarioInfo.M3Gate:SetCanBeKilled(false)
+    ScenarioInfo.M3Gate.CanTakeDamage = false
+    ScenarioInfo.M3Gate.CanBeKilled = false
     ScenarioInfo.M3Gate:SetCapturable(false)
     ScenarioInfo.M3Gate:SetReclaimable(false)
     -- adding some LOS to gate
@@ -832,7 +832,7 @@ function M2OnTruckEscaped(result)
     else
         ScenarioFramework.PlayerLose(OpStrings.E04_M02_120) -- lose after dialog
         for k,unit in ScenarioInfo.M2EscapeTruck:GetPlatoonUnits() do
-            if not unit:IsDead() then
+            if not unit.Dead then
 -- NIS of truck destroyed cam
 --            ScenarioFramework.EndOperationCamera(unit, false)
                 local camInfo = {
@@ -963,7 +963,7 @@ function GetRadars()
        local units = GetUnitsInRect(ScenarioUtils.AreaToRect(area))
         if units then
             for y,unit in units do
-                if not unit:IsDead() and EntityCategoryContains(categories.ueb3201, unit) then
+                if not unit.Dead and EntityCategoryContains(categories.ueb3201, unit) then
                     table.insert(radars,unit)
                     break
                 end
@@ -1040,8 +1040,8 @@ function M3OnRadarTimer(result)
             ScenarioFramework.SetPlayableArea(ScenarioUtils.AreaToRect('M3_Playable_Area'))
 
             -- M3 gate
-            -- ScenarioInfo.M3Gate:SetCanTakeDamage(false)
-            -- ScenarioInfo.M3Gate:SetCanBeKilled(false)
+            -- ScenarioInfo.M3Gate.CanTakeDamage = false
+            -- ScenarioInfo.M3Gate.CanBeKilled = false
             -- ScenarioInfo.M3Gate:SetCapturable(false)
 
             -- Spawning Spider as a platoon, since he may get company in hard

@@ -193,7 +193,7 @@ function IntroMission1NIS()
     ScenarioInfo.DostyaCDR = ScenarioFramework.EngineerBuildUnits('Dostya', 'Dostya', 'Dostya_build_target_1')
     ScenarioInfo.DostyaCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.DostyaCDR:SetCustomName(LOC '{i Dostya}')
-    ScenarioInfo.DostyaCDR:SetCanBeKilled(false)
+    ScenarioInfo.DostyaCDR.CanBeKilled = false
     ScenarioFramework.CreateUnitDeathTrigger(DostyaDeath, ScenarioInfo.DostyaCDR)
 
     -- "I am detecting an enemy base two clicks north of my position. I will advance and attack in 10 minutes. Dostya out."
@@ -793,8 +793,8 @@ function AttackDostya()
     ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
 
     -- Hex5
-    ScenarioInfo.Hex5 = ScenarioFramework.SpawnCommander('Seraphim', 'M2_Hex5', false, LOC '{i Hex5}')
-    ScenarioInfo.Hex5:SetCanTakeDamage(false)
+    ScenarioInfo.Hex5 = ScenarioFramework.SpawnCommander('Seraphim', 'M2_Hex5', nil, LOC '{i Hex5}')
+    ScenarioInfo.Hex5.CanTakeDamage = false
     ScenarioFramework.CreateTimerTrigger(Hex5Vanish, 60)
 
     ForkThread(IntroMission3NIS)
@@ -873,9 +873,9 @@ function Hex5Vanish()
 end
 
 function KillDostya()
-    if(ScenarioInfo.DostyaCDR and not ScenarioInfo.DostyaCDR:IsDead()) then
-        ScenarioInfo.DostyaCDR:SetCanTakeDamage(true)
-        ScenarioInfo.DostyaCDR:SetCanBeKilled(true)
+    if(ScenarioInfo.DostyaCDR and not ScenarioInfo.DostyaCDR.Dead) then
+        ScenarioInfo.DostyaCDR.CanTakeDamage = true
+        ScenarioInfo.DostyaCDR.CanBeKilled = true
         ScenarioInfo.DostyaCDR:Kill()
     end
 end
@@ -887,8 +887,8 @@ function DostyaDeath()
 
     ScenarioInfo.DostyaRemains = CreateUnitHPR('XRO4001', 'Dostya', px, py, pz, ox, oy, oz)
     ScenarioInfo.DostyaRemains:SetCapturable(false)
-    ScenarioInfo.DostyaRemains:SetCanTakeDamage(false)
-    ScenarioInfo.DostyaRemains:SetCanBeKilled(false)
+    ScenarioInfo.DostyaRemains.CanTakeDamage = false
+    ScenarioInfo.DostyaRemains.CanBeKilled = false
     ScenarioInfo.DostyaRemains:SetDoNotTarget(true)
 
     -- Destroy all siege bots and the experimental
@@ -987,7 +987,7 @@ function IntroMission3()
             for j = 1, 2 do
                 platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_AirSup_' .. j, 'GrowthFormation', 5)
                 for k, v in airExp do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         platoon:AttackTarget(v)
                     end
                 end
@@ -1009,14 +1009,14 @@ function IntroMission3()
         for i = 1, num do
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'Seraph_M3Adapt_StratBomb', 'GrowthFormation', 5)
             for k, v in landExp do
-                if(v and not v:IsDead()) then
+                if(v and not v.Dead) then
                     platoon:AttackTarget(v)
                 end
             end
             local artillery = ScenarioFramework.GetListOfHumanUnits(categories.ARTILLERY * categories.STRUCTURE, false)
             if(table.getn(artillery) > 0) then
                 for k, v in artillery do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         platoon:AttackTarget(v)
                     end
                 end
@@ -1041,15 +1041,15 @@ function IntroMission3()
 
     ScenarioInfo.NERadar = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraph_Radar_NE')
     ScenarioInfo.NERadar:SetDoNotTarget(true)
-    ScenarioInfo.NERadar:SetCanTakeDamage(false)
+    ScenarioInfo.NERadar.CanTakeDamage = false
     ScenarioInfo.NERadar:SetReclaimable(false)
     ScenarioInfo.NWRadar = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraph_Radar_NW')
     ScenarioInfo.NWRadar:SetDoNotTarget(true)
-    ScenarioInfo.NWRadar:SetCanTakeDamage(false)
+    ScenarioInfo.NWRadar.CanTakeDamage = false
     ScenarioInfo.NWRadar:SetReclaimable(false)
     ScenarioInfo.SWRadar = ScenarioUtils.CreateArmyUnit('Seraphim', 'M3_Seraph_Radar_SW')
     ScenarioInfo.SWRadar:SetDoNotTarget(true)
-    ScenarioInfo.SWRadar:SetCanTakeDamage(false)
+    ScenarioInfo.SWRadar.CanTakeDamage = false
     ScenarioInfo.SWRadar:SetReclaimable(false)
 
     ScenarioUtils.CreateArmyGroup('SeraphimSecondary', 'M3_Secondary_DefenseSwap_D' .. Difficulty)
@@ -1182,7 +1182,7 @@ function M3Experimentals()
 end
 
 function Experimental1Attack()
-    if(ScenarioInfo.Experimental1 and not ScenarioInfo.Experimental1:IsDead()) then     -- ESE
+    if(ScenarioInfo.Experimental1 and not ScenarioInfo.Experimental1.Dead) then     -- ESE
         IssueStop({ScenarioInfo.Experimental1})
         IssueClearCommands({ScenarioInfo.Experimental1})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental1}, 'M3_Seraph_AirAttack_Chain')
@@ -1190,7 +1190,7 @@ function Experimental1Attack()
 end
 
 function Experimental2Attack()
-    if(ScenarioInfo.Experimental2 and not ScenarioInfo.Experimental2:IsDead()) then     -- E
+    if(ScenarioInfo.Experimental2 and not ScenarioInfo.Experimental2.Dead) then     -- E
         IssueStop({ScenarioInfo.Experimental2})
         IssueClearCommands({ScenarioInfo.Experimental2})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental2}, 'M3_East_LandAttack_Chain')
@@ -1198,7 +1198,7 @@ function Experimental2Attack()
 end
 
 function Experimental3Attack()
-    if(ScenarioInfo.Experimental3 and not ScenarioInfo.Experimental3:IsDead()) then     -- NE
+    if(ScenarioInfo.Experimental3 and not ScenarioInfo.Experimental3.Dead) then     -- NE
         IssueStop({ScenarioInfo.Experimental3})
         IssueClearCommands({ScenarioInfo.Experimental3})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental3}, 'M3_NorthEast_LandAttack_Chain')
@@ -1206,7 +1206,7 @@ function Experimental3Attack()
 end
 
 function Experimental4Attack()
-    if(ScenarioInfo.Experimental4 and not ScenarioInfo.Experimental4:IsDead()) then     -- N
+    if(ScenarioInfo.Experimental4 and not ScenarioInfo.Experimental4.Dead) then     -- N
         IssueStop({ScenarioInfo.Experimental4})
         IssueClearCommands({ScenarioInfo.Experimental4})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental4}, 'M3_SeraphNorth_Exp_Attack_Chain')
@@ -1214,7 +1214,7 @@ function Experimental4Attack()
 end
 
 function Experimental5Attack()
-    if(ScenarioInfo.Experimental5 and not ScenarioInfo.Experimental5:IsDead()) then     -- NW
+    if(ScenarioInfo.Experimental5 and not ScenarioInfo.Experimental5.Dead) then     -- NW
         IssueStop({ScenarioInfo.Experimental5})
         IssueClearCommands({ScenarioInfo.Experimental5})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental5}, 'M3_NorthWest_LandAttack_Chain')
@@ -1222,7 +1222,7 @@ function Experimental5Attack()
 end
 
 function Experimental6Attack()
-    if(ScenarioInfo.Experimental6 and not ScenarioInfo.Experimental6:IsDead()) then     -- SE
+    if(ScenarioInfo.Experimental6 and not ScenarioInfo.Experimental6.Dead) then     -- SE
         IssueStop({ScenarioInfo.Experimental6})
         IssueClearCommands({ScenarioInfo.Experimental6})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental6}, 'M3_SouthEast_LandAttack_Chain')
@@ -1230,7 +1230,7 @@ function Experimental6Attack()
 end
 
 function Experimental7Attack()
-    if(ScenarioInfo.Experimental7 and not ScenarioInfo.Experimental7:IsDead()) then     -- SW
+    if(ScenarioInfo.Experimental7 and not ScenarioInfo.Experimental7.Dead) then     -- SW
         IssueStop({ScenarioInfo.Experimental7})
         IssueClearCommands({ScenarioInfo.Experimental7})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental7}, 'M3_SouthWest_LandAttack_Chain')
@@ -1238,7 +1238,7 @@ function Experimental7Attack()
 end
 
 function Experimental8Attack()
-    if(ScenarioInfo.Experimental8 and not ScenarioInfo.Experimental8:IsDead()) then     -- S
+    if(ScenarioInfo.Experimental8 and not ScenarioInfo.Experimental8.Dead) then     -- S
         IssueStop({ScenarioInfo.Experimental8})
         IssueClearCommands({ScenarioInfo.Experimental8})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental8}, 'M3_Seraph_AirAttack_Chain')
@@ -1246,7 +1246,7 @@ function Experimental8Attack()
 end
 
 function Experimental9Attack()
-    if(ScenarioInfo.Experimental9 and not ScenarioInfo.Experimental9:IsDead()) then     -- W
+    if(ScenarioInfo.Experimental9 and not ScenarioInfo.Experimental9.Dead) then     -- W
         IssueStop({ScenarioInfo.Experimental9})
         IssueClearCommands({ScenarioInfo.Experimental9})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental9}, 'M3_SeraphWest_Exp_Attack_Chain')
@@ -1256,7 +1256,7 @@ end
 function D2ExperimentalAttack1()
     local num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL, false)
     if (num > 4) then
-        if(ScenarioInfo.Experimental12 and not ScenarioInfo.Experimental12:IsDead()) then   -- E2
+        if(ScenarioInfo.Experimental12 and not ScenarioInfo.Experimental12.Dead) then   -- E2
             IssueStop({ScenarioInfo.Experimental12})
             IssueClearCommands({ScenarioInfo.Experimental12})
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental12}, 'M3_East_LandAttack_Chain')
@@ -1267,7 +1267,7 @@ end
 function D2ExperimentalAttack2()
     local num = ScenarioFramework.GetNumOfHumanUnits(categories.EXPERIMENTAL, false)
     if (num > 3) then
-        if(ScenarioInfo.Experimental17 and not ScenarioInfo.Experimental17:IsDead()) then   -- SW2
+        if(ScenarioInfo.Experimental17 and not ScenarioInfo.Experimental17.Dead) then   -- SW2
             IssueStop({ScenarioInfo.Experimental17})
             IssueClearCommands({ScenarioInfo.Experimental17})
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental17}, 'M3_SouthWest_LandAttack_Chain')
@@ -1278,7 +1278,7 @@ end
 function D2ExperimentalAttack3()
     local num = ScenarioFramework.GetNumOfHumanUnits((categories.TECH3 * categories.MOBILE) - categories.ENGINEER, false)
     if (num > 40) then
-        if(ScenarioInfo.Experimental18 and not ScenarioInfo.Experimental18:IsDead()) then   -- S2
+        if(ScenarioInfo.Experimental18 and not ScenarioInfo.Experimental18.Dead) then   -- S2
             IssueStop({ScenarioInfo.Experimental18})
             IssueClearCommands({ScenarioInfo.Experimental18})
             ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental18}, 'M3_Seraph_AirAttack_Chain')
@@ -1288,12 +1288,12 @@ end
 
 function D3ExperimentalAttack1()
     -- send E & SW
-    if(ScenarioInfo.Experimental12 and not ScenarioInfo.Experimental12:IsDead()) then   -- E2
+    if(ScenarioInfo.Experimental12 and not ScenarioInfo.Experimental12.Dead) then   -- E2
         IssueStop({ScenarioInfo.Experimental12})
         IssueClearCommands({ScenarioInfo.Experimental12})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental12}, 'M3_East_LandAttack_Chain')
     end
-    if(ScenarioInfo.Experimental17 and not ScenarioInfo.Experimental17:IsDead()) then   -- SW2
+    if(ScenarioInfo.Experimental17 and not ScenarioInfo.Experimental17.Dead) then   -- SW2
          IssueStop({ScenarioInfo.Experimental17})
          IssueClearCommands({ScenarioInfo.Experimental17})
          ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental17}, 'M3_SouthWest_LandAttack_Chain')
@@ -1302,12 +1302,12 @@ end
 
 function D3ExperimentalAttack2()
     -- send NE & W
-    if(ScenarioInfo.Experimental13 and not ScenarioInfo.Experimental13:IsDead()) then   -- NE2
+    if(ScenarioInfo.Experimental13 and not ScenarioInfo.Experimental13.Dead) then   -- NE2
         IssueStop({ScenarioInfo.Experimental13})
         IssueClearCommands({ScenarioInfo.Experimental13})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental13}, 'M3_NorthEast_LandAttack_Chain')
     end
-    if(ScenarioInfo.Experimental19 and not ScenarioInfo.Experimental19:IsDead()) then   -- W2
+    if(ScenarioInfo.Experimental19 and not ScenarioInfo.Experimental19.Dead) then   -- W2
         IssueStop({ScenarioInfo.Experimental19})
         IssueClearCommands({ScenarioInfo.Experimental19})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental19}, 'M3_SeraphWest_Exp_Attack_Chain')
@@ -1316,12 +1316,12 @@ end
 
 function D3ExperimentalAttack3()
     -- send NW & SE
-    if(ScenarioInfo.Experimental15 and not ScenarioInfo.Experimental15:IsDead()) then   -- NW2
+    if(ScenarioInfo.Experimental15 and not ScenarioInfo.Experimental15.Dead) then   -- NW2
         IssueStop({ScenarioInfo.Experimental15})
         IssueClearCommands({ScenarioInfo.Experimental15})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental15}, 'M3_NorthWest_LandAttack_Chain')
     end
-    if(ScenarioInfo.Experimental16 and not ScenarioInfo.Experimental16:IsDead()) then   -- SE2
+    if(ScenarioInfo.Experimental16 and not ScenarioInfo.Experimental16.Dead) then   -- SE2
         IssueStop({ScenarioInfo.Experimental16})
         IssueClearCommands({ScenarioInfo.Experimental16})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental16}, 'M3_SouthEast_LandAttack_Chain')
@@ -1330,17 +1330,17 @@ end
 
 function D3ExperimentalAttack4()
     -- send ESE & N & S
-    if(ScenarioInfo.Experimental10 and not ScenarioInfo.Experimental10:IsDead()) then   -- ESE2
+    if(ScenarioInfo.Experimental10 and not ScenarioInfo.Experimental10.Dead) then   -- ESE2
         IssueStop({ScenarioInfo.Experimental10})
         IssueClearCommands({ScenarioInfo.Experimental10})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental10}, 'M3_Seraph_AirAttack_Chain')
     end
-    if(ScenarioInfo.Experimental14 and not ScenarioInfo.Experimental14:IsDead()) then   -- N2
+    if(ScenarioInfo.Experimental14 and not ScenarioInfo.Experimental14.Dead) then   -- N2
         IssueStop({ScenarioInfo.Experimental14})
         IssueClearCommands({ScenarioInfo.Experimental14})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental14}, 'M3_SeraphNorth_Exp_Attack_Chain')
     end
-    if(ScenarioInfo.Experimental18 and not ScenarioInfo.Experimental18:IsDead()) then   -- S2
+    if(ScenarioInfo.Experimental18 and not ScenarioInfo.Experimental18.Dead) then   -- S2
         IssueStop({ScenarioInfo.Experimental18})
         IssueClearCommands({ScenarioInfo.Experimental18})
         ScenarioFramework.GroupPatrolChain({ScenarioInfo.Experimental18}, 'M3_Seraph_AirAttack_Chain')
@@ -1389,7 +1389,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_NE_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1399,7 +1399,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_NW_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1409,7 +1409,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_N_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1419,7 +1419,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_SE_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1429,7 +1429,7 @@ function M3LaunchNukes()
             if (Difficulty > 1) then
                 for i = 1, 3 do
                     nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_SW_' .. i]
-                    if(nuke and not nuke:IsDead()) then
+                    if(nuke and not nuke.Dead) then
                         nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                         IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                     end
@@ -1439,7 +1439,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_S_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1450,7 +1450,7 @@ function M3LaunchNukes()
             if (Difficulty > 1) then
                 for i = 1, 3 do
                     nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_ESE_' .. i]
-                    if(nuke and not nuke:IsDead()) then
+                    if(nuke and not nuke.Dead) then
                         nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                         IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                     end
@@ -1461,7 +1461,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_E_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1471,7 +1471,7 @@ function M3LaunchNukes()
 
             for i = 1, 3 do
                 nuke = ScenarioInfo.UnitNames[Seraphim]['M3_Seraph_Nuke_W_' .. i]
-                if(nuke and not nuke:IsDead()) then
+                if(nuke and not nuke.Dead) then
                     nuke:GetWeapon(1)['CreateProjectileAtMuzzle'] = CreateProjectileAtMuzzle
                     IssueNuke({nuke}, ScenarioUtils.MarkerToPosition('M1_Seraph_AttackPlateau_' .. Random(1, 16)))
                 end
@@ -1658,13 +1658,13 @@ function M3AeonSecondary()
 end
 
 function OutroNIS()
-    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR:IsDead()) then
+    if(ScenarioInfo.PlayerCDR and not ScenarioInfo.PlayerCDR.Dead) then
         ForkThread(
             function()
                 ScenarioInfo.TimerExpired = true
                 ScenarioInfo.OpComplete = true
-                ScenarioInfo.PlayerCDR:SetCanTakeDamage(false)
-                ScenarioInfo.PlayerCDR:SetCanBeKilled(false)
+                ScenarioInfo.PlayerCDR.CanTakeDamage = false
+                ScenarioInfo.PlayerCDR.CanBeKilled = false
 
                 Cinematics.EnterNISMode()
 

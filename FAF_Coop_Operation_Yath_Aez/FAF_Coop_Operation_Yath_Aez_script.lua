@@ -14,7 +14,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local OpStrings = import('/maps/FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings.lua')   
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local TauntManager = import('/lua/TauntManager.lua')
@@ -43,7 +43,7 @@ local Debug = false
 
 local AssignedObjectives = {}
 local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
-
+local LeaderFaction, LocalFaction
 local NIS1InitialDelay = 3
 
 function OnPopulate(Self)
@@ -242,7 +242,7 @@ function MissionP1secondary()
     local units = ScenarioUtils.CreateArmyGroup('UEF', 'P1Taclaunchers')
 
     for _, v in units do
-        if v and not v:IsDead() and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
+        if v and not v.Dead and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
             local plat = ArmyBrains[UEF]:MakePlatoon('', '')
             ArmyBrains[UEF]:AssignUnitsToPlatoon(plat, {v}, 'Attack', 'NoFormation')
             plat:ForkAIThread(plat.TacticalAI)
@@ -317,7 +317,7 @@ function IntroP2()
     P2CybranAI.Cybranbase1AI()
     P2AeonAI.Aeonbase1AI()
     
-    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFcommander', false, 'Major Fredrick', true, false,
+    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFcommander', nil, 'Major Fredrick', true, nil,
     {'T3Engineering', 'ResourceAllocation', 'Shield'}) 
     ScenarioInfo.UEFACU:SetAutoOvercharge(true)
     ScenarioInfo.UEFACU:SetVeterancy(1 + Difficulty)
@@ -326,8 +326,8 @@ function IntroP2()
         ScenarioInfo.Jammer:SetCustomName("Quantum Jammer")
         ScenarioInfo.Jammer:SetReclaimable(false)
         ScenarioInfo.Jammer:SetCapturable(false)
-        ScenarioInfo.Jammer:SetCanTakeDamage(true)
-        ScenarioInfo.Jammer:SetCanBeKilled(true)
+        ScenarioInfo.Jammer.CanTakeDamage = true
+        ScenarioInfo.Jammer.CanBeKilled = true
     
     ScenarioUtils.CreateArmyGroup( 'UEF', 'P2Uwalls')
     ScenarioUtils.CreateArmyGroup( 'UEF', 'P2Wreaks', true)
@@ -444,7 +444,7 @@ function AeonTacP2()
     local units = ScenarioUtils.CreateArmyGroup('Aeon', 'P2AOuterD_D'.. Difficulty)
 
     for _, v in units do
-        if v and not v:IsDead() and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
+        if v and not v.Dead and EntityCategoryContains(categories.TACTICALMISSILEPLATFORM, v) then
             local plat = ArmyBrains[UEF]:MakePlatoon('', '')
             ArmyBrains[UEF]:AssignUnitsToPlatoon(plat, {v}, 'Attack', 'NoFormation')
             plat:ForkAIThread(plat.TacticalAI)

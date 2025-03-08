@@ -246,9 +246,9 @@ function OnPopulate()
     end
 
     -- Rhiza
-    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'Rhiza', false, LOC '{i Rhiza}', false, false,
+    ScenarioInfo.RhizaACU = ScenarioFramework.SpawnCommander('Rhiza', 'Rhiza', nil, LOC '{i Rhiza}', false, nil,
         {'Shield', 'AdvancedEngineering', 'T3Engineering', 'EnhancedSensors'})
-    ScenarioInfo.RhizaACU:SetCanBeKilled(false)
+    ScenarioInfo.RhizaACU.CanBeKilled = false
     ScenarioFramework.GroupPatrolChain({ScenarioInfo.RhizaACU}, 'M1_Rhiza_Base_EngineerChain')
     ScenarioFramework.CreateUnitDamagedTrigger(RhizaWarp, ScenarioInfo.RhizaACU, .8)
 
@@ -465,13 +465,13 @@ function IntroNIS()
     Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 3)
 
     for k, unit in NISUnits1 do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             unit:Kill()
         end
     end
 
     for k, unit in NISUnits2 do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             unit:Kill()
         end
     end
@@ -538,7 +538,7 @@ end
 function M1NorthBattleshipAttack()
     if(ScenarioInfo.M1NorthBattleship) then
         for k,v in ScenarioInfo.M1NorthBattleship do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_1_Attack_Chain')
             end
@@ -549,7 +549,7 @@ end
 function M1MiddleBattleshipAttack()
     if(ScenarioInfo.M1MiddleBattleship) then
         for k,v in ScenarioInfo.M1MiddleBattleship do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolChain({v}, 'M1_Seraph_Battle_2_Attack_Chain')
             end
@@ -560,13 +560,13 @@ end
 function M1EastCarrierRelease()
     ForkThread(
         function()
-            if(ScenarioInfo.M1EastCarrier and not ScenarioInfo.M1EastCarrier:IsDead() and ScenarioInfo.M1EastCarrierPassengers) then
+            if(ScenarioInfo.M1EastCarrier and not ScenarioInfo.M1EastCarrier.Dead and ScenarioInfo.M1EastCarrierPassengers) then
                 IssueClearCommands({ScenarioInfo.M1EastCarrier})
                 IssueTransportUnload({ScenarioInfo.M1EastCarrier}, ScenarioInfo.M1EastCarrier:GetPosition())
                 WaitSeconds(5)
                 ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1EastCarrier}, 'M1_Seraph_MidPatrol_East' .. Random(1,2) .. '_Chain')
                 for k,v in ScenarioInfo.M1EastCarrierPassengers do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         IssueClearCommands({v})
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Sub_Patrol_Chain')))
                     end
@@ -579,10 +579,10 @@ function M1EastCarrierRelease()
 end
 
 function M1EastCarrierLoad()
-    if(ScenarioInfo.M1EastCarrier and not ScenarioInfo.M1EastCarrier:IsDead() and ScenarioInfo.M1EastCarrierPassengers) then
+    if(ScenarioInfo.M1EastCarrier and not ScenarioInfo.M1EastCarrier.Dead and ScenarioInfo.M1EastCarrierPassengers) then
         IssueClearCommands({ScenarioInfo.M1EastCarrier})
         for k,v in ScenarioInfo.M1EastCarrierPassengers do
-            if(v and not v:IsDead() and not v:IsUnitState('Attached')) then
+            if(v and not v.Dead and not v:IsUnitState('Attached')) then
                 IssueClearCommands({v})
                 IssueTransportLoad({v}, ScenarioInfo.M1EastCarrier)
             end
@@ -595,13 +595,13 @@ end
 function M1WestCarrierRelease()
     ForkThread(
         function()
-            if(ScenarioInfo.M1WestCarrier and not ScenarioInfo.M1WestCarrier:IsDead() and ScenarioInfo.M1WestCarrierPassengers) then
+            if(ScenarioInfo.M1WestCarrier and not ScenarioInfo.M1WestCarrier.Dead and ScenarioInfo.M1WestCarrierPassengers) then
                 IssueClearCommands({ScenarioInfo.M1WestCarrier})
                 IssueTransportUnload({ScenarioInfo.M1WestCarrier}, ScenarioInfo.M1WestCarrier:GetPosition())
                 WaitSeconds(5)
                 ScenarioFramework.GroupPatrolChain({ScenarioInfo.M1WestCarrier}, 'M1_Seraph_MidPatrol_West' .. Random(1,2) .. '_Chain')
                 for k,v in ScenarioInfo.M1WestCarrierPassengers do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         IssueClearCommands({v})
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M1_Sub_Patrol_Chain')))
                     end
@@ -614,10 +614,10 @@ function M1WestCarrierRelease()
 end
 
 function M1WestCarrierLoad()
-    if(ScenarioInfo.M1WestCarrier and not ScenarioInfo.M1WestCarrier:IsDead() and ScenarioInfo.M1WestCarrierPassengers) then
+    if(ScenarioInfo.M1WestCarrier and not ScenarioInfo.M1WestCarrier.Dead and ScenarioInfo.M1WestCarrierPassengers) then
         IssueClearCommands({ScenarioInfo.M1WestCarrier})
         for k,v in ScenarioInfo.M1WestCarrierPassengers do
-            if(v and not v:IsDead() and not v:IsUnitState('Attached')) then
+            if(v and not v.Dead and not v:IsUnitState('Attached')) then
                 IssueClearCommands({v})
                 IssueTransportLoad({v}, ScenarioInfo.M1WestCarrier)
             end
@@ -832,13 +832,13 @@ end
 function M2NorthCarrierRelease()
     ForkThread(
         function()
-            if(ScenarioInfo.M2NorthCarrier and not ScenarioInfo.M2NorthCarrier:IsDead() and ScenarioInfo.M2NorthCarrierPassengers) then
+            if(ScenarioInfo.M2NorthCarrier and not ScenarioInfo.M2NorthCarrier.Dead and ScenarioInfo.M2NorthCarrierPassengers) then
                 IssueClearCommands({ScenarioInfo.M2NorthCarrier})
                 IssueTransportUnload({ScenarioInfo.M2NorthCarrier}, ScenarioInfo.M2NorthCarrier:GetPosition())
                 WaitSeconds(5)
                 ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2NorthCarrier}, 'M2_Seraph_Carrier_North_Chain')
                 for k,v in ScenarioInfo.M2NorthCarrierPassengers do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         IssueClearCommands({v})
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
                     end
@@ -851,10 +851,10 @@ function M2NorthCarrierRelease()
 end
 
 function M2NorthCarrierLoad()
-    if(ScenarioInfo.M2NorthCarrier and not ScenarioInfo.M2NorthCarrier:IsDead() and ScenarioInfo.M2NorthCarrierPassengers) then
+    if(ScenarioInfo.M2NorthCarrier and not ScenarioInfo.M2NorthCarrier.Dead and ScenarioInfo.M2NorthCarrierPassengers) then
         IssueClearCommands({ScenarioInfo.M2NorthCarrier})
         for k,v in ScenarioInfo.M2NorthCarrierPassengers do
-            if(v and not v:IsDead() and not v:IsUnitState('Attached')) then
+            if(v and not v.Dead and not v:IsUnitState('Attached')) then
                 IssueClearCommands({v})
                 IssueTransportLoad({v}, ScenarioInfo.M2NorthCarrier)
             end
@@ -867,13 +867,13 @@ end
 function M2SouthCarrierRelease()
     ForkThread(
         function()
-            if(ScenarioInfo.M2SouthCarrier and not ScenarioInfo.M2SouthCarrier:IsDead() and ScenarioInfo.M2SouthCarrierPassengers) then
+            if(ScenarioInfo.M2SouthCarrier and not ScenarioInfo.M2SouthCarrier.Dead and ScenarioInfo.M2SouthCarrierPassengers) then
                 IssueClearCommands({ScenarioInfo.M2SouthCarrier})
                 IssueTransportUnload({ScenarioInfo.M2SouthCarrier}, ScenarioInfo.M2SouthCarrier:GetPosition())
                 WaitSeconds(5)
                 ScenarioFramework.GroupPatrolChain({ScenarioInfo.M2SouthCarrier}, 'M2_Seraph_Carrier_South_Chain')
                 for k,v in ScenarioInfo.M2SouthCarrierPassengers do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         IssueClearCommands({v})
                         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainSouth_AirDef_Chain')))
                     end
@@ -886,10 +886,10 @@ function M2SouthCarrierRelease()
 end
 
 function M2SouthCarrierLoad()
-    if(ScenarioInfo.M2SouthCarrier and not ScenarioInfo.M2SouthCarrier:IsDead() and ScenarioInfo.M2SouthCarrierPassengers) then
+    if(ScenarioInfo.M2SouthCarrier and not ScenarioInfo.M2SouthCarrier.Dead and ScenarioInfo.M2SouthCarrierPassengers) then
         IssueClearCommands({ScenarioInfo.M2SouthCarrier})
         for k,v in ScenarioInfo.M2SouthCarrierPassengers do
-            if(v and not v:IsDead() and not v:IsUnitState('Attached')) then
+            if(v and not v.Dead and not v:IsUnitState('Attached')) then
                 IssueClearCommands({v})
                 IssueTransportLoad({v}, ScenarioInfo.M2SouthCarrier)
             end
@@ -972,7 +972,7 @@ function ShieldToggle( ShieldUnits, ToggleOn, Wait )
         WaitSeconds(5)
     end
     for k, unit in ShieldUnits do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             if ToggleOn then
                 unit:EnableShield()
             else
@@ -985,7 +985,7 @@ end
 function StartMission2()
     local bombers = {}
     for k, v in ScenarioInfo.ExperimentalEngineers do
-        if(v and not v:IsDead()) then
+        if(v and not v.Dead) then
             table.insert(bombers, v.UnitBeingBuilt)
         end
     end
@@ -1051,14 +1051,14 @@ function StartMission2()
 end
 
 function M2RhizaCleanupDialogue()
-    if ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead() then
+    if ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_220)
     end
 end
 
 function M2ExperimentalEngineerDeath(unit)
     local bomber = unit.UnitBeingBuilt
-    if(bomber and not bomber:IsDead()) then
+    if(bomber and not bomber.Dead) then
         bomber:Kill()
         ScenarioInfo.NumBombersDestroyed = ScenarioInfo.NumBombersDestroyed + 1
     end
@@ -1224,7 +1224,7 @@ function PriestsKilled()
     end
     if(ScenarioInfo.SPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.SPriestPlanes)) then
         for k, v in ScenarioInfo.SPriestPlanes:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueStop({v})
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -1233,7 +1233,7 @@ function PriestsKilled()
     end
     if(ScenarioInfo.NPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.NPriestPlanes)) then
         for k, v in ScenarioInfo.NPriestPlanes:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueStop({v})
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -1254,7 +1254,7 @@ function PriestsRescued()
 
     if(ScenarioInfo.SPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.SPriestPlanes)) then
         for k, v in ScenarioInfo.SPriestPlanes:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueStop({v})
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -1263,7 +1263,7 @@ function PriestsRescued()
     end
     if(ScenarioInfo.NPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.NPriestPlanes)) then
         for k, v in ScenarioInfo.NPriestPlanes:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueStop({v})
                 IssueClearCommands({v})
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Seraph_MainNorth_AirDef_Chain')))
@@ -1273,12 +1273,12 @@ function PriestsRescued()
 
     ForkThread(
         function()
-            if(ScenarioInfo.Priests and not ScenarioInfo.Priests:IsDead()) then
+            if(ScenarioInfo.Priests and not ScenarioInfo.Priests.Dead) then
                 local cmd = IssueMove({ScenarioInfo.Priests}, ScenarioUtils.MarkerToPosition('M2_Priest_Offmap_Marker'))
                 while(not IsCommandDone(cmd)) do
                     WaitSeconds(1)
                 end
-                if(ScenarioInfo.Priests and not ScenarioInfo.Priests:IsDead()) then
+                if(ScenarioInfo.Priests and not ScenarioInfo.Priests.Dead) then
                     ScenarioInfo.Priests:Destroy()
                 end
             end
@@ -1291,7 +1291,7 @@ function PriestsRescued()
 end
 
 function MovePriests(location)
-    if(ScenarioInfo.Priests and not ScenarioInfo.Priests:IsDead()) then
+    if(ScenarioInfo.Priests and not ScenarioInfo.Priests.Dead) then
         ScenarioInfo.Priests:SetDoNotTarget(false)
         IssueStop({ScenarioInfo.Priests})
         IssueClearCommands({ScenarioInfo.Priests})
@@ -1307,7 +1307,7 @@ function AttackPriests()
 
         if(ScenarioInfo.SPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.SPriestPlanes)) then
             for k, v in ScenarioInfo.SPriestPlanes:GetPlatoonUnits() do
-                if(v and not v:IsDead()) then
+                if(v and not v.Dead) then
                     IssueStop({v})
                     IssueClearCommands({v})
                     IssueAttack({v}, ScenarioInfo.Priests)
@@ -1317,7 +1317,7 @@ function AttackPriests()
 
         if(ScenarioInfo.NPriestPlanes and ArmyBrains[Seraphim]:PlatoonExists(ScenarioInfo.NPriestPlanes)) then
             for k, v in ScenarioInfo.NPriestPlanes:GetPlatoonUnits() do
-                if(v and not v:IsDead()) then
+                if(v and not v.Dead) then
                     IssueStop({v})
                     IssueClearCommands({v})
                     IssueAttack({v}, ScenarioInfo.Priests)
@@ -1344,7 +1344,7 @@ function PriestReward(location)
                 end
                 WaitSeconds(30)
                 for k,v in enemies do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         v:SetAllWeaponsEnabled(true)
                     end
                 end
@@ -1464,7 +1464,7 @@ function IntroMission3()
             ---------------
             -- Seraphim ACUs
             ---------------
-            ScenarioInfo.NorthACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_North', false, LOC '{i ZanAishahesh}', false, NorthACUDestroyed, 
+            ScenarioInfo.NorthACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_North', nil, LOC '{i ZanAishahesh}', false, NorthACUDestroyed, 
                 {'BlastAttack', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
             ScenarioInfo.NorthACU:SetCapturable(false)
             ScenarioInfo.NorthACU:SetReclaimable(false)
@@ -1472,9 +1472,9 @@ function IntroMission3()
             ZanNorthTM:AddTauntingCharacter(ScenarioInfo.NorthACU)
             PrincNorthTM:AddTauntingCharacter(ScenarioInfo.NorthACU)
 
-            ScenarioInfo.WestACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_South', false, LOC '{i ThelUuthow}', false, false,
+            ScenarioInfo.WestACU = ScenarioFramework.SpawnCommander('Seraphim', 'M3_Seraphim_ACU_South', nil, LOC '{i ThelUuthow}', false, nil,
                 {'BlastAttack', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
-            ScenarioInfo.WestACU:SetCanBeKilled(false)
+            ScenarioInfo.WestACU.CanBeKilled = false
             ScenarioInfo.WestACU:SetCapturable(false)
             ScenarioInfo.WestACU:SetReclaimable(false)
             ScenarioFramework.CreateUnitDamagedTrigger(WestACUWarp, ScenarioInfo.WestACU, .8)
@@ -1542,7 +1542,7 @@ function IntroMission3NIS()
     Cinematics.ExitNISMode()
 
     for k, unit in GroundUnits do
-        if unit and not unit:IsDead() then
+        if unit and not unit.Dead then
             unit:Kill()
         end
     end
@@ -1645,7 +1645,7 @@ function WestACUWarp()
             ScenarioFramework.FakeTeleportUnit(ScenarioInfo.WestACU, true)
         end
     )
-    if(ScenarioInfo.NorthACU and not ScenarioInfo.NorthACU:IsDead()) then
+    if(ScenarioInfo.NorthACU and not ScenarioInfo.NorthACU.Dead) then
         Objectives.UpdateObjective(OpStrings.X03_M03_OBJ_010_010, 'Progress', '(1/2)', ScenarioInfo.M3P1.Tag )
         ScenarioInfo.M3P1:OnProgress(1, 2)
     else
@@ -1655,7 +1655,7 @@ function WestACUWarp()
 end
 
 function M3RhizaCleanupDialogue()
-    if ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU:IsDead() then
+    if ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead then
         ScenarioFramework.Dialogue(OpStrings.X03_M01_230)
     end
 end
@@ -1818,19 +1818,19 @@ function M2FirstBomberKilled()
 end
 
 function SetupExperM2Taunts()
-    if (ScenarioInfo.ExperimentalEngineers[2] and not ScenarioInfo.ExperimentalEngineers[2]:IsDead()) then
+    if (ScenarioInfo.ExperimentalEngineers[2] and not ScenarioInfo.ExperimentalEngineers[2].Dead) then
         ExperimentalTM:AddUnitDestroyedTaunt('X03_M02_250', ScenarioInfo.ExperimentalEngineers[2])
     end
-    if (ScenarioInfo.ExperimentalEngineers[3] and not ScenarioInfo.ExperimentalEngineers[3]:IsDead()) then
+    if (ScenarioInfo.ExperimentalEngineers[3] and not ScenarioInfo.ExperimentalEngineers[3].Dead) then
         ExperimentalTM:AddUnitDestroyedTaunt('X03_M02_260', ScenarioInfo.ExperimentalEngineers[3])
     end
-    if (ScenarioInfo.ExperimentalEngineers[4] and not ScenarioInfo.ExperimentalEngineers[4]:IsDead()) then
+    if (ScenarioInfo.ExperimentalEngineers[4] and not ScenarioInfo.ExperimentalEngineers[4].Dead) then
         ExperimentalTM:AddUnitDestroyedTaunt('X03_M02_270', ScenarioInfo.ExperimentalEngineers[4])
     end
-    if (ScenarioInfo.ExperimentalEngineers[5] and not ScenarioInfo.ExperimentalEngineers[5]:IsDead()) then
+    if (ScenarioInfo.ExperimentalEngineers[5] and not ScenarioInfo.ExperimentalEngineers[5].Dead) then
         ExperimentalTM:AddUnitDestroyedTaunt('X03_M02_280', ScenarioInfo.ExperimentalEngineers[5])
     end
-    if (ScenarioInfo.ExperimentalEngineers[6] and not ScenarioInfo.ExperimentalEngineers[6]:IsDead()) then
+    if (ScenarioInfo.ExperimentalEngineers[6] and not ScenarioInfo.ExperimentalEngineers[6].Dead) then
         ExperimentalTM:AddUnitDestroyedTaunt('X03_M02_290', ScenarioInfo.ExperimentalEngineers[6])
     end
 end

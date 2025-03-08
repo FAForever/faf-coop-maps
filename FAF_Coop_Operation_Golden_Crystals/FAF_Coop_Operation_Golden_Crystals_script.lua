@@ -8,7 +8,7 @@ local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local Buff = import('/lua/sim/Buff.lua')
 local CustomFunctions = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua')
@@ -731,23 +731,23 @@ function IntroP3()
     ScenarioInfo.P3Admin:SetCustomName("Central Administration")
     ScenarioInfo.P3Admin:SetReclaimable(false)
     ScenarioInfo.P3Admin:SetCapturable(true)
-    ScenarioInfo.P3Admin:SetCanTakeDamage(false)
-    ScenarioInfo.P3Admin:SetCanBeKilled(false)
+    ScenarioInfo.P3Admin.CanTakeDamage = false
+    ScenarioInfo.P3Admin.CanBeKilled = false
     ScenarioInfo.P3Admin:SetDoNotTarget(true)
 
     ScenarioInfo.P3Satillite = ScenarioUtils.CreateArmyUnit('Civilians', 'P3Satillite')
     ScenarioInfo.P3Satillite:SetReclaimable(false)
     ScenarioInfo.P3Satillite:SetCapturable(false)
-    ScenarioInfo.P3Satillite:SetCanTakeDamage(false)
-    ScenarioInfo.P3Satillite:SetCanBeKilled(false)
+    ScenarioInfo.P3Satillite.CanTakeDamage = false
+    ScenarioInfo.P3Satillite.CanBeKilled = false
     ScenarioInfo.P3Satillite:SetDoNotTarget(true)
     
-    ScenarioInfo.P3QACU2 = ScenarioFramework.SpawnCommander('QAI', 'P3QACU1', false, 'QAI Drone', true, false,
+    ScenarioInfo.P3QACU2 = ScenarioFramework.SpawnCommander('QAI', 'P3QACU1', nil, 'QAI Drone', true, nil,
     {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     ScenarioInfo.P3QACU2:SetAutoOvercharge(true)
     ScenarioInfo.P3QACU2:SetVeterancy(1 + Difficulty)
 
-    ScenarioInfo.P3QACU1 = ScenarioFramework.SpawnCommander('QAI', 'P3QACU2', false, 'QAI Drone', true, false,
+    ScenarioInfo.P3QACU1 = ScenarioFramework.SpawnCommander('QAI', 'P3QACU2', nil, 'QAI Drone', true, nil,
     {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'CoolingUpgrade'})
     ScenarioInfo.P3QACU1:SetAutoOvercharge(true)
     ScenarioInfo.P3QACU1:SetVeterancy(1 + Difficulty)
@@ -946,7 +946,7 @@ function MissionSecondary2P3()
 
                 local ARTY = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_4', ArmyBrains[Civilians])
                 for k, v in ARTY do
-                    if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[Civilians]) then
+                    if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[Civilians]) then
                         ScenarioFramework.GiveUnitToArmy( v, Player1 )
                     end
                 end
@@ -1120,50 +1120,50 @@ function IntroP4()
     local ACUPlatoon4 = ArmyBrains[QAI]:MakePlatoon('', '')
     local ACUPlatoon5 = ArmyBrains[QAI]:MakePlatoon('', '')
 
-    local units = ScenarioFramework.SpawnCommander('QAI', 'SDrone1', false, 'QAI Drone', false, false,
+    local units = ScenarioFramework.SpawnCommander('QAI', 'SDrone1', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units1 = ScenarioFramework.SpawnCommander('QAI', 'SDrone2', false, 'QAI Drone', false, false,
+    units1 = ScenarioFramework.SpawnCommander('QAI', 'SDrone2', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon1, {units}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon1, {units1}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon1, 'P4Intattack1')
 
-    units2 = ScenarioFramework.SpawnCommander('QAI', 'SDrone3', false, 'QAI Drone', false, false,
+    units2 = ScenarioFramework.SpawnCommander('QAI', 'SDrone3', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
-    units3 = ScenarioFramework.SpawnCommander('QAI', 'SDrone4', false, 'QAI Drone', false, false,
+    units3 = ScenarioFramework.SpawnCommander('QAI', 'SDrone4', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon2, {units2}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon2, {units3}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon2, 'P4Intattack2')
 
-    units4 = ScenarioFramework.SpawnCommander('QAI', 'SDrone5', false, 'QAI Drone', false, false,
+    units4 = ScenarioFramework.SpawnCommander('QAI', 'SDrone5', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
-    units5 = ScenarioFramework.SpawnCommander('QAI', 'SDrone6', false, 'QAI Drone', false, false,
+    units5 = ScenarioFramework.SpawnCommander('QAI', 'SDrone6', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon3, {units4}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon3, {units5}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon3, 'P4Intattack3')
     
-    units6 = ScenarioFramework.SpawnCommander('QAI', 'SDrone7', false, 'QAI Drone', false, false,
+    units6 = ScenarioFramework.SpawnCommander('QAI', 'SDrone7', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units7 = ScenarioFramework.SpawnCommander('QAI', 'SDrone8', false, 'QAI Drone', false, false,
+    units7 = ScenarioFramework.SpawnCommander('QAI', 'SDrone8', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon4, {units6}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon4, {units7}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon4, 'P4Intattack4')
     
-    units8 = ScenarioFramework.SpawnCommander('QAI', 'SDrone9', false, 'QAI Drone', false, false,
+    units8 = ScenarioFramework.SpawnCommander('QAI', 'SDrone9', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units9 = ScenarioFramework.SpawnCommander('QAI', 'SDrone10', false, 'QAI Drone', false, false,
+    units9 = ScenarioFramework.SpawnCommander('QAI', 'SDrone10', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon5, {units8}, 'Attack', 'AttackFormation')
@@ -1191,7 +1191,7 @@ function IntroP4()
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam2'), 3)
         WaitSeconds(2)
         Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam3'), 3)
-        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU1', false, 'QAI Drone', false, false,
+        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU1', nil, 'QAI Drone', false, nil,
             {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'AdvancedEngineering', 'T3Engineering'})
             ScenarioFramework.GroupMoveChain({units}, 'P4QACUattack1')
         WaitSeconds(4)
@@ -1285,7 +1285,7 @@ function P4QAIACUAttack1()
     if ScenarioInfo.M1P4.Active then
         WaitSeconds(2*60) 
         local ACUPlatoon6 = ArmyBrains[QAI]:MakePlatoon('', '')
-        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU1', false, 'QAI Drone', false, false,
+        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU1', nil, 'QAI Drone', false, nil,
             {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
             ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon6, {units}, 'Attack', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(ACUPlatoon6, 'P4QACUattack1')
@@ -1297,7 +1297,7 @@ function P4QAIACUAttack2()
     if ScenarioInfo.M2P4.Active then
         WaitSeconds(2*60) 
         local ACUPlatoon7 = ArmyBrains[QAI]:MakePlatoon('', '')
-        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU2', false, 'QAI Drone', false, false,
+        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU2', nil, 'QAI Drone', false, nil,
             {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
             ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon7, {units}, 'Attack', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(ACUPlatoon7, 'P4QACUattack2') 
@@ -1309,7 +1309,7 @@ function P4QAIACUAttack3()
     if ScenarioInfo.M3P4.Active then
         WaitSeconds(2*60) 
         local ACUPlatoon8 = ArmyBrains[QAI]:MakePlatoon('', '')
-        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU3', false, 'QAI Drone', false, false,
+        local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU3', nil, 'QAI Drone', false, nil,
             {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
             ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon8, {units}, 'Attack', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(ACUPlatoon8, 'P4QACUattack3') 
@@ -1427,7 +1427,7 @@ function EnableQAINukeAI()
         if table.getn(QAISilos) > 0 then
             for k, v in QAISilos do
                 --Loop through each SML, and only enable the NukeAI for an instance if it hasn't been enabled yet
-                if not v.SiloAIEnabled and not v:IsDead() then
+                if not v.SiloAIEnabled and not v.Dead then
                     --Make a single unit platoon for each SML
                     local SiloPlatoon = ArmyBrains[QAI]:MakePlatoon('','')
                     ArmyBrains[QAI]:AssignUnitsToPlatoon(SiloPlatoon, {v}, 'Attack', 'None')

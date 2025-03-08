@@ -5,6 +5,7 @@
 -------------------------------------------------------------------------------
 local AIBehaviors = import("/lua/ai/aibehaviors.lua")
 local TriggerFile = import("/lua/scenariotriggers.lua")
+local Utils = import("/lua/utilities.lua")
 
 --- Table: SurfacePriorities AKA "Your stuff just got wrecked" priority list.
 --- Description: Provides a list of target priorities an experimental should use when wrecking stuff or deciding what stuff should be wrecked next.
@@ -209,8 +210,8 @@ function FatboyBehavior(self)
 				local pos = self:GetPlatoonPosition() 
 				
 				-- Spam units once the Fatboy is close enough to the base, make sure it's NOT in water
-				--if not InWaterCheck(self) and Distance >= VDist2(pos[1], pos[3], Base[1], Base[3]) then
-				if Distance >= VDist2(pos[1], pos[3], Base[1], Base[3]) then
+				--if not InWaterCheck(self) and Distance >= Utils.GetDistanceBetweenTwoPoints2(pos[1], pos[3], Base[1], Base[3]) then
+				if Distance >= Utils.GetDistanceBetweenTwoPoints2(pos[1], pos[3], Base[1], Base[3]) then
 					ForkThread(FatboyBuildCheck, self)
 				end
                 -- Once we have enough units, form them into a platoon and send them to attack the bad guys!

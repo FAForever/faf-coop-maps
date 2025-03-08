@@ -332,7 +332,7 @@ function FletcherBaseAmphibiousAttacks(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k,v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Fletcher_LandAttack_Chain')
                     end
                 end
@@ -343,7 +343,7 @@ function FletcherBaseAmphibiousAttacks(platoon)
                 IssueStop(platoon:GetPlatoonUnits())
                 IssueClearCommands(platoon:GetPlatoonUnits())
                 for k,v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Fletcher_Fatboy_Attack_Chain')
                     end
                 end
@@ -520,7 +520,7 @@ function FletcherAirPlatoonThread(platoon)
                 IssueClearCommands(platoon:GetPlatoonUnits())
 --           ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Fletcher_Air_Attack_Chain')
                 for k, v in platoon:GetPlatoonUnits() do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Main_Base_AirDef_Chain')))
                     end
                 end

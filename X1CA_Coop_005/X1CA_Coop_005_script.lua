@@ -9,7 +9,7 @@
 -- ****************************************************************************
 
 local Cinematics = import('/lua/cinematics.lua')
-local EffectUtilities = import('/lua/effectutilities.lua')
+local EffectUtilities = import('/lua/EffectUtilities.lua')
 local M1Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m1hex5ai.lua')
 local M2FletcherAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua')
 local M2Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua')
@@ -351,7 +351,7 @@ function StartMission1()
                     WaitSeconds(0.2)
                 end
                 -- Warp in and buff Fletcher
-                ScenarioInfo.FletcherCDR = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', 'Warp', LOC '{i Fletcher}', false, false, 
+                ScenarioInfo.FletcherCDR = ScenarioFramework.SpawnCommander('Fletcher', 'Fletcher', 'Warp', LOC '{i Fletcher}', false, nil, 
                     {'ResourceAllocation', 'AdvancedEngineering', 'T3Engineering', 'LeftPod', 'RightPod'})
                 ScenarioInfo.FletcherCDR.CanBeKilled = false
                 ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
@@ -539,7 +539,7 @@ function IntroMission2()
             ------
             -- Hex5
             ------
-            ScenarioInfo.Hex5CDR = ScenarioFramework.SpawnCommander('Hex5', 'Hex5_Unit', false, LOC '{i Hex5}', true, false, 
+            ScenarioInfo.Hex5CDR = ScenarioFramework.SpawnCommander('Hex5', 'Hex5_Unit', nil, LOC '{i Hex5}', true, nil, 
                 {'MicrowaveLaserGenerator', 'CoolingUpgrade', 'StealthGenerator', 'CloakingGenerator'})
             ScenarioInfo.Hex5CDR:SetVeterancy(Difficulty)
             Hex5TM:AddTauntingCharacter(ScenarioInfo.Hex5CDR)

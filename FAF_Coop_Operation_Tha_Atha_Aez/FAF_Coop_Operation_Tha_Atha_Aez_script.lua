@@ -9,7 +9,7 @@ local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/Utilities.lua')
+local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 local P2UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP2.lua')
 local P3UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP3.lua')
@@ -372,7 +372,7 @@ function IntroP2()
     ScenarioUtils.CreateArmyGroup('WarpComs', 'Gatebase2')
     ScenarioInfo.M2ObjectiveGate = ScenarioUtils.CreateArmyUnit('WarpComs', 'Gate2')
     
-    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('SeraphimAlly', 'SeraCom', false, 'Vuth-Vuthroz', false, false,
+    ScenarioInfo.SeraACU = ScenarioFramework.SpawnCommander('SeraphimAlly', 'SeraCom', nil, 'Vuth-Vuthroz', false, nil,
         {'AdvancedEngineering', 'DamageStabilization', 'RateOfFire'})
         ScenarioInfo.SeraACU:SetAutoOvercharge(true)
         ScenarioInfo.SeraACU:SetVeterancy(5 - Difficulty)
@@ -600,7 +600,7 @@ function SecondaryMissionP2()
 
     local Nodeunits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS - categories.xsb0304), 'EvacZone', ArmyBrains[WarpComs])
         for k, v in Nodeunits do
-            if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[WarpComs]) then
+            if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[WarpComs]) then
                 ScenarioFramework.GiveUnitToArmy( v, Player1 )
             end
         end
@@ -671,7 +671,7 @@ function EscortACU1()
         
         ScenarioInfo.ComACUs = {}
 
-        ScenarioInfo.AeonACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U1', 'Gate', 'Havra', false, false,
+        ScenarioInfo.AeonACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U1', 'Gate', 'Havra', false, nil,
             {'CrysalisBeam', 'HeatSink', 'Shield', 'ShieldHeavy'})
             ScenarioInfo.AeonACU1:SetVeterancy(5 - Difficulty)
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU1}, 'WarpComChain1')
@@ -679,7 +679,7 @@ function EscortACU1()
 
         WaitSeconds(5)
 
-        ScenarioInfo.AeonACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U2', 'Gate', 'Oum-Eoshi', false, false,
+        ScenarioInfo.AeonACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U2', 'Gate', 'Oum-Eoshi', false, nil,
             {'AdvancedRegenAura', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
             ScenarioInfo.AeonACU2:SetVeterancy(5 - Difficulty)
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU2}, 'WarpComChain1')
@@ -691,7 +691,7 @@ function EscortACU1()
             Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('GateCam1'), 0)
             WaitSeconds(5)
 
-            ScenarioInfo.AeonACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U3', 'Gate', 'Zertha', false, false,
+            ScenarioInfo.AeonACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U3', 'Gate', 'Zertha', false, nil,
                 {'CrysalisBeam', 'Shield', 'ShieldHeavy', 'HeatSink'}) 
                 ScenarioInfo.AeonACU3:SetVeterancy(5 - Difficulty)
                 ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU3}, 'WarpComChain1')
@@ -769,7 +769,7 @@ function UEFInterceptattacksP2()
     WaitSeconds(30)
 
     for _, v in ScenarioInfo.ComACUs do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P2UComAttackSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))   
@@ -853,7 +853,7 @@ function EscortACU2()
 
     ScenarioInfo.ComACU2s = {}
 
-    ScenarioInfo.AeonACUG1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U4', 'Gate', 'Zorez-thooum', false, false,
+    ScenarioInfo.AeonACUG1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U4', 'Gate', 'Zorez-thooum', false, nil,
         {'DamageStabilization', 'RateOfFire', 'RegenAura'})
         ScenarioInfo.AeonACUG1:SetVeterancy(4 - Difficulty)
         ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACUG1}, 'WarpComChain1')
@@ -861,7 +861,7 @@ function EscortACU2()
 
     WaitSeconds(5)
 
-    ScenarioInfo.AeonACUG2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U5', 'Gate', 'Thuma-thooum', false, false,
+    ScenarioInfo.AeonACUG2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U5', 'Gate', 'Thuma-thooum', false, nil,
         {'DamageStabilization', 'RateOfFire', 'RegenAura'})
         ScenarioInfo.AeonACUG2:SetVeterancy(4 - Difficulty)
         ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACUG2}, 'WarpComChain1')
@@ -874,7 +874,7 @@ function EscortACU2()
 
         WaitSeconds(5)
 
-        ScenarioInfo.AeonACUG3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U6', 'Gate', 'Keleana', false, false,
+        ScenarioInfo.AeonACUG3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U6', 'Gate', 'Keleana', false, nil,
             {'CrysalisBeam', 'Shield', 'HeatSink'})
             ScenarioInfo.AeonACUG3:SetVeterancy(4 - Difficulty)
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACUG3}, 'WarpComChain1')
@@ -959,7 +959,7 @@ function AeonInterceptattacksP2()
     WaitSeconds(40)
 
     for _, v in ScenarioInfo.ComACU2s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P2AComAttackSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1')) 
@@ -969,7 +969,7 @@ function AeonInterceptattacksP2()
     WaitSeconds(30)
 
     for _, v in ScenarioInfo.ComACU2s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P2AComAttackSnipe2_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
@@ -979,7 +979,7 @@ function AeonInterceptattacksP2()
     WaitSeconds(30)
 
     for _, v in ScenarioInfo.ComACU2s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P2AComAttackSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1')) 
@@ -1055,14 +1055,14 @@ function IntroP3()
 
     --Spawn UEF ACU
 
-    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFCom', false, 'Colonel Griff', true, false,
+    ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFCom', nil, 'Colonel Griff', true, nil,
         {'AdvancedEngineering', 'T3Engineering', 'Shield', 'ShieldGeneratorField', 'HeavyAntiMatterCannon'})
         ScenarioInfo.UEFACU:SetAutoOvercharge(true)
         ScenarioInfo.UEFACU:SetVeterancy(2 + Difficulty)
 
     --Spawn Aeon ACU
 
-    ScenarioInfo.AEONACU = ScenarioFramework.SpawnCommander('Aeon', 'AeonCom', false, 'Crusader Thaila', true, false,
+    ScenarioInfo.AEONACU = ScenarioFramework.SpawnCommander('Aeon', 'AeonCom', nil, 'Crusader Thaila', true, nil,
         {'Shield', 'ShieldHeavy', 'CrysalisBeam', 'EnhancedSensors'})
         ScenarioInfo.AEONACU:SetAutoOvercharge(true)
         ScenarioInfo.AEONACU:SetVeterancy(2 + Difficulty)
@@ -1080,7 +1080,7 @@ function IntroP3()
 
     ScenarioInfo.M3ObjectiveGate = ScenarioUtils.CreateArmyUnit('WarpComs', 'Gate3')
     
-    ScenarioInfo.SeraACU2 = ScenarioFramework.SpawnCommander('SeraphimAlly2', 'SeraCom2', false, 'Executor Jareth', false, false,
+    ScenarioInfo.SeraACU2 = ScenarioFramework.SpawnCommander('SeraphimAlly2', 'SeraCom2', nil, 'Executor Jareth', false, nil,
         {'T3Engineering', 'Shield', 'ShieldHeavy', 'EnhancedSensors'})
         ScenarioInfo.SeraACU2:SetAutoOvercharge(true)
         ScenarioInfo.SeraACU2:SetVeterancy(5 - Difficulty)
@@ -1237,10 +1237,10 @@ function SACUunlocks()
     
     ScenarioFramework.Dialogue(OpStrings.SACUsIntroP3)
     
-    ScenarioInfo.PSACU1 = ScenarioFramework.SpawnCommander('Player1', 'PSACU1', 'Gate', 'Touth-yez', false, false,
+    ScenarioInfo.PSACU1 = ScenarioFramework.SpawnCommander('Player1', 'PSACU1', 'Gate', 'Touth-yez', false, nil,
         {'EngineeringThroughput', 'Shield', 'Overcharge'})
     WaitSeconds(2)  
-    ScenarioInfo.PSACU2 = ScenarioFramework.SpawnCommander('Player1', 'PSACU2', 'Gate', 'Verkhez-thui', false, false,
+    ScenarioInfo.PSACU2 = ScenarioFramework.SpawnCommander('Player1', 'PSACU2', 'Gate', 'Verkhez-thui', false, nil,
         {'EngineeringThroughput', 'Shield', 'Overcharge'})
     
     ScenarioFramework.PlayUnlockDialogue()
@@ -1494,7 +1494,7 @@ function SeraphimAllyRetreatP3()
 
         local SeraUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'P2DefenseArea', ArmyBrains[SeraphimAlly])
             for k, v in SeraUnits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[SeraphimAlly]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[SeraphimAlly]) then
                     ScenarioFramework.GiveUnitToArmy( v, Player1 )
                 end
             end
@@ -1662,7 +1662,7 @@ function EscortACU3()
 
     ScenarioInfo.ComACU3s = {}
 
-    ScenarioInfo.FinalACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U7', 'Gate', ' Executor Vara', false, false,
+    ScenarioInfo.FinalACU1 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U7', 'Gate', ' Executor Vara', false, nil,
     {'Shield', 'ShieldHeavy', 'EnhancedSensors', 'AdvancedEngineering', 'T3Engineering'})
     ScenarioInfo.FinalACU1:SetVeterancy(5 - Difficulty)
     ScenarioFramework.GroupMoveChain({ScenarioInfo.FinalACU1}, 'WarpComChain2')
@@ -1670,7 +1670,7 @@ function EscortACU3()
 
     WaitSeconds(5)
 
-    ScenarioInfo.FinalACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U8', 'Gate', 'Unknown Cybran ACU', false, false,
+    ScenarioInfo.FinalACU2 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U8', 'Gate', 'Unknown Cybran ACU', false, nil,
     {'MicrowaveLaserGenerator','ResourceAllocation', 'AdvancedEngineering', 'T3Engineering'})
     ScenarioInfo.FinalACU2:SetVeterancy(5)
     ScenarioFramework.GroupMoveChain({ScenarioInfo.FinalACU2}, 'WarpComChain2')
@@ -1678,7 +1678,7 @@ function EscortACU3()
 
     WaitSeconds(5)
 
-    ScenarioInfo.FinalACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U9', 'Gate', 'Overlord Voth-Othum', false, false,
+    ScenarioInfo.FinalACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U9', 'Gate', 'Overlord Voth-Othum', false, nil,
     {'RegenAura', 'AdvancedRegenAura', 'DamageStabilization', 'DamageStabilizationAdvanced', 'AdvancedEngineering', 'T3Engineering'})
     ScenarioInfo.FinalACU3:SetVeterancy(5 - Difficulty)
     ScenarioFramework.GroupMoveChain({ScenarioInfo.FinalACU3}, 'WarpComChain2')
@@ -1785,7 +1785,7 @@ function CoalitionInterceptattacksP3()
     WaitSeconds(10)
 
     for _, v in ScenarioInfo.ComACU3s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UComSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1')) 
@@ -1807,7 +1807,7 @@ function CoalitionInterceptattacksP3()
     end
 
     for _, v in ScenarioInfo.ComACU3s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P4AComSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
@@ -1878,7 +1878,7 @@ function CoalitionInterceptattacksP3()
     end
 
     for _, v in ScenarioInfo.ComACU3s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UComSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1')) 
@@ -1952,7 +1952,7 @@ function CoalitionInterceptattacksP3()
     WaitSeconds(40)
 
     for _, v in ScenarioInfo.ComACU3s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P4AComSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1'))
@@ -1962,7 +1962,7 @@ function CoalitionInterceptattacksP3()
     WaitSeconds(40)
 
     for _, v in ScenarioInfo.ComACU3s do
-        if not v:IsDead() then
+        if not v.Dead then
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UComSnipe_D' .. Difficulty, 'NoFormation', 5)
             IssueAttack(platoon:GetPlatoonUnits(), v)
             IssueAggressiveMove(platoon:GetPlatoonUnits(), ScenarioUtils.MarkerToPosition('Player1')) 
@@ -1973,7 +1973,7 @@ end
 function P3GiveOrderBase()
     local OrderUnits = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'AREA_3', ArmyBrains[SeraphimAlly2])
             for k, v in OrderUnits do
-                if v and not v:IsDead() and (v:GetAIBrain() == ArmyBrains[SeraphimAlly2]) then
+                if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[SeraphimAlly2]) then
                     ScenarioFramework.GiveUnitToArmy( v, Player1 )
                 end
             end

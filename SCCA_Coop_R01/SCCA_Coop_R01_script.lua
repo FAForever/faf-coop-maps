@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local Objectives = import('/lua/ScenarioFramework.lua').Objectives
 local SimCamera = import('/lua/SimCamera.lua').SimCamera
@@ -156,8 +156,8 @@ function M1UnitsForStart()
         ForkThread(StartUnitForcedOffmapThread,v)
         v:SetReclaimable(false)
         v:SetCapturable(false)
-        v:SetCanBeKilled(false)
-        v:SetCanTakeDamage(false)
+        v.CanBeKilled = false
+        v.CanTakeDamage = false
     end
 
     ScenarioInfo.FauxUEF_StartGroup = ScenarioUtils.CreateArmyGroup('FauxUEF' ,'FauxUEF_Starting_Enemies')
@@ -318,7 +318,7 @@ function BeginningObjectivesB()
 end
 
 function StartUnitForcedOffmapThread(unit)
-    while not unit:IsDead() do
+    while not unit.Dead do
         IssueStop({unit})
         IssueMove({unit}, ScenarioUtils.MarkerToPosition('SpiderBotDestination'))
         WaitSeconds(7)
@@ -329,7 +329,7 @@ function MoveFuaxUEFOutThread()
     -- After a slight pause, move all remaining FauxUEF units offmap to be destroyed, just in case any have survived
     WaitSeconds(5)
     for k,v in ScenarioInfo.FauxUEF_StartGroup do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.CreateUnitToMarkerDistanceTrigger(StartUnitDestroy, v, ScenarioUtils.MarkerToPosition('SpiderBotDestination'), 16)
             IssueMove({v}, ScenarioUtils.MarkerToPosition('SpiderBotDestination'))
             ForkThread(StartUnitForcedOffmapThread,v)
@@ -426,12 +426,12 @@ function M1_BeginPart2()
     ScenarioInfo.M1UEFRadar = ScenarioUtils.CreateArmyUnit('FauxUEF', 'M1_UEFRadar_Structure')
     ScenarioInfo.m1UEFRadarCamp = ScenarioUtils.CreateArmyGroup('FauxUEF', 'M1_UEFRadarCamp')
     ScenarioInfo.M1UEFRadar:SetReclaimable(false)
-    ScenarioInfo.M1UEFRadar:SetCanBeKilled(false)
-    ScenarioInfo.M1UEFRadar:SetCanTakeDamage(false)
+    ScenarioInfo.M1UEFRadar.CanBeKilled = false
+    ScenarioInfo.M1UEFRadar.CanTakeDamage = false
     for k,v in ScenarioInfo.m1UEFRadarCamp do
         v:SetReclaimable(false)
-        v:SetCanBeKilled(false)
-        v:SetCanTakeDamage(false)
+        v.CanBeKilled = false
+        v.CanTakeDamage = false
     end
     ScenarioFramework.CreateVisibleAreaLocation(2, ScenarioInfo.M1UEFRadar:GetPosition(), .1, ArmyBrains[Player1])
 
@@ -530,7 +530,7 @@ function M1_CaptureRadarObj()
 
     -- Swap the power etc over to the player, once theyve captured the Radar.
     for k,v in ScenarioInfo.m1UEFRadarCamp do
-        if not v:IsDead() then
+        if not v.Dead then
             ScenarioFramework.GiveUnitToArmy(v, Player1)
         end
     end
@@ -805,8 +805,8 @@ function Part2SymbiontStart(unit)
     -- Set flags for the unit
     unit:SetReclaimable(false)
     unit:SetCapturable(false)
-    unit:SetCanBeKilled(false)
-    unit:SetCanTakeDamage(false)
+    unit.CanBeKilled = false
+    unit.CanTakeDamage = false
 
     -- Creat new distance trigger for offmap deletion point
     ScenarioFramework.CreateUnitToMarkerDistanceTrigger(Part2SymbiontOffmapCleanup, unit, ScenarioUtils.MarkerToPosition('M2SymbMovePoint3'), 10)
@@ -818,7 +818,7 @@ end
 function Part2SymbMoveRecheckThread(unit)
     -- While the travelling symb unit is alive, check its location every 35 seconds.
     -- This is to cover situations where the units may get blocked and stop.
-    while not unit:IsDead() do
+    while not unit.Dead do
         IssueStop({unit})
         IssueMove({unit}, ScenarioUtils.MarkerToPosition('M2SymbMovePoint3'))
         WaitSeconds(35)
@@ -925,8 +925,8 @@ function Part3SpawnEasternUnits()
     ScenarioUtils.CreateArmyGroup('Symbiont', 'M3SymbiontStructures')
     for k,v in symbiontBuildings do
         v:SetReclaimable(false)
-        v:SetCanBeKilled(false)
-        v:SetCanTakeDamage(false)
+        v.CanBeKilled = false
+        v.CanTakeDamage = false
     end
 
     local symbtiontBuilding1 = ScenarioInfo.UnitNames[Symbiont]['SymbBuilding1']
@@ -1212,7 +1212,7 @@ function Part4SpawnAeonUnits()
     cdrPlatoon.CDRData = {}
     cdrPlatoon.CDRData.LeashPosition = 'AeonCommander_Patrol_1'
     cdrPlatoon.CDRData.LeashRadius = 30
-    import('/lua/ai/opai/opbehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
+    import('/lua/ai/opai/OpBehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
     ArmyBrains[Aeon]:DisbandPlatoon(cdrPlatoon)
 
     ScenarioInfo.M8P1 = Objectives.KillOrCapture(
@@ -1352,8 +1352,8 @@ end
 function Part4DostyaTransportFlags(unit)
     unit:SetReclaimable(false)
     unit:SetCapturable(false)
-    unit:SetCanBeKilled(false)
-    unit:SetCanTakeDamage(false)
+    unit.CanBeKilled = false
+    unit.CanTakeDamage = false
 end
 
 function Part4TransDefenseSpawnThread()

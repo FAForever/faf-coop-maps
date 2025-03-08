@@ -141,7 +141,7 @@ function KillBase()
             local cybranUnits = {}
             if(units) then
                 for k, v in units do
-                    if(not v:IsDead() and v:GetAIBrain() == ArmyBrains[Cybran]) then
+                    if(not v.Dead and v:GetAIBrain() == ArmyBrains[Cybran]) then
                         table.insert(cybranUnits, v)
                     end
                 end
@@ -633,8 +633,8 @@ function TankApproach()
 
     for i = 1, 10 do
         local tank = ScenarioUtils.CreateArmyUnit('Arnold', 'Tank' .. i)
-        tank:SetCanTakeDamage(false)
-        tank:SetCanBeKilled(false)
+        tank.CanTakeDamage = false
+        tank.CanBeKilled = false
         tank:SetReclaimable(false)
         tank:SetCapturable(false)
         IssueMove({tank}, ScenarioUtils.MarkerToPosition('TankStop' .. tankNum))
@@ -944,7 +944,7 @@ function AssignSO1()
                 }
                 ScenarioFramework.OperationNISCamera(unit, camInfo)
 
-                if(ScenarioInfo.CybranCDR and not ScenarioInfo.CybranCDR:IsDead()) then
+                if(ScenarioInfo.CybranCDR and not ScenarioInfo.CybranCDR.Dead) then
                     ScenarioFramework.Dialogue(OpStrings.E01_M07_100)
                 end
 

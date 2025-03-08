@@ -1161,7 +1161,7 @@ end
 
 function M3AttackCDRAI(platoon)
     local commander = ScenarioFramework.GetListOfHumanUnits(categories.COMMAND, false)
-    if(commander[1] and not commander[1]:IsDead()) then
+    if(commander[1] and not commander[1].Dead) then
         platoon:AttackTarget(commander[1])
     else
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_Seraph_AirAttack_Chain')

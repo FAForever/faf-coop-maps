@@ -8,7 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local EffectUtilities = import('/lua/effectutilities.lua')
+local EffectUtilities = import('/lua/EffectUtilities.lua')
 local M1LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua')
 local M2LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2loyalistai.lua')
 local M1OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1orderai.lua')
@@ -262,7 +262,7 @@ function FinalNIS()
 
     -- Enemy commander appears
     local EnemyCommander = ScenarioFramework.SpawnCommander('QAI', 'M4_Seraph_SCU', 'Gate', LOC '{i sCDR_AhnUshi}')
-    EnemyCommander:SetCanTakeDamage(false)
+    EnemyCommander.CanTakeDamage = false
 
     WaitSeconds(2)
 
@@ -404,7 +404,7 @@ function StartMission1()
                 ScenarioFramework.Dialogue(OpStrings.X02_M01_130)
                 local num = 0
                 for k, v in ScenarioInfo.M1P1Units do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         num = num + 1
                     end
                 end
@@ -662,8 +662,8 @@ function IntroMission2()
 
             -- Prison
             ScenarioInfo.Prison = ScenarioUtils.CreateArmyUnit('Order', 'M2_Prison')
-            ScenarioInfo.Prison:SetCanBeKilled(false)
-            ScenarioInfo.Prison:SetCanTakeDamage(false)
+            ScenarioInfo.Prison.CanBeKilled = false
+            ScenarioInfo.Prison.CanTakeDamage = false
             ScenarioInfo.Prison:SetReclaimable(false)
             ScenarioInfo.Prison:SetDoNotTarget(true)
             ScenarioInfo.Prison:SetCustomName(LOC '{i Loyalist_Prison_Building}')
@@ -672,10 +672,10 @@ function IntroMission2()
             if(LeaderFaction == 'aeon') then
                 ScenarioInfo.OrderFacilities = ScenarioUtils.CreateArmyGroup('OrderNeutral', 'M2_Secondary_Facility')
                 for k, v in ScenarioInfo.OrderFacilities do
-                    if(v and not v:IsDead()) then
+                    if(v and not v.Dead) then
                         v:SetDoNotTarget(true)
-                        v:SetCanTakeDamage(false)
-                        v:SetCanBeKilled(false)
+                        v.CanTakeDamage = false
+                        v.CanBeKilled = false
                         v:SetReclaimable(false)
                         v:SetCapturable(false)
                     end
@@ -798,7 +798,7 @@ end
 function M2AssignAeonSecondary()
     local target = {}
     for k, v in ScenarioInfo.OrderDefenses do
-         if(v and not v:IsDead() and EntityCategoryContains(categories.STRUCTURE - categories.WALL, v)) then
+         if(v and not v.Dead and EntityCategoryContains(categories.STRUCTURE - categories.WALL, v)) then
             table.insert(target, v)
          end
     end
@@ -823,7 +823,7 @@ function M2AssignAeonSecondary()
                 ScenarioFramework.Dialogue(OpStrings.X02_M02_150)
                 if(ScenarioInfo.OrderFacilities) then
                     for k, v in ScenarioInfo.OrderFacilities do
-                        if(v and not v:IsDead()) then
+                        if(v and not v.Dead) then
                             ScenarioFramework.GiveUnitToArmy(v, Loyalist)
                         end
                     end
@@ -993,7 +993,7 @@ function EndMission3()
     if(ScenarioInfo.ColossusAttack and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.ColossusAttack)) then
         ScenarioInfo.ColossusAttack:Stop()
         for k,v in ScenarioInfo.ColossusAttack:GetPlatoonUnits() do
-            if(not v:IsDead()) then
+            if(not v.Dead) then
                 local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon:ForkAIThread(platoon.HuntAI)
@@ -1209,7 +1209,7 @@ function IntroMission4()
                     local platoon = ArmyBrains[QAI]:MakePlatoon('','')
                     ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {soul}, 'Attack', 'GrowthFormation')
                     for k, v in colossi do
-                        if(v and not v:IsDead()) then
+                        if(v and not v.Dead) then
                             platoon:AttackTarget(v)
                         end
                     end
@@ -1250,16 +1250,16 @@ function IntroMission4()
                 local units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Sundry')
                 for k, v in units do
                     v:SetDoNotTarget(true)
-                    v:SetCanTakeDamage(false)
-                    v:SetCanBeKilled(false)
+                    v.CanTakeDamage = false
+                    v.CanBeKilled = false
                     v:SetReclaimable(false)
                     v:SetCapturable(false)
                 end
                 ScenarioInfo.M3CybranVirusMain = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Main')
                 for k, v in ScenarioInfo.M3CybranVirusMain do
                     v:SetDoNotTarget(true)
-                    v:SetCanTakeDamage(false)
-                    v:SetCanBeKilled(false)
+                    v.CanTakeDamage = false
+                    v.CanBeKilled = false
                     v:SetReclaimable(false)
                     v:SetCapturable(false)
                 end
@@ -1271,15 +1271,15 @@ function IntroMission4()
             -- Seraphim Gate
             ScenarioUtils.CreateArmyGroup('QAI', 'Quantum_Gate_Group')
             ScenarioInfo.SeraphimGate = ScenarioInfo.UnitNames[QAI]['M4_Quantum_Gate']
-            ScenarioInfo.SeraphimGate:SetCanBeKilled(false)
-            ScenarioInfo.SeraphimGate:SetCanTakeDamage(false)
+            ScenarioInfo.SeraphimGate.CanBeKilled = false
+            ScenarioInfo.SeraphimGate.CanTakeDamage = false
             ScenarioInfo.SeraphimGate:SetReclaimable(false)
             ScenarioInfo.SeraphimGate:SetDoNotTarget(true)
             ScenarioInfo.SeraphimGate:SetCapturable(false)
             ScenarioInfo.SeraphimGate:SetCustomName(LOC '{i Seraphim_Gate}')
 
             -- QAI Commander
-            ScenarioInfo.QAICommander = ScenarioFramework.SpawnCommander('QAI', 'M4_QAI_Commander', false, LOC '{i QAI}', true, false,
+            ScenarioInfo.QAICommander = ScenarioFramework.SpawnCommander('QAI', 'M4_QAI_Commander', nil, LOC '{i QAI}', true, nil,
                 {'StealthGenerator', 'MicrowaveLaserGenerator', 'AdvancedEngineering', 'T3Engineering'})
 
             -- Czar
@@ -1386,39 +1386,39 @@ function StartMission4()
 end
 
 function LaunchOrderNukes()
-    if(not ScenarioInfo.M4OrderNorthNuke:IsDead()) then
+    if(not ScenarioInfo.M4OrderNorthNuke.Dead) then
         IssueNuke({ScenarioInfo.M4OrderNorthNuke}, ScenarioUtils.MarkerToPosition('QAI_M4_North_Base'))
     end
 
     WaitSeconds(1.2)
-    if(not ScenarioInfo.M4OrderCenterNuke:IsDead()) then
+    if(not ScenarioInfo.M4OrderCenterNuke.Dead) then
         IssueNuke({ScenarioInfo.M4OrderCenterNuke}, ScenarioUtils.MarkerToPosition('QAI_M4_Middle_Base'))
     end
 
     WaitSeconds(0.7)
-    if(not ScenarioInfo.M4OrderSouthNuke:IsDead()) then
+    if(not ScenarioInfo.M4OrderSouthNuke.Dead) then
         IssueNuke({ScenarioInfo.M4OrderSouthNuke}, ScenarioUtils.MarkerToPosition('QAI_M3_South_Base'))
     end
 end
 
 function LaunchQAINukes()
     WaitSeconds(3)
-    if(not ScenarioInfo.M4QAINorthNuke:IsDead()) then
+    if(not ScenarioInfo.M4QAINorthNuke.Dead) then
         IssueNuke({ScenarioInfo.M4QAINorthNuke}, ScenarioUtils.MarkerToPosition('Order_M4_North_Base'))
     end
 
     WaitSeconds(1)
-    if(not ScenarioInfo.M4QAICenterNuke:IsDead()) then
+    if(not ScenarioInfo.M4QAICenterNuke.Dead) then
         IssueNuke({ScenarioInfo.M4QAICenterNuke}, ScenarioUtils.MarkerToPosition('Order_M4_Middle_Base'))
     end
 
     WaitSeconds(1)
-    if(not ScenarioInfo.M4QAISouthNuke:IsDead()) then
+    if(not ScenarioInfo.M4QAISouthNuke.Dead) then
         IssueNuke({ScenarioInfo.M4QAISouthNuke}, ScenarioUtils.MarkerToPosition('Order_M4_South_Base'))
     end
 
     WaitSeconds(0.6)
-    if(not ScenarioInfo.M4QAIMainNuke:IsDead()) then
+    if(not ScenarioInfo.M4QAIMainNuke.Dead) then
         IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition('M4_Nuke_Exchange_Order'))
     end
 end
@@ -1455,11 +1455,11 @@ function AssignM4S2Cybran()
         function(result)
             if(result) then
                 for k, unit in ScenarioInfo.M3CybranVirusMain do
-                    if (unit and not unit:IsDead()) then
+                    if (unit and not unit.Dead) then
                         EffectUtilities.CybranBuildingInfection( unit )
                     end
                 end
-                if(ScenarioInfo.QAICommander and not ScenarioInfo.QAICommander:IsDead()) then
+                if(ScenarioInfo.QAICommander and not ScenarioInfo.QAICommander.Dead) then
                     ScenarioFramework.Dialogue(OpStrings.X02_M03_285)
                     local pos = ScenarioInfo.QAICommander:GetPosition()
                     local spec = {
@@ -1497,13 +1497,13 @@ function M4Subplot()
 end
 
 function M4PingEventNotification()
-    if(ScenarioInfo.M4Czar and not ScenarioInfo.M4Czar:IsDead()) then
+    if(ScenarioInfo.M4Czar and not ScenarioInfo.M4Czar.Dead) then
         ScenarioFramework.Dialogue(OpStrings.X02_M03_140, M4PingEvent)
     end
 end
 
 function M4PingEvent()
-    if(ScenarioInfo.M4Czar and not ScenarioInfo.M4Czar:IsDead()) then
+    if(ScenarioInfo.M4Czar and not ScenarioInfo.M4Czar.Dead) then
         ScenarioInfo.CzarPing = PingGroups.AddPingGroup(OpStrings.X02_M01_OBJ_010_060, 'uaa0310', 'move', OpStrings.X02_M01_OBJ_010_065)
         ScenarioInfo.CzarPing:AddCallback(MoveCzar)
     end
@@ -1554,7 +1554,7 @@ end
 function NukePlayer()
     local delay = {11, 8, 5}
 
-    while ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke:IsDead() do
+    while ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke.Dead do
         local marker = nil
         local numUnits = 0
         local searching = true
@@ -1573,7 +1573,7 @@ function NukePlayer()
                 end
             end
         end
-        if ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke:IsDead() then
+        if ScenarioInfo.M4QAIMainNuke and not ScenarioInfo.M4QAIMainNuke.Dead then
             ScenarioInfo.M4QAIMainNuke:GiveNukeSiloAmmo(1)
             IssueNuke({ScenarioInfo.M4QAIMainNuke}, ScenarioUtils.MarkerToPosition(marker))
         end
