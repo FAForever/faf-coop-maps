@@ -23573,14 +23573,14 @@ Scenario = {
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_4519'] = {
-                                                type = 'ura0103',
+                                                type = 'uaa0103',
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 937.000000, 21.675781, 198.500000 },
                                                 Orientation = { 0.000000, 0.000000, 0.000000 },
                                             },
                                             ['UNIT_4520'] = {
-                                                type = 'ura0203',
+                                                type = 'uaa0203',
                                                 orders = '',
                                                 platoon = '',
                                                 Position = { 939.500000, 21.638672, 198.500000 },
