@@ -1,5 +1,42 @@
 # Changelog
 
+## Patch 9.0.2 (October 14th, 2025)
+- Tight Spot dialogues fixes
+- Prothyon-16: Fix for Morax not leaving his base
+- Aeon M2: Delayed attacks in the first part
+- Operation Rescue: Fixed conditions for completing truck objective
+- FA M2: Fixed Cybran units in Selene's CZAR
+- Aeon: Fixed order of briefing VOs
+
+## Patch 9.0.1 (April 20th, 2024)
+- [Strings] Fixed spelling and grammar issues in new campaign missions by @hypoxia125 in #428
+- Remaster UEF M6 by @Dhomie in #429
+- FA M2 Fix - Check nuke launchers alive (Dawn (X1CA_Coop_002)) by @maudlin27 in #434
+- Fix UEF M6 mission failures by @Dhomie in #433
+- Remove the ' from imports and file names by @Garanas in #431
+
+## Patch 9.0.0 (March 18th, 2024)
+- Fix syntax by @speed2CZ in #402
+- Adjust Asswasher crash position by @speed2CZ in #404
+- Prothyon fixes by @speed2CZ in #405
+- Fix Aeon M2 objective SCCA_Coop_A02_script.lua by @maudlin27 in #410
+- Aeon M2 - check if transport is dead by @maudlin27 in #411
+- Aeon M2 - Fix bug with map not expanding if attackers killed quickly by @maudlin27 in #412
+- Fix AI air attack - Aeon Mission 4 by @maudlin27 in #413
+- Fix taunts in Aeon Mission 4 by @maudlin27 in #414
+- Rebalance FAM2 initial attack by @speed2CZ in #418
+- Fix trigger to account for all players by @speed2CZ in #419
+- Aeon M4 fix bug with missing transport platoon by @maudlin27 in #427
+- Cybran M4 - fix bug where M2 can be completed before it has started by @maudlin27 in #426
+- Cybran M4 fix where player is quicker than intro by @maudlin27 in #425
+- Cybran M6 - Bugfix if units destroyed by @maudlin27 in #423
+- FA M3 Red Dawn: Fix bug with 1st mission completion due to external factories by @maudlin27 in #420
+- Update Seraphim and Coalition maps by @Garanas in #417
+- Fix some incorrect Aeon briefing VO cue orders by @TwelveEyes in #422
+- Remaster Cybran M6 by @Dhomie in #424
+- Fixes for the new mobile factories by @speed2CZ in #416
+
+
 ## Patch 8.0.2 (January 1st, 2023)
 
 ### Aeon Campaign
