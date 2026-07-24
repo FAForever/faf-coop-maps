@@ -855,8 +855,10 @@ function StartMission2()
     ScenarioFramework.CreateTimerTrigger(M2UnlockSniperBots, 120)
 
     -- Expand map even if objective isn't finished yet
-    local M2MapExpandDelay = {20*60, 15*60, 10*60}
-    ScenarioFramework.CreateTimerTrigger(EndMission2, M2MapExpandDelay[Difficulty])
+    if ExpansionTimer then
+        local M2MapExpandDelay = {20*60, 15*60, 10*60}
+        ScenarioFramework.CreateTimerTrigger(EndMission2, M2MapExpandDelay[Difficulty])
+    end
 end
 
 function M2InitialAttack()

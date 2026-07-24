@@ -30,6 +30,7 @@ local Seraphim = ScenarioInfo.Seraphim
 local Civilian = ScenarioInfo.Civilian
 
 local Difficulty = ScenarioInfo.Options.Difficulty
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 local AssignedObjectives = {}
 
 local LeaderFaction
@@ -275,8 +276,11 @@ function StartMission1()
     -- Evac the trucks after 5 minues
     ScenarioFramework.CreateTimerTrigger(M1EvacTrucks, 5*60)
 
-    -- Expand the map after 6 minues
-    ScenarioFramework.CreateTimerTrigger(M1MapExpand, 6*60)
+    -- Map expand only if option is enabled.
+    if ExpansionTimer then
+        local M1MapExpandDelay = {12*60, 9*60, 6*60}
+        ScenarioFramework.CreateTimerTrigger(IntroMission2, M1MapExpandDelay[Difficulty])
+    end
 end
 
 function MissionNameAnnouncement()
@@ -356,10 +360,6 @@ function M1TruckEscaped(unit)
     if ScenarioInfo.M1B1.Active then
         ScenarioInfo.M1B1:ManualResult(false)
     end
-end
-
-function M1MapExpand()
-    IntroMission2()
 end
 
 ------------

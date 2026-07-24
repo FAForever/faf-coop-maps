@@ -42,6 +42,7 @@ local Player4 = ScenarioInfo.Player4
 
 local AssignedObjectives = {}
 local Difficulty = ScenarioInfo.Options.Difficulty
+local ExpansionTimer = ScenarioInfo.Options.Expansion == 'true'
 
 local M1MapExpandDelay = {30*60, 25*60, 20*60} --30*60, 25*60, 20*60
 local M2SpawnMonkeylordTime = {60*60, 45*60, 35*60} --60*60, 45*60, 35*60
@@ -252,7 +253,9 @@ function StartMission1()
     table.insert(AssignedObjectives, ScenarioInfo.M1P1)
 
     -- Expand map even if objective isn't finished yet
-    ScenarioFramework.CreateTimerTrigger(PrematureMission2, M1MapExpandDelay[Difficulty])
+    if ExpansionTimer then
+        ScenarioFramework.CreateTimerTrigger(PrematureMission2, M1MapExpandDelay[Difficulty])
+    end
     
     ----------------------------------------
     -- Secondary Objective 1 - Destroy Base
