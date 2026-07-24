@@ -267,14 +267,9 @@ function StartMission1()
         end
     )
 
-    WaitSeconds(180)
-    ForkThread(AttackCheck)  
-end
-
-function AttackCheck()
-    
-    if ScenarioInfo.M1P1.Active then
-        ScenarioInfo.M1P1:ManualResult(true)   
+    if ExpansionTimer then
+        local M1MapExpandDelay = {7*60, 5*60, 3*60}
+        ScenarioFramework.CreateTimerTrigger(StartIntroP2, M1MapExpandDelay[Difficulty])
     end
 end
 
