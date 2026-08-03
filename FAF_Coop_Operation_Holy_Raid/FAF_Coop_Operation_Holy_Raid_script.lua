@@ -176,10 +176,9 @@ function P1ProtectObjective()
     ScenarioInfo.M2P1 = Objectives.Protect(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'The Labs Must Survive',                -- title
-        'We can not let the Order take the labs', -- description
-       
-        {                              -- target
+        OpStrings.M2P1Title,            -- title
+        OpStrings.M2P1Description,      -- description       
+        {                               -- target
             Units = ScenarioInfo.Labs,
             MarkUnits = true, 
         }
@@ -249,8 +248,8 @@ function StartMission1()
     ScenarioInfo.M1P1 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Survive Order Assault',                 -- title
-        'Kill all Order forces attacking you.',  -- description
+        OpStrings.M1P1Title,            -- title
+        OpStrings.M1P1Description,      -- description
         {                               -- target
             ShowProgress = true,
             Units = ScenarioInfo.M1CounterAttackUnits    
@@ -361,9 +360,9 @@ function MissionP2()
     ScenarioInfo.M1P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy the Captured Labs',                -- title
-        'We can\'t allow the Order access to the data within the Labs, destroy them.', -- description
-        {                              -- target
+        OpStrings.M1P2Title,            -- title
+        OpStrings.M1P2Description,      -- description
+        {                               -- target
             Units = ScenarioInfo.M2CivilianBuildings,
             MarkUnits = true,
             ShowProgress = true, 
@@ -380,8 +379,8 @@ function MissionP2()
     ScenarioInfo.M2P2 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Order Bases',                 -- title
-        'Commander we can\'t risk any of this data getting off world, wipe out all enemy forces.',  -- description
+        OpStrings.M2P2Title,            -- title
+        OpStrings.M2P2Description,      -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -445,10 +444,10 @@ end
 function SecondaryMissionP2()
 
     ScenarioInfo.M1P2S1 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Clear Out AA positions',                 -- title
-        ' Commander Fredrick can\'t send you reinforcements with those positions in play, destroy them.',  -- description
+        OpStrings.M1P2S1Title,          -- title
+        OpStrings.M1P2S1Description,    -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -819,9 +818,9 @@ function MissionP3()
     ScenarioInfo.M1P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Eliminate Commander Havra',                -- title
-        'Commander Havra is one of two Order Commanders on planet, kill her for murdering the UEF science team.', -- description
-        {                              -- target
+        OpStrings.M1P3Title,            -- title
+        OpStrings.M1P3Description,      -- description
+        {                               -- target
             MarkUnits = true,
             ShowProgress = true,
             Units = {ScenarioInfo.P3O1ACU}, 
@@ -836,10 +835,10 @@ function MissionP3()
     )
 
     ScenarioInfo.M2P3 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Destroy Order Base',                 -- title
-        'The second Order Commander has a base in the area supporting Havra, destroy it.',  -- description
+        OpStrings.M2P3Title,            -- title
+        OpStrings.M2P3Description,      -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -1048,9 +1047,9 @@ function MissionP4()
     ScenarioInfo.M1P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Eliminate Commander Zertha',                -- title
-        'Both Commander Zertha and her support commanders are attempting to transfer highly valuable research off world, stop them.', -- description
-        {                              -- target
+        OpStrings.M1P4Title,            -- title
+        OpStrings.M1P4Description,      -- description
+        {                               -- target
             MarkUnits = true,
             ShowProgress = true,
             Units = {ScenarioInfo.P4O2ACU}, 
@@ -1067,9 +1066,9 @@ function MissionP4()
     ScenarioInfo.M2P4 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Eliminate Support Commanders',                -- title
-        'Both Commander Zertha and her support commanders are attempting to transfer highly valuable research off world, stop them.', -- description
-        {                              -- target
+        OpStrings.M2P4Title,            -- title
+        OpStrings.M2P4Description,      -- description
+        {                               -- target
             MarkUnits = true,
             ShowProgress = true,
             Units = {ScenarioInfo.P4O2ACUS1, ScenarioInfo.P4O2ACUS2}, 
@@ -1226,10 +1225,10 @@ function ParagonspotedP4()
     ScenarioFramework.Dialogue(OpStrings.SecondarystartP4, nil, true)
 
     ScenarioInfo.M1P4S1 = Objectives.CategoriesInArea(
-    'secondary',                      -- type
+    'secondary',                    -- type
     'incomplete',                   -- complete
-    'Destroy Paragon',                 -- title
-    'The Order commander has a paragon and its attempting to construct a Rapid fire Artillary structure, destroy them.',  -- description
+    OpStrings.M1P4S1Title,          -- title
+    OpStrings.M1P4S1Description,    -- description
     'kill',                         -- action
     {                               -- target
             MarkUnits = true,
@@ -1406,4 +1405,3 @@ function SetupOrderM3TauntTriggers()
         return  
     end
 end
- 

@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'UEF Mission 1 - Black Earth',
-    description = 'Intel reports that two Cybran Commanders gated to Capella over an hour ago.\nWe presume they\'re attempting to inflame the Symbiont population.',
+    name = '<LOC OPNAME_E01>UEF Mission 1 - Black Earth',
+    description = '<LOC SCCA_E01_description>Intel reports that two Cybran Commanders gated to Capella over an hour ago.\nWe presume they\'re attempting to inflame the Symbiont population.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

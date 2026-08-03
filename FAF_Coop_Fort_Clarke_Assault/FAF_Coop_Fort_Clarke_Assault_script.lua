@@ -469,8 +469,8 @@ function StartMission1()
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy UEF Forward Bases',    -- title
-        'Secure the area around your starting location.',  -- description
+        OpStrings.M1P1Title,            -- title
+        OpStrings.M1P1Description,      -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -531,9 +531,9 @@ function StartMission1()
         ScenarioInfo.M1S1 = Objectives.ReclaimProp(
             'secondary',                    -- type
             'incomplete',                   -- complete
-            'Reclaim Experimental Bomber Wreck',  -- title
-            'Use the Mass from the wreckage to boost your economy.',  -- description
-            {                               -- Target
+            OpStrings.M1S1Title,            -- title
+            OpStrings.M1S1Description,      -- description
+            {                               -- target
                 Wrecks = {ScenarioInfo.T4BomberWreck},
             }
        )
@@ -827,8 +827,8 @@ function StartMission2()
     ScenarioInfo.M2P1 = Objectives.Basic(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Prepare your forces for the incoming couter attack',  -- title
-        'Coalition forces are preparing major offensive against your positions. Build up your army to repel their attack.',  -- description
+        OpStrings.M2P1Title,            -- title
+        OpStrings.M2P1Description,      -- description
         Objectives.GetActionIcon('build'),
         {                               -- target
             ShowFaction = 'UEF',
@@ -937,10 +937,10 @@ function M2AssignSecondary()
     -- Secondary Objective 2 - Kill Civilians
     -----------------------------------------
     ScenarioInfo.M2S1 = Objectives.Kill(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Annihilate Human City',  -- title
-        'Destroy UEF City south of your location.',  -- description
+        OpStrings.M2S1Title,            -- title
+        OpStrings.M2S1Description,      -- description
         {                               -- target
             Units = ScenarioInfo.M2CivilianCity,
             FlashVisible = true,
@@ -1278,9 +1278,9 @@ function StartMission3()
     ScenarioInfo.M3P1 = Objectives.Kill(
         'primary',                          -- type
         'incomplete',                       -- complete
-        'Survive the Counterattack',      -- title
-        'Prevent Coalition forces from overrunning your position.',      -- description
-        {                               -- target
+        OpStrings.M3P1Title,                -- title
+        OpStrings.M3P1Description,          -- description
+        {                                   -- target
             Units = ScenarioInfo.M3ObjectiveExperimentalas,
         }
     )
@@ -1450,8 +1450,8 @@ function StartMisson4()
     ScenarioInfo.M4P1 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Fort Clarke',  -- title
-        'Destroy Fort Clarke.',  -- description
+        OpStrings.M4P1Title,            -- title
+        OpStrings.M4P1Description,      -- description
         {                               -- target
             Units = {ScenarioInfo.FortClarkeHQ},
         }
@@ -1555,8 +1555,8 @@ function M4AssignSecondPrimary()
     ScenarioInfo.M4P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Defeat Coalition Commanders',  -- title
-        'Fort Clarke is being reinforced by 3 Coalition commanders. Don\'t let them stay in your way.',  -- description
+        OpStrings.M4P2Title,            -- title
+        OpStrings.M4P2Description,      -- description
         {                               -- target
             Units = {ScenarioInfo.AeonCDR, ScenarioInfo.CybranCDR, ScenarioInfo.UEFCDR},
         }

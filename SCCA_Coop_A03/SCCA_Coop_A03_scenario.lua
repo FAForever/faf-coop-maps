@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Mission 3 - High Tide',
-    description = 'Ten days ago we launched an offensive against UEF forces positioned on Matar.\nDespite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable.\nYou will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest.',
+    name = '<LOC OPNAME_A03>Aeon Mission 3 - High Tide',
+    description = '<LOC SCCA_A03_description>Ten days ago we launched an offensive against UEF forces positioned on Matar.\nDespite my planning, seizing the planet has proven much more difficult than expected. This is unacceptable.\nYou will go to Matar and relieve Crusader Eris. She has been in constant battle and is in need of rest.',
     type = 'campaign_coop',
     starts = true,
     preview = '',
