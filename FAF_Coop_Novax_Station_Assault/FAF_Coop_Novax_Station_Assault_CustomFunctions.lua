@@ -375,7 +375,8 @@ function ManageNovaxThread(platoon)
     end
 
     -- Decide what to do with the Novax
-    if currentDefending < totalDefending[Difficulty] then
+    -- Attacking with them is just too annoying and forces player to not do any navy, so keep them all defending.
+    if true or currentDefending < totalDefending[Difficulty] then
         local unit = platoon:GetPlatoonUnits()[1]
         ScenarioFramework.CreateUnitDeathTrigger(DecrementNovaxCount, unit)
         currentDefending = currentDefending + 1
