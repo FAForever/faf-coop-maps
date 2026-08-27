@@ -911,9 +911,6 @@ function IntroMission2()
         ScenarioFramework.CreateArmyStatTrigger(M2MassStoragedBuilt, ArmyBrains[Order], 'M2MassStoragedBuilt',
             {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.MASSSTORAGE * categories.TECH1 * categories.STRUCTURE}})
 
-        -- Rebuild Tempest with a gun once more 7000 mass in the storage
-        ScenarioFramework.CreateArmyStatTrigger(M2OrderAI.OrderM2RebuildTempest, ArmyBrains[Order], 'M2RebuildTempest',
-            {{StatType = 'Economy_Stored_Mass', CompareType = 'GreaterThanOrEqual', Value = 7000}})
     else
         -- Spawn Player2 ACU
         ScenarioInfo.Player2CDR = ScenarioFramework.SpawnCommander('Player2', 'Commander', 'Warp', true, true, nil,
@@ -1211,18 +1208,19 @@ function M2MassStoragedBuilt()
 end
 
 function M2T1NavalFactoryBuilt()
-    local factory = ArmyBrains[Order]:GetListOfUnits(categories.FACTORY * categories.NAVAL * categories.STRUCTURE, false)
+    local factory = ArmyBrains[Order]:GetListOfUnits(categories.FACTORY * categories.NAVAL * categories.STRUCTURE - categories.EXTERNALFACTORYUNIT, false)
 
-    IssueGuard({ScenarioInfo.OrderACU}, factory[1])
+    IssueGuard({ScenarioInfo.OrderACU, ScenarioInfo.OrdersACU}, factory[1])
 
     ScenarioFramework.CreateArmyStatTrigger(M2T3NavalFactoryBuilt, ArmyBrains[Order], 'M2T3NavalFactoryBuilt',
-        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH3 * categories.NAVAL * categories.STRUCTURE}})
+        {{StatType = 'Units_Active', CompareType = 'GreaterThanOrEqual', Value = 1, Category = categories.FACTORY * categories.TECH3 * categories.NAVAL * categories.STRUCTURE - categories.EXTERNALFACTORYUNIT}})
 end
 
 function M2T3NavalFactoryBuilt()
-    -- Stop assisting naval HQ with ACU
-    IssueStop({ScenarioInfo.OrderACU})
-    IssueClearCommands({ScenarioInfo.OrderACU})
+    -- Stop assisting naval HQ with ACU and sACU
+    local commanders = {ScenarioInfo.OrderACU, ScenarioInfo.OrdersACU}
+    IssueStop(commanders)
+    IssueClearCommands(commanders)
 
     -- Qeue up support factories right away so they are built as soon as possible
     local aiBrain = ScenarioInfo.OrderACU:GetAIBrain()
@@ -1241,6 +1239,9 @@ function M2T3NavalFactoryBuilt()
 
     -- Start building naval units
     M2OrderAI.OrderM2BaseNavalAttacks()
+
+    -- Put more engies on permanent assist
+    M2OrderAI.OrderM2BaseEngieCount()
 end
 
 function M2T1LandFactoryBuilt()
@@ -1271,9 +1272,13 @@ function M2T3LandFactoryBuilt()
             aiBrain:BuildStructure(ScenarioInfo.OrdersACU, unitData.type, {unitData.Position[1], unitData.Position[3], 0}, false)
         end
     end
-    
+
+    -- Rebuild Tempest with a gun once more 7000 mass in the storage
+    ScenarioFramework.CreateArmyStatTrigger(M2OrderAI.OrderM2RebuildTempest, ArmyBrains[Order], 'M2RebuildTempest',
+        {{StatType = 'Economy_Stored_Mass', CompareType = 'GreaterThanOrEqual', Value = 8000}})
+
     -- Put more engies on permanent assist
-    M2OrderAI.OrderM2BaseEngieCount()
+    M2OrderAI.OrderM2BaseEngieCount2()
 end
 
 -- Initial counter attack
@@ -1545,7 +1550,7 @@ end
 
 function M2CybranNukeSubAttack()
     -- Spawn nuke sub as a platoon for easier moving on thee map
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Cybran_Nuke_Sub', 'NoFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Cybran_Nuke_Sub', 'AttackFormation')
     local nukeSub = platoon:GetPlatoonUnits()[1]
 
     local nukeMarkers = {'M2_Nuke_Marker_1', 'M2_Nuke_Marker_2', 'M2_Nuke_Marker_3', 'M2_Nuke_Marker_4'}
@@ -1597,7 +1602,7 @@ function M2ExperimentalAttack()
         army = 'UEF'
     end
 
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon(army, 'M2_' .. army ..'_Experimental_Attack', 'NoFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon(army, 'M2_' .. army ..'_Experimental_Attack', 'AttackFormation')
     CustomFunctions.LandExperimentalAttackThread(platoon)
 end
 
