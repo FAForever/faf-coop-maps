@@ -92,6 +92,32 @@ function CarrierAI(platoon)
     end
 end
 
+---@param platoon Platoon
+function AssistNavalFactories(platoon)
+    local data = platoon.PlatoonData
+    local aiBrain = platoon:GetBrain()--[[@as CampaignAIBrain]]
+    local bManager = aiBrain.BaseManagers[data.BaseName]
+
+    if not data.Factories then
+        error('*CUSTOM FUNCTIONS AI ERROR: categories of factories to assist not defined', 2)
+    end
+
+    local factories = bManager:GetAllBaseFactories(data.Factories)
+    --local factories = aiBrain:GetListOfUnits(data.Factories, false)
+
+    platoon:Stop()
+    local num = 1
+    for _, unit in platoon:GetPlatoonUnits() do
+        local factory = factories[num]
+        if not factory then
+            factory = factories[1]
+            num = 1
+        end
+        IssueGuard({unit}, factory)
+        num = num + 1
+    end
+end
+
 -- Waits until all units are released from the carrier and then issues the patrol.
 function PatrolThread(platoon)
     local data = platoon.PlatoonData

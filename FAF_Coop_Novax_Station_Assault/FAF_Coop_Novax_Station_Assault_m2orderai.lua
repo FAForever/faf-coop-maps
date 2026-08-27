@@ -219,6 +219,27 @@ function OrderM2BaseLandAttacks()
     opai:SetChildQuantity('T1Engineers', 6)
     opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 2000})
 
+    -- Extra engineers assisting T3 naval factories, all T3 factories has to be built
+    -- Count is X, 0 since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
+    local t3navalFac = categories.TECH3 * categories.NAVAL * categories.FACTORY - categories.EXTERNALFACTORYUNIT
+    quantity = {{6, 0}, {9, 0}, {12, 0}}
+    opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_Order_Naval_Assist_Engineers',
+        {
+            MasterPlatoonFunction = {CustomFunctions, 'AssistNavalFactories'},
+            PlatoonData = {
+                BaseName = 'M2_Order_Base',
+                Factories = t3navalFac,
+            },
+            Priority = 170,
+        }
+    )
+    opai:SetChildQuantity('T3Engineers', quantity[Difficulty])
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+        'HaveGreaterThanUnitsWithCategory', { 2, t3navalFac })
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
+        'HaveGreaterThanUnitsWithCategory', { 2, categories.TECH3 * categories.MASSFABRICATION * categories.STRUCTURE})
+
     ----------
     -- Defense
     ----------
