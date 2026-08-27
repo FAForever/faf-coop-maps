@@ -45,13 +45,17 @@ function OrderM2BaseAI()
             M2_Order_Torp = 120,
         }
     )
-    OrderM2Base:StartEmptyBase({{15, 13, 11}, {10, 8, 6}})
+    OrderM2Base:StartEmptyBase({15, 13, 11})
     OrderM2Base:SetMaximumConstructionEngineers(5)
 end
 
 function OrderM2BaseEngieCount()
-    OrderM2Base:SetEngineerCount({{15, 13, 11}, {13, 11, 9}})
+    OrderM2Base:SetEngineerCount({{15, 13, 11}, {10, 8, 6}})
     OrderM2Base:SetMaximumConstructionEngineers(3)
+end
+
+function OrderM2BaseEngieCount2()
+    OrderM2Base:SetEngineerCount({{15, 13, 11}, {13, 11, 9}})
 end
 
 -------------------
