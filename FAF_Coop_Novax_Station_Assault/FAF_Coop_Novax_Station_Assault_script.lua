@@ -70,7 +70,7 @@ ScenarioInfo.OperationScenarios = {
             },
             {
                 CallFunction = function() M2CybranNukeSubAttack() end,
-                Delay = {19*60, 15*60, 11*60},
+                Delay = {23*60, 19*60, 15*60},
             },
             {
                 CallFunction = function() M2ExperimentalAttack() end,

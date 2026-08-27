@@ -719,7 +719,7 @@ function CybranM2IslandBaseArtyAI()
 
     arty:SetFireState('HoldFire')
 
-    local waitTime = {Random(26.0, 30.0), Random(22.0, 26.0), Random(18.0, 22.0)}
+    local waitTime = {Random(28.0, 32.0), Random(24.0, 28.0), Random(20.0, 24.0)}
     LOG('*speed2: Arty activation wait time: ' .. waitTime[Difficulty])
     WaitSeconds(waitTime[Difficulty] * 60.0)
 

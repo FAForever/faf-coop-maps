@@ -48,7 +48,7 @@ function UEFM2BaseAI()
     UEFM2Base:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Base', 'M2_UEF_Base_Marker', 160, {M2_UEF_Base = 100,})
     UEFM2Base:StartNonZeroBase({{11, 14, 17}, {9, 11, 13}})
     UEFM2Base:SetMaximumConstructionEngineers(4)
-    
+
     UEFM2Base:SetActive('AirScouting', true)
     -- UEFM2Base:SetSupportACUCount(1)
     -- UEFM2Base:SetSACUUpgrades({'ResourceAllocation', 'RadarJammer', 'SensorRangeEnhancer'}, true)
@@ -575,7 +575,7 @@ function UEFM2IslandBaseNukeAI()
 
     IssueStop({nuke})
 
-    local waitTime = {Random(27.0, 31.0), Random(23.0, 27.0), Random(19.0, 23.0)}
+    local waitTime = {Random(29.0, 33.0), Random(25.0, 29.0), Random(21.0, 25.0)}
     LOG('*speed2: Nuke activation wait time: ' .. waitTime[Difficulty])
     WaitSeconds(waitTime[Difficulty] * 60.0)
 
