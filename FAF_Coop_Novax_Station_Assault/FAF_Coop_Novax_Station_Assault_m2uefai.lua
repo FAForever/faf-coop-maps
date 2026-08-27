@@ -569,7 +569,7 @@ function UEFM2IslandBaseNukeAI()
     local nuke = ArmyBrains[UEF]:GetListOfUnits(categories.NUKE * categories.STRATEGIC * categories.STRUCTURE * categories.TECH3, false)[1]
 
     if not nuke then
-        WANR('*speed2: UEFM2IslandBaseNukeAI: No Nuke found... Aborting.')
+        WARN('*speed2: UEFM2IslandBaseNukeAI: No Nuke found... Aborting.')
         return
     end
 
