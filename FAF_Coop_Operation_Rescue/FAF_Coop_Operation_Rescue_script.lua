@@ -7,23 +7,23 @@
 --**
 --****************************************************************************
 
-local Objectives = import('/lua/SimObjectives.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/simobjectives.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local TauntManager = import('/lua/TauntManager.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local OpStrings = import('/maps/FAF_Coop_Operation_Rescue/FAF_Coop_Operation_Rescue_strings.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local OpStrings = import('/maps/FAF_Coop_Operation_Rescue/FAF_Coop_Operation_Rescue_strings.lua')---@module "FAF_Coop_Operation_Rescue/FAF_Coop_Operation_Rescue_strings"
 
 ----------
 -- AI
 ----------
-local M1CivAI = import('/maps/FAF_Coop_Operation_Rescue/M1_UEF_Settlement_AI.lua')
-local M2CybranJammerAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_1_AI.lua')
-local M2CybranJammerAI_2 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_2_AI.lua')
-local M3CybranMainAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M3_Cybran_Base_1_AI.lua')
-local M3_Rescue_AI = import('/maps/FAF_Coop_Operation_Rescue/M3_Rescue_AI.lua')
+local M1CivAI = import('/maps/FAF_Coop_Operation_Rescue/M1_UEF_Settlement_AI.lua')---@module "FAF_Coop_Operation_Rescue/M1_UEF_Settlement_AI"
+local M2CybranJammerAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_1_AI.lua')---@module "FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_1_AI"
+local M2CybranJammerAI_2 = import('/maps/FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_2_AI.lua')---@module "FAF_Coop_Operation_Rescue/M2_Cybran_Jammer_2_AI"
+local M3CybranMainAI_1 = import('/maps/FAF_Coop_Operation_Rescue/M3_Cybran_Base_1_AI.lua')---@module "FAF_Coop_Operation_Rescue/M3_Cybran_Base_1_AI"
+local M3_Rescue_AI = import('/maps/FAF_Coop_Operation_Rescue/M3_Rescue_AI.lua')---@module "FAF_Coop_Operation_Rescue/M3_Rescue_AI"
 
 ----------
 -- Units and Teams
@@ -137,7 +137,7 @@ end
 
 function Intro_Mission_1()
     Cinematics.EnterNISMode()
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cutscene_01a'), 2)
+    Cinematics.CameraMoveToMarker('Cutscene_01a', 2)
     WaitSeconds(2)
     Cinematics.ExitNISMode()
 
@@ -544,7 +544,7 @@ function M3Trucks()
         'incomplete',                   -- complete
         'Defend Science Trucks',  -- title
         'The Cybran is trying to attack the trucks. Make sure he doesn\'t get close to the civilians. Ensure a safe evacuation for the trucks. \nAt least 6 trucks must survive.',  -- description
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             MarkArea = true,
             Area = 'LandingZone',
@@ -824,7 +824,7 @@ function M4_Cybran_Nuke_Function()
         while(searching) do
             WaitSeconds(5)
             for i = 0, 2 do
-                local num = table.getn(ArmyBrains[Cybran]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_Cybran_Nuke_Chain_' .. i), 30, 'enemy'))
+                local num = table.getn(ArmyBrains[Cybran]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_Cybran_Nuke_Chain_' .. i), 30, 'Enemy'))
                 if(num > 3) then
                     if(num > numUnits) then
                         numUnits = num
@@ -858,7 +858,7 @@ function M4_Gate_Built()
         'incomplete',                   -- complete
         'Leave Planet',  -- title
         'Use the newly constructed Quantum Gate to leave the planet.',  -- description
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = gates,
         }

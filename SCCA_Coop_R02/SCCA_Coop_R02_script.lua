@@ -62,18 +62,18 @@ ScenarioInfo.OperationEnding                = false
 ----------------------------------------------------------------------------- #
 -- === LOCAL VARIABLES ======================================================= #
 ----------------------------------------------------------------------------- #
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local OpStrings = import('/maps/SCCA_Coop_R02/SCCA_Coop_R02_strings.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local OpStrings = import('/maps/SCCA_Coop_R02/SCCA_Coop_R02_strings.lua')---@module "SCCA_Coop_R02/SCCA_Coop_R02_strings"
 local OpEditorFns = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua')
 local Utilities = import('/lua/utilities.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 local Objectives = ScenarioFramework.Objectives
-local EffectTemplate = import('/lua/EffectTemplates.lua')
+local EffectTemplate = import('/lua/effecttemplates.lua')
 
 local Player1 = ScenarioInfo.Player1
 local Player2 = ScenarioInfo.Player2
@@ -340,14 +340,14 @@ function StartMission1()
     SetArmyUnitCap(CybranJanus, 500)
 
     -- Player stuff
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
@@ -412,7 +412,7 @@ function MakeGroupsIntoPlatoon(brain, ...)
     while i <= arg['n'] do
         local group = ScenarioUtils.CreateArmyGroup(name, arg[i])
         for counter, unit in group do
-            brain:AssignUnitsToPlatoon(newPlatoon, {unit}, 'Attack', 'ChevronFormation')
+            brain:AssignUnitsToPlatoon(newPlatoon, {unit}, 'Attack', 'AttackFormation')
         end
         i = i + 1
     end
@@ -422,12 +422,12 @@ end
 
 function M1CreateUnits()
     -- Defeat all the units defending the NE temple
-    ScenarioInfo.NeTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_NE_Village_Defenders'), 'TravellingFormation')
+    ScenarioInfo.NeTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_NE_Village_Defenders'), 'GrowthFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1NEDefendersKilled, ScenarioInfo.NeTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(ScenarioInfo.NeTempleDefenders, ScenarioUtils.ChainToPositions('TempleNE_Route'))
 
     -- Defeat all the units defending the SE temple
-    local seTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_SE_Village_Defenders'), 'TravellingFormation')
+    local seTempleDefenders = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_SE_Village_Defenders'), 'GrowthFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1SEDefendersKilled, seTempleDefenders)
     ScenarioFramework.PlatoonPatrolRoute(seTempleDefenders, ScenarioUtils.ChainToPositions('TempleSE_Route'))
 
@@ -498,7 +498,7 @@ function M1AeonAirAttack()
         if ScenarioInfo.M1InitialAirAttackDead then
             m1AeonAir = MakeGroupsIntoPlatoon(ArmyBrains[Aeon], AdjustForDifficulty('M1_Aeon_AirAttack_Interceptors'), AdjustForDifficulty('M1_Aeon_AirAttack_Bombers'))
         else
-            m1AeonAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_AirAttack_Initial'), 'TravellingFormation')
+            m1AeonAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_AirAttack_Initial'), 'GrowthFormation')
         end
 
         RandomizeLocationsInPlatoon(m1AeonAir, 5)
@@ -543,10 +543,10 @@ function M1AeonNavalAttack()
             m1AeonNaval = ArmyBrains[Aeon]:MakePlatoon('', '')
 
             for counter, unit in frigates do
-                ArmyBrains[Aeon]:AssignUnitsToPlatoon(m1AeonNaval, {unit}, 'Attack', 'ChevronFormation')
+                ArmyBrains[Aeon]:AssignUnitsToPlatoon(m1AeonNaval, {unit}, 'Attack', 'AttackFormation')
             end
         else
-            m1AeonNaval = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_NavalAttack_Initial'), 'TravellingFormation')
+            m1AeonNaval = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M1_Aeon_NavalAttack_Initial'), 'GrowthFormation')
         end
 
         RandomizeLocationsInPlatoon(m1AeonNaval, 5)
@@ -581,7 +581,7 @@ function M1JanusLeaves()
     WaitSeconds(1.5)
 
     -- === M1P1. Clear Village of Aeon Units ================================ #
-    local m1JanusCDR = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M1_Janus', 'TravellingFormation')
+    local m1JanusCDR = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M1_Janus', 'GrowthFormation')
     local m1JanusCDRUnit = ScenarioInfo.UnitNames[CybranJanus]['M1_Janus_Commander']
     m1JanusCDRUnit:SetCustomName(LOC '{i CDR_Mach}')
     m1JanusCDRUnit:CreateEnhancement('Teleporter')
@@ -603,7 +603,7 @@ function M1JanusLeaves()
         'incomplete',
         OpStrings.M1P1Title,
         OpStrings.M1P1Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Units = objUnits,
             MarkUnits = true,
@@ -702,7 +702,7 @@ function M1P6Assign(tech)
         ScenarioInfo.M1P6_Assigned = true
         ScenarioInfo.M1P6 = Objectives.Basic(
             'primary', 'incomplete', OpStrings.M1P6Title, OpStrings.M1P6Description,
-            Objectives.GetActionIcon('protect'),
+            Objectives.GetActionIcon('Protect'),
             {
                 Units = {tech},
                 -- MarkUnits = true,
@@ -763,7 +763,7 @@ function M1P2Activate()
     -- === M1P2. Destroy Temple to Find Tech ========================================= #
     ScenarioInfo.M1P2 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Units = {ScenarioInfo.CivilianTempleNE},
             MarkUnits = true,
@@ -839,7 +839,7 @@ end
 function M1P3Assign()
     ScenarioInfo.M1P3 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description,
-        Objectives.GetActionIcon('locate'),
+        Objectives.GetActionIcon('Locate'),
         {
             Units = ScenarioInfo.M1_TempleCombinedTable,
             MarkUnits = true,
@@ -850,7 +850,7 @@ end
 function M1P4Assign(objArea)
     ScenarioInfo.M1P4 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Area = objArea,
             ShowFaction = 'Aeon',
@@ -988,7 +988,7 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     if ScenarioInfo.M1TechsPickedUp == 1 then
         ScenarioInfo.M1P7 = Objectives.Basic(
             'primary', 'incomplete', OpStrings.M1P7Title, OpStrings.M1P7Description,
-            Objectives.GetActionIcon('protect'),
+            Objectives.GetActionIcon('Protect'),
             {
                 Units = {Tech},
                 MarkUnits = true,
@@ -1076,7 +1076,7 @@ function M1JanusTechPickupStart(PickupPoint, TechSpot, Tech, DelayTime)
     end
 
     local pickupUnits = { engineer, transport, ScenarioInfo.CapturedTech }
-    ArmyBrains[CybranJanus]:AssignUnitsToPlatoon(pickupPlatoon, pickupUnits, 'Scout', 'ChevronFormation')
+    ArmyBrains[CybranJanus]:AssignUnitsToPlatoon(pickupPlatoon, pickupUnits, 'Scout', 'AttackFormation')
 
     ScenarioInfo.M1TechsPickedUp = ScenarioInfo.M1TechsPickedUp + 1
 
@@ -1241,11 +1241,11 @@ end
 
 function M1_AdditionalAirResponseThread()
     -- Send some air to the player base area. 1 group, + 1 more per difficulty
-    local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
+    local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(airPlatoon, 'PlayerBase_Area_PatrolChain')
     WaitSeconds(1)
     for i = 1, ScenarioInfo.Difficulty do
-        local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'ChevronFormation')
+        local airPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_EarlyAirResponse', 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(airPlatoon, 'PlayerBase_Area_PatrolChain')
         WaitSeconds(1)
     end
@@ -1294,7 +1294,7 @@ function M1SpawnSecondTechDefense()
         -- Send a small transport force to the players base, as an indication of attacks to come.
         for i = 1, ScenarioInfo.Difficulty do
             local xportAttackers = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M1_FirstTempResponse_Land', 'AttackFormation')
-            local xportTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M1_FirstTempResponse_Trans', 'ChevronFormation')
+            local xportTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M1_FirstTempResponse_Trans', 'AttackFormation')
             ForkThread(TransportLandAttack,xportTransports, xportAttackers, i)
         end
 
@@ -1331,12 +1331,12 @@ function M1SpawnSecondTechDefense()
 
             for secondCounter, unit in landGroup do
                 Warp(unit, {loc[1], loc[2], loc[3]})
-                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Attack', 'ChevronFormation')
+                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Attack', 'AttackFormation')
             end
 
             for thirdCounter, unit in transportGroup do
                 Warp(unit, {loc[1] + (Random(-50,50) / 10), loc[2], loc[3] - (Random(-50,50) / 10)})
-                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Support', 'ChevronFormation')
+                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Support', 'AttackFormation')
             end
 
             local airGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M1_Tech2_Defense_Air'))
@@ -1345,7 +1345,7 @@ function M1SpawnSecondTechDefense()
 
             for counter, unit in airGroup do
                 Warp(unit, {loc[1] + (Random(-50,50) / 10), loc[2], loc[3] - (Random(-50,50) / 10)})
-                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Scout', 'ChevronFormation')
+                ArmyBrains[Aeon]:AssignUnitsToPlatoon(secondTechDefensePlatoon, {unit}, 'Scout', 'AttackFormation')
 
                 -- Sticking this IssueGuard here so the air units will stick by the rest of their platoon
                 IssueGuard({unit}, landGroup[1])
@@ -1450,7 +1450,7 @@ function M1JanusPicksUpSecondTechAtNE()
     -- === M1P4. Defeat Aeon Defense Force ===================================== #
         ScenarioInfo.M1P4 = Objectives.Basic(
             'primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description,
-            Objectives.GetActionIcon('kill'),
+            Objectives.GetActionIcon('Kill'),
             {
                 ShowFaction = 'Aeon',
                 -- Units = {},
@@ -1499,7 +1499,7 @@ function M1SpawnSecondTechResponse()
     -- === M1P5. Defeat Aeon Assault =========================================== #
     ScenarioInfo.M1P5 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M1P5Title, OpStrings.M1P5Description,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Area = 'M1_Defend_Area',
             ShowFaction = 'Aeon',
@@ -1516,7 +1516,7 @@ function M1SpawnSecondTechResponse()
 
     for counter, unit in aeonRemainingUnits do
         IssueClearCommands({unit})
-        ArmyBrains[Aeon]:AssignUnitsToPlatoon(remainderPlatoon, {unit}, 'Attack', 'TravellingFormation')
+        ArmyBrains[Aeon]:AssignUnitsToPlatoon(remainderPlatoon, {unit}, 'Attack', 'GrowthFormation')
     end
 
     ScenarioFramework.CreatePlatoonDeathTrigger(M1FinalAssaultRemainderCounter, remainderPlatoon)
@@ -1528,7 +1528,7 @@ function M1SpawnSecondTechResponse()
     local position = nil
 
     while navalCounter > 0 do
-        local navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Final_Assault_Naval', 'TravellingFormation')
+        local navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Final_Assault_Naval', 'GrowthFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(M1FinalAssaultNavalDeathCounter, navalPlatoon)
 
         for teleportCounter, unit in navalPlatoon:GetPlatoonUnits() do
@@ -1731,10 +1731,10 @@ function StartMission2()
     M2GiveTech()
 
     -- === M2P1. Defeat Eastern Aeon Base and Recover Its Tech ================================ #
-    -- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, Objectives.GetActionIcon('kill'))
+    -- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description, Objectives.GetActionIcon('Kill'))
     ScenarioInfo.M2P1 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M2P1Title, OpStrings.M2P1Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             ShowFaction = 'Aeon',
             Area = 'M2_Aeon_Land_Base_Area',
@@ -1746,7 +1746,7 @@ function StartMission2()
     -- === M2P2. Defeat Southern Aeon Base  =================================================== #
     ScenarioInfo.M2P2 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M2P2Title, OpStrings.M2P2Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             ShowFaction = 'Aeon',
             Area = 'M2_Aeon_Naval_Base_Area',
@@ -1834,7 +1834,7 @@ function M2AeonOffscreenNavalAssault()
 
         while navalPlatoonCounter > 0 do
             navalPlatoonCounter = navalPlatoonCounter - 1
-            navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Offscreen_Naval', 'TravellingFormation')
+            navalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_Offscreen_Naval', 'GrowthFormation')
             navalPlatoon.PlatoonData.Location = ScenarioUtils.MarkerToPosition('Initial_Player_Pos')
             navalPlatoon:ForkAIThread(ScenarioPlatoonAI.PlatoonAttackLocation)
             WaitSeconds(10)
@@ -1852,7 +1852,7 @@ function M2GiveTech()
 end
 
 function M2AeonPatrols()
-    local mobileAAPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_Mobile_AA'), 'TravellingFormation')
+    local mobileAAPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_Mobile_AA'), 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolRoute(mobileAAPlatoon, ScenarioUtils.ChainToPositions('M2_Aeon_Naval_Base_MobileAA_Route'))
 
     local frigateGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', AdjustForDifficulty('M2_Naval_Base_Frigates'), 'NoFormation')
@@ -1957,7 +1957,7 @@ function M2OffscreenLaunchAttack()
         attackGrid = ScenarioUtils.ChainToPositions('M3_Attack_Grid')
     end
 
-    ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation(ArmyBrains[Aeon], ArmyBrains[Player1], 'enemy', attackGrid, 64)
+    ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation(ArmyBrains[Aeon], ArmyBrains[Player1], 'Enemy', attackGrid, 64)
     ScenarioInfo.M2OffscreenAirPlatoon.PlatoonData.Location = ScenarioInfo.M2OffscreenLandPlatoon.PlatoonData.Location
 
     -- ScenarioFramework.CreateTimerTrigger(M2OffscreenPrepareForAttack, M2AeonOffscreenAttackRepeatDelay) #Doesnt actually do anything
@@ -2016,7 +2016,7 @@ function M2TempleDestroyed()
 
     ScenarioInfo.M2P3 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M2P3Title, OpStrings.M2P3Description,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = {ScenarioInfo.M2Tech},
             MarkUnits = true,
@@ -2159,7 +2159,7 @@ function M3CreateUnits()
     ScenarioUtils.CreateArmyGroup('CybranJanus', 'M3_Janus_Other_Walls')
     ScenarioUtils.CreateArmyGroup('CybranJanus', 'M3_Janus_Economy_Zone')
 
-    local leftDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Left_Defenses', 'TravellingFormation')
+    local leftDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Left_Defenses', 'GrowthFormation')
 
     for counter, unit in leftDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
@@ -2170,7 +2170,7 @@ function M3CreateUnits()
     leftEngineer.PlatoonData.MaintainBaseTemplate = 'M3_Janus_NorthDefense_Left_Defenses'
     leftEngineer:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    local centerDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Center_Defenses', 'TravellingFormation')
+    local centerDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Center_Defenses', 'GrowthFormation')
 
     for counter, unit in centerDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
@@ -2181,7 +2181,7 @@ function M3CreateUnits()
     centerEngineer.PlatoonData.MaintainBaseTemplate = 'M3_Janus_NorthDefense_Center_Defenses'
     centerEngineer:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
 
-    local rightDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Right_Defenses', 'TravellingFormation')
+    local rightDefenses = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_NorthDefense_Right_Defenses', 'GrowthFormation')
 
     for counter, unit in rightDefenses:GetPlatoonUnits() do
         ScenarioInfo.M3JanusNorthDefensesCount = ScenarioInfo.M3JanusNorthDefensesCount + 1
@@ -2199,12 +2199,13 @@ end
 
 function M3JanusScouting()
     local janusScouts = nil
+    local aeonScouts = nil
     local counter = 0
 
     while counter < 5 do
         if not ScenarioInfo.JanusDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime))
-            janusScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_Scouts', 'ChevronFormation')
+            janusScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('CybranJanus', 'M3_Janus_Scouts', 'AttackFormation')
             janusScouts.PlatoonData.PatrolChain = 'M3_Janus_Attack_Points'
             janusScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2214,7 +2215,7 @@ function M3JanusScouting()
     while counter < 20 do
         if not ScenarioInfo.JanusDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime) + Random(120, 240))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'AttackFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2229,7 +2230,7 @@ function M3AeonScouting()
     while counter < 4 do
         if not ScenarioInfo.AeonCDRDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'AttackFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2239,7 +2240,7 @@ function M3AeonScouting()
     while counter < 20 do
         if not ScenarioInfo.AeonCDRDead then
             WaitSeconds(Random(M3ScoutDelayTime / 2, M3ScoutDelayTime) + Random(120, 240))
-            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'ChevronFormation')
+            aeonScouts = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Aeon_Scouts', 'AttackFormation')
             aeonScouts.PlatoonData.PatrolChain = 'M3_Aeon_Attack_Points'
             aeonScouts:ForkAIThread(ScenarioPlatoonAI.RandomPatrolThread)
         end
@@ -2324,7 +2325,7 @@ function M3P1Complete()
     -- === M3P2. Move Your Commander to the Gate ============================================== #
     ScenarioInfo.M3P2 = Objectives.Basic(
         'primary', 'incomplete', OpStrings.M3P2Title, OpStrings.M3P2Description,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Units = {ScenarioInfo.M3Gate},
             MarkUnits = true,
@@ -2386,7 +2387,7 @@ function M3AeonCDRAttacksJanus()
 
     IssueClearCommands({ScenarioInfo.AeonCDR})
 -- IssuePatrol({ScenarioInfo.AeonCDR}, janusCDRPosition)
--- ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {ScenarioInfo.AeonCDR}, 'Attack', 'TravellingFormation')
+-- ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {ScenarioInfo.AeonCDR}, 'Attack', 'GrowthFormation')
 
     local aeonCDRMoves = IssueMove({ScenarioInfo.AeonCDR}, ScenarioUtils.MarkerToPosition('M3_Aeon_CDR_Destination'))
     ForkThread(M3AeonCDRArrivesAtBase, aeonCDRMoves, janusCDRPosition)
@@ -2395,7 +2396,7 @@ function M3AeonCDRAttacksJanus()
         if(unit:GetAIBrain() == ArmyBrains[Aeon]) then
             if EntityCategoryContains(categories.MOBILE, unit) and not EntityCategoryContains(aeonUnitsExcluded, unit) then
                 IssueClearCommands({unit})
-                ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {unit}, 'Attack', 'TravellingFormation')
+                ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {unit}, 'Attack', 'GrowthFormation')
             end
         end
     end
@@ -2403,7 +2404,7 @@ function M3AeonCDRAttacksJanus()
     for secondCounter, unit in aeonAirUnits do
         if not EntityCategoryContains(aeonUnitsExcluded, unit) then
             IssueClearCommands({unit})
-            ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {unit}, 'Attack', 'TravellingFormation')
+            ArmyBrains[Aeon]:AssignUnitsToPlatoon(ScenarioInfo.M3AeonCDRPlatoon, {unit}, 'Attack', 'GrowthFormation')
         end
     end
 

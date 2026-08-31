@@ -17,7 +17,8 @@ local UEFM5IslandBase = BaseManager.CreateBaseManager()
 -- UEF M5 Island Base
 ---------------------
 function UEFM5IslandBaseAI()
-    UEFM5IslandBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M5_UEF_Island_Base', 'M5_UEF_Island_Base_Marker', 100, {M5_UEF_Island_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM5IslandBase:InitializeDifficultyTables(aiBrain, 'M5_UEF_Island_Base', 'M5_UEF_Island_Base_Marker', 100, {M5_UEF_Island_Base = 100})
     UEFM5IslandBase:StartNonZeroBase({{24, 20, 16}, {21, 17, 14}})
     -- UEFM5IslandBase:SetActive('AirScouting', true)
     -- UEFM5IslandBase:SetSupportACUCount(1)
@@ -269,7 +270,7 @@ function EscapeTransportBuilder()
     })
     opai:SetChildQuantity('T2Transports', 1)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 1, categories.uea0104})
+        'HaveLessThanUnitsWithCategory', {1, categories.uea0104})
 end
 
 function DisbandSACUPlatoon()

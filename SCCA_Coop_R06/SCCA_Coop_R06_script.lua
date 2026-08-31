@@ -6,20 +6,20 @@
 --
 -- 	Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -------------------------------------------------------------------------------
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_strings.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Weather = import('/lua/weather.lua')
-local M1AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M1AeonAI.lua')
-local M3AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M3AeonAI.lua')
-local M2UEFAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M2UEFAI.lua')
-local M3UEFAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M3UEFAI.lua')
-local M1CybranAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M1CybranAI.lua')
-local CustomFunctions = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_CustomFunctions.lua')
+local M1AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M1AeonAI.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_M1AeonAI"
+local M3AeonAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M3AeonAI.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_M3AeonAI"
+local M2UEFAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M2UEFAI.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_M2UEFAI"
+local M3UEFAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M3UEFAI.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_M3UEFAI"
+local M1CybranAI = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_M1CybranAI.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_M1CybranAI"
+local CustomFunctions = import('/maps/SCCA_Coop_R06/SCCA_Coop_R06_CustomFunctions.lua')---@module "SCCA_Coop_R06/SCCA_Coop_R06_CustomFunctions"
 
-local Buff = import('/lua/sim/Buff.lua')
+local Buff = import('/lua/sim/buff.lua')
 
 -- Globals
 ScenarioInfo.Player1 = 1
@@ -199,7 +199,7 @@ function SpawnPlayer()
 	local landPatrol2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'LandPatrol2', 'AttackFormation')
 	ScenarioFramework.PlatoonPatrolChain(landPatrol2, 'Player_Land_Patrol_Chain')
 	
-	local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'AirPatrol', 'ChevronFormation')
+	local airPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'AirPatrol', 'AttackFormation')
 	ScenarioFramework.PlatoonPatrolChain(airPatrol, 'Player_Base_Patrol_Chain')
 end
 
@@ -247,11 +247,11 @@ function SpawnAeon()
 	
 	-- Aeon Commander
 		-- This one spawns with enhancements
-	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed, {'Shield', 'ShieldHeavy', 'HeatSink', 'CrysalisBeam'})
+	ScenarioInfo.ArnoldCRD = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), false, ArnoldDestroyed, {'Shield', 'ShieldHeavy', 'HeatSink', 'CrysalisBeam'})
 		--This one doesn't spawn with enhancements
-	-- ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), nil, ArnoldDestroyed)
-	ScenarioInfo.Arnold:SetAutoOvercharge(true)
-	ScenarioInfo.Arnold:SetVeterancy(5)
+	-- ScenarioInfo.ArnoldCRD = ScenarioFramework.SpawnCommander('Aeon', 'Arnold', nil, LOC('{i CDR_Arnold}'), nil, ArnoldDestroyed)
+	ScenarioInfo.ArnoldCRD:SetAutoOvercharge(true)
+	ScenarioInfo.ArnoldCRD:SetVeterancy(5)
 	
 	-- Single Galactic Colossus
     ScenarioInfo.Colossus = ScenarioUtils.CreateArmyUnit('Aeon', 'M2_GC_1')
@@ -411,7 +411,7 @@ function StartMission1()
         'incomplete',                       -- complete
         OpStrings.OpC06_M1P1_Title,         -- title
         OpStrings.OpC06_M1P1_Desc,          -- description
-        Objectives.GetActionIcon('kill'),   -- action
+        Objectives.GetActionIcon('Kill'),   -- action
         {                                   -- target
             -- Category = categories.uaa0310,
         }
@@ -621,7 +621,7 @@ function CzarDefeated()
         ScenarioFramework.OperationNISCamera(ScenarioInfo.Czar, camInfo)
     end
 
-    if(not ScenarioInfo.Arnold.Dead) then
+    if(not ScenarioInfo.ArnoldCRD.Dead) then
         ScenarioFramework.Dialogue(OpStrings.C06_M01_100)
         ScenarioFramework.Dialogue(OpStrings.C06_M01_110, IntroMission2)
     else
@@ -771,7 +771,7 @@ function GateBuilt()
         'incomplete',                       -- complete
         OpStrings.OpC06_M2P2_Title,         -- title
         OpStrings.OpC06_M2P2_Desc,          -- description
-        Objectives.GetActionIcon('timer'),  -- action
+        Objectives.GetActionIcon('Timer'),  -- action
         {                                   -- target
             Units = gates,
         }
@@ -852,7 +852,7 @@ function DownloadFinished()
 					ScenarioInfo.ControlCenter:SetReclaimable(false)
 					ScenarioInfo.ControlCenter.CanBeKilled = false
 					ScenarioInfo.ControlCenter:SetCapturable(false)
-					ScenarioInfo.ControlCenter:SetCanBeGiven(false)
+					ScenarioInfo.ControlCenter.CanBeGiven = false
                 ScenarioFramework.PauseUnitDeath(ScenarioInfo.ControlCenter)
                 ScenarioFramework.CreateUnitDestroyedTrigger(PlayerLose, ScenarioInfo.ControlCenter)
 
@@ -1007,7 +1007,7 @@ function IntroMission3()
 	-------------------
     -- Atlantis Assault
 	-------------------
-    ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. Difficulty, 'StaggeredChevronFormation')
+    ScenarioInfo.AtlantisPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M3AtlantisPlanes_D' .. Difficulty, 'AttackFormation')
     ScenarioInfo.Atlantis = ScenarioUtils.CreateArmyUnit('UEF', 'Atlantis')
 	
     IssueTransportLoad(ScenarioInfo.AtlantisPlanes:GetPlatoonUnits(), ScenarioInfo.Atlantis)
@@ -1068,7 +1068,7 @@ function StartMission3()
                     'incomplete',                       -- complete
                     OpStrings.OpC06_M3P2_Title,         -- title
                     OpStrings.OpC06_M3P2_Desc,          -- description
-                    Objectives.GetActionIcon('kill'),   -- action
+                    Objectives.GetActionIcon('Kill'),   -- action
                     {                                   -- target
                         Units = unit,
                     }
@@ -1080,7 +1080,7 @@ function StartMission3()
                 unit[1]:SetReclaimable(false)
                 unit[1]:SetCapturable(false)
                 unit[1]:SetDoNotTarget(true)
-				unit[1]:SetCanBeGiven(false)
+				unit[1].CanBeGiven = false
 
                 ScenarioFramework.Dialogue(OpStrings.C06_M03_060)
 
@@ -1164,7 +1164,7 @@ end
 
 function ArnoldDestroyed()
     ScenarioFramework.Dialogue(OpStrings.C06_M03_055)
-    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Arnold, 7)
+    ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.ArnoldCRD, 7)
 end
 
 function BlakeDestroyed()
@@ -1206,7 +1206,7 @@ end
 
 function Taunt()
     -- Terminate if all 3 enemy ACUs are destroyed
-	if ScenarioInfo.Aiko.Dead and ScenarioInfo.Arnold.Dead and ScenarioInfo.Blake.Dead then
+	if ScenarioInfo.Aiko.Dead and ScenarioInfo.ArnoldCRD.Dead and ScenarioInfo.Blake.Dead then
 		return
 	end
     local choice = Random(0, 2)
@@ -1235,7 +1235,7 @@ function PlayAikoTaunt()
 end
 
 function PlayArnoldTaunt()
-	if ScenarioInfo.Arnold and not ScenarioInfo.Arnold.Dead then
+	if ScenarioInfo.ArnoldCRD and not ScenarioInfo.ArnoldCRD.Dead then
 		ScenarioFramework.Dialogue(OpStrings['TAUNT' .. arnoldTaunt])
 		-- Start over with the taunts if needed
 		if arnoldTaunt >= 16 then

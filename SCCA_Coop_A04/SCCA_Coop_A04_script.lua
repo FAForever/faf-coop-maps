@@ -7,14 +7,14 @@
 -- **
 -- **  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local M1CybranAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m1cybranai.lua')
-local M1NexusAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m1nexusai.lua')
-local M2CybranAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m2cybranai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_Strings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local M1CybranAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m1cybranai.lua')---@module "SCCA_Coop_A04/SCCA_Coop_A04_m1cybranai"
+local M1NexusAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m1nexusai.lua')---@module "SCCA_Coop_A04/SCCA_Coop_A04_m1nexusai"
+local M2CybranAI = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_m2cybranai.lua')---@module "SCCA_Coop_A04/SCCA_Coop_A04_m2cybranai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/SCCA_Coop_A04/SCCA_Coop_A04_Strings.lua')---@module "SCCA_Coop_A04/SCCA_Coop_A04_Strings"
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 
 ----------
 -- Globals
@@ -904,7 +904,7 @@ function M2RevealCaptureNodes()
         'incomplete',
         OpStrings.M2P2Title,
         OpStrings.M2P2Description,
-        Objectives.GetActionIcon('capture'),
+        Objectives.GetActionIcon('Capture'),
         {
             Units = { ScenarioInfo.NWNode, ScenarioInfo.SENode },
             MarkUnits = true,

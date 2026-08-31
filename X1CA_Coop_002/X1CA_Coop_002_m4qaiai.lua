@@ -8,7 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
 --------
@@ -31,7 +31,8 @@ function QAIM4MainBaseAI()
     ------------------
     -- QAI M4 Main Base
     ------------------
-    QAIM4MainBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M4_Main_Base', 'QAI_M4_Main_Base_Marker', 80, {M4_Main_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM4MainBase:InitializeDifficultyTables(aiBrain, 'M4_Main_Base', 'QAI_M4_Main_Base_Marker', 80, {M4_Main_Base = 100})
     QAIM4MainBase:StartNonZeroBase({{5, 9, 13}, {4, 7, 10}})
     QAIM4MainBase:SetActive('AirScouting', true)
     QAIM4MainBase:SetActive('LandScouting', true)
@@ -125,7 +126,7 @@ function QAIM4MainBaseAirAttacks()
         opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 5, 10, 15 [air superiority] if player has >= 60, 40, 40 mobile air
     quantity = {5, 10, 15}
@@ -141,7 +142,7 @@ function QAIM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 5, 10, 15 [air superiority] if player has >= 50, 30, 30 gunships
     quantity = {5, 10, 15}
@@ -157,7 +158,7 @@ function QAIM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 4, 10, 14 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {4, 10, 14}
@@ -173,7 +174,7 @@ function QAIM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 5, 10, 15 [air superiority] if player has >= 1 strat bomber
     quantity = {5, 10, 15}
@@ -188,7 +189,7 @@ function QAIM4MainBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
+        {{'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 10, 20, 24 [bombers, gunships] if player has >= 450, 400, 300 units, ([heavy gunships] on hard)
     quantity = {10, 20, 24}
@@ -208,7 +209,7 @@ function QAIM4MainBaseAirAttacks()
         opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Air Defense
     for i = 1, 2 do
@@ -227,8 +228,10 @@ end
 
 function QAIM4MainBaseLandAttacks()
     local opai = nil
-    local quantity = nil
-    local trigger = nil
+    local quantity = {}
+    local trigger = {}
+    quantity = nil
+    trigger = nil
 
     --------------------------------------
     -- QAI M4 Main Base Op AI, Land Attacks
@@ -296,7 +299,7 @@ function QAIM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileShields'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 4, 6, 8 [mobile flak, mobile shields] if player has >= 50, 30, 30 gunships
     quantity = {4, 6, 8}
@@ -312,7 +315,7 @@ function QAIM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileShields'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 6, 10, 20 [siege bots, heavy bots] if player has >= 60, 40, 20 T3 units
     quantity = {6, 10, 20}
@@ -328,7 +331,7 @@ function QAIM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity({'SiegeBots', 'HeavyBots'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 1, 2, 2 [mobile flak] if player has >= 1 strat bomber
     quantity = {1, 2, 2}
@@ -346,7 +349,7 @@ function QAIM4MainBaseLandAttacks()
     opai:SetChildCount(quantity[Difficulty])
     opai:KeepChildren('MobileFlak')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
+        {{'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 6, 9, 21 [mobile heavy artillery, mobile missiles, light artillery] if player has >= 450, 400, 350 units
     quantity = {6, 9, 21}
@@ -362,7 +365,7 @@ function QAIM4MainBaseLandAttacks()
     )
     opai:SetChildQuantity({'MobileHeavyArtillery', 'MobileMissiles', 'LightArtillery'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Land Defense
     -- Maintains 4, 8, 12 Heavy Tanks
@@ -447,7 +450,8 @@ function QAIM4NavalBaseAI()
     -------------------
     -- QAI M4 Naval Base
     -------------------
-    QAIM4NavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M4_Naval_Base', 'QAI_M4_Naval_Marker', 80, {M4_Naval_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM4NavalBase:InitializeDifficultyTables(aiBrain, 'M4_Naval_Base', 'QAI_M4_Naval_Marker', 80, {M4_Naval_Base = 100})
     QAIM4NavalBase:StartNonZeroBase({{4, 7, 10}, {4, 6, 8}})
     QAIM4NavalBase:SetBuild('Defenses', false)
 
@@ -456,6 +460,8 @@ end
 
 function QAIM4NavalBaseNavalAttacks()
     local opai = nil
+    local quantity = {}
+    local trigger = {}
 
     ----------------------------------------
     -- QAI M4 Naval Base Op AI, Naval Attacks
@@ -496,7 +502,7 @@ function QAIM4NavalBaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
 
     -- sends mix of T2/T1 if player has >= 9, 7, 5 T2 boats
     quantity = {18, 24, 29}
@@ -514,7 +520,7 @@ function QAIM4NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends battleship with light escort if player has >= 2, 2, 1 T3/T4 boats
     trigger = {2, 2, 1}
@@ -536,7 +542,7 @@ function QAIM4NavalBaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
 
     -- sends 2 battleships with escort if player has >= 3 T3/T4 boats on Medium/High difficulty
     if Difficulty > 1 then
@@ -559,7 +565,7 @@ function QAIM4NavalBaseNavalAttacks()
         opai:SetChildActive('T1', false)
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+            {{'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     end
 end
 
@@ -568,7 +574,8 @@ function QAIM4NorthBaseAI()
     -------------------
     -- QAI M4 North Base
     -------------------
-    QAIM4NorthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_North_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM4NorthBase:Initialize(aiBrain, 'QAI_M4_North_Base', 'QAI_M4_North_Base', 40, {M4_North_Base = 100})
     QAIM4NorthBase:StartNonZeroBase()
 
     QAIM4NorthBaseLandAttacks()
@@ -602,7 +609,8 @@ function QAIM4CenterBaseAI()
     --------------------
     -- QAI M4 Center Base
     --------------------
-    QAIM4CenterBase:Initialize(ArmyBrains[QAI], 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_Middle_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM4CenterBase:Initialize(aiBrain, 'QAI_M4_Middle_Base', 'QAI_M4_Middle_Base', 40, {M4_Middle_Base = 100})
     QAIM4CenterBase:StartNonZeroBase()
 
     QAIM4CenterBaseAirAttacks()
@@ -658,7 +666,8 @@ function QAIM4SouthBaseAI()
     -------------------
     -- QAI M4 South Base
     -------------------
-    QAIM4SouthBase:Initialize(ArmyBrains[QAI], 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_South_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM4SouthBase:Initialize(aiBrain, 'QAI_M4_South_Base', 'QAI_M3_South_Base', 40, {M4_South_Base = 100})
     QAIM4SouthBase:StartNonZeroBase()
 
     QAIM4SouthBaseAirAttacks()
@@ -733,6 +742,10 @@ end
 function QAISpiderThread()
     local brain = ArmyBrains[QAI]
     local platoon = brain:GetPlatoonUniquelyNamed('SpiderBots')
+    if not platoon then
+        error("QAISpiderThread: unique platoon not found")
+    end
+
     local data = platoon.PlatoonData
 
     while brain:PlatoonExists(platoon) do

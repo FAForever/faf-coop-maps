@@ -16,7 +16,8 @@ local UEFM1Base = BaseManager.CreateBaseManager()
 -- UEF M1 Base
 --------------
 function UEFM1BaseAI()
-    UEFM1Base:InitializeDifficultyTables(ArmyBrains[UEF], 'M1_UEF_Base', 'M1_UEF_Base_Marker', 80, {M1_UEF_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM1Base:InitializeDifficultyTables(aiBrain, 'M1_UEF_Base', 'M1_UEF_Base_Marker', 80, {M1_UEF_Base = 100})
     UEFM1Base:StartNonZeroBase({{10, 15, 20}, {9, 13, 17}})
     UEFM1Base:SetActive('AirScouting', true)
 
@@ -25,15 +26,14 @@ function UEFM1BaseAI()
 end
 
 function UEFM1BaseAirAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     local DefaultPatrolChains = {
         'M1_UEF_Naval_Attack_East_Chain',
         'M1_UEF_Naval_Attack_Middle_Chain',
         'M1_UEF_Naval_Attack_West_Chain',
     }
-
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     -- Air Attacks
     quantity = {4, 6, 8}
@@ -59,9 +59,9 @@ function UEFM1BaseAirAttacks()
             Priority = 120,
         }
     )
-    opai:SetChildQuantity('interceptors', quantity[Difficulty])
+    opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
 
     quantity = {3, 3, 4}
     trigger = {15, 13, 9}
@@ -76,7 +76,7 @@ function UEFM1BaseAirAttacks()
     )
     opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
 
     quantity = {3, 3, 4}
     trigger = {19, 16, 14}
@@ -91,7 +91,7 @@ function UEFM1BaseAirAttacks()
     )
     opai:SetChildQuantity('CombatFighters', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
 
     quantity = {3, 3, 4}
     trigger = {9, 7, 5}
@@ -106,7 +106,7 @@ function UEFM1BaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.TECH2, '>='})
 
     -- Air Patrol
     quantity = {1, 2, 3}
@@ -141,15 +141,14 @@ function UEFM1BaseAirAttacks()
 end
 
 function UEFM1BaseNavalAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     local DefaultPatrolChains = {
         'M1_UEF_Naval_Attack_East_Chain',
         'M1_UEF_Naval_Attack_Middle_Chain',
         'M1_UEF_Naval_Attack_West_Chain',
     }
-
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     quantity = {4, 6, 8}
     opai = UEFM1Base:AddOpAI('NavalAttacks', 'M1_UEF_NavalAttack_1',
@@ -199,6 +198,6 @@ function UEFM1BaseNavalAttacks()
         opai:SetChildActive('T3', false)
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.TECH2, '>='})
     end
 end

@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings.lua')---@module "FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings"
 
 operationData = 
 {

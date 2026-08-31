@@ -54,15 +54,16 @@ function UEFMainBaseAI()
 	-----------
     -- UEF Base
     -----------
-    UEFMainBase:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Main_Base', 'UEFBase', 180,
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFMainBase:InitializeDifficultyTables(aiBrain, 'UEF_Main_Base', 'UEFBase', 180,
 		{
 		BaseStructuresPreBuilt = 450,
 		}
 	)
-	
+
 	UEFMainBase:StartNonZeroBase({8, 10, 12})
 	UEFMainBase:SetMaximumConstructionEngineers(12)
-	ArmyBrains[UEF]:PBMSetCheckInterval(7)
+	aiBrain:PBMSetCheckInterval(7)
 	UEFMainBase:SetDefaultEngineerPatrolChain('UEFBase_Chain')
 	UEFMainBase:SetConstructionAlwaysAssist(true)
 	
@@ -81,7 +82,8 @@ function UEFMainNavalBaseAI()
     ----------------------
     -- UEF Naval Expansion
     ----------------------
-    UEFNavalBase:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Main_Naval_Base', 'UEF_Main_Naval_Base_Marker', 105,
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFNavalBase:InitializeDifficultyTables(aiBrain, 'UEF_Main_Naval_Base', 'UEF_Main_Naval_Base_Marker', 105,
         {
 			Naval_Base = 150,
         }
@@ -94,7 +96,8 @@ end
 
 function UEFMainAirDefense()
     local opai = nil
-	local quantity = {4, 10, 18}	-- Air Factories = [4, 5, 6] depending on the Difficulty
+    local quantity = {}
+	quantity = {4, 10, 18}	-- Air Factories = [4, 5, 6] depending on the Difficulty
 	local ChildType = {'AirSuperiority', 'HeavyGunships', 'StratBombers', 'Gunships'}
 	
 	-- Maintains [4, 10, 18] units defined in ChildType
@@ -116,8 +119,9 @@ end
 
 function UEFMainAirAttacks()
     local opai = nil
-	local quantity = {}	-- Air Factories = [4, 5, 6] depending on the Difficulty
-	local trigger = {}
+    local quantity = {}
+    local trigger = {}
+	quantity = {}	-- Air Factories = [4, 5, 6] depending on the Difficulty
 	
 	-- UEF general air template
 	quantity = {4, 5, 6}
@@ -139,10 +143,11 @@ function UEFMainAirAttacks()
 		BuildConditions = {
 			{'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
 		},
-        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
+        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
-		
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
+
 	-- Sends [8, 20, 36] Gunships if players have >= 50, 40, 30 Mobile Land units
 	quantity = {4, 10, 18}
 	trigger = {50, 40, 30}
@@ -227,7 +232,8 @@ end
 
 function UEFMainLandAttacks()
     local opai = nil
-	local quantity = {3, 6, 9}
+    local quantity = {}
+	quantity = {3, 6, 9}
 	
 	local EngineerPlatoonTemplate = {
 		'UEF_Expansion_Engineer_Platoon_Template',
@@ -253,8 +259,9 @@ function UEFMainLandAttacks()
 			DisbandAfterArrival = true,
 		},
 	}
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
-	
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
+
 	-- UEF Main Naval Base Expansion Engineer platoon
 	Builder = {
         BuilderName = 'UEF_Main_Base_Naval_Expansion_Engineers',
@@ -274,8 +281,8 @@ function UEFMainLandAttacks()
 			DisbandAfterArrival = true,
 		},
 	}
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
-	
+    aiBrain:PBMAddPlatoon(Builder)
+
 	-- Sends random [T2] from Phase 2
 	for i = 1, Difficulty do
 		opai = UEFMainBase:AddOpAI('BasicLandAttack', 'M2_UEFMain_T2_LandAttack_' .. i,
@@ -318,7 +325,8 @@ function UEFMainNavalAttacks()
 	local T3Quantity = {1, 2, 3}
 	local T2Quantity = {2, 4, 6}
 	local T1Quantity = {3, 6, 9}
-	
+	local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+
 	-- Massive UEF Naval Fleet for attacking the players
 	local Temp = {
         'M3_UEF_Main_Naval_Attack_To_Player',
@@ -345,7 +353,7 @@ function UEFMainNavalAttacks()
             PatrolChain = 'M3_UEF_Main_Naval_Attack_Chain',
         },     
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Smaller UEF Naval Fleet for attacking Arnold
 	Temp = {
@@ -376,7 +384,7 @@ function UEFMainNavalAttacks()
 			},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Small UEF Naval Fleet for attacking the players during, and after part 2
 	Temp = {
@@ -405,7 +413,7 @@ function UEFMainNavalAttacks()
 			},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Atlantis attack for Phase 3
 	opai = UEFNavalBase:AddOpAI('M3_UEFMain_Atlantis',
@@ -427,7 +435,8 @@ end
 
 -- Fatboy factory platoon 1 for Phase 2
 function UEFMainFatboyFactory1()
-	local opai = UEFMainBase:AddOpAI('M2_Fatboy_Factory',
+    local opai = nil
+	opai = UEFMainBase:AddOpAI('M2_Fatboy_Factory',
         {
             Amount = 1,
             KeepAlive = true,
@@ -451,7 +460,8 @@ end
 
 -- Fatboy factory platoon 2 for Phase 2
 function UEFMainFatboyFactory2()
-	local opai = UEFMainBase:AddOpAI('M2_Fatboy_Factory',
+    local opai = nil
+	opai = UEFMainBase:AddOpAI('M2_Fatboy_Factory',
         {
             Amount = 1,
             KeepAlive = true,
@@ -476,7 +486,8 @@ end
 -- General Experimental attacks
 function UEFMainExperimentalAttacks()
     local opai = nil
-	local quantity = {2, 4, 6}
+    local quantity = {}
+	quantity = {2, 4, 6}
 	
 	-- Single Fatboy with advanced behaviour
 	opai = UEFMainBase:AddOpAI('M2_Fatboy_Factory',
@@ -538,7 +549,8 @@ function M3UEFSouthWesternBaseAI()
 	---------------------------
     -- Southern UEF Island Base
     ---------------------------
-    M3UEFSouthWesternBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_UEF_SouthWestern_Base', 'M3_UEF_SouthWestern_Base_Marker', 180,
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    M3UEFSouthWesternBase:InitializeDifficultyTables(aiBrain, 'M3_UEF_SouthWestern_Base', 'M3_UEF_SouthWestern_Base_Marker', 180,
 		{
 		M3_UEF_SouthWestern_Base = 450,
 		}
@@ -566,7 +578,8 @@ function M3UEFSouthWesternNavalAttacks()
 	local T3Quantity = {1, 2, 3}
 	local T2Quantity = {2, 4, 6}
 	local T1Quantity = {3, 6, 9}
-	
+	local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+
 	-- Big UEF Naval Fleet for attacking the players
 	local Temp = {
         'M3_UEF_SouthWestern_Naval_Attack_To_Player',
@@ -594,7 +607,7 @@ function M3UEFSouthWesternNavalAttacks()
             PatrolChain = 'M3_UEF_Southern_Naval_Attack_Chain',
         },     
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Smaller UEF Naval Fleet for attacking Arnold
 	Temp = {
@@ -625,12 +638,13 @@ function M3UEFSouthWesternNavalAttacks()
 			},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3UEFSouthWesternLandAttacks()
-	local opai = nil
-	local quantity = {4, 8, 12}
+    local opai = nil
+    local quantity = {}
+	quantity = {4, 8, 12}
 	
 	-- Sends [8, 16, 24] Amphibious Tanks to the highest threat
 	for i = 1, 2  do
@@ -646,9 +660,11 @@ function M3UEFSouthWesternLandAttacks()
 end
 
 function M3UEFSouthWesternTransportAttacks()
-	local opai = nil
-	local quantity = {2, 4, 6}
-	
+    local opai = nil
+    local quantity = {}
+	quantity = {2, 4, 6}
+	local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+
 	-- T2 Transport Platoon
 	-- The SW UEF base is the only one producing transport attacks, so we only need to check the amount of transports the army has
 	local Builder = {
@@ -668,7 +684,7 @@ function M3UEFSouthWesternTransportAttacks()
 		},
         PlatoonAIFunction = {SPAIFileName, 'TransportPool'},
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Sends random amounts of [T2]
 	for i = 1, Difficulty + 1 do
@@ -715,6 +731,7 @@ function M3UEFSouthWesternAirAttacks()
     local opai = nil
 	local quantity = {}
 	local trigger = {}
+	local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
 
 	-- UEF general air template
 	quantity = {2, 4, 6}
@@ -735,7 +752,7 @@ function M3UEFSouthWesternAirAttacks()
         LocationType = 'M3_UEF_SouthWestern_Base',
         PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
     }
-    ArmyBrains[UEF]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Sends [6, 12, 18] Gunships to the players
 	quantity = {6, 12, 18}
@@ -817,7 +834,8 @@ end
 
 function M3UEFSouthWesternAirDefense()
     local opai = nil
-	local quantity = {2, 4, 6}	-- Air Factories = [2, 4, 6] depending on the Difficulty
+    local quantity = {}
+	quantity = {2, 4, 6}	-- Air Factories = [2, 4, 6] depending on the Difficulty
 	local ChildType = {'AirSuperiority', 'HeavyGunships', 'StratBombers'}
 		
 	-- Maintains [2, 4, 6] units defined in ChildType
@@ -837,8 +855,9 @@ function M3UEFSouthWesternAirDefense()
 end
 
 function M3UEFSouthWesternExperimentalAttacks()
-	local opai = nil
-	local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+	quantity = {1, 1, 2}
 	
 	-- Atlantis attack
 	opai = M3UEFSouthWesternBase:AddOpAI('M3_UEF_SouthEastern_Atlantis',

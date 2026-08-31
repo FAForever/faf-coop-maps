@@ -3,18 +3,19 @@
 --
 -- Author: speed2
 ------------------------------------
-local AeonAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_AeonAI.lua')
-local CybranAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CybranAI.lua')
-local UEFAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_UEFAI.lua')
+
+local AeonAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_AeonAI.lua') ---@module "FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_AeonAI"
+local CybranAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CybranAI.lua') ---@module "FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CybranAI"
+local UEFAI = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_UEFAI.lua') ---@module "FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_UEFAI"
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CustomFunctions.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CustomFunctions.lua') ---@module "FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CustomFunctions"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_strings.lua') ---@module "FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local PingGroups = ScenarioFramework.PingGroups
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ----------
 -- Globals
@@ -108,7 +109,7 @@ function OnPopulate(scenario)
     -- Air
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Initial_Air', 'NoFormation')
     platoon:Patrol(ScenarioUtils.MarkerToPosition('M1_UEF_City_Base_Marker'))
-    platoon:Patrol(platoon:GetPlatoonPosition())
+    platoon:Patrol(platoon:GetPlatoonPosition()--[[@as Vector]])
 
     -- Land
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Initial_Land', 'NoFormation')
@@ -296,7 +297,8 @@ end
 
 function M1CybranBaseBuildingThread()
     CybranAI.M1CybranMainBaseAI()
-    ArmyBrains[Cybran]:PBMSetCheckInterval(5)
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(5)
 
     local function GiveStorageToPlayer()
         local units = ArmyBrains[Cybran]:GetListOfUnits(categories.urb1105, false)
@@ -547,7 +549,7 @@ function StartMission1()
         'incomplete',
         OpStrings.M1B1Title,
         OpStrings.M1B1escription,
-        Objectives.GetActionIcon('timer'),
+        Objectives.GetActionIcon('Timer'),
         {
             Hidden = true,
         }
@@ -1514,7 +1516,6 @@ end
 -- Debug Functions
 ------------------
 function OnCtrlF3()
-    ForkThread(CybranDropThread)
 end
 
 function OnShiftF3()

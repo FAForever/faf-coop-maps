@@ -8,11 +8,11 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
@@ -31,13 +31,14 @@ function M1RhizaBaseAI()
     ---------------
     -- M1 Rhiza Base
     ---------------
-    M1RhizaBase:InitializeDifficultyTables(ArmyBrains[Rhiza], 'M1_Rhiza_Base', 'Rhiza_M1_Base', 260, {M1_Rhiza_Base = 500})
+    local aiBrain = ArmyBrains[Rhiza]--[[@as CampaignAIBrain]]
+    M1RhizaBase:InitializeDifficultyTables(aiBrain, 'M1_Rhiza_Base', 'Rhiza_M1_Base', 260, {M1_Rhiza_Base = 500})
     M1RhizaBase:StartNonZeroBase({10, 8})
     M1RhizaBase:SetMaximumConstructionEngineers(5)
     M1RhizaBase:SetConstructionAlwaysAssist(true)
     M1RhizaBase:SetActive('AirScouting', true)
 
-    ArmyBrains[Rhiza]:PBMSetCheckInterval(4)
+    aiBrain:PBMSetCheckInterval(4)
 
     M1RhizaBaseLandAttacks()
     M1RhizaBaseAirAttacks()
@@ -91,11 +92,12 @@ function M1RhizaBaseLandAttacks()
         RequiresConstruction = true,
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Rhiza_Base'}},
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 10, categories.ual0309}},
+            { '/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {10, categories.ual0309}},
         },
         LocationType = 'M1_Rhiza_Base',
     }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( EngineerLandBuilder )
+    local aiBrain = ArmyBrains[Rhiza]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( EngineerLandBuilder )
 
     local template = {
         'AmphibiousLandTemp',
@@ -117,7 +119,7 @@ function M1RhizaBaseLandAttacks()
         },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     -- Defense
     for i = 1, 6 do
@@ -189,7 +191,8 @@ function M1RhizaBaseAirAttacks()
         },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'M1RhizaAirAttackAI'},
     }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
+    local aiBrain = ArmyBrains[Rhiza]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( builder )
 
     -- sends [air superiority, gunships, bombers] ( mission 3 )
     opai = M1RhizaBase:AddOpAI('AirAttacks', 'M3_AirAttacks1',
@@ -200,7 +203,7 @@ function M1RhizaBaseAirAttacks()
     )
     opai:SetChildQuantity({'AirSuperiority', 'Gunships', 'Bombers'}, 18)
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3})
 
     -- ##############
     -- Air Defense #
@@ -314,7 +317,7 @@ function M1RhizaBaseNavalAttacks()
             Priority = 105,
         }
     )
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack2',
         {
@@ -324,7 +327,7 @@ function M1RhizaBaseNavalAttacks()
             Priority = 105,
         }
     )
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M2_NavalAttack3' .. i,
@@ -336,7 +339,7 @@ function M1RhizaBaseNavalAttacks()
             }
         )
         opai:SetChildActive('T3', false)
-        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
     end
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
     for i = 1, 2 do
@@ -348,7 +351,7 @@ function M1RhizaBaseNavalAttacks()
                 Priority = 100,
             }
         )
-        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 3})
+        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3})
         opai:SetChildActive('T3', false)
     end
     ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ---- ----
@@ -377,7 +380,8 @@ function M1RhizaBaseNavalAttacks()
         },
         PlatoonAIFunction = {'/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua', 'RhizaNavalDEFENSEAI'},
     }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
+    local aiBrain = ArmyBrains[Rhiza]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'SubmarineDefenseTemp',
@@ -400,7 +404,7 @@ function M1RhizaBaseNavalAttacks()
             PatrolChain = 'M1_Rhiza_SubDef_Chain',
         },
     }
-    ArmyBrains[Rhiza]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     for i = 1, 2 do
         opai = M1RhizaBase:AddNavalAI('Rhiza_M1_NavalDefense_' .. i,
@@ -422,12 +426,12 @@ function M1RhizaBaseNavalAttacks()
             Priority = 120,
         }
     )
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
 
 end
 
 function M1RhizaAirAttackAI(platoon)
-    local moveNum = false
+    local moveNum
     while(ArmyBrains[Rhiza]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 1) then
             if(not moveNum) then
@@ -470,7 +474,7 @@ function M1RhizaAirAttackAI(platoon)
 end
 
 function M1RhizaNavalAttackAI(platoon)
-    local moveNum = false
+    local moveNum
     while(ArmyBrains[Rhiza]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 1) then
             if(not moveNum) then
@@ -511,7 +515,7 @@ function M1RhizaNavalAttackAI(platoon)
 end
 
 function RhizaNavalDEFENSEAI(platoon)
-    local moveNum = false
+    local moveNum
     while(ArmyBrains[Rhiza]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 1) then
             if(not moveNum) then
@@ -552,9 +556,8 @@ function RhizaNavalDEFENSEAI(platoon)
 end
 
 function RhizaExperimentals()
-    -- M1RhizaBase:SetEngineerCount({{20, 14, 9}, {16, 12, 8}})
-
     local opai = nil
+    -- M1RhizaBase:SetEngineerCount({{20, 14, 9}, {16, 12, 8}})
 
 
 
@@ -571,7 +574,7 @@ function RhizaExperimentals()
 end
 
 function Colossus1AI(platoon)
-    local moveNum = false
+    local moveNum
 
     while(ArmyBrains[Rhiza]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 2) then
@@ -602,7 +605,7 @@ function Colossus1AI(platoon)
 end
 
 function Colossus2AI(platoon)
-    local moveNum = false
+    local moveNum
 
     while(ArmyBrains[Rhiza]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 2) then
@@ -648,7 +651,7 @@ function M1RhizaTransports()
     opai:SetChildActive('All', false)
     opai:SetChildActive('T2Transports', true)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 2, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {2, categories.uaa0104})
 
 end
 

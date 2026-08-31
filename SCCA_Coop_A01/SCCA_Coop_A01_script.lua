@@ -8,16 +8,11 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local SimCamera = import('/lua/SimCamera.lua').SimCamera
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
 local Cinematics = import('/lua/cinematics.lua')
-local OpStrings   = import('/maps/SCCA_Coop_A01/SCCA_Coop_A01_Strings.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local Utilities = import('/lua/utilities.lua')
+local OpStrings   = import('/maps/SCCA_Coop_A01/SCCA_Coop_A01_Strings.lua')---@module "SCCA_Coop_A01/SCCA_Coop_A01_Strings"
 
 ---------
 -- Globals
@@ -284,14 +279,14 @@ function CreateCommander()
 
     WaitSeconds(1)
     -- Player Commander
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_Commander')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_Commander')
@@ -757,8 +752,8 @@ function M6_ResourceBaseUnits()
     ScenarioUtils.CreateArmyGroup('UEF', 'M6_UEFBase_Walls')
 
     if ScenarioInfo.Difficulty == 3 then
-        factory = ScenarioInfo.UnitNames[UEF]['M6_UEFBase_Factory']
-        engineers = ScenarioUtils.CreateArmyGroup('UEF', 'M6_UEFBase_EngineersHard')
+        local factory = ScenarioInfo.UnitNames[UEF]['M6_UEFBase_Factory']
+        local engineers = ScenarioUtils.CreateArmyGroup('UEF', 'M6_UEFBase_EngineersHard')
         for k,v in engineers do
             IssueGuard({v}, factory)
         end
@@ -1355,7 +1350,7 @@ function M7_CreateCzar()
                 'incomplete',
                 OpStrings.M7P4Text,
                 OpStrings.M7P4Detail,
-                Objectives.GetActionIcon('protect'),
+                Objectives.GetActionIcon('Protect'),
                 {
                     Units = {ScenarioInfo.RhizaCzar},
                 }

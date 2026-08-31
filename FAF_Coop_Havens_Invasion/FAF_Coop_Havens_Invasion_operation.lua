@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_strings.lua')---@module "FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_strings"
 
 operationData = 
 {

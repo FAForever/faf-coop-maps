@@ -20,7 +20,8 @@ local UEFM3BaseNaval = BaseManager.CreateBaseManager()
 -- Fort Clarke
 --------------
 function FortClarkeAI()
-    FortClarke:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Fort_Clarke_Base', 'M3_UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    FortClarke:InitializeDifficultyTables(aiBrain, 'UEF_Fort_Clarke_Base', 'M3_UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100})
     FortClarke:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     FortClarke:SetActive('AirScouting', true)
 
@@ -73,7 +74,7 @@ function FortClarkeAirAttacks()
     )
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.LAND, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.LAND, '>='})
 
     quantity = {8, 12, 16}
     opai = FortClarke:AddOpAI('AirAttacks', 'M3_Fort_Clarke_AirAttack4',
@@ -100,7 +101,7 @@ function FortClarkeAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Air Defense
     for i = 1, 3 do
@@ -149,6 +150,7 @@ end
 
 function FortClarkeLandAttacks()
     local opai = nil
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
 
     ---------------------------------
     -- Fort Clarke Op AI, Land Attacks
@@ -175,7 +177,7 @@ function FortClarkeLandAttacks()
             PatrolChains = {'M3_UEF_LandAttack_Mid_Chain_1', 'M3_UEF_LandAttack_Mid_Chain_2'},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack2',
@@ -196,7 +198,7 @@ function FortClarkeLandAttacks()
             PatrolChains = {'M3_UEF_LandAttack_Mid_Chain_1', 'M3_UEF_LandAttack_Mid_Chain_2'},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack3',
@@ -217,7 +219,7 @@ function FortClarkeLandAttacks()
             PatrolChains = {'M3_UEF_LandAttack_Mid_Chain_1', 'M3_UEF_LandAttack_Mid_Chain_2'},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack4',
@@ -238,7 +240,7 @@ function FortClarkeLandAttacks()
             PatrolChains = {'M3_UEF_LandAttack_Mid_Chain_1', 'M3_UEF_LandAttack_Mid_Chain_2'},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack5',
@@ -260,7 +262,7 @@ function FortClarkeLandAttacks()
             PatrolChains = {'M3_UEF_LandAttack_Mid_Chain_1', 'M3_UEF_LandAttack_Mid_Chain_2'},
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     -- [mobile flak, mobile aa] patrols
     --[[
@@ -296,9 +298,11 @@ function FortClarkeLandAttacks()
 end
 
 function FortClarkeExperimentals()
-    local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+    quantity = {1, 1, 2}
     local engineers = {2, 3, 4}
-    local opai = FortClarke:AddOpAI('M4_FC_Fatboy_2',
+    opai = FortClarke:AddOpAI('M4_FC_Fatboy_2',
         {
             Amount = quantity[Difficulty],
             KeepAlive = true,
@@ -329,7 +333,8 @@ end
 -- West Town
 ------------
 function UEFM3WestTownAI()
-    UEFM3WestTown:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_UEF_West_Town_Base', 'M3_UEF_West_Town_Base_Marker', 70, {M3_UEF_West_Town_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM3WestTown:InitializeDifficultyTables(aiBrain, 'M3_UEF_West_Town_Base', 'M3_UEF_West_Town_Base_Marker', 70, {M3_UEF_West_Town_Base = 100})
     UEFM3WestTown:StartNonZeroBase({{3, 4, 5}, {2, 3, 3}})
 
     -- UEFM3WestTown:AddBuildGroupDifficulty('M3_West_Town_Rebuild', 90)
@@ -408,7 +413,8 @@ end
 -- UEF Main Base
 ----------------
 function UEFM3BaseAI()
-    UEFM3Base:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_UEF_Base', 'M3_UEF_Base_Marker', 35, {M3_UEF_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM3Base:InitializeDifficultyTables(aiBrain, 'M3_UEF_Base', 'M3_UEF_Base_Marker', 35, {M3_UEF_Base = 100})
     UEFM3Base:StartNonZeroBase({{8, 11, 14}, {6, 9, 11}})
     UEFM3Base:SetActive('AirScouting', true)
 
@@ -479,7 +485,7 @@ function UEFM3BaseLandAttacks()
     })
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {'default_brain', 5, categories.uea0104})
+    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory', {5, categories.uea0104})
 
     opai = UEFM3Base:AddOpAI('BasicLandAttack', 'M2_UEF_TransportAttack_1',
         {
@@ -495,14 +501,15 @@ function UEFM3BaseLandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', 12)
     opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {2})
 end
 
 --------
 -- Naval
 --------
 function UEFM3BaseNavalAI()
-    UEFM3BaseNaval:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_UEF_Base_Naval', 'M3_UEF_Base_Naval_Marker', 60, {M3_UEF_Base_Naval = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM3BaseNaval:InitializeDifficultyTables(aiBrain, 'M3_UEF_Base_Naval', 'M3_UEF_Base_Naval_Marker', 60, {M3_UEF_Base_Naval = 100})
     UEFM3BaseNaval:StartNonZeroBase({{5, 8, 11}, {3, 6, 9}})
     
     UEFM3BaseNavalAttacks()
@@ -529,7 +536,7 @@ function UEFM3BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     --opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
+        {{'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack2',
         {
@@ -552,7 +559,7 @@ function UEFM3BaseNavalAttacks()
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
+        {{'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 
     opai = UEFM3BaseNaval:AddNavalAI('M2_UEF_NavalAttack3',
         {
@@ -575,10 +582,12 @@ function UEFM3BaseNavalAttacks()
     --opai:SetFormation('AttackFormation')
     opai:SetLockingStyle('DeathRatio', {Ratio = .8})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
+        {{'Order'}, 1, categories.NAVAL * categories.MOBILE, '>='})
 end
 
 function M3UEFBattleshipsAttacks()
+    local opai = nil
+    local trigger = {}
     ---------------------
     -- Battleship attacks
     ---------------------
@@ -603,7 +612,7 @@ function M3UEFBattleshipsAttacks()
     )
     --opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
 
     -- Sends 3 Battleships and Cruisers if player has more than {6, 5, 4} Battleships
     trigger = {6, 5, 4}
@@ -624,7 +633,7 @@ function M3UEFBattleshipsAttacks()
     )
     --opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
     
     -- Sends 3 Battleships if Player has no naval.
     opai = UEFM3BaseNaval:AddNavalAI('M3_UEF_Base_BattleshipAttack_3',
@@ -641,7 +650,7 @@ function M3UEFBattleshipsAttacks()
     )
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainLessThanOrEqualNumCategory',
-        {'default_brain', {'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY, '>='})
+        {{'HumanPlayers'}, 0, categories.NAVAL * categories.FACTORY, '>='})
 
     ------------------
     -- Nuke Submarines
@@ -663,7 +672,7 @@ function M3UEFBattleshipsAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 3, categories.STRUCTURE * categories.NUKE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 3, categories.STRUCTURE * categories.NUKE, '>='})
     ]]--
 end
 

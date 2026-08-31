@@ -1,6 +1,6 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utils = import("/lua/utilities.lua")
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 

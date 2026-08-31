@@ -31,7 +31,8 @@ function PrincessBaseAI()
     ---------------
     -- Princess Base
     ---------------
-    PrincessBase:InitializeDifficultyTables(ArmyBrains[Princess], 'M3_Princess_Base', 'Princess_Base', 150, {M3_Princess_Base = 100})
+    local aiBrain = ArmyBrains[Princess]--[[@as CampaignAIBrain]]
+    PrincessBase:InitializeDifficultyTables(aiBrain, 'M3_Princess_Base', 'Princess_Base', 150, {M3_Princess_Base = 100})
     PrincessBase:StartNonZeroBase({8, 4})
     PrincessBase:SetMaximumConstructionEngineers(4)
 

@@ -7,14 +7,14 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local OpStrings = import ('/maps/SCCA_Coop_R03/SCCA_Coop_R03_strings.lua')
 local Utilities = import('/lua/utilities.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
 local MissionTexture = '/textures/ui/common/missions/mission.dds'
 local Objectives = ScenarioFramework.Objectives
 
@@ -34,7 +34,7 @@ ScenarioInfo.CybranCloaked = 5
 ScenarioInfo.Player2 = 6
 ScenarioInfo.Player3 = 7
 ScenarioInfo.Player4 = 8
-truckCam = false
+local truckCam = false
 
 
 local Player1 = ScenarioInfo.Player1
@@ -111,7 +111,7 @@ ScenarioInfo.VarTable['M1_UEFAir_AttackBegin'] = false
 
 
 -- Import camera class
-local SimCamera = import('/lua/SimCamera.lua').SimCamera
+local SimCamera = import('/lua/simcamera.lua').SimCamera
 
 
     -- === TUNING VARIABLES === #
@@ -274,7 +274,7 @@ function IntroSequenceThread()
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Gate', true, true, OnCommanderDeath)
@@ -339,7 +339,7 @@ function SetupM1Triggers()
         'incomplete',
         OpStrings.M1P1Title,
         OpStrings.M1P1Description,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = ScenarioInfo.York18,
         }
@@ -683,16 +683,16 @@ end
 function AssignM1BaseAttackObjectives()
     -- Assign M1P2: Defeat Western UEF Base
     if not ScenarioInfo.M1P2Obj then
-        ScenarioInfo.M1P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description, Objectives.GetActionIcon('kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Land_Base_Area'})
+        ScenarioInfo.M1P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description, Objectives.GetActionIcon('Kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Land_Base_Area'})
     end
     ScenarioFramework.CreateTimerTrigger(M1P2Reminder1, Reminder_M1P2_Initial)
     -- Assign M1P3: Defeat Northwest UEF Base
     if not ScenarioInfo.M1P3Obj then
-        ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Land_Air_Base_Area'})
+        ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('Kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Land_Air_Base_Area'})
     end
     -- Assign M1P4: Defeat NorthEastern UEF Base
     if not ScenarioInfo.M1P4Obj then
-        ScenarioInfo.M1P4Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description, Objectives.GetActionIcon('kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Air_Base_Area'})
+        ScenarioInfo.M1P4Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description, Objectives.GetActionIcon('Kill'),{ShowFaction = 'UEF',Area = 'M1_UEF_Air_Base_Area'})
     end
     -- Berry: I©m not done with you, Cybran.
     ScenarioFramework.Dialogue(OpStrings.C03_M01_040)
@@ -708,7 +708,7 @@ function M1UEFAirBaseDefeated()
     M1UEFExpansionBasesDefeated = M1UEFExpansionBasesDefeated + 1
     ScenarioFramework.Dialogue(OpStrings.C03_M01_070)
     if not ScenarioInfo.M1P4Obj then
-        ScenarioInfo.M1P4Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description, Objectives.GetActionIcon('kill'),{Area = 'M1_UEF_Air_Base_Area'})
+        ScenarioInfo.M1P4Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P4Title, OpStrings.M1P4Description, Objectives.GetActionIcon('Kill'),{Area = 'M1_UEF_Air_Base_Area'})
     end
     ScenarioInfo.M1P4Obj:ManualResult(true)
     ScenarioInfo.M1P4Complete = true
@@ -735,7 +735,7 @@ function M1UEFLandBaseDefeated()
     M1UEFExpansionBasesDefeated = M1UEFExpansionBasesDefeated + 1
     ScenarioFramework.Dialogue(OpStrings.C03_M01_050)
     if not ScenarioInfo.M1P2Obj then
-        ScenarioInfo.M1P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description, Objectives.GetActionIcon('kill'),{Area = 'M1_UEF_Land_Base_Area'})
+        ScenarioInfo.M1P2Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P2Title, OpStrings.M1P2Description, Objectives.GetActionIcon('Kill'),{Area = 'M1_UEF_Land_Base_Area'})
     end
     ScenarioInfo.M1P2Obj:ManualResult(true)
     ScenarioInfo.M1P2Complete = true
@@ -762,7 +762,7 @@ function M1UEFLandAirBaseDefeated()
     M1UEFExpansionBasesDefeated = M1UEFExpansionBasesDefeated + 1
     ScenarioFramework.Dialogue(OpStrings.C03_M01_060)
     if not ScenarioInfo.M1P3Obj then
-        ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('kill'),{Area = 'M1_UEF_Land_Air_Base_Area'})
+        ScenarioInfo.M1P3Obj = Objectives.Basic('primary', 'incomplete', OpStrings.M1P3Title, OpStrings.M1P3Description, Objectives.GetActionIcon('Kill'),{Area = 'M1_UEF_Land_Air_Base_Area'})
     end
     ScenarioInfo.M1P3Obj:ManualResult(true)
     ScenarioInfo.M1P3Complete = true
@@ -944,14 +944,14 @@ function StartConvoy1()
         'incomplete',
         OpStrings.M2P3Title,
         OpStrings.M2P3Description,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Area = 'Gate_Area',
             MarkArea = true,
         }
    )
     ScenarioFramework.CreateTimerTrigger(M2P3Reminder1, Reminder_M2P3_Initial)
-    ScenarioInfo.M2S1Obj = Objectives.Basic('secondary', 'incomplete', OpStrings.M2S1Title, OpStrings.M2S1Description, Objectives.GetActionIcon('move'), {Area = 'Gate_Area',})
+    ScenarioInfo.M2S1Obj = Objectives.Basic('secondary', 'incomplete', OpStrings.M2S1Title, OpStrings.M2S1Description, Objectives.GetActionIcon('Move'), {Area = 'Gate_Area',})
     ScenarioFramework.Dialogue(OpStrings.C03_M02_040)
     WaitSeconds (M2FirstConvoyLeavingWarningTime)
     ScenarioFramework.Dialogue(OpStrings.C03_M02_070)
@@ -1211,7 +1211,7 @@ function M3H1Achieved()
         'incomplete',
         OpStrings.M3H1Title,
         OpStrings.M3H1Description,
-        Objectives.GetActionIcon('locate'),
+        Objectives.GetActionIcon('Locate'),
         {
             ShowFaction = 'Cybran',
         }

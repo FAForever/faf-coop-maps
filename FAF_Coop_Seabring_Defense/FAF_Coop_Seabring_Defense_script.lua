@@ -5,13 +5,13 @@
 --
 
 local Cinematics = import('/lua/cinematics.lua')
-local M2OrderAI = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_m2orderai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local M2OrderAI = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_m2orderai.lua')---@module "FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_m2orderai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings.lua')---@module "FAF_Coop_Seabring_Defense/FAF_Coop_Seabring_Defense_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ----------
 -- Globals
@@ -146,13 +146,13 @@ function OnPopulate(scenario)
 
     -- Adjust the NIS units to have less health
     for k, unit in ScenarioInfo.NISCivilianDefenders do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:AdjustHealth(unit, (unit:GetHealth() * 0.8) * -1)
         end
     end
 
     for k, unit in ScenarioInfo.NISOrderAttackers do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:AdjustHealth(unit, (unit:GetHealth() * 0.6) * -1)
         end
     end
@@ -188,7 +188,7 @@ function OnStart(scenario)
 
     -- Initialize camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'))
+        Cinematics.CameraMoveToMarker('Cam_2_1')
     end
 
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
@@ -230,10 +230,11 @@ end
 -- Mission 2
 ------------
 function IntroMission2()
+    local trigger = {}
     ScenarioInfo.MissionNumber = 2
 
     -- Player has > 65, 50, 35 T2/T3 planes, 1 group AA for every 15
-    local trigger = {65, 50, 35}
+    trigger = {65, 50, 35}
     local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1)
 
     if(num > trigger[Difficulty]) then
@@ -243,7 +244,7 @@ function IntroMission2()
             num = 5
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_AntiAir', 'GrowthFormation')
+local             units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_AntiAir', 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 local random = Random(1, 2)
                 if(random == 1) then
@@ -261,7 +262,7 @@ function IntroMission2()
     if (num >= 1) then
         local numGroups = {3, 4, 5}
         for i = 1, numGroups[Difficulty] do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_AntiAir', 'GrowthFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_AntiAir', 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 if(Random(1, 2) == 1) then
                     ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Order_M2_BaseAir_Chain')))
@@ -283,7 +284,7 @@ function IntroMission2()
             num = 5
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_Gunship', 'GrowthFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_Gunship', 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 if(Random(1, 2) == 1) then
                     ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Order_M2_BaseAir_Chain')))
@@ -300,7 +301,7 @@ function IntroMission2()
     if (num >= 1) then
         local numGroups = {3, 4, 5}
         for i = 1, numGroups[Difficulty] do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_Gunship', 'GrowthFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M2_Order_Adapt_Gunship', 'GrowthFormation')
             for k, v in units:GetPlatoonUnits() do
                 if(Random(1, 2) == 1) then
                     ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('Order_M2_BaseAir_Chain')))
@@ -326,45 +327,45 @@ function IntroMission2NIS()
     WaitSeconds(1)
 
     -- Sweep over the action northwards
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_2_1', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_2_2', 5)
     WaitSeconds(1)
 
     -- Sweep over the action southwards
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 5)
+    Cinematics.CameraMoveToMarker('Cam_2_3', 5)
     WaitSeconds(2)
 
     -- We might not need these cameras after all...
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 9)
+    -- Cinematics.CameraMoveToMarker('Cam_2_4', 9)
     -- WaitSeconds(1)
     -- Look to where the attacks are coming from
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 3)
+    -- Cinematics.CameraMoveToMarker('Cam_2_5', 3)
 
     -- "Go save them"
     ScenarioFramework.Dialogue(OpStrings.X01_M02_012, nil, true) -- 10 sec
     -- WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_6', 3)
     WaitSeconds(1)
 
     -- Kill all of the featured attackers and defenders while the we're looking elsewhere
     for k, unit in ScenarioInfo.NISCivilianDefenders do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:Kill()
         end
     end
     for k, unit in ScenarioInfo.NISOrderAttackers do
-        if ( unit and not unit:IsDead() ) then
+        if ( unit and not unit.Dead ) then
             unit:Kill()
         end
     end
 
     -- Snap to an enemy base, then zoom out
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_7', 3)
     WaitSeconds(1)
     -- "I'll kill everyone"
     ScenarioFramework.Dialogue(OpStrings.X01_M02_013, nil, true) -- 5 sec
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_8'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_8', 3)
     WaitSeconds(1)
 
     Cinematics.ExitNISMode()
@@ -463,7 +464,7 @@ end
 function OrderSecondaryAttack1()
     if(ScenarioInfo.OrderSecondaryAttack1 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack1)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack1:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -474,7 +475,7 @@ end
 function OrderSecondaryAttack2()
     if(ScenarioInfo.OrderSecondaryAttack2 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack2)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack2:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -485,7 +486,7 @@ end
 function OrderSecondaryAttack3()
     if(ScenarioInfo.OrderSecondaryAttack3 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack3)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack3:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end
@@ -496,7 +497,7 @@ end
 function OrderSecondaryAttack4()
     if(ScenarioInfo.OrderSecondaryAttack4 and ArmyBrains[Order]:PlatoonExists(ScenarioInfo.OrderSecondaryAttack4)) then
         for k, v in ScenarioInfo.OrderSecondaryAttack4:GetPlatoonUnits() do
-            if(v and not v:IsDead()) then
+            if(v and not v.Dead) then
                 IssueClearCommands({v})
             end
         end

@@ -8,16 +8,16 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Objectives = import( '/lua/ScenarioFramework.lua' ).Objectives
-local SimCamera = import('/lua/SimCamera.lua').SimCamera
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local SimCamera = import('/lua/simcamera.lua').SimCamera
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local OpStrings   = import('/maps/SCCA_Coop_R05/SCCA_Coop_R05_Strings.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
+local OpStrings   = import('/maps/SCCA_Coop_R05/SCCA_Coop_R05_Strings.lua')---@module "SCCA_Coop_R05/SCCA_Coop_R05_Strings"
+local ScenarioStrings = import('/lua/scenariostrings.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+local VizMarker = import('/lua/sim/vizmarker.lua').VizMarker
 local Utilities = import('/lua/utilities.lua')
 
 ---------
@@ -174,7 +174,7 @@ function CreateCommander_Thread()
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit (strArmy, 'M1_PlayerCDR' )
@@ -358,10 +358,10 @@ end
 
 function M1_SpawnUEFScoutsThread()
     if ScenarioInfo.MissionNumber ==1 then
-        local scoutsOne = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEFScouts', 'ChevronFormation' )
+        local scoutsOne = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEFScouts', 'AttackFormation' )
         ScenarioFramework.PlatoonPatrolChain( scoutsOne, 'M1_UEFScout_Land_Chain' )
         WaitSeconds(4)
-        local scoutsTwo = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEFScouts', 'ChevronFormation' )
+        local scoutsTwo = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEFScouts', 'AttackFormation' )
         ScenarioFramework.PlatoonPatrolChain( scoutsTwo, 'M1_UEFScout_Water_Chain' )
         ScenarioFramework.CreateTimerTrigger(M1_ContinueFirstAttacks, 60)
     end
@@ -415,7 +415,7 @@ function M1_OffmapTransportAttackThread()
     -- Send out a gunship group, and delay the creation of the transport group (as transports
     -- move faster than gunships, the gunships need a lead-in)
     if ScenarioInfo.MissionNumber == 1 then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEF_OffmapAttack_'..DifficultyConc, 'ChevronFormation' )
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEF_OffmapAttack_'..DifficultyConc, 'AttackFormation' )
         ScenarioFramework.PlatoonPatrolChain( platoon, 'M1_UEF_OffmapPatrol_Chain' )
         ScenarioFramework.CreateTimerTrigger( M1_OffmapTransportAttackSecondary, 20)
     end
@@ -424,7 +424,7 @@ end
 function M1_OffmapTransportAttackSecondary()
     -- Send group of transports, and some gunships, to player's base area.
     if ScenarioInfo.MissionNumber == 1 then
-        local transport = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEF_OffmapAttack_Transport', 'ChevronFormation' )
+        local transport = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEF_OffmapAttack_Transport', 'AttackFormation' )
         local units     = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M1_UEF_OffmapAttack_Landunits', 'AttackFormation' )
         ForkThread(TransportAttack, transport, units, 2,  'PlayerBaseArea', 'M1_UEF_OffmapPatrol_Chain')
     end
@@ -713,7 +713,7 @@ end
 
 function M2_Hex5Appears()
     -- Assign the Obj to get to Hex5
--- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P2Text, OpStrings.M2P2Detail, Objectives.GetActionIcon('move')) #"Reach Hex5 with Your Commander"
+-- ScenarioFramework.AddObjective('primary', 'incomplete', OpStrings.M2P2Text, OpStrings.M2P2Detail, Objectives.GetActionIcon('Move')) #"Reach Hex5 with Your Commander"
     ScenarioFramework.Dialogue(ScenarioStrings.NewPObj)
     ScenarioFramework.CreateTimerTrigger(M2P2Reminder1, Reminder_M2P2_Initial)
     ScenarioInfo.M2P2 = Objectives.Basic(
@@ -721,7 +721,7 @@ function M2_Hex5Appears()
         'incomplete',
         OpStrings.M2P2Text,
         OpStrings.M2P2Detail,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Area = 'M2_Hex5ObjectiveMarker',
             MarkArea = true,
@@ -824,7 +824,7 @@ function M2_DownloadToCommanderThread()
         'incomplete',
         OpStrings.M2P3Text,
         OpStrings.M2P3Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
         }
     )
@@ -914,9 +914,9 @@ function M2_Hard_OffmapTransAttack_Thread()
         -- Do some normal sized attacks for a while, and eventually kick it up a notch by adding a tougher transport in.
         if ScenarioInfo.M2_Hard_OffmapAttackCount < 3  then
             for i = 1,4 do
-                local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'ChevronFormation' )
+                local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'AttackFormation' )
                 local units = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_LandUnits1', 'AttackFormation' )
-                local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'ChevronFormation' )
+                local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'AttackFormation' )
                 M2_Hard_Offmap_AddEscort(escort,transport)
                 ForkThread(TransportAttack, transport, units, 2,  'PlayerBase_Attack_'..rnd, 'Player_Base_LandAttackChain')
                 ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAttack_Counter, units)
@@ -924,17 +924,17 @@ function M2_Hard_OffmapTransAttack_Thread()
             end
         else
             for i = 1,4 do
-                local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'ChevronFormation' )
+                local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'AttackFormation' )
                 local units = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_LandUnits1', 'AttackFormation' )
-                local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'ChevronFormation' )
+                local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'AttackFormation' )
                 M2_Hard_Offmap_AddEscort(escort,transport)
                 ForkThread(TransportAttack, transport, units, 2,  'PlayerBase_Attack_'..rnd, 'Player_Base_LandAttackChain')
                 ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAttack_Counter, units)
                 WaitSeconds(0.3)
             end
-            local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'ChevronFormation' )
+            local transport =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_Transport', 'AttackFormation' )
             local units = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_LandUnits2', 'AttackFormation' )
-            local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'ChevronFormation' )
+            local escort =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_Land_AirEscort', 'AttackFormation' )
             M2_Hard_Offmap_AddEscort(escort,transport)
             ForkThread(TransportAttack, transport, units, 2,  'PlayerBase_Attack_'..rnd, 'Player_Base_LandAttackChain')
         end
@@ -942,7 +942,7 @@ function M2_Hard_OffmapTransAttack_Thread()
 end
 
 function M2_Hard_Offmap_AddEscort(escort, transport)
-    transUnit = transport:GetPlatoonUnits()
+    local transUnit = transport:GetPlatoonUnits()
     escort:GuardTarget (transUnit[1], 'Attack')
     ScenarioFramework.PlatoonPatrolChain( escort, 'M2_UEFGunshipAttack_Chain2' )
 end
@@ -978,7 +978,7 @@ function M2_Hard_OffmapAirAttack_Thread()
         -- Set the count-to to that number of platoons. Final attack uses a "tougher" gruop as well.
         if ScenarioInfo.M2_Hard_OffmapAir_Count <= 1 then
             for i = 1,1 do
-                local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'ChevronFormation' )
+                local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'AttackFormation' )
                 ScenarioFramework.PlatoonPatrolChain( air, 'M1_UEFAirAttack2_Chain' )
                 ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAirAttack_Counter, air)
                 WaitSeconds(1.5)
@@ -986,7 +986,7 @@ function M2_Hard_OffmapAirAttack_Thread()
             ScenarioInfo.M2_Hard_OffMapAirDeath = 1
         elseif ScenarioInfo.M2_Hard_OffmapAir_Count > 1 and ScenarioInfo.M2_Hard_OffmapAir_Count <= 5 then
             for i = 1,2 do
-                local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'ChevronFormation' )
+                local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'AttackFormation' )
                 ScenarioFramework.PlatoonPatrolChain( air, 'M1_UEFAirAttack2_Chain' )
                 ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAirAttack_Counter, air)
                 WaitSeconds(1.5)
@@ -994,12 +994,12 @@ function M2_Hard_OffmapAirAttack_Thread()
             ScenarioInfo.M2_Hard_OffMapAirDeath = 2
         elseif ScenarioInfo.M2_Hard_OffmapAir_Count > 5 then
             for i = 1,2 do
-                local air = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'ChevronFormation' )
+                local air = ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_1', 'AttackFormation' )
                 ScenarioFramework.PlatoonPatrolChain( air, 'M1_UEFAirAttack2_Chain' )
                 ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAirAttack_Counter, air)
                 WaitSeconds(1.5)
             end
-            local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_2', 'ChevronFormation' )
+            local air =  ScenarioUtils.CreateArmyGroupAsPlatoon ( 'UEF', 'M2_UEF_Offscreen_AirUnits_2', 'AttackFormation' )
             ScenarioFramework.PlatoonPatrolChain( air, 'M1_UEFAirAttack2_Chain' )
             ScenarioFramework.CreatePlatoonDeathTrigger(M2_Hard_OffmapAirAttack_Counter, air)
             ScenarioInfo.M2_Hard_OffMapAirDeath = 3
@@ -1042,7 +1042,7 @@ function BeginMission3()
         'incomplete',
         OpStrings.M3S1Text,
         OpStrings.M3S1Detail,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Units = ScenarioInfo.M3_UEFAirBase_ASPlatforms,
             MarkUnits = true,
@@ -1172,7 +1172,7 @@ function M3_CreateUnitsForMission()
     cdrPlatoon.CDRData.LeashPosition = 'UEF_Commander_Leash'
     cdrPlatoon.CDRData.LeashRadius = 34
     ArmyBrains[UEF]:AssignUnitsToPlatoon( cdrPlatoon, {ScenarioInfo.M3_UEFMainBase_Commander}, 'Attack', 'AttackFormation' )
-    import('/lua/ai/AIBehaviors.lua').CommanderBehavior(cdrPlatoon)
+    import('/lua/ai/aibehaviors.lua').CommanderBehavior(cdrPlatoon)
     ArmyBrains[UEF]:DisbandPlatoon(cdrPlatoon)
 
      --- hard difficulty: air superiority patrols, aa patrols, a few engineers to guard CDR
@@ -1467,7 +1467,7 @@ function M3_Hex5Destroyed()
             'incomplete',
             OpStrings.M3H1Text,
             OpStrings.M3H1Detail,
-            Objectives.GetActionIcon('kill'),
+            Objectives.GetActionIcon('Kill'),
             {
             }
         )

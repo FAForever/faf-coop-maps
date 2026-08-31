@@ -3,19 +3,19 @@
 --
 -- Author: Shadowlorda1
 ------------------------------
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local P2OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP2.lua')
-local P3OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP3.lua')
-local P4OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP4.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings.lua')  
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_CustomFunctions.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local Buff = import('/lua/sim/buff.lua')
+local P2OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP2.lua')---@module "FAF_Coop_Operation_Holy_Raid/OrderaiP2"
+local P3OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP3.lua')---@module "FAF_Coop_Operation_Holy_Raid/OrderaiP3"
+local P4OrderAI = import('/maps/FAF_Coop_Operation_Holy_Raid/OrderaiP4.lua')---@module "FAF_Coop_Operation_Holy_Raid/OrderaiP4"
+local OpStrings = import('/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings.lua')---@module "FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings"  
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_CustomFunctions.lua')---@module "FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_CustomFunctions"
+local TauntManager = import('/lua/tauntmanager.lua')
 
 local OrderTM = TauntManager.CreateTauntManager('Order1TM', '/maps/FAF_Coop_Operation_Holy_Raid/FAF_Coop_Operation_Holy_Raid_strings.lua')
 
@@ -93,8 +93,8 @@ function OnPopulate(scen)
     ScenarioUtils.CreateArmyGroup('Civilians', 'P1Wreaks', true )
     ScenarioUtils.CreateArmyGroup('Player1', 'P1Civilianbase1D' ) 
     ScenarioUtils.CreateArmyGroup('Player1', 'Starting Units' )
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'P1PPatrol', 'GrowthFormation')
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'P1Ppatrol1')       
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'P1PPatrol', 'GrowthFormation')
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'P1Ppatrol1')       
 end
 
 function OnStart(scen) 
@@ -109,7 +109,7 @@ function OnStart(scen)
         ArmyBrains[army]:IMAPConfiguration()
     end  
     
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+    Cinematics.CameraMoveToMarker('P1Cam1', 0)
     ForkThread(Intro1)
 end 
 
@@ -135,10 +135,10 @@ function Intro1()
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
                 table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo.CoopCDR[coop])
@@ -154,12 +154,12 @@ function Intro1()
         end
     end
     
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+    Cinematics.CameraMoveToMarker('P1Cam1', 0)
     ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
     WaitSeconds(3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 4)
+    Cinematics.CameraMoveToMarker('P1Cam2', 4)
     WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 2)
+    Cinematics.CameraMoveToMarker('P1Cam1', 2)
     WaitSeconds(1)
     ScenarioFramework.Dialogue(OpStrings.Reveal1P1, nil, true)
     
@@ -194,9 +194,9 @@ function P1ProtectObjective()
 end
 
 function P1Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon = nil
 
     ScenarioInfo.M1CounterAttackUnits = {}
@@ -298,8 +298,10 @@ function IntroP2()
     P2OrderAI.Order1base2AI()
     P2OrderAI.Order2base1AI()
 
-    ArmyBrains[Order1]:PBMSetCheckInterval(6)
-    ArmyBrains[Order2]:PBMSetCheckInterval(6)
+    local aiBrain1 = ArmyBrains[Order1]--[[@as CampaignAIBrain]]
+    aiBrain1:PBMSetCheckInterval(6)
+    local aiBrain2 = ArmyBrains[Order2]--[[@as CampaignAIBrain]]
+    aiBrain2:PBMSetCheckInterval(6)
     
     ScenarioUtils.CreateArmyGroup('Order1', 'ObjectiveBase1') 
     ScenarioUtils.CreateArmyGroup('Order1', 'ObjectiveBase2')
@@ -316,16 +318,16 @@ function IntroP2()
         local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P2vision3', 0, ArmyBrains[Player1])
         local VisMarker1_4 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P2vision4', 0, ArmyBrains[Player1])
     
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 2)
+        Cinematics.CameraMoveToMarker('P2Cam1', 2)
         ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam2', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 4)
+        Cinematics.CameraMoveToMarker('P2Cam3', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam4'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam4', 3)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 1)
+        Cinematics.CameraMoveToMarker('P1Cam1', 1)
     
         ForkThread(
             function()
@@ -435,8 +437,8 @@ function IntroSecObj()
 
     ScenarioFramework.Dialogue(OpStrings.SecondaryIntroP2, nil, true)
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Civilians', 'P1Testgroup', 'GrowthFormation')
-        ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P1Intdrop2', 'P1IntDropattack2', true)
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Civilians', 'P1Testgroup', 'GrowthFormation')
+    ScenarioFramework.PlatoonAttackWithTransports(platoon, 'P1Intdrop2', 'P1IntDropattack2', true)
 
     WaitSeconds(10)
     ScenarioFramework.Dialogue(OpStrings.SecondaryMidP2, SecondaryMissionP2, true)
@@ -482,7 +484,7 @@ function SecondaryMissionP2()
 
     while (not UEFDead) do
 
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Civilians', 'P1UAirattack_D' .. Difficulty, 'GrowthFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Civilians', 'P1UAirattack_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P2UEFAAttack' .. Random(1, 3))
         WaitSeconds(10)
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Civilians', 'P1Ulandattack1', 'GrowthFormation')
@@ -595,7 +597,7 @@ function IntroP3()
     ScenarioInfo.Blackbox.CanBeKilled = false
     ScenarioInfo.Blackbox:SetDoNotTarget(true)
             
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit1', 'AttackFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'O2P2Unit1', 'AttackFormation')
     ScenarioFramework.PlatoonMoveChain(platoon, 'O2P3B1Landattack1')
             
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3G1cut', 'GrowthFormation')
@@ -631,13 +633,13 @@ function IntroP3()
         local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(70, 'P3vision3', 0, ArmyBrains[Player1])
             
         ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 2)
+        Cinematics.CameraMoveToMarker('P3Cam1', 2)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam2', 4)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam3', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam4', 3)
         WaitSeconds(3)
         local AeonNuke = ArmyBrains[Order1]:GetListOfUnits(categories.uab2305, false)
         IssueNuke({AeonNuke[1]}, ScenarioUtils.MarkerToPosition('Nuke1'))
@@ -667,14 +669,14 @@ function IntroP3()
 end
 
 function P3Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- Basic air attack
     -- sends ASF if player has more than [60, 50, 40] planes, up to 10, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
     quantity = {60, 50, 40}
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
@@ -719,7 +721,7 @@ function P3Intattacks()
     end
 
    
-    ScenarioInfo.CzarPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3OAirgroup', 'StaggeredChevronFormation')
+    ScenarioInfo.CzarPlanes = ScenarioUtils.CreateArmyGroupAsPlatoon('Order1', 'P3OAirgroup', 'AttackFormation')
     ScenarioInfo.Czar = ScenarioUtils.CreateArmyUnit('Order1', 'P3O1IntAirEXP')
     
     IssueTransportLoad(ScenarioInfo.CzarPlanes:GetPlatoonUnits(), ScenarioInfo.Czar)
@@ -1002,14 +1004,14 @@ function IntroP4()
     local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P4Vision1', 0, ArmyBrains[Player1])
     local VisMarker3_2 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P4Vision2', 0, ArmyBrains[Player1])
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam1'), 2)
+    Cinematics.CameraMoveToMarker('P4Cam1', 2)
     ScenarioFramework.Dialogue(OpStrings.IntroP4, nil, true)
     WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam2'), 4)
+    Cinematics.CameraMoveToMarker('P4Cam2', 4)
     WaitSeconds(2)
     Cinematics.CameraTrackEntity(ScenarioInfo.P4O2ACU, 40, 2)
     WaitSeconds(3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+    Cinematics.CameraMoveToMarker('P1Cam1', 0)
     
     ForkThread(
             function()
@@ -1032,8 +1034,8 @@ function IntroP4()
     
     SetupOrderM3TauntTriggers()
        
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
@@ -1097,14 +1099,14 @@ function MissionP4()
 end
 
 function P4Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- Basic air attack
     -- sends ASF if player has more than [60, 50, 40] planes, up to 10, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
     quantity = {60, 50, 40}
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
@@ -1206,7 +1208,7 @@ function P4Intattacks()
         end
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'P4IntattackLand1_D'.. Difficulty, 'AttackFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'P4IntattackLand1_D'.. Difficulty, 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4Intattack1')
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Order2', 'P4IntattackLand2_D'.. Difficulty, 'AttackFormation')

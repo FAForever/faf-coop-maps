@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local CustomFunctions = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua'
--- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+-- local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 ---------
@@ -19,7 +19,8 @@ local CybranM2IslandBase = BaseManager.CreateBaseManager()
 -- Cybran M2 Main Base
 ----------------------
 function CybranM2BaseAI()
-    CybranM2Base:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Base', 'M2_Cybran_Base_Marker', 100, {M2_Cybran_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2Base:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Base', 'M2_Cybran_Base_Marker', 100, {M2_Cybran_Base = 100})
     CybranM2Base:StartNonZeroBase({{10, 13, 16}, {8, 10, 12}})
     CybranM2Base:SetMaximumConstructionEngineers(4)
     
@@ -31,15 +32,14 @@ function CybranM2BaseAI()
 end
 
 function CybranM2BaseAirAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     local DefaultPatrolChains = {
         'M2_Cybran_Base_AirAttack_Chain_1',
         'M2_Cybran_Base_AirAttack_Chain_2',
         'M2_Cybran_Base_AirAttack_Chain_3',
     }
-
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     -- M2_Cybran_Base_AirDeffense_Chain
     -- M2_Cybran_Base_AirAttack_Chain_1
@@ -59,7 +59,7 @@ function CybranM2BaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 6)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {4, categories.ura0104})
 
     -- T1 Bombers
     quantity = {4, 6, 8}
@@ -75,7 +75,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- T1 Bombers
     quantity = {4, 6, 8}
@@ -91,7 +91,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
 
     -- T2 Gunships
@@ -108,7 +108,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- T2 Gunships
     quantity = {8, 10, 12}
@@ -124,7 +124,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- T2 Gunshhips
     quantity = {8, 10, 12}
@@ -140,7 +140,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Torpedo Bombers
     quantity = {6, 8, 10}
@@ -156,7 +156,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     -- Torpedo bombers
     quantity = {6, 8, 10}
@@ -172,7 +172,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     -- Air Defense
     -- Gunships
@@ -242,6 +242,8 @@ end
 
 -- Targets the tempest
 function CybranM2TorpBombersSnipe()
+    local opai = nil
+    local quantity = {}
     -- Torpedo bombers
     quantity = {8, 10, 12}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirSnipe_1',
@@ -256,7 +258,7 @@ function CybranM2TorpBombersSnipe()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathTimer', {LockTimer = 3*60})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, 1, categories.uas0401, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, 1, categories.uas0401, '>='})
 end
 
 function CybranM2BaseLandAttacks()
@@ -280,7 +282,7 @@ function CybranM2BaseLandAttacks()
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     quantity = {12, 16, 20}
     trigger = {100, 85, 70}
@@ -295,7 +297,7 @@ function CybranM2BaseLandAttacks()
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     --------
     -- Drops
@@ -319,7 +321,7 @@ function CybranM2BaseLandAttacks()
         opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
         opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[i][Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[i][Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     -- Loyalists
@@ -341,19 +343,18 @@ function CybranM2BaseLandAttacks()
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:SetLockingStyle('DeathTimer', {LockTimer = 60})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.FACTORY * categories.TECH3, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.FACTORY * categories.TECH3, '>='})
     end
 end
 
 function CybranM2BaseNavalAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     local DefaultPatrolChains = {
         'M2_Cybran_Base_NavalAttack_Chain_1',
         'M2_Cybran_Base_NavalAttack_Chain_2',
     }
-
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     quantity = {4, 6, 8}
     for i = 1, 2 do
@@ -376,7 +377,7 @@ function CybranM2BaseNavalAttacks()
         opai:SetChildActive('T3', false)
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, 1, categories.NAVAL * categories.FACTORY * categories.STRUCTURE, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, 1, categories.NAVAL * categories.FACTORY * categories.STRUCTURE, '>='})
     end
 
     quantity = {20, 25, 30}
@@ -399,7 +400,7 @@ function CybranM2BaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     quantity = {9, 14, 19}
     trigger = {10, 8, 6}
@@ -422,7 +423,7 @@ function CybranM2BaseNavalAttacks()
         opai:SetChildActive('T3', false)
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
     end
 
     quantity = {25, 35, 45}
@@ -445,7 +446,7 @@ function CybranM2BaseNavalAttacks()
         )
         opai:SetChildActive('T1', false)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, 2, categories.BATTLESHIP, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, 2, categories.BATTLESHIP, '>='})
     end
 
     quantity = {20, 25, 30}
@@ -469,7 +470,7 @@ function CybranM2BaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.ANTIAIR - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.ANTIAIR - categories.TECH1, '>='})
 
     -- Sonar
     opai = CybranM2Base:AddOpAI('M2_Cybran_Base_Sonar',
@@ -490,9 +491,10 @@ end
 -- Cybran M2 Island Base
 ------------------------
 function CybranM2IslandBaseAI(baseType)
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
     if baseType == 'Naval' then
         -- Naval Base
-        CybranM2IslandBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 80,
+        CybranM2IslandBase:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 80,
             {
                 M2_Cybran_Island_Naval_Base = 100,
                 M2_Cybran_Island_Mass = 100,
@@ -505,7 +507,7 @@ function CybranM2IslandBaseAI(baseType)
 
     elseif baseType == 'Arty' then 
         -- T3 Arty Base
-        CybranM2IslandBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 30,
+        CybranM2IslandBase:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 30,
             {
                 M2_Cybran_Island_Arty_Base = 100,
                 M2_Cybran_Island_Mass = 100,
@@ -518,7 +520,7 @@ function CybranM2IslandBaseAI(baseType)
 
     elseif baseType == 'Eco' or baseType == 'Air' then
         -- Economy Base, spawn carriers if 'Air' base
-        CybranM2IslandBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 30,
+        CybranM2IslandBase:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Island_Base', 'M2_Cybran_Island_Base_Marker', 30,
             {
                 M2_Cybran_Island_Mass = 100,
                 M2_Cybran_Island_Eco = 100,
@@ -537,14 +539,13 @@ end
 
 -- Island Naval Attacks
 function CybranM2IslandBaseNavalAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     local DefaultPatrolChains = {
         'M2_Cybran_Island_Naval_Attack_Chain_1',
         'M2_Cybran_Island_Naval_Attack_Chain_2',
     }
-
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     quantity = {2, 4, 6}
     trigger = {11, 8, 6}
@@ -567,7 +568,7 @@ function CybranM2IslandBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     quantity = {4, 4, 6}
     trigger = {19, 15, 11}
@@ -590,7 +591,7 @@ function CybranM2IslandBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     quantity = {10, 12, 14}
     trigger = {13, 10, 7}
@@ -609,17 +610,18 @@ function CybranM2IslandBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
 end
 
 -- Island Carrier Attacks
 function CybranM2IslandBaseCarrierAttacks()
     local quantity = {}
     local trigger = {}
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
 
     -- Initiate build locations
     for i = 1, 2 do
-        ArmyBrains[Cybran]:PBMAddBuildLocation('M2_Cybran_Carrier_Marker_' .. i, 50, 'M2_Cybran_Carrier_' .. i)
+        aiBrain:PBMAddBuildLocation('M2_Cybran_Carrier_Marker_' .. i, 50, 'M2_Cybran_Carrier_' .. i)
     end
 
     -- TODO: Set carriers as factories for locations
@@ -671,14 +673,14 @@ function CybranM2IslandBaseCarrierAttacks()
         LocationType = 'M2_Cybran_Carrier_1',
         BuildConditions = {
             { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}},
+                {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
             PatrolChain = 'M2_Cybran_Island_AirAttack_Chain_1',
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     -- Carrier 2
     quantity = {4, 6, 8}
@@ -698,14 +700,14 @@ function CybranM2IslandBaseCarrierAttacks()
         LocationType = 'M2_Cybran_Carrier_2',
         BuildConditions = {
             { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                {'default_brain', {'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='}},
+                {{'HumanPlayers', 'Order'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
             PatrolChain = 'M2_Cybran_Island_AirAttack_Chain_2',
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 -- Island Arty AI

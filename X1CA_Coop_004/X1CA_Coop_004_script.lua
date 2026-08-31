@@ -7,20 +7,20 @@
 -- **
 -- **  Copyright 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
+local Behaviors = import('/lua/ai/opai/opbehaviors.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local M1SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m1seraphimai.lua')
-local M2SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m2seraphimai.lua')
-local M3SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua')
-local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_004/X1CA_Coop_004_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local M1SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m1seraphimai.lua')---@module "X1CA_Coop_004/X1CA_Coop_004_m1seraphimai"
+local M2SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m2seraphimai.lua')---@module "X1CA_Coop_004/X1CA_Coop_004_m2seraphimai"
+local M3SeraphimAI = import('/maps/X1CA_Coop_004/X1CA_Coop_004_m3seraphimai.lua')---@module "X1CA_Coop_004/X1CA_Coop_004_m3seraphimai"
+local NukeDamage = import('/lua/sim/nukedamage.lua').NukeAOE
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_004/X1CA_Coop_004_strings.lua')---@module "X1CA_Coop_004/X1CA_Coop_004_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 local FactionData = import('/lua/factions.lua')
 
 ---------
@@ -143,7 +143,7 @@ function OnStart(self)
         )
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
     ForkThread(IntroMission1NIS)
 end
@@ -180,7 +180,7 @@ function IntroMission1NIS()
     ScenarioFramework.Dialogue(OpStrings.X04_M01_010, nil, true)
 
     ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_1'), 15, ArmyBrains[Player1])
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
     WaitSeconds(2)
 
     -- Dostya begins constructing a building
@@ -190,7 +190,7 @@ function IntroMission1NIS()
 
     -- Spawn Dostya for NIS
     -- ScenarioInfo.DostyaCDR = ScenarioUtils.CreateArmyUnit('Dostya', 'Dostya')
-    ScenarioInfo.DostyaCDR = ScenarioFramework.EngineerBuildUnits('Dostya', 'Dostya', 'Dostya_build_target_1')
+    ScenarioInfo.DostyaCDR = ScenarioFramework.EngineerBuildUnits('Dostya', 'Dostya', 'Dostya_build_target_1')--[[@as CommandUnit]]
     ScenarioInfo.DostyaCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.DostyaCDR:SetCustomName(LOC '{i Dostya}')
     ScenarioInfo.DostyaCDR.CanBeKilled = false
@@ -202,10 +202,10 @@ function IntroMission1NIS()
     ScenarioFramework.Dialogue(OpStrings.X04_M01_028, nil, true)
 
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 10)
+    Cinematics.CameraMoveToMarker('Cam_1_2', 10)
     WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3_2'), 3)
+    Cinematics.CameraMoveToMarker('Cam_1_3_2', 3)
 
     -- Spawn in player
     ForkThread(SpawnPlayer)
@@ -213,18 +213,18 @@ function IntroMission1NIS()
     -- Play dialog: HQ: You're going to have concerns of your own, Commander.
     ScenarioFramework.Dialogue(OpStrings.X04_M01_023, nil, true)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
+    Cinematics.CameraMoveToMarker('Cam_1_3', 4)
     -- WaitSeconds(1)
 
     -- ScenarioFramework.CreateVisibleAreaLocation(15, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_2'), 14, ArmyBrains[Player1])
     local tempVisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 0, ArmyBrains[Player1])
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 5)
+    Cinematics.CameraMoveToMarker('Cam_1_4', 5)
     -- The enemy is west
     ScenarioFramework.Dialogue(OpStrings.X04_M01_024, nil, true)
     -- Kill 'em
     ScenarioFramework.Dialogue(OpStrings.X04_M01_026, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 8)
+    Cinematics.CameraMoveToMarker('Cam_1_5', 8)
     WaitSeconds(1)
     ForkThread(function()
         WaitSeconds(2)
@@ -232,7 +232,7 @@ function IntroMission1NIS()
         WaitSeconds(4)
         ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('NIS_M1_Reveal_3'), 50)
     end)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 4)
+    Cinematics.CameraMoveToMarker('Cam_1_6', 4)
     WaitSeconds(1)
     Cinematics.ExitNISMode()
 
@@ -252,10 +252,10 @@ function SpawnPlayer()
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerLose)
             elseif(factionIdx == 2) then
@@ -470,8 +470,8 @@ function IntroMission2NIS()
     ScenarioFramework.Dialogue(OpStrings.X04_M02_002, nil, true)
     WaitSeconds(2)
     ScenarioFramework.Dialogue(OpStrings.X04_M02_003, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 6)
+    Cinematics.CameraMoveToMarker('Cam_2_1', 0)
+    Cinematics.CameraMoveToMarker('Cam_2_2', 6)
     WaitSeconds(1)
     ScenarioFramework.Dialogue(OpStrings.X04_M02_004, nil, true)
 
@@ -500,8 +500,8 @@ function IntroMission2NIS()
 end
 
 function M2InitialAttack()
-    local units = nil
     local trigger = {}
+    local units = nil
 
     -- Land Attacks
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M2_Seraph_InitAttack_North_D' .. Difficulty, 'AttackFormation')
@@ -793,8 +793,8 @@ function AttackDostya()
     ScenarioFramework.GroupPatrolChain(units, 'DostyaAttackChain')
 
     -- Hex5
-    ScenarioInfo.Hex5 = ScenarioFramework.SpawnCommander('Seraphim', 'M2_Hex5', nil, LOC '{i Hex5}')
-    ScenarioInfo.Hex5.CanTakeDamage = false
+    ScenarioInfo.Hex5ACU = ScenarioFramework.SpawnCommander('Seraphim', 'M2_Hex5', nil, LOC '{i Hex5}')
+    ScenarioInfo.Hex5ACU.CanTakeDamage = false
     ScenarioFramework.CreateTimerTrigger(Hex5Vanish, 60)
 
     ForkThread(IntroMission3NIS)
@@ -808,9 +808,9 @@ function IntroMission3NIS()
     WaitSeconds(1)
     NIS3Reinforcments()
     Cinematics.SetInvincible('M2Area')
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_3_1', 0)
     -- Put Hex5 in place, with footprints showing that he came from somewhere
-    IssueMove({ ScenarioInfo.Hex5 }, ScenarioUtils.MarkerToPosition('Hex5_Start'))
+    IssueMove({ ScenarioInfo.Hex5ACU }, ScenarioUtils.MarkerToPosition('Hex5_Start'))
     ScenarioFramework.FlushDialogueQueue()
     -- And now, I present: Dave T.'s dialog summary
     -- HQ: "What's up?"
@@ -829,31 +829,31 @@ function IntroMission3NIS()
     ScenarioFramework.Dialogue(OpStrings.X04_M03_017, nil, true)
 
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 8)
+    Cinematics.CameraMoveToMarker('Cam_3_2', 8)
 
     WaitSeconds(1)
-    IssueAggressiveMove({ ScenarioInfo.Hex5 }, ScenarioUtils.MarkerToPosition('Hex5_Destination'))
+    IssueAggressiveMove({ ScenarioInfo.Hex5ACU }, ScenarioUtils.MarkerToPosition('Hex5_Destination'))
     WaitSeconds(1)
-    Cinematics.CameraTrackEntity(ScenarioInfo.Hex5, 20, 2)
+    Cinematics.CameraTrackEntity(ScenarioInfo.Hex5ACU, 20, 2)
     WaitSeconds(2)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 4)
+    Cinematics.CameraMoveToMarker('Cam_3_3', 4)
     WaitSeconds(2)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_4'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_5'), 8)
+    Cinematics.CameraMoveToMarker('Cam_3_4', 0)
+    Cinematics.CameraMoveToMarker('Cam_3_5', 8)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_6'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_7'), 5)
+    Cinematics.CameraMoveToMarker('Cam_3_6', 0)
+    Cinematics.CameraMoveToMarker('Cam_3_7', 5)
     WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_8'), 0)
+    Cinematics.CameraMoveToMarker('Cam_3_8', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_9'), 7)
+    Cinematics.CameraMoveToMarker('Cam_3_9', 7)
     WaitSeconds(1)
 
     WaitSeconds(1)
     ScenarioInfo.NIS3_VisMarker:Destroy()
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_10'), 3)
+    Cinematics.CameraMoveToMarker('Cam_3_10', 3)
     Cinematics.SetInvincible('M2Area', true)
     Cinematics.ExitNISMode()
 
@@ -869,7 +869,7 @@ function NIS3Reinforcments()
 end
 
 function Hex5Vanish()
-    ScenarioInfo.Hex5:Destroy()
+    ScenarioInfo.Hex5ACU:Destroy()
 end
 
 function KillDostya()
@@ -1671,7 +1671,9 @@ function OutroNIS()
                 -- commander goes to Outro_Commander_Destination
                 IssueClearCommands({ ScenarioInfo.PlayerCDR })
                 -- IssueMove(ScenarioInfo.PlayerCDR, ScenarioUtils.MarkerToPosition('Outro_Commander_Destination'))
-                IssueMove({ ScenarioInfo.PlayerCDR }, { ScenarioInfo.PlayerCDR:GetPosition()[1], ScenarioInfo.PlayerCDR:GetPosition()[2], ScenarioInfo.PlayerCDR:GetPosition()[3] + 1.5 })
+                local pos = ScenarioInfo.PlayerCDR:GetPosition()
+                pos[3] = pos[3] + 1.5
+                IssueMove({ ScenarioInfo.PlayerCDR }, pos)
 
                 ScenarioFramework.FlushDialogueQueue()
                 ScenarioFramework.Dialogue(OpStrings.X04_M03_250, nil, true)
@@ -1825,7 +1827,7 @@ end
 function SetupOumEoshiTaunts()
     OumEoshiTM:AddEnemiesKilledTaunt('TAUNT6', ArmyBrains[Seraphim], categories.STRUCTURE * categories.TECH3, 15)       -- Seraph kills a a moderate number of structures
     OumEoshiTM:AddDamageTaunt('TAUNT4', ScenarioInfo.PlayerCDR, .75)                                                    -- Player CDR is reduced to 75% health
-    OumEoshiTM:AddIntelCategoryTaunt('X04_M03_057', ArmyBrains[Player1], ArmyBrains[Seraphim], categories.xsl0401, 1)    -- Player sights exp bot
+    OumEoshiTM:AddIntelCategoryTaunt('X04_M03_057', ArmyBrains[Player1], ArmyBrains[Seraphim], categories.xsl0401)    -- Player sights exp bot
     OumEoshiTM:AddUnitsKilledTaunt('TAUNT5', ArmyBrains[Seraphim], categories.xsb5202, 2)                               -- Seraph loses two air staging plats (focuses this taunt in M2)
 end
 

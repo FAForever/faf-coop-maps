@@ -9,19 +9,19 @@
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local M1SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1seraphimai.lua')
-local M1RhizaAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua')
-local M2SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m2seraphimai.lua')
-local M3PrincessAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3princessai.lua')
-local M3SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3seraphimai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local M1SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1seraphimai.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_m1seraphimai"
+local M1RhizaAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m1rhizaai.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_m1rhizaai"
+local M2SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m2seraphimai.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_m2seraphimai"
+local M3PrincessAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3princessai.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_m3princessai"
+local M3SeraphimAI = import('/maps/X1CA_Coop_003/X1CA_Coop_003_m3seraphimai.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_m3seraphimai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_003/X1CA_Coop_003_strings.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 local ScriptFile = '/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
@@ -293,7 +293,7 @@ function OnStart()
 
     ScenarioFramework.AddRestriction(Rhiza, categories.uas0302) -- Aeon Battleship
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
     ForkThread(IntroNIS)
 end
@@ -377,7 +377,7 @@ function IntroNIS()
     ForkThread(ShieldToggle, AllShieldUnits, false, false)
 
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
     -- Let slower machines catch up before we get going
     WaitSeconds(NIS1InitialDelay)
@@ -390,9 +390,9 @@ function IntroNIS()
     local NISUnits2 = ScenarioUtils.CreateArmyGroup('Rhiza', 'Initial_NIS')
 
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 4)
+    Cinematics.CameraMoveToMarker('Cam_1_2', 4)
     WaitSeconds(0.5)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
+    Cinematics.CameraMoveToMarker('Cam_1_3', 2)
     WaitSeconds(0.5)
 
     if (LeaderFaction == 'uef') then
@@ -407,23 +407,23 @@ function IntroNIS()
     end
 
     if (Difficulty == 3) then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4_Hard'), 3)
+        Cinematics.CameraMoveToMarker('Cam_1_4_Hard', 3)
     else
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
+        Cinematics.CameraMoveToMarker('Cam_1_4', 3)
     end
     WaitSeconds(1)
     if (Difficulty == 3) then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5_Hard'), 6)
+        Cinematics.CameraMoveToMarker('Cam_1_5_Hard', 6)
     else
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 6)
+        Cinematics.CameraMoveToMarker('Cam_1_5', 6)
     end
     WaitSeconds(1)
 
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1_2'), 0)
+    -- Cinematics.CameraMoveToMarker('Cam_1_1_2', 0)
     -- Cinematics.CameraTrackEntity( ScenarioInfo.RhizaACU, 20, 0 )
     Cinematics.CameraTrackEntity(ScenarioInfo.RhizaACU, 30, 4)
     WaitSeconds(1.5)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
+    Cinematics.CameraMoveToMarker('Cam_1_6', 3)
 
     if (LeaderFaction == 'aeon') then
         ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'AeonPlayer', 'Warp', true, true, PlayerDeath)
@@ -436,10 +436,10 @@ function IntroNIS()
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
             elseif (factionIdx == 2) then
@@ -462,7 +462,7 @@ function IntroNIS()
         ScenarioFramework.Dialogue(OpStrings.X03_M01_032, nil, true)
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 3)
+    Cinematics.CameraMoveToMarker('Cam_1_7', 3)
 
     for k, unit in NISUnits1 do
         if unit and not unit.Dead then
@@ -903,7 +903,8 @@ function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
 
     -- Get those engineers building the bombers, guaranteed
-    ArmyBrains[Seraphim]:PBMSetCheckInterval(2)
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(2)
 
     local AllShieldUnits = ArmyBrains[Seraphim]:GetListOfUnits(categories.SHIELD, false)
 
@@ -920,22 +921,22 @@ function IntroMission2NIS()
     ScenarioFramework.Dialogue(OpStrings.X03_M02_016, nil, true)
     ScenarioFramework.Dialogue(OpStrings.X03_M02_017, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_2_1', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 7)
+    Cinematics.CameraMoveToMarker('Cam_2_2', 7)
     WaitSeconds(1)
 
     -- Set it back to the default
-    ArmyBrains[Seraphim]:PBMSetCheckInterval(13)
+    aiBrain:PBMSetCheckInterval(13)
 
     -- Look north
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_3', 4)
+    Cinematics.CameraMoveToMarker('Cam_2_4', 3)
     WaitSeconds(1)
     ScenarioFramework.Dialogue(OpStrings.X03_M02_018, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 5)
+    Cinematics.CameraMoveToMarker('Cam_2_5', 5)
     WaitSeconds(2)
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+    -- Cinematics.CameraMoveToMarker('Cam_2_6', 3)
     Cinematics.CameraTrackEntity(ScenarioInfo.PlayerCDR, 40, 4)
     VisMarker:Destroy()
 
@@ -1097,7 +1098,7 @@ function M2PrincessBombedNIS()
     Cinematics.EnterNISMode()
     Cinematics.SetInvincible( 'M2_Playable_Area' )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Lose_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_Lose_1', 0)
     -- Chastise the player
     ScenarioFramework.Dialogue(OpStrings.X03_M02_100, nil, true)
     if (not NumBombers) or NumBombers < 1 or NumBombers > 6 then NumBombers = 6 end
@@ -1132,12 +1133,12 @@ function M2PrincessBombedNIS()
         WaitSeconds(0.5)
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Lose_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_Lose_2', 5)
 
     ScenarioInfo.OpEnded = false
     ForkThread( PlayerLosePrincess )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Lose_3'), 25)
+    Cinematics.CameraMoveToMarker('Cam_Lose_3', 25)
 end
 
 function M2ResourceBase()
@@ -1403,7 +1404,7 @@ function IntroMission3()
             -- Seraphim Initial Patrols
             --------------------------
 
-            units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M3_SeraphNorth_Init_LandDef_D' .. Difficulty, 'AttackFormation')
             for k, v in units:GetPlatoonUnits() do
                 ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_Seraph_North_LandDef_Chain')))
             end
@@ -1519,11 +1520,11 @@ function IntroMission3NIS()
     ForkThread( ShieldToggle, AllShieldUnits, false, false )
 
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_3_1', 0)
     ScenarioFramework.Dialogue(OpStrings.X03_M03_240, nil, true)
     ScenarioFramework.Dialogue(OpStrings.X03_M03_250, nil, true)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 9)
+    Cinematics.CameraMoveToMarker('Cam_3_2', 9)
     WaitSeconds(1)
 
     ScenarioFramework.Dialogue(OpStrings.X03_M03_260, nil, true)
@@ -1531,12 +1532,12 @@ function IntroMission3NIS()
     local GroundUnits = ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_NIS')
     IssueMove( GroundUnits, ScenarioUtils.MarkerToPosition('M3_Rhiza_AirAttack_9'))
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_3_3_2', 5)
     ForkThread( ShieldToggle, AllShieldUnits, true, false )
     WaitSeconds(2)
 
     ScenarioFramework.Dialogue(OpStrings.X03_M03_270, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_4'), 4)
+    Cinematics.CameraMoveToMarker('Cam_3_4', 4)
 
     Cinematics.SetInvincible( 'M2_Playable_Area', true )
     Cinematics.ExitNISMode()

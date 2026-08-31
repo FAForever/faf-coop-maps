@@ -3,21 +3,21 @@
 --
 -- Author: Shadowlorda1
 ------------------------------
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua')
-local P1QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP1.lua')
-local P2QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP2.lua')
-local P3QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP3.lua')
-local P4QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP4.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings.lua')  
-local TauntManager = import('/lua/TauntManager.lua')
+local Buff = import('/lua/sim/buff.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua')---@module "FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions"
+local P1QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP1.lua')---@module "FAF_Coop_Operation_Golden_Crystals/QAIaiP1"
+local P2QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP2.lua')---@module "FAF_Coop_Operation_Golden_Crystals/QAIaiP2"
+local P3QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP3.lua')---@module "FAF_Coop_Operation_Golden_Crystals/QAIaiP3"
+local P4QAIAI = import('/maps/FAF_Coop_Operation_Golden_Crystals/QAIaiP4.lua')---@module "FAF_Coop_Operation_Golden_Crystals/QAIaiP4"
+local OpStrings = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings.lua')---@module "FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings"  
+local TauntManager = import('/lua/tauntmanager.lua')
 
 QAITM = TauntManager.CreateTauntManager('QAI1TM', '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings.lua')
 
@@ -103,7 +103,7 @@ function OnStart(scen)
         ArmyBrains[army]:IMAPConfiguration()
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+    Cinematics.CameraMoveToMarker('P1Cam1', 0)
     ForkThread(Intro1)
 end 
 
@@ -127,10 +127,10 @@ function Intro1()
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
         local tblArmy = ListArmies()
-        coop = 1
+        local coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy >= ScenarioInfo.Player2 then
-                factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+                local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
                 if (factionIdx == 1) then
                     ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath)
                 elseif (factionIdx == 2) then
@@ -143,17 +143,17 @@ function Intro1()
             end
         end
     
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P1Cam1', 0)
     
         ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 2)
+        Cinematics.CameraMoveToMarker('P1Cam2', 2)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 2)
+        Cinematics.CameraMoveToMarker('P1Cam3', 2)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam4'), 2)
+        Cinematics.CameraMoveToMarker('P1Cam4', 2)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 2)
+        Cinematics.CameraMoveToMarker('P1Cam1', 2)
     
     Cinematics.ExitNISMode()
     
@@ -256,16 +256,16 @@ end
 function P1QOffmapattacks()
     if (not P1Offmaptriggered) then
         P1Offmaptriggered = true
-        WaitSeconds(60)   
+        WaitSeconds(60)
         while ScenarioInfo.MissionNumber == 1 or ScenarioInfo.MissionNumber == 2 do
-        local attackGroups = {
-            'P1QOffmapattack1',
-            'P1QOffmapattack2',
-            'P1QOffmapattack3',
-        }
-        attackGroups.num = table.getn(attackGroups)
+            local attackGroups = {
+                'P1QOffmapattack1',
+                'P1QOffmapattack2',
+                'P1QOffmapattack3',
+            }
+            attackGroups.num = table.getn(attackGroups)
 
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', attackGroups[Random(1, attackGroups.num)] .. '_D' .. Difficulty, 'GrowthFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', attackGroups[Random(1, attackGroups.num)] .. '_D' .. Difficulty, 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolChain(platoon, 'P1QOffmapattack' .. Random(1, 3))
 
             WaitSeconds(Random(120, 240))
@@ -302,16 +302,16 @@ function IntroP2()
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_1')
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P1Cam1', 0)
         local VisMarker1_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision1', 0, ArmyBrains[Player1])
         local VisMarker1_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision2', 0, ArmyBrains[Player1])
         ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam1', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam2', 3)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam1', 3)
     
         ForkThread(
             function()
@@ -366,7 +366,7 @@ function Convoy1()
             'incomplete',                           -- status
             'Destroy the Convoys',                -- title
             'We can not allow the crystal to get off world.', -- description
-            Objectives.GetActionIcon('kill'),
+            Objectives.GetActionIcon('Kill'),
             {                                       -- target
                 FlashVisible = true,
                 MarkUnits = true,
@@ -618,6 +618,7 @@ function CounterAttackP2()
     local quantity = {}
     local trigger = {}
     local platoon
+    local num
 
     -- sends Gunships if player has more than [60, 50, 40] Tech 2 and Tech 3 Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.TECH1)
@@ -782,21 +783,21 @@ function IntroP3()
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P3QIntLandattack2_D'.. Difficulty, 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P3QIntattack2')
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P3Cam1', 0)
         local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(60, 'P3Vision1', 0, ArmyBrains[Player1])
         local VisMarker3_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P3Vision2', 0, ArmyBrains[Player1])
         local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(80, 'P3Vision3', 0, ArmyBrains[Player1])
         ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam1', 3)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam2', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam3', 3)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam4', 3)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam1', 3)
         WaitSeconds(1)
     
         ForkThread(
@@ -824,6 +825,7 @@ function IntroP3()
 end
 
 function P3T3Arty()
+    local plat
 
     AIBuildStructures.CreateBuildingTemplate( ArmyBrains[QAI], 'QAI', 'QAIArtybase1' )
     AIBuildStructures.AppendBuildingTemplate(ArmyBrains[QAI], 'QAI', 'P3QArty2', 'QAIArtybase1')
@@ -959,6 +961,7 @@ function CounterAttackP3()
     local quantity = {}
     local trigger = {}
     local platoon
+    local num
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
@@ -1123,55 +1126,55 @@ function IntroP4()
     local units = ScenarioFramework.SpawnCommander('QAI', 'SDrone1', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units1 = ScenarioFramework.SpawnCommander('QAI', 'SDrone2', nil, 'QAI Drone', false, nil,
+    local units1 = ScenarioFramework.SpawnCommander('QAI', 'SDrone2', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon1, {units}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon1, {units1}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon1, 'P4Intattack1')
 
-    units2 = ScenarioFramework.SpawnCommander('QAI', 'SDrone3', nil, 'QAI Drone', false, nil,
+    local units2 = ScenarioFramework.SpawnCommander('QAI', 'SDrone3', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
-    units3 = ScenarioFramework.SpawnCommander('QAI', 'SDrone4', nil, 'QAI Drone', false, nil,
+    local units3 = ScenarioFramework.SpawnCommander('QAI', 'SDrone4', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon2, {units2}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon2, {units3}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon2, 'P4Intattack2')
 
-    units4 = ScenarioFramework.SpawnCommander('QAI', 'SDrone5', nil, 'QAI Drone', false, nil,
+    local units4 = ScenarioFramework.SpawnCommander('QAI', 'SDrone5', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
-    units5 = ScenarioFramework.SpawnCommander('QAI', 'SDrone6', nil, 'QAI Drone', false, nil,
+    local units5 = ScenarioFramework.SpawnCommander('QAI', 'SDrone6', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon3, {units4}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon3, {units5}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon3, 'P4Intattack3')
     
-    units6 = ScenarioFramework.SpawnCommander('QAI', 'SDrone7', nil, 'QAI Drone', false, nil,
+    local units6 = ScenarioFramework.SpawnCommander('QAI', 'SDrone7', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units7 = ScenarioFramework.SpawnCommander('QAI', 'SDrone8', nil, 'QAI Drone', false, nil,
+    local units7 = ScenarioFramework.SpawnCommander('QAI', 'SDrone8', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon4, {units6}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon4, {units7}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon4, 'P4Intattack4')
     
-    units8 = ScenarioFramework.SpawnCommander('QAI', 'SDrone9', nil, 'QAI Drone', false, nil,
+    local units8 = ScenarioFramework.SpawnCommander('QAI', 'SDrone9', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
     
-    units9 = ScenarioFramework.SpawnCommander('QAI', 'SDrone10', nil, 'QAI Drone', false, nil,
+    local units9 = ScenarioFramework.SpawnCommander('QAI', 'SDrone10', nil, 'QAI Drone', false, nil,
     {'MicrowaveLaserGenerator','StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
 
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon5, {units8}, 'Attack', 'AttackFormation')
     ArmyBrains[QAI]:AssignUnitsToPlatoon(ACUPlatoon5, {units9}, 'Attack', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(ACUPlatoon5, 'P4Intattack5')
    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2.5
     buffAffects.MassProduction.Mult = 2.5
 
@@ -1182,20 +1185,20 @@ function IntroP4()
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_3')
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P4Cam1', 0)
         local VisMarker4_1 = ScenarioFramework.CreateVisibleAreaLocation(90, 'P4Vision1', 0, ArmyBrains[Player1])
         ScenarioFramework.Dialogue(OpStrings.IntroP4, nil, true)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P4Cam1', 3)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam2'), 3)
+        Cinematics.CameraMoveToMarker('P4Cam2', 3)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P4Cam3', 3)
         local units = ScenarioFramework.SpawnCommander('QAI', 'P4ACU1', nil, 'QAI Drone', false, nil,
             {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'AdvancedEngineering', 'T3Engineering'})
             ScenarioFramework.GroupMoveChain({units}, 'P4QACUattack1')
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam1', 3)
         WaitSeconds(1)
     
         ForkThread(
@@ -1321,6 +1324,7 @@ function CounterAttackP4()
     local quantity = {}
     local trigger = {}
     local platoon = nil
+    local num
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)

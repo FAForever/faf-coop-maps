@@ -24,7 +24,8 @@ function M3AeonSouthEasternBaseAI()
 	------------
     -- Aeon Base
     ------------
-    M3AeonSouthEasternBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_SouthEastern_Base', 'M3_Aeon_SouthEastern_Base_Marker', 210,
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    M3AeonSouthEasternBase:InitializeDifficultyTables(aiBrain, 'M3_Aeon_SouthEastern_Base', 'M3_Aeon_SouthEastern_Base_Marker', 210,
 		{
 		M3_Aeon_Southern_Base = 450,
 		}
@@ -39,7 +40,7 @@ function M3AeonSouthEasternBaseAI()
     M3AeonSouthEasternBase:SetActive('LandScouting', true)
 	-- Enable nukes
 	M3AeonSouthEasternBase:SetActive('Nuke', true)
-	ArmyBrains[Aeon]:PBMSetCheckInterval(7)
+	aiBrain:PBMSetCheckInterval(7)
 	
 	M3AeonSouthEasternNavalAttacks()
 	M3AeonSouthEasternTransportAttacks()
@@ -53,7 +54,8 @@ function M3AeonSouthEasternNavalAttacks()
 	local T3Quantity = {1, 1, 2}
 	local T2Quantity = {2, 3, 4}
 	local T1Quantity = {5, 4, 3}
-	
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+
 	-- Medium Aeon Fleet for attacking the players
 	local Temp = {
         'M3_Aeon_SouthEastern_Naval_Fleet',
@@ -83,7 +85,7 @@ function M3AeonSouthEasternNavalAttacks()
 			},
         },     
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	-- Smaller Aeon Fleet for attacking Aiko
 	Temp = {
@@ -111,16 +113,18 @@ function M3AeonSouthEasternNavalAttacks()
             PatrolChain = 'M3_AeonSouthEast_To_UEFMain_Naval_Chain1',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3AeonSouthEasternTransportAttacks()
-	local opai = nil
-	local quantity = {2, 4, 6}
+    local opai = nil
+    local quantity = {}
+	quantity = {2, 4, 6}
 	local T3Quantity = {1, 2, 3}
 	local T2Quantity = {2, 3, 4}
 	local poolName = 'M3_Aeon_SouthEastern_Base_TransportPool'
-	
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+
 	-- T2 Transport Platoon
 	local Temp = {
         'M3_Aeon_SouthEastern_Transport_Platoon',
@@ -143,7 +147,7 @@ function M3AeonSouthEasternTransportAttacks()
 			BaseName = 'M3_Aeon_SouthEastern_Base',
 		},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	Builder = {
         BuilderName = 'M3_Aeon_Southern_Land_Assault',
@@ -172,7 +176,7 @@ function M3AeonSouthEasternTransportAttacks()
 			BaseName = 'M3_Aeon_SouthEastern_Base',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	Builder = {
         BuilderName = 'M3_Aeon_Southern_Land_Sweepers',
@@ -201,13 +205,15 @@ function M3AeonSouthEasternTransportAttacks()
 			BaseName = 'M3_Aeon_SouthEastern_Base',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3AeonSouthEasternAirAttacks()
     local opai = nil
-	local quantity = {6, 12, 18}
-	local trigger = {30, 25, 20}
+    local quantity = {}
+    local trigger = {}
+	quantity = {6, 12, 18}
+	trigger = {30, 25, 20}
 		
 	-- Sends [12, 24, 36] Air Superiority Fighters to players if they have >= 30, 25, 20 air units
 	for i = 1, 2 do
@@ -282,14 +288,16 @@ function M3AeonSouthEasternAirAttacks()
         LocationType = 'M3_Aeon_SouthEastern_Base',
 		BuildConditions = {
 		},
-        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
+        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3AeonSouthEasternAirDefense()
     local opai = nil
-	local quantity = {2, 4, 6}	-- Air Factories = [2, 4, 6] depending on the Difficulty
+    local quantity = {}
+	quantity = {2, 4, 6}	-- Air Factories = [2, 4, 6] depending on the Difficulty
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships'}
 	
 	-- Maintains [2, 4, 6] units defined in ChildType
@@ -309,8 +317,9 @@ function M3AeonSouthEasternAirDefense()
 end
 
 function M3AeonSouthEasternExperimentalAttacks()
-	local opai = nil
-	local quantity = {2, 3, 4}
+    local opai = nil
+    local quantity = {}
+	quantity = {2, 3, 4}
 	
 	-- Tempest with advanced behaviour
 	opai = M3AeonSouthEasternBase:AddOpAI('M3_Aeon_South_Eastern_Tempest',

@@ -7,12 +7,12 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Behaviors = import('/lua/ai/opai/opbehaviors.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/SCCA_Coop_E01/SCCA_Coop_E01_strings.lua')---@module "SCCA_Coop_E01/SCCA_Coop_E01_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Weather = import('/lua/weather.lua')
 
 ---------
@@ -184,14 +184,14 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
@@ -416,7 +416,7 @@ end
 
 function ArnoldFlyover()
     WaitSeconds(10)
-    ScenarioInfo.Flyover = ScenarioUtils.CreateArmyGroupAsPlatoon('Arnold', 'FlyOver', 'StaggeredChevronFormation')
+    ScenarioInfo.Flyover = ScenarioUtils.CreateArmyGroupAsPlatoon('Arnold', 'FlyOver', 'AttackFormation')
     ScenarioInfo.Flyover.PlatoonData = {}
     ScenarioInfo.Flyover.PlatoonData.MoveRoute = {'FlyoverDeath'}
     ScenarioPlatoonAI.MoveToThread(ScenarioInfo.Flyover)

@@ -8,7 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 --------
@@ -27,7 +27,8 @@ function SeraphimM2BaseAI()
     ------------------
     -- Seraphim M2 Base
     ------------------
-    SeraphimM2Base:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_Base', 'M2_Seraphim_Base_Marker', 130, {M2_Seraph_Base = 100})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM2Base:InitializeDifficultyTables(aiBrain, 'M2_Seraph_Base', 'M2_Seraphim_Base_Marker', 130, {M2_Seraph_Base = 100})
     SeraphimM2Base:StartNonZeroBase({{4, 12, 18}, {4, 8, 14}})
     SeraphimM2Base:SetMaximumConstructionEngineers(3)
     SeraphimM2Base:SetConstructionAlwaysAssist(true)
@@ -184,13 +185,14 @@ function SeraphimM2BaseLandAttacks()
 end
 
 function SeraphimM2BaseNavalAttacks()
+    local opai = nil
 
     ----------------------------------------
     -- Seraphim M2 Base Op AI - Naval Attacks
     ----------------------------------------
 
     -- sends 20 frigate power to Fletcher
-    local opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack_Fletcher',
+    opai = SeraphimM2Base:AddNavalAI('M2_SeraphimNavalAttack_Fletcher',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
             PlatoonData = {
@@ -261,7 +263,7 @@ function SeraphimM2BaseNavalAttacks()
 end
 
 function M2SeraphimAirAttackAI(platoon)
-    local moveNum = false
+    local moveNum
     while(ArmyBrains[Seraphim]:PlatoonExists(platoon)) do
         if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
             if(not moveNum) then
@@ -283,7 +285,7 @@ function M2SeraphimAirAttackAI(platoon)
 end
 
 function M2SeraphimNavalAttackAI(platoon)
-    local moveNum = false
+    local moveNum
     while(ArmyBrains[Seraphim]:PlatoonExists(platoon)) do
         if(ScenarioInfo.RhizaACU and not ScenarioInfo.RhizaACU.Dead) then
             if(not moveNum) then

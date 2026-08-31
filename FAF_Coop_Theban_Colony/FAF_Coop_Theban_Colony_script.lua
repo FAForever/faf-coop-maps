@@ -2,14 +2,14 @@
 -- Author: speed2
 
 local Cinematics = import('/lua/cinematics.lua')
-local EffectTemplate = import('/lua/EffectTemplates.lua')
-local M2UEFAI = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_m2uefai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local EffectTemplate = import('/lua/effecttemplates.lua')
+local M2UEFAI = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_m2uefai.lua')---@module "FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_m2uefai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings.lua')---@module "FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ----------
 -- Globals
@@ -106,7 +106,7 @@ function OnPopulate(scenario)
         ScenarioFramework.PlatoonPatrolChain(units, 'M1_Player_Flak_Chain_' .. i)
     end
 
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'M1_Rhinos', 'GrowthFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'M1_Rhinos', 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M1_Player_Rhino_Chain')
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'M1_Air_Patrol', 'GrowthFormation')
@@ -210,6 +210,7 @@ function CybranReinforcements()
 end
 
 function UEFAttacks()
+    local units
     -- Attacks that doesnt respawn
     -- Land
     for i = 1, 2 do
@@ -325,16 +326,16 @@ function OnStart(scenario)
     ScenarioFramework.StartOperationJessZoom('sACUZoom', IntroMission1)
     --[[
     -- Only for video preview
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_Preview_1', 0)
     ForkThread(IntroMission1)
     ForkThread(function()
             Cinematics.EnterNISMode()
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_1'), 0)
+            Cinematics.CameraMoveToMarker('Cam_Preview_1', 0)
             WaitSeconds(5)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_2'), 22)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_3'), 22)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_4'), 22)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Preview_5'), 22)
+            Cinematics.CameraMoveToMarker('Cam_Preview_2', 22)
+            Cinematics.CameraMoveToMarker('Cam_Preview_3', 22)
+            Cinematics.CameraMoveToMarker('Cam_Preview_4', 22)
+            Cinematics.CameraMoveToMarker('Cam_Preview_5', 22)
         end
     )
     ]]--
@@ -433,7 +434,8 @@ function IntroMission2()
             M2UEFAI.UEFM2MainBaseAI()
             M2UEFAI.UEFM2FireBaseNorthAI()
             M2UEFAI.UEFM2FireBaseSouthAI()
-            ArmyBrains[UEF]:PBMSetCheckInterval(6)
+            local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+            aiBrain:PBMSetCheckInterval(6)
 
             -- Main Base Defences
             ScenarioUtils.CreateArmyGroup('UEF', 'M2_3x_Fire_Base_D' .. Difficulty)
@@ -482,11 +484,11 @@ function IntroMission2NIS()
 
     if not SkipNIS2 then
         Cinematics.EnterNISMode()
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 0)
         WaitSeconds(2)
         
         ScenarioFramework.Dialogue(OpStrings.M2_Intro_1, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 6)
+        Cinematics.CameraMoveToMarker('Cam_2_2', 6)
         ForkThread(DestroyM1Units)
         ScenarioFramework.Dialogue(OpStrings.M2_Intro_2, nil, true)
 
@@ -530,13 +532,13 @@ function IntroMission2NIS()
         end
         
         ScenarioFramework.Dialogue(OpStrings.M2_Intro_3, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
+        Cinematics.CameraMoveToMarker('Cam_2_3', 4)
         WaitSeconds(3)
 
         -- Spawn player and coop player 2, using ForkThread so camera isnt waiting for them to spawn
         ForkThread(
             function()
-                ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_ACU')
+                ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_ACU')--[[@as CommandUnit]]
                 ScenarioInfo.PlayerCDR:CreateEnhancement('CoolingUpgrade')
                 ScenarioInfo.PlayerCDR:CreateEnhancement('StealthGenerator')
                 ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
@@ -571,7 +573,7 @@ function IntroMission2NIS()
                 end
             end
         )
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_4', 3)
         ScenarioFramework.Dialogue(OpStrings.M2_Intro_4, nil, true)
 
         Cinematics.ExitNISMode()
@@ -611,7 +613,7 @@ function IntroMission2NIS()
             ForkThread(SpawnM2AttackingUnits)
         end
         -- Spawn player and coop player 2
-        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_ACU')
+        ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player', 'Player_ACU')--[[@as CommandUnit]]
         ScenarioInfo.PlayerCDR:CreateEnhancement('CoolingUpgrade')
         ScenarioInfo.PlayerCDR:CreateEnhancement('StealthGenerator')
         ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
@@ -800,7 +802,7 @@ function StartMission2()
         'incomplete',                   -- complete
         'Defeat UEF attacking forces',  -- title
         'Something',  -- description
-        Objectives.GetActionIcon('kill'),   -- action
+        Objectives.GetActionIcon('Kill'),   -- action
         {                               -- target
             ShowFaction = UEF,
         }

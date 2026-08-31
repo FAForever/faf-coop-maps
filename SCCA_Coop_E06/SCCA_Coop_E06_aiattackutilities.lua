@@ -1,9 +1,9 @@
 local AIUtils = import("/lua/ai/aiutilities.lua")
 local AIAttackUtils = import("/lua/ai/aiattackutilities.lua")
-local CustomFunctions = import("/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua")
+local CustomFunctions = import("/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua")---@module "scca_coop_e06/scca_coop_e06_customfunctions"
 local NavUtils = import("/lua/sim/navutils.lua")
-local ScenarioFramework = import("/lua/ScenarioFramework.lua")
-local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
+local ScenarioFramework = import("/lua/scenarioframework.lua")
+local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
 local Utils = import("/lua/utilities.lua")
 
 -- Upvalued for performance
@@ -94,7 +94,7 @@ function NavalForceAI(self)
         end
 
         for _, priority in NavalPriorities do
-            closestTarget = self:FindClosestUnit('attack', 'enemy', true, ParseEntityCategory(priority))
+            closestTarget = self:FindClosestUnit('Attack', 'Enemy', true, ParseEntityCategory(priority))
             if closestTarget and VDist3(closestTarget:GetPosition(), pos) < maxRange then
                 break
             end

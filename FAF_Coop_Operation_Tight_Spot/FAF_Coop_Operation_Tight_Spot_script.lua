@@ -4,14 +4,14 @@
 -- Author: speed2
 ---------------------------------------
 local Cinematics = import('/lua/cinematics.lua')
-local M3LoyalistAI = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3loyalistai.lua')
-local M3QAIAI = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3qaiai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
+local M3LoyalistAI = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3loyalistai.lua')---@module "FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3loyalistai"
+local M3QAIAI = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3qaiai.lua')---@module "FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3qaiai"
+local Objectives = import('/lua/simobjectives.lua')
 local OpStrings = import ('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_strings.lua')
-local PingGroups = import('/lua/SimPingGroup.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local PingGroups = import('/lua/simpinggroup.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 ----------
 -- Globals
@@ -492,7 +492,7 @@ function StartMission1()
         'incomplete',
         OpStrings.M1P1Title,
         OpStrings.M1P1Description,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
         }
     )
@@ -565,7 +565,7 @@ function M1TransportObjective()
         'incomplete',
         OpStrings.M1B2Title,
         OpStrings.M1B2Description,
-        Objectives.GetActionIcon('timer'),
+        Objectives.GetActionIcon('Timer'),
         {
             Hidden = true,
         }
@@ -1182,14 +1182,14 @@ function IntroMission3()
             platoon.PlatoonData = {}
         end
         platoon.PlatoonData.BaseName = 'M3_QAI_Plateau_Defense_Base'
-        platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
+        platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerEngineerPlatoonSplit)
 
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Plateau_West_Engineers', 'NoFormation')
         if not platoon.PlatoonData then
             platoon.PlatoonData = {}
         end
         platoon.PlatoonData.BaseName = 'M3_QAI_W_Base'
-        platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
+        platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerEngineerPlatoonSplit)
 
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_West_Reclaim_Engineers', 'NoFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_W_Base_EngineerChain')
@@ -1721,8 +1721,9 @@ function M3StartGateChargingAttacks()
 end
 
 function M3SpiderBotsAttack()
+    local quantity = {}
     -- Randomly spawns Spider Bots, ammout depending on difficulty, and sends them to Player's base
-    local quantity = {2, 3, 4}
+    quantity = {2, 3, 4}
     local platoonNames = {
         'M3_SpiderBots_1',
         'M3_SpiderBots_2',
@@ -2112,7 +2113,7 @@ function M3AcuHPObjective()
         'incomplete',
         OpStrings.M3B1Title,
         OpStrings.M3B1Description,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Hidden = true,
         }

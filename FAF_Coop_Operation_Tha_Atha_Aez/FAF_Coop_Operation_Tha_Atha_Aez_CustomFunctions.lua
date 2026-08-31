@@ -1,6 +1,6 @@
-local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
-local ScenarioFramework = import("/lua/ScenarioFramework.lua")
-local ScenarioPlatoonAI = import("/lua/ScenarioPlatoonAI.lua")
+local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
+local ScenarioFramework = import("/lua/scenarioframework.lua")
+local ScenarioPlatoonAI = import("/lua/scenarioplatoonai.lua")
 local NavUtils = import("/lua/sim/navutils.lua")
 local AIBehaviors = import("/lua/ai/aibehaviors.lua")
 local Utils = import("/lua/utilities.lua")
@@ -1071,7 +1071,7 @@ function NukeAI(platoon)
             end
         end
 
-        nukePos = AIBehaviors.GetHighestThreatClusterLocation(aiBrain, unit)
+        local nukePos = AIBehaviors.GetHighestThreatClusterLocation(aiBrain, unit)
         if nukePos then
             IssueNuke({unit}, nukePos)
             WaitSeconds(15)

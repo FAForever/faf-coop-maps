@@ -9,23 +9,19 @@
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local M1OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m1orderai.lua')
-local M2OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m2orderai.lua')
-local M2UEFAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m2uefai.lua')
-local M3OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m3orderai.lua')
-local M4UEFAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m4uefai.lua')
-local M4SeraphimAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m4seraphimai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_001/X1CA_Coop_001_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
-local Utilities = import('/lua/utilities.lua')
-local FactionData = import('/lua/factions.lua')
-
-local SPAIFileName = '/lua/scenarioplatoonai.lua'
+local M1OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m1orderai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m1orderai"
+local M2OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m2orderai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m2orderai"
+local M2UEFAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m2uefai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m2uefai"
+local M3OrderAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m3orderai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m3orderai"
+local M4UEFAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m4uefai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m4uefai"
+local M4SeraphimAI = import('/maps/X1CA_Coop_001/X1CA_Coop_001_m4seraphimai.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_m4seraphimai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_001/X1CA_Coop_001_strings.lua')---@module "X1CA_Coop_001/X1CA_Coop_001_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ---------
 -- Globals
@@ -406,7 +402,7 @@ function OnStart(self)
 
     -- Initialize camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'))
+        Cinematics.CameraMoveToMarker('Cam_1_1')
     end
     ForkThread(IntroNISPart1)
 end
@@ -509,25 +505,25 @@ function IntroNISPart1()
         ScenarioFramework.Dialogue(VoiceOvers.Introduction, nil, true)
 
         -- Look at the enemy base
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_1', 0)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 5)
+        Cinematics.CameraMoveToMarker('Cam_1_2', 5)
         WaitSeconds(1)
 
         -- Look at the artillery
         ScenarioFramework.Dialogue(VoiceOvers.IntroductionArtillery, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 4)
+        Cinematics.CameraMoveToMarker('Cam_1_3', 4)
 
         WaitSeconds(2)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 4)
+        Cinematics.CameraMoveToMarker('Cam_1_4', 4)
         ScenarioFramework.Dialogue(VoiceOvers.IntroductionGunshipPanic, nil, true)
         WaitSeconds(2)
 
         ScenarioInfo.NISGunships = {}
         ScenarioInfo.NISGunshipPlatoons = {}
         for i = 1, 6 do
-            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_NIS_Gunships' .. i, 'StaggeredChevronFormation')
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'M1_NIS_Gunships' .. i, 'AttackFormation')
             table.insert(ScenarioInfo.NISGunshipPlatoons, platoon)
             for k, v in platoon:GetPlatoonUnits() do
                 table.insert(ScenarioInfo.NISGunships, v)
@@ -553,20 +549,20 @@ function IntroNISPart1()
         end
 
         WaitSeconds(0.5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_5', 0)
         WaitSeconds(1)
 
         local NISTrackTarget = ScenarioInfo.UnitNames[Order]['M1_Gunship_NIS_Track']
         Cinematics.CameraTrackEntity( NISTrackTarget, 60, 1 )
 
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 2)
+        Cinematics.CameraMoveToMarker('Cam_1_6', 2)
         WaitSeconds(1)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_7', 0)
         WaitSeconds(1)
         ScenarioFramework.Dialogue(VoiceOvers.IntroductionGatePanic, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp1'), 4)
+        Cinematics.CameraMoveToMarker('Cam_Warp1', 4)
     end
 
     SetAreaKillable('M1_Playable_Area', true)
@@ -640,7 +636,7 @@ function IntroNISPart2()
 
     -- Swap beach units to player
     local units = GetUnitsInRect(ScenarioUtils.AreaToRect('M1_Player_Base_Area'))
-    for k, v in units do
+    for k, v in pairs(units or {}) do
         if v and not v.Dead and (v:GetAIBrain() == ArmyBrains[UEF]) then
             ScenarioFramework.GiveUnitToArmy( v, Player1 )
         end
@@ -667,10 +663,10 @@ function IntroNISPart2()
 
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if(factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Gate', true, true, PlayerDeath)
             elseif(factionIdx == 2) then
@@ -692,13 +688,13 @@ function IntroNISPart2()
 
         ForkThread( NISKillGunshipsSlowly )
         ScenarioInfo.NISAntiAir.CanBeKilled = true
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp2'), 2)
+        Cinematics.CameraMoveToMarker('Cam_Warp2', 2)
 
         WaitSeconds(1)
 
         ForkThread( NIS1KillUnits2 )
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Warp3'), 3)
+        Cinematics.CameraMoveToMarker('Cam_Warp3', 3)
         ScenarioFramework.Dialogue(VoiceOvers.IntroductionLanded, nil, true)
 
         ScenarioInfo.PlayerCDR:SetDoNotTarget(false)
@@ -966,7 +962,7 @@ function M1S2Assign()
         'incomplete',                       -- status
         OpStrings.X01_M01_OBJ_020_030,      -- title
         OpStrings.X01_M01_OBJ_020_040,      -- description
-        Objectives.GetActionIcon('repair'),
+        Objectives.GetActionIcon('Repair'),
         {
             Units = {ScenarioInfo.M1ObjectiveShield},
         }
@@ -1047,6 +1043,8 @@ end
 function IntroMission2()
     ForkThread(
         function()
+            local opai = nil
+            local trigger = {}
             if ScenarioInfo.MissionNumber ~= 1 then
                 return
             end
@@ -1058,8 +1056,6 @@ function IntroMission2()
             while(ScenarioInfo.DialogueLock) do
                 WaitSeconds(0.2)
             end
-
-            local opai = nil
 
             -- Fail M1 secondaries, if not yet completed
             if(ScenarioInfo.M1S2 and ScenarioInfo.M1S2.Active) then
@@ -1124,7 +1120,7 @@ function IntroMission2()
             end
 
             -- Player has > 65, 50, 35 T2/T3 planes, 1 group AA for every 15
-            local trigger = {65, 50, 35}
+            trigger = {65, 50, 35}
             local num = ScenarioFramework.GetNumOfHumanUnits((categories.MOBILE * categories.AIR) - categories.TECH1)
 
             if(num > trigger[Difficulty]) then
@@ -1268,25 +1264,25 @@ function IntroMission2NIS()
     WaitSeconds(1)
 
     -- Sweep over the action northwards
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_2_1', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_2_2', 5)
     WaitSeconds(1)
 
     -- Sweep over the action southwards
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 5)
+    Cinematics.CameraMoveToMarker('Cam_2_3', 5)
     WaitSeconds(2)
 
     -- We might not need these cameras after all...
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 9)
+    -- Cinematics.CameraMoveToMarker('Cam_2_4', 9)
     -- WaitSeconds(1)
     -- Look to where the attacks are coming from
-    -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 3)
+    -- Cinematics.CameraMoveToMarker('Cam_2_5', 3)
 
     -- "Go save them"
     ScenarioFramework.Dialogue(VoiceOvers.CivvyDefense, nil, true) -- 10 sec
     -- WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_6', 3)
     WaitSeconds(1)
 
     -- Kill all of the featured attackers and defenders while the we're looking elsewhere
@@ -1302,11 +1298,11 @@ function IntroMission2NIS()
     end
 
     -- Snap to an enemy base, then zoom out
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_7', 3)
     WaitSeconds(1)
     -- "I'll kill everyone"
     ScenarioFramework.Dialogue(VoiceOvers.AeonThreats, nil, true) -- 5 sec
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_8'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_8', 3)
     WaitSeconds(1)
 
     Cinematics.SetInvincible( 'M1_Playable_Area', true )
@@ -1483,7 +1479,8 @@ function IntroMission3()
             ------------------
             -- UEF Eastern Town
             ------------------
-            UEFM3EasternTown:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_South_Town_Defense', 'UEF_M2_South_Base_Marker', 50, {M2_South_Town_Defense = 100})
+            local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+            UEFM3EasternTown:InitializeDifficultyTables(aiBrain, 'M2_South_Town_Defense', 'UEF_M2_South_Base_Marker', 50, {M2_South_Town_Defense = 100})
             UEFM3EasternTown:StartNonZeroBase(0)
 
             -----------
@@ -2069,22 +2066,22 @@ function Mission3NIS()
 
     -- One vis marker with a huge radius will work for this
     local M3VizMarker = ScenarioFramework.CreateVisibleAreaLocation( 200, ScenarioUtils.MarkerToPosition( 'M3_NIS_Vis_1' ), 0, ArmyBrains[Player1] )
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_3_1', 0)
     ScenarioFramework.Dialogue(VoiceOvers.AeonRevenge1, nil, true)
     WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 4)
+    Cinematics.CameraMoveToMarker('Cam_3_2', 4)
     WaitSeconds(1)
 
     ScenarioFramework.Dialogue(VoiceOvers.AeonRevenge2, nil, true)
     Cinematics.CameraTrackEntity( ScenarioInfo.OrderCDR, 20, 4 )
     WaitSeconds(3)
 
--- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 7)
+-- Cinematics.CameraMoveToMarker('Cam_3_3', 7)
 -- WaitSeconds(2)
 
     M3VizMarker:Destroy()
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_4'), 3)
+    Cinematics.CameraMoveToMarker('Cam_3_4', 3)
 
     Cinematics.SetInvincible( 'M2_Playable_Area', true )
     Cinematics.ExitNISMode()
@@ -2189,7 +2186,7 @@ function TruckNIS()
         'incomplete',                                       -- complete
         OpStrings.X01_M02_OBJ_020_030,                      -- title
         OpStrings.X01_M02_OBJ_020_040,                      -- description
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {                                                   -- target
             Area = 'M2_UEF_Secondary_Move_Area',
             MarkArea = true,
@@ -2606,22 +2603,22 @@ function IntroMission4NIS()
     Cinematics.SetInvincible( 'M3_Playable_Area' )
 
     -- Placeholder NIS length: 26 sec
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_1', 0)
     WaitSeconds(2.5)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_5'), 5)
+    Cinematics.CameraMoveToMarker('Cam_4_5', 5)
     WaitSeconds(1)
 
     -- give intel on the enemy base; this is off-camera and buried in the
     -- NIS script where cameras will not show what we're doing
     ScenarioFramework.CreateVisibleAreaLocation( 130, ScenarioUtils.MarkerToPosition( 'M4_Ser_Incarna1_Patrol_2' ), 1, ArmyBrains[Player1] )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_6'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_6', 0)
     WaitSeconds(1)
     ForkThread( KillDoomedFactory )
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_7'), 5)
+    Cinematics.CameraMoveToMarker('Cam_4_7', 5)
     WaitSeconds(1)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_Final'), 3)
+    Cinematics.CameraMoveToMarker('Cam_4_Final', 3)
 
     Cinematics.SetInvincible( 'M3_Playable_Area', true )
     Cinematics.ExitNISMode()
@@ -2784,7 +2781,7 @@ function M4NukeThread()
         while(searching) do
             WaitSeconds(5)
             for i = 1, 17 do
-                local num = table.getn(ArmyBrains[Seraphim]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_Seraphim_NukeTarget_' .. i), 30, 'enemy'))
+                local num = table.getn(ArmyBrains[Seraphim]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_Seraphim_NukeTarget_' .. i), 30, 'Enemy'))
                 if(num > 3) then
                     if(num > numUnits) then
                         numUnits = num
@@ -2836,7 +2833,7 @@ function M4IncarnasDeadDialogue()
     ScenarioInfo.M4IncarnasDead = ScenarioInfo.M4IncarnasDead + 1
     if (Difficulty < 3 and ScenarioInfo.M4IncarnasDead == 1) or
        (Difficulty == 3 and ScenarioInfo.M4IncarnasDead == 2) then
-        ScenarioFramework.Dialogue(VoiceOvers.CollossusDestroyed, nil, ScenarioInfo.SeraphimCDR)
+        ScenarioFramework.Dialogue(VoiceOvers.CollossusDestroyed, nil, true, ScenarioInfo.SeraphimCDR)
     end
 end
 

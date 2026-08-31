@@ -8,9 +8,9 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ScriptFile = import('/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua')
-local Buff = import('/lua/sim/Buff.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local ScriptFile = import('/maps/X1CA_Coop_003/X1CA_Coop_003_script.lua')---@module "X1CA_Coop_003/X1CA_Coop_003_script"
+local Buff = import('/lua/sim/buff.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
@@ -31,7 +31,8 @@ function SeraphimM2NorthBaseAI()
     ------------------------
     -- Seraphim M2 North Base
     ------------------------
-    SeraphimM2NorthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_North_Base', 'Seraphim_M2_North_Base', 220, {M2_Seraph_North_Base = 100})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM2NorthBase:InitializeDifficultyTables(aiBrain, 'M2_Seraph_North_Base', 'Seraphim_M2_North_Base', 220, {M2_Seraph_North_Base = 100})
     SeraphimM2NorthBase:StartNonZeroBase({{4, 8, 13}, {4, 8, 13}})
     SeraphimM2NorthBase:SetActive('AirScouting', true)
     SeraphimM2NorthBase:SetBuildAllStructures(false)
@@ -165,7 +166,7 @@ function SeraphimM2NorthBaseExperimentals()
         table.insert( buildList, 'Seraph_Exper_'..i )
         for k,v in ScenarioUtils.FlattenTreeGroup( 'Seraphim', topName..i..engSuffix ) do
             if engSpawned < engineers then
-                unit = CreateUnitHPR( v.type,
+                local unit = CreateUnitHPR( v.type,
                                      'Seraphim',
                                      v.Position[1], v.Position[2], v.Position[3],
                                      v.Orientation[1], v.Orientation[2], v.Orientation[3]
@@ -213,7 +214,7 @@ function SeraphimM2NorthBaseExperimentals()
     end
 
     for i=1,filledPlatoons do
-        platoonTable[i]:ForkAIThread( import('/lua/ScenarioPlatoonAI.lua').StartBaseEngineerThread )
+        platoonTable[i]:ForkAIThread( import('/lua/scenarioplatoonai.lua').StartBaseEngineerThread )
     end
 end
 
@@ -279,7 +280,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
 
     -- sends 12, 14, 16 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {12, 14, 16}
@@ -295,7 +296,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 12, 14, 16 [air superiority] if player has >= 100, 80, 60 mobile air
     quantity = {12, 14, 16}
@@ -311,7 +312,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 12, 14, 16 [air superiority] if player has >= 60, 50, 40 gunships
     quantity = {12, 14, 16}
@@ -327,7 +328,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 5, 7, 16 [torpedo bombers] if player has >= 10, 8, 5 boats
     quantity = {5, 7, 16}
@@ -343,7 +344,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 6, 10, 16 [combat fighters, gunships] if player has >= 60, 50, 40 T3 units
     quantity = {6, 10, 16}
@@ -359,7 +360,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity({'CombatFighters', 'Gunships'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 7, 7, 8 [air superiority] if player has >= 1 strat bomber
     quantity = {7, 7, 8}
@@ -374,7 +375,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
+        {{'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 14, 20, 24 [bombers, gunships] if player has >= 350, 400, 450 units
     quantity = {14, 20, 24}
@@ -390,7 +391,7 @@ function SeraphimM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity({'Bombers', 'Gunships'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Air Defense
     opai = SeraphimM2NorthBase:AddOpAI('AirAttacks', 'M2North_AirDefense1',
@@ -480,7 +481,7 @@ function SeraphimM2NorthBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
     trigger = {5, 3, 2}
@@ -497,7 +498,7 @@ function SeraphimM2NorthBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     trigger = {6, 5, 4}
@@ -514,7 +515,7 @@ function SeraphimM2NorthBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- Sonar
     opai = SeraphimM2NorthBase:AddOpAI('M2_Seraph_Sonar_North',
@@ -532,7 +533,8 @@ function SeraphimM2SouthBaseAI()
     ------------------------
     -- Seraphim M2 South Base
     ------------------------
-    SeraphimM2SouthBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M2_Seraph_South_Base', 'Seraphim_M2_South_Base', 150, {M2_Seraph_South_Base = 100})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM2SouthBase:InitializeDifficultyTables(aiBrain, 'M2_Seraph_South_Base', 'Seraphim_M2_South_Base', 150, {M2_Seraph_South_Base = 100})
     SeraphimM2SouthBase:StartNonZeroBase({{3, 7, 11}, {3, 6, 9}})
     SeraphimM2SouthBase:SetActive('AirScouting', true)
     SeraphimM2SouthBase:SetBuild('Defenses', false)
@@ -635,7 +637,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ANTIAIR - categories.TECH1, '>='})
 
     -- sends 6, 9, 12 [gunships] if player has >= 100, 80, 60 mobile land
     quantity = {6, 9, 12}
@@ -651,7 +653,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 6, 9, 12 [air superiority] if player has >= 100, 80, 60 mobile air
     quantity = {6, 9, 12}
@@ -667,7 +669,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 6, 9, 12 [air superiority] if player has >= 60, 50, 40 gunships
     quantity = {6, 9, 12}
@@ -683,7 +685,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 3, 6, 9 [torpedo bombers] if player has >= 10, 8, 5 boats
     quantity = {3, 6, 9}
@@ -699,7 +701,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 6, 8, 12 [combat fighters, gunships] if player has >= 60, 50, 40 T3 units
     quantity = {6, 8, 12}
@@ -715,7 +717,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity({'CombatFighters', 'Gunships'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 3, 6, 6 [air superiority] if player has >= 1 strat bomber
     quantity = {3, 6, 6}
@@ -730,7 +732,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
+        {{'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 6, 8, 12 [bombers, gunships] if player has >= 350, 400, 450 units
     quantity = {6, 8, 12}
@@ -746,7 +748,7 @@ function SeraphimM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity({'Bombers', 'Gunships'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Air Defense
     opai = SeraphimM2SouthBase:AddOpAI('AirAttacks', 'M2South_AirDefense1',
@@ -836,7 +838,7 @@ function SeraphimM2SouthBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
     trigger = {5, 3, 2}
@@ -853,7 +855,7 @@ function SeraphimM2SouthBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     trigger = {6, 5, 4}
@@ -870,7 +872,7 @@ function SeraphimM2SouthBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 25 frigate power of everything if player has >= 3, 2, 1 T3 boats
     trigger = {3, 2, 1}
@@ -886,7 +888,7 @@ function SeraphimM2SouthBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Sonar
     opai = SeraphimM2SouthBase:AddOpAI('M2_Seraph_Sonar_South',

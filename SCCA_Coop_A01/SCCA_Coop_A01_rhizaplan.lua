@@ -7,7 +7,7 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 ScenarioInfo.RhizaPlanRunOnce = false
 

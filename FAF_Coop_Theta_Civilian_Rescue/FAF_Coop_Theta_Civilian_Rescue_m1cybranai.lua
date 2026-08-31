@@ -1,9 +1,9 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions"
 local ThisFile = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai.lua'
 
 ---------
@@ -27,7 +27,8 @@ local MMLPlatoon
 -- Cybran M1 West Base
 ----------------------
 function CybranM1WestBaseAI()
-    CybranM1WestBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M1_Cybran_West_Base', 'M1_Cybran_West_Base_Marker', 80, {M1_Cybran_West_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM1WestBase:InitializeDifficultyTables(aiBrain, 'M1_Cybran_West_Base', 'M1_Cybran_West_Base_Marker', 80, {M1_Cybran_West_Base = 100})
     local extraEngies = ScenarioInfo.NumberOfPlayers * Difficulty
     CybranM1WestBase:StartNonZeroBase({{6 + extraEngies, 9 + extraEngies, 12 + extraEngies}, {4 + extraEngies, 6 + extraEngies, 8 + extraEngies}})
     
@@ -61,7 +62,8 @@ function CybranM1WestBaseLandAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
-    
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+
     -- LightBots patrol until X amount of landforces (2 times)
     quantity = {6, 8, 10}
     trigger = {30, 25, 20}
@@ -74,7 +76,7 @@ function CybranM1WestBaseLandAttacks()
         )
         opai:SetChildQuantity({'LightBots'}, quantity[Difficulty]) 
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '<='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '<='})
     end
     
     -- LightArtillery patrol the entire time (2 times)
@@ -97,7 +99,7 @@ function CybranM1WestBaseLandAttacks()
         LocationType = 'M1_Cybran_West_Base',
         PlatoonAIFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     -- HeavyBots(Mantis) patrol the entire time (or after you have some units on easier difficulties)
     quantity = {6, 8, 10}
@@ -120,11 +122,11 @@ function CybranM1WestBaseLandAttacks()
         LocationType = 'M1_Cybran_West_Base',
         BuildConditions = {
             {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '>='}},
+                {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '>='}},
         },
         PlatoonAIFunction = {ThisFile, 'M1EastBaseLandPlatoonAI'},
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     --Small HeavyTanks patrol starting from X amount of units.
     quantity = {2, 3, 4}
@@ -137,7 +139,7 @@ function CybranM1WestBaseLandAttacks()
     )
     opai:SetChildQuantity({'HeavyTanks'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE - categories.ENGINEER, '>='})
     
     --Big HeavyTanks patrol starting from X amount of units.
     quantity = {6, 8, 10}
@@ -150,7 +152,7 @@ function CybranM1WestBaseLandAttacks()
     )
     opai:SetChildQuantity({'HeavyTanks'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.LAND * categories.MOBILE - categories.ENGINEER, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.LAND * categories.MOBILE - categories.ENGINEER, '>='})
         
     if Difficulty >= 3 then
         quantity = {4, 8, 12,16}
@@ -163,7 +165,7 @@ function CybranM1WestBaseLandAttacks()
         )
         opai:SetChildQuantity({'MobileMissiles'}, quantity[ScenarioInfo.NumberOfPlayers])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.FACTORY + categories.MASSEXTRACTION + categories.ENERGYPRODUCTION, '>='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.FACTORY + categories.MASSEXTRACTION + categories.ENERGYPRODUCTION, '>='})
     end
 end
 
@@ -185,7 +187,7 @@ function CybranM1WestBaseAirAttacks()
     )
     opai:SetChildQuantity({'Bombers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
    
     quantity = {6, 8, 10}
     trigger = {10, 8, 6}
@@ -200,7 +202,7 @@ function CybranM1WestBaseAirAttacks()
     )
     opai:SetChildQuantity({'Interceptors'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 end
 
 

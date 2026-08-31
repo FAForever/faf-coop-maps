@@ -15,7 +15,8 @@ local M1NexusBase = BaseManager.CreateBaseManager()
 -- Nexus_Base
 -------------
 function NexusM1BaseAI()
-    M1NexusBase:InitializeDifficultyTables(ArmyBrains[Nexus_Defense], 'Nexus_Base', 'Nexus_Base_Marker', 50, {Nexus_Base = 100})
+    local aiBrain = ArmyBrains[Nexus_Defense]--[[@as CampaignAIBrain]]
+    M1NexusBase:InitializeDifficultyTables(aiBrain, 'Nexus_Base', 'Nexus_Base_Marker', 50, {Nexus_Base = 100})
     M1NexusBase:SetDefaultEngineerPatrolChain('Nexus_North_Patrol_Chain')
     M1NexusBase:StartNonZeroBase({2, 4, 6})
     M1NexusBase:SetActive('TML', false)

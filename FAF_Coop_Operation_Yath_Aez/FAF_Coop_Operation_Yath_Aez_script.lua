@@ -3,21 +3,20 @@
 --
 -- Author: Shadowlorda1
 ------------------------------
-local Buff = import('/lua/sim/Buff.lua')
+local Buff = import('/lua/sim/buff.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local P1UEFAI = import('/maps/FAF_Coop_Operation_Yath_Aez/UEFaiP1.lua')
-local P2UEFAI = import('/maps/FAF_Coop_Operation_Yath_Aez/UEFaiP2.lua')
-local P2AeonAI = import('/maps/FAF_Coop_Operation_Yath_Aez/AeonaiP2.lua')
-local P3CoalitionAI = import('/maps/FAF_Coop_Operation_Yath_Aez/CoalitionaiP3.lua')
-local P2CybranAI = import('/maps/FAF_Coop_Operation_Yath_Aez/CybranaiP2.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/utilities.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings.lua')   
+local P1UEFAI = import('/maps/FAF_Coop_Operation_Yath_Aez/UEFaiP1.lua')---@module "FAF_Coop_Operation_Yath_Aez/UEFaiP1"
+local P2UEFAI = import('/maps/FAF_Coop_Operation_Yath_Aez/UEFaiP2.lua')---@module "FAF_Coop_Operation_Yath_Aez/UEFaiP2"
+local P2AeonAI = import('/maps/FAF_Coop_Operation_Yath_Aez/AeonaiP2.lua')---@module "FAF_Coop_Operation_Yath_Aez/AeonaiP2"
+local P3CoalitionAI = import('/maps/FAF_Coop_Operation_Yath_Aez/CoalitionaiP3.lua')---@module "FAF_Coop_Operation_Yath_Aez/CoalitionaiP3"
+local P2CybranAI = import('/maps/FAF_Coop_Operation_Yath_Aez/CybranaiP2.lua')---@module "FAF_Coop_Operation_Yath_Aez/CybranaiP2"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings.lua')---@module "FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings"   
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 local UEFTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/FAF_Coop_Operation_Yath_Aez/FAF_Coop_Operation_Yath_Aez_strings.lua')
 
@@ -49,32 +48,32 @@ local NIS1InitialDelay = 3
 function OnPopulate(Self)
     ScenarioUtils.InitializeScenarioArmies()
     LeaderFaction, LocalFaction = ScenarioFramework.GetLeaderAndLocalFactions()
-    
+
     ScenarioFramework.SetUEFPlayerColor(UEF)
     ScenarioFramework.SetSeraphimColor(Player1)
     ScenarioFramework.SetCybranPlayerColor(Cybran)
     ScenarioFramework.SetAeonPlayerColor(Aeon)
-    
+
     local colors = {
-        
+
         ['Player2'] = {255, 191, 128}, 
         ['Player3'] = {189, 116, 16}, 
         ['Player4'] = {89, 133, 39},    
     }
-    
+
     local tblArmy = ListArmies()
     for army, color in colors do
         if tblArmy[ScenarioInfo[army]] then
             ScenarioFramework.SetArmyColor(ScenarioInfo[army], unpack(color))
         end
     end
-    
+
     SetArmyUnitCap(UEF, 1500)
     ScenarioFramework.SetSharedUnitCap(4800)        
 end
-  
+
 function OnStart(Self)
-     
+
     ScenarioFramework.AddRestrictionForAllHumans(
         categories.UEF + -- UEF faction 
         categories.CYBRAN + -- Cybran faction
@@ -99,40 +98,39 @@ function OnStart(Self)
         categories.uab2302 + -- Aeon T3 Arty
         categories.uab2305   -- Aeon Nuke launcher
     )
-     
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
-    
+
+    Cinematics.CameraMoveToMarker('P1Cam1', 0)
+
     ForkThread(IntroP1)
 end
 
 -- Part 1
    
 function IntroP1()
-
     ScenarioInfo.MissionNumber = 1
 
     ScenarioFramework.SetPlayableArea('AREA_1', false)
-   
+
     ScenarioUtils.CreateArmyGroup('UEF', 'P1Wreaks', true)
     ScenarioUtils.CreateArmyGroup( 'UEF', 'P1UWalls')
- 
+
     P1UEFAI.P1UEFBase1AI()
     P1UEFAI.P1UEFBase2AI()
     P1UEFAI.P1UEFBase3AI()
-    
+
     Cinematics.EnterNISMode()
-    
+
     ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
-   
+
     local P1Vision_1 = ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('P1Vision1'), 0, ArmyBrains[Player1])
     local P1Vision_2 = ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('P1Vision2'), 0, ArmyBrains[Player1])
     local P1Vision_3 = ScenarioFramework.CreateVisibleAreaLocation(60, ScenarioUtils.MarkerToPosition('P1Vision3'), 0, ArmyBrains[Player1])
-       
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 1)
+
+    Cinematics.CameraMoveToMarker('P1Cam1', 1)
     WaitSeconds(4)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 4)
+    Cinematics.CameraMoveToMarker('P1Cam2', 4)
     WaitSeconds(3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 4)
+    Cinematics.CameraMoveToMarker('P1Cam3', 4)
     WaitSeconds(2)
        ForkThread(
             function()
@@ -147,19 +145,19 @@ function IntroP1()
             end
       )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam4'), 3)
-          
+    Cinematics.CameraMoveToMarker('P1Cam4', 3)
+ 
     WaitSeconds (1)
-        
+
     ScenarioInfo.PlayerCDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath)
-    
+
      -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 2) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Acommander', 'Warp', true, true, PlayerDeath)
             else
@@ -169,23 +167,23 @@ function IntroP1()
             WaitSeconds(0.5)
         end
     end
-        
+
     Cinematics.ExitNISMode()    
-  
+
     ArmyBrains[UEF]:GiveResource('MASS', 4000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 6000)
-    
+
     SetupUEFM1TauntTriggers()
-    
-     buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 1.5
 
-       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
+    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+
     MissionP1()  
 end
    
@@ -304,93 +302,92 @@ end
 -- Part 2
  
 function IntroP2()
-
     if ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3 then
         return
     end
     ScenarioInfo.MissionNumber = 2
-    
+
     ScenarioFramework.SetPlayableArea('AREA_2', true)
-    
+
     P2UEFAI.UEFnavalbaseAI()
     P2UEFAI.UEFmainbaseAI()
     P2CybranAI.Cybranbase1AI()
     P2AeonAI.Aeonbase1AI()
-    
+
     ScenarioInfo.UEFACU = ScenarioFramework.SpawnCommander('UEF', 'UEFcommander', nil, 'Major Fredrick', true, nil,
     {'T3Engineering', 'ResourceAllocation', 'Shield'}) 
     ScenarioInfo.UEFACU:SetAutoOvercharge(true)
     ScenarioInfo.UEFACU:SetVeterancy(1 + Difficulty)
 
     ScenarioInfo.Jammer = ScenarioUtils.CreateArmyUnit('UEF', 'Jammer')
-        ScenarioInfo.Jammer:SetCustomName("Quantum Jammer")
-        ScenarioInfo.Jammer:SetReclaimable(false)
-        ScenarioInfo.Jammer:SetCapturable(false)
-        ScenarioInfo.Jammer.CanTakeDamage = true
-        ScenarioInfo.Jammer.CanBeKilled = true
-    
+    ScenarioInfo.Jammer:SetCustomName("Quantum Jammer")
+    ScenarioInfo.Jammer:SetReclaimable(false)
+    ScenarioInfo.Jammer:SetCapturable(false)
+    ScenarioInfo.Jammer.CanTakeDamage = true
+    ScenarioInfo.Jammer.CanBeKilled = true
+
     ScenarioUtils.CreateArmyGroup( 'UEF', 'P2Uwalls')
     ScenarioUtils.CreateArmyGroup( 'UEF', 'P2Wreaks', true)
     ScenarioUtils.CreateArmyGroup( 'Aeon', 'P2Awalls')
     ScenarioUtils.CreateArmyGroup( 'Cybran', 'P2Cwalls')
 
     ScenarioFramework.PlayUnlockDialogue()
-    
+
     ScenarioFramework.RemoveRestrictionForAllHumans(
-             categories.xss0302 + -- Sera Battleships
-             categories.xsb2305 + -- Sera Nuke Launcher
-             categories.xsl0401 + -- Sera Exp Bot
-             categories.uas0302 + -- Aeon Battleships
-             categories.uab2305 + -- Aeon Nuke Launcher
-             categories.ual0401 + -- Aeon Exp Bot
-             categories.uas0401  -- Aeon Exp battleship
+        categories.xss0302 + -- Sera Battleships
+        categories.xsb2305 + -- Sera Nuke Launcher
+        categories.xsl0401 + -- Sera Exp Bot
+        categories.uas0302 + -- Aeon Battleships
+        categories.uab2305 + -- Aeon Nuke Launcher
+        categories.ual0401 + -- Aeon Exp Bot
+        categories.uas0401  -- Aeon Exp battleship
     )
- 
+
     SetArmyUnitCap(Cybran, 1500)
     SetArmyUnitCap(Aeon, 1500)
-    
+
     Cinematics.EnterNISMode()
-        Cinematics.SetInvincible('AREA_1')
-        
-        WaitSeconds(1)
-                
-        ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)  
+    Cinematics.SetInvincible('AREA_1')
 
-        local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision4', 0, ArmyBrains[Player1])
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 3)
-        WaitSeconds(2)
-        local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision1', 0, ArmyBrains[Player1])
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 4)
-        WaitSeconds(3)
-        local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision2', 0, ArmyBrains[Player1])
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 4)
-        WaitSeconds(3)
-        ForkThread(P2Intattacks)
-        local VisMarker2_4 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision3', 0, ArmyBrains[Player1])
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam4'), 4)
-        WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam5'), 4)
-        WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam4'), 1)
+    WaitSeconds(1)
 
-            ForkThread(
-                function ()
-                    WaitSeconds(1)
-                    VisMarker2_1:Destroy()
-                    VisMarker2_2:Destroy()
-                    VisMarker2_3:Destroy()
-                    VisMarker2_4:Destroy()
-                    WaitSeconds(1)
-                    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision1'), 90)
-                    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision2'), 90)
-                    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision3'), 90)
-                    ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision4'), 90)
-                end 
-            )
-            
-        Cinematics.SetInvincible('AREA_1', true)
+    ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)  
+
+    local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision4', 0, ArmyBrains[Player1])
+    Cinematics.CameraMoveToMarker('P2Cam1', 3)
+    WaitSeconds(2)
+    local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision1', 0, ArmyBrains[Player1])
+    Cinematics.CameraMoveToMarker('P2Cam2', 4)
+    WaitSeconds(3)
+    local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision2', 0, ArmyBrains[Player1])
+    Cinematics.CameraMoveToMarker('P2Cam3', 4)
+    WaitSeconds(3)
+    ForkThread(P2Intattacks)
+    local VisMarker2_4 = ScenarioFramework.CreateVisibleAreaLocation(80,'P2Vision3', 0, ArmyBrains[Player1])
+    Cinematics.CameraMoveToMarker('P2Cam4', 4)
+    WaitSeconds(2)
+    Cinematics.CameraMoveToMarker('P2Cam5', 4)
+    WaitSeconds(2)
+    Cinematics.CameraMoveToMarker('P1Cam4', 1)
+
+    ForkThread(
+        function ()
+            WaitSeconds(1)
+            VisMarker2_1:Destroy()
+            VisMarker2_2:Destroy()
+            VisMarker2_3:Destroy()
+            VisMarker2_4:Destroy()
+            WaitSeconds(1)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision1'), 90)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision2'), 90)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision3'), 90)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision4'), 90)
+        end
+    )
+
+    Cinematics.SetInvincible('AREA_1', true)
     Cinematics.ExitNISMode()
-    
+
     pcall(IncomebuffsP2)
     ForkThread(ArtybaseP2)
     ForkThread(AeonTacP2)
@@ -401,40 +398,30 @@ function IntroP2()
 end
 
 function IncomebuffsP2()
-
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
     buffAffects.MassProduction.Mult = 2
 
-       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
+    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
 
-       for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
-       
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
+    for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
 
-       for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
-    
+
+    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
+
     ArmyBrains[UEF]:GiveResource('MASS', 9000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 60000)
-    
+
     ArmyBrains[Aeon]:GiveResource('MASS', 9000)
     ArmyBrains[Aeon]:GiveResource('ENERGY', 60000)
-    
+
     ArmyBrains[Cybran]:GiveResource('MASS', 9000)
     ArmyBrains[Cybran]:GiveResource('ENERGY', 60000)
 end
@@ -469,7 +456,7 @@ function ArtybaseP2()
     
     ScenarioUtils.CreateArmyGroup( 'Aeon', 'AeonArtybase')
     
-    plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'Aeon', 'AeonArtybaseENG', 'NoFormation' )
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon( 'Aeon', 'AeonArtybaseENG', 'NoFormation' )
     plat.PlatoonData.MaintainBaseTemplate = 'AeonArtybase1'
     plat.PlatoonData.PatrolChain = 'P2AENG1'
     plat:ForkAIThread(ScenarioPlatoonAI.StartBaseEngineerThread)
@@ -572,10 +559,11 @@ function MissionP2()
 end
 
 function P2Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
+    local num
 
     -- Basic Land attack
     for i = 1, 3 do
@@ -804,55 +792,43 @@ function StartPart3()
 end
 
 function IntroP3()
-    
     if ScenarioInfo.MissionNumber == 3 then
         return
     end
     ScenarioInfo.MissionNumber = 3
-    
+
     WaitSeconds(10)
-    
+
     ScenarioFramework.SetPlayableArea('AREA_3', true)
-    
+
     P3CoalitionAI.AeonP3base1AI()
     P3CoalitionAI.UEFP3base1AI()
     P3CoalitionAI.CybranP3base1AI()
-    
+
     ScenarioUtils.CreateArmyGroup('Aeon', 'P3AWalls')
     ScenarioUtils.CreateArmyGroup('Cybran', 'P3CWalls')
     ScenarioUtils.CreateArmyGroup('UEF', 'P3UWalls')
     ScenarioUtils.CreateArmyGroup('UEF', 'P3UPower')
-    
-                        
+
     ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-                        
-    
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
     buffAffects.MassProduction.Mult = 2
 
-       for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
-       
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
+    for _, u in GetArmyBrain(Cybran):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
 
-       for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
-    buffAffects.EnergyProduction.Mult = 1.5
-    buffAffects.MassProduction.Mult = 2
+    for _, u in GetArmyBrain(Aeon):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
 
-       for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
-               Buff.ApplyBuff(u, 'CheatIncome')
-       end
+    for _, u in GetArmyBrain(UEF):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
+        Buff.ApplyBuff(u, 'CheatIncome')
+    end
 
     ScenarioFramework.CreateTimerTrigger(SecondaryMissionP3, 2*60)
 
@@ -1000,10 +976,11 @@ function P3UOffmapattacks()
 end
 
 function P3FinalAssault()
-    
     local quantity = {}
     local trigger = {}
+    
     local platoon
+    local num
 
     -- Basic EXP attack
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Aeon', 'P3AFinalExp_D' .. Difficulty, 'AttackFormation', 2 + Difficulty)

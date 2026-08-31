@@ -1,6 +1,6 @@
-local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
-local ScenarioFramework = import("/lua/ScenarioFramework.lua")
-local ScenarioPlatoonAI = import("/lua/ScenarioPlatoonAI.lua")
+local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
+local ScenarioFramework = import("/lua/scenarioframework.lua")
+local ScenarioPlatoonAI = import("/lua/scenarioplatoonai.lua")
 local NavUtils = import("/lua/sim/navutils.lua")
 local AIUtils = import("/lua/ai/aiutilities.lua")
 local AIAttackUtils = import("/lua/ai/aiattackutilities.lua")
@@ -368,7 +368,7 @@ function GetLoadTransports(platoon)
 		end
 	end
 	
-	currleftovers = {}
+	local currleftovers = {}
 	
     -- Assign the small units - again coming back with currleftovers
     transportTable, currLeftovers = SortUnitsOnTransports(transportTable, remainingSize1, -1)
@@ -1331,7 +1331,7 @@ function AddPlatoonToBaseManager(platoon)
 		error('*CUSTOM FUNCTIONS AI ERROR: AddPlatoonToBaseManager PlatoonData not defined, requires BaseName', 2)
 	end
 	
-	platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerEngineerPlatoonSplit)
+	platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerEngineerPlatoonSplit)
 end
 
 --- Platoon generates a safe path to the first position of a set of locations, then patrols them by starting at the lowest threat location

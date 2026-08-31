@@ -4,24 +4,23 @@
 -- Author: speed2
 ----------------------------------------
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')
-local M1OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai.lua')
-local M1UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1uefai.lua')
-local M2CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2cybranai.lua')
-local M2OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai.lua')
-local M2QAIAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2qaiai.lua')
-local M2UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2uefai.lua')
-local M3CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3cybranai.lua')
-local M3UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3uefai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions"
+local M1OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai"
+local M1UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1uefai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1uefai"
+local M2CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2cybranai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2cybranai"
+local M2OrderAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai"
+local M2QAIAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2qaiai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2qaiai"
+local M2UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2uefai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2uefai"
+local M3CybranAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3cybranai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3cybranai"
+local M3UEFAI = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3uefai.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m3uefai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_strings.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local PingGroups = ScenarioFramework.PingGroups
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
-local TauntManager = import('/lua/TauntManager.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ----------
 -- Globals
@@ -162,7 +161,7 @@ function OnPopulate(scenario)
     ScenarioInfo.M1_Order_Eco = ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_Economy')
 
     -- Carrier
-    ScenarioInfo.M1_Order_Carrier = ScenarioUtils.CreateArmyUnit('Order', 'M1_Order_Carrier')
+    ScenarioInfo.M1_Order_Carrier = ScenarioUtils.CreateArmyUnit('Order', 'M1_Order_Carrier')--[[@as UAS0303]]
 
     -- Carrier fleet
     ScenarioInfo.M1_Carrier_Fleet = ScenarioUtils.CreateArmyGroup('Order', 'M1_Order_Carrier_Fleet_D' .. Difficulty)
@@ -227,7 +226,7 @@ function OnPopulate(scenario)
     end)
 
     -- Tempest
-    ScenarioInfo.M1_Order_Tempest = ScenarioUtils.CreateArmyUnit('Order', 'M1_Order_Tempest')
+    ScenarioInfo.M1_Order_Tempest = ScenarioUtils.CreateArmyUnit('Order', 'M1_Order_Tempest')--[[@as UAS0401]]
     ScenarioInfo.M1_Order_Tempest:HideBone('Turret', true)
     ScenarioInfo.M1_Order_Tempest:HideBone('Turret_Muzzle', true)
     ScenarioInfo.M1_Order_Tempest:SetWeaponEnabledByLabel('MainGun', false)
@@ -734,8 +733,9 @@ function IntroMission2()
     ScenarioInfo.MissionNumber = 2
 
     -- Don't produce units for player anymore
-    ArmyBrains[Order]:PBMRemoveBuildLocation(nil, 'AircraftCarrier1')
-    ArmyBrains[Order]:PBMRemoveBuildLocation(nil, 'Tempest1')
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMRemoveBuildLocation(nil, 'AircraftCarrier1')
+    aiBrain:PBMRemoveBuildLocation(nil, 'Tempest1')
 
     ScenarioInfo.M1_Order_Carrier.ReleaseUnitsThread:Destroy()
 
@@ -895,7 +895,7 @@ function IntroMission2()
         end
 
         -- Make sure the base will get started build fast, reset later
-        ArmyBrains[Order]:PBMSetCheckInterval(6)
+        aiBrain:PBMSetCheckInterval(6)
         ScenarioFramework.CreateTimerTrigger(ResetBuildInterval, 300)
 
         -- Triggers
@@ -950,8 +950,8 @@ function IntroMission2()
 
             if (ScenarioInfo.M1_Order_Tempest and not ScenarioInfo.M1_Order_Tempest.Dead) then
                 IssueClearCommands({ScenarioInfo.M1_Order_Tempest})
-                ScenarioInfo.M1_Order_Tempest = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1_Order_Tempest, 'Player2')
-                ScenarioInfo.M1_Order_Tempest:SetCanBeGiven(false)
+                ScenarioInfo.M1_Order_Tempest = ScenarioFramework.GiveUnitToArmy(ScenarioInfo.M1_Order_Tempest, 'Player2')--[[@as UAS0401]]
+                ScenarioInfo.M1_Order_Tempest.CanBeGiven = false
                 -- Disable the main gun again
                 ScenarioInfo.M1_Order_Tempest:SetWeaponEnabledByLabel('MainGun', false)
                 -- Override the function that enables the gun when unsubmerging
@@ -1125,19 +1125,20 @@ function IntroMission2NIS()
 
     -- Start NIS
     local tblArmy = ListArmies()
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
 
     if not SkipNIS2 then
         Cinematics.EnterNISMode()
         -- Ensure that Order starts building base sooner rather than later
-        ArmyBrains[Order]:PBMSetCheckInterval(2)
+        aiBrain:PBMSetCheckInterval(2)
 
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.M2Intro1, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 0)
         WaitSeconds(4)
         
         ScenarioFramework.Dialogue(OpStrings.M2Intro2, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_2', 3)
 
         -- Spawn Player1 and Player3
         ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, PlayerDeath,
@@ -1157,7 +1158,7 @@ function IntroMission2NIS()
         Cinematics.ExitNISMode()
 
         -- Set back to default
-        ArmyBrains[Order]:PBMSetCheckInterval(6)
+        aiBrain:PBMSetCheckInterval(6)
     else
         -- Spawn Player1 and Player3
         ScenarioInfo.Player1CDR = ScenarioFramework.SpawnCommander('Player1', 'Commander', 'Warp', true, true, nil,
@@ -1179,7 +1180,8 @@ end
 
 -- Order Base building functions
 function ResetBuildInterval()
-    ArmyBrains[Order]:PBMSetCheckInterval(6)
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(6)
 end
 
 function M2T1AirFactoryBuilt()

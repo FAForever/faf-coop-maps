@@ -10,15 +10,15 @@
 -- ****************************************************************************
 
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_CustomFunctions.lua')
-local M2CybranAI = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_m2cybranai.lua')
-local M3AeonAI = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_m3aeonai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
+local CustomFunctions = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_CustomFunctions.lua')---@module "SCCA_Coop_A06/SCCA_Coop_A06_CustomFunctions"
+local M2CybranAI = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_m2cybranai.lua')---@module "SCCA_Coop_A06/SCCA_Coop_A06_m2cybranai"
+local M3AeonAI = import('/maps/SCCA_Coop_A06/SCCA_Coop_A06_m3aeonai.lua')---@module "SCCA_Coop_A06/SCCA_Coop_A06_m3aeonai"
+local Objectives = import('/lua/simobjectives.lua')
 local OpStrings = import ('/maps/SCCA_Coop_A06/SCCA_Coop_A06_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Weather = import('/lua/weather.lua')
 
 ----------
@@ -271,7 +271,7 @@ function StartMission1()
                 ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
                 ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
                 ScenarioInfo.BlackSunControlCenter:SetReclaimable(false)
-                ScenarioInfo.BlackSunControlCenter:SetCanBeGiven(false)
+                ScenarioInfo.BlackSunControlCenter.CanBeGiven = false
                 ScenarioInfo.BlackSunControlCenter:SetDoNotTarget(true)
 
                 ForkThread(
@@ -308,7 +308,7 @@ function StartMission1()
     ----------------------------------------
     -- Bonus Objective - Kill Marxon's units 
     ----------------------------------------
-    num = {300, 400, 500}
+    local num = {300, 400, 500}
     ScenarioInfo.M1B1 = Objectives.ArmyStatCompare(
         'bonus',
         'incomplete',
@@ -334,7 +334,7 @@ function StartMission1()
         'incomplete',
         OpStrings.M1B2Text,
         OpStrings.M1B2Detail,
-        Objectives.GetActionIcon('build'),
+        Objectives.GetActionIcon('Build'),
         {
             Hidden = true,
         }
@@ -649,7 +649,7 @@ function IntroMission2()
 
     -- Patrols
     -- Air
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Initial_Air_Patrol_D' .. Difficulty, 'NoFormation')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Initial_Air_Patrol_D' .. Difficulty, 'NoFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M2_Cybran_Air_Patrol')))
     end
@@ -1232,7 +1232,7 @@ function UpdateACUPlatoon(location)
         BaseName = location,
         LocationType = location,
     }
-    platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerSingleEngineerPlatoon)
+    platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerSingleEngineerPlatoon)
     LOG('New PlatoonData: ', repr(platoon.PlatoonData))
 end
 
@@ -1269,10 +1269,9 @@ function M3NukePlayer(settings)
 
         local targets = {}
         for _, pos in locations do
-            local num = table.getn(brain:GetUnitsAroundPoint(cats or categories.ALLUNITS - categories.WALL, pos, 30, 'enemy'))
+            local num = table.getn(brain:GetUnitsAroundPoint(cats or categories.ALLUNITS - categories.WALL, pos, 30, 'Enemy'))
 
             if num > 5 then
-                bestUnitCount = num
                 table.insert(targets, {pos = pos, num = num})
             end
         end

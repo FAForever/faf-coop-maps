@@ -1,6 +1,6 @@
-local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua')---@module "FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local ThisFile = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m1orderai.lua'
 
 ---------
@@ -13,12 +13,13 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 -- Carrier
 ----------
 function OrderCarrierFactory()
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
     -- Adding build location for AI
-    ArmyBrains[Order]:PBMAddBuildLocation('M1_Order_Carrier_Start_Marker', 150, 'AircraftCarrier1')
+    aiBrain:PBMAddBuildLocation('M1_Order_Carrier_Start_Marker', 150, 'AircraftCarrier1')
 
     local carrier = ScenarioInfo.M1_Order_Carrier
 
-    for _, location in ArmyBrains[Order].PBM.Locations do
+    for _, location in aiBrain.PBM.Locations do
         if location.LocationType == 'AircraftCarrier1' then
             location.PrimaryFactories.Air = carrier.ExternalFactory
             OrderCarrierAttacks()
@@ -52,6 +53,7 @@ function OrderCarrierAttacks()
     local torpBomberNum = {5, 4, 3}
     local swiftWindNum = {6, 5, 4}
     local gunshipNum = {7, 6, 5}
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
 
     local Temp = {
         'M1_Order_Carrier_Air_Attack_1',
@@ -73,20 +75,21 @@ function OrderCarrierAttacks()
         PlatoonData = {
             PatrolChain = 'M1_Oder_Naval_Def_Chain',
             FuelMultiplier = 4,
-        },      
+        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 ----------
 -- Tempest
 ----------
 function OrderTempestFactory()
-    ArmyBrains[Order]:PBMAddBuildLocation('M1_Order_Tempest_Start_Marker', 150, 'Tempest1')
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddBuildLocation('M1_Order_Tempest_Start_Marker', 150, 'Tempest1')
 
     local tempest = ScenarioInfo.M1_Order_Tempest
 
-    for _, location in ArmyBrains[Order].PBM.Locations do
+    for _, location in aiBrain.PBM.Locations do
         if location.LocationType == 'Tempest1' then
             location.PrimaryFactories.Sea = tempest.ExternalFactory
             OrderTempestAttacks()
@@ -99,6 +102,7 @@ function OrderTempestFactory()
 end
 
 function OrderTempestAttacks()
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
     local Temp = {
         'M1_Order_Tempest_Naval_Attack_1',
         'NoPlan',
@@ -118,9 +122,9 @@ function OrderTempestAttacks()
         PlatoonAIFunction = {ThisFile, 'GivePlatoonToPlayerAndPatrol'},
         PlatoonData = {
             PatrolChain = 'M1_Oder_Naval_Def_Chain',
-        },    
+        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 -----------------------

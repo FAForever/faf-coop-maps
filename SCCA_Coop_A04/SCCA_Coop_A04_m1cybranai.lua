@@ -17,7 +17,8 @@ local CybranM1NavalBase = BaseManager.CreateBaseManager()
 -- Cybran M1 Node Base
 ----------------------
 function CybranM1NodeBaseAI()
-    CybranM1NodeBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M1_Node_Base', 'M1_Node_Base_Marker', 40, {M1_Node_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM1NodeBase:InitializeDifficultyTables(aiBrain, 'M1_Node_Base', 'M1_Node_Base_Marker', 40, {M1_Node_Base = 100})
     CybranM1NodeBase:StartNonZeroBase({{6, 12, 18}, {5, 10, 16}})
     CybranM1NodeBase:SetActive('AirScouting', true)
 
@@ -49,7 +50,7 @@ function CybranM1NodeBaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {6, categories.ura0104})
 
     -- Attack
     -- Send 3 Bombers when Players have >= 35, 25, 15 units
@@ -69,7 +70,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Send 3, 3, 6 Bombers when Players have >= 50, 40, 30 units
     quantity = {3, 3, 6}
@@ -89,7 +90,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Send 3 Gunships when Players have >= 65, 55, 45 units and T2 Land Factory
     trigger = {65, 55, 45}
@@ -108,9 +109,9 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.LAND * categories.FACTORY * categories.TECH2, '>='})
+        {{'HumanPlayers'}, 1, categories.LAND * categories.FACTORY * categories.TECH2, '>='})
 
     -- Send 3, 3, 6 Gunships when Players have >= 10 T2 units
     quantity = {3, 3, 6}
@@ -129,7 +130,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 10, categories.TECH2, '>='})
+        {{'HumanPlayers'}, 10, categories.TECH2, '>='})
 
     -- Send 3, 6, 9} Gunships when Players have >= 20 T2 units
     quantity = {3, 6, 9}
@@ -148,7 +149,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 20, categories.TECH2, '>='})
+        {{'HumanPlayers'}, 20, categories.TECH2, '>='})
 
     -- Send 3, 6, 9 Interceptors when Players have >= 13, 10, 7 Mobile Air units
     quantity = {3, 6, 6}
@@ -168,7 +169,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Send 6, 6, 9 Interceptors when Players have >= 19, 16, 13 Mobile Air units
     quantity = {6, 6, 9}
@@ -188,7 +189,7 @@ function CybranM1NodeBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Defense
     quantity = {3, 6, 9}
@@ -240,7 +241,7 @@ function CybranM1NodeBaseLandAttacks()
     )
     opai:SetChildQuantity('HeavyBots', 6)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     trigger = {70, 60, 50}
     quantity = {8, 12, 16}
@@ -257,7 +258,7 @@ function CybranM1NodeBaseLandAttacks()
     )
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     trigger = {20, 15, 10}
     opai = CybranM1NodeBase:AddOpAI('BasicLandAttack', 'M1_Cybran_TransportAttack_3',
@@ -273,7 +274,7 @@ function CybranM1NodeBaseLandAttacks()
     )
     opai:SetChildQuantity('LightAtrillery', 8)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE, '>='})
 
     quantity = {4, 8, 8}
     trigger = {32, 26, 20}
@@ -290,7 +291,7 @@ function CybranM1NodeBaseLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH2, '>='})
 
     quantity = {4, 8, 8}
     trigger = {20, 16, 12}
@@ -307,7 +308,7 @@ function CybranM1NodeBaseLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.MOBILE, '>='})
 
     -- Wagner attacks
     quantity = {6, 9, 12}
@@ -328,7 +329,7 @@ function CybranM1NodeBaseLandAttacks()
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     quantity = {6, 9, 12}
     trigger = {36, 28, 20}
@@ -348,7 +349,7 @@ function CybranM1NodeBaseLandAttacks()
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.MOBILE * categories.LAND, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH2 * categories.MOBILE * categories.LAND, '>='})
 
     quantity = {6, 9, 12}
     trigger = {16, 13, 10}
@@ -368,14 +369,15 @@ function CybranM1NodeBaseLandAttacks()
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.NAVAL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.NAVAL, '>='})
 end
 
 --------------------
 -- Cybran Naval Base
 --------------------
 function CybranM1NavalBaseAI()
-    CybranM1NavalBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M1_Naval_Base', 'M1_Naval_Base_Marker', 50, {M1_Naval_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM1NavalBase:InitializeDifficultyTables(aiBrain, 'M1_Naval_Base', 'M1_Naval_Base_Marker', 50, {M1_Naval_Base = 100})
     CybranM1NavalBase:StartNonZeroBase({{3, 6, 9}, {2, 5, 7}})
 
     ForkThread(function()
@@ -408,7 +410,7 @@ function CybranM1NavalBaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.NAVAL * categories.FACTORY, '>='})
+        {{'HumanPlayers'}, 1, categories.NAVAL * categories.FACTORY, '>='})
 
     quantity = {6, 8, 10}
     trigger = {16, 13, 10}
@@ -426,7 +428,7 @@ function CybranM1NavalBaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- T2 navy
     if Difficulty == 3 then
@@ -445,7 +447,7 @@ function CybranM1NavalBaseNavalAttacks()
         opai:SetChildActive('T1', false)
         opai:SetChildActive('T3', false)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 8, categories.MASSEXTRACTION * categories.TECH2, '>='})
+            {{'HumanPlayers'}, 8, categories.MASSEXTRACTION * categories.TECH2, '>='})
     end
 
     quantity = {10, 15, 20}
@@ -465,7 +467,7 @@ function CybranM1NavalBaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
 
     -- Defense
     for i = 1, 1 + Difficulty do
@@ -506,7 +508,8 @@ function CybranM1NavalBaseNavalAttacks()
 end
 
 function M1BlockadeDestroyers()
-    local opai = CybranM1NavalBase:AddNavalAI('M1_Cybran_Destroyer_Blockade',
+    local opai = nil
+    opai = CybranM1NavalBase:AddNavalAI('M1_Cybran_Destroyer_Blockade',
         {
             MasterPlatoonFunction = {SPAIFileName, 'MoveToThread'},
             PlatoonData = {
@@ -523,7 +526,8 @@ function M1BlockadeDestroyers()
 end
 
 function M1BlockadeCruisers()
-    local opai = CybranM1NavalBase:AddNavalAI('M1_Cybran_Cruiser_Blockade',
+    local opai = nil
+    opai = CybranM1NavalBase:AddNavalAI('M1_Cybran_Cruiser_Blockade',
         {
             MasterPlatoonFunction = {SPAIFileName, 'MoveToThread'},
             PlatoonData = {

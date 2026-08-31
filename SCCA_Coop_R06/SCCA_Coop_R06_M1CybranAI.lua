@@ -60,7 +60,7 @@ function M1CybranDebugBaseLandAttacks()
 		opai:SetChildrenActive({'MobileFlak', 'MobileMissiles', 'HeavyTanks', 'AmphibiousTanks', 'MobileStealth'})
 		opai:SetChildCount(Difficulty)
 		opai:SetFormation('AttackFormation')
-		opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+		opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
 		
 		opai = M1CybranDebugBase:AddOpAI('BasicLandAttack', 'Cybran_Debug_T3_RandomLandAttack_' .. i,
         {
@@ -75,7 +75,7 @@ function M1CybranDebugBaseLandAttacks()
 		opai:SetChildrenActive({'SiegeBots', 'MobileHeavyArtillery'})
 		opai:SetChildCount(Difficulty)
 		opai:SetFormation('AttackFormation')
-		opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2})
+		opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2})
 	end
 
 end
@@ -97,14 +97,15 @@ function M1CybranDebugBaseAirAttacks()
         RequiresConstruction = true,
         LocationType = 'M1_Cybran_Debug_Base',
 		BuildConditions = {
-			{'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2}},
+			{'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2}},
 		},
         PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'},
 		PlatoonAddFunctions = {
 			{SPAIFileName, 'PlatoonEnableStealth'},
 		},
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M1CybranDebugBaseNavaAttacks()
@@ -132,7 +133,7 @@ function M1CybranDebugBaseNavaAttacks()
         RequiresConstruction = true,
         LocationType = 'M1_Cybran_Debug_Base',
 		BuildConditions = {
-			{ '/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {'default_brain', 2}},
+			{ '/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2}},
 		},
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
 		PlatoonData = {
@@ -142,12 +143,14 @@ function M1CybranDebugBaseNavaAttacks()
 			},
         },     
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M1CybranDebugBaseAirDefense()
     local opai = nil
-	local quantity = {5, 10, 15}	-- Air Factories = 5 at all times
+    local quantity = {}
+	quantity = {5, 10, 15}	-- Air Factories = 5 at all times
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships'}
 	
 	-- Maintains [5, 10, 15] units defined in ChildType

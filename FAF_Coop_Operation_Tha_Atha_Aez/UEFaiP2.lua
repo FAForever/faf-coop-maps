@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local UEF = 3
 local Player1 = 1
@@ -13,7 +13,8 @@ local UEFbase4 = BaseManager.CreateBaseManager()
 
 
 function P2UEFbase1AI()
-    UEFbase1:InitializeDifficultyTables(ArmyBrains[UEF], 'P2UEFbase1', 'P2UB1MK', 50, {P2UBase1 = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFbase1:InitializeDifficultyTables(aiBrain, 'P2UEFbase1', 'P2UB1MK', 50, {P2UBase1 = 100})
     UEFbase1:StartNonZeroBase({{8, 11, 13}, {5, 8, 10}})
  
     P1UB1landAttacks()
@@ -21,7 +22,7 @@ function P2UEFbase1AI()
 end
 
 function P1UB1landAttacks()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -44,7 +45,8 @@ function P1UB1landAttacks()
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {2, 3, 4}
     trigger = {28, 24, 20}
@@ -63,14 +65,14 @@ function P1UB1landAttacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {14, 12, 10}
@@ -89,14 +91,14 @@ function P1UB1landAttacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {8, 6, 4}
@@ -116,14 +118,14 @@ function P1UB1landAttacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 2, 3}
     trigger = {42, 38, 36}
@@ -143,14 +145,14 @@ function P1UB1landAttacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {28, 26, 24}
@@ -171,14 +173,14 @@ function P1UB1landAttacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1landattack1', 'P2UB1landattack2', 'P2UB1landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = UEFbase1:AddOpAI('EngineerAttack', 'M2B1_West_Reclaim_Engineers',
     {
@@ -192,7 +194,6 @@ function P1UB1landAttacks()
 end
  
 function P1UB1Airattacks()
-
     local quantity = {}
     local trigger = {}
 
@@ -217,7 +218,8 @@ function P1UB1Airattacks()
             PatrolChain = 'P2UB1Defence1'
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
     Temp = {
@@ -238,7 +240,7 @@ function P1UB1Airattacks()
             PatrolChains = {'P2UB1airattack1', 'P2UB1airattack2', 'P2UB1airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
     trigger = {9, 8, 6}
@@ -257,14 +259,14 @@ function P1UB1Airattacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1airattack1', 'P2UB1airattack2', 'P2UB1airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {1, 2, 3}
     trigger = {15, 14, 10}
@@ -284,14 +286,14 @@ function P1UB1Airattacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.TECH3}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1airattack1', 'P2UB1airattack2', 'P2UB1airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {14, 12, 10}
@@ -311,18 +313,19 @@ function P1UB1Airattacks()
         LocationType = 'P2UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * (categories.TECH3 + categories.TECH2)}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * (categories.TECH3 + categories.TECH2)}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB1airattack1', 'P2UB1airattack2', 'P2UB1airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2UEFbase2AI()
-    UEFbase2:InitializeDifficultyTables(ArmyBrains[UEF], 'P2UEFbase2', 'P2UB2MK', 50, {P2UBase2 = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFbase2:InitializeDifficultyTables(aiBrain, 'P2UEFbase2', 'P2UB2MK', 50, {P2UBase2 = 100})
     UEFbase2:StartNonZeroBase({{8, 11, 13}, {5, 8, 10}})
 
     P1UB2landattacks()
@@ -330,7 +333,7 @@ function P2UEFbase2AI()
 end
  
 function P1UB2landattacks()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -353,7 +356,8 @@ function P1UB2landattacks()
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {29, 27, 25}
@@ -372,14 +376,14 @@ function P1UB2landattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {3, 4, 5}
     trigger = {19, 17, 15}
@@ -398,14 +402,14 @@ function P1UB2landattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {8, 7, 6}
@@ -425,14 +429,14 @@ function P1UB2landattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 2, 3}
     trigger = {45, 42, 40}
@@ -452,14 +456,14 @@ function P1UB2landattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {18, 16, 14}
@@ -480,14 +484,14 @@ function P1UB2landattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2landattack1', 'P2UB2landattack2', 'P2UB2landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = UEFbase2:AddOpAI('EngineerAttack', 'M2B2_West_Reclaim_Engineers',
     {
@@ -501,7 +505,6 @@ function P1UB2landattacks()
 end
  
 function P1UB2Airattacks()
-
     local quantity = {}
     local trigger = {}
 
@@ -526,7 +529,8 @@ function P1UB2Airattacks()
             PatrolChain = 'P2UB2Defence1'
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
     Temp = {
@@ -547,7 +551,7 @@ function P1UB2Airattacks()
             PatrolChains = {'P2UB2airattack1', 'P2UB2airattack2', 'P2UB2airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
     trigger = {11, 10, 8}
@@ -566,14 +570,14 @@ function P1UB2Airattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2airattack1', 'P2UB2airattack2', 'P2UB2airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 2, 3}
     trigger = {25, 22, 20}
@@ -593,14 +597,14 @@ function P1UB2Airattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.MOBILE * categories.TECH3}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.MOBILE * categories.TECH3}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2airattack1', 'P2UB2airattack2', 'P2UB2airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {8, 6, 4}
@@ -620,18 +624,19 @@ function P1UB2Airattacks()
         LocationType = 'P2UEFbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], (categories.AIR * categories.MOBILE) - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.AIR * categories.MOBILE) - categories.TECH1}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P2UB2airattack1', 'P2UB2airattack2', 'P2UB2airattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2UEFbase3AI()
-    UEFbase3:InitializeDifficultyTables(ArmyBrains[UEF], 'P2UEFbase3', 'P2UB3MK', 50, {P2UBase3 = 300})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFbase3:InitializeDifficultyTables(aiBrain, 'P2UEFbase3', 'P2UB3MK', 50, {P2UBase3 = 300})
     UEFbase3:StartEmptyBase({{3, 4, 5}, {2, 3, 4}})
     
     UEFbase2:AddExpansionBase('P2UEFbase3', 2)
@@ -640,7 +645,6 @@ function P2UEFbase3AI()
 end
  
 function P1UB3landattacks()
-
     local quantity = {}
 
     quantity = {4, 5, 6}
@@ -662,7 +666,8 @@ function P1UB3landattacks()
             PatrolChains = {'P1UB3Landattack1', 'P1UB3Landattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     Temp = {
@@ -680,14 +685,14 @@ function P1UB3landattacks()
         LocationType = 'P2UEFbase3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 25, (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
+        {{'HumanPlayers'}, 25, (categories.STRUCTURE * categories.DEFENSE) - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P1UB3Landattack1', 'P1UB3Landattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 7, 8}
     Temp = {
@@ -707,18 +712,19 @@ function P1UB3landattacks()
         LocationType = 'P2UEFbase3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 10, categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, 10, categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P1UB3Landattack1', 'P1UB3Landattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2UEFbase4AI()
-    UEFbase4:InitializeDifficultyTables(ArmyBrains[UEF], 'P2UEFbase4', 'P2UB4MK', 50, {P2UBase4 = 300})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFbase4:InitializeDifficultyTables(aiBrain, 'P2UEFbase4', 'P2UB4MK', 50, {P2UBase4 = 300})
     UEFbase4:StartEmptyBase({{3, 4, 5}, {2, 3, 4}})
     
     UEFbase1:AddExpansionBase('P2UEFbase4', 2)
@@ -727,7 +733,6 @@ function P2UEFbase4AI()
 end
 
 function P1UB4Airattacks()
-
     local quantity = {}
 
     quantity = {4, 5, 6}
@@ -749,7 +754,8 @@ function P1UB4Airattacks()
             PatrolChains = {'P1UB4Airattack1', 'P1UB4Airattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 10, 12}
     Temp = {
@@ -767,14 +773,14 @@ function P1UB4Airattacks()
         LocationType = 'P2UEFbase4',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.ALLUNITS * categories.TECH3}},
+        {{'HumanPlayers'}, 15, categories.ALLUNITS * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P1UB4Airattack1', 'P1UB4Airattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 5, 6}
     Temp = {
@@ -792,12 +798,12 @@ function P1UB4Airattacks()
         LocationType = 'P2UEFbase4',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 10, categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, 10, categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread' },     
         PlatoonData = {
             PatrolChains = {'P1UB4Airattack1', 'P1UB4Airattack2'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
