@@ -6,20 +6,20 @@
 --
 --  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 ------------------------------------------------------------------------------
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/scca_coop_e06/scca_coop_e06_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/scca_coop_e06/scca_coop_e06_strings.lua')---@module "scca_coop_e06/scca_coop_e06_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local SimUtils = import('/lua/SimUtils.lua')
+local CustomFunctions = import('/maps/scca_coop_e06/scca_coop_e06_customfunctions.lua')---@module "scca_coop_e06/scca_coop_e06_customfunctions"
+local Buff = import('/lua/sim/buff.lua')
+local SimUtils = import('/lua/simutils.lua')
 
-local AeonAI = import('/maps/scca_coop_e06/scca_coop_e06_aeonai.lua')
-local CybranAI = import('/maps/scca_coop_e06/scca_coop_e06_cybranai.lua')
-local UEFAI = import('/maps/scca_coop_e06/scca_coop_e06_uefai.lua')
+local AeonAI = import('/maps/scca_coop_e06/scca_coop_e06_aeonai.lua')---@module "scca_coop_e06/scca_coop_e06_aeonai"
+local CybranAI = import('/maps/scca_coop_e06/scca_coop_e06_cybranai.lua')---@module "scca_coop_e06/scca_coop_e06_cybranai"
+local UEFAI = import('/maps/scca_coop_e06/scca_coop_e06_uefai.lua')---@module "scca_coop_e06/scca_coop_e06_uefai"
 
 -- Globals
 ScenarioInfo.Player1 = 1
@@ -154,7 +154,7 @@ function OnPopulate()
     -- Components
     ScenarioInfo.DeathTransport = ScenarioUtils.CreateArmyUnit('Black_Sun', 'Death_Transport_Unit')
     ScenarioInfo.DeathTransport.CanBeKilled = false
-    ScenarioInfo.InvincibleTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'Invincible_Transports', 'ChevronFormation')
+    ScenarioInfo.InvincibleTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Black_Sun', 'Invincible_Transports', 'AttackFormation')
     ScenarioInfo.InvincibleComponents = ScenarioUtils.CreateArmyGroup('Black_Sun', 'Extra_Components')
     for num,unit in ScenarioInfo.InvincibleComponents do
         unit.CanTakeDamage = false
@@ -174,7 +174,7 @@ function OnPopulate()
     ScenarioInfo.BlackSunComponent = ScenarioUtils.CreateArmyUnit('Component', 'Black_Sun_Component_Unit')
 	
     -- Aeon interception force
-    ScenarioInfo.AeonIntroAirPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Air_Group_Intro', 'ChevronFormation')
+    ScenarioInfo.AeonIntroAirPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Air_Group_Intro', 'AttackFormation')
     ScenarioInfo.AeonIntroNavalPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Naval_Group_Intro', 'AttackFormation')
 	
 	-- Spawn in the relevant armies
@@ -206,7 +206,7 @@ function SpawnPlayer()
 	-- Prevent the unit from transferring, otherwise the secondary objective to move her to the SE island would fail
 	-- SimObjectives.lua would have to be modified to allow updating the objective's target units
 	if ScenarioInfo.Options.BlackSunSupportAI == 2 then
-		ScenarioInfo.AikoUnit:SetCanBeGiven(false)
+		ScenarioInfo.AikoUnit.CanBeGiven = false
 	end
 	
 	-- Initial Air patrols
@@ -244,7 +244,7 @@ function SpawnPlayer()
     ScenarioInfo.BlackSunCannon:SetCustomName(LOC '{i BlackSunCannon}')
     ScenarioInfo.BlackSunCannon:SetReclaimable(false)
     ScenarioInfo.BlackSunCannon:SetCapturable(false)
-	ScenarioInfo.BlackSunCannon:SetCanBeGiven(false)
+	ScenarioInfo.BlackSunCannon.CanBeGiven = false
     ScenarioInfo.BlackSunCannon:RemoveToggleCap('RULEUTC_SpecialToggle')
     ScenarioFramework.CreateUnitDestroyedTrigger(BlackSunCannonDestroyed, ScenarioInfo.BlackSunCannon)
 	
@@ -397,7 +397,7 @@ function IntroNIS()
     for num, unit in ScenarioInfo.InvincibleTransports:GetPlatoonUnits() do
         ScenarioFramework.AttachUnitsToTransports({ScenarioInfo.InvincibleComponents[num]}, {unit})
     end
-    ArmyBrains[Component]:AssignUnitsToPlatoon(ScenarioInfo.InvincibleTransports, {ScenarioInfo.DeathTransport}, 'Attack', 'ChevronFormation')
+    ArmyBrains[Component]:AssignUnitsToPlatoon(ScenarioInfo.InvincibleTransports, {ScenarioInfo.DeathTransport}, 'Attack', 'AttackFormation')
     local unloadCmd = ScenarioInfo.InvincibleTransports:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('M1_Transport_Unload'))
 
     local newGroup = {}
@@ -512,7 +512,7 @@ function ComponentSightedThread()
 		'incomplete',
 		OpStrings.M1P2Title,
 		OpStrings.M1P2Description,
-        --Objectives.GetActionIcon('move'),
+        --Objectives.GetActionIcon('Move'),
         {
             Units = {ScenarioInfo.BlackSunComponent},
             Area = 'Black_Sun_Component_Area',
@@ -821,7 +821,7 @@ function M2SecondaryObjective()
 						end
 						
 						if not ScenarioInfo.AikoDestroyed then
-							ScenarioInfo.AikoUnit:SetCanBeGiven(true)
+							ScenarioInfo.AikoUnit.CanBeGiven = true
 							--ScenarioFramework.GiveUnitToArmy(ScenarioInfo.AikoUnit, BlackSun, true)
 							SimUtils.TransferUnitsOwnership({ScenarioInfo.AikoUnit}, 'Black_Sun')	-- This expects the army name as a string
 							WaitTicks(1)
@@ -1012,7 +1012,7 @@ end
 function M2CybranCaptureSend(forceSend)
     if ScenarioInfo.M2P3Objective.Active or forceSend then
 
-        local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Transports_D' .. Difficulty, 'ChevronFormation')
+        local transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Transports_D' .. Difficulty, 'AttackFormation')
         local passengers = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Passengers_D' .. Difficulty, 'AttackFormation')
         local escorts = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M2_Capture_Escort_D'..Difficulty, 'AttackFormation')
         ScenarioFramework.AttachUnitsToTransports(passengers:GetPlatoonUnits(), transports:GetPlatoonUnits())
@@ -1030,7 +1030,7 @@ function M2CybranCaptureSend(forceSend)
         end
 		
         --transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_Transport_Pool_Marker'), false)
-        --ArmyBrains[Cybran]:AssignUnitsToPlatoon('TransportPool', transports, 'Scout', 'ChevronFormation')
+        --ArmyBrains[Cybran]:AssignUnitsToPlatoon('TransportPool', transports, 'Scout', 'AttackFormation')
         if ArmyBrains[Cybran]:PlatoonExists(passengers) and ScenarioInfo.BlackSunControlCenter:GetAIBrain() ~= ArmyBrains[Cybran] then
             for num, unit in passengers:GetPlatoonUnits() do
                 if EntityCategoryContains(categories.ENGINEER, unit) then
@@ -1098,7 +1098,7 @@ function M2BlackSunControlCenterCaptured(newUnit, captor)
 						ScenarioInfo.BlackSunControlCenter.CanTakeDamage = false
 						ScenarioInfo.BlackSunControlCenter.CanBeKilled = false
 						ScenarioInfo.BlackSunControlCenter:SetReclaimable(false)
-						--ScenarioInfo.BlackSunControlCenter:SetCanBeGiven(false)	-- Prevents re-capture by Cybrans
+						--ScenarioInfo.BlackSunControlCenter.CanBeGiven = false	-- Prevents re-capture by Cybrans
 						ScenarioInfo.BlackSunControlCenter:SetDoNotTarget(true)
 						if ScenarioInfo.M2P3Objective.Active then
 							ScenarioFramework.CreateUnitCapturedTrigger(false, M2BlackSunControlCenterCaptured, ScenarioInfo.BlackSunControlCenter)
@@ -1153,7 +1153,7 @@ function StartMission3()
     if ScenarioInfo.MissionNumber ~= 3 then
 		ScenarioFramework.SetSharedUnitCap(1200)
 		-- Prevent the CC from being captured in case the Cybran assault force got yeeted waaaaaay before the engineers arrive
-		ScenarioInfo.BlackSunControlCenter:SetCanBeGiven(false)
+		ScenarioInfo.BlackSunControlCenter.CanBeGiven = false
         
 		-- Show progress bar below Black Sun
         ScenarioInfo.BlackSunCannon:SetWorkProgress(.01)
@@ -1512,15 +1512,15 @@ function M3FinalAttack()
 
     -- Land assaults, multiply according to difficulty, this should be a massive assault
 	for i = 1, Difficulty + 1 do
-		local trans1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G1_D' .. Difficulty, 'ChevronFormation')
+		local trans1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G1_D' .. Difficulty, 'AttackFormation')
 		local land1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G1_D' .. Difficulty, 'AttackFormation')
 		ForkThread(M3LandAttack, trans1, land1, 1)
 
-		local trans2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G2_D' .. Difficulty, 'ChevronFormation')
+		local trans2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G2_D' .. Difficulty, 'AttackFormation')
 		local land2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G2_D' .. Difficulty, 'AttackFormation')
 		ForkThread(M3LandAttack, trans2, land2, 2)
 
-		local trans3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G3_D' .. Difficulty, 'ChevronFormation')
+		local trans3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Transports_G3_D' .. Difficulty, 'AttackFormation')
 		local land3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3AF_Land_G3_D' .. Difficulty, 'AttackFormation')
 		ForkThread(M3LandAttack, trans3, land3, 3)
 		
@@ -1536,16 +1536,16 @@ end
 -- Thread for Arnold, teleports when final Aeon land assault force lands, or is otherwise destroyed
 function M3ArnoldAIThread()
 	-- Prevent him from spawning again if he was already spawned
-	if ScenarioInfo.Arnold then
+	if ScenarioInfo.ArnoldCDR then
 		return
 	end
 	
 	-- Spawn Arnold
-	ScenarioInfo.Arnold = ScenarioFramework.SpawnCommander('Aeon', 'Arnold_ACU', 'Warp', LOC('{i CDR_Arnold}'), true, nil, {'ShieldHeavy', 'FAF_CrysalisBeamAdvanced', 'HeatSink'})
-	ScenarioInfo.Arnold:SetVeterancy(Difficulty + 2)
-	ScenarioInfo.Arnold:SetAutoOvercharge(true)
+	ScenarioInfo.ArnoldCDR = ScenarioFramework.SpawnCommander('Aeon', 'Arnold_ACU', 'Warp', LOC('{i CDR_Arnold}'), true, nil, {'ShieldHeavy', 'FAF_CrysalisBeamAdvanced', 'HeatSink'})
+	ScenarioInfo.ArnoldCDR:SetVeterancy(Difficulty + 2)
+	ScenarioInfo.ArnoldCDR:SetAutoOvercharge(true)
 	-- Bool used for taunts
-	ScenarioInfo.ArnoldSpawned = true
+	ScenarioInfo.ArnoldCDRSpawned = true
 	
 	------------------------------------
     -- Primary Objective: Destroy Arnold
@@ -1556,13 +1556,13 @@ function M3ArnoldAIThread()
 		OpStrings.M3P2Title,
 		OpStrings.M3P2Description,
         {
-            Units = {ScenarioInfo.Arnold},
+            Units = {ScenarioInfo.ArnoldCDR},
         }
    )
    ScenarioInfo.M3P2Obj:AddResultCallback(
         function(result)
 			if (result) then
-				ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.Arnold, 3)
+				ScenarioFramework.CDRDeathNISCamera(ScenarioInfo.ArnoldCDR, 3)
 				ScenarioFramework.Dialogue(OpStrings.E06_M03_070)
 				
 				if not ScenarioInfo.AikoUnitDestroyed and ScenarioInfo.AikoUnit:GetHealthPercent() >= .5  then
@@ -1575,20 +1575,20 @@ function M3ArnoldAIThread()
    )
 	
 	local platoon = ArmyBrains[Aeon]:MakePlatoon('', '')
-	ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.Arnold}, 'Attack', 'NoFormation')
+	ArmyBrains[Aeon]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.ArnoldCDR}, 'Attack', 'NoFormation')
 	
 	-- I'm keeping this around if we ever need to buff Arnold's OC capabilities, but the gun upgrades should be more than enough
-		--local weapon = ScenarioInfo.Arnold:GetWeaponByLabel('OverCharge')
+		--local weapon = ScenarioInfo.ArnoldCDR:GetWeaponByLabel('OverCharge')
 		--weapon:ChangeMaxRadius(20)
 	
     WaitSeconds(1)
     platoon:Stop()
     platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('Player_Attack_Black_Sun'), false)
     while ArmyBrains[Aeon]:PlatoonExists(platoon) do
-        if not ScenarioInfo.BlackSunCannon.Dead and not ScenarioInfo.Arnold.Dead and (Utilities.XZDistanceTwoVectors(ScenarioInfo.Arnold:GetPosition(), ScenarioInfo.BlackSunCannon:GetPosition()) < 25) then
-            IssueClearCommands({ScenarioInfo.Arnold})
-            --IssueOverCharge({ScenarioInfo.Arnold}, ScenarioInfo.BlackSunCannon)
-            IssueAttack({ScenarioInfo.Arnold}, ScenarioInfo.BlackSunCannon)
+        if not ScenarioInfo.BlackSunCannon.Dead and not ScenarioInfo.ArnoldCDR.Dead and (Utilities.XZDistanceTwoVectors(ScenarioInfo.ArnoldCDR:GetPosition(), ScenarioInfo.BlackSunCannon:GetPosition()) < 25) then
+            IssueClearCommands({ScenarioInfo.ArnoldCDR})
+            --IssueOverCharge({ScenarioInfo.ArnoldCDR}, ScenarioInfo.BlackSunCannon)
+            IssueAttack({ScenarioInfo.ArnoldCDR}, ScenarioInfo.BlackSunCannon)
             WaitSeconds(5)
             break
         end
@@ -1701,7 +1701,7 @@ function M3EnableCannon()
 		'incomplete',
 		OpStrings.M3P3Title,
 		OpStrings.M3P3Description,
-		Objectives.GetActionIcon('kill'),
+		Objectives.GetActionIcon('Kill'),
         {
             Units = {ScenarioInfo.BlackSunCannon},
         }
@@ -1855,7 +1855,7 @@ function RedFogTaunt()
 end
 
 function ArnoldTaunt()
-	if (not ScenarioInfo.ArnoldSpawned) or (ScenarioInfo.Arnold and not ScenarioInfo.Arnold.Dead) then
+	if (not ScenarioInfo.ArnoldCDRSpawned) or (ScenarioInfo.ArnoldCDR and not ScenarioInfo.ArnoldCDR.Dead) then
 		ScenarioFramework.Dialogue(OpStrings['TAUNT' .. Random(9, 16)])
 		ScenarioFramework.CreateTimerTrigger(PlayTaunt, 180)
 	else

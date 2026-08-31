@@ -46,7 +46,7 @@ function M4_Cybran_Air_Attacks()
     )
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
 
     quantity = {4, 5, 6}
     opai = M4CybranBase1:AddOpAI('AirAttacks', 'M3_Cybran_Air_Attack_3',
@@ -85,7 +85,7 @@ function M4_Cybran_Air_Attacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 
     quantity = {8, 10, 12}
     opai = M4CybranBase1:AddOpAI('AirAttacks', 'M3_Cybran_Air_Attack_6',
@@ -140,7 +140,7 @@ function M4_Cybran_Transport_Attacks()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.ura0104}
+        'HaveLessThanUnitsWithCategory', {4, categories.ura0104}
     )
 
     quantity = {2, 4, 6}
@@ -156,7 +156,7 @@ function M4_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
 
     quantity = {4, 6, 8}
     opai = M4CybranBase1:AddOpAI('BasicLandAttack', 'M3_CybranTransportAttack2',
@@ -209,7 +209,7 @@ function M4_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH3, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY * categories.TECH3, '>='})
 
     quantity = {4, 6, 8}
     opai = M4CybranBase1:AddOpAI('BasicLandAttack', 'M3_CybranTransportAttack6',

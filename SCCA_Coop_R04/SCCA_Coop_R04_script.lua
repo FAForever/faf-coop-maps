@@ -10,15 +10,15 @@
 -- ****************************************************************************
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local M1AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m1aeonai.lua')
-local M3AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m3aeonai.lua')
-local NukeDamage = import('/lua/sim/NukeDamage.lua').NukeAOE
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+local M1AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m1aeonai.lua')---@module "SCCA_Coop_R04/SCCA_Coop_R04_m1aeonai"
+local M3AeonAI = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_m3aeonai.lua')---@module "SCCA_Coop_R04/SCCA_Coop_R04_m3aeonai"
+local NukeDamage = import('/lua/sim/nukedamage.lua').NukeAOE
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/SCCA_Coop_R04/SCCA_Coop_R04_strings.lua')---@module "SCCA_Coop_R04/SCCA_Coop_R04_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local VizMarker = import('/lua/sim/vizmarker.lua').VizMarker
 local Weather = import('/lua/weather.lua')
 
 -- The attacks that are sent against the player
@@ -97,7 +97,8 @@ function OnPopulate(scenario)
     ScenarioFramework.RefreshRestrictions('Aeon')
 
     -- Since there aren't many bases, let's check for building new platoons faster
-    ArmyBrains[Aeon]:PBMSetCheckInterval(7)
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(7)
 
     -- Initial attacks
     local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Initial_Air_Attack_D' .. Difficulty, 'GrowthFormation')
@@ -275,7 +276,7 @@ function StartMission1()
         'incomplete',
         OpStrings.M1P1Text,
         OpStrings.M1P1Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Units = {ScenarioInfo.ErisACU},
         }
@@ -479,7 +480,7 @@ function StartMission2()
         'incomplete',
         OpStrings.M2P1Text,
         OpStrings.M2P1Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = {ScenarioInfo.Node2},
             MarkUnits = true,
@@ -700,7 +701,7 @@ function M2BaseSaved()
         'incomplete',
         OpStrings.M2P2Text,
         OpStrings.M2P2Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = {ScenarioInfo.Node2},
             MarkUnits = true,
@@ -934,7 +935,7 @@ function StartMission3()
         'incomplete',
         OpStrings.M3P1Text,
         OpStrings.M3P1Detail,
-        Objectives.GetActionIcon('capture'),
+        Objectives.GetActionIcon('Capture'),
         {
             Units = {ScenarioInfo.Node3},
             MarkUnits = true,
@@ -949,7 +950,7 @@ function StartMission3()
         'incomplete',
         OpStrings.M3P2Text,
         OpStrings.M3P2Detail,
-        Objectives.GetActionIcon('capture'),
+        Objectives.GetActionIcon('Capture'),
         {
             Units = {ScenarioInfo.Node4},
             MarkUnits = true,
@@ -964,7 +965,7 @@ function StartMission3()
         'incomplete',
         OpStrings.M3P4Text,
         OpStrings.M3P4Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Areas = {'Aeon_Base_M3'},
             ShowFaction = 'Aeon',

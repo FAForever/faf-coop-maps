@@ -1,10 +1,10 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions"
 local ThisFile = '/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai.lua'
 
 ---------
@@ -24,7 +24,8 @@ local CybranM2EastBase = BaseManager.CreateBaseManager()
 -- Cybran M2 East Base
 ----------------------
 function CybranM2EastBaseAI()
-    CybranM2EastBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_East_Base', 'M2_Cybran_East_Base_Marker', 80, {M2_Cybran_East_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2EastBase:InitializeDifficultyTables(aiBrain, 'M2_Cybran_East_Base', 'M2_Cybran_East_Base_Marker', 80, {M2_Cybran_East_Base = 100})
     local extraEngies = ScenarioInfo.NumberOfPlayers * (Difficulty-1)
     CybranM2EastBase:StartNonZeroBase({{7 + extraEngies, 14 + extraEngies, 22 + extraEngies}, {5 + extraEngies, 10 + extraEngies, 16 + extraEngies}})
     
@@ -55,7 +56,8 @@ function CybranM2EastBaseLandAttacks()
     local opai = nil
     local quantity = {}
     local trigger = {}
-    
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+
     -- Rhino patrol (2 times)
     quantity = {6, 10, 14}
     for i = 1,2 do
@@ -110,11 +112,11 @@ function CybranM2EastBaseLandAttacks()
             LocationType = 'M2_Cybran_East_Base',
             BuildConditions = {
                 {'/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-                    {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='}},
+                    {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.MOBILE, '>='}},
             },
             PlatoonAIFunction = {ThisFile, 'M2WestBaseLandPlatoonAI'},
         }
-        ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+        aiBrain:PBMAddPlatoon( Builder )
     end
 end
 
@@ -161,7 +163,7 @@ function CybranM2EastBaseAirAttacks()
     )
     opai:SetChildQuantity({'AirSuperiority'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 end
 
 -------------------------------------------
@@ -184,13 +186,13 @@ end
 -- Anti-Air Defenses against air abuse
 --------------------------------------
 function ExtraAADefense()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     --build more AA turrets 
     CybranM2EastBase:AddBuildGroupDifficulty('M2_Cybran_East_Base_Extra_AA_Defenses', 80, false)
 
     --Patroling cloud of interceptors
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     quantity = {10,20,30}
     opai = CybranM2EastBase:AddOpAI('AirAttacks', 'M2_AntiAir_AirDefense_1',
@@ -218,5 +220,5 @@ function ExtraAADefense()
     )
     opai:SetChildQuantity({'MobileFlak', 'MobileStealth'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR, '>='})
 end

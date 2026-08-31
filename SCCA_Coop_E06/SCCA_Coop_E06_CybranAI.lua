@@ -45,7 +45,8 @@ function M3AddNukePlatoon()
         RequiresConstruction = false,
         PlatoonAIFunction = {CustomFunctions, 'NukePlatoon'},
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 -- Original mission layout had these bases as off-map ones, with only factories, intel and eco structures, and other misc, so the bare essentials
@@ -68,7 +69,8 @@ function M3CybranBaseAI()
 	M3CybranBase:StartNonZeroBase({9, 15, 21})
 	M3CybranBase:SetMaximumConstructionEngineers(15)
 	M3CybranBase:SetDefaultEngineerPatrolChain('M3_Cybran_Base_Engineer_Patrol_Chain')
-	ArmyBrains[Cybran]:PBMSetCheckInterval(7)
+	local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+	aiBrain:PBMSetCheckInterval(7)
 	
     M3CybranBase:SetActive('AirScouting', true)
 	
@@ -183,13 +185,17 @@ function M3CybranBaseLandAttacks()
 			},
 		},     
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
 end
 
 function M3CybranBaseAirAttacks()
-	local quantity = {6, 12, 18}
-	local trigger = {30, 25, 20}
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
+	quantity = {6, 12, 18}
+	trigger = {30, 25, 20}
 
 	-- Sends [6, 12, 18] Air Superiority Fighters to players if they have >= 30, 25, 20 air units
 	opai = M3CybranBase:AddOpAI('AirAttacks', 'M3_Cybran_AirSuperiority_Attack',
@@ -328,15 +334,18 @@ function M3CybranBaseAirAttacks()
 			{SPAIFileName, 'PlatoonEnableStealth'},
 		},
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3CybranBaseNavalAttacks()
+    local opai = nil
 	local T3Quantity = {1, 2, 3}
 	local T2Quantity = {2, 4, 6}
 	local T1Quantity = {3, 6, 9}
 	local Temp
 	local Builder
+	local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
 	
 	-- Probing Cybran Fleet to let the players know of the off-map Cybran base
 	opai = M3CybranBase:AddOpAI('NavalAttacks', 'M3_Cybran_Probe_Fleet',
@@ -382,7 +391,7 @@ function M3CybranBaseNavalAttacks()
 				},
 			},     
 		}
-		ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+		aiBrain:PBMAddPlatoon( Builder )
 	end
 	
 	-- Small Naval Fleet
@@ -412,12 +421,13 @@ function M3CybranBaseNavalAttacks()
 			},
         },     
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3CybranBaseAirDefense()
     local opai = nil
-	local quantity = {6, 12, 18}
+    local quantity = {}
+	quantity = {6, 12, 18}
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships'}
 	
 	-- Maintains [6, 12, 18] units defined in ChildType
@@ -472,8 +482,10 @@ function M3CybranBaseAirDefense()
 end
 
 function M3CybranBaseExperimentals()
-	local opai = nil
-	local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+	quantity = {1, 1, 2}
+	local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
 	
 	-- Sends [1, 1, 2] Soul Rippers to Black Sun
 	for i = 1, quantity[Difficulty] do
@@ -584,7 +596,7 @@ function M3CybranBaseExperimentals()
 				PatrolChain = 'M3_Cybran_Base_Engineer_Patrol_Chain', -- Engineer platoon will patrol this chain if they have no platoons to build
 			},
 		}
-		ArmyBrains[Cybran]:PBMAddPlatoon(Builder)
+		aiBrain:PBMAddPlatoon(Builder)
 	end
 	
 	-- Sends [1, 2-2, 3-3-3] Spiderbots to Black Sun

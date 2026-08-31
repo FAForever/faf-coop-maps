@@ -1,7 +1,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local OpScript = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local OpScript = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script.lua')---@module "FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script"
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utils = import("/lua/utilities.lua")
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
@@ -274,7 +274,8 @@ end
 -- QAI M3 North Base
 --------------------
 function QAIM3NorthBaseAI(plan)
-    QAIM3NorthBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_N_Base', 'M3_QAI_N_Base_Marker', 45, {M3_QAI_N = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM3NorthBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_N_Base', 'M3_QAI_N_Base_Marker', 45, {M3_QAI_N = 100})
     QAIM3NorthBase:StartNonZeroBase(2)
 
     if plan == 'push' then
@@ -968,8 +969,9 @@ function QAIM3NorthWestBaseLandAttacks()
 end
 
 function QAIM3NorthWestBaseConditionalBuilds()
-    -- Triggered by player starting to build experimentals
     local opai = nil
+    local trigger = {}
+    -- Triggered by player starting to build experimentals
     local engineers = {2, 3, 4}
 
     if Difficulty <= 2 then
@@ -1782,15 +1784,16 @@ end
 -- QAI M3 West Base
 -------------------
 function QAIM3WestBaseAI(plan)
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
     if plan == 'push' then
-        QAIM3WestBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_W_Base', 'M3_QAI_West_Base_Marker', 40, {M3_QAI_W_First = 105, M3_QAI_W = 100})
+        QAIM3WestBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_W_Base', 'M3_QAI_West_Base_Marker', 40, {M3_QAI_W_First = 105, M3_QAI_W = 100})
         QAIM3WestBase:StartEmptyBase({8, 4})
         QAIM3WestBase:SetMaximumConstructionEngineers(4)
         -- 'East' AA position (from the plateau view) in the 'West' base (from the player's view), great naming, but whatever! 
         QAIM3WestBase:AddBuildGroup('M3_Plateau_AA_Positions_East', 110)
         QAIM3ExperimentalBase:AddExpansionBase('M3_QAI_W_Base', 2)
     else
-        QAIM3WestBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_W_Base', 'M3_QAI_West_Base_Marker', 40, {M3_QAI_W_First = 105, M3_QAI_W = 100})
+        QAIM3WestBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_W_Base', 'M3_QAI_West_Base_Marker', 40, {M3_QAI_W_First = 105, M3_QAI_W = 100})
         QAIM3WestBase:StartNonZeroBase({5, 3})
     end
 
@@ -2145,7 +2148,8 @@ end
 -- QAI M3 Main Base
 -------------------
 function QAIM3MainBaseAI()
-    QAIM3MainBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Main_Base', 'M3_QAI_Main_Base_Marker', 40, {M3_Main_Base = 100, M3_Main_Base_Side = 90})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM3MainBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_Main_Base', 'M3_QAI_Main_Base_Marker', 40, {M3_Main_Base = 100, M3_Main_Base_Side = 90})
     QAIM3MainBase:StartNonZeroBase({{6, 8, 11}, {5, 6, 8}})
 
     QAIM3MainBaseAirAttacks()
@@ -2473,6 +2477,7 @@ end
 
 function QAIM3MainBaseConditionalBuilds()
     local opai = nil
+    local trigger = {}
     local engineers = {2, 3, 4}
 
     -- Build one spider, either when players start to build their own experimental or when they have enough T3 land units
@@ -2517,8 +2522,10 @@ end
 -- QAI M3 Defense Base
 ----------------------
 function QAIM3DefenseBaseAI()
-    QAIM3DefenseBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Defense_Base', 'M3_QAI_Defense_Base_Marker', 15, {M3_Defences = 100})
-    local quantity = {1, 2, 3}
+    local quantity = {}
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM3DefenseBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_Defense_Base', 'M3_QAI_Defense_Base_Marker', 15, {M3_Defences = 100})
+    quantity = {1, 2, 3}
     QAIM3DefenseBase:StartNonZeroBase(quantity[Difficulty])
     QAIM3DefenseBase:SetMaximumConstructionEngineers(quantity[Difficulty])
 
@@ -2547,7 +2554,8 @@ end
 -- QAI M3 Experimental Base
 ---------------------------
 function QAIM3ExperimentalBaseAI()
-    QAIM3ExperimentalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Experimental_Base', 'M3_QAI_Experimental_Base_Marker', 20, {M3_Experimental_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM3ExperimentalBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_Experimental_Base', 'M3_QAI_Experimental_Base_Marker', 20, {M3_Experimental_Base = 100})
     QAIM3ExperimentalBase:StartNonZeroBase({{3, 5, 7}, {2, 3, 4}})
 
     QAIM3ExperimentalBaseLandAttacks()

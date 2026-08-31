@@ -1,8 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Blockade/FAF_Coop_Operation_Blockade_CustomFunctions.lua'
 
 local Player1 = 1
@@ -18,7 +18,8 @@ local Seraphimbase4P2 = BaseManager.CreateBaseManager()
 
 function Seraphimbase1P2AI()
     
-    Seraphimbase1P2:InitializeDifficultyTables(ArmyBrains[Seraphim], 'Seraphimbase1P2', 'P2Base1MK', 90, {P2base1 = 700})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    Seraphimbase1P2:InitializeDifficultyTables(aiBrain, 'Seraphimbase1P2', 'P2Base1MK', 90, {P2base1 = 700})
     Seraphimbase1P2:StartNonZeroBase({{14, 18, 22}, {11, 15, 19}})
     Seraphimbase1P2:SetActive('AirScouting', true)
     Seraphimbase1P2:SetSupportACUCount(1)
@@ -31,7 +32,7 @@ function Seraphimbase1P2AI()
 end
 
 function P2B1seraLand()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -55,7 +56,8 @@ function P2B1seraLand()
             MoveChains = {'P2B1Landattack1','P2B1Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 6, 8}
     trigger = {40, 35, 30}
@@ -74,14 +76,14 @@ function P2B1seraLand()
         LocationType = 'Seraphimbase1P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3 - categories.ENGINEER}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS * categories.TECH3 - categories.ENGINEER}},
         },
         PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
         PlatoonData = {
            MoveChains = {'P2B1Landattack1','P2B1Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )   
 
     quantity = {1, 2, 3}
     Temp = {
@@ -102,7 +104,7 @@ function P2B1seraLand()
             MoveChain = 'P2B1Landattack1'
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = Seraphimbase1P2:AddOpAI('EngineerAttack', 'M2_West_Reclaim_Engineers',
     {
@@ -116,7 +118,7 @@ function P2B1seraLand()
 end 
 
 function P2B1seraAir()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -139,7 +141,8 @@ function P2B1seraAir()
            PatrolChains = {'P2B1Airattack1','P2B1Airattack2', 'P2B1Airattack3'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {8, 10, 12}
     trigger = {18, 16, 12}
@@ -158,14 +161,14 @@ function P2B1seraAir()
         LocationType = 'Seraphimbase1P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B1Airattack1','P2B1Airattack2', 'P2B1Airattack3'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 8}
     trigger = {20, 15, 10}
@@ -184,14 +187,14 @@ function P2B1seraAir()
         LocationType = 'Seraphimbase1P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B1Airattack1','P2B1Airattack2', 'P2B1Airattack3'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 6, 8}
     opai = Seraphimbase1P2:AddOpAI('AirAttacks', 'M2_Sera_Air_Attack_1',
@@ -206,7 +209,7 @@ function P2B1seraAir()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
 
     quantity = {6, 12, 18}
     opai = Seraphimbase1P2:AddOpAI('AirAttacks', 'M2_Sera_Air_Attack_2',
@@ -221,7 +224,7 @@ function P2B1seraAir()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
+            {{'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
 
     quantity = {6, 8, 12}
     opai = Seraphimbase1P2:AddOpAI('AirAttacks', 'M2_Sera_Air_Attack_3',
@@ -236,11 +239,10 @@ function P2B1seraAir()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.NAVAL, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.NAVAL, '>='})
 end 
 
 function P2B1seraNaval()
-
     local quantity = {}
     local trigger = {}
 
@@ -264,7 +266,8 @@ function P2B1seraNaval()
            PatrolChains = {'P2B1Navalattack1', 'P2B1Navalattack2'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
     trigger = {5, 4, 3}
@@ -283,14 +286,14 @@ function P2B1seraNaval()
         LocationType = 'Seraphimbase1P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B1Navalattack1', 'P2B1Navalattack2'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 6}
     trigger = {35, 30, 25}
@@ -309,18 +312,17 @@ function P2B1seraNaval()
         LocationType = 'Seraphimbase1P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B1Navalattack1', 'P2B1Navalattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end 
 
 function Exp2P2()
-
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -348,7 +350,8 @@ end
 
 function Seraphimbase2P2AI()
     
-    Seraphimbase2P2:InitializeDifficultyTables(ArmyBrains[Seraphim], 'Seraphimbase2P2', 'P2Base2MK', 90, {P2base2 = 700})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    Seraphimbase2P2:InitializeDifficultyTables(aiBrain, 'Seraphimbase2P2', 'P2Base2MK', 90, {P2base2 = 700})
     Seraphimbase2P2:StartNonZeroBase({{12, 16, 20}, {8, 12, 16}})
     Seraphimbase2P2:SetActive('AirScouting', true)
     Seraphimbase2P2:SetSupportACUCount(1)
@@ -359,7 +362,7 @@ function Seraphimbase2P2AI()
 end
 
 function P2B2seraLand()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -382,7 +385,8 @@ function P2B2seraLand()
            PatrolChains = {'P2B2Landattack1','P2B2Landattack2'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 6}
     trigger = {30, 25, 20}
@@ -401,14 +405,14 @@ function P2B2seraLand()
        LocationType = 'Seraphimbase2P2',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P2B2Landattack1','P2B2Landattack2'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 7, 9}
     trigger = {30, 25, 20}
@@ -427,14 +431,14 @@ function P2B2seraLand()
         LocationType = 'Seraphimbase2P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.WALL}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.WALL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B2Landattack1','P2B2Landattack2'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {3, 4, 6}
     Temp = {
@@ -454,14 +458,14 @@ function P2B2seraLand()
         LocationType = 'Seraphimbase2P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 1, categories.EXPERIMENTAL}},
+           {{'HumanPlayers'}, 1, categories.EXPERIMENTAL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B2Landattack1','P2B2Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )   
 
     quantity = {1, 2, 3}
     Temp = {
@@ -482,7 +486,7 @@ function P2B2seraLand()
             MoveChain = 'P2B2Landattack1'
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = Seraphimbase2P2:AddOpAI('EngineerAttack', 'M2_North_Reclaim_Engineers',
     {
@@ -496,9 +500,9 @@ function P2B2seraLand()
 end 
 
 function Exp1P2()
-
     local opai = nil
     local quantity = {}
+    local trigger = {}
 
     quantity = {1, 2, 4}
     trigger = {40, 35, 30}
@@ -523,10 +527,11 @@ function Exp1P2()
 end
 
 function Seraphimbase3P2AI()
-    
     local quantity = {}
+    
     quantity = {2, 3, 4}
-    Seraphimbase3P2:InitializeDifficultyTables(ArmyBrains[Seraphim2], 'Seraphimbase3P2', 'P2Base3MK', 90, {P2base3 = 700})
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    Seraphimbase3P2:InitializeDifficultyTables(aiBrain, 'Seraphimbase3P2', 'P2Base3MK', 90, {P2base3 = 700})
     Seraphimbase3P2:StartNonZeroBase({{11, 14, 17}, {7, 10, 13}})
     Seraphimbase3P2:SetActive('AirScouting', true)
     Seraphimbase3P2:SetSupportACUCount(quantity[Difficulty])
@@ -545,7 +550,7 @@ function Seraphimbase3P2AI()
 end
 
 function P2B3seraAir()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -568,7 +573,8 @@ function P2B3seraAir()
            PatrolChains = {'P2B3Airattack1', 'P2B3Airattack2', 'P2B3Airattack3'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {6, 8, 14}
     trigger = {25, 20, 15}
@@ -587,14 +593,14 @@ function P2B3seraAir()
         LocationType = 'Seraphimbase3P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.ENGINEER}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.ENGINEER}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B3Airattack1', 'P2B3Airattack2', 'P2B3Airattack3'}
         },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {6, 7, 9}
     trigger = {20, 15, 10}
@@ -614,14 +620,14 @@ function P2B3seraAir()
         LocationType = 'Seraphimbase3P2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P2B3Airattack1', 'P2B3Airattack2', 'P2B3Airattack3'}
         },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )  
+    aiBrain:PBMAddPlatoon( Builder )  
 
     quantity = {8, 12, 15}
     opai = Seraphimbase3P2:AddOpAI('AirAttacks', 'M2_Seraphim2B1_Air_Attack_1',
@@ -636,11 +642,10 @@ function P2B3seraAir()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.NAVAL * categories.EXPERIMENTAL, '>='})
+            {{'HumanPlayers'}, 1, categories.NAVAL * categories.EXPERIMENTAL, '>='})
 end
 
 function P2B3seraNaval()
-
     local quantity = {}
     local trigger = {}
 
@@ -664,7 +669,8 @@ function P2B3seraNaval()
            PatrolChains = {'P2B3Navalattack1', 'P2B3Navalattack2'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {2, 4, 6}
     trigger = {4, 3, 1}
@@ -683,14 +689,14 @@ function P2B3seraNaval()
        LocationType = 'Seraphimbase3P2',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P2B3Navalattack1', 'P2B3Navalattack2'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {1, 2, 3}
     trigger = {20, 15, 10}
@@ -710,19 +716,20 @@ function P2B3seraNaval()
        LocationType = 'Seraphimbase3P2',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P2B3Navalattack1', 'P2B3Navalattack2'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function Seraphimbase4P2AI()
     
-    Seraphimbase4P2:InitializeDifficultyTables(ArmyBrains[Seraphim2], 'Seraphimebase4P2', 'P2S2B2MK', 90, {P2BaseSECFac = 900})
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    Seraphimbase4P2:InitializeDifficultyTables(aiBrain, 'Seraphimebase4P2', 'P2S2B2MK', 90, {P2BaseSECFac = 900})
     Seraphimbase4P2:StartNonZeroBase({{12, 18, 22}, {9, 14, 18}})
     Seraphimbase4P2:SetActive('AirScouting', true)
     Seraphimbase4P2:SetMaximumConstructionEngineers(10)
@@ -741,7 +748,7 @@ function Seraphimbase4P2AI()
 end
 
 function P2B4seraAir()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -765,7 +772,8 @@ function P2B4seraAir()
            PatrolChain = 'P2S2B2Airdefense1'
            }
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {10, 13, 15}
     Temp = {
@@ -786,7 +794,7 @@ function P2B4seraAir()
            PatrolChains = {'P2S2B2Airattack1', 'P2S2B2Airattack2', 'P2S2B2Airattack3', 'P2S2B2Airattack4'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 7, 10}
     trigger = {20, 15, 10}
@@ -805,14 +813,14 @@ function P2B4seraAir()
        LocationType = 'Seraphimebase4P2',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE * categories.TECH3}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE * categories.TECH3}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P2S2B2Airattack1', 'P2S2B2Airattack2', 'P2S2B2Airattack3', 'P2S2B2Airattack4'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 7, 10}
     trigger = {20, 15, 10}
@@ -831,14 +839,14 @@ function P2B4seraAir()
        LocationType = 'Seraphimebase4P2',
        BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P2S2B2Airattack1', 'P2S2B2Airattack2', 'P2S2B2Airattack3', 'P2S2B2Airattack4'}
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 10, 15}
     opai = Seraphimbase4P2:AddOpAI('AirAttacks', 'M2_Seraphim2_Air_Attack_1',
@@ -853,7 +861,7 @@ function P2B4seraAir()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
+            {{'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
             
     quantity = {5, 7, 10}
     opai = Seraphimbase4P2:AddOpAI('AirAttacks', 'M2_Seraphim2_Air_Attack_2',
@@ -868,7 +876,7 @@ function P2B4seraAir()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 2, categories.LAND * categories.EXPERIMENTAL, '>='})
+            {{'HumanPlayers'}, 2, categories.LAND * categories.EXPERIMENTAL, '>='})
 
     quantity = {5, 7, 10}
     opai = Seraphimbase4P2:AddOpAI('AirAttacks', 'M2_Seraphim2_Air_Attack_3',
@@ -883,16 +891,17 @@ function P2B4seraAir()
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 8, categories.MASSEXTRACTION, '>='})
+            {{'HumanPlayers'}, 8, categories.MASSEXTRACTION, '>='})
 end
 
 function P2B4LandAttacks()
-
     local opai = nil
+    local quantity = {}
     local trigger = {}
+
     local poolName = 'Seraphimebase4P2_TransportPool'
     
-    local quantity = {2, 4, 6}
+    quantity = {2, 4, 6}
     -- T2 Transport Platoon
     local Temp = {
         'M1_Sera_Transport_Platoon',
@@ -915,7 +924,8 @@ function P2B4LandAttacks()
             BaseName = 'Seraphimebase4P2',
         },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     local Quantity1 = {2, 3, 3}
     local Quantity2 = {4, 6, 6}
@@ -937,7 +947,7 @@ function P2B4LandAttacks()
         BuildConditions = {
             {CustomFunctions, 'HaveGreaterOrEqualThanUnitsInTransportPool', {4, poolName}},
             { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.ENGINEER}},
+               {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.ENGINEER}},
         },
         PlatoonAIFunction = {CustomFunctions, 'LandAssaultWithTransports'},       
         PlatoonData = {
@@ -948,13 +958,13 @@ function P2B4LandAttacks()
             GenerateSafePath = true,
         },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )   
 end
 
 function Exp1P2B4()
-
     local opai = nil
     local quantity = {}
+    local trigger = {}
 
     quantity = {1, 2, 4}
     trigger = {5, 4, 3}
@@ -979,7 +989,6 @@ function Exp1P2B4()
 end
 
 function P2B4seraNaval()
-
     local quantity = {}
     local trigger = {}
 
@@ -1002,7 +1011,8 @@ function P2B4seraNaval()
            PatrolChain = 'P2S2B2Navalattack1'
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {3, 4, 6}
     Temp = {
@@ -1023,5 +1033,5 @@ function P2B4seraNaval()
            PatrolChain = 'P2S2B2Navalattack1'
        },
     }
-    ArmyBrains[Seraphim2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end

@@ -14,12 +14,12 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local Objectives = ScenarioFramework.Objectives
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E02/SCCA_Coop_E02_strings.lua')
 
 -----------------
@@ -491,14 +491,14 @@ function PreIntroNIS()
     ScenarioInfo.ResearchGroup = ScenarioUtils.CreateArmyGroup('AllyResearch', AdjustForDifficulty('Base'))
 
     -- Create some of the key units and save handles to them
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
@@ -812,16 +812,16 @@ function IntroNIS()
     ForkThread(PlayNIS1Video)
 
     -- Snap the camera to the view of the research base instantly
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_01'))
+    Cinematics.CameraMoveToMarker('Camera_M1_Intro_01')
 
     -- Move the camera around the base a bit
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_02'), 10)
+    Cinematics.CameraMoveToMarker('Camera_M1_Intro_02', 10)
 
     -- Let the player absorb what they're seeing
     WaitSeconds(3)
 
     -- Whisk the camera across the map to see where the UEF commander is in relation to this base
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Camera_M1_Intro_03'), 10)
+    Cinematics.CameraMoveToMarker('Camera_M1_Intro_03', 10)
 
     -- Let the player absorb what they're seeing
     WaitSeconds(3)
@@ -883,7 +883,7 @@ function BeginMission1()
         'incomplete',
         OpStrings.M1P1Text,
         OpStrings.M1P1Detail,
-        Objectives.GetActionIcon('build'),
+        Objectives.GetActionIcon('Build'),
         {
             Area = 'Starting_Camera_Area',
             Category = categories.ueb0102,
@@ -895,7 +895,7 @@ function BeginMission1()
         'incomplete',
         OpStrings.M1P3Text,
         OpStrings.M1P3Detail,
-        Objectives.GetActionIcon('repair'),
+        Objectives.GetActionIcon('Repair'),
         {
             Units = {ScenarioInfo.ResearchFacility},
             MarkUnits = true,
@@ -957,6 +957,7 @@ end
 
 function AttackPlayerM2()
     if ScenarioInfo.MissionNumber == 2 then
+        local newPlatoon
         -- See how many times we have attacked already
         -- Spawn the appropriate force
         if M2Attacks < M2AttacksBecomeMediumSizedAfter then
@@ -1008,7 +1009,7 @@ function AttackPlayerM2()
             ScenarioFramework.PlatoonPatrolRoute(newPlatoon, AeonM2PeriodicAttackResearchRoute1)
 
             -- See if we should also send the air units over the mountains
-            randomNumber = Random(0, SendLandSquadChance + SendAirSquadChance + SendLandAndAirSquadChance)
+            local randomNumber = Random(0, SendLandSquadChance + SendAirSquadChance + SendLandAndAirSquadChance)
             if randomNumber < SendLandAndAirSquadChance then
                 -- LOG('Attacking Research with Extra Air Patrol')
                 newPlatoon = ScenarioUtils.SpawnPlatoon('Aeon', AdjustForDifficulty('M2_Attack_Air'))
@@ -1172,7 +1173,7 @@ function AirFactoryBuilt()
         'incomplete',
         OpStrings.M1P15Text,
         OpStrings.M1P15Detail,
-        Objectives.GetActionIcon('build'),
+        Objectives.GetActionIcon('Build'),
         {
             Category = categories.uea0107,
             -- Area = 'Research_Area',
@@ -1187,7 +1188,7 @@ function AirFactoryBuilt()
             'incomplete',
             OpStrings.M1S1Text,
             OpStrings.M1S1Detail,
-            Objectives.GetActionIcon('kill'),
+            Objectives.GetActionIcon('Kill'),
             {
                 ShowFaction = 'Aeon',
                 -- Units = {ScenarioInfo.ResearchFacility},
@@ -1212,7 +1213,7 @@ function TransportBuilt()
         'incomplete',
         OpStrings.M1P2Text,
         OpStrings.M1P2Detail,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Area = 'Research_Area',
             MarkArea = true,
@@ -1258,7 +1259,7 @@ function AeonPatrolsDefeatedM1()
             'complete',
             OpStrings.M1S1Text,
             OpStrings.M1S1Detail,
-            Objectives.GetActionIcon('kill'),
+            Objectives.GetActionIcon('Kill'),
             {
             }
        )
@@ -1312,7 +1313,7 @@ function BeginMission1Point5()
         'incomplete',
         OpStrings.M15P1Text,
         OpStrings.M15P1Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = {ScenarioInfo.ResearchFacility},
             MarkUnits = true,
@@ -1371,7 +1372,7 @@ function M15Wave2Attack()
 
     -- Spawn them
     local AttackGroup = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave2_Attackers'))
-    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'ChevronFormation')
+    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'AttackFormation')
 
     ScenarioFramework.AttachUnitsToTransports(AttackGroup, Transports:GetPlatoonUnits())
 
@@ -1450,7 +1451,7 @@ function M15Wave3Attack()
     -- Spawn them
     local AttackGroupLand = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Land'))
     local AttackGroupAir = ScenarioUtils.CreateArmyGroup('Aeon', AdjustForDifficulty('M15_Wave3_Attackers_Air'))
-    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'ChevronFormation')
+    local Transports = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M15_Transports', 'AttackFormation')
 
     ScenarioFramework.AttachUnitsToTransports(AttackGroupLand, Transports:GetPlatoonUnits())
 
@@ -1531,7 +1532,7 @@ function BeginMission2()
         'incomplete',
         OpStrings.M2P1Text,
         LOCF(OpStrings.M2P1Detail, CivilianReinforcementsNeededTanks, CivilianReinforcementsNeededAntiAir, CivilianReinforcementsNeededGunships),
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Area = 'Civilian_Area',
             MarkArea = true,
@@ -1543,7 +1544,7 @@ function BeginMission2()
         'incomplete',
         OpStrings.M2P2Text,
         OpStrings.M2P2Detail,
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {
             Area = 'Research_Area',
             MarkArea = true,
@@ -1864,7 +1865,7 @@ function M2TrucksAllAccountedFor()
             -- 'complete',
             -- OpStrings.M2H1Text,
             -- OpStrings.M2H1Detail,
-            -- Objectives.GetActionIcon('protect'),
+            -- Objectives.GetActionIcon('Protect'),
             -- {
             --    #Units = {ScenarioInfo.RadarStations},
             --    #MarkUnits = true,
@@ -1989,7 +1990,7 @@ function BeginMission3()
     EnemyCommanderPlatoon.CDRData = {}
     EnemyCommanderPlatoon.CDRData.LeashPosition = 'M3_Commander_Leash'
     EnemyCommanderPlatoon.CDRData.LeashRadius = 75
-    EnemyCommanderPlatoon:ForkThread(import('/lua/ai/opai/OpBehaviors.lua').CDROverchargeBehavior)
+    EnemyCommanderPlatoon:ForkThread(import('/lua/ai/opai/opbehaviors.lua').CDROverchargeBehavior)
     EnemyCommanderPlatoon:ForkAIThread(M3AeonCommanderAIThread)
 
     -- Track when the commander dies for the primary objective
@@ -2051,7 +2052,7 @@ function BeginMission3()
         'incomplete',
         OpStrings.M3P1Text,
         OpStrings.M3P1Detail,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
             Units = { ScenarioInfo.ResearchFacility },
             MarkUnits = true,
@@ -2087,7 +2088,7 @@ function BeginMission3()
         'incomplete',
         OpStrings.M3S1Text,
         OpStrings.M3S1Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Units = Factories,
             MarkUnits = true,

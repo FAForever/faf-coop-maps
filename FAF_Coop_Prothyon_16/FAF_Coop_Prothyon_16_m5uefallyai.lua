@@ -1,5 +1,4 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -16,8 +15,8 @@ local UEFAllyM5Base = BaseManager.CreateBaseManager()
 local UEFAllyM5GateBase = BaseManager.CreateBaseManager()
 
 function UEFAllyM5BaseAI()
-	local Base = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'M1_Civilian_Area', ArmyBrains[UEFAlly])
-    UEFAllyM5Base:Initialize(ArmyBrains[UEFAlly], 'M5_UEFAlly_Base', 'M5_UEFAlly_Base_Marker', 60, {Base = 100})
+    local aiBrain = ArmyBrains[UEFAlly]--[[@as CampaignAIBrain]]
+    UEFAllyM5Base:Initialize(aiBrain, 'M5_UEFAlly_Base', 'M5_UEFAlly_Base_Marker', 60, {})
     UEFAllyM5Base:SetEngineerCount({4, 3})
     UEFAllyM5Base:SetActive('AirScouting', true)
 
@@ -27,7 +26,7 @@ end
 
 function UEFAllyM5BaseAirAttacks()
 	local opai = nil
-	
+
 	-- Air Defense over Civs
 	-- Maintains 12 Interceptors
     for i = 1, 3 do
@@ -133,9 +132,9 @@ function UEFAllyM5BaseLandAttacks()
 end
 
 function UEFAllyM5GateBaseAI()
-	local GateBase = ScenarioFramework.GetCatUnitsInArea((categories.ALLUNITS), 'Gate_Area', ArmyBrains[UEFAlly])
-    UEFAllyM5GateBase:Initialize(ArmyBrains[UEFAlly], 'M5_UEFAlly_Gate_Base', 'M5_UEFAlly_Gate_Base_Marker', 40, {GateBase = 100})
-    UEFAllyM5GateBase:SetEngineerCount({2, 1})
+    local aiBrain = ArmyBrains[UEFAlly]--[[@as CampaignAIBrain]]
+    UEFAllyM5GateBase:Initialize(aiBrain, 'M5_UEFAlly_Gate_Base', 'M5_UEFAlly_Gate_Base_Marker', 40, {})
+    UEFAllyM5GateBase:StartEmptyBase({2, 1})
     UEFAllyM5GateBase:SetActive('AirScouting', true)
 
     UEFAllyM5GateBase:AddBuildGroup('Quantum_Gate_Afterbuild', 90)
@@ -163,5 +162,5 @@ function UEFAllyM5GateBaseAirAttacks()
     opai:SetChildActive('T2Transports', true)
     opai:SetChildQuantity({'T2Transports'}, 1)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.uea0104})   -- T2 Transport
+        'HaveLessThanUnitsWithCategory', {4, categories.uea0104})   -- T2 Transport
 end

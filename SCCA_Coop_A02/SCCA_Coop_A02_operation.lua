@@ -8,7 +8,7 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local OpStrings = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_strings.lua')
+local OpStrings = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_strings.lua')---@module "SCCA_Coop_A02/SCCA_Coop_A02_strings"
 
 operationData = 
 {

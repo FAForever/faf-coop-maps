@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local Player1 = 1
 local QAI = 3
@@ -9,8 +9,9 @@ local Q1P2Base1 = BaseManager.CreateBaseManager()
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 function P2Q1base1AI()
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
 
-    Q1P2Base1:InitializeDifficultyTables(ArmyBrains[QAI], 'P2QAIBase1', 'P2Q1B1MK', 80, {P2Qbase1 = 500})
+    Q1P2Base1:InitializeDifficultyTables(aiBrain, 'P2QAIBase1', 'P2Q1B1MK', 80, {P2Qbase1 = 500})
     Q1P2Base1:StartNonZeroBase({{11, 8, 7}, {9, 7, 6}})
     
     P2QlandDefenses1()
@@ -18,10 +19,10 @@ function P2Q1base1AI()
 end
 
 function P2QAirDefenses1()
-
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
     local quantity = {}
 
-    quantity = {4, 3, 2} 
+    quantity = {4, 3, 2}
     local Temp = {
         'P2QB1DefenseTemp0',
         'NoPlan',      
@@ -40,7 +41,7 @@ function P2QAirDefenses1()
             PatrolChain = 'P2QAirD1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3} 
     Temp = {
@@ -61,7 +62,7 @@ function P2QAirDefenses1()
             PatrolChain = 'P2QAirD1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3} 
     Temp = {
@@ -82,7 +83,7 @@ function P2QAirDefenses1()
             PatrolChain = 'P2QAirD1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3} 
     Temp = {
@@ -104,14 +105,15 @@ function P2QAirDefenses1()
             PatrolChain = 'P2QAirD1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2QlandDefenses1()
-
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    local opai = nil
     local quantity = {}
 
-    quantity = {4, 3, 2} 
+    quantity = {4, 3, 2}
     local Temp = {
         'P2QB1DefenseTemp0',
         'NoPlan',
@@ -131,7 +133,7 @@ function P2QlandDefenses1()
             PatrolChain = 'P2QlandD1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = Q1P2Base1:AddOpAI('EngineerAttack', 'M1_West_Reclaim_Engineers',
     {

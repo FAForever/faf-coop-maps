@@ -8,8 +8,8 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -29,7 +29,8 @@ function LoyalistM2EastBaseAI()
     -----------------------
     -- Loyalist M2 East Base
     -----------------------
-    LoyalistM2EastBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_East', 'M2_Loyalist_Base_East_Marker', 30, {M2_Loyalist_Base_East = 100})
+    local aiBrain = ArmyBrains[Loyalist]--[[@as CampaignAIBrain]]
+    LoyalistM2EastBase:Initialize(aiBrain, 'M2_Loyalist_Base_East', 'M2_Loyalist_Base_East_Marker', 30, {M2_Loyalist_Base_East = 100})
     LoyalistM2EastBase:StartNonZeroBase(1)
     LoyalistM2EastBase:SetActive('AirScouting', true)
     LoyalistM2EastBase:SetActive('LandScouting', true)
@@ -119,7 +120,8 @@ function LoyalistM2WestBaseAI()
     -----------------------
     -- Loyalist M2 West Base
     -----------------------
-    LoyalistM2WestBase:Initialize(ArmyBrains[Loyalist], 'M2_Loyalist_Base_West', 'M2_Loyalist_Base_West_Marker', 25, {M2_Loyalist_Base_West = 100})
+    local aiBrain = ArmyBrains[Loyalist]--[[@as CampaignAIBrain]]
+    LoyalistM2WestBase:Initialize(aiBrain, 'M2_Loyalist_Base_West', 'M2_Loyalist_Base_West_Marker', 25, {M2_Loyalist_Base_West = 100})
     LoyalistM2WestBase:StartNonZeroBase(1)
     LoyalistM2WestBase:SetActive('LandScouting', true)
 

@@ -10,9 +10,9 @@
 -- ****************************************************************************
 
 local OpScript = import ('/maps/SCCA_Coop_R02/SCCA_Coop_R02_script.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 -- ###################################################################################################################
 -- ## ChooseAttackLocation
@@ -44,7 +44,7 @@ function ChooseAttackLocation( platoon )
                     else
                     -- An odd number of Janus AM platoons has been killed so we attack the player
                         LOG('GKRDEBUG: M3JanusAMPlatoonsKilled = ' .. ScenarioInfo.M3JanusAMPlatoonsKilled .. ' so we attack the Player.')
-                        platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'enemy', markerChain, 64 )
+                        platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'Enemy', markerChain, 64 )
                     end
 
                     platoon:ForkAIThread( ScenarioPlatoonAI.PlatoonAttackLocation )
@@ -56,7 +56,7 @@ function ChooseAttackLocation( platoon )
                         platoon.PlatoonData.Location = ScenarioUtils.MarkerToPosition('M3_Janus_Base_N')
                     else
                         LOG('GKRDEBUG: Aeon AMPlatoonsKilled = ' .. aeonAMPlatoonsKilled .. ' so we attack the player.')
-                        platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'enemy', markerChain, 64 )
+                        platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'Enemy', markerChain, 64 )
                     end
 
                     platoon:ForkAIThread( ScenarioPlatoonAI.PlatoonAttackLocation )
@@ -67,7 +67,7 @@ function ChooseAttackLocation( platoon )
                 end
             else
             -- Since we're not in Mission 3, the attacker has to be Aeon
-                platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'enemy', markerChain, 64 )
+                platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( attackingBrain, ArmyBrains[ScenarioInfo.Player1], 'Enemy', markerChain, 64 )
                 platoon:ForkAIThread( ScenarioPlatoonAI.PlatoonAttackLocation )
             end
 
@@ -270,7 +270,7 @@ function M3BomberEscortAttack(platoon)
                 ScenarioInfo.M3BomberEscortAttacksPlayer = true
             else
                 -- Attack the player, and attack the other army next time
-                platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( aiBrain, ArmyBrains[ScenarioInfo.Player1], 'enemy', ScenarioUtils.ChainToPositions( 'M3_Attack_Grid' ), 64 )
+                platoon.PlatoonData.Location = ScenarioFramework.DetermineBestAttackLocation( aiBrain, ArmyBrains[ScenarioInfo.Player1], 'Enemy', ScenarioUtils.ChainToPositions( 'M3_Attack_Grid' ), 64 )
 
                 ScenarioInfo.M3BomberEscortAttacksPlayer = false
             end

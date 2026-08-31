@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local Player1 = 1
 local Aeon = 4
@@ -13,7 +13,8 @@ local Aeonbase2P3 = BaseManager.CreateBaseManager()
 
 function AeonP3base1AI()
 
-    Aeonbase1P3:InitializeDifficultyTables(ArmyBrains[Aeon], 'P3Aeonbase1', 'P3AB1MK', 80, {P3Abase1 = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    Aeonbase1P3:InitializeDifficultyTables(aiBrain, 'P3Aeonbase1', 'P3AB1MK', 80, {P3Abase1 = 100})
     Aeonbase1P3:StartNonZeroBase({{12,16,20}, {7,11,15}})
 
     P3AB1Airattacks1()
@@ -21,7 +22,8 @@ function AeonP3base1AI()
 end
 
 function P3AB1Airattacks1()
-  
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+
     local Temp = {
         'P3AB1AirattackTemp0',
         'NoPlan',
@@ -42,7 +44,7 @@ function P3AB1Airattacks1()
             PatrolChain = 'P3AAirdefence1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
   
     Temp = {
         'P3AB1AirattackTemp1',
@@ -57,14 +59,14 @@ function P3AB1Airattacks1()
         Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'P3Aeonbase1',   
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        LocationType = 'P3Aeonbase1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
         PlatoonData = {
             PatrolChains = {'P3AAirattack1', 'P3AAirattack2', 'P3AAirattack3', 'P3AAirattack4', 'P3AAirattack5'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3AB1AirattackTemp2',
         'NoPlan',
@@ -78,14 +80,14 @@ function P3AB1Airattacks1()
         Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'P3Aeonbase1',   
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        LocationType = 'P3Aeonbase1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
         PlatoonData = {
             PatrolChains = {'P3AAirattack1', 'P3AAirattack2', 'P3AAirattack3', 'P3AAirattack4', 'P3AAirattack5'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3AB1AirattackTemp3',
         'NoPlan',
@@ -99,13 +101,13 @@ function P3AB1Airattacks1()
         Priority = 100,
         PlatoonType = 'Air',
         RequiresConstruction = true,
-        LocationType = 'P3Aeonbase1',   
-        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
+        LocationType = 'P3Aeonbase1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},
         PlatoonData = {
             PatrolChains = {'P3AAirattack1', 'P3AAirattack2', 'P3AAirattack3', 'P3AAirattack4', 'P3AAirattack5'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3AB1EXPattacks1()
@@ -128,7 +130,8 @@ end
 
 function AeonP3base2AI()
 
-    Aeonbase2P3:InitializeDifficultyTables(ArmyBrains[Aeon], 'P3Aeonbase2', 'P3AB2MK', 80, {P3Abase2 = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    Aeonbase2P3:InitializeDifficultyTables(aiBrain, 'P3Aeonbase2', 'P3AB2MK', 80, {P3Abase2 = 100})
     Aeonbase2P3:StartNonZeroBase({{12,16,20}, {8,12,16}})
 
     P3AB2Airattacks1()
@@ -137,7 +140,9 @@ function AeonP3base2AI()
 end
 
 function P3AB2Airattacks1()
-  
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    local opai = nil
+
     opai = Aeonbase2P3:AddOpAI('EngineerAttack', 'M3_Aeon_TransportBuilder1',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
@@ -149,7 +154,7 @@ function P3AB2Airattacks1()
     opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {3, categories.uaa0104})
   
     local Temp = {
         'P3AB2AirattackTemp1',
@@ -170,8 +175,8 @@ function P3AB2Airattacks1()
             PatrolChains = {'P3AB2Airattack1', 'P3AB2Airattack2'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3AB2AirattackTemp2',
         'NoPlan',
@@ -191,10 +196,12 @@ function P3AB2Airattacks1()
             PatrolChains = {'P3AB2Airattack1', 'P3AB2Airattack2'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3AB2LandAttacks1()
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    local opai = nil
 
     local Temp = {
         'P3AB2LandattackTemp1',
@@ -216,7 +223,7 @@ function P3AB2LandAttacks1()
             PatrolChains = {'P3AB2Landattack1', 'P3AB2Landattack2', 'P3AB2Landattack3'}
          },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = Aeonbase2P3:AddOpAI('BasicLandAttack', 'M3_Aeon_TransportAttack_1',
         {
@@ -248,6 +255,7 @@ function P3AB2LandAttacks1()
 end
 
 function P3AB2NavalAttacks1()
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
 
     local Temp = {
         'P3AB2NavalattackTemp0',
@@ -268,8 +276,8 @@ function P3AB2NavalAttacks1()
             PatrolChain = 'P3AB2Navalattack1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3AB2NavalattackTemp1',
         'NoPlan',
@@ -289,7 +297,7 @@ function P3AB2NavalAttacks1()
             PatrolChain = 'P3AB2Navalattack1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 

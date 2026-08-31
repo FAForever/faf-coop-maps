@@ -26,7 +26,8 @@ function QAIM3NavalBaseAI()
     -------------------
     -- QAI M3 Naval Base
     -------------------
-    QAIM3NavalBase:InitializeDifficultyTables(ArmyBrains[QAI], 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 100, {M3_QAI_Naval_Base = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIM3NavalBase:InitializeDifficultyTables(aiBrain, 'M3_QAI_Naval_Base', 'M3_QAI_Naval_Base_Marker', 100, {M3_QAI_Naval_Base = 100})
     QAIM3NavalBase:StartNonZeroBase({{2,4,6}, {1, 3, 5}})
     QAIM3NavalBase:SetBuild('Defenses', false)
 
@@ -69,5 +70,5 @@ function QAIM3NavalBaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 8, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, 8, (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 end

@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_CustomFunctions.lua'  
 
 local Player1 = 1
@@ -25,10 +25,11 @@ local OrderbaseEXP1 = BaseManager.CreateBaseManager()
 local OrderbaseEXP2 = BaseManager.CreateBaseManager()
 
 function P3Seraphimbase1AI()
-    
     local quantity = {}
+    
     quantity = {2, 3, 4}
-    Seraphimbase1:InitializeDifficultyTables(ArmyBrains[Seraphim], 'P3Seraphimbase', 'P3SB1MK', 80, {P3SBase1 = 100})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    Seraphimbase1:InitializeDifficultyTables(aiBrain, 'P3Seraphimbase', 'P3SB1MK', 80, {P3SBase1 = 100})
     Seraphimbase1:StartNonZeroBase({{14, 27, 40}, {11, 22, 33}})
     Seraphimbase1:SetActive('AirScouting', true)
     Seraphimbase1:SetSupportACUCount(quantity[Difficulty])
@@ -43,10 +44,9 @@ function P3Seraphimbase1AI()
 end
 
 function P3B1SLandattack()
-
     local quantity = {}
     local trigger = {}
-	
+
     quantity = {5, 8, 10}
 	local Temp = {
         'P3SB1LandAttackTemp1',
@@ -66,7 +66,8 @@ function P3B1SLandattack()
            PatrolChains = {'P3SB1Landattack1','P3SB1Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 10, 15}
     Temp = {
@@ -87,7 +88,7 @@ function P3B1SLandattack()
            PatrolChains = {'P3SB1Landattack1','P3SB1Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 10, 15}
     trigger = {4, 3, 2}
@@ -107,18 +108,18 @@ function P3B1SLandattack()
         LocationType = 'P3Seraphimbase',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P3SB1Landattack1','P3SB1Landattack2'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end	
 
 function P3B1SAirattack()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -143,7 +144,8 @@ function P3B1SAirattack()
            PatrolChain = 'P3SAirPatrol'
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {10, 15, 20}
     Temp = {
@@ -164,7 +166,7 @@ function P3B1SAirattack()
            PatrolChains = {'P3SB1Airattack1','P3SB1Airattack2','P3SB1Airattack3','P2SB1Airattack4'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 8, 10}
     Temp = {
@@ -185,7 +187,7 @@ function P3B1SAirattack()
            PatrolChains = {'P3SB1Airattack1','P3SB1Airattack2','P3SB1Airattack3','P2SB1Airattack4'}
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {10, 15, 20}
     trigger = {25, 20, 15}
@@ -204,14 +206,14 @@ function P3B1SAirattack()
         LocationType = 'P3Seraphimbase',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P3SB1Airattack1','P3SB1Airattack2','P3SB1Airattack3','P2SB1Airattack4'}
        },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {10, 20, 30}
     opai = Seraphimbase1:AddOpAI('AirAttacks', 'M3B1_Seraphim_Air_Attack_1',
@@ -226,7 +228,7 @@ function P3B1SAirattack()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
+            {{'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.SATELLITE, '>='})
             
     quantity = {10, 15, 20}
     opai = Seraphimbase1:AddOpAI('AirAttacks', 'M3B1_Seraphim_Air_Attack_2',
@@ -241,7 +243,7 @@ function P3B1SAirattack()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 2, categories.EXPERIMENTAL * categories.LAND, '>='})
+            {{'HumanPlayers'}, 2, categories.EXPERIMENTAL * categories.LAND, '>='})
 end
 
 function P3SB1EXPattacks()
@@ -273,7 +275,6 @@ function P3Seraphimbase2AI()
 end
 
 function P3B2SNavalattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -298,7 +299,8 @@ function P3B2SNavalattack()
            PatrolChain = 'P3SB2Navalattack1',
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {35, 30, 25}
@@ -318,14 +320,14 @@ function P3B2SNavalattack()
         LocationType = 'P3Seraphimbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
            PatrolChain = 'P3SB2Navalattack1',
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 6, 8}
     trigger = {25, 20, 15}
@@ -344,14 +346,14 @@ function P3B2SNavalattack()
         LocationType = 'P3Seraphimbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.NAVAL}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.NAVAL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
            PatrolChain = 'P3SB2Navalattack1',
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 3, 4}
     trigger = {8, 6, 4}
@@ -370,14 +372,14 @@ function P3B2SNavalattack()
         LocationType = 'P3Seraphimbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.NAVAL}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.NAVAL}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
            PatrolChain = 'P3SB2Navalattack1',
         },
     }
-    ArmyBrains[Seraphim]:PBMAddPlatoon( Builder ) 
+    aiBrain:PBMAddPlatoon( Builder ) 
 end 
 
 function P3SB2EXPattacks()
@@ -409,9 +411,9 @@ function P3SeraphimbaseEXP1AI()
 end
 
 function P3SBEXP1attacks()
-
     local opai = nil
     local quantity = {}
+
     quantity = {2, 4, 6}
     opai = SeraphimbaseEXP1:AddOpAI('P3SBot3',
         {
@@ -489,10 +491,11 @@ end
 -- Order Base
 
 function P3Orderbase1AI()
-
     local quantity = {}
+
     quantity = {2, 3, 4}    
-    Orderbase1:InitializeDifficultyTables(ArmyBrains[Order], 'P3Orderbase1', 'P3OB1MK', 80, {P3OBase1 = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    Orderbase1:InitializeDifficultyTables(aiBrain, 'P3Orderbase1', 'P3OB1MK', 80, {P3OBase1 = 100})
     Orderbase1:StartNonZeroBase({{18, 27, 34}, {14, 21, 28}})
     Orderbase1:SetActive('AirScouting', true)
     Orderbase1:SetSupportACUCount(quantity[Difficulty])
@@ -507,7 +510,6 @@ function P3Orderbase1AI()
 end
 
 function P3B1OLandattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -530,7 +532,8 @@ function P3B1OLandattack()
            MoveChains = {'P3OB1Landattack1','P3OB1Landattack2'}
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {3, 5, 6}
     trigger = {50, 45, 30}
@@ -550,17 +553,17 @@ function P3B1OLandattack()
         LocationType = 'P3Orderbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P3OB1Landattack1','P3OB1Landattack2'}
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 8, 12}
-    quantity2 = {3, 4, 6}
+    local quantity2 = {3, 4, 6}
     trigger = {3, 2, 1}
     Temp = {
         'P3B1OLandAttackTemp3',
@@ -579,18 +582,18 @@ function P3B1OLandattack()
         LocationType = 'P3Orderbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.EXPERIMENTAL}},
         },
         PlatoonAIFunction = {CustomFunctions, 'MoveChainPickerThread'},     
         PlatoonData = {
            MoveChains = {'P3OB1Landattack1','P3OB1Landattack2'}
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end 
 
 function P3B1OAirattack()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -615,7 +618,8 @@ function P3B1OAirattack()
            PatrolChain = 'P3OAirPatrol'
        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {7, 10, 14}
     Temp = {
@@ -636,7 +640,7 @@ function P3B1OAirattack()
            PatrolChains = {'P3OB1Airattack1','P3OB1Airattack2','P3OB1Airattack3','P3OB1Airattack4'}
        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder ) 
+    aiBrain:PBMAddPlatoon( Builder ) 
 
     quantity = {7, 10, 14}
     trigger = {35, 35, 25}
@@ -655,14 +659,14 @@ function P3B1OAirattack()
         LocationType = 'P3Orderbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P3OB1Airattack1','P3OB1Airattack2','P3OB1Airattack3','P3OB1Airattack4'}
        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder ) 
+    aiBrain:PBMAddPlatoon( Builder ) 
 
     quantity = {7, 14, 21}
     opai = Orderbase1:AddOpAI('AirAttacks', 'M3B1_Order_Air_Attack_1',
@@ -677,7 +681,7 @@ function P3B1OAirattack()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.xea0002, '>='})
+            {{'HumanPlayers'}, 1, (categories.EXPERIMENTAL * categories.AIR) - categories.xea0002, '>='})
             
     quantity = {14, 21, 28}
     opai = Orderbase1:AddOpAI('AirAttacks', 'M3B1_Order_Air_Attack_2',
@@ -692,13 +696,13 @@ function P3B1OAirattack()
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.STRUCTURE, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.STRUCTURE, '>='})
 end
 
 function P3OB1EXPattacks()
-
     local opai = nil
     local quantity = {}
+
     quantity = {2, 4, 6}
     opai = Orderbase1:AddOpAI('P3Obot1',
         {
@@ -718,7 +722,8 @@ end
 
 function P3Orderbase2AI()
         
-    Orderbase2:InitializeDifficultyTables(ArmyBrains[Order], 'P3Orderbase2', 'P3OB2MK', 50, {P3OBase2 = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    Orderbase2:InitializeDifficultyTables(aiBrain, 'P3Orderbase2', 'P3OB2MK', 50, {P3OBase2 = 100})
     Orderbase2:StartNonZeroBase({{8, 11, 14}, {6, 9, 12}})
 
     P3B1ONavalattack()
@@ -726,7 +731,6 @@ function P3Orderbase2AI()
 end
 
 function P3B1ONavalattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -750,7 +754,8 @@ function P3B1ONavalattack()
            PatrolChain = 'P3OB2Navalattack1',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {3, 4, 6}
     trigger = {40, 30, 25}
@@ -769,14 +774,14 @@ function P3B1ONavalattack()
         LocationType = 'P3Orderbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
            PatrolChain = 'P3OB2Navalattack1',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {2, 2, 3}
     trigger = {30, 25, 20}
@@ -795,21 +800,20 @@ function P3B1ONavalattack()
         LocationType = 'P3Orderbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL - categories.TECH1}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
            PatrolChain = 'P3OB2Navalattack1',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3OB2EXPattacks()
-
     local opai = nil
     local quantity = {}
-    
+
     quantity = {2, 3, 4}
     opai = Orderbase2:AddOpAI('P3OSub',
         {
@@ -835,9 +839,9 @@ function P3OrderbaseEXP1AI()
 end
 
 function P3OBEXP1attacks()
-
     local opai = nil
     local quantity = {}
+
     quantity = {2, 4, 6}
     opai = OrderbaseEXP1:AddOpAI('P3Obot2',
         {

@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CustomFunctions.lua'
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
 ---------
@@ -20,7 +20,8 @@ local M2UEFAtlantisBase = BaseManager.CreateBaseManager()
 -- M1 UEF Shore Base
 --------------------
 function M1UEFShoreBaseAI()
-    M1UEFShoreBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M1_UEF_Shore_Base', 'M1_UEF_Shore_Base_Marker', 80, {Shore_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    M1UEFShoreBase:InitializeDifficultyTables(aiBrain, 'M1_UEF_Shore_Base', 'M1_UEF_Shore_Base_Marker', 80, {Shore_Base = 100})
     M1UEFShoreBase:StartNonZeroBase({{2, 3, 4}, {2, 2, 3}})
 
     M1UEFShoreBaseAirAttacks()
@@ -147,7 +148,8 @@ end
 -- M1 UEF City Base
 -------------------
 function M1UEFCityBaseAI()
-    M1UEFCityBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M1_UEF_City_Base', 'M1_UEF_City_Base_Marker', 35, {City_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    M1UEFCityBase:InitializeDifficultyTables(aiBrain, 'M1_UEF_City_Base', 'M1_UEF_City_Base_Marker', 35, {City_Base = 100})
     M1UEFCityBase:StartNonZeroBase({3, 2, 2})
 
     M1UEFCityBaseSparkyPlatoon()
@@ -155,7 +157,8 @@ end
 
 function M1UEFCityBaseSparkyPlatoon()
     -- Makes the base use Sparkies for maintaining the base
-    ArmyBrains[UEF]:PBMAddPlatoon(
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(
         {
             BuilderName = 'T2BaseManaqer_SparkyEngineersWork_M1_UEF_City_Base',
             PlatoonTemplate = {
@@ -183,7 +186,8 @@ end
 -- M2 UEF Atlantis Base
 -----------------------
 function M2UEFAtlantisBaseAI()
-    M2UEFAtlantisBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Sea_Base', 'M2_UEF_Sea_Base_Marker', 80, {Sea_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    M2UEFAtlantisBase:InitializeDifficultyTables(aiBrain, 'M2_UEF_Sea_Base', 'M2_UEF_Sea_Base_Marker', 80, {Sea_Base = 100})
     M2UEFAtlantisBase:StartNonZeroBase({{6, 8, 10}, {5, 7, 8}})
 
     M2UEFAtlantisBaseAirAttacks()
@@ -390,7 +394,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T1SUBMARINE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T1SUBMARINE, '>='})
 
     quantity = {6, 8, 12}
     trigger = {22, 20, 18}
@@ -410,7 +414,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     opai:SetChildQuantity('Submarines', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T1SUBMARINE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T1SUBMARINE, '>='})
 
     quantity = {4, 6, 8}
     trigger = {18, 16, 14}
@@ -430,7 +434,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     opai:SetChildQuantity('Frigates', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.NAVAL *  categories.MOBILE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.NAVAL *  categories.MOBILE, '>='})
 
     quantity = {2, 3, 4}
     trigger = {9, 8, 7}
@@ -450,7 +454,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     opai:SetChildQuantity('TorpedoBoats', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T2SUBMARINE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T2SUBMARINE, '>='})
 
     quantity = {4, 6, 8}
     trigger = {22, 21, 20}
@@ -470,7 +474,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     opai:SetChildQuantity('TorpedoBoats', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T2SUBMARINE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.T2SUBMARINE, '>='})
 
     quantity = {{2, 2}, {2, 1, 3}, {3, 1, 4}}
     trigger = {12, 10, 8}
@@ -493,7 +497,7 @@ function M2UEFAtlantisBaseNavalAttacks()
         opai:SetChildQuantity({'Destroyers', 'Cruisers', 'Frigates'}, quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.NAVAL * categories.MOBILE, '>='})
 
     quantity = {2, {2, 1}, {3, 1}}
     trigger = {60, 50, 40}
@@ -516,7 +520,7 @@ function M2UEFAtlantisBaseNavalAttacks()
         opai:SetChildQuantity({'Cruisers', 'UtilityBoats'}, quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Extra cruisers with shield boats if there's a lot of T2 Bombers
     quantity = {2, {2, 2}, {3, 2}}
@@ -540,7 +544,7 @@ function M2UEFAtlantisBaseNavalAttacks()
         opai:SetChildQuantity({'Cruisers', 'UtilityBoats'}, quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.BOMBER * categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.BOMBER * categories.AIR * categories.MOBILE, '>='})
 
     quantity = {{3, 1, 2, 2}, {4, 1, 3, 3}, {5, 1, 2, 2}}
     trigger = {14, 12, 10}
@@ -559,7 +563,7 @@ function M2UEFAtlantisBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Destroyers', 'Cruisers', 'Frigates', 'Submarines'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers', 'Cybran'}, trigger[Difficulty], categories.TECH2 * categories.NAVAL * categories.MOBILE, '>='})
 
     ----------
     -- Patrols

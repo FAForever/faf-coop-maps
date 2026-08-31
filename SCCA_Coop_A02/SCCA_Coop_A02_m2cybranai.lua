@@ -17,7 +17,8 @@ local CybranM2SouthBase = BaseManager.CreateBaseManager()
 -- Cybran M2 North Base
 -----------------------
 function CybranM2NorthBaseAI()
-    CybranM2NorthBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_North_Base', 'M2_North_Base_Marker', 60, {M2_North_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2NorthBase:InitializeDifficultyTables(aiBrain, 'M2_North_Base', 'M2_North_Base_Marker', 60, {M2_North_Base = 100})
     CybranM2NorthBase:StartNonZeroBase({{3, 5, 7}, {3, 4, 5}})
     CybranM2NorthBase:SetActive('AirScouting', true)
 
@@ -43,7 +44,7 @@ function CybranM2NorthBaseAirAttacks()
     opai:SetChildQuantity('T1Transports', 2)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 5, categories.ura0107})
+        'HaveLessThanUnitsWithCategory', {5, categories.ura0107})
 
     -- Bombers
     quantity = {2, 4, 6}
@@ -77,7 +78,7 @@ function CybranM2NorthBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     -- Air Defence
     for i = 1, 1 + Difficulty do
@@ -109,8 +110,8 @@ end
 
 function CybranM2NorthBaseLandAttacks()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     for i = 1, 2 do
         opai = CybranM2NorthBase:AddOpAI('BasicLandAttack', 'M2_North_TransportAttack_' .. i,
@@ -144,8 +145,8 @@ end
 
 function CybranM2NorthBaseNavalAttacks()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     -- Early naval attack
     quantity = {2, 3, 4}
@@ -165,7 +166,7 @@ function CybranM2NorthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- Counters naval
     quantity = {4, 6, 8}
@@ -185,7 +186,7 @@ function CybranM2NorthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- Counter auroras
     quantity = {4, 6, 8}
@@ -205,13 +206,15 @@ function CybranM2NorthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ual0201, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ual0201, '>='})
 end
 
 function EastNavalPatrolRebuild()
+    local opai = nil
+    local quantity = {}
     -- North West Patrol
-    local quantity = {6, 8, 10}
-    local opai = CybranM2NorthBase:AddNavalAI('M2_East_Naval_Patrol',
+    quantity = {6, 8, 10}
+    opai = CybranM2NorthBase:AddNavalAI('M2_East_Naval_Patrol',
         {
             MasterPlatoonFunction = {'/maps/SCCA_Coop_A02/SCCA_Coop_A02_script.lua', 'NavalPatrolReinforceAI'},
             PlatoonData = {
@@ -233,7 +236,8 @@ end
 -- Cybran M2 South Base
 -----------------------
 function CybranM2SouthBaseAI()
-    CybranM2SouthBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_South_Base', 'M2_South_Base_Marker', 80, {M2_South_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2SouthBase:InitializeDifficultyTables(aiBrain, 'M2_South_Base', 'M2_South_Base_Marker', 80, {M2_South_Base = 100})
     CybranM2SouthBase:StartNonZeroBase({{3, 4, 5}, {3, 3, 4}})
     CybranM2SouthBase:SetActive('AirScouting', true)
 
@@ -242,8 +246,8 @@ end
 
 function CybranM2SouthBaseAirDefences()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     -- Transport Builder
     opai = CybranM2SouthBase:AddOpAI('EngineerAttack', 'M2_TransportBuilder_South',
@@ -257,7 +261,7 @@ function CybranM2SouthBaseAirDefences()
     opai:SetChildQuantity('T1Transports', 2)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 7, categories.ura0107})
+        'HaveLessThanUnitsWithCategory', {7, categories.ura0107})
 
     -- Air Defence
     for i = 1, Difficulty do
@@ -289,8 +293,8 @@ end
 
 function CybranM2SouthBaseAirAttacks()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     -- Bombers
     quantity = {2, 4, 6}
@@ -320,13 +324,13 @@ function CybranM2SouthBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function CybranM2SouthBaseLandAttacks()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     opai = CybranM2SouthBase:AddOpAI('BasicLandAttack', 'M2_South_TransportAttack_1',
         {
@@ -358,8 +362,8 @@ end
 
 function CybranM2SouthBaseNavalAttacks()
     local opai = nil
-    local trigger = {}
     local quantity = {}
+    local trigger = {}
 
     -- Attack
     -- Cruiser for objective
@@ -397,7 +401,7 @@ function CybranM2SouthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- Counters auroras
     quantity = {4, 5, 6}
@@ -417,12 +421,14 @@ function CybranM2SouthBaseNavalAttacks()
     opai:SetChildActive('T3', false)
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ual0201, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ual0201, '>='})
 end
 
 function SouthNavalPatrolRebuild()
-    local quantity = {6, 7, 8}
-    local opai = CybranM2SouthBase:AddNavalAI('M2_South_Naval_Patrol',
+    local opai = nil
+    local quantity = {}
+    quantity = {6, 7, 8}
+    opai = CybranM2SouthBase:AddNavalAI('M2_South_Naval_Patrol',
         {
             MasterPlatoonFunction = {SPAIFileName, 'SplitPatrolThread'},
             PlatoonData = {

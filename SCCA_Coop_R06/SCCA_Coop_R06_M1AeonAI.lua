@@ -37,14 +37,15 @@ function AeonMainBaseAI()
 	------------
     -- Aeon Base
     ------------
-    AeonMainBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M1_Aeon_Main_Base', 'AeonBase', 250,
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonMainBase:InitializeDifficultyTables(aiBrain, 'M1_Aeon_Main_Base', 'AeonBase', 250,
 		{
 		MainBaseStructuresPreBuilt = 300,
 		}
 	)
 	AeonMainBase:StartNonZeroBase({1, 2, 12})
 	AeonMainBase:SetMaximumConstructionEngineers(12)
-	ArmyBrains[Aeon]:PBMSetCheckInterval(5)
+	aiBrain:PBMSetCheckInterval(5)
 	
 	-- Spawn what's meant to be built instead, otherwise the Czar takes too long to finish
 	AeonMainBase:AddBuildGroup('MainBaseStructuresPostBuilt_D' .. Difficulty, 200, true)
@@ -55,7 +56,7 @@ function AeonMainBaseAI()
 		AeonMainBase:AddBuildGroup('MainBaseStructuresHLRA', 150)
 	-- Update engineer numbers after 7.5 minutes for easy/normal, otherwise the Czar finishes in less than 10 mins
 	else
-		import('/lua/ScenarioFramework.lua').CreateTimerTrigger(UpdateEngineerQuantity, 450)
+		import('/lua/scenarioframework.lua').CreateTimerTrigger(UpdateEngineerQuantity, 450)
 	end
 	
 	AeonMainBase:SetConstructionAlwaysAssist(true)
@@ -73,7 +74,8 @@ end
 
 function AeonMainAirDefense()
     local opai = nil
-	local quantity = {4, 6, 8}
+    local quantity = {}
+	quantity = {4, 6, 8}
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships', 'TorpedoBombers'}
 		
 	-- Maintains [4, 6, 8] units defined in ChildType
@@ -149,10 +151,11 @@ function AeonMainAirAttacks()
 		BuildConditions = {
 			{'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {2}},
 		},
-        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
+        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
-	
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
+
 	-- Builds [4, 8, 12] Strategic Bombers if players have >= 3, 2, 1 active SMLs, T3 Artillery, etc., and attacks said structures.
 	quantity = {4, 8, 12}
 	trigger = {3, 2, 1}
@@ -212,7 +215,8 @@ function AeonMainNavalAttacks()
 	local T3Quantity = {1, 1, 2}
 	local T2Quantity = {1, 2, 4}
 	local T1Quantity = {2, 4, 6}
-	
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+
 	-- Phase 1 Aeon fleets to keep the players busy
 	opai = AeonMainBase:AddOpAI('NavalAttacks', 'M1_Aeon_Main_Naval_Fleet',
         {
@@ -266,7 +270,7 @@ function AeonMainNavalAttacks()
             PatrolChain = 'PlayerNavalAttack_Chain',
         },     
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- Small Naval Fleet for attacking Aiko at Phase 3
 	Temp = {
@@ -297,8 +301,8 @@ function AeonMainNavalAttacks()
 			},
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
-	
+    aiBrain:PBMAddPlatoon(Builder)
+
 	-- Maintains [2/2, 4/2, 8/4] Destroyers/Cruisers respectively
 	for i = 1, 2 do
 	opai = AeonMainBase:AddOpAI('NavalAttacks', 'M1_Aeon_Defense_Fleet_' .. i,
@@ -334,6 +338,7 @@ function AeonMainTransportAttacks()
 	local T3Quantity = {1, 1, 2}
 	local T2Quantity = {2, 3, 4}
 	local poolName = 'M1_Aeon_Main_Base_TransportPool'
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
 	
 	-- Transport Builder
 	local Builder = {
@@ -356,7 +361,7 @@ function AeonMainTransportAttacks()
 			BaseName = 'M1_Aeon_Main_Base',
 		},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	Builder = {
         BuilderName = 'M1_Aeon_Main_Land_Assault',
@@ -385,7 +390,7 @@ function AeonMainTransportAttacks()
 			BaseName = 'M1_Aeon_Main_Base',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	Builder = {
         BuilderName = 'M2_Aeon_Main_Land_Sweepers',
@@ -415,7 +420,7 @@ function AeonMainTransportAttacks()
 			BaseName = 'M1_Aeon_Main_Base',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 -- Tempest platoon, for Phase 3
@@ -465,8 +470,9 @@ end
 
 -- Galactic Colossus defense
 function AeonMainColossusDefense()
-	local opai = nil
-	local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+	quantity = {1, 1, 2}
 	-- GCs to guard the base
     opai = AeonMainBase:AddOpAI('M2_GC_1',
         {

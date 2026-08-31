@@ -2009,34 +2009,34 @@ Scenario = {
         ['Aeon_T1_Engineers'] = {
             'Aeon_T1_Engineers',
             '',
-            { 'ual0105', 2, 6, 'guard', 'TravellingFormation' },
+            { 'ual0105', 2, 6, 'guard', 'GrowthFormation' },
         },
         ['Aeon_T2_Engineers'] = {
             'Aeon_T2_Engineers',
             '',
-            { 'ual0208', 2, 6, 'guard', 'TravellingFormation' },
+            { 'ual0208', 2, 6, 'guard', 'GrowthFormation' },
         },
         ['Janus_T1_Engineers'] = {
             'Janus_T1_Engineers',
             '',
-            { 'url0105', 2, 6, 'guard', 'TravellingFormation' },
+            { 'url0105', 2, 6, 'guard', 'GrowthFormation' },
         },
         ['Janus_T2_Engineers'] = {
             'Janus_T2_Engineers',
             '',
-            { 'url0208', 2, 6, 'guard', 'TravellingFormation' },
+            { 'url0208', 2, 6, 'guard', 'GrowthFormation' },
         },
         ['M1_Aeon_Final_Assault_Air_Platoon'] = {
             'M1_Aeon_Final_Assault_Air_Platoon',
             '',
-            { 'uaa0103', 3, 3, 'attack', 'TravellingFormation' },
-            { 'uaa0102', 2, 2, 'attack', 'TravellingFormation' },
+            { 'uaa0103', 3, 3, 'attack', 'GrowthFormation' },
+            { 'uaa0102', 2, 2, 'attack', 'GrowthFormation' },
         },
         ['M1_Aeon_Final_Assault_Naval_Platoon'] = {
             'M1_Aeon_Final_Assault_Naval_Platoon',
             '',
-            { 'uas0102', 1, 1, 'attack', 'TravellingFormation' },
-            { 'uas0103', 1, 1, 'attack', 'TravellingFormation' },
+            { 'uas0102', 1, 1, 'attack', 'GrowthFormation' },
+            { 'uas0103', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M1_Aeon_Tech2_Defense_Air_Platoon'] = {
             'M1_Aeon_Tech2_Defense_Air_Platoon',
@@ -2047,19 +2047,19 @@ Scenario = {
         ['M1_Aeon_Tech2_Defense_Land_Platoon'] = {
             'M1_Aeon_Tech2_Defense_Land_Platoon',
             '',
-            { 'ual0103', 1, 8, 'attack', 'TravellingFormation' },
-            { 'ual0201', 1, 8, 'attack', 'TravellingFormation' },
-            { 'uaa0107', 1, 3, 'support', 'TravellingFormation' },
-            { 'ual0202', 1, 8, 'attack', 'TravellingFormation' },
-            { 'ual0106', 1, 8, 'attack', 'TravellingFormation' },
-            { 'ual0205', 1, 8, 'attack', 'TravellingFormation' },
-            { 'ual0104', 1, 8, 'attack', 'TravellingFormation' },
+            { 'ual0103', 1, 8, 'attack', 'GrowthFormation' },
+            { 'ual0201', 1, 8, 'attack', 'GrowthFormation' },
+            { 'uaa0107', 1, 3, 'support', 'GrowthFormation' },
+            { 'ual0202', 1, 8, 'attack', 'GrowthFormation' },
+            { 'ual0106', 1, 8, 'attack', 'GrowthFormation' },
+            { 'ual0205', 1, 8, 'attack', 'GrowthFormation' },
+            { 'ual0104', 1, 8, 'attack', 'GrowthFormation' },
         },
         ['M1_Janus_Tech_Pickup_Platoon'] = {
             'M1_Janus_Tech_Pickup_Platoon',
             '',
-            { 'ura0107', 1, 1, 'support', 'TravellingFormation' },
-            { 'url0105', 1, 1, 'scout', 'TravellingFormation' },
+            { 'ura0107', 1, 1, 'support', 'GrowthFormation' },
+            { 'url0105', 1, 1, 'scout', 'GrowthFormation' },
         },
         ['M1_Temple_Air_Defense'] = {
             'M1_Temple_Air_Defense',
@@ -2070,17 +2070,17 @@ Scenario = {
         ['M1_Temple_Land_Defense'] = {
             'M1_Temple_Land_Defense',
             '',
-            { 'uaa0107', 1, 4, 'support', 'TravellingFormation' },
-            { 'ual0202', 2, 8, 'attack', 'TravellingFormation' },
-            { 'ual0104', 2, 8, 'attack', 'TravellingFormation' },
-            { 'ual0201', 2, 8, 'attack', 'TravellingFormation' },
+            { 'uaa0107', 1, 4, 'support', 'GrowthFormation' },
+            { 'ual0202', 2, 8, 'attack', 'GrowthFormation' },
+            { 'ual0104', 2, 8, 'attack', 'GrowthFormation' },
+            { 'ual0201', 2, 8, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_Base_Defense_Platoon'] = {
             'M2_Aeon_Base_Defense_Platoon',
             '',
-            { 'ual0106', 3, 3, 'attack', 'TravellingFormation' },
-            { 'ual0201', 2, 2, 'attack', 'TravellingFormation' },
-            { 'ual0202', 1, 1, 'attack', 'TravellingFormation' },
+            { 'ual0106', 3, 3, 'attack', 'GrowthFormation' },
+            { 'ual0201', 2, 2, 'attack', 'GrowthFormation' },
+            { 'ual0202', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_Base_Defense_Platoon_Easy'] = {
             'M2_Aeon_Base_Defense_Platoon_Easy',
@@ -2093,12 +2093,12 @@ Scenario = {
         ['M2_Aeon_Frigate_Platoon_Pool_Template'] = {
             'M2_Aeon_Frigate_Platoon_Pool_Template',
             'DisbandAI',
-            { 'uas0103', 3, 3, 'attack', 'TravellingFormation' },
+            { 'uas0103', 3, 3, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_Frigate_Platoon_Template'] = {
             'M2_Aeon_Frigate_Platoon_Template',
             '',
-            { 'uas0103', 2, 2, 'attack', 'TravellingFormation' },
+            { 'uas0103', 2, 2, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_LandAttack_AntiAir_Platoon'] = {
             'M2_Aeon_LandAttack_AntiAir_Platoon',
@@ -2126,12 +2126,12 @@ Scenario = {
         ['M2_Aeon_LightAttackBoat_Platoon_Pool_Template'] = {
             'M2_Aeon_LightAttackBoat_Platoon_Pool_Template',
             'DisbandAI',
-            { 'uas0102', 3, 3, 'attack', 'TravellingFormation' },
+            { 'uas0102', 3, 3, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_LightAttackBoat_Platoon_Template'] = {
             'M2_Aeon_LightAttackBoat_Platoon_Template',
             '',
-            { 'uas0102', 2, 2, 'attack', 'TravellingFormation' },
+            { 'uas0102', 2, 2, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_NavalAttack_Platoon'] = {
             'M2_Aeon_NavalAttack_Platoon',
@@ -2152,14 +2152,14 @@ Scenario = {
             '',
             { 'ual0202', 0, 32, 'attack', 'AttackChevron' },
             { 'ual0201', 0, 12, 'attack', 'AttackChevron' },
-            { 'ual0106', 0, 4, 'attack', 'TravellingFormation' },
-            { 'ual0104', 0, 5, 'attack', 'TravellingFormation' },
-            { 'ual0103', 0, 2, 'attack', 'TravellingFormation' },
+            { 'ual0106', 0, 4, 'attack', 'GrowthFormation' },
+            { 'ual0104', 0, 5, 'attack', 'GrowthFormation' },
+            { 'ual0103', 0, 2, 'attack', 'GrowthFormation' },
         },
         ['M2_Aeon_Offscreen_Transports'] = {
             'M2_Aeon_Offscreen_Transports',
             '',
-            { 'uaa0107', 1, 10, 'support', 'TravellingFormation' },
+            { 'uaa0107', 1, 10, 'support', 'GrowthFormation' },
         },
         ['M2_Aeon_Scouts_Platoon'] = {
             'M2_Aeon_Scouts_Platoon',
@@ -2169,32 +2169,32 @@ Scenario = {
         ['M3_Aeon_Base_Defense_Platoon'] = {
             'M3_Aeon_Base_Defense_Platoon',
             '',
-            { 'ual0106', 2, 2, 'attack', 'TravellingFormation' },
-            { 'ual0201', 1, 1, 'attack', 'TravellingFormation' },
-            { 'ual0202', 1, 1, 'attack', 'TravellingFormation' },
-            { 'ual0205', 1, 1, 'attack', 'TravellingFormation' },
+            { 'ual0106', 2, 2, 'attack', 'GrowthFormation' },
+            { 'ual0201', 1, 1, 'attack', 'GrowthFormation' },
+            { 'ual0202', 1, 1, 'attack', 'GrowthFormation' },
+            { 'ual0205', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M3_Aeon_Commander_Platoon'] = {
             'M3_Aeon_Commander_Platoon',
             '',
-            { 'ual0001', 1, 1, 'support', 'TravellingFormation' },
+            { 'ual0001', 1, 1, 'support', 'GrowthFormation' },
         },
         ['M3_Janus_Base_Defense_Platoon'] = {
             'M3_Janus_Base_Defense_Platoon',
             '',
-            { 'url0106', 1, 1, 'attack', 'TravellingFormation' },
-            { 'url0202', 1, 1, 'attack', 'TravellingFormation' },
-            { 'url0205', 1, 1, 'attack', 'TravellingFormation' },
+            { 'url0106', 1, 1, 'attack', 'GrowthFormation' },
+            { 'url0202', 1, 1, 'attack', 'GrowthFormation' },
+            { 'url0205', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M3_Janus_Commander_Platoon'] = {
             'M3_Janus_Commander_Platoon',
             '',
-            { 'url0001', 1, 1, 'support', 'TravellingFormation' },
+            { 'url0001', 1, 1, 'support', 'GrowthFormation' },
         },
         ['M3_Janus_Scouts_Platoon'] = {
             'M3_Janus_Scouts_Platoon',
             '',
-            { 'ura0101', 3, 3, 'scout', 'TravellingFormation' },
+            { 'ura0101', 3, 3, 'scout', 'GrowthFormation' },
         },
         ['OS_BLANK_TEMPLATE'] = {
             'OS_BLANK_TEMPLATE',
@@ -12729,12 +12729,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Aeon_Base_T1_Engineers','M3AeonT1EngineersAllowed'},
-                                {'default_brain','M3_Aeon_Base_T1_Engineers','M3AeonT1EngineersAllowed'}
+                                {'M3_Aeon_Base_T1_Engineers','M3AeonT1EngineersAllowed'},
+                                {'M3_Aeon_Base_T1_Engineers','M3AeonT1EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -12753,8 +12753,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -12777,12 +12777,12 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M2AeonFrigatesAllowed', categories.uas0103 ,'M2_Aeon_Frigate_Area'},
-                                {'default_brain','M2AeonFrigatesAllowed','categories.uas0103','M2_Aeon_Frigate_Area'}
+                                {'M2AeonFrigatesAllowed', categories.uas0103 ,'M2_Aeon_Frigate_Area'},
+                                {'M2AeonFrigatesAllowed','categories.uas0103','M2_Aeon_Frigate_Area'}
                             },
                         },
                         PlatoonData = {
@@ -12802,8 +12802,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -12825,16 +12825,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'},
-                                {'default_brain','M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'}
+                                {'M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'},
+                                {'M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -12859,12 +12859,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_NavalBase_T2_Engineers','M3AeonT2EngineersAllowed'},
-                                {'default_brain','M2_Aeon_NavalBase_T2_Engineers','M3AeonT2EngineersAllowed'}
+                                {'M2_Aeon_NavalBase_T2_Engineers','M3AeonT2EngineersAllowed'},
+                                {'M2_Aeon_NavalBase_T2_Engineers','M3AeonT2EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -12887,22 +12887,22 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/platooncountbuildconditions.lua', 'AMPlatoonsGreaterOrEqualVarTable',
-                                {'default_brain','M2_AM_Master_LandAttack_Builder','M2AeonAMLandPlatoonsNeeded'},
-                                {'default_brain','M2_AM_Master_LandAttack_Builder','M2AeonAMLandPlatoonsNeeded'}
+                                {'M2_AM_Master_LandAttack_Builder','M2AeonAMLandPlatoonsNeeded'},
+                                {'M2_AM_Master_LandAttack_Builder','M2AeonAMLandPlatoonsNeeded'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M2LandAssaultReady'},
-                                {'default_brain','M2LandAssaultReady'}
+                                {'M2LandAssaultReady'},
+                                {'M2LandAssaultReady'}
                             },
                             [2] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMCheckPlatoonLock',
-                                {'default_brain','M2_AM_Master_LandAttack_Builder'},
-                                {'default_brain','M2_AM_Master_LandAttack_Builder'}
+                                {'M2_AM_Master_LandAttack_Builder'},
+                                {'M2_AM_Master_LandAttack_Builder'}
                             },
                         },
                         PlatoonBuildCallbacks = {
                             [0] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMUnlockPlatoon',
-                                {'default_brain','default_platoon'},
-                                {'default_brain','default_platoon'}
+                                {'default_platoon'},
+                                {'default_platoon'}
                             },
                             [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonAMLandPlatoonKilled',
                                 {'default_platoon'},
@@ -12915,8 +12915,8 @@ Scenario = {
                                 {'default_platoon'}
                             },
                             [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonLandAMBuilt',
-                                {'default_brain','default_table'},
-                                {'default_brain','default_table'}
+                                {'default_table'},
+                                {'default_table'}
                             },
                         },
                         PlatoonData = {
@@ -12941,16 +12941,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'},
-                                {'default_brain','M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'}
+                                {'M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'},
+                                {'M2_Aeon_Land_Platoon_AntiAir_Builder','M2AeonAMLandAntiAirPlatoonsAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -12975,12 +12975,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13001,16 +13001,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'},
-                                {'default_brain','M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'}
+                                {'M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'},
+                                {'M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13032,8 +13032,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13054,12 +13054,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_Land_Platoon_Other_Builder','M2AeonAMLandOtherPlatoonsAllowed'},
-                                {'default_brain','M2_Aeon_Land_Platoon_Other_Builder','M2AeonAMLandOtherPlatoonsAllowed'}
+                                {'M2_Aeon_Land_Platoon_Other_Builder','M2AeonAMLandOtherPlatoonsAllowed'},
+                                {'M2_Aeon_Land_Platoon_Other_Builder','M2AeonAMLandOtherPlatoonsAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13084,12 +13084,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_Land_Platoon_Tank_Builder','M2AeonAMLandTankPlatoonsAllowed'},
-                                {'default_brain','M2_Aeon_Land_Platoon_Tank_Builder','M2AeonAMLandTankPlatoonsAllowed'}
+                                {'M2_Aeon_Land_Platoon_Tank_Builder','M2AeonAMLandTankPlatoonsAllowed'},
+                                {'M2_Aeon_Land_Platoon_Tank_Builder','M2AeonAMLandTankPlatoonsAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13114,12 +13114,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Aeon_Base_T2_Engineers','M3AeonT2EngineersAllowed'},
-                                {'default_brain','M3_Aeon_Base_T2_Engineers','M3AeonT2EngineersAllowed'}
+                                {'M3_Aeon_Base_T2_Engineers','M3AeonT2EngineersAllowed'},
+                                {'M3_Aeon_Base_T2_Engineers','M3AeonT2EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13138,8 +13138,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -13168,16 +13168,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'},
-                                {'default_brain','M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'}
+                                {'M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'},
+                                {'M2_Aeon_LandBase_T2_Engineers','M2AeonT2EngineersAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -13200,8 +13200,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13222,16 +13222,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'},
-                                {'default_brain','M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'}
+                                {'M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'},
+                                {'M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -13254,12 +13254,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_NavalBase_T1_Engineers','M3AeonT1EngineersAllowed'},
-                                {'default_brain','M2_Aeon_NavalBase_T1_Engineers','M3AeonT1EngineersAllowed'}
+                                {'M2_Aeon_NavalBase_T1_Engineers','M3AeonT1EngineersAllowed'},
+                                {'M2_Aeon_NavalBase_T1_Engineers','M3AeonT1EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13282,22 +13282,22 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/platooncountbuildconditions.lua', 'AMPlatoonsGreaterOrEqualVarTable',
-                                {'default_brain','M2_AM_Master_NavalAttack_Builder','M2AeonAMNavalPlatoonsNeeded'},
-                                {'default_brain','M2_AM_Master_NavalAttack_Builder','M2AeonAMNavalPlatoonsNeeded'}
+                                {'M2_AM_Master_NavalAttack_Builder','M2AeonAMNavalPlatoonsNeeded'},
+                                {'M2_AM_Master_NavalAttack_Builder','M2AeonAMNavalPlatoonsNeeded'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M2NavalAssaultReady'},
-                                {'default_brain','M2NavalAssaultReady'}
+                                {'M2NavalAssaultReady'},
+                                {'M2NavalAssaultReady'}
                             },
                             [2] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMCheckPlatoonLock',
-                                {'default_brain','M2_AM_Master_NavalAttack_Builder'},
-                                {'default_brain','M2_AM_Master_NavalAttack_Builder'}
+                                {'M2_AM_Master_NavalAttack_Builder'},
+                                {'M2_AM_Master_NavalAttack_Builder'}
                             },
                         },
                         PlatoonBuildCallbacks = {
                             [0] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMUnlockPlatoon',
-                                {'default_brain','default_platoon'},
-                                {'default_brain','default_platoon'}
+                                {'default_platoon'},
+                                {'default_platoon'}
                             },
                             [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonAMNavalPlatoonKilled',
                                 {'default_platoon'},
@@ -13310,8 +13310,8 @@ Scenario = {
                                 {'default_platoon'}
                             },
                             [1] = {'/maps/SCCA_Coop_R02/SCCA_Coop_R02_EditorFunctions.lua', 'M2AeonNavalAMBuilt',
-                                {'default_brain','default_table'},
-                                {'default_brain','default_table'}
+                                {'default_table'},
+                                {'default_table'}
                             },
                         },
                         PlatoonData = {
@@ -13330,8 +13330,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -13361,12 +13361,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Aeon_Base_Defense_Builder','M3AeonBaseDefenseAllowed'},
-                                {'default_brain','M3_Aeon_Base_Defense_Builder','M3AeonBaseDefenseAllowed'}
+                                {'M3_Aeon_Base_Defense_Builder','M3AeonBaseDefenseAllowed'},
+                                {'M3_Aeon_Base_Defense_Builder','M3AeonBaseDefenseAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13387,16 +13387,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'},
-                                {'default_brain','M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'}
+                                {'M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'},
+                                {'M2_Aeon_LandBase_T1_Engineers','M2AeonT1EngineersAllowed'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13418,12 +13418,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_Naval_Platoon_Builder','M2AeonAMNavalPlatoonsAllowed'},
-                                {'default_brain','M2_Aeon_Naval_Platoon_Builder','M2AeonAMNavalPlatoonsAllowed'}
+                                {'M2_Aeon_Naval_Platoon_Builder','M2AeonAMNavalPlatoonsAllowed'},
+                                {'M2_Aeon_Naval_Platoon_Builder','M2AeonAMNavalPlatoonsAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -13448,12 +13448,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M2_Aeon_LandBase_Defense_Builder','M2AeonAMLandBaseDefenseAllowed'},
-                                {'default_brain','M2_Aeon_LandBase_Defense_Builder','M2AeonAMLandBaseDefenseAllowed'}
+                                {'M2_Aeon_LandBase_Defense_Builder','M2AeonAMLandBaseDefenseAllowed'},
+                                {'M2_Aeon_LandBase_Defense_Builder','M2AeonAMLandBaseDefenseAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -20722,12 +20722,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Janus_T1_Engineers','M3JanusT1EngineersAllowed'},
-                                {'default_brain','M3_Janus_T1_Engineers','M3JanusT1EngineersAllowed'}
+                                {'M3_Janus_T1_Engineers','M3JanusT1EngineersAllowed'},
+                                {'M3_Janus_T1_Engineers','M3JanusT1EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -20745,8 +20745,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -20769,8 +20769,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -20799,12 +20799,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Janus_T2_Engineers','M3JanusT2EngineersAllowed'},
-                                {'default_brain','M3_Janus_T2_Engineers','M3JanusT2EngineersAllowed'}
+                                {'M3_Janus_T2_Engineers','M3JanusT2EngineersAllowed'},
+                                {'M3_Janus_T2_Engineers','M3JanusT2EngineersAllowed'}
                             },
                         },
                         PlatoonData = {
@@ -20822,8 +20822,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -20853,8 +20853,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -20876,12 +20876,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumBuilderPlatoonsLessThanVarTable',
-                                {'default_brain','M3_Janus_Defense_Builder','M3JanusBaseDefenseAllowed'},
-                                {'default_brain','M3_Janus_Defense_Builder','M3JanusBaseDefenseAllowed'}
+                                {'M3_Janus_Defense_Builder','M3JanusBaseDefenseAllowed'},
+                                {'M3_Janus_Defense_Builder','M3JanusBaseDefenseAllowed'}
                             },
                         },
                         PlatoonAddFunctions = {

@@ -16,7 +16,8 @@ local ArielM3Base = BaseManager.CreateBaseManager()
 -- Ariel M3 Main Base
 ---------------------
 function ArielM3BaseAI()
-    ArielM3Base:InitializeDifficultyTables(ArmyBrains[Ariel], 'M3_Ariel_Base', 'Ariel_Base_Marker', 90, {M3_Ariel_Base = 100})
+    local aiBrain = ArmyBrains[Ariel]--[[@as CampaignAIBrain]]
+    ArielM3Base:InitializeDifficultyTables(aiBrain, 'M3_Ariel_Base', 'Ariel_Base_Marker', 90, {M3_Ariel_Base = 100})
     ArielM3Base:StartNonZeroBase({{7, 13, 19}, {5, 10, 15}})
     ArielM3Base:SetActive('AirScouting', true)
 
@@ -47,7 +48,7 @@ function ArielM3BaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 5)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {8, categories.uaa0104})
 
     quantity = {10, 15, 20}
     opai = ArielM3Base:AddOpAI('AirAttacks', 'M3_Aeon_Base_AirAttack_1',
@@ -103,7 +104,7 @@ function ArielM3BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function ArielM3BaseLandAttacks()
@@ -128,7 +129,7 @@ function ArielM3BaseLandAttacks()
         )
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-            'HaveGreaterThanUnitsWithCategory', {'default_brain', 4, categories.uaa0104})
+            'HaveGreaterThanUnitsWithCategory', {4, categories.uaa0104})
         opai:SetLockingStyle('DeathTimer', {LockTimer = 240})
     end
 end

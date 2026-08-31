@@ -1,7 +1,7 @@
 local AIUtils = import('/lua/ai/aiutilities.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utils = import("/lua/utilities.lua")
 
 local UEF = 2
@@ -79,7 +79,7 @@ function CarrierAI(platoon)
                     if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
                         IssueClearCommands({self})
                         IssueTransportUnload({self}, carrier:GetPosition())
-    
+
                         repeat
                             WaitSeconds(3)
                         until not self:IsUnitState("TransportUnloading")
@@ -654,7 +654,7 @@ function FindTargetToNuke(unit)
     while true do
         WaitSeconds(15)
         for i, pos in positions do
-            local num = table.getn(aiBrain:GetUnitsAroundPoint(data.TargetCategory or ((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE)), pos, 30, 'enemy'))
+            local num = table.getn(aiBrain:GetUnitsAroundPoint(data.TargetCategory or ((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE)), pos, 30, 'Enemy'))
             if num > 3 and num > mostUnits then
                 mostUnits = num
                 bestTarget = pos
@@ -828,7 +828,7 @@ function SetUpCarrierPlatoon(platoon, carrier)
 
         local brain = platoon:GetBrain()
 
-        local currentTarget = false
+        local currentTarget
         while brain:PlatoonExists(platoon) do
             --LOG("ASF Platoon main loop")
             if not currentTarget or currentTarget.Dead then

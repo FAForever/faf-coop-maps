@@ -8,21 +8,21 @@
 -- **  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local Behaviors = import('/lua/ai/opai/opbehaviors.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local Objectives = ScenarioFramework.Objectives
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E04/SCCA_Coop_E04_strings.lua')
-local EditorFunctions = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua')
+local EditorFunctions = import('/maps/SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions.lua')---@module "SCCA_Coop_E04/SCCA_Coop_E04_EditorFunctions"
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local ScenarioPlatoonAI = import ('/lua/ScenarioPlatoonAI.lua')
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+local VizMarker = import('/lua/sim/vizmarker.lua').VizMarker
 
 local Utilities = import('/lua/utilities.lua')
 
 
 -- Import camera class
-local SimCamera = import('/lua/SimCamera.lua').SimCamera
+local SimCamera = import('/lua/simcamera.lua').SimCamera
 
 local Difficulty = ScenarioInfo.Options.Difficulty or 2
 
@@ -224,22 +224,23 @@ function OnStart(self)
     end
 
     -- moved here per drew
-    ArmyBrains[Cybran]:PBMRemoveBuildLocation(nil, 'MAIN')
-    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), 50, 'Cybran_M1_Base')
-    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_Base'), 40, 'Cybran_M2_Base')
-    ArmyBrains[Cybran]:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_T2_Airbase'), 30, 'Cybran_M2_T2_Airbase')
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMRemoveBuildLocation(nil, 'MAIN')
+    aiBrain:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M1_Base'), 50, 'Cybran_M1_Base')
+    aiBrain:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_Base'), 40, 'Cybran_M2_Base')
+    aiBrain:PBMAddBuildLocation(ScenarioUtils.MarkerToPosition('Cybran_M2_T2_Airbase'), 30, 'Cybran_M2_T2_Airbase')
     ScenarioFramework.StartOperationJessZoom('Start_Camera_Area', Intro_NIS)
 end
 
 function Intro_NIS()
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Commander')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Commander')
@@ -274,7 +275,7 @@ function StartMission1()
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Expansion_Base_Premade_D'..Difficulty)
     ScenarioUtils.CreateArmyGroup('Cybran', 'M1_Research_Base_Defense_D'..Difficulty)
 
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_York_Patrol_D'..ScenarioInfo.Options.Difficulty, 'TravellingFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M1_York_Patrol_D'..ScenarioInfo.Options.Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(plat, 'M1_York18_Patrol_Chain')
 
     -- append difficulty info to make new master base maintenance template
@@ -501,7 +502,7 @@ function StartMission2()
     -- Overcharge manager
     local cdrPlatoon = ArmyBrains[Cybran]:MakePlatoon(' ', ' ')
     ArmyBrains[Cybran]:AssignUnitsToPlatoon(cdrPlatoon, {ScenarioInfo.CybranCDR}, 'Attack', 'AttackFormation')
-    --import('/lua/ai/AIBehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
+    --import('/lua/ai/aibehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
     cdrPlatoon:ForkThread(Behaviors.CDROverchargeBehavior)
     ArmyBrains[Cybran]:DisbandPlatoon(cdrPlatoon)
 
@@ -752,7 +753,7 @@ function M2OnTruckFoundTimer()
     ScenarioInfo.M3Gate.Trash:Add(vizmarker)
     vizmarker:AttachBoneTo(-1, ScenarioInfo.M3Gate, -1)
 
-    ScenarioInfo.M2EscapeTruck = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Escape_Truck', 'TravellingFormation')
+    ScenarioInfo.M2EscapeTruck = ScenarioUtils.CreateArmyGroupAsPlatoon('Player1', 'Escape_Truck', 'GrowthFormation')
     for k,unit in ScenarioInfo.M2EscapeTruck:GetPlatoonUnits() do
         ScenarioFramework.PauseUnitDeath(unit)
         unit.CanBeGiven = false
@@ -958,7 +959,7 @@ function M3RadarsProgress(current,total)
 end
 
 function GetRadars()
-   radars = {}
+   local radars = {}
    for k,area in { 'M3_Radar_Loc_01', 'M3_Radar_Loc_02', 'M3_Radar_Loc_03' } do
        local units = GetUnitsInRect(ScenarioUtils.AreaToRect(area))
         if units then
@@ -1120,7 +1121,7 @@ function M3OnBrackmanLabSpotted ()
     -- IssueClearCommands({ScenarioInfo.M3Gate})
     -- IssueTransportUnload({ScenarioInfo.M3Gate}, ScenarioUtils.MarkerToPosition('M3_Engineer_Teleport'))
 
-    ScenarioInfo.M3EngineersPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3_Fleeing_Engineers', 'TravellingFormation')
+    ScenarioInfo.M3EngineersPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Cybran', 'M3_Fleeing_Engineers', 'GrowthFormation')
 
     ScenarioInfo.M3EngineersPlatoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M3_Engineer_Escape_Spot'), false)
 

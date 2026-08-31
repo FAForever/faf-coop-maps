@@ -27,7 +27,8 @@ function OrderM2BaseAI()
     ---------------
     -- Order M2 Base
     ---------------
-    OrderM2Base:InitializeDifficultyTables(ArmyBrains[Order], 'M2_Order_MainBase', 'M2_Order_Base_Marker', 100, {M2_Order_MainBase = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    OrderM2Base:InitializeDifficultyTables(aiBrain, 'M2_Order_MainBase', 'M2_Order_Base_Marker', 100, {M2_Order_MainBase = 100})
     OrderM2Base:StartNonZeroBase({{6, 11, 23}, {6, 10, 20}})
     OrderM2Base:SetActive('AirScouting', true)
 
@@ -47,6 +48,7 @@ function OrderM2BaseAirAttacks()
     local trigger = {}
     local template = {}
     local builder = {}
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
 
     -----------------------------------
     -- Order M2 Base Op AI - Air Attacks
@@ -72,7 +74,7 @@ function OrderM2BaseAirAttacks()
             PatrolChain = 'M2_Rhiza_AirAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )                -- SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
+    aiBrain:PBMAddPlatoon( builder )                -- SENDS A SMALL AIRFORCE TO FLETCHER'S BASE
 
 -- ==============================================================================================================
 
@@ -153,7 +155,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.MOBILE * categories.LAND) - categories.CONSTRUCTION, '>='})
 
     -- sends 6, 18, 24 [air superiority] if player has >= 80, 60, 60 mobile air
     quantity = {6, 18, 24}
@@ -169,7 +171,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     -- sends 6, 18, 24 [air superiority] if player has >= 60, 40, 40 gunships
     quantity = {6, 18, 24}
@@ -185,7 +187,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0203 + categories.uea0203 + categories.ura0203, '>='})
 
     -- sends 6, 12, 18 [combat fighters, gunships] if player has >= 60, 40, 20 T3 units
     quantity = {6, 12, 18}
@@ -201,7 +203,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity({'Gunships', 'CombatFighters'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3, '>='})
 
     -- sends 6, 18, 24 [air superiority] if player has >= 1 strat bomber
     quantity = {6, 18, 24}
@@ -216,7 +218,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
+        {{'HumanPlayers'}, 1, categories.uaa0304 + categories.uea0304 + categories.ura0304, '>='})
 
     -- sends 6, 18, 24 [bombers, gunships] if player has >= 450, 400, 300 units
     quantity = {6, 18, 24}
@@ -232,7 +234,7 @@ function OrderM2BaseAirAttacks()
     )
     opai:SetChildQuantity({'Bombers', 'Gunships'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
 
     -- Air Defense
     quantity = {4, 8, 12}
@@ -344,11 +346,12 @@ end
 
 function OrderM2BaseNavalAttacks()
     local opai = nil
+    local trigger = {}
     local maxQuantity = {}
     local minQuantity = {}
-    local trigger = {}
     local template = {}
     local builder = {}
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
 
     -- ##################
     -- Custom Builders #
@@ -375,7 +378,7 @@ function OrderM2BaseNavalAttacks()
             PatrolChain = 'M2_Rhiza_NavalAttack_Fletcher_Chain',
         },
     }
-    ArmyBrains[Order]:PBMAddPlatoon( builder )                -- SENDS A SMALL FLEET TO FLETCHER'S BASE
+    aiBrain:PBMAddPlatoon( builder )                -- SENDS A SMALL FLEET TO FLETCHER'S BASE
 
 -- =============================================================================
 
@@ -466,7 +469,7 @@ function OrderM2BaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- sends 6, 9, 12 frigate power of [all but T3] if player has >= 4, 3, 2 T2/T3 boats
     maxQuantity = {6, 9, 12}
@@ -485,7 +488,7 @@ function OrderM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 9, 12, 15 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     maxQuantity = {9, 12, 15}
@@ -504,7 +507,7 @@ function OrderM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 14, 17, 20 frigate power of [all] if player has >= 8, 7, 6 T2/T3 boats
     maxQuantity = {14, 17, 20}
@@ -523,7 +526,7 @@ function OrderM2BaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 35, 40, 45 frigate power of [all] if player has >= 3, 2, 1 T3/T4 boats
     maxQuantity = {35, 40, 45}
@@ -543,7 +546,7 @@ function OrderM2BaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2, '>='})
 
     -- sends 2, 3, 4 Battleships if player has >= 5, 4, 3 T3/T4 boats
     maxQuantity = {50, 75, 100}
@@ -564,7 +567,7 @@ function OrderM2BaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T2', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1 - categories.TECH2, '>='})
 
     -- Naval Defense
     maxQuantity = {6, 9, 12}
@@ -586,9 +589,10 @@ function OrderM2BaseNavalAttacks()
 end
 
 function OrderCaptureControlCenter()
+    local opai = nil
 
     -- Transport Builder
-    local opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_Order_TransportBuilder',
+    opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_Order_TransportBuilder',
     {
         MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
         PlatoonData = {
@@ -601,7 +605,7 @@ function OrderCaptureControlCenter()
     opai:SetChildActive('All', false)
     opai:SetChildActive('T2Transports', true)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {6, categories.uaa0104})
 
     -- sends engineers
     opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_OrderEngAttack1',

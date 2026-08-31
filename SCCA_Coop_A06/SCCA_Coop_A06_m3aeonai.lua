@@ -21,7 +21,8 @@ local AeonM3SouthEastBase = BaseManager.CreateBaseManager()
 -- Aeon M3 Black Sun Base
 -------------------------
 function AeonM3BlackSunBaseAI()
-    AeonM3BlackSunBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Black_Sun_Base = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3BlackSunBase:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Black_Sun_Base = 100})
     AeonM3BlackSunBase:StartNonZeroBase({{2, 4, 6}, {1, 3, 4}})
     AeonM3BlackSunBase:SetActive('AirScouting', true)
     AeonM3BlackSunBase:SetActive('LandScouting', true)
@@ -54,7 +55,7 @@ function AeonM3BlackSunBaseAirAttacks()
     --opai:SetChildQuantity('T2Transports', 4)
     --opai:SetLockingStyle('None')
     --opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-    --    'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uaa0104})
+    --    'HaveLessThanUnitsWithCategory', {8, categories.uaa0104})
 
     quantity = {8, 12, 16}
     opai = AeonM3BlackSunBase:AddOpAI('AirAttacks', 'M3_Aeon_Base_AirAttack_1',
@@ -104,7 +105,7 @@ function AeonM3BlackSunBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function AeonM3BlackSunBaseLandAttacks()
@@ -200,7 +201,7 @@ function AeonM3BlackSunBaseLandAttacks()
     --    )
     --    opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     --    opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-    --        'HaveGreaterThanUnitsWithCategory', {'default_brain', math.ceil(quantity[Difficulty] / 3), categories.uaa0104})
+    --        'HaveGreaterThanUnitsWithCategory', {math.ceil(quantity[Difficulty] / 3), categories.uaa0104})
     --    opai:SetLockingStyle('DeathTimer', {LockTimer = 240})
     --end
 end
@@ -209,7 +210,8 @@ end
 -- Aeon M3 Black Sun Naval Base
 -------------------------------
 function AeonM3BlackSunNavalBaseAI()
-    AeonM3BlackSunNavalBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Naval_Base', 'M3_Aeon_Naval_Base_Marker', 70, {M3_Naval_Base = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3BlackSunNavalBase:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Naval_Base', 'M3_Aeon_Naval_Base_Marker', 70, {M3_Naval_Base = 100})
     AeonM3BlackSunNavalBase:StartNonZeroBase({{1, 2, 3}, {1, 2, 2}})
 
     AeonM3BlackSunNavalBaseNavalAttacks()
@@ -270,7 +272,7 @@ function AeonM3BlackSunNavalBaseNavalAttacks()
         opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     if Difficulty >= 2 then
         opai = AeonM3BlackSunNavalBase:AddOpAI('NavalAttacks', 'M3_Main_Base_NavalAttack_4',
@@ -287,7 +289,7 @@ function AeonM3BlackSunNavalBaseNavalAttacks()
         )
         opai:SetChildQuantity({'Battleships', 'Destroyers'}, {1, 4})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-            'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 6, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+            'BrainsCompareNumCategory', {{'HumanPlayers'}, 6, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
     end
 
     quantity = {{2, 1}, {4, 2}, {7, 2}}
@@ -306,7 +308,7 @@ function AeonM3BlackSunNavalBaseNavalAttacks()
     opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
     opai:SetFormation("AttackFormation")
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 12, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 12, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
     --[[
     opai = AeonM3BlackSunNavalBase:AddOpAI('NavalAttacks', 'M3_Main_Base_NavalAttack_6',
         {
@@ -322,7 +324,7 @@ function AeonM3BlackSunNavalBaseNavalAttacks()
     )
     opai:SetChildQuantity('Battleships', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 2, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 2, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
     --]]
 
     -- Sonar around the base
@@ -344,7 +346,8 @@ end
 -- Aeon M3 Island Base
 ----------------------
 function AeonM3IslandBaseAI()
-    AeonM3IslandBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Island_Base', 'Experimental_Island', 50, {M3_Island_Defenses = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3IslandBase:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Island_Base', 'Experimental_Island', 50, {M3_Island_Defenses = 100})
     AeonM3IslandBase:StartNonZeroBase({2, 4, 6})
     AeonM3IslandBase:SetDefaultEngineerPatrolChain('M3_Island_Patrol')
 
@@ -392,7 +395,8 @@ end
 -- Aeon M3 South West Naval Base
 --------------------------------
 function AeonM3SouthWestBaseAI()
-    AeonM3SouthWestBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_SW_Base', 'M3_SW_Base_Marker', 110, {M3_SW_Base = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3SouthWestBase:InitializeDifficultyTables(aiBrain, 'M3_SW_Base', 'M3_SW_Base_Marker', 110, {M3_SW_Base = 100})
     AeonM3SouthWestBase:StartNonZeroBase({{3, 6, 8}, {2, 5, 6}})
     AeonM3SouthWestBase:SetActive('AirScouting', true)
     AeonM3SouthWestBase:SetActive('LandScouting', true)
@@ -478,7 +482,7 @@ function AeonM3SouthWestBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function AeonM3SouthWestBaseLandAttacks()
@@ -548,7 +552,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Destroyers', 'Cruisers', 'Frigates'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
     opai:SetFormation('AttackFormation')
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
@@ -567,7 +571,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, {1, 6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {2, 3, 4}
@@ -587,7 +591,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     opai:SetChildQuantity('Cruisers', quantity[Difficulty])
     opai:SetFormation("AttackFormation")
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{2, 2}, {2, 4}, {3, 3}}
@@ -606,7 +610,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{4, 1}, {5, 1}, {6, 2}}
@@ -625,7 +629,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH1 + categories.TECH2), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH1 + categories.TECH2), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     trigger = {7, 6, 5}
@@ -644,7 +648,7 @@ function AeonM3SouthWestBaseNavalAttacks()
     opai:SetChildQuantity('Battleships', 4)
     opai:SetFormation("AttackFormation")
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{1, 2}, {2, 2}, {3, 5}}
@@ -663,13 +667,14 @@ function AeonM3SouthWestBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Carriers', 'Cruisers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 end
 
 function AeonM3SouthWestBaseConditionalBuilds()
+    local opai = nil
     -- Sonar around the base
-    local opai = AeonM3SouthWestBase:AddOpAI('M3_SW_Sonar',
+    opai = AeonM3SouthWestBase:AddOpAI('M3_SW_Sonar',
         {
             Amount = 1,
             KeepAlive = true,
@@ -719,7 +724,8 @@ end
 -- Aeon M3 South East Naval Base
 --------------------------------
 function AeonM3SouthEastBaseAI()
-    AeonM3SouthEastBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_SE_Base', 'M3_SE_Base_Marker', 120, {M3_SE_Base = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3SouthEastBase:InitializeDifficultyTables(aiBrain, 'M3_SE_Base', 'M3_SE_Base_Marker', 120, {M3_SE_Base = 100})
     AeonM3SouthEastBase:StartNonZeroBase({{3, 6, 9}, {2, 5, 7}})
     AeonM3SouthEastBase:SetActive('AirScouting', true)
     AeonM3SouthEastBase:SetActive('LandScouting', true)
@@ -757,7 +763,7 @@ function AeonM3SouthEastBaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 6)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {6, categories.uaa0104})
 
     quantity = {12, 15, 18}
     opai = AeonM3SouthEastBase:AddOpAI('AirAttacks', 'M3_South_East_AirAttack_1',
@@ -820,7 +826,7 @@ function AeonM3SouthEastBaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function AeonM3SouthEastBaseLandAttacks()
@@ -868,7 +874,7 @@ function AeonM3SouthEastBaseLandAttacks()
         )
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-            'HaveGreaterThanUnitsWithCategory', {'default_brain', math.ceil(quantity[Difficulty] / 3), categories.uaa0104})
+            'HaveGreaterThanUnitsWithCategory', {math.ceil(quantity[Difficulty] / 3), categories.uaa0104})
         opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
     end
 end
@@ -918,7 +924,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Destroyers', 'Cruisers', 'Frigates'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
     opai:SetFormation('AttackFormation')
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
@@ -937,7 +943,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, {1, 6})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {2, 3, 4}
@@ -957,7 +963,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     opai:SetChildQuantity('Cruisers', quantity[Difficulty])
     opai:SetFormation("AttackFormation")
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{2, 2}, {2, 4}, {3, 3}}
@@ -976,7 +982,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{4, 1}, {5, 1}, {6, 2}}
@@ -995,7 +1001,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH1 + categories.TECH2), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH1 + categories.TECH2), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     trigger = {7, 6, 5}
@@ -1014,7 +1020,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     opai:SetChildQuantity('Battleships', 4)
     opai:SetFormation("AttackFormation")
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * (categories.TECH3 + categories.EXPERIMENTAL), '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     quantity = {{1, 2}, {2, 2}, {3, 5}}
@@ -1033,7 +1039,7 @@ function AeonM3SouthEastBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Carriers', 'Cruisers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
     opai:AddFormCallback(CustomFunctions, "RequestAmphibiousGuard")
 
     if false then
@@ -1066,6 +1072,7 @@ function AeonM3SouthEastBaseNavalAttacks()
 end
 
 function AeonM3SouthEastBaseConditionalBuilds()
+    local opai = nil
     -- Sonar around the base
     opai = AeonM3SouthEastBase:AddOpAI('M3_SE_Sonar',
         {

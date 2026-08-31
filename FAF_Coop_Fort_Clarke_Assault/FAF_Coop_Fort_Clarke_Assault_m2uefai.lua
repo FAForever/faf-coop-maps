@@ -19,7 +19,8 @@ local UEFM2ForwardBase4 = BaseManager.CreateBaseManager()
 -- UEF M2 Forward Base 1
 ------------------------
 function UEFM2ForwardBase1AI()
-    UEFM2ForwardBase1:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Forward_Base_1', 'M2_UEF_Forward_Base_1_Marker', 30, {M2_UEF_Forward_Base_1 = 30})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ForwardBase1:InitializeDifficultyTables(aiBrain, 'M2_UEF_Forward_Base_1', 'M2_UEF_Forward_Base_1_Marker', 30, {M2_UEF_Forward_Base_1 = 30})
     UEFM2ForwardBase1:StartNonZeroBase({{4, 5, 6}, {3, 4, 4}})
 
     UEFM2ForwardBase1LandAttacks()
@@ -55,7 +56,7 @@ function UEFM2ForwardBase1LandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 
     quantity = {6, 7, 8}
     trigger = {40, 30, 20}
@@ -70,7 +71,7 @@ function UEFM2ForwardBase1LandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -86,7 +87,7 @@ function UEFM2ForwardBase1LandAttacks()
         )
         opai:SetChildQuantity({'HeavyTanks', 'MobileShields'}, quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     quantity = {6, 7, 8}
@@ -102,7 +103,7 @@ function UEFM2ForwardBase1LandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 
     quantity = {6, 7, 8}
     trigger = {39, 32, 25}
@@ -118,14 +119,15 @@ function UEFM2ForwardBase1LandAttacks()
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 end
 
 ------------------------
 -- UEF M2 Forward Base 2
 ------------------------
 function UEFM2ForwardBase2AI()
-    UEFM2ForwardBase2:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Forward_Base_2', 'M2_UEF_Forward_Base_2_Marker', 30, {M2_UEF_Forward_Base_2 = 30})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ForwardBase2:InitializeDifficultyTables(aiBrain, 'M2_UEF_Forward_Base_2', 'M2_UEF_Forward_Base_2_Marker', 30, {M2_UEF_Forward_Base_2 = 30})
     UEFM2ForwardBase2:StartNonZeroBase({{4, 5, 6}, {3, 4, 4}})
 
     UEFM2ForwardBase2LandAttacks()
@@ -161,7 +163,7 @@ function UEFM2ForwardBase2LandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 
     quantity = {6, 7, 8}
     trigger = {50, 40, 30}
@@ -176,7 +178,7 @@ function UEFM2ForwardBase2LandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -192,7 +194,7 @@ function UEFM2ForwardBase2LandAttacks()
         )
         opai:SetChildQuantity({'HeavyTanks', 'MobileShields'}, quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     quantity = {6, 7, 8}
@@ -208,7 +210,7 @@ function UEFM2ForwardBase2LandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 
     quantity = {6, 7, 8}
     trigger = {40, 35, 30}
@@ -224,14 +226,15 @@ function UEFM2ForwardBase2LandAttacks()
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 end
 
 ------------------------
 -- UEF M2 Forward Base 3
 ------------------------
 function UEFM2ForwardBase3AI()
-    UEFM2ForwardBase3:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Forward_Base_3', 'M2_UEF_Forward_Base_3_Marker', 30, {M2_UEF_Forward_Base_3 = 30})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ForwardBase3:InitializeDifficultyTables(aiBrain, 'M2_UEF_Forward_Base_3', 'M2_UEF_Forward_Base_3_Marker', 30, {M2_UEF_Forward_Base_3 = 30})
     UEFM2ForwardBase3:StartNonZeroBase({{4, 5, 6}, {3, 4, 4}})
 
     UEFM2ForwardBase3AirAttacks()
@@ -268,7 +271,7 @@ function UEFM2ForwardBase3LandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 
     quantity = {6, 7, 8}
     trigger = {45, 35, 25}
@@ -283,7 +286,7 @@ function UEFM2ForwardBase3LandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -299,7 +302,7 @@ function UEFM2ForwardBase3LandAttacks()
         )
         opai:SetChildQuantity({'HeavyTanks', 'MobileShields'}, quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     quantity = {6, 7, 8}
@@ -315,7 +318,7 @@ function UEFM2ForwardBase3LandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3, '>='})
 
     quantity = {6, 7, 8}
     trigger = {50, 45, 40}
@@ -331,7 +334,7 @@ function UEFM2ForwardBase3LandAttacks()
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 end
 
 function UEFM2ForwardBase3AirAttacks()
@@ -373,7 +376,7 @@ function UEFM2ForwardBase3AirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     quantity = {4, 6, 8}
     trigger = {16, 14, 12}
@@ -392,7 +395,7 @@ function UEFM2ForwardBase3AirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
 
     quantity = {2, 3, 4}
     trigger = {14, 12, 10}
@@ -412,14 +415,15 @@ function UEFM2ForwardBase3AirAttacks()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetFormation('NoFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
 end
 
 ------------------------
 -- UEF M2 Forward Base 4
 ------------------------
 function UEFM2ForwardBase4AI()
-    UEFM2ForwardBase4:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Forward_Base_4', 'M2_UEF_Forward_Base_4_Marker', 30, {M2_UEF_Forward_Base_4 = 40})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ForwardBase4:InitializeDifficultyTables(aiBrain, 'M2_UEF_Forward_Base_4', 'M2_UEF_Forward_Base_4_Marker', 30, {M2_UEF_Forward_Base_4 = 40})
     UEFM2ForwardBase4:StartNonZeroBase({{4, 5, 6}, {3, 4, 4}})
 
     UEFM2ForwardBase4AirAttacks()
@@ -456,7 +460,7 @@ function UEFM2ForwardBase4LandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2, '>='})
 
     quantity = {6, 7, 8}
     trigger = {60, 50, 40}
@@ -471,7 +475,7 @@ function UEFM2ForwardBase4LandAttacks()
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -487,7 +491,7 @@ function UEFM2ForwardBase4LandAttacks()
         )
         opai:SetChildQuantity({'HeavyTanks', 'MobileShields'}, quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
+            {{'HumanPlayers'}, trigger[Difficulty], categories.ALLUNITS - categories.WALL, '>='})
     end
 
     quantity = {6, 7, 8}
@@ -503,7 +507,7 @@ function UEFM2ForwardBase4LandAttacks()
     )
     opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3, '>='})
 
     quantity = {6, 7, 8}
     trigger = {50, 45, 40}
@@ -519,7 +523,7 @@ function UEFM2ForwardBase4LandAttacks()
     opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.LAND * categories.TECH3 * categories.MOBILE, '>='})
 end
 
 function UEFM2ForwardBase4AirAttacks()
@@ -544,7 +548,7 @@ function UEFM2ForwardBase4AirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
 
     quantity = {2, 3, 4}
     trigger = {9, 7, 5}
@@ -564,5 +568,5 @@ function UEFM2ForwardBase4AirAttacks()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetFormation('NoFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3, '>='})
 end

@@ -2,7 +2,7 @@ local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local CustomFunctions = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_CustomFunctions.lua'
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ScenarioPlatoonAI = import(SPAIFileName)
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local ThisFile = '/maps/FAF_Coop_Novax_Station_Assault/FAF_Coop_Novax_Station_Assault_m2orderai.lua'
 
 ---------
@@ -62,12 +62,11 @@ end
 -- Order M2 Attacks
 -------------------
 function OrderM2BaseAirAttacks()
-    -- Enable air scouting
-    OrderM2Base:SetActive('AirScouting', true)
-
     local opai = nil
     local quantity = {}
     local trigger = {}
+    -- Enable air scouting
+    OrderM2Base:SetActive('AirScouting', true)
 
     ----------
     -- Defense
@@ -203,7 +202,7 @@ function OrderM2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity('T1Engineers', 6)
-    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 4000})
+    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {4000})
 
     -- Engineer for reclaiming if there's less than 2000 Mass in the storage
     opai = OrderM2Base:AddOpAI('EngineerAttack', 'M2_Order_Reclaim_Engineers_3',
@@ -221,7 +220,7 @@ function OrderM2BaseLandAttacks()
         }
     )
     opai:SetChildQuantity('T1Engineers', 6)
-    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 2000})
+    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {2000})
 
     -- Extra engineers assisting T3 naval factories, all T3 factories has to be built
     -- Count is X, 0 since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
@@ -376,8 +375,10 @@ end
 
 function OrderM2RebuildTempest()
     ForkThread(function()
+        local opai = nil
+        local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
         -- No need to build units from the Tempest anymore.
-        ArmyBrains[Order]:PBMRemoveBuildLocation(nil, 'M2_Tempest1')
+        aiBrain:PBMRemoveBuildLocation(nil, 'M2_Tempest1')
 
         if not ScenarioInfo.M1_Order_Tempest or ScenarioInfo.M1_Order_Tempest.Dead then
             return
@@ -393,7 +394,7 @@ function OrderM2RebuildTempest()
 
         -- Wait a bit longer before rebuild on harder difficulty
         local delay = {30, 75, 120}
-        local opai = OrderM2Base:AddOpAI('M2_Tempest_1',
+        opai = OrderM2Base:AddOpAI('M2_Tempest_1',
             {
                 Amount = 1,
                 KeepAlive = true,
@@ -410,7 +411,8 @@ function OrderM2RebuildTempest()
 end
 
 function OrderM2RebuildT3Sonar()
-    local opai = OrderM2Base:AddOpAI('M2_Order_T3_Sonar',
+    local opai = nil
+    opai = OrderM2Base:AddOpAI('M2_Order_T3_Sonar',
         {
             Amount = 1,
             KeepAlive = true,
@@ -428,7 +430,8 @@ end
 -- Carriers
 -----------
 function OrderM2CarriersAI(carrier)
-    ArmyBrains[Order]:PBMAddBuildLocation('M2_Order_Carrier_Marker_2', 40, 'M2_Order_Carrier_2')
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddBuildLocation('M2_Order_Carrier_Marker_2', 40, 'M2_Order_Carrier_2')
 
     for _, location in ArmyBrains[Order].PBM.Locations do
         if location.LocationType == 'M2_Order_Carrier_2' then
@@ -461,12 +464,13 @@ end
 
 function OrderM2CarrierAttacks()
     local quantity = {}
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
     --------------------
     -- Carrier's defense
     --------------------
     -- T2 Torpedo Bombers
     quantity = {12, 10, 8}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_1',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_1',
@@ -480,7 +484,7 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -490,7 +494,7 @@ function OrderM2CarrierAttacks()
 
     -- T3 Torpedo Bombers
     quantity = {7, 6, 5}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_2',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_2',
@@ -504,7 +508,7 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -514,7 +518,7 @@ function OrderM2CarrierAttacks()
 
     -- T3 Gunships
     quantity = {7, 6, 5}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_3',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_3',
@@ -528,7 +532,7 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -541,7 +545,7 @@ function OrderM2CarrierAttacks()
     --------------------
     -- T2 Torpedo Bombers
     quantity = {12, 10, 8}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_4',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_4',
@@ -555,8 +559,8 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -566,7 +570,7 @@ function OrderM2CarrierAttacks()
 
     -- T3 Gunships
     quantity = {7, 6, 5}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_5',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_5',
@@ -580,8 +584,8 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -591,7 +595,7 @@ function OrderM2CarrierAttacks()
 
     -- T3 Torpedo Bombers
     quantity = {7, 6, 5}
-    ArmyBrains[Order]:PBMAddPlatoon({
+    aiBrain:PBMAddPlatoon({
         BuilderName = 'M2_Order_Carrier1_Air_Builder_6',
         PlatoonTemplate = {
             'M2_Order_Carrier_2_Air_Attack_6',
@@ -605,8 +609,8 @@ function OrderM2CarrierAttacks()
         LocationType = 'M2_Order_Carrier_2',
         BuildConditions = {
             { '/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M2_Order_Base'} },
-            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
-            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 2}},
+            { '/lua/editor/unitcountbuildconditions.lua', 'HaveGreaterThanUnitsWithCategory', {8, categories.TECH3 * categories.STRUCTURE * categories.FACTORY} },
+            { '/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {2}},
         },
         PlatoonAIFunction = {CustomFunctions, 'PatrolThread'},       
         PlatoonData = {
@@ -619,7 +623,8 @@ end
 -- Tempest
 ----------
 function OrderM2TempestAI(tempest)
-    ArmyBrains[Order]:PBMAddBuildLocation('M2_Order_Starting_Tempest', 60, 'M2_Tempest1')
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddBuildLocation('M2_Order_Starting_Tempest', 60, 'M2_Tempest1')
 
     for _, location in ArmyBrains[Order].PBM.Locations do
         if location.LocationType == 'M2_Tempest1' then
@@ -636,6 +641,7 @@ end
 function OrderM2TempestAttacks()
     local Temp = {}
     local Builder = {}
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
 
     -- Engineers patrols
     Temp = {
@@ -658,7 +664,7 @@ function OrderM2TempestAttacks()
                 PatrolChain = Chains[i],
             },
         }
-        ArmyBrains[Order]:PBMAddPlatoon(Builder)
+        aiBrain:PBMAddPlatoon(Builder)
     end
 
     -- Naval Defense
@@ -678,9 +684,9 @@ function OrderM2TempestAttacks()
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Order_Defensive_Chain_West',
-        },    
+        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 
     Temp = {
         'M2_Order_Tempest_Naval_2',
@@ -698,9 +704,9 @@ function OrderM2TempestAttacks()
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Order_Defensive_Chain_West',
-        },    
+        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 
     Temp = {
         'M2_Order_Tempest_Naval_3',
@@ -718,9 +724,9 @@ function OrderM2TempestAttacks()
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'M2_Order_Defensive_Chain_West',
-        },    
+        },
     }
-    ArmyBrains[Order]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 -------------
@@ -744,7 +750,7 @@ function OrderM3AirAttacks()
     opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {3, categories.uaa0104})
 
     ----------
     -- Attacks
@@ -877,7 +883,7 @@ function OrderM3LandAttacks()
     --         Retry = true,
     --         WaitSecondsAfterDeath = delay[Difficulty],
     --         --BuildCondition = {
-    --         --    {'/lua/editor/unitcountbuildconditions.lua', 'HaveEqualToUnitsWithCategory', {'default_brain', 2, categories.EXPERIMENTAL}},
+    --         --    {'/lua/editor/unitcountbuildconditions.lua', 'HaveEqualToUnitsWithCategory', {2, categories.EXPERIMENTAL}},
     --         --}
     --     }
     -- )

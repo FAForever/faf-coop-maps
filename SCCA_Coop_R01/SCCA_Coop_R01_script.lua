@@ -8,14 +8,14 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local SimCamera = import('/lua/SimCamera.lua').SimCamera
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local SimCamera = import('/lua/simcamera.lua').SimCamera
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local OpStrings   = import('/maps/SCCA_Coop_R01/SCCA_Coop_R01_Strings.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
+local OpStrings   = import('/maps/SCCA_Coop_R01/SCCA_Coop_R01_Strings.lua')---@module "SCCA_Coop_R01/SCCA_Coop_R01_Strings"
+local ScenarioStrings = import('/lua/scenariostrings.lua')
 local Utilities = import('/lua/utilities.lua')
 
 ------------------
@@ -218,14 +218,14 @@ end
 
 function CreatePlayerCommander()
     -- CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'M1PlayerCDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'M1PlayerCDR')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'M1PlayerCDR')
@@ -566,7 +566,7 @@ function M1_DestroyMass()
         ScenarioUtils.CreateArmyGroup('UEF', 'M1UEFMassDefStatic')
     end
     local massDefense = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1UEFMassDefPatrol_'..DifficultyConc ,'AttackFormation')
-    ScenarioInfo.MassDefenseAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1UEFMassAirPatrol_'..DifficultyConc ,'ChevronFormation')
+    ScenarioInfo.MassDefenseAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF' ,'M1UEFMassAirPatrol_'..DifficultyConc ,'AttackFormation')
 
     -- Send defenders on patrol. Use a pausing patrol for the land defense.
     ScenarioFramework.PlatoonPatrolChain(ScenarioInfo.MassDefenseAir, 'UEFMassAirPatrol_Chain')
@@ -690,7 +690,7 @@ function Part2CreatUEFUnitsObjectives()
         'incomplete',
         OpStrings.M6P1Text,
         OpStrings.M6P1Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             Units = ScenarioInfo.M6CampUnits,
             MarkUnits = true,
@@ -702,7 +702,7 @@ function Part2CreatUEFUnitsObjectives()
         'incomplete',
         OpStrings.M6P2Text,
         OpStrings.M6P2Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
         }
    )
@@ -870,7 +870,7 @@ function Part3OpeningObjs()
         'incomplete',
         OpStrings.M7P1Text,
         OpStrings.M7P1Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             MarkUnits = true,
             Units = ScenarioInfo.Part3_DefenseObjUnits,
@@ -881,7 +881,7 @@ function Part3OpeningObjs()
         'incomplete',
         OpStrings.M7P2Text,
         OpStrings.M7P2Detail,
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             MarkUnits = true,
             Units = ScenarioInfo.Part3_BaseObjUnits
@@ -959,7 +959,7 @@ function Part3SpawnEasternUnits()
 
     -- If we are in Hard difficulty, create an air patrol for the eastern UEF area.
     if ScenarioInfo.Difficulty == 3 then
-        local eastAirStrong = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3EastPatrolStrong', 'AttackChevron')
+        local eastAirStrong = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3EastPatrolStrong', 'AttackFormation')
         for i = 1, 5 do
             eastAirStrong:Patrol(ScenarioUtils.MarkerToPosition('M3UEFEastAirPatrol'..i))
         end
@@ -975,9 +975,9 @@ function Part3SpawnEasternUnits()
 end
 
 function Part3_DelayedInitialAirFight()
-    local aeonAir1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-    local aeonAir2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-    local uefAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
+    local aeonAir1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'AttackFormation')
+    local aeonAir2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'AttackFormation')
+    local uefAir = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'AttackFormation')
     ScenarioFramework.PlatoonPatrolChain(aeonAir1, 'M2_AirGroupPatrol_Chain')
     ScenarioFramework.PlatoonPatrolChain(aeonAir2, 'M2_AirGroupPatrol_Chain')
     ScenarioFramework.PlatoonPatrolChain(uefAir, 'M2_AirGroupPatrol_Chain')
@@ -989,13 +989,13 @@ function Part3_AeonUEFAirFight()
         -- choose from one of two setups
         local rnd = Random(1,2)
         if rnd == 1 then
-            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'ChevronFormation')
-            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'ChevronFormation')
+            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group1', 'AttackFormation')
+            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group2', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(aeonAirGroup, 'M2_AirGroupPatrol_Chain')
             ScenarioFramework.PlatoonPatrolChain(uefAirGroup, 'M2_AirGroupPatrol_Chain')
         elseif rnd == 2 then
-            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group2', 'ChevronFormation')
-            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group1', 'ChevronFormation')
+            local aeonAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Group2', 'AttackFormation')
+            local uefAirGroup = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M2_UEFAir_Group1', 'AttackFormation')
             ScenarioFramework.PlatoonPatrolChain(aeonAirGroup, 'M2_AirGroupPatrol_Chain')
             ScenarioFramework.PlatoonPatrolChain(uefAirGroup, 'M2_AirGroupPatrol_Chain')
         end
@@ -1009,7 +1009,7 @@ function Part3_OffmapAeonAir()
 
     if ScenarioInfo.MissionNumber == 7 and Part3EasternAAGroupsDestroyed == 0 then
         local rnd = Random(1, 3)
-        local aeonPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Offmap'..rnd, 'ChevronFormation')
+        local aeonPatrol = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AeonAir_Offmap'..rnd, 'AttackFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(Part3_OffmapAeonAirPause, aeonPatrol)
         ScenarioFramework.PlatoonPatrolChain(aeonPatrol, 'M2_Aeon_OffmapAir_Chain'..rnd)
     end
@@ -1212,7 +1212,7 @@ function Part4SpawnAeonUnits()
     cdrPlatoon.CDRData = {}
     cdrPlatoon.CDRData.LeashPosition = 'AeonCommander_Patrol_1'
     cdrPlatoon.CDRData.LeashRadius = 30
-    import('/lua/ai/opai/OpBehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
+    import('/lua/ai/opai/opbehaviors.lua').CDROverchargeBehavior(cdrPlatoon)
     ArmyBrains[Aeon]:DisbandPlatoon(cdrPlatoon)
 
     ScenarioInfo.M8P1 = Objectives.KillOrCapture(
@@ -1246,20 +1246,20 @@ function Part4SpawnAeonUnits()
     ScenarioInfo.M3PlayerAirCount = ArmyBrains[Player1]:GetCurrentUnits(categories.AIR)
     -- On easy, no defenders present unless the player has a sizable force of air
     if ScenarioInfo.Difficulty == 2 then
-        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirMedium' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3PlacedDefendersAirMedium', 'AttackFormation')
         ScenarioInfo.M3AeonAirDef1:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.Difficulty == 3 then
         -- Extra AA towers in hard difficulty
-        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirStrong' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3PlacedDefendersAirStrong', 'AttackFormation')
         ScenarioInfo.M3AeonAirDef1:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.M3PlayerAirCount > 10 then
-        ScenarioInfo.M3AeonAirDef2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirAdd1' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3PlacedDefendersAirAdd1', 'AttackFormation')
         ScenarioInfo.M3AeonAirDef2:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     if ScenarioInfo.M3PlayerAirCount > 20 then
-        ScenarioInfo.M3AeonAirDef3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon' ,'M3PlacedDefendersAirAdd2' ,'AttackChevron')
+        ScenarioInfo.M3AeonAirDef3 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3PlacedDefendersAirAdd2', 'AttackFormation')
         ScenarioInfo.M3AeonAirDef3:ForkAIThread(Part4AeonBaseAirPatrolThread)
     end
     -- Send some attacks in from offmap UEF, against the Aeon base
@@ -1275,7 +1275,7 @@ end
 function Part4_UEFAttackAeon()
     Part4UEFWaveCount = Part4UEFWaveCount + 1
     if Part4UEFWaveCount < 7 then
-        ScenarioInfo.UEFAttackAeonPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3_AeonAttacks', 'ChevronFormation')
+        ScenarioInfo.UEFAttackAeonPlatoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'UEFM3_AeonAttacks', 'AttackFormation')
         ScenarioInfo.UEFAttackAeonPlatoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M3_UEF_AttackAeon_Point_1'), false)
         ScenarioInfo.UEFAttackAeonPlatoon:Patrol(ScenarioUtils.MarkerToPosition('M3_UEF_AttackAeon_Point_2'))
         ScenarioFramework.CreatePlatoonDeathTrigger(Part4_UEFAttackAeonPause, ScenarioInfo.UEFAttackAeonPlatoon)
@@ -1313,17 +1313,17 @@ function Part4DostyaTransfer()
 
     -- Getting handles to the move and load commands, move the platoons out to the player's base area, and unload.
     -- Transports return, and destroy offmap.
-    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupAA:GetSquadUnits('attack'), ScenarioInfo.M2TransferGroupAA:GetSquadUnits('support'))
+    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupAA:GetSquadUnits('Attack'), ScenarioInfo.M2TransferGroupAA:GetSquadUnits('Support'))
     ScenarioInfo.M2TransferAAUnload     =   ScenarioInfo.M2TransferGroupAA:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransport1'))
     ScenarioInfo.M2TransferGroupAA:MoveToLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransportReturn'), false, 'Support')
     ScenarioInfo.M2TransferGroupAA:Destroy('Support')
 
-    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupMissile:GetSquadUnits('attack'), ScenarioInfo.M2TransferGroupMissile:GetSquadUnits('support'))
+    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupMissile:GetSquadUnits('Attack'), ScenarioInfo.M2TransferGroupMissile:GetSquadUnits('Support'))
     ScenarioInfo.M2TransferMissileUnload =  ScenarioInfo.M2TransferGroupMissile:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransport2'))
     ScenarioInfo.M2TransferGroupMissile:MoveToLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransportReturn'), false, 'Support')
     ScenarioInfo.M2TransferGroupMissile:Destroy('Support')
 
-    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupTank:GetSquadUnits('attack'), ScenarioInfo.M2TransferGroupTank:GetSquadUnits('support'))
+    ScenarioFramework.AttachUnitsToTransports(ScenarioInfo.M2TransferGroupTank:GetSquadUnits('Attack'), ScenarioInfo.M2TransferGroupTank:GetSquadUnits('Support'))
     ScenarioInfo.M2TransferTankUnload   =   ScenarioInfo.M2TransferGroupTank:UnloadAllAtLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransport3'))
     ScenarioInfo.M2TransferGroupTank:MoveToLocation(ScenarioUtils.MarkerToPosition('M2DostyaTransportReturn'), false, 'Support')
     ScenarioInfo.M2TransferGroupTank:Destroy('Support')

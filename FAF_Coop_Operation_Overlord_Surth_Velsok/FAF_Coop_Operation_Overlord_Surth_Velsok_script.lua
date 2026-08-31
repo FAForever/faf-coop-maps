@@ -4,23 +4,23 @@
 -- Author: Shadowlorda1
 -- Map: !MarLo
 ------------------------------
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Buff = import('/lua/sim/Buff.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local Buff = import('/lua/sim/buff.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
-local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP1.lua')
-local P2SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP2.lua')
-local P3SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP3.lua')
-local P2CybranAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP2.lua')
-local P3CybranAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP3.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_strings.lua') 
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_CustomFunctions.lua')
+local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP1.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP1"
+local P2SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP2.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP2"
+local P3SeraphimAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP3.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/SeraphimaiP3"
+local P2CybranAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP2.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP2"
+local P3CybranAI = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP3.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/CybranaiP3"
+local OpStrings = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_strings.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_strings" 
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_CustomFunctions.lua')---@module "FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_CustomFunctions"
 
-local TauntManager = import('/lua/TauntManager.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 local SeraphimTM = TauntManager.CreateTauntManager('SeraphimTM', '/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_strings.lua')
 local CybranTM = TauntManager.CreateTauntManager('CybranTM', '/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_strings.lua')
@@ -131,11 +131,11 @@ function IntroP1()
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
         local P1Vision1 = ScenarioFramework.CreateVisibleAreaLocation(90, ScenarioUtils.MarkerToPosition('P1Vision1'), 0, ArmyBrains[Player1]) 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P1Cam1', 0)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam2', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam3', 3)
         WaitSeconds(2)
         ForkThread(
             function()
@@ -166,10 +166,10 @@ function IntroP1()
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
         local tblArmy = ListArmies()
-        coop = 1
+        local coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy >= ScenarioInfo.Player2 then
-                factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+                local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
                 if (factionIdx == 3) then
                     ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'CCommander', 'Warp', true, true, PlayerDeath)
                     table.insert(ScenarioInfo.PlayersACUs, ScenarioInfo.CoopCDR[coop])
@@ -319,7 +319,7 @@ function IntroP2()
     ScenarioInfo.P2Gate.CanTakeDamage = true
     ScenarioInfo.P2Gate.CanBeKilled = true   
     
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SB1LandPatrol1_D' .. Difficulty, 'GrowthFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SB1LandPatrol1_D' .. Difficulty, 'GrowthFormation')
     for _, v in units:GetPlatoonUnits() do
        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2SB1LandPatrol')))
     end
@@ -342,12 +342,12 @@ function IntroP2()
         local P2Vision2 = ScenarioFramework.CreateVisibleAreaLocation(80, ScenarioUtils.MarkerToPosition('P2Vision2'), 0, ArmyBrains[Player1]) 
         local P2Vision3 = ScenarioFramework.CreateVisibleAreaLocation(70, ScenarioUtils.MarkerToPosition('P2Vision3'), 0, ArmyBrains[Player1]) 
         ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 0)
+        Cinematics.CameraMoveToMarker('P2Cam2', 0)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam3', 3)
         ForkThread(SeraCounterAttack)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 2)
+        Cinematics.CameraMoveToMarker('P2Cam1', 2)
         WaitSeconds(3)
             ForkThread(
                 function()
@@ -361,7 +361,7 @@ function IntroP2()
                     ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision3'), 90)  
                 end
             )
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1CPlayer1'), 2)
+        Cinematics.CameraMoveToMarker('P1CPlayer1', 2)
           
         WaitSeconds (1)
         Cinematics.SetInvincible('AREA_1', true) 
@@ -475,6 +475,8 @@ function SeraACUWarp1()
 end
 
 function SeraCounterAttack()
+    local quantity = {}
+    local trigger = {}
 
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SIntLandattack1_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P2SIntlandattack1' )
@@ -482,9 +484,8 @@ function SeraCounterAttack()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SIntLandattack2_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P2SIntlandattack2' )
 
-    local quantity = {}
-    local trigger = {}
     local platoon
+    local num
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
@@ -585,12 +586,12 @@ function IntroP3()
         local P3Vision2 = ScenarioFramework.CreateVisibleAreaLocation(70, ScenarioUtils.MarkerToPosition('P3Vision2'), 0, ArmyBrains[Player1]) 
         local P3Vision3 = ScenarioFramework.CreateVisibleAreaLocation(70, ScenarioUtils.MarkerToPosition('P3Vision3'), 0, ArmyBrains[Player1]) 
         ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P3Cam1', 0)
         WaitSeconds(2)   
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam2', 4)
         WaitSeconds(3)
         ForkThread(SubNukeparty)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam3', 4)
         WaitSeconds(3)
         ForkThread(
             function()
@@ -604,7 +605,7 @@ function IntroP3()
                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision3'), 80)  
             end
         )
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1CPlayer1'), 1)
+        Cinematics.CameraMoveToMarker('P1CPlayer1', 1)
           
         WaitSeconds(1)
         Cinematics.SetInvincible('AREA_1', true) 
@@ -1058,19 +1059,19 @@ function IntroP4()
         local P4Vision2 = ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('P4Vision2'), 0, ArmyBrains[Player1]) 
         local P4Vision3 = ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('P4Vision3'), 0, ArmyBrains[Player1]) 
     
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam0'), 0)
+        Cinematics.CameraMoveToMarker('P4Cam0', 0)
         ForkThread(SeraNukeparty)
         WaitSeconds(5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam1'), 6)
+        Cinematics.CameraMoveToMarker('P4Cam1', 6)
         WaitSeconds(5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam2'), 6)
+        Cinematics.CameraMoveToMarker('P4Cam2', 6)
         WaitSeconds(5)
         ScenarioFramework.Dialogue(OpStrings.Intro2P4, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam3'), 5)
+        Cinematics.CameraMoveToMarker('P4Cam3', 5)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam4'), 4)
+        Cinematics.CameraMoveToMarker('P4Cam4', 4)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P4Cam5'), 4)
+        Cinematics.CameraMoveToMarker('P4Cam5', 4)
         ForkThread(
             function()
                 WaitSeconds(1)
@@ -1171,7 +1172,7 @@ function P4RandomPicker()
         else
             if  ScenarioInfo.Specialfunction == 3 then
 
-            platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P4SRandom3_D' .. Difficulty, 'GrowthFormation', 5)
+            local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P4SRandom3_D' .. Difficulty, 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(platoon, 'P3C1IntAirattack' .. Random(1, 7))
             platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P4SRandom3_D' .. Difficulty, 'GrowthFormation', 5)
                 for _, v in platoon:GetPlatoonUnits() do
@@ -1200,6 +1201,8 @@ function P4Tech()
 end
 
 function P4SeraCounterAttack()
+    local quantity = {}
+    local trigger = {}
 
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P4SintExpP_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4IntLandattack1' )
@@ -1207,9 +1210,8 @@ function P4SeraCounterAttack()
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P4SIntNaval_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'P4SB1Navalattack2' )
     
-    local quantity = {}
-    local trigger = {}
     local platoon
+    local num
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
     num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS * categories.TECH3)

@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local Player1 = 1
 local Aeon = 4
@@ -12,7 +12,8 @@ local Aeonbase2 = BaseManager.CreateBaseManager()
 
 function Aeonbase1AI()
 
-    Aeonbase1:InitializeDifficultyTables(ArmyBrains[Aeon], 'Aeonbase1', 'P2AB1MK', 70, {P2ABase1 = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    Aeonbase1:InitializeDifficultyTables(aiBrain, 'Aeonbase1', 'P2AB1MK', 70, {P2ABase1 = 100})
     Aeonbase1:StartNonZeroBase({{8, 11, 13}, {5, 8, 10}})
     Aeonbase1:SetActive('AirScouting', true)
 
@@ -21,7 +22,7 @@ function Aeonbase1AI()
 end
 
 function P2AB1landattacks()
-
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
     local quantity = {}
 
     quantity = {4, 6, 9}
@@ -44,8 +45,8 @@ function P2AB1landattacks()
             PatrolChain = 'P2AB1landattack1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {1, 2, 2}
     Temp = {
         'A_landAttackTemp2',
@@ -63,15 +64,15 @@ function P2AB1landattacks()
         LocationType = 'Aeonbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 15, categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+        {{'HumanPlayers'}, 15, categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
         PlatoonData = {
             PatrolChain = 'P2AB1landattack1'
        },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {2, 3, 4}
     Temp = {
         'A_landAttackTemp3',
@@ -90,18 +91,19 @@ function P2AB1landattacks()
         LocationType = 'Aeonbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 25, categories.ALLUNITS * categories.TECH3 }},
+        {{'HumanPlayers'}, 25, categories.ALLUNITS * categories.TECH3 }},
         }, 
         PlatoonAIFunction = {SPAIFileName, 'MoveToThread'},     
         PlatoonData = {
             MoveChain = 'P2AB1landattack1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder ) 
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2AB1Airattacks()
-    
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    local opai = nil
     local quantity = {}
 
     quantity = {4, 6, 10}
@@ -123,8 +125,8 @@ function P2AB1Airattacks()
            PatrolChains = {'P2AB1airattack1', 'P2AB1airattack2', 'P2AB1airattack3'}
        },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {3, 4, 6}
     Temp = {
         'A_AirAttackTemp2',
@@ -141,15 +143,15 @@ function P2AB1Airattacks()
         LocationType = 'Aeonbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 10, categories.AIR * categories.MOBILE - categories.TECH1}},
+        {{'HumanPlayers'}, 10, categories.AIR * categories.MOBILE - categories.TECH1}},
         },   
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P2AB1airattack1', 'P2AB1airattack2', 'P2AB1airattack3'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-   
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'A_AirAttackTemp3',
         'NoPlan',
@@ -169,8 +171,8 @@ function P2AB1Airattacks()
             PatrolChain = 'P2AB1airdefense1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'A_AirAttackTemp4',
         'NoPlan',
@@ -190,7 +192,7 @@ function P2AB1Airattacks()
             PatrolChain = 'P2AB2defense1'
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 10, 12}
     opai = Aeonbase1:AddOpAI('AirAttacks', 'M2_Aeon_Air_Attack_1',
@@ -205,12 +207,13 @@ function P2AB1Airattacks()
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.LAND, '>='})
+            {{'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.LAND, '>='})
 end
 
 function Aeonbase2AI()
 
-    Aeonbase2:InitializeDifficultyTables(ArmyBrains[Aeon], 'Aeonbase2', 'P2AB2MK', 50, {P2ABase2 = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    Aeonbase2:InitializeDifficultyTables(aiBrain, 'Aeonbase2', 'P2AB2MK', 50, {P2ABase2 = 100})
     Aeonbase2:StartEmptyBase({{5, 7, 8}, {3, 5, 6}})
     
     Aeonbase1:AddExpansionBase('Aeonbase2', 3)
@@ -219,7 +222,7 @@ function Aeonbase2AI()
 end
 
 function P2AB2landattacks()
-
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
     local quantity = {}
 
     quantity = {6, 7, 9}
@@ -241,8 +244,8 @@ function P2AB2landattacks()
             PatrolChains = {'P2AB2landattack1', 'P2AB2landattack2'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {4, 5, 6}
     Temp = {
         'P2AB2landAttackTemp1',
@@ -260,14 +263,14 @@ function P2AB2landattacks()
         LocationType = 'Aeonbase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 10, categories.AIR * categories.MOBILE - categories.TECH1}},
+        {{'HumanPlayers'}, 10, categories.AIR * categories.MOBILE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P2AB2landattack1', 'P2AB2landattack2'}
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 

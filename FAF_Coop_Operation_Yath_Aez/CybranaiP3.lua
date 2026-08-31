@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local Player1 = 1
 local Cybran = 3
@@ -10,7 +10,8 @@ local CybranP3base1 = BaseManager.CreateBaseManager()
 
 function CybranP3base1AI()
 
-    CybranP3base1:InitializeDifficultyTables(ArmyBrains[Cybran], 'P3Cybranbase1', 'P3CB1MK', 90, {P3CBase1 = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranP3base1:InitializeDifficultyTables(aiBrain, 'P3Cybranbase1', 'P3CB1MK', 90, {P3CBase1 = 100})
     CybranP3base1:StartNonZeroBase({{13,17,21}, {10,14,18}})
     CybranP3base1:SetActive('AirScouting', true)
     
@@ -21,6 +22,7 @@ function CybranP3base1AI()
 end
 
 function P3CAirattacks1()
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
 
     local Temp = {
         'P3CB1AirattackTemp1',
@@ -41,8 +43,8 @@ function P3CAirattacks1()
             PatrolChains = {'P3CAirattack1', 'P3CAirattack2', 'P3CAirattack3'}
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3CB1AirattackTemp2',
         'NoPlan',
@@ -62,10 +64,11 @@ function P3CAirattacks1()
             PatrolChains = {'P3CAirattack1', 'P3CAirattack2', 'P3CAirattack3'}
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3CNavalAttacks1()
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
 
     local Temp = {
         'P3CB1NavalattackTemp0',
@@ -87,7 +90,7 @@ function P3CNavalAttacks1()
             PatrolChain = 'P3CNavaldefence1'
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     Temp = {
         'P3CB1NavalattackTemp1',
@@ -102,14 +105,14 @@ function P3CNavalAttacks1()
         Priority = 100,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
-        LocationType = 'P3Cybranbase1',   
-        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+        LocationType = 'P3Cybranbase1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'P3CNavalattack1'
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3CB1NavalattackTemp2',
         'NoPlan',
@@ -123,14 +126,14 @@ function P3CNavalAttacks1()
         Priority = 100,
         PlatoonType = 'Sea',
         RequiresConstruction = true,
-        LocationType = 'P3Cybranbase1',   
-        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},     
+        LocationType = 'P3Cybranbase1',
+        PlatoonAIFunction = {SPAIFileName, 'PatrolThread'},
         PlatoonData = {
             PatrolChain = 'P3CNavalattack1'
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     Temp = {
         'P3CB1NavalattackTemp3',
         'NoPlan',
@@ -150,10 +153,12 @@ function P3CNavalAttacks1()
             PatrolChain = 'P3CNavalattack1'
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3CLandAttacks1()
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    local opai = nil
 
     local Temp = {
         'P3CB1LandattackTemp1',
@@ -174,7 +179,7 @@ function P3CLandAttacks1()
             PatrolChains = {'P3CB1Landattack1', 'P3CB1Landattack2'}
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = CybranP3base1:AddOpAI('EngineerAttack', 'M3_Cybran_TransportBuilder1',
     {
@@ -187,7 +192,7 @@ function P3CLandAttacks1()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 4, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {4, categories.ura0104})
    
     opai = CybranP3base1:AddOpAI('BasicLandAttack', 'M3_Cybran_TransportAttack_1',
         {

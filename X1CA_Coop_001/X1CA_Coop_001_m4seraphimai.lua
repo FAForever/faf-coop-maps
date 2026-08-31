@@ -8,7 +8,7 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -34,7 +34,8 @@ function SeraphimM4NorthMainBaseAI()
     -- Seraphim M4 North Main Base
     -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphNorth_Start_Eng_D' .. Difficulty)
-    SeraphimM4NorthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_North_Base_Main', 'Seraphim_M3_North_Base_Marker', 60, {M3_North_Base_Main = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4NorthMainBase:InitializeDifficultyTables(aiBrain, 'M3_North_Base_Main', 'Seraphim_M3_North_Base_Marker', 60, {M3_North_Base_Main = 100,})
     SeraphimM4NorthMainBase:StartNonZeroBase({{3, 7, 11}, {2, 6, 10}})
     SeraphimM4NorthMainBase:SetBuild('Defenses', false)
 
@@ -107,7 +108,8 @@ function SeraphimM4SouthMainBaseAI()
     -- Seraphim M4 South Main Base
     -----------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphSouth_Start_Eng_D' .. Difficulty)
-    SeraphimM4SouthMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_South_Base_Main', 'Seraphim_M3_South_Base_Marker', 50, {M3_South_Base_Main = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4SouthMainBase:InitializeDifficultyTables(aiBrain, 'M3_South_Base_Main', 'Seraphim_M3_South_Base_Marker', 50, {M3_South_Base_Main = 100,})
     SeraphimM4SouthMainBase:StartNonZeroBase({{3, 7, 11}, {2, 6, 10}})
     SeraphimM4SouthMainBase:SetBuild('Defenses', false)
 
@@ -183,7 +185,8 @@ function SeraphimM4AirMainBaseAI()
     -- Seraphim M4 Air Main Base
     ---------------------------
     ScenarioUtils.CreateArmyGroup('Seraphim', 'M3_SeraphAir_Start_Eng_D' .. Difficulty)
-    SeraphimM4AirMainBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4AirMainBase:InitializeDifficultyTables(aiBrain, 'M3_Air_Base_Main', 'Seraphim_M3_Air_Base_Marker', 50, {M3_Air_Base_Main = 100,})
     SeraphimM4AirMainBase:StartNonZeroBase({{2, 5, 9}, {2, 4, 7}})
     SeraphimM4AirMainBase:SetActive('AirScouting', true)
     SeraphimM4AirMainBase:SetBuild('Defenses', false)
@@ -373,6 +376,8 @@ function SeraphimM4AirMainBaseAirAttacks()
 end
 
 function SeraphimM4YthotaAttacks()
+    local opai = nil
+    local quantity = {}
     quantity = {0, 1, 2}
     opai = SeraphimM4AirMainBase:AddOpAI('M4_Ythotha',
         {
@@ -393,7 +398,8 @@ function SeraphimM4ForwardOneAI()
     -----------------------
     -- Seraphim M4 Forward 1
     -----------------------
-    SeraphimM4ForwardOne:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_One', 'Seraphim_M3_Forward_One_Base_Marker', 30, {M3_Seraph_Forward_One = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4ForwardOne:InitializeDifficultyTables(aiBrain, 'M3_Seraph_Forward_One', 'Seraphim_M3_Forward_One_Base_Marker', 30, {M3_Seraph_Forward_One = 100,})
     SeraphimM4ForwardOne:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     SeraphimM4ForwardOne:SetBuild('Defenses', false)
 
@@ -465,7 +471,8 @@ function SeraphimM4ForwardTwoAI()
     -----------------------
     -- Seraphim M4 Forward 2
     -----------------------
-    SeraphimM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Seraph_Forward_Two', 'Seraphim_M3_Forward_Two_Base_Marker', 30, {M3_Seraph_Forward_Two = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4ForwardTwo:InitializeDifficultyTables(aiBrain, 'M3_Seraph_Forward_Two', 'Seraphim_M3_Forward_Two_Base_Marker', 30, {M3_Seraph_Forward_Two = 100,})
     SeraphimM4ForwardTwo:StartNonZeroBase({{1, 2, 3}, {1, 2, 3}})
     SeraphimM4ForwardTwo:SetBuild('Defenses', false)
 
@@ -537,7 +544,8 @@ function SeraphimM4NavalBaseAI()
     ------------------------
     -- Seraphim M4 Naval Base
     ------------------------
-    SeraphimM4NavalBase:InitializeDifficultyTables(ArmyBrains[Seraphim], 'M3_Naval_Base', 'M3_Naval_Base_Marker', 60, {M3_Naval_Base = 100,})
+    local aiBrain = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    SeraphimM4NavalBase:InitializeDifficultyTables(aiBrain, 'M3_Naval_Base', 'M3_Naval_Base_Marker', 60, {M3_Naval_Base = 100,})
     SeraphimM4NavalBase:StartNonZeroBase({{1, 3, 4}, {1, 3, 4}})
     SeraphimM4NavalBase:SetBuild('Defenses', false)
 
@@ -546,6 +554,7 @@ end
 
 function SeraphimM4NavalBaseNavalAttacks()
     local opai = nil
+    local quantity = {}
     local trigger = {}
 
     ---------------------------------------------
@@ -595,7 +604,7 @@ function SeraphimM4NavalBaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     -- sends 9 frigate power of [all but T3] if player has >= 5, 3, 2 T2/T3 boats
     trigger = {5, 3, 2}
@@ -612,7 +621,7 @@ function SeraphimM4NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',  'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 12 frigate power of [all but T3] if player has >= 6, 5, 4 T2/T3 boats
     trigger = {6, 5, 4}
@@ -629,7 +638,7 @@ function SeraphimM4NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], (categories.NAVAL * categories.MOBILE) - categories.TECH1, '>='})
 
     -- sends 20 - 50 frigate power if player has >= 5, 4, 3 T3 boats
     trigger = {5, 4, 3}
@@ -646,7 +655,7 @@ function SeraphimM4NavalBaseNavalAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     quantity = {{1, 2}, {1, 3}, {1, 4}}
     trigger = {2, 1, 1}
@@ -661,7 +670,7 @@ function SeraphimM4NavalBaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     trigger = {5, 4, 3}
     opai = SeraphimM4NavalBase:AddOpAI('NavalAttacks', 'M4_NavalAttack8',
@@ -675,7 +684,7 @@ function SeraphimM4NavalBaseNavalAttacks()
     )
     opai:SetChildQuantity('Battleships', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Naval Defense
     for i = 1, 2 do
