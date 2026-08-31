@@ -1,11 +1,7 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Overlord_Surth_Velsok/FAF_Coop_Operation_Overlord_Surth_Velsok_CustomFunctions.lua'
 
-local Player1 = 1
 local Cybran = 3
 
 local P2CBase1 = BaseManager.CreateBaseManager()
@@ -13,8 +9,8 @@ local P2CBase1 = BaseManager.CreateBaseManager()
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 function P2C1Base1AI()
-
-    P2CBase1:InitializeDifficultyTables(ArmyBrains[Cybran], 'P2CybranBase1', 'P2CB1MK', 80, {P2Cbase1 = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    P2CBase1:InitializeDifficultyTables(aiBrain, 'P2CybranBase1', 'P2CB1MK', 80, {P2Cbase1 = 100})
     P2CBase1:StartNonZeroBase({{8, 11, 14}, {6, 9, 12}})
     P2CBase1:SetActive('AirScouting', true)
 
@@ -25,7 +21,6 @@ function P2C1Base1AI()
 end
 
 function P2CB1Airattacks()
-    
     local quantity = {}
 
     quantity = {6, 7, 9}
@@ -47,8 +42,9 @@ function P2CB1Airattacks()
            PatrolChain = 'P2CB1AirPatrol'
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-	
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {6, 7, 9}
 	Temp = {
        'P2CB1AttackTemp1',
@@ -68,8 +64,8 @@ function P2CB1Airattacks()
            PatrolChains = {'P2CB1Airattack1','P2CB1Airattack2', 'P2CB1Airattack3'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-	
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {3, 4, 6}
 	Temp = {
        'P2CB1AttackTemp2',
@@ -89,11 +85,10 @@ function P2CB1Airattacks()
            PatrolChains = {'P2CB1Airattack1','P2CB1Airattack2', 'P2CB1Airattack3'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2CB1Landattacks()
-	
     local quantity = {}
 
     quantity = {4, 5, 7}
@@ -115,13 +110,12 @@ function P2CB1Landattacks()
            MoveChains = {'P2CB1Landattack1', 'P2CB1Landattack2'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
-    local opai = nil
-    local trigger = {}
     local poolName = 'P2CybranBase1_TransportPool'
-    
-    local quantity = {2, 3, 4}
+
+    quantity = {2, 3, 4}
     -- T2 Transport Platoon
     local Temp = {
         'M2_Cybran_Eastern_Transport_Platoon',
@@ -144,8 +138,8 @@ function P2CB1Landattacks()
             BaseName = 'P2CybranBase1',
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-    
+    aiBrain:PBMAddPlatoon( Builder )
+
     local Quantity2 = {2, 3, 4}
     Builder = {
         BuilderName = 'M2_Cybran_Land_Assault',
@@ -172,11 +166,10 @@ function P2CB1Landattacks()
             GenerateSafePath = true,
         },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2CB1Navalattacks()
-
     local quantity = {}
 
     quantity = {2, 3, 4}
@@ -199,8 +192,9 @@ function P2CB1Navalattacks()
            PatrolChains = {'P2CB1Navalattack1', 'P2CB1Navalattack2'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-	
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {2, 3, 4}
 	Temp = {
        'P2CB1NAttackTemp1',
@@ -221,8 +215,8 @@ function P2CB1Navalattacks()
            PatrolChains = {'P2CB1Navalattack1', 'P2CB1Navalattack2'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
-	
+    aiBrain:PBMAddPlatoon( Builder )
+
     quantity = {2, 3, 4}
 	Temp = {
        'P2CB1NAttackTemp2',
@@ -243,7 +237,7 @@ function P2CB1Navalattacks()
            PatrolChains = {'P2CB1Navalattack1', 'P2CB1Navalattack2'}
        },
     }
-    ArmyBrains[Cybran]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2C1B1EXPattacks()

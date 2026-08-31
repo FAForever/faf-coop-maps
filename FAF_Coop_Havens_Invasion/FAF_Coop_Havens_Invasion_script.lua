@@ -4,14 +4,14 @@
 -- Author: speed2
 -----------------------------------
 local Cinematics = import('/lua/cinematics.lua')
-local M1UEFAI = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m1uefai.lua')
-local M2UEFAI = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m2uefai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
+local M1UEFAI = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m1uefai.lua')---@module "FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m1uefai"
+local M2UEFAI = import('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m2uefai.lua')---@module "FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_m2uefai"
+local Objectives = import('/lua/simobjectives.lua')
 local OpStrings = import ('/maps/FAF_Coop_Havens_Invasion/FAF_Coop_Havens_Invasion_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 
 ----------
 -- Globals
@@ -633,7 +633,7 @@ function FixProps()
 
     -- Delete all the tree props on the map to avoid duplicates
     local props = GetReclaimablesInRect(ScenarioUtils.AreaToRect('M2_Area'))
-    for _, v in props do
+    for _, v in pairs(props or {}) do
         local ID = v:GetBlueprint().BlueprintId
         if bpsToDelete[ID] then
             v:Destroy()

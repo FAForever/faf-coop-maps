@@ -5,22 +5,22 @@
 --
 -- Map Edited By: MadMax
 ------------------------------
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local P2UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP2.lua')
-local P3UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP3.lua')
-local P3SERAAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP3.lua')
-local P2SERAAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP2.lua')
-local P2AEONAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/AEONaiP2.lua')
-local P4CoalitionAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/CoalitionaiP4.lua')
-local Buff = import('/lua/sim/Buff.lua')
-local OpStrings = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_strings.lua')
-local TauntManager = import('/lua/TauntManager.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_CustomFunctions.lua') 
+local P2UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP2.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP2"
+local P3UEFAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP3.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/UEFaiP3"
+local P3SERAAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP3.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP3"
+local P2SERAAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP2.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/SERAaiP2"
+local P2AEONAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/AEONaiP2.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/AEONaiP2"
+local P4CoalitionAI = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/CoalitionaiP4.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/CoalitionaiP4"
+local Buff = import('/lua/sim/buff.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_strings.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_strings"
+local TauntManager = import('/lua/tauntmanager.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_CustomFunctions.lua')---@module "FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_CustomFunctions" 
 
 local UEFTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_strings.lua')
 local AeonTM = TauntManager.CreateTauntManager('UEF1TM', '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_strings.lua')
@@ -122,7 +122,7 @@ function OnStart(scen)
         ArmyBrains[army]:IMAPConfiguration()
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 0)
+    Cinematics.CameraMoveToMarker('Commanderwarp', 0)
     
     ForkThread(IntroP1)
 end
@@ -157,10 +157,10 @@ function IntroP1()
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
         local tblArmy = ListArmies()
-        coop = 1
+        local coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy >= ScenarioInfo.Player2 then
-                factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+                local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
                 if (factionIdx == 2) then
                     ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'ACommander', 'Warp', true, true, PlayerDeath)
                 else
@@ -176,13 +176,13 @@ function IntroP1()
         ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
     
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam1'), 3)
+        Cinematics.CameraMoveToMarker('Pintattackcam1', 3)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam2'), 3)
+        Cinematics.CameraMoveToMarker('Pintattackcam2', 3)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Pintattackcam3'), 3)
+        Cinematics.CameraMoveToMarker('Pintattackcam3', 3)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 2)
+        Cinematics.CameraMoveToMarker('Commanderwarp', 2)
 
         ForkThread(
             function()
@@ -232,7 +232,7 @@ function MissionP1()
         'incomplete',
         'Prepare for UEF Assault',                -- title
         'UEF forces are inbound, you only have a few minutes to prepare.', -- description
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
         ShowFaction = 'UEF',
         }
@@ -245,6 +245,8 @@ function MissionP1()
 end
 
 function IntAssaultP1()
+    local quantity = {}
+    local trigger = {}
     if not SkipNIS2 then
 
         WaitSeconds(2*60)
@@ -255,8 +257,6 @@ function IntAssaultP1()
         
         ScenarioInfo.M1CounterAttackUnits = {}
 
-        local quantity = {}
-        local trigger = {}
         local platoon
 
         local function AddUnitsToObjTable(platoon)
@@ -283,7 +283,7 @@ function IntAssaultP1()
         end
 
         -- Sends fighters if players has more than [20, 15, 10] air fighters
-        num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE - categories.SCOUT)
+        local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE - categories.SCOUT)
         quantity = {15, 10, 5}
         trigger = {15, 10, 5}
         if num > quantity[Difficulty] then
@@ -357,7 +357,8 @@ function IntroP2()
     P2UEFAI.P2UEFbase2AI()
 
     if Difficulty == 3 then
-        ArmyBrains[UEF]:PBMSetCheckInterval(6)
+        local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+        aiBrain:PBMSetCheckInterval(6)
     end
 
     if ScenarioInfo.M1P1.Active then
@@ -379,7 +380,8 @@ function IntroP2()
 
     ScenarioInfo.SeraACU:AddBuildRestriction(categories.xsb2301 + categories.xsb2304 + categories.xsb2104 + categories.xsb1103 + categories.xsb1106 + categories.xsb1105 + categories.xsb1201 + categories.xsb2101 + categories.xsb5101)
     
-    ArmyBrains[SeraphimAlly]:PBMSetCheckInterval(6)
+    local aiBrain = ArmyBrains[SeraphimAlly]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(6)
     
     local units = ScenarioUtils.CreateArmyGroupAsPlatoon('SeraphimAlly', 'SApatrolG2', 'AttackFormation')
     for _, v in units:GetPlatoonUnits() do
@@ -396,7 +398,7 @@ function IntroP2()
         ScenarioFramework.GroupPatrolChain({v}, 'P2Aintattack1')
     end
    
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 0)
+    Cinematics.CameraMoveToMarker('Commanderwarp', 0)
     
     ScenarioFramework.Dialogue(OpStrings.IntroP2, nil, true)
    
@@ -406,15 +408,15 @@ function IntroP2()
         local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision1', 0, ArmyBrains[Player1])
         local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision2', 0, ArmyBrains[Player1])
    
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 4)
+        Cinematics.CameraMoveToMarker('P2Cam1', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 4)
+        Cinematics.CameraMoveToMarker('P2Cam2', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 3)
+        Cinematics.CameraMoveToMarker('P2Cam3', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam4'), 5)
+        Cinematics.CameraMoveToMarker('P2Cam4', 5)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 1)
+        Cinematics.CameraMoveToMarker('Commanderwarp', 1)
         ForkThread(
             function()
                 WaitSeconds(1)
@@ -428,8 +430,8 @@ function IntroP2()
         Cinematics.SetInvincible('AREA_1', true)
     Cinematics.ExitNISMode()
     
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
     buffAffects.MassProduction.Mult = 2
 
@@ -688,7 +690,7 @@ function EscortACU1()
         Cinematics.EnterNISMode()
             Cinematics.SetInvincible('AREA_2')
 
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('GateCam1'), 0)
+            Cinematics.CameraMoveToMarker('GateCam1', 0)
             WaitSeconds(5)
 
             ScenarioInfo.AeonACU3 = ScenarioFramework.SpawnCommander('WarpComs', 'G1U3', 'Gate', 'Zertha', false, nil,
@@ -697,7 +699,7 @@ function EscortACU1()
                 ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACU3}, 'WarpComChain1')
                 table.insert(ScenarioInfo.ComACUs, ScenarioInfo.AeonACU3)
 
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 1)
+            Cinematics.CameraMoveToMarker('Commanderwarp', 1)
 
             Cinematics.SetInvincible('AREA_2', true)
         Cinematics.ExitNISMode() 
@@ -759,9 +761,9 @@ function Failsafe1()
 end
 
 function UEFInterceptattacksP2()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- Basic air attack
@@ -787,7 +789,7 @@ function UEFInterceptattacksP2()
     WaitSeconds(40)
 
     -- sends ASF if player has more than [30, 20, 10] Air, up to 3, 1 group per 3, 2, 1
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
     quantity = {55, 35, 25}
     trigger = {40, 30, 20}
     if num > quantity[Difficulty] then
@@ -870,7 +872,7 @@ function EscortACU2()
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_2')
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('GateCam1'), 0)
+        Cinematics.CameraMoveToMarker('GateCam1', 0)
 
         WaitSeconds(5)
 
@@ -880,7 +882,7 @@ function EscortACU2()
             ScenarioFramework.GroupMoveChain({ScenarioInfo.AeonACUG3}, 'WarpComChain1')
             table.insert(ScenarioInfo.ComACU2s, ScenarioInfo.AeonACUG3)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 1)
+        Cinematics.CameraMoveToMarker('Commanderwarp', 1)
 
         Cinematics.SetInvincible('AREA_2', true)
     Cinematics.ExitNISMode()
@@ -949,9 +951,9 @@ function Failsafe2()
 end
 
 function AeonInterceptattacksP2()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- Basic air attack
@@ -994,7 +996,7 @@ function AeonInterceptattacksP2()
     WaitSeconds(10)
 
     -- sends ASF if player has more than [30, 20, 10] Air, up to 5, 1 group per 20, 15, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE)
     quantity = {30, 20, 10}
     trigger = {20, 15, 10}
     if num > quantity[Difficulty] then
@@ -1032,6 +1034,7 @@ end
 --Part 3
 
 function IntroP3()
+    local quantity = {}
     ScenarioFramework.FlushDialogueQueue()
     
     WaitSeconds(10)
@@ -1096,8 +1099,8 @@ function IntroP3()
 
     --Eco boosts for AI
     
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2.0
     buffAffects.MassProduction.Mult = 2.0
 
@@ -1154,7 +1157,7 @@ function IntroP3()
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3UB1NavalPatrol1')))
     end
 
-    local quantity = {1, 2, 2}
+    quantity = {1, 2, 2}
     for i = 1, quantity[Difficulty] do
         units = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'P3UExpDefend', 'GrowthFormation')
         for _, v in units:GetPlatoonUnits() do
@@ -1171,7 +1174,7 @@ function IntroP3()
     
     -- P3 Cutscene
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 0)
+    Cinematics.CameraMoveToMarker('Commanderwarp', 0)
     
     Cinematics.EnterNISMode()
         Cinematics.SetInvincible('AREA_2')
@@ -1181,17 +1184,17 @@ function IntroP3()
         local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(80, 'P3Vision3', 0, ArmyBrains[Player1])
         local VisMarker3_4 = ScenarioFramework.CreateVisibleAreaLocation(80, 'P3Vision4', 0, ArmyBrains[Player1])
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 3)
+        Cinematics.CameraMoveToMarker('P3Cam1', 3)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam2', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam3', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam4', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam5'), 4)
+        Cinematics.CameraMoveToMarker('P3Cam5', 4)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Commanderwarp'), 2)
+        Cinematics.CameraMoveToMarker('Commanderwarp', 2)
 
         ForkThread(
             function()
@@ -1321,13 +1324,13 @@ function MissionP3()
 end
 
 function CounterAttackP3()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 6, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
     quantity = {200, 150, 100}
     trigger = {100, 75, 50}
     if num > quantity[Difficulty] then
@@ -1760,8 +1763,8 @@ function Part4Bases()
             v:GiveTacticalSiloAmmo(5)
         end
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
@@ -1775,9 +1778,9 @@ function Part4Bases()
 end
 
 function CoalitionInterceptattacksP3()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
 
     -- Basic air attack
@@ -1793,11 +1796,11 @@ function CoalitionInterceptattacksP3()
     end
 
     WaitSeconds(40)
-    i = Difficulty
+
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UComExp_D' .. Difficulty, 'AttackFormation', 2 + Difficulty)
     ScenarioFramework.PlatoonPatrolChain(platoon, 'P4IntAttackExp')
     local guard = ScenarioUtils.CreateArmyGroup('UEF', 'P4UComExpGuard')
-        IssueGuard(guard, platoon:GetPlatoonUnits()[i])
+        IssueGuard(guard, platoon:GetPlatoonUnits()[Difficulty])
 
     for i = 1, 2 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'P4UComLand_D' .. Difficulty, 'GrowthFormation', 5)
@@ -1824,7 +1827,7 @@ function CoalitionInterceptattacksP3()
     end
 
     -- sends Gunships if player has more than [60, 50, 40] Units, up to 10, 1 group per 14, 11, 10
-    num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
+    local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL)
     quantity = {200, 150, 100}
     trigger = {70, 60, 50}
     if num > quantity[Difficulty] then

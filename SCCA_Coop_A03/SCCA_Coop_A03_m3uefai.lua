@@ -16,7 +16,8 @@ local UEFM3MainBase = BaseManager.CreateBaseManager()
 -- UEF M3 Main Base
 -------------------
 function UEFM3MainBaseAI()
-    UEFM3MainBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Main_Base', 'M3_Main_Base_Marker', 90, {M3_Main_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM3MainBase:InitializeDifficultyTables(aiBrain, 'M3_Main_Base', 'M3_Main_Base_Marker', 90, {M3_Main_Base = 100})
     UEFM3MainBase:StartNonZeroBase({{8, 11, 15}, {6, 9, 12}})
 
     ForkThread(function()
@@ -47,7 +48,7 @@ function UEFM3MainBaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 7, categories.uea0104})
+        'HaveLessThanUnitsWithCategory', {7, categories.uea0104})
 
     -- Air Attacks
     quantity = {4, 6, 8}
@@ -124,7 +125,7 @@ function UEFM3MainBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 30, categories.MOBILE * categories.AIR, '>='})
+        {{'HumanPlayers'}, 30, categories.MOBILE * categories.AIR, '>='})
 
     -- Air Defense
 
@@ -228,7 +229,7 @@ function UEFM3MainBaseNavalAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE, '>='})
 
     quantity = {10, 15, 20}
     opai = UEFM3MainBase:AddNavalAI('M3_Naval_Attack_3',
@@ -289,5 +290,5 @@ function UEFM3MainBaseNavalAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH2, '>='})
 end

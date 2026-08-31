@@ -3,21 +3,21 @@
 --
 -- Author: Shadowlorda1
 ------------------------------
-local OpStrings = import('/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_strings.lua')
-local Buff = import('/lua/sim/Buff.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_strings.lua')---@module "FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_strings"
+local Buff = import('/lua/sim/buff.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')  
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_CustomFunctions.lua') 
-local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP1.lua')
-local P2SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP2.lua')
-local P3SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP3.lua')
-local P1UEFAI = import('/maps/FAF_Coop_Operation_Red_Revenge/UEFaiP1.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_CustomFunctions.lua')---@module "FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_CustomFunctions" 
+local P1SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP1.lua')---@module "FAF_Coop_Operation_Red_Revenge/SeraphimaiP1"
+local P2SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP2.lua')---@module "FAF_Coop_Operation_Red_Revenge/SeraphimaiP2"
+local P3SeraphimAI = import('/maps/FAF_Coop_Operation_Red_Revenge/SeraphimaiP3.lua')---@module "FAF_Coop_Operation_Red_Revenge/SeraphimaiP3"
+local P1UEFAI = import('/maps/FAF_Coop_Operation_Red_Revenge/UEFaiP1.lua')---@module "FAF_Coop_Operation_Red_Revenge/UEFaiP1"
+local TauntManager = import('/lua/tauntmanager.lua')
 
 local SeraTM = TauntManager.CreateTauntManager('Sera1TM', '/maps/FAF_Coop_Operation_Red_Revenge/FAF_Coop_Operation_Red_Revenge_strings.lua')
 
@@ -113,13 +113,16 @@ function OnStart(scenario)
     P1SeraphimAI.Seraphimbase1AI()
     P1SeraphimAI.Orderbase1AI()
     P1SeraphimAI.Orderbase2AI()
-    
-    ArmyBrains[Seraphim]:PBMSetCheckInterval(6)
-    ArmyBrains[Order]:PBMSetCheckInterval(6)
-    ArmyBrains[QAI]:PBMSetCheckInterval(6)
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local aiBrain1 = ArmyBrains[Seraphim]--[[@as CampaignAIBrain]]
+    local aiBrain2 = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    local aiBrain3 = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain1:PBMSetCheckInterval(6)
+    aiBrain2:PBMSetCheckInterval(6)
+    aiBrain3:PBMSetCheckInterval(6)
+
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 1.5
     buffAffects.MassProduction.Mult = 1.5
 
@@ -142,9 +145,9 @@ end
 ---Part 1
 
 function IntroP1()
-    
     ScenarioInfo.MissionNumber = 1
 
+    local platoon
     for i = 1, 2 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P1SUnits1', 'AttackFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'P1SPatrol'.. i)
@@ -164,18 +167,18 @@ function IntroP1()
         local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(120, 'P1Vision3', 0, ArmyBrains[Player1])
         local VisMarker1_4 = ScenarioFramework.CreateVisibleAreaLocation(120, 'P1Vision4', 0, ArmyBrains[Player1])
     
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam1'), 0)
+        Cinematics.CameraMoveToMarker('P1Cam1', 0)
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.IntroP1, nil, true)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam2'), 4)
+        Cinematics.CameraMoveToMarker('P1Cam2', 4)
         WaitSeconds(5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam3'), 4)
+        Cinematics.CameraMoveToMarker('P1Cam3', 4)
         WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam4'), 2)
+        Cinematics.CameraMoveToMarker('P1Cam4', 2)
         ForkThread(Player1Units)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P1Cam5'), 3)
+        Cinematics.CameraMoveToMarker('P1Cam5', 3)
         ScenarioFramework.Dialogue(OpStrings.Thalia1P1, nil, true)
     
         ForkThread(
@@ -222,10 +225,10 @@ function IntroP1()
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
-            factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
+            local factionIdx = GetArmyBrain(strArmy):GetFactionIndex()
             if (factionIdx == 1) then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'UEFPlayer', 'Warp', true, true, PlayerDeath,
                 {'HeavyAntiMatterCannon', 'DamageStabilization'})
@@ -415,12 +418,12 @@ function Player1Units()
 end
 
 function Player1Reinforcements()
+    local quantity = {}
 
     while (not P1EndReinforcements) do
         
         local platoon
 
-        local quantity = {}
         quantity = {2, 2, 1}
 
         for i = 1, quantity[Difficulty] do
@@ -468,7 +471,8 @@ function UEFIntroP1()
     SetArmyEconomy(UEF, 10000, 10000)
 
     P1UEFAI.UEFbase1AI()
-    ArmyBrains[UEF]:PBMSetCheckInterval(6)
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(6)
     ForkThread(UEFMissionP2)
 
     if ScenarioInfo.M1P1.Active then
@@ -578,8 +582,8 @@ function IntroP2()
     ForkThread(UEFDefense)
     ForkThread(P2Intattacks)
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
@@ -603,10 +607,11 @@ function UEFDefense()
 end
 
 function P2Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
+    local num
 
     -- Basic Land attack
     for i = 1, 4 do
@@ -778,14 +783,14 @@ function IntroP3()
     ScenarioUtils.CreateArmyGroup('Order', 'P2OWalls')
     ScenarioUtils.CreateArmyGroup('QAI', 'P2CWalls')
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P2SPatrol', 'GrowthFormation', 2 + Difficulty)
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'P2SPatrol')
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('Seraphim', 'P2SPatrol', 'GrowthFormation', 2 + Difficulty)
+    ScenarioFramework.PlatoonPatrolChain(platoon, 'P2SPatrol')
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P2SPatrolAir_D'.. Difficulty, 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2SB1ADefence1')))
-        end 
-    
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2SB1ADefence1')))
+    end
+
     P2SeraphimAI.P2Seraphimbase1AI()
     P2SeraphimAI.P2Seraphimbase2AI()
     P2SeraphimAI.P2Seraphimbase3AI()
@@ -796,51 +801,51 @@ function IntroP3()
 
     ScenarioInfo.P2QACU = ScenarioFramework.SpawnCommander('QAI', 'P2QACU', nil, 'QAI Drone', false, QAIACUdeath,
         {'MicrowaveLaserGenerator', 'StealthGenerator', 'CloakingGenerator', 'T3Engineering'})
-        ScenarioInfo.P2QACU:SetAutoOvercharge(true)
-        ScenarioInfo.P2QACU:SetVeterancy(1 + Difficulty)
+    ScenarioInfo.P2QACU:SetAutoOvercharge(true)
+    ScenarioInfo.P2QACU:SetVeterancy(1 + Difficulty)
 
     P1UEFAI.P2B1ULandattack()
     P1UEFAI.P2B1UAirattack()
     P1UEFAI.P2B1UNavalattack()
 
     Cinematics.EnterNISMode()
-        Cinematics.SetInvincible('AREA_2')
+    Cinematics.SetInvincible('AREA_2')
 
-        local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision1', 0, ArmyBrains[Player1])
-        local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P2Vision2', 0, ArmyBrains[Player1])
-        local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(70, 'P2Vision3', 0, ArmyBrains[Player1])
-    
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam1'), 0)
-        ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
-        WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam2'), 4)
-        WaitSeconds(5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P2Cam3'), 4)
-        WaitSeconds(4)
-    
-        ForkThread(
-            function()
-                WaitSeconds(1)
-                VisMarker2_1:Destroy()
-                VisMarker2_2:Destroy()
-                VisMarker2_3:Destroy()
-                WaitSeconds(1)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision1'), 60)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision2'), 110)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision3'), 80)
-            end
-        )
-        -- Gets player number and joins it to a string to make it refrence a camera marker e.g 'Cam_M1_Intro_Player1'
-        local army = GetFocusArmy()
-        if army == -1 then
-        army = 1
+    local VisMarker2_1 = ScenarioFramework.CreateVisibleAreaLocation(50, 'P2Vision1', 0, ArmyBrains[Player1])
+    local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P2Vision2', 0, ArmyBrains[Player1])
+    local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(70, 'P2Vision3', 0, ArmyBrains[Player1])
+
+    Cinematics.CameraMoveToMarker('P2Cam1', 0)
+    ScenarioFramework.Dialogue(OpStrings.IntroP3, nil, true)
+    WaitSeconds(4)
+    Cinematics.CameraMoveToMarker('P2Cam2', 4)
+    WaitSeconds(5)
+    Cinematics.CameraMoveToMarker('P2Cam3', 4)
+    WaitSeconds(4)
+
+    ForkThread(
+        function()
+            WaitSeconds(1)
+            VisMarker2_1:Destroy()
+            VisMarker2_2:Destroy()
+            VisMarker2_3:Destroy()
+            WaitSeconds(1)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision1'), 60)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision2'), 110)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P2Vision3'), 80)
         end
-        local tblArmy = ListArmies()
-        ScenarioInfo.PlayerCamString = tostring(tblArmy[army])
+    )
+    -- Gets player number and joins it to a string to make it refrence a camera marker e.g 'Cam_M1_Intro_Player1'
+    local army = GetFocusArmy()
+    if army == -1 then
+        army = 1
+    end
+    local tblArmy = ListArmies()
+    ScenarioInfo.PlayerCamString = tostring(tblArmy[army])
 
-        Cinematics.CameraMoveToMarker('P1C' .. ScenarioInfo.PlayerCamString)
+    Cinematics.CameraMoveToMarker('P1C' .. ScenarioInfo.PlayerCamString)
 
-        Cinematics.SetInvincible('AREA_2', true)
+    Cinematics.SetInvincible('AREA_2', true)
     Cinematics.ExitNISMode()
 
     ForkThread(MissionP3)
@@ -849,8 +854,8 @@ function IntroP3()
     ForkThread(EnableStealthOnAirQ)
     ScenarioFramework.CreateTimerTrigger(P3MidDialogue, 15*60)
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
@@ -862,15 +867,16 @@ function IntroP3()
         end
         for _, u in GetArmyBrain(QAI):GetPlatoonUniquelyNamed('ArmyPool'):GetPlatoonUnits() do
             Buff.ApplyBuff(u, 'CheatIncome')
-        end  
+        end
     ForkThread(SetupSeraM3TauntTriggers)
 end
 
 function P3Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
+    local num
 
     -- Basic Land attack
     for i = 1, 2 do
@@ -1211,98 +1217,98 @@ function IntroP4()
         v:GiveTacticalSiloAmmo(4)
     end
 
-    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P3SAirPatrol_D'.. Difficulty, 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SAirPatrol')))
-        end 
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P3SAirPatrol_D'.. Difficulty, 'AttackFormation')
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SAirPatrol')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P3SBotP1', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol1')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol1')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P3SBotP2', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol2')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol2')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'P3SBotP3', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol3')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3SBotPatrol3')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'P3OAirPatrol_D'.. Difficulty, 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OAirPatrol')))
-        end
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OAirPatrol')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'P3OGCP1', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol1')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol1')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'P3OGCP2', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol2')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol2')))
+    end
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Order', 'P3OGCP3', 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol3')))
-        end  
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P3OGCPatrol3')))
+    end 
 
     ScenarioInfo.P3SACU = ScenarioFramework.SpawnCommander('Seraphim', 'P3SACU', nil, 'Oum-Eoshi', false, SeraACUdeath,
         {'AdvancedEngineering', 'T3Engineering', 'DamageStabilization', 'DamageStabilizationAdvanced', 'RateOfFire'})
-        ScenarioInfo.P3SACU:SetAutoOvercharge(true)
-        ScenarioInfo.P3SACU:SetVeterancy(1 + Difficulty)
+    ScenarioInfo.P3SACU:SetAutoOvercharge(true)
+    ScenarioInfo.P3SACU:SetVeterancy(1 + Difficulty)
 
     ScenarioInfo.P3OACU = ScenarioFramework.SpawnCommander('Order', 'P3OACU', nil, 'Executioner Keleana', false, OrderACUdeath,
         {'EnhancedSensors','Shield', 'ShieldHeavy', 'AdvancedEngineering', 'T3Engineering'})
-        ScenarioInfo.P3OACU:SetAutoOvercharge(true)
-        ScenarioInfo.P3OACU:SetVeterancy(1 + Difficulty)
-    ScenarioInfo.P3OACU:AddBuildRestriction(categories.xab2307) 
+    ScenarioInfo.P3OACU:SetAutoOvercharge(true)
+    ScenarioInfo.P3OACU:SetVeterancy(1 + Difficulty)
+    ScenarioInfo.P3OACU:AddBuildRestriction(categories.xab2307)
 
     Cinematics.EnterNISMode()
-        Cinematics.SetInvincible('AREA_3')
+    Cinematics.SetInvincible('AREA_3')
 
-        local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision1', 0, ArmyBrains[Player1])
-        local VisMarker3_2 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision2', 0, ArmyBrains[Player1])
-        local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision3', 0, ArmyBrains[Player1])
+    local VisMarker3_1 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision1', 0, ArmyBrains[Player1])
+    local VisMarker3_2 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision2', 0, ArmyBrains[Player1])
+    local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(100, 'P3Vision3', 0, ArmyBrains[Player1])
 
-        WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam1'), 0)
-        ScenarioFramework.Dialogue(OpStrings.IntroP4, nil, true)
-        WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam2'), 3)
-        WaitSeconds(2)
-        ForkThread(P4Intattacks)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam3'), 2)
-        WaitSeconds(3)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('P3Cam4'), 4)
-        WaitSeconds(2)
-        ForkThread(
-            function()
-                WaitSeconds(1)
-                VisMarker3_1:Destroy()
-                VisMarker3_2:Destroy()
-                VisMarker3_3:Destroy()
-                WaitSeconds(1)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision1'), 110)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision2'), 110)
-                ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision3'), 110)
-            end
-        )
-        -- Gets player number and joins it to a string to make it refrence a camera marker e.g 'Cam_M1_Intro_Player1'
-        local army = GetFocusArmy()
-        if army == -1 then
-        army = 1
+    WaitSeconds(2)
+    Cinematics.CameraMoveToMarker('P3Cam1', 0)
+    ScenarioFramework.Dialogue(OpStrings.IntroP4, nil, true)
+    WaitSeconds(3)
+    Cinematics.CameraMoveToMarker('P3Cam2', 3)
+    WaitSeconds(2)
+    ForkThread(P4Intattacks)
+    Cinematics.CameraMoveToMarker('P3Cam3', 2)
+    WaitSeconds(3)
+    Cinematics.CameraMoveToMarker('P3Cam4', 4)
+    WaitSeconds(2)
+    ForkThread(
+        function()
+            WaitSeconds(1)
+            VisMarker3_1:Destroy()
+            VisMarker3_2:Destroy()
+            VisMarker3_3:Destroy()
+            WaitSeconds(1)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision1'), 110)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision2'), 110)
+            ScenarioFramework.ClearIntel(ScenarioUtils.MarkerToPosition('P3Vision3'), 110)
         end
-        local tblArmy = ListArmies()
-        ScenarioInfo.PlayerCamString = tostring(tblArmy[army])
+    )
+    -- Gets player number and joins it to a string to make it refrence a camera marker e.g 'Cam_M1_Intro_Player1'
+    local army = GetFocusArmy()
+    if army == -1 then
+    army = 1
+    end
+    local tblArmy = ListArmies()
+    ScenarioInfo.PlayerCamString = tostring(tblArmy[army])
 
-        Cinematics.CameraMoveToMarker('P1C' .. ScenarioInfo.PlayerCamString)
+    Cinematics.CameraMoveToMarker('P1C' .. ScenarioInfo.PlayerCamString)
 
-        Cinematics.SetInvincible('AREA_3', true)
+    Cinematics.SetInvincible('AREA_3', true)
     Cinematics.ExitNISMode()
 
     ForkThread(MissionP4)
@@ -1313,8 +1319,8 @@ function IntroP4()
         ForkThread(P4QIntattacks)
     end
 
-    buffDef = Buffs['CheatIncome']
-    buffAffects = buffDef.Affects
+    local buffDef = Buffs['CheatIncome']
+    local buffAffects = buffDef.Affects
     buffAffects.EnergyProduction.Mult = 2
     buffAffects.MassProduction.Mult = 2
 
@@ -1357,10 +1363,11 @@ function MissionP4()
 end
 
 function P4Intattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
+    local num
 
     -- Basic Land attack
     for i = 1, 2 do
@@ -1475,10 +1482,11 @@ end
 -- If QAI is still alive expand his base, and launch attack.
 
 function P4QIntattacks()
-
     local quantity = {}
     local trigger = {}
+
     local platoon
+    local num
 
     P2SeraphimAI.P3QAIbase1AI()
     P2SeraphimAI.P3QAIbase2AI()
@@ -1486,9 +1494,9 @@ function P4QIntattacks()
     ForkThread(NukepartyQ)
 
     platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'P3QAirPatrol_D'.. Difficulty, 'AttackFormation')
-        for k, v in platoon:GetPlatoonUnits() do
-            ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2CB1ADefence1')))
-        end 
+    for k, v in platoon:GetPlatoonUnits() do
+        ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('P2CB1ADefence1')))
+    end
 
     for i = 1, 3 do
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('QAI', 'P2QDrops', 'GrowthFormation', 5)
@@ -1650,50 +1658,41 @@ end
 --Taunt Functions
 
 function SetupSeraM1TauntTriggers()
-  
     SeraTM:AddEnemiesKilledTaunt('P1Taunt3', ArmyBrains[Seraphim], categories.STRUCTURE, 10)
     SeraTM:AddUnitsKilledTaunt('P1Taunt1', ArmyBrains[Seraphim], categories.STRUCTURE * categories.DEFENSE, 10)
     SeraTM:AddUnitsKilledTaunt('P1Taunt2', ArmyBrains[Seraphim], categories.LAND * categories.MOBILE, 50)
 
     SeraTM:AddUnitsKilledTaunt('P1Taunt4', ArmyBrains[Order], categories.STRUCTURE * categories.ECONOMIC, 10)
     SeraTM:AddUnitsKilledTaunt('P1Taunt5', ArmyBrains[Order], categories.STRUCTURE * categories.FACTORY, 4)
-    
 end
 
 function SetupSeraM2TauntTriggers()
-    
     SeraTM:AddEnemiesKilledTaunt('P2Taunt2', ArmyBrains[Order], categories.NAVAL, 20)
     SeraTM:AddUnitsKilledTaunt('P2Taunt1', ArmyBrains[Seraphim], categories.STRUCTURE + categories.DEFENSE, 5)
     SeraTM:AddUnitsKilledTaunt('P2Taunt3', ArmyBrains[Order], categories.STRUCTURE * categories.FACTORY, 4)
-
 end
 
 function SetupSeraM3TauntTriggers()
-
         SeraTM:AddTauntingCharacter(ScenarioInfo.P2QACU)
-    
+
         SeraTM:AddEnemiesKilledTaunt('P3Taunt2', ArmyBrains[Order], categories.AIR * categories.MOBILE, 30)
         SeraTM:AddEnemiesKilledTaunt('P3Taunt3', ArmyBrains[Order], categories.LAND * categories.MOBILE, 70)
         SeraTM:AddUnitsKilledTaunt('P3Taunt1', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 1)
         SeraTM:AddUnitsKilledTaunt('P3Taunt4', ArmyBrains[QAI], categories.NAVAL * categories.DESTROYER, 15)
         SeraTM:AddUnitsKilledTaunt('P3Taunt5', ArmyBrains[QAI], categories.STRUCTURE * categories.FACTORY, 3)
-    
-        SeraTM:AddDamageTaunt('P3Taunt6', ScenarioInfo.P2QACU, .50)
 
+        SeraTM:AddDamageTaunt('P3Taunt6', ScenarioInfo.P2QACU, .50)
 end
 
 function SetupSeraM4TauntTriggers()
+        SeraTM:AddTauntingCharacter(ScenarioInfo.P2C1ACU)
+        SeraTM:AddTauntingCharacter(ScenarioInfo.P2C1ACU)
 
-        SeraTM:AddTauntingCharacter(ScenarioInfo.P2C1ACU)
-        SeraTM:AddTauntingCharacter(ScenarioInfo.P2C1ACU)
-    
         SeraTM:AddEnemiesKilledTaunt('P4Taunt1', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 3)
         SeraTM:AddUnitsKilledTaunt('P4Taunt2', ArmyBrains[Seraphim], categories.EXPERIMENTAL, 2)
         SeraTM:AddEnemiesKilledTaunt('P4Taunt3', ArmyBrains[Order], categories.EXPERIMENTAL , 5)
         SeraTM:AddUnitsKilledTaunt('P4Taunt3', ArmyBrains[Order], categories.EXPERIMENTAL, 5)
-    
-        SeraTM:AddDamageTaunt('P4Taunt5', ScenarioInfo.P3SACU, .50)
-    
-        SeraTM:AddDamageTaunt('P4Taunt6', ScenarioInfo.P3OACU, .50)
 
+        SeraTM:AddDamageTaunt('P4Taunt5', ScenarioInfo.P3SACU, .50)
+        SeraTM:AddDamageTaunt('P4Taunt6', ScenarioInfo.P3OACU, .50)
 end

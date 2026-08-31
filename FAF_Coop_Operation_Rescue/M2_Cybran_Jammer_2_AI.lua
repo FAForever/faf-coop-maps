@@ -48,7 +48,7 @@ function M2_Cybran_Air_Attacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR, '>='})
 
     quantity = {2, 3, 4}
     opai = M2CybranBase2:AddOpAI('AirAttacks', 'M2_JammerAirAttack_2_3',
@@ -64,9 +64,9 @@ function M2_Cybran_Air_Attacks()
 end
 
 function M2_Cybran_Transport_Attacks()
-    -- We want this AI to mainly be made up of transport drops.
     local opai = nil
     local trigger = {}
+    -- We want this AI to mainly be made up of transport drops.
 
     -- Transport Builder
     opai = M2CybranBase2:AddOpAI('EngineerAttack', 'M2_Cybran_TransportBuilder',
@@ -80,7 +80,7 @@ function M2_Cybran_Transport_Attacks()
     opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {3, categories.ura0104})
 
     -- Tech 1
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack1',
@@ -120,7 +120,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('HeavyBots', 16)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE, '>='})
 
     -- Tech 2
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack4',
@@ -135,7 +135,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('HeavyTanks', 8)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
 
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack5',
     {
@@ -149,7 +149,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('HeavyTanks', 10)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 2, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 2, categories.FACTORY * categories.TECH2, '>='})
 
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack6',
     {
@@ -163,7 +163,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('MobileMissiles', 10)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 2, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 2, categories.FACTORY * categories.TECH2, '>='})
 
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack7',
     {
@@ -177,7 +177,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('MobileFlak', 6)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY * categories.TECH2, '>='})
 
     trigger = {28, 22, 16}
     opai = M2CybranBase2:AddOpAI('BasicLandAttack', 'M2_CybranTransportAttack8',
@@ -192,7 +192,7 @@ function M2_Cybran_Transport_Attacks()
     })
     opai:SetChildQuantity('HeavyTanks', 8)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE, '>='})
 end
 
 function DisableBase()

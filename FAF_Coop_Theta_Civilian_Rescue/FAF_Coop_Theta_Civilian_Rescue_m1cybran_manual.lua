@@ -1,6 +1,6 @@
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions"
 
 ---------
 -- Locals
@@ -26,7 +26,7 @@ function CybranM1WestBaseDefensePatrols()
 end
 
 function MMLAttackACU()
-    units = TCRUtil.GetAllCatUnitsInArea(categories.COMMAND, 'M1_Cybran_Base_Area')
+    local units = TCRUtil.GetAllCatUnitsInArea(categories.COMMAND, 'M1_Cybran_Base_Area')
     for _,unit in units do
         IssueAttack( MMLPlatoon, unit)
         break

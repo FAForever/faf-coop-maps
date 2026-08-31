@@ -17,7 +17,8 @@ local CybranM2Base = BaseManager.CreateBaseManager()
 -- Cybran M2 Base
 -----------------
 function CybranM2BaseAI()
-    CybranM2Base:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Base', 'M2_Cybran_Base_Marker', 150, {M2_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2Base:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Base', 'M2_Cybran_Base_Marker', 150, {M2_Base = 100})
     CybranM2Base:StartNonZeroBase({{6, 10, 14}, {6, 9, 12}})
     CybranM2Base:SetActive('AirScouting', true)
 
@@ -44,7 +45,7 @@ function CybranM2BaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 6)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {8, categories.ura0104})
 
     quantity = {9, 12, 15}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_1',
@@ -95,7 +96,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL, '>='})
 
     quantity = {2, 3, 6}
     opai = CybranM2Base:AddOpAI('AirAttacks', 'M2_Cybran_Base_AirAttack_4',
@@ -130,7 +131,7 @@ function CybranM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function CybranM2BaseLandAttacks()
@@ -172,7 +173,7 @@ function CybranM2BaseLandAttacks()
         )
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-            'HaveGreaterThanUnitsWithCategory', {'default_brain', 4, categories.ura0104})
+            'HaveGreaterThanUnitsWithCategory', {4, categories.ura0104})
         opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
     end
 
@@ -249,7 +250,7 @@ function CybranM2BaseNavalAttacks()
     )
     opai:SetChildQuantity('Destroyers', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     quantity = {{2, 1}, {3, 1, 4}, {4, 2, 6}}
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_4',
@@ -271,7 +272,7 @@ function CybranM2BaseNavalAttacks()
         opai:SetChildQuantity({'Destroyers', 'Cruisers'}, quantity[Difficulty])
     end
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 3, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_5',
         {
@@ -288,7 +289,7 @@ function CybranM2BaseNavalAttacks()
     )
     opai:SetChildQuantity({'Battleships', 'Destroyers'}, {1, 4})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 6, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 6, categories.NAVAL * categories.MOBILE - categories.TECH1, '>='})
 
     opai = CybranM2Base:AddOpAI('NavalAttacks', 'M2_Cybran_Base_NavalAttack_6',
         {
@@ -305,7 +306,7 @@ function CybranM2BaseNavalAttacks()
     )
     opai:SetChildQuantity('Battleships', 3)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 2, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 2, categories.NAVAL * categories.MOBILE * categories.TECH3, '>='})
 
     -- Sonar around the base
     opai = CybranM2Base:AddOpAI('Sonar',

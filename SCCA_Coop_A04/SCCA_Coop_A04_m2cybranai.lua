@@ -19,7 +19,8 @@ local CybranM2SouthWestBase = BaseManager.CreateBaseManager()
 -- Cybran M2 Mainframe Base
 ---------------------------
 function CybranM2MainframeBaseAI()
-    CybranM2MainframeBase:InitializeDifficultyTables(ArmyBrains[Cybran], 'M2_Cybran_Mainframe_Base', 'M2_Cybran_Mainframe_Base_Marker', 40, {M2_Cybran_Mainframe_Base = 100})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM2MainframeBase:InitializeDifficultyTables(aiBrain, 'M2_Cybran_Mainframe_Base', 'M2_Cybran_Mainframe_Base_Marker', 40, {M2_Cybran_Mainframe_Base = 100})
     CybranM2MainframeBase:StartNonZeroBase({{3, 6, 12}, {3, 5, 9}})
     CybranM2MainframeBase:SetActive('AirScouting', true)
 
@@ -82,7 +83,7 @@ function CybranM2MainframeBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 ----------------------
@@ -114,7 +115,7 @@ function CybranM2EastBaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {6, categories.ura0104})
 
     -- Send 6, 8, 10 Gunships
     quantity = {6, 8, 10}
@@ -162,7 +163,7 @@ function CybranM2EastBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE, '>='})
 end
 
 function CybranM2EastBaseLandAttacks()
@@ -312,7 +313,7 @@ function CybranM2NorthWestBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 25, categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, 25, categories.AIR * categories.MOBILE, '>='})
 end
 
 function CybranM2NorthWestBaseNavalAttacks()
@@ -376,5 +377,5 @@ function CybranM2SouthWestBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 40, categories.AIR * categories.MOBILE, '>='})
+        {{'HumanPlayers'}, 40, categories.AIR * categories.MOBILE, '>='})
 end

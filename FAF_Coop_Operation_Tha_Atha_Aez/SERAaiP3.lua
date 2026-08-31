@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Tha_Atha_Aez/FAF_Coop_Operation_Tha_Atha_Aez_CustomFunctions.lua' 
 
 local SeraphimAlly2 = 6
@@ -10,7 +10,8 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local Serabase2 = BaseManager.CreateBaseManager()
 
 function OrderBase1AI()
-    Serabase2:InitializeDifficultyTables(ArmyBrains[SeraphimAlly2], 'Orderbase', 'OrderBaseMK', 70, {AeonbaseAlly2 = 100})
+    local aiBrain = ArmyBrains[SeraphimAlly2]--[[@as CampaignAIBrain]]
+    Serabase2:InitializeDifficultyTables(aiBrain, 'Orderbase', 'OrderBaseMK', 70, {AeonbaseAlly2 = 100})
     Serabase2:StartNonZeroBase({{15, 12, 9}, {12, 9, 6}})
 
     OrderlandAttacks()
@@ -18,7 +19,6 @@ function OrderBase1AI()
 end
 
 function OrderAirAttacks()
-
     local quantity = {}
 
     quantity = {5, 3, 2}
@@ -40,7 +40,8 @@ function OrderAirAttacks()
             PatrolChain = 'P3S2B1Defense3'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[SeraphimAlly2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 3, 2}
     Temp = {
@@ -62,7 +63,7 @@ function OrderAirAttacks()
             PatrolChain = 'P3S2B1Defense3'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 6, 5}
     Temp = {
@@ -83,7 +84,7 @@ function OrderAirAttacks()
             PatrolChain = 'P3S2B1Defense1'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {7, 6, 5}
     Temp = {
@@ -104,7 +105,7 @@ function OrderAirAttacks()
             PatrolChain = 'P3S2B1Defense2'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 7, 6}
     Temp = {
@@ -125,11 +126,11 @@ function OrderAirAttacks()
             PatrolChains = {'P3S2B1Landattack1', 'P3S2B1Landattack2', 'P3S2B1Landattack3'}
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder ) 
+    aiBrain:PBMAddPlatoon( Builder ) 
 end
 
 function OrderlandAttacks()
-
+    local opai = nil
     local quantity = {}
 
     quantity = {8, 7, 6}
@@ -153,7 +154,8 @@ function OrderlandAttacks()
             PatrolChain = 'P3S2B1Defense1'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[SeraphimAlly2]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {10, 9, 8}
     Temp = {
@@ -175,7 +177,7 @@ function OrderlandAttacks()
             PatrolChain = 'P3S2B1Defense2'
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {6, 4, 3}
     Temp = {
@@ -197,7 +199,7 @@ function OrderlandAttacks()
             MoveChains = {'P3S2B1Landattack1', 'P3S2B1Landattack2', 'P3S2B1Landattack3'}
         },
     }
-    ArmyBrains[SeraphimAlly2]:PBMAddPlatoon( Builder )    
+    aiBrain:PBMAddPlatoon( Builder )    
 
     opai = Serabase2:AddOpAI('EngineerAttack', 'M3_West_Reclaim_Engineers',
     {

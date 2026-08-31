@@ -1,6 +1,6 @@
-local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
-local ScenarioFramework = import("/lua/ScenarioFramework.lua")
-local ScenarioPlatoonAI = import("/lua/ScenarioPlatoonAI.lua")
+local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
+local ScenarioFramework = import("/lua/scenarioframework.lua")
+local ScenarioPlatoonAI = import("/lua/scenarioplatoonai.lua")
 local NavUtils = import("/lua/sim/navutils.lua")
 local AIBehaviors = import("/lua/ai/aibehaviors.lua")
 local Utils = import("/lua/utilities.lua")
@@ -16,78 +16,76 @@ ScenarioInfo.Player4 = 8
 
 local Difficulty = ScenarioInfo.Options.Difficulty
 
--- TODO: Create new build location with carrier.
 function CarrierAI(platoon)
     platoon:Stop()
+
     local aiBrain = platoon:GetBrain()
     local data = platoon.PlatoonData
     local carriers = platoon:GetPlatoonUnits()
     local movePositions = {}
 
-    if(data) then
-        if(data.MoveRoute or data.MoveChain) then
-            if data.MoveChain then
-                movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
+    if not data then
+        error('*Carrier AI ERROR: PlatoonData not defined', 2)
+    elseif not (data.MoveRoute or data.MoveChain) then
+        error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
+    end
+
+    if data.MoveChain then
+        movePositions = ScenarioUtils.ChainToPositions(data.MoveChain)
+    else
+        for k, v in data.MoveRoute do
+            if type(v) == 'string' then
+                table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
             else
-                for k, v in data.MoveRoute do
-                    if type(v) == 'string' then
-                        table.insert(movePositions, ScenarioUtils.MarkerToPosition(v))
-                    else
-                        table.insert(movePositions, v)
-                    end
+                table.insert(movePositions, v)
+            end
+        end
+    end
+
+    local numCarriers = table.getn(carriers)
+    local numPositions = table.getn(movePositions)
+
+    if numPositions < numCarriers then
+        error('*Carrier AI ERROR: Less move positions than carriers', 2)
+    end
+
+    for i = 1, numCarriers do
+        ForkThread(function(i)
+            local carrier = carriers[i]
+            IssueMove({carrier}, movePositions[i])
+
+            while not carrier.Dead and carrier:IsUnitState('Moving') do
+                WaitSeconds(.5)
+            end
+
+            if carrier.Dead then
+                return
+            end
+
+            for _, location in aiBrain.PBM.Locations do
+                if location.LocationType == data.Location .. i then
+                    location.PrimaryFactories.Air = carrier.ExternalFactory
+                    break
                 end
             end
 
-            local numCarriers = table.getn(carriers)
-            local numPositions = table.getn(movePositions)
+            carrier:ForkThread(function(self)
+                local factory = self.ExternalFactory
 
-            if numCarriers <= numPositions then
-                for i = 1, numCarriers do
-                    ForkThread(function(i)
-                        local carrier = carriers[i]
-                        IssueMove( {carriers[i]}, movePositions[i] )
+                while true do
+                    if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
+                        IssueClearCommands({self})
+                        IssueTransportUnload({self}, carrier:GetPosition())
 
-                        while (not carrier.Dead and carrier:IsUnitState('Moving')) do
-                            WaitSeconds(.5)
-                        end
-                        
-                        if carrier.Dead then
-                            return
-                        end
+                        repeat
+                            WaitSeconds(3)
+                        until not self:IsUnitState("TransportUnloading")
+                    end
 
-                        for _, location in aiBrain.PBM.Locations do
-                            if location.LocationType == data.Location .. i then
-                                location.PrimaryFactories.Air = factory
-                                break
-                            end
-                        end
-
-                        carrier:ForkThread(function(self)
-                            local factory = self.ExternalFactory
-            
-                            while true do
-                                if table.getn(self:GetCargo()) > 0 and factory:IsIdleState() then
-                                    IssueClearCommands({self})
-                                    IssueTransportUnload({self}, carrier:GetPosition())
-                
-                                    repeat
-                                        WaitSeconds(3)
-                                    until not self:IsUnitState("TransportUnloading")
-                                end
-            
-                                WaitSeconds(1)
-                            end
-                        end)
-                    end, i)
-                end             
-            else
-                error('*Carrier AI ERROR: Less move positions than carriers', 2)
-            end
-        else
-            error('*Carrier AI ERROR: MoveToRoute or MoveChain not defined', 2)
-        end
-    else
-        error('*Carrier AI ERROR: PlatoonData not defined', 2)
+                    WaitSeconds(1)
+                end
+            end)
+        end, i)
     end
 end
 
@@ -283,7 +281,7 @@ function PlatoonAttackWithTransportsThread( platoon, landingChain, attackChain, 
                 while (not unit.Dead and unit:IsUnitState('Attached')) do
                     WaitSeconds(.5)
                 end
-                
+
                 if (unit and not unit.Dead) then
                     aiBrain:AssignUnitsToPlatoon(platoon, {unit}, 'Attack', 'GrowthFormation')
                 end
@@ -339,7 +337,7 @@ end
 function HaveGreaterOrEqualThanUnitsInTransportPool(aiBrain, numReq, platoonName)
     -- Get either the specific transport platoon, or the universal 'TransportPool' platoon
     local platoon = aiBrain:GetPlatoonUniquelyNamed(platoonName) or aiBrain:GetPlatoonUniquelyNamed('TransportPool')
-    
+
     -- In this case we need the platoon to exist, and have enough units to return true
     return platoon and table.getn(platoon:GetPlatoonUnits()) >= numReq
 end
@@ -352,12 +350,12 @@ end
 function HaveLessThanUnitsInTransportPool(aiBrain, numReq, platoonName)
     -- Get either the specific transport platoon, or the universal 'TransportPool' platoon
     local platoon = aiBrain:GetPlatoonUniquelyNamed(platoonName) or aiBrain:GetPlatoonUniquelyNamed('TransportPool')
-    
+
     -- If neither exists, we need to build transports, return true
     if not platoon then
         return true
     end
-    
+
     return table.getn(platoon:GetPlatoonUnits()) < numReq
 end
 
@@ -375,22 +373,22 @@ end
 function TransportPool(platoon)
     local aiBrain = platoon:GetBrain()
     local data = platoon.PlatoonData
-    
+
     -- Default transport platoon to grab from
     local poolName = 'TransportPool'
     local BaseName = data.BaseName
-    
+
     -- If base name is specified in platoon data, use that instead
     if BaseName then 
         poolName = BaseName .. '_TransportPool'
     end
-    
+
     local tPool = aiBrain:GetPlatoonUniquelyNamed(poolName)
     if not tPool then
         tPool = aiBrain:MakePlatoon('', '')
         tPool:UniquelyNamePlatoon(poolName)
     end
-    
+
     if data.TransportMoveLocation then
         if type(data.TransportMoveLocation) == 'string' then
             data.MoveRoute = {ScenarioUtils.MarkerToPosition(data.TransportMoveLocation)}
@@ -398,7 +396,7 @@ function TransportPool(platoon)
             data.MoveRoute = {data.TransportMoveLocation}
         end
     end
-    
+
     -- Move the transports along desired route
     if data.MoveRoute then
         ScenarioFramework.PlatoonMoveRoute(platoon, data.MoveRoute)
@@ -445,7 +443,7 @@ function LandAssaultWithTransports(platoon)
                 end
             end
         end
-        
+
         local pickNum = Random(1, tempNum)
         tempNum = 0
         for landingChain, attackChain in tempChains do
@@ -495,46 +493,46 @@ function LandAssaultWithTransports(platoon)
     if not GetLoadTransports(platoon) then
         return
     end
-    
+
     -- Find safest landing location, and path to targets, update them every 10 or so seconds until we are close enough to our final landing location
     local landingLocation = BrainChooseLowestThreatLocation(aiBrain, landingPositions, 1, 'AntiAir')
     local PlatoonPosition = platoon:GetPlatoonPosition()
-    
+
     -- Make sure we actually still have transports in our platoon
     while Utils.GetDistanceBetweenTwoPoints2(PlatoonPosition[1], PlatoonPosition[3], landingLocation[1], landingLocation[3]) > 105 and not table.empty(platoon:GetSquadUnits('Scout')) do
         -- Update landing location at the start of the loop, otherwise the platoon might pick a different landing zone at the very last second.
         -- This can result in retarded behaviour, and we want to avoid that, if we are about to unload in 1 second, then UNLOAD, and not get yeeted because we just got a completely fresh set of commands
         landingLocation = BrainChooseLowestThreatLocation(aiBrain, landingPositions, 1, 'AntiAir')
-        
+
         platoon:Stop()
-    
+
         -- Transports get the 'Scout' role, if other units got it as well, you damn well better change it to something else
         local threatMax = 10
         local transportNum = table.getn(platoon:GetSquadUnits('Scout'))
-            
+
         if transportNum > 0 then
             threatMax = transportNum * 10
         end
-            
+
         -- Generate a safe path
         local safePath = NavUtils.PathToWithThreatThreshold('Air', PlatoonPosition, landingLocation, aiBrain, NavUtils.ThreatFunctions.AntiAir, threatMax, aiBrain.IMAPConfig.Rings)
-        
+
         if safePath then
             ScenarioFramework.PlatoonMoveRoute(platoon, safePath)
         end
-    
+
         -- Unload platoon at landing location
         cmd = platoon:UnloadAllAtLocation(landingLocation)
-        
+
         WaitSeconds(10)
-        
+
         if not aiBrain:PlatoonExists(platoon) then
             return
         end
-        
+
         -- Update platoon position
         PlatoonPosition = platoon:GetPlatoonPosition()
-        
+
         -- If we are surrounded by too much air threat, then fuck it, make a run for our last landing position
         if aiBrain:GetThreatAtPosition(platoon:GetPlatoonPosition(), 1, true, 'AntiAir') > threatMax  then
             platoon:Stop()
@@ -542,12 +540,12 @@ function LandAssaultWithTransports(platoon)
             break
         end
     end
-    
+
     -- If we are already close enough to our destination, just unload
     if not cmd then
         cmd = platoon:UnloadAllAtLocation(landingLocation)
     end
-    
+
     -- Wait until the units are dropped
     while platoon:IsCommandsActive(cmd) do
         WaitSeconds(1)
@@ -572,7 +570,7 @@ function LandAssaultWithTransports(platoon)
         local attackRoute = BrainChooseHighestAttackRoute(aiBrain, attackPositions, 1, 'AntiSurface')
         ScenarioFramework.PlatoonPatrolRoute(platoon, attackRoute)
     end
-    
+
     -- If an Engineer unit is part of the platoon, use it's CaptureAI plan instead
     for num, unit in platoon:GetPlatoonUnits() do
         if EntityCategoryContains(categories.ENGINEER, unit) then
@@ -588,7 +586,7 @@ end
 ---@return boolean
 function GetLoadTransports(platoon)
     local numTransports = GetTransportsThread(platoon)
-    
+
     if not numTransports then
         return false
     end
@@ -684,7 +682,7 @@ function GetLoadTransports(platoon)
             end
         end
     until attached
-    
+
     -- Self-destruct any leftovers
     for _, unit in unitsToDrop do
         if not unit.Dead and not unit:IsUnitState('Attached') then
@@ -765,11 +763,11 @@ end
 function GetTransportsThread(platoon)
     local data = platoon.PlatoonData
     local aiBrain = platoon:GetBrain()
-    
+
     -- Default transport platoon to grab from
     local poolName = 'TransportPool'
     local BaseName = data.BaseName
-    
+
     -- If base name is specified in platoon data, use that instead
     if BaseName then 
         poolName = BaseName .. '_TransportPool'
@@ -988,10 +986,10 @@ function ReturnTransportsToPool(platoon, data)
     local aiBrain = platoon:GetBrain()
     local transports = platoon:GetSquadUnits('Scout')
     local poolName
-    
+
     -- If base name is specified in platoon data, pick that first over actual base of origin (LocationType)
     local BaseName = data.BaseName
-    
+
     if BaseName then 
         poolName = BaseName .. '_TransportPool'
     else
@@ -1003,19 +1001,19 @@ function ReturnTransportsToPool(platoon, data)
     end
 
     aiBrain:AssignUnitsToPlatoon(poolName, transports, 'Scout', 'None')
-    
+
     -- Generate safe path to return position, or just move straight to it
     if data.TransportReturn then
         -- Assume TransportReturn is a vector
         local returnLocation = data.TransportReturn
-        
+
         -- If it's marker, convert it to a vector
         if type(data.TransportReturn) == 'string' then
             returnLocation = ScenarioUtils.MarkerToPosition(data.TransportReturn)
         end
         -- '50' is the maximum amount of threat we can still pass by of
         local safePath = NavUtils.PathToWithThreatThreshold('Air', platoon:GetPlatoonPosition(), returnLocation, aiBrain, NavUtils.ThreatFunctions.AntiAir, 50, aiBrain.IMAPConfig.Rings)
-        
+
         if safePath then
             for _, v in safePath do
                 IssueMove(transports, v)
@@ -1144,7 +1142,7 @@ end
 function NukePlatoon(platoon)
     local aiBrain = platoon:GetBrain()
     local SMLs = platoon:GetPlatoonUnits()
-    
+
     for _, silo in SMLs do
         if not silo.Dead then
             local siloPlatoon = aiBrain:MakePlatoon('', '')
@@ -1161,11 +1159,11 @@ function NukeAI(platoon)
     local aiBrain = platoon:GetBrain()
     local baseName = platoon.PlatoonData.BaseName
     local unit = platoon:GetPlatoonUnits()[1]
-    
+
     if not unit then return end
-    
+
     platoon:Stop()
-    
+
     unit:SetAutoMode(true)
     while aiBrain:PlatoonExists(platoon) do
         while unit:GetNukeSiloAmmoCount() < 1 do
@@ -1175,7 +1173,7 @@ function NukeAI(platoon)
             end
         end
 
-        nukePos = AIBehaviors.GetHighestThreatClusterLocation(aiBrain, unit)
+        local nukePos = AIBehaviors.GetHighestThreatClusterLocation(aiBrain, unit)
         if nukePos then
             IssueNuke({unit}, nukePos)
             WaitSeconds(15)

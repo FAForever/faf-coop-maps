@@ -16,7 +16,8 @@ local AeonM3Base = BaseManager.CreateBaseManager()
 -- Aeon M1 Air Base
 -------------------
 function AeonM3BaseAI()
-    AeonM3Base:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Aeon_Base = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3Base:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Aeon_Base = 100})
     AeonM3Base:StartNonZeroBase({6, 5})
     AeonM3Base:SetActive('AirScouting', true)
     AeonM3Base:SetActive('LandScouting', true)
@@ -85,7 +86,7 @@ function AeonM3BaseLandAttacks()
     opai:SetChildQuantity('T2Transports', 2)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 6, categories.uaa0104})
+        'HaveLessThanUnitsWithCategory', {6, categories.uaa0104})
 
     --------
     -- Drops

@@ -17,9 +17,12 @@ local AeonM3BaseNaval = BaseManager.CreateBaseManager()
 -- Aeon Main Base
 -----------------
 function AeonM3BaseAI()
-    AeonM3Base:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {M3_Aeon_Base = 100,
-                                                                                                        M3_Aeon_Bluffs_1 = 90,
-                                                                                                        M3_Aeon_Bluffs_2 = 80})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3Base:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Base', 'M3_Aeon_Base_Marker', 60, {
+        M3_Aeon_Base = 100,
+        M3_Aeon_Bluffs_1 = 90,
+        M3_Aeon_Bluffs_2 = 80
+    })
     AeonM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     AeonM3Base:SetActive('AirScouting', true)
 
@@ -126,7 +129,7 @@ function AeonM3BaseLandAttacks()
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 10, categories.DEFENSE, '>='})
+        {{'Order'}, 10, categories.DEFENSE, '>='})
 
     quantity = {6, 8, 8}
     opai = AeonM3Base:AddOpAI('BasicLandAttack', 'M2_Aeon_LandAttack_3',
@@ -141,7 +144,7 @@ function AeonM3BaseLandAttacks()
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 10, categories.AIR * categories.TECH2 * categories.MOBILE, '>='})
+        {{'Order'}, 10, categories.AIR * categories.TECH2 * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {6, 9, 12}
@@ -157,7 +160,7 @@ function AeonM3BaseLandAttacks()
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'Order'}, 30, categories.LAND, '>='})
+            {{'Order'}, 30, categories.LAND, '>='})
     end
     --[[ -- Sniper Bots
     for i = 1, 2 do
@@ -231,7 +234,8 @@ end
 -- Aeon Naval Base
 -----------------
 function AeonM3BaseNavalAI()
-    AeonM3BaseNaval:InitializeDifficultyTables(ArmyBrains[Aeon], 'M3_Aeon_Base_Naval', 'M3_Aeon_Base_Naval_Marker', 60, {M3_Aeon_Base_Naval = 100})
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    AeonM3BaseNaval:InitializeDifficultyTables(aiBrain, 'M3_Aeon_Base_Naval', 'M3_Aeon_Base_Naval_Marker', 60, {M3_Aeon_Base_Naval = 100})
     AeonM3BaseNaval:StartNonZeroBase({{4, 5, 7}, {3, 4, 5}})
 
     AeonM3BaseNavalAttacks()
@@ -282,7 +286,7 @@ function AeonM3BaseNavalAttacks()
         }
     )
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP, '>='})
 end
 
 --------

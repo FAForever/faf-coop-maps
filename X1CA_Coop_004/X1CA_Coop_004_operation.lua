@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/X1CA_Coop_004/X1CA_Coop_004_strings.lua')
+local OpStrings = import('/maps/X1CA_Coop_004/X1CA_Coop_004_strings.lua')---@module "X1CA_Coop_004/X1CA_Coop_004_strings"
 
 operationData = 
 {

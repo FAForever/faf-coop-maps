@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local Player1 = 1
 local Order = 2
@@ -34,10 +34,10 @@ function UEFbase1AI()
 end
 
 function P1B1ULandattack()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
-	
+
     quantity = {5, 4, 3}
 	local Temp = {
         'P1UB1LandAttackTemp1',
@@ -58,7 +58,8 @@ function P1B1ULandattack()
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3}
     Temp = {
@@ -80,7 +81,7 @@ function P1B1ULandattack()
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 6, 5}
     trigger = {10, 8, 6}
@@ -100,14 +101,14 @@ function P1B1ULandattack()
         LocationType = 'P1UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'UEF'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'UEF'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     opai = UEFbase1:AddOpAI('EngineerAttack', 'M1_West_Reclaim_Engineers',
     {
@@ -121,7 +122,6 @@ function P1B1ULandattack()
 end	
 
 function P1B1UAirattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -144,7 +144,8 @@ function P1B1UAirattack()
            PatrolChain = 'P1UB1AirDefense'
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3}
     Temp = {
@@ -165,7 +166,7 @@ function P1B1UAirattack()
            PatrolChain = 'P1UB1AirDefense'
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 3, 2}
     Temp = {
@@ -187,7 +188,7 @@ function P1B1UAirattack()
            PatrolChain = 'P1UB1AirDefense'
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {7, 5, 3}
     Temp = {
@@ -209,7 +210,7 @@ function P1B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {7, 5, 3}
     Temp = {
@@ -231,11 +232,10 @@ function P1B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P1B1UNavalattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -259,7 +259,8 @@ function P1B1UNavalattack()
            PatrolChain = 'P1UB1Navalattack1',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 5, 4}
     Temp = {
@@ -280,7 +281,7 @@ function P1B1UNavalattack()
            PatrolChain = 'P1UB1Navalattack1',
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 3, 2}
     Temp = {
@@ -301,7 +302,7 @@ function P1B1UNavalattack()
            PatrolChain = 'P1UB1Navalattack1',
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function ExpandBase()
@@ -311,10 +312,9 @@ function ExpandBase()
 end
 
 function P2B1ULandattack()
-
     local quantity = {}
     local trigger = {}
-    
+
     quantity = {8, 7, 6}
     local Temp = {
         'P2UB1LandAttackTemp1',
@@ -334,7 +334,8 @@ function P2B1ULandattack()
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 5, 4}
     trigger = {10, 8, 6}
@@ -355,18 +356,17 @@ function P2B1ULandattack()
         LocationType = 'P1UEFbase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'UEF'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2}},
+        {{'UEF'}, trigger[Difficulty], categories.DEFENSE * categories.TECH2}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end 
 
 function P2B1UAirattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -390,7 +390,8 @@ function P2B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 6, 4}
     Temp = {
@@ -412,11 +413,10 @@ function P2B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P2B1UNavalattack()
-
     local quantity = {}
     local trigger = {}
 
@@ -442,7 +442,8 @@ function P2B1UNavalattack()
            PatrolChain = 'P1UB1Navalattack1',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 4, 3}
     Temp = {
@@ -464,7 +465,7 @@ function P2B1UNavalattack()
            PatrolChain = 'P1UB1Navalattack1',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function ExpandBase2()
@@ -477,10 +478,9 @@ function ExpandBase2()
 end
 
 function P3B1ULandattack()
-
     local quantity = {}
     local trigger = {}
-    
+
     quantity = {6, 5, 4}
     local Temp = {
         'P3UB1LandAttackTemp1',
@@ -501,12 +501,13 @@ function P3B1ULandattack()
            PatrolChains = {'P1UB1Landattack1','P1UB1Landattack2','P1UB1Landattack3'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end 
 
 function P3B1UAirattack()
-
     local quantity = {}
+    local quantity2 = {}
     local trigger = {}
 
     quantity = {7, 6, 5}
@@ -529,7 +530,8 @@ function P3B1UAirattack()
            PatrolChain = 'P1UB1AirDefense'
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 6, 4}
     quantity2 = {16, 12, 8}
@@ -552,7 +554,7 @@ function P3B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 6, 4}
     quantity2 = {16, 12, 8}
@@ -575,7 +577,7 @@ function P3B1UAirattack()
            PatrolChains = {'P1UB1Airattack1','P1UB1Airattack2','P1UB1Airattack3'}
        },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P3UEXPattacks()

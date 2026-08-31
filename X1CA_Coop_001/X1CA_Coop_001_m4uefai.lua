@@ -8,8 +8,8 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
 
@@ -32,7 +32,8 @@ function FortClarkeAI()
     -- Fort Clarke
     -------------
     ScenarioUtils.CreateArmyGroup('UEF', 'M4_UEF_Clarke_Init_Eng_D' .. Difficulty)
-    FortClarke:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Fort_Clarke_Base', 'UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100,})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    FortClarke:InitializeDifficultyTables(aiBrain, 'UEF_Fort_Clarke_Base', 'UEF_Fort_Clarke_Marker', 210, {UEF_Fort_Clarke_Base = 100,})
     FortClarke:StartNonZeroBase({40, 32})
     FortClarke:SetMaximumConstructionEngineers(4)
     FortClarke:SetConstructionAlwaysAssist(true)
@@ -47,7 +48,7 @@ function FortClarkeAI()
 
     ScenarioFramework.CreateTimerTrigger(FortClarkeExpansionRebuilds, 480)
 
-    ArmyBrains[UEF]:PBMSetCheckInterval(7)
+    aiBrain:PBMSetCheckInterval(7)
 
     FortClarkeLandAttacks()
     FortClarkeAirAttacks()
@@ -60,6 +61,7 @@ end
 
 function FortClarkeLandAttacks()
     local opai = nil
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
 
     ---------------------------------
     -- Fort Clarke Op AI, Land Attacks
@@ -86,7 +88,7 @@ function FortClarkeLandAttacks()
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack2',
@@ -107,7 +109,7 @@ function FortClarkeLandAttacks()
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack3',
@@ -128,7 +130,7 @@ function FortClarkeLandAttacks()
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack4',
@@ -149,7 +151,7 @@ function FortClarkeLandAttacks()
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     template = {
         'HeavyLandAttack5',
@@ -171,7 +173,7 @@ function FortClarkeLandAttacks()
             PatrolChain = 'M4_UEF_LandAttack_Mid_Chain',
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( builder )
+    aiBrain:PBMAddPlatoon( builder )
 
     -- [mobile flak, mobile aa] patrols
     for i = 1, 2 do
@@ -302,7 +304,7 @@ function FortClarkeTransportAttacks()
     opai:SetChildActive('All', false)
     opai:SetChildActive('T3Transports', true)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.uea0104 + categories.xea0306})
+        'HaveLessThanUnitsWithCategory', {3, categories.uea0104 + categories.xea0306})
  
     opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack1',
     {
@@ -316,7 +318,7 @@ function FortClarkeTransportAttacks()
     })
     opai:SetChildQuantity('SiegeBots', 6)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 0, categories.xea0306})
+        'HaveGreaterThanUnitsWithCategory', {0, categories.xea0306})
 
     for i = 1, 2 do
         opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack2' .. i,
@@ -331,7 +333,7 @@ function FortClarkeTransportAttacks()
         })
         opai:SetChildQuantity('HeavyTanks', 12)
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-            'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.xea0306})
+            'HaveGreaterThanUnitsWithCategory', {1, categories.xea0306})
 
         opai = FortClarke:AddOpAI('BasicLandAttack', 'M4_UEF_TransportAttack3' .. i,
         {
@@ -345,7 +347,7 @@ function FortClarkeTransportAttacks()
         })
         opai:SetChildQuantity('LightTanks', 16)
         opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-            'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.xea0306})
+            'HaveGreaterThanUnitsWithCategory', {2, categories.xea0306})
     end
 
 end
@@ -355,7 +357,8 @@ function UEFM4ForwardOneAI()
     --------------------
     -- UEF Forward Base 1
     --------------------
-    UEFM4ForwardOne:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_One', 'UEF_M3_Forward_One_Base_Marker', 40, {M3_Forward_One = 100,})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM4ForwardOne:InitializeDifficultyTables(aiBrain, 'M3_Forward_One', 'UEF_M3_Forward_One_Base_Marker', 40, {M3_Forward_One = 100,})
     UEFM4ForwardOne:StartNonZeroBase({6, 4})
 
     UEFM4ForwardOneLandAttacks()
@@ -436,7 +439,8 @@ function UEFM4ForwardTwoAI()
     --------------------
     -- UEF Forward Base 2
     --------------------
-    UEFM4ForwardTwo:InitializeDifficultyTables(ArmyBrains[UEF], 'M3_Forward_Two', 'UEF_M3_Forward_Two_Base_Marker', 60, {M3_Forward_Two = 100,})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM4ForwardTwo:InitializeDifficultyTables(aiBrain, 'M3_Forward_Two', 'UEF_M3_Forward_Two_Base_Marker', 60, {M3_Forward_Two = 100,})
     UEFM4ForwardTwo:StartNonZeroBase({6, 4})
 
     UEFM4ForwardTwoLandAttacks()

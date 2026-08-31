@@ -8,23 +8,23 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
-local M1LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua')
-local M2LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2loyalistai.lua')
-local M1OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1orderai.lua')
-local M2OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua')
-local M4OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m4orderai.lua')
-local M2QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2qaiai.lua')
-local M3QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m3qaiai.lua')
-local M4QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m4qaiai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
-local VizMarker = import('/lua/sim/VizMarker.lua').VizMarker
+local EffectUtilities = import('/lua/effectutilities.lua')
+local M1LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1loyalistai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m1loyalistai"
+local M2LoyalistAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2loyalistai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m2loyalistai"
+local M1OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m1orderai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m1orderai"
+local M2OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2orderai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m2orderai"
+local M4OrderAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m4orderai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m4orderai"
+local M2QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m2qaiai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m2qaiai"
+local M3QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m3qaiai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m3qaiai"
+local M4QAIAI = import('/maps/X1CA_Coop_002/X1CA_Coop_002_m4qaiai.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_m4qaiai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_002/X1CA_Coop_002_Strings.lua')---@module "X1CA_Coop_002/X1CA_Coop_002_Strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
+local VizMarker = import('/lua/sim/vizmarker.lua').VizMarker
 
 ---------
 -- Globals
@@ -219,7 +219,7 @@ function OnStart()
         )
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
     ForkThread(IntroNIS)
 end
@@ -256,9 +256,9 @@ function FinalNIS()
     -- "Here he comes!"
     ScenarioFramework.Dialogue(OpStrings.X02_M03_320, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_5_1', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_5_2', 5)
 
     -- Enemy commander appears
     local EnemyCommander = ScenarioFramework.SpawnCommander('QAI', 'M4_Seraph_SCU', 'Gate', LOC '{i sCDR_AhnUshi}')
@@ -280,9 +280,9 @@ function FinalNIS()
         end
     )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_3'), 0)
+    Cinematics.CameraMoveToMarker('Cam_5_3', 0)
     WaitSeconds(1)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_4'), 7)
+    Cinematics.CameraMoveToMarker('Cam_5_4', 7)
     WaitSeconds(1)
 
     -- "We got him!"
@@ -317,15 +317,15 @@ function IntroNIS()
     ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Order_MainBase_Marker' ), 1, ArmyBrains[Player1] )
     ScenarioFramework.CreateVisibleAreaLocation( 100, ScenarioUtils.MarkerToPosition( 'Order_M1_Resource_Base_Marker' ), 1, ArmyBrains[Player1] )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
     WaitSeconds(1)
     ScenarioFramework.Dialogue(OpStrings.X02_M01_010, nil, true)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 5)
+    Cinematics.CameraMoveToMarker('Cam_1_2', 5)
     WaitSeconds(1)
 
     M1VizMarker:Destroy()
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 2)
+    Cinematics.CameraMoveToMarker('Cam_1_3', 2)
     Cinematics.ExitNISMode()
 
     ForkThread(function()
@@ -718,28 +718,28 @@ function IntroMission2NIS()
 
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.X02_M02_010, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 3)
         WaitSeconds(1)
 
         ScenarioFramework.Dialogue(OpStrings.X02_M02_011, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_2', 3)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
+        Cinematics.CameraMoveToMarker('Cam_2_3', 4)
         WaitSeconds(1)
 
         ScenarioFramework.Dialogue(OpStrings.X02_M02_012, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 4)
+        Cinematics.CameraMoveToMarker('Cam_2_4', 4)
         WaitSeconds(1)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 4)
+        Cinematics.CameraMoveToMarker('Cam_2_5', 4)
         -- WaitSeconds(1)
 
         ScenarioFramework.Dialogue(OpStrings.X02_M02_013, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 5)
+        Cinematics.CameraMoveToMarker('Cam_2_6', 5)
         WaitSeconds(1)
 
         ScenarioFramework.Dialogue(OpStrings.X02_M02_014, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_7', 3)
 
         Cinematics.SetInvincible('M1_Playable_Area', true)
         Cinematics.ExitNISMode()
@@ -933,9 +933,9 @@ function IntroMission3NIS()
 
     ScenarioFramework.Dialogue(OpStrings.X02_M02_160, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_1'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_2'), 3)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('M3_NIS_Cam_3'), 1)
+    Cinematics.CameraMoveToMarker('M3_NIS_Cam_1', 0)
+    Cinematics.CameraMoveToMarker('M3_NIS_Cam_2', 3)
+    Cinematics.CameraMoveToMarker('M3_NIS_Cam_3', 1)
 
     Cinematics.ExitNISMode()
     --]]
@@ -951,7 +951,7 @@ function StartMission3()
         'incomplete',                       -- complete
         OpStrings.X02_M02_OBJ_010_030,      -- title
         OpStrings.X02_M02_OBJ_010_040,      -- description
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {                                   -- target
         }
     )
@@ -1069,7 +1069,7 @@ function IntroMission4()
             -----------------------
             units = ScenarioUtils.CreateArmyGroup('Order', 'M4_Order_NukeNorth_Starter')
             for k, v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'QAI_M4_North_Base'
@@ -1078,7 +1078,7 @@ function IntroMission4()
 
             units = ScenarioUtils.CreateArmyGroup('Order', 'M4_Order_NukeMid_Starter')
             for k,v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'QAI_M4_Middle_Base'
@@ -1087,7 +1087,7 @@ function IntroMission4()
 
             units = ScenarioUtils.CreateArmyGroup('Order', 'M4_Order_NukeSouth_Starter')
             for k,v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'QAI_M3_South_Base'
@@ -1147,7 +1147,7 @@ function IntroMission4()
 
             units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_NukeNorth_Starter')
             for k, v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'Order_M4_North_Base'
@@ -1156,7 +1156,7 @@ function IntroMission4()
 
             units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_NukeMid_Starter')
             for k, v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'Order_M4_Middle_Base'
@@ -1165,7 +1165,7 @@ function IntroMission4()
 
             units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_NukeSouth_Starter')
             for k, v in units do
-                platoon = ArmyBrains[Order]:MakePlatoon('','')
+                local platoon = ArmyBrains[Order]:MakePlatoon('','')
                 ArmyBrains[Order]:AssignUnitsToPlatoon(platoon, {v}, 'Attack', 'None')
                 platoon.PlatoonData = {}
                 platoon.PlatoonData.Location = 'Order_M4_South_Base'
@@ -1247,7 +1247,7 @@ function IntroMission4()
             -- Objective Units
             -----------------
             if(LeaderFaction == 'cybran') then
-                local units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Sundry')
+                units = ScenarioUtils.CreateArmyGroup('QAI', 'M4_QAI_Research_Sundry')
                 for k, v in units do
                     v:SetDoNotTarget(true)
                     v.CanTakeDamage = false
@@ -1321,17 +1321,17 @@ function IntroMission4NIS()
         end
     )
     ScenarioFramework.CreateTimerTrigger(NukeResponse, 60)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_4_1', 0)
     WaitSeconds(0.5)
     ForkThread( LaunchQAINukes )
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_2'), 8)
+    Cinematics.CameraMoveToMarker('Cam_4_2', 8)
 
     ScenarioFramework.CreateVisibleAreaLocation( 5000, ScenarioUtils.MarkerToPosition( 'QAI_M4_Middle_Base' ), 8, ArmyBrains[Player1] )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_3'), 0)
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_4'), 8)
+    Cinematics.CameraMoveToMarker('Cam_4_3', 0)
+    Cinematics.CameraMoveToMarker('Cam_4_4', 8)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_5'), 3)
+    Cinematics.CameraMoveToMarker('Cam_4_5', 3)
     Cinematics.SetInvincible( 'M2_Playable_Area', true )
     Cinematics.ExitNISMode()
 
@@ -1561,7 +1561,7 @@ function NukePlayer()
         while(searching) do
             WaitSeconds(5)
             for i = 1, 10 do
-                local num = table.getn(ArmyBrains[QAI]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_QAI_NukeTarget_' .. i), 30, 'enemy'))
+                local num = table.getn(ArmyBrains[QAI]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M4_QAI_NukeTarget_' .. i), 30, 'Enemy'))
                 if(num > 3) then
                     if(num > numUnits) then
                         numUnits = num

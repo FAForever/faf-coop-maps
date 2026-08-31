@@ -18,7 +18,8 @@ local UEFM2NavalBase = BaseManager.CreateBaseManager()
 -- UEF M2 Air Base
 ------------------
 function UEFM2AirBaseAI()
-    UEFM2AirBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_Air_Base', 'M2_Air_Base_Marker', 60, {M2_Air_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2AirBase:InitializeDifficultyTables(aiBrain, 'M2_Air_Base', 'M2_Air_Base_Marker', 60, {M2_Air_Base = 100})
     UEFM2AirBase:StartNonZeroBase({{4, 6, 8}, {4, 5, 6}})
     UEFM2AirBase:SetActive('AirScouting', true)
 
@@ -123,7 +124,8 @@ end
 -- UEF M2 Land Base
 -------------------
 function UEFM2LandBaseAI()
-    UEFM2LandBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_Land_Base', 'M2_Land_Base_Marker', 60, {M2_Land_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2LandBase:InitializeDifficultyTables(aiBrain, 'M2_Land_Base', 'M2_Land_Base_Marker', 60, {M2_Land_Base = 100})
     UEFM2LandBase:StartNonZeroBase({{4, 6, 8}, {4, 5, 6}})
 
     ForkThread(function()
@@ -152,7 +154,7 @@ function UEFM2LandBaseAttacks()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 8, categories.uea0104})
+        'HaveLessThanUnitsWithCategory', {8, categories.uea0104})
 
     quantity = {12, 18, 24}
     opai = UEFM2LandBase:AddOpAI('BasicLandAttack', 'M2_TransportAttack_1',
@@ -182,14 +184,15 @@ function UEFM2LandBaseAttacks()
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 3, categories.uea0104})
+        'HaveGreaterThanUnitsWithCategory', {3, categories.uea0104})
 end
 
 --------------------
 -- UEF M2 Naval Base
 --------------------
 function UEFM2NavalBaseAI()
-    UEFM2NavalBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_Naval_Base', 'M2_Naval_Base_Marker', 90, {M2_Naval_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2NavalBase:InitializeDifficultyTables(aiBrain, 'M2_Naval_Base', 'M2_Naval_Base_Marker', 90, {M2_Naval_Base = 100})
     UEFM2NavalBase:StartNonZeroBase({{4, 6, 8}, {4, 5, 6}})
 
     ForkThread(function()
@@ -237,7 +240,7 @@ function UEFM2NavalBaseAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, 30, categories.ual0201, '>='})
+        {{'HumanPlayers'}, 30, categories.ual0201, '>='})
 
     quantity = {4, 6, 8}
     trigger = {16, 14, 12}
@@ -255,7 +258,7 @@ function UEFM2NavalBaseAttacks()
     opai:SetChildActive('T2', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE - categories.TECH2, '>='})
 
     quantity = {7, 9, 14}
     trigger = {4, 3, 2}
@@ -274,7 +277,7 @@ function UEFM2NavalBaseAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
 
     -- Sends 2, 3, 4 Destroyers if players have more than 8, 6, 4 T2 navy
     quantity = {10, 15, 20}
@@ -294,7 +297,7 @@ function UEFM2NavalBaseAttacks()
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
 
     -- Sends 2, 3, 4 Destroyers if players have more than 50 Auroras
     -- quantity = {10, 15, 20}
@@ -312,7 +315,7 @@ function UEFM2NavalBaseAttacks()
     -- )
     -- opai:SetChildActive('T3', false)
     -- opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-    --     {'default_brain', {'HumanPlayers'}, 60, categories.ual0201, '>='})
+    --     {{'HumanPlayers'}, 60, categories.ual0201, '>='})
 
     quantity = {12, 18, 24}
     trigger = {8, 7, 6}
@@ -330,5 +333,5 @@ function UEFM2NavalBaseAttacks()
     )
     opai:SetChildActive('T3', false)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE * categories.TECH2, '>='})
 end

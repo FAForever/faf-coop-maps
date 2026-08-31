@@ -8,14 +8,14 @@
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local M2UEFAI = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_m2uefai.lua')
-local M3UEFAI = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_m3uefai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local M2UEFAI = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_m2uefai.lua')---@module "SCCA_Coop_A03/SCCA_Coop_A03_m2uefai"
+local M3UEFAI = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_m3uefai.lua')---@module "SCCA_Coop_A03/SCCA_Coop_A03_m3uefai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/SCCA_Coop_A03/SCCA_Coop_A03_strings.lua')---@module "SCCA_Coop_A03/SCCA_Coop_A03_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 ----------
 -- Globals
@@ -275,7 +275,7 @@ function StartMission1()
             'incomplete',                       -- complete
             OpStrings.OpA03_M1P1_Title,         -- title
             OpStrings.OpA03_M1P1_Desc,          -- description
-            Objectives.GetActionIcon('kill'),   -- action
+            Objectives.GetActionIcon('Kill'),   -- action
             {                                   -- target
                 ShowFaction = 'UEF',
             }
@@ -577,9 +577,10 @@ function IntroMission2()
     ScenarioInfo.ArnoldCDR:AddBuildRestriction(categories.UEF * categories.DEFENSE)
     ScenarioFramework.CreateUnitDamagedTrigger(ArnoldDamaged1, ScenarioInfo.ArnoldCDR, .5)
 
-    ScenarioInfo.CDRPlatoon = 
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    ScenarioInfo.CDRPlatoon =
 
-    ArmyBrains[UEF]:PBMSetCheckInterval(8)
+    aiBrain:PBMSetCheckInterval(8)
 
     ScenarioFramework.Dialogue(OpStrings.A03_M02_010, StartMission2, true)
 end
@@ -785,7 +786,7 @@ function UpdateACUPlatoon(location)
                     BaseName = location,
                     LocationType = location,
                 }
-                platoon:ForkAIThread(import('/lua/AI/OpAI/BaseManagerPlatoonThreads.lua').BaseManagerSingleEngineerPlatoon)
+                platoon:ForkAIThread(import('/lua/ai/opai/basemanagerplatoonthreads.lua').BaseManagerSingleEngineerPlatoon)
                 return
             end
         end

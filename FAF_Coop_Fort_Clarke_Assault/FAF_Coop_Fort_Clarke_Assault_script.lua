@@ -7,18 +7,18 @@
 -- **
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_CustomFunctions.lua')
-local M1UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m1uefai.lua')
-local M2OrderAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2orderai.lua')
-local M2UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2uefai.lua')
-local M3AeonAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3aeonai.lua')
-local M3CybranAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3cybranai.lua')
-local M3UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3uefai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_CustomFunctions.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_CustomFunctions"
+local M1UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m1uefai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m1uefai"
+local M2OrderAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2orderai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2orderai"
+local M2UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2uefai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m2uefai"
+local M3AeonAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3aeonai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3aeonai"
+local M3CybranAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3cybranai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3cybranai"
+local M3UEFAI = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3uefai.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_m3uefai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_strings.lua')---@module "FAF_Coop_Fort_Clarke_Assault/FAF_Coop_Fort_Clarke_Assault_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
 
 ----------
@@ -202,7 +202,7 @@ function OnStart(self)
 
     -- Initialize camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'))
+        Cinematics.CameraMoveToMarker('Cam_1_1')
     end
     ForkThread(IntroMission1NIS)
 end
@@ -228,7 +228,7 @@ function IntroMission1NIS()
             WaitSeconds(25)
 
             local tblArmy = ListArmies()
-            coop = 1
+            local coop = 1
             for iArmy, strArmy in pairs(tblArmy) do
                 if iArmy >= ScenarioInfo.Player2 then
                     DropReinforcements('Seraphim', strArmy, 'NIS_Bots_' .. strArmy ..'_D' .. Difficulty, 'NIS_Drop_' .. strArmy, 'NIS_Transport_Death')
@@ -275,10 +275,10 @@ function IntroMission1NIS()
             end
         end)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 18)
+        Cinematics.CameraMoveToMarker('Cam_1_2', 18)
         WaitSeconds(4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 14)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 2)
+        Cinematics.CameraMoveToMarker('Cam_1_3', 14)
+        Cinematics.CameraMoveToMarker('Cam_1_4', 2)
         WaitSeconds(1)
         VisMarker1_1:Destroy()
         VisMarker1_2:Destroy()
@@ -291,7 +291,7 @@ function IntroMission1NIS()
         -- spawn coop players too
         ScenarioInfo.CoopCDR = {}
         local tblArmy = ListArmies()
-        coop = 1
+        local coop = 1
         for iArmy, strArmy in pairs(tblArmy) do
             if iArmy >= ScenarioInfo.Player2 then
                 ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
@@ -808,11 +808,11 @@ function IntroMission2NIS()
     ScenarioFramework.SetPlayableArea('M2_Playable_Area', false)
     if not SkipNIS2 then
         Cinematics.EnterNISMode()
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 0)
         WaitSeconds(2)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 8)
+        Cinematics.CameraMoveToMarker('Cam_2_2', 8)
         WaitSeconds(1)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 2)
+        Cinematics.CameraMoveToMarker('Cam_2_3', 2)
         Cinematics.ExitNISMode()
     end
 
@@ -829,7 +829,7 @@ function StartMission2()
         'incomplete',                   -- complete
         'Prepare your forces for the incoming couter attack',  -- title
         'Coalition forces are preparing major offensive against your positions. Build up your army to repel their attack.',  -- description
-        Objectives.GetActionIcon('build'),
+        Objectives.GetActionIcon('Build'),
         {                               -- target
             ShowFaction = 'UEF',
         }
@@ -1240,8 +1240,8 @@ end
 
 -- Air CounterAttack
 function M3CounterAttackAir()
-    local units = nil
     local trigger = {}
+    local units = nil
 
 
     local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)

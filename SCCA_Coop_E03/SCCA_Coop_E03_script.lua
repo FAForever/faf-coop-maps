@@ -7,13 +7,13 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local Behaviors = import('/lua/ai/opai/OpBehaviors.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local Behaviors = import('/lua/ai/opai/opbehaviors.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/SCCA_Coop_E03/SCCA_Coop_E03_strings.lua')---@module "SCCA_Coop_E03/SCCA_Coop_E03_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Cinematics = import('/lua/cinematics.lua')
 
 ---------
@@ -224,14 +224,14 @@ function IntroMission1()
     ScenarioInfo.MissionNumber = 1
 
     -- Player CDR
-    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR')
+    ScenarioInfo.PlayerCDR = ScenarioUtils.CreateArmyUnit('Player1', 'Player_CDR')--[[@as CommandUnit]]
     ScenarioInfo.PlayerCDR:PlayCommanderWarpInEffect()
     ScenarioInfo.PlayerCDR:SetCustomName(ArmyBrains[Player1].Nickname)
 
     -- spawn coop players too
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioUtils.CreateArmyUnit(strArmy, 'Player_CDR')
@@ -340,7 +340,7 @@ function M1FirstAirAttack()
         ScenarioFramework.Dialogue(OpStrings.E03_M01_050)
         ScenarioFramework.CreateArmyStatTrigger(M1EnemiesKilled1, ArmyBrains[Player1], 'M1EnemiesKilled1',
             {{StatType = 'Enemies_Killed', CompareType = 'GreaterThanOrEqual', Value = 4, Category = categories.ALLUNITS}})
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_FirstAir_Attack', 'ChevronFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_FirstAir_Attack', 'AttackFormation')
         platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Spawn_Point' .. Random(1,5)), false)
         platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_AirMain'))
         platoon:Patrol(ScenarioUtils.MarkerToPosition('M1_Aeon_Resource_Island_Main'))
@@ -358,7 +358,7 @@ end
 function M1AirAttack()
     WaitSeconds(Random(60, 180))
     if(ScenarioInfo.M1P1.Active) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_AirAttack_D' .. ScenarioInfo.Options.Difficulty, 'ChevronFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_AirAttack_D' .. ScenarioInfo.Options.Difficulty, 'AttackFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(RespawnM1AirAttack, platoon)
         platoon:MoveToLocation(ScenarioUtils.MarkerToPosition('M1_Spawn_Point' .. Random(1, 5)), false)
         platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Point' .. Random(1, 5)))
@@ -393,7 +393,7 @@ function ArnoldDeath()
             v:AdjustHealth(v, Random(health / 2, (health - 1)) * -1)
         end
 
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Arnold_Attack', 'NoFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M1_Arnold_Attack', 'NoFormation')
 
         -- Spawn a second Arnold and nuke him too - so the base has the nuke explosion
         local unit = ScenarioUtils.CreateArmyUnit('Arnold', 'Arnold_CDR')
@@ -459,7 +459,7 @@ function StartMission2()
         'incomplete',                       -- complete
         OpStrings.M2P1Title,                -- title
         OpStrings.M2P1Description,          -- description
-        Objectives.GetActionIcon('kill'),    -- action
+        Objectives.GetActionIcon('Kill'),    -- action
         {
             ShowFaction = "Aeon",
         }
@@ -476,11 +476,11 @@ function M2Wave1()
     -- Air Attack
     local platoon = nil
     if(ScenarioInfo.Options.Difficulty == 1) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'AttackFormation')
     elseif(ScenarioInfo.Options.Difficulty == 2) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'AttackFormation')
     else
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'AttackFormation')
     end
 
     -- 1/5 of platoon damaged 20 - 90%
@@ -532,11 +532,11 @@ function M2Wave3()
     -- Air Attack
     local platoon = nil
     if(ScenarioInfo.Options.Difficulty == 1) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'ChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D1', 'AttackFormation')
     elseif(ScenarioInfo.Options.Difficulty == 2) then
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D2', 'AttackFormation')
     else
-        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'StaggeredChevronFormation')
+        platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M2_AttackWave1_D3', 'AttackFormation')
     end
     ScenarioFramework.CreatePlatoonDeathTrigger(M2Wave3AirDefeated, platoon)
     platoon:Patrol(ScenarioUtils.MarkerToPosition('Player_Attack_Point' .. Random(1,5)))
@@ -658,7 +658,7 @@ end
 function M3NavyPatrol()
     WaitSeconds(Random(30, 120))
     if(ScenarioInfo.M3P1.Active) then
-        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Frigate_D' .. ScenarioInfo.Options.Difficulty, 'TravellingFormation')
+        local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'M3_Frigate_D' .. ScenarioInfo.Options.Difficulty, 'GrowthFormation')
         ScenarioFramework.CreatePlatoonDeathTrigger(ReSpawnM3NavyPatrol, platoon)
         platoon.PlatoonData = {}
         platoon.PlatoonData.PatrolChain = 'M3_Aeon_Patrol_Navy_Chain'
@@ -678,7 +678,7 @@ function M3Strike()
             'M3_Frigate_D' .. ScenarioInfo.Options.Difficulty,
             'M3_Sub_D' .. ScenarioInfo.Options.Difficulty,
             'M3_Torpedo_D' .. ScenarioInfo.Options.Difficulty}
-        local formations = {'ChevronFormation', 'AttackFormation', 'AttackFormation', 'ChevronFormation'}
+        local formations = {'AttackFormation', 'AttackFormation', 'AttackFormation', 'AttackFormation'}
         local num = Random(1,4)
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', attacks[num], formations[num])
         ScenarioFramework.CreatePlatoonDeathTrigger(ReSpawnM3Strike, platoon)
@@ -814,7 +814,7 @@ function StartMission4()
         'incomplete',
         OpStrings.M4P1Title,
         OpStrings.M4P1Description,
-        Objectives.GetActionIcon('kill')
+        Objectives.GetActionIcon('Kill')
    )
 
     ScenarioFramework.SetPlayableArea(Rect(0, 0, 512, 512))

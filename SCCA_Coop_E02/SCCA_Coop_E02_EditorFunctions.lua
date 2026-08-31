@@ -7,8 +7,8 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
--- local ScenarioFramework = import('/lua/ScenarioFramework.lua')
--- local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+-- local ScenarioFramework = import('/lua/scenarioframework.lua')
+-- local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 -- function: ResetAMVariables = AddFunction   doc = "Reset the AM variables after one gets created"
 -- parameter 0: string    platoon        = "default_platoon"

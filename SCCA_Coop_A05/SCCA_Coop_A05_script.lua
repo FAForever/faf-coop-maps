@@ -7,15 +7,14 @@
 -- **
 -- **  Copyright © 2005 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local M1ArielAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m1arielai.lua')
-local M2UEFAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m2uefai.lua')
-local M3ArielAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m3arielai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
-local OpStrings = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_Strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local M1ArielAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m1arielai.lua')---@module "SCCA_Coop_A05/SCCA_Coop_A05_m1arielai"
+local M2UEFAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m2uefai.lua')---@module "SCCA_Coop_A05/SCCA_Coop_A05_m2uefai"
+local M3ArielAI = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_m3arielai.lua')---@module "SCCA_Coop_A05/SCCA_Coop_A05_m3arielai"
+local Objectives = import('/lua/simobjectives.lua')
+local OpStrings = import('/maps/SCCA_Coop_A05/SCCA_Coop_A05_Strings.lua')---@module "SCCA_Coop_A05/SCCA_Coop_A05_Strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 ----------
 -- Globals
@@ -517,7 +516,7 @@ function M1RevealNukeObjective()
         'incomplete',                          -- complete
         OpStrings.M1P2Title,                   -- title
         OpStrings.M1P2Description,             -- description
-        Objectives.GetActionIcon('build'),     -- action
+        Objectives.GetActionIcon('Build'),     -- action
         {                                      -- target
             MarkArea = true,
             Areas = {'M1P2_West_Area', 'M1P2_East_Area'},
@@ -644,7 +643,7 @@ function M1AttackWaveOne()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_100, nil, true)
 
     WaitSeconds(20)
-    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A1_Air_Group_D' .. Difficulty, 'ChevronFormation')
+    local plat = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A1_Air_Group_D' .. Difficulty, 'AttackFormation')
     plat:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
     ScenarioFramework.CreateTimerTrigger(M1AttackWaveTwo, 140)
 end
@@ -663,13 +662,13 @@ end
 function M1AttackThree()
     ScenarioFramework.Dialogue(OpStrings.A05_M01_120, nil, true)
 
-    local westAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Air_Attack_D' .. Difficulty, 'ChevronFormation')
+    local westAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Air_Attack_D' .. Difficulty, 'AttackFormation')
     westAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('West_Colony_Marker'))
     local westUnits = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Ground_Units_D' .. Difficulty, 'AttackFormation')
     local westTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_West_Transports_D' .. Difficulty, 'NoFormation')
     ForkThread(M1LandAttack, westUnits, westTransports, 'West')
 
-    local eastAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Air_Attack_D' .. Difficulty, 'ChevronFormation')
+    local eastAir = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Air_Attack_D' .. Difficulty, 'AttackFormation')
     eastAir:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition('East_Colony_Marker'))
     local eastUnits = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Ground_Units_D' .. Difficulty, 'AttackFormation')
     local eastTransports = ScenarioUtils.CreateArmyGroupAsPlatoon('Ariel', 'M1A3_East_Transports_D' .. Difficulty, 'NoFormation')
@@ -1129,19 +1128,20 @@ function M2OneArtilleryDefeated(artilleryArea)
         zoomVal = 25,
         markerCam = true,
     }
+    local marker
     if artilleryArea == 'north' then
         camInfo.orientationOffset[1] = -0.985
-        unit = 'UEF_M2_North_Artillery'
+        marker = 'UEF_M2_North_Artillery'
     elseif artilleryArea == 'middle' then
         camInfo.orientationOffset[1] = 2.34
         camInfo.positionOffset = { -5, 1.5, 5 }
-        unit = 'UEF_M2_Middle_Artillery'
+        marker = 'UEF_M2_Middle_Artillery'
     elseif artilleryArea == 'south' then
         camInfo.orientationOffset[1] = -2.5
         camInfo.positionOffset = { 5, 1.5, 5 }
-        unit = 'UEF_M2_South_Artillery'
+        marker = 'UEF_M2_South_Artillery'
     end
-    ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition(unit), camInfo)
+    ScenarioFramework.OperationNISCamera(ScenarioUtils.MarkerToPosition(marker), camInfo)
 end
 
 function M2ShieldReminder()
@@ -1355,7 +1355,7 @@ function M3ColossusTransportsThread()
     end
 
     local landingLocation = ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(aiBrain, ScenarioUtils.ChainToPositions('Ariel_M3_Landing_Chain'), 2)
-    cmd = transports:UnloadAllAtLocation(landingLocation)
+    local cmd = transports:UnloadAllAtLocation(landingLocation)
     while aiBrain:PlatoonExists(transports) and transports:IsCommandsActive(cmd) do
         WaitSeconds(2)
     end

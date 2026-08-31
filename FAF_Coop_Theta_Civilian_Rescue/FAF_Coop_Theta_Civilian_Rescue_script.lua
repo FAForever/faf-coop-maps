@@ -7,17 +7,17 @@
 -- **
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local M1CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai.lua')
-local M1CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybran_manual.lua')
-local M2CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai.lua')
-local M2CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybran_manual.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local M1CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybranai"
+local M1CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybran_manual.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m1cybran_manual"
+local M2CybranAI = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybranai"
+local M2CybranManual = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybran_manual.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_m2cybran_manual"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Utilities = import('/lua/utilities.lua')
-local OpStrings = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_strings.lua')
-local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')
+local OpStrings = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_strings.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_strings"
+local TCRUtil = import('/maps/FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions.lua')---@module "FAF_Coop_Theta_Civilian_Rescue/FAF_Coop_Theta_Civilian_Rescue_CustomFunctions"
 
 ----------
 -- Globals
@@ -107,7 +107,7 @@ function OnStart(self)
                                             'Teleporter'})
     
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Start_Location'), 0)
+        Cinematics.CameraMoveToMarker('Cam_Start_Location', 0)
     end
     
     if Debug then
@@ -179,18 +179,18 @@ function IntroMission1NIS()
 
         local VisMarker_West_Base = ScenarioFramework.CreateVisibleAreaLocation(500, ScenarioUtils.MarkerToPosition('NIS_M1_Vis_West_Base'), 0, ArmyBrains[Player1])
         
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Start_Location'), 0)
+        Cinematics.CameraMoveToMarker('Cam_Start_Location', 0)
         
         WaitSeconds(3)
         ScenarioFramework.Dialogue(OpStrings.M1_West_Base_View, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Cybran_West_Base'), 5)
+        Cinematics.CameraMoveToMarker('Cam_Cybran_West_Base', 5)
         
         WaitSeconds(2)
         ScenarioFramework.Dialogue(OpStrings.M1_Main_Objective, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_Cybran_Prison_1'), 5)
+        Cinematics.CameraMoveToMarker('Cam_Cybran_Prison_1', 5)
         
         WaitSeconds(5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_ACU_Spawn'), 3)
+        Cinematics.CameraMoveToMarker('Cam_ACU_Spawn', 3)
         
 
         WaitSeconds(0.5)
@@ -214,7 +214,7 @@ function SpawnAllACUs()
     
     ScenarioInfo.CoopCDR = {}
     local tblArmy = ListArmies()
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(tblArmy) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop] = ScenarioFramework.SpawnCommander(strArmy, 'Commander', 'Warp', true, true, PlayerDeath)
@@ -419,7 +419,7 @@ function StartMission2()
     ScenarioFramework.CreateArmyIntelTrigger(M2S2MonkeylordObjective, ArmyBrains[Player1], 'LOSNow', nil, true, categories.urc1901, true, ArmyBrains[Cybran])
     
     -- Make TimeTrigger in case the player never scouts
-    secondsUntilMonkeylord = M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()) + 2 -- add 2 just to make sure there are no race issues, possibly unnecessary
+    local secondsUntilMonkeylord = M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()) + 2 -- add 2 just to make sure there are no race issues, possibly unnecessary
     ScenarioFramework.CreateTimerTrigger(SpawnMonkeyLord, secondsUntilMonkeylord)
     
     if Difficulty >= 3 then
@@ -502,7 +502,7 @@ function M2S2MonkeylordObjective(MonkeylordTime)
     ------------------------------------------------------------------------------
     ScenarioFramework.Dialogue(OpStrings.M2_Monkeylord_Detected, nil, true)
     
-    secondsUntilMonkeylord = math.max(1, M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()))
+    local secondsUntilMonkeylord = math.max(1, M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()))
     ScenarioInfo.M2S2 = Objectives.Timer(
         'secondary',                      -- type
         'incomplete',                   -- complete
@@ -613,7 +613,7 @@ function KilledExperimentals()
     end
     
     --Make new TimerObjective for next wave of experimentals
-    secondsUntilExperimentals = M2SpawnExperimentalsTime[Difficulty] + math.max( 0, M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()))
+    local secondsUntilExperimentals = M2SpawnExperimentalsTime[Difficulty] + math.max( 0, M2SpawnMonkeylordTime[Difficulty] - math.floor(GetGameTimeSeconds()))
     ScenarioInfo.M2SX = Objectives.Timer(
         'secondary',                      -- type
         'incomplete',                   -- complete

@@ -11,8 +11,8 @@
 -- ****************************************************************************
 
 local OpScript = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_script.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 ScenarioInfo.Nuke2BasePatrolCounter = 0
 ScenarioInfo.Nuke3BasePatrolCounter = 0

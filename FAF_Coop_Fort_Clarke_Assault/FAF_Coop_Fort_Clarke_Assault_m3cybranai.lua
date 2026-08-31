@@ -16,13 +16,16 @@ local CybranM3Base = BaseManager.CreateBaseManager()
 -- Cybran Main Base
 -------------------
 function CybranM3BaseAI()
-    CybranM3Base:InitializeDifficultyTables(ArmyBrains[Cybran], 'M3_Cybran_Base', 'M3_Cybran_Base_Marker', 70, {M3_Cybran_Base = 100,
-                                                                                                                M3_Cybran_Bluffs_1 = 80,
-                                                                                                                M3_Cybran_Bluffs_2 = 70})
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    CybranM3Base:InitializeDifficultyTables(aiBrain, 'M3_Cybran_Base', 'M3_Cybran_Base_Marker', 70, {
+        M3_Cybran_Base = 100,
+        M3_Cybran_Bluffs_1 = 80,
+        M3_Cybran_Bluffs_2 = 70
+    })
     CybranM3Base:StartNonZeroBase({{8, 10, 12}, {6, 8, 10}})
     CybranM3Base:SetActive('AirScouting', true)
     CybranM3Base:SetSupportACUCount(Difficulty)
-    CybranM3Base:SetSACUUpgrades({'ResourceAllocation', 'Switchback', 'SelfRepairSystem'})    
+    CybranM3Base:SetSACUUpgrades({'ResourceAllocation', 'Switchback', 'SelfRepairSystem'})
 
     -- East Defenses, only for Easy Difficulty
     if Difficulty == 1 then
@@ -34,14 +37,14 @@ function CybranM3BaseAI()
 end
 
 function CybranM3BaseAirAttacks()
+    local opai = nil
+    local quantity = {}
+    local trigger = {}
     --[[
     {'M3_Cybran_AirAttackOrder_Chain_1', 
     'M3_Cybran_AirAttackOrder_Chain_2',
     'M3_Cybran_AirAttackOrder_Chain_3'}, -- for naval
     ]]--
-    local opai = nil
-    local quantity = {}
-    local trigger = {}
 
     quantity = {8, 10, 12}
     for i = 1, 2 do
@@ -69,7 +72,7 @@ function CybranM3BaseAirAttacks()
     )
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 100, categories.ALLUNITS, '>='})
+        {{'Order'}, 100, categories.ALLUNITS, '>='})
 
     quantity = {3, 4, 6}
     trigger = {14, 12, 10}
@@ -84,7 +87,7 @@ function CybranM3BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, trigger[Difficulty], categories.AIR * categories.TECH3, '>='})
+        {{'Order'}, trigger[Difficulty], categories.AIR * categories.TECH3, '>='})
 
     if Difficulty >= 2 then
         opai = CybranM3Base:AddOpAI('AirAttacks', 'M2_Cybran_AirAttack_4',
@@ -98,7 +101,7 @@ function CybranM3BaseAirAttacks()
         )
         opai:SetChildQuantity('StratBombers', 3)
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'Order'}, 100, categories.ALLUNITS, '>='})
+            {{'Order'}, 100, categories.ALLUNITS, '>='})
     end
 
     -- Air Defense
@@ -164,7 +167,7 @@ function CybranM3BaseLandAttacks()
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 10, categories.DEFENSE, '>='})
+        {{'Order'}, 10, categories.DEFENSE, '>='})
 
     quantity = {6, 8, 8}
     opai = CybranM3Base:AddOpAI('BasicLandAttack', 'M2_Cybran_LandAttack_3',
@@ -179,7 +182,7 @@ function CybranM3BaseLandAttacks()
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'Order'}, 10, categories.AIR * categories.TECH2 * categories.MOBILE, '>='})
+        {{'Order'}, 10, categories.AIR * categories.TECH2 * categories.MOBILE, '>='})
 
     for i = 1, 2 do
         quantity = {6, 9, 12}
@@ -195,7 +198,7 @@ function CybranM3BaseLandAttacks()
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'Order'}, 30, categories.LAND, '>='})
+            {{'Order'}, 30, categories.LAND, '>='})
     end
 
     for i = 1, 2 do
@@ -212,7 +215,7 @@ function CybranM3BaseLandAttacks()
         opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
         opai:SetFormation('AttackFormation')
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'Order'}, 40, categories.LAND, '>='})
+            {{'Order'}, 40, categories.LAND, '>='})
     end
 
     -- Defense
