@@ -54,11 +54,12 @@ end
 
 function LoyalistM1MainLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
+    ---@type SimCommand?
     local cmd
 
     -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
-        if(not cmd or not platoon:IsCommandsActive(cmd)) then
+        if(not cmd or IsCommandDone(cmd)) then
             if(ScenarioInfo.MissionNumber == 1) then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'Guerrillas_M1_Attack_Chain')
             elseif(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then

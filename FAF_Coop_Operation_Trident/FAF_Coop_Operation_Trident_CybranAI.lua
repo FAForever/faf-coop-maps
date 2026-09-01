@@ -425,11 +425,12 @@ end
 -- Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
 function M1CybranLandAttackThread(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while aiBrain:PlatoonExists(platoon) do
-        if (not cmd or not platoon:IsCommandsActive(cmd)) then
+        if (not cmd or IsCommandDone(cmd)) then
             if ScenarioInfo.MissionNumber == 1 then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M1_Cybran_Land_Attack_Chain')
             elseif ScenarioInfo.MissionNumber == 2 then
@@ -440,14 +441,16 @@ function M1CybranLandAttackThread(platoon)
     end
 end
 
--- Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
+---Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
+---@param platoon Platoon
 function M1CybranAirAttackThread(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while aiBrain:PlatoonExists(platoon) do
-        if (not cmd or not platoon:IsCommandsActive(cmd)) then
+        if (not cmd or IsCommandDone(cmd)) then
             if ScenarioInfo.MissionNumber == 1 then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M1_Cybran_Air_Attack_Chain')
             elseif ScenarioInfo.MissionNumber == 2 then
