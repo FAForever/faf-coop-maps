@@ -67,11 +67,12 @@ end
 
 function LoyalistM2EastAirAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
-        if(not cmd or not platoon:IsCommandsActive(cmd)) then
+        if(not cmd or IsCommandDone(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M2_LoyEast_Attack_Air_Chain')
             elseif(ScenarioInfo.MissionNumber == 4) then
@@ -100,11 +101,12 @@ end
 
 function LoyalistM2EastLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
-        if(not cmd or not platoon:IsCommandsActive(cmd)) then
+        if(not cmd or IsCommandDone(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M2_LoyEast_Attack_' .. Random(1, 2) .. '_Chain')
             elseif(ScenarioInfo.MissionNumber == 4) then
@@ -146,11 +148,12 @@ end
 
 function LoyalistM2WestLandAttacksAI(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while(aiBrain:PlatoonExists(platoon)) do
-        if(not cmd or not platoon:IsCommandsActive(cmd)) then
+        if(not cmd or IsCommandDone(cmd)) then
             if(ScenarioInfo.MissionNumber == 2 or ScenarioInfo.MissionNumber == 3) then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M2_LoyWest_Attack_' .. Random(1, 2) .. '_Chain')
             elseif(ScenarioInfo.MissionNumber == 4) then
