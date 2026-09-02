@@ -469,10 +469,6 @@ function M2BuildExtraEconomy()
     M1CybranMainBase:AddBuildGroupDifficulty('M2_Expand_Defense', 80)
 end
 
-function M2RemoveACUFromConstruction()
-    M1CybranMainBase:RemoveConstructionEngineer(ScenarioInfo.CybranACU)
-end
-
 function M2ChangeACUEnhancements()
     M1CybranMainBase:SetACUUpgrades({'AdvancedEngineering', 'NaniteTorpedoTube', 'StealthGenerator'})
 end
