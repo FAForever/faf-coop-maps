@@ -1135,25 +1135,6 @@ function M2ChangeCybranUpgrades()
 
     ScenarioFramework.Dialogue(OpStrings.M2ChangeEnhancements)
 
-    while ScenarioInfo.CybranACU:IsUnitState('Building') do
-        WaitSeconds(0.5)
-    end
-
-    CybranAI.M2RemoveACUFromConstruction()
-    
-    --repeat
-        ScenarioInfo.CybranACU.PlatoonHandle:StopAI()
-        LOG('Cybran ACU trying to remove enhancement')
-        local order = {
-            TaskName = "EnhanceTask",
-            Enhancement = 'ResourceAllocationRemove'
-        }
-        IssueStop({ScenarioInfo.CybranACU})
-        IssueClearCommands({ScenarioInfo.CybranACU})
-        IssueScript({ScenarioInfo.CybranACU}, order)
-        WaitSeconds(1)
-    --until not ScenarioInfo.CybranACU:HasEnhancement('ResourceAllocation')
-
     CybranAI.M2ChangeACUEnhancements()
 end
 
