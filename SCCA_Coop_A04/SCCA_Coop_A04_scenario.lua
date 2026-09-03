@@ -1,7 +1,7 @@
 version = 3
 ScenarioInfo = {
-    name = 'Aeon Mission 4 - Entity',
-    description = 'This is Procyon, a planet deep in Cybran territory. We know little of it save its name.\nIn my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly.\nYou must go to Procyon and discover what it is.',
+    name = '<LOC OPNAME_A04>Aeon Mission 4 - Entity',
+    description = '<LOC SCCA_A04_description>This is Procyon, a planet deep in Cybran territory. We know little of it save its name.\nIn my meditations, I have sensed something there, some...other. I cannot describe it, but it troubles me greatly.\nYou must go to Procyon and discover what it is.',
     type = 'campaign_coop',
     starts = true,
     preview = '',

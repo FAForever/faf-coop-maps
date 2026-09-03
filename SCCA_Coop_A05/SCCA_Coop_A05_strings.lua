@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_A05>Operation Shining Star'
-OPERATION_DESCRIPTION = '<LOC A05_B01_003_010>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.'
+OPERATION_DESCRIPTION = '<LOC SCCA_A05_description>This is Eridani. It is deep in UEF territory, and Crusaders Rhiza and Ariel have launched attacks on the planet, sowing destruction on Marxon\'s orders.\nYou will go to Eridani and press the Princesses case.\nAll who refuse you must be silenced.'
 
 
 

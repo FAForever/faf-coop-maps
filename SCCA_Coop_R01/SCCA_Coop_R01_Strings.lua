@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C01>Operation Liberation'
-OPERATION_DESCRIPTION = 'All of the Symbionts on Theban 2 have been enslaved by the UEF\'s loyalty programming. We have initiated a wideband broadcast of the Symbiont Liberation Matrix; by the time we arrive, our brothers and sisters will be free and ready to evacuate.\nUnfortunately, the Aeon have also set their sights on Theban 2 and have launched an offensive against local UEF forces. Defeat the Aeon and UEF armies in your sector in order to free the Symbionts. I will engage the primary UEF commander.'
+OPERATION_DESCRIPTION = '<LOC SCCA_R01_description>All of the Symbionts on Theban 2 have been enslaved by the UEF\'s loyalty programming. We have initiated a wideband broadcast of the Symbiont Liberation Matrix; by the time we arrive, our brothers and sisters will be free and ready to evacuate.\nUnfortunately, the Aeon have also set their sights on Theban 2 and have launched an offensive against local UEF forces. Defeat the Aeon and UEF armies in your sector in order to free the Symbionts. I will engage the primary UEF commander.'
 
 
 

@@ -17,7 +17,7 @@
 
 
 OPERATION_NAME = '<LOC OPNAME_C06>Operation Freedom'
-OPERATION_DESCRIPTION = 'Having the Black Sun access codes secured, Cybran forces attempt a daring operation on Earth itself to take control of Black Sun, before the UEF could fire it, and before the Aeon could destroy it. There\'s no turning back now, it\'s do or die.'
+OPERATION_DESCRIPTION = '<LOC SCCA_R06_description>Having the Black Sun access codes secured, Cybran forces attempt a daring operation on Earth itself to take control of Black Sun, before the UEF could fire it, and before the Aeon could destroy it. There\'s no turning back now, it\'s do or die.'
 
 
 

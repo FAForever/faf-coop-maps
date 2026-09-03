@@ -190,8 +190,8 @@ function MissionP1()
     ScenarioInfo.M1P1 = Objectives.CategoriesInArea(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Seraphim Bases',                 -- title
-        'Eliminate the Seraphim bases to move on the gates',  -- description
+        OpStrings.M1P1Title,            -- title
+        OpStrings.M1P1Description,      -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -237,10 +237,10 @@ function MissionP1Secondary()
     ScenarioFramework.Dialogue(OpStrings.SecondaryP1, nil, true)
 
     ScenarioInfo.M1P1S1 = Objectives.CategoriesInArea(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Destroy Seraphim Artillery Positions',                 -- title
-        'Destroy them to clear the water way for your navy.',  -- description
+        OpStrings.M1P1S1Title,          -- title
+        OpStrings.M1P1S1Description,    -- description
         'kill',                         -- action
         {                               -- target
             MarkUnits = true,
@@ -406,8 +406,8 @@ function MissionP2()
     ScenarioInfo.M1P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy Seraphim Gates',                 -- title
-        'Eliminate the Seraphim gates to stop the Seraphim from retreating here.',  -- description
+        OpStrings.M1P2Title,            -- title
+        OpStrings.M1P2Description,      -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -418,8 +418,8 @@ function MissionP2()
     ScenarioInfo.M2P2 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Kill the Seraphim Commander',                 -- title
-        'Eliminate the Seraphim Commander, He is guarding one of the gates',  -- description
+        OpStrings.M2P2Title,            -- title
+        OpStrings.M2P2Description,      -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -488,8 +488,8 @@ function MissionP2Secondary()
     ScenarioInfo.M2S1P2 = Objectives.Kill(
         'secondary',                      -- type
         'incomplete',                   -- complete
-        'Kill New Seraphim Commander',                 -- title
-        'A Seraphim commander has just gated in. Kill them before they can become a threat.',  -- description
+        OpStrings.M2S1P2Title,          -- title
+        OpStrings.M2S1P2Description,    -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -896,8 +896,8 @@ function MissionP3()
     ScenarioInfo.M1P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Kill the Last Seraphim Commander',                 -- title
-        'This is a higher ranking Seraphim Commander, kill him before he can escape.',  -- description
+        OpStrings.M1P3Title,            -- title
+        OpStrings.M1P3Description,      -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -915,8 +915,8 @@ function MissionP3()
    ScenarioInfo.M2P3 = Objectives.Kill(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Destroy final Seraphim Gate',                 -- title
-        'We Cant let this Seraphim warn the others',  -- description
+        OpStrings.M2P3Title,            -- title
+        OpStrings.M2P3Description,      -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
@@ -934,8 +934,8 @@ function MissionP3()
    ScenarioInfo.M3P3 = Objectives.Timer(
         'primary',                      -- type
         'incomplete',                   -- complete
-        'Time till Quantum Wake Dissipates',                 -- title
-        'The Seraphim only has to hold out a limited amount of time.',  -- description          
+        OpStrings.M3P3Title,            -- title
+        OpStrings.M3P3Description,      -- description          
         {                               -- target
            Timer = (timeAttackP3[Difficulty]),
            ExpireResult = 'Failed',
@@ -969,10 +969,10 @@ function MissionP3Secondary()
     ScenarioFramework.Dialogue(OpStrings.SecondaryP3, nil, true)
 
     ScenarioInfo.M1S1P3 = Objectives.Kill(
-        'secondary',                      -- type
+        'secondary',                    -- type
         'incomplete',                   -- complete
-        'Kill the Support Commanders',                 -- title
-        'There are several Support commanders helping the main Seraphim Commander, eliminate them.',  -- description
+        OpStrings.M1S1P3Title,          -- title
+        OpStrings.M1S1P3Description,    -- description
         {                               -- target
             MarkUnits = true,
             ShowProgress = true,
