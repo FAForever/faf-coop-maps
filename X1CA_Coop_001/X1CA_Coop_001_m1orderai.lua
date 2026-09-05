@@ -37,23 +37,23 @@ function OrderM1WestBaseAI()
 
     opai = OrderM1WestBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM1WestBase_ExperimentalLand')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1WestBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'OrderM1WestBase_ExperimentalAir')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1WestBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'OrderM1WestBase_ExperimentalNaval')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1WestBase:AddReactiveAI('Nuke', 'AirRetaliation', 'OrderM1WestBase_Nuke')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1WestBase:AddReactiveAI('HLRA', 'AirRetaliation', 'OrderM1WestBase_HLRA')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     OrderM1WestBaseAirAttacks()
 end
@@ -321,23 +321,23 @@ function OrderM1EastBaseAI()
 
     opai = OrderM1EastBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM1EastBase_ExperimentalLand')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1EastBase:AddReactiveAI('ExperimentalAir', 'AirRetaliation', 'OrderM1EastBase_ExperimentalAir')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1EastBase:AddReactiveAI('ExperimentalNaval', 'AirRetaliation', 'OrderM1EastBase_ExperimentalNaval')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1EastBase:AddReactiveAI('Nuke', 'AirRetaliation', 'OrderM1EastBase_Nuke')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     opai = OrderM1EastBase:AddReactiveAI('HLRA', 'AirRetaliation', 'OrderM1EastBase_HLRA')
     opai:SetChildActive('HeavyGunships', false)
-    opai:SetChildActive('StrategicBombers', false)
+    opai:SetChildActive('StratBombers', false)
 
     OrderM1EastBaseAirAttacks()
     OrderM1EastBaseLandAttacks()
