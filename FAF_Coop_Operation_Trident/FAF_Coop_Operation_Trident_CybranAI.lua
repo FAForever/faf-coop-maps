@@ -77,7 +77,7 @@ function M1CybranMainBaseAirAttacks()
                 'NoPlan',
                 {'ura0101', 1, 3, 'Scout', 'None'},
             },
-            Priority = 200,
+            Priority = 700,
             PlatoonAIFunction = {'/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_script.lua', 'M1ScoutPlatoonFormed'},
             BuildConditions = {
                 {'/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Cybran_Main_Base'}},
