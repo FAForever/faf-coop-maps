@@ -39,7 +39,7 @@ function UEFAllyM5BaseAirAttacks()
                 Priority = 110,
             }
         )
-        opai:SetChildQuantity({'Interceptors'}, 4)
+        opai:SetChildQuantity('Interceptors', 4)
     end
 
     -- Maintains 8 Gunships
@@ -53,7 +53,7 @@ function UEFAllyM5BaseAirAttacks()
                 Priority = 100,
             }
         )
-        opai:SetChildQuantity({'Gunships'}, 2)
+        opai:SetChildQuantity('Gunships', 2)
     end
 end
 
@@ -62,7 +62,7 @@ function UEFAllyM5BaseLandAttacks()
 	for i = 1, 2 do
         opai = UEFAllyM5Base:AddOpAI('BasicLandAttack', 'M5_UEFAllyTransportAttack1_' .. i,
         {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+            MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
             PlatoonData = {
                 AttackChain = 'M5_UEFAlly_Transport_Attack_Chain',
                 LandingChain = 'M5_UEFAlly_Transport_Landing_Chain',
@@ -71,7 +71,7 @@ function UEFAllyM5BaseLandAttacks()
             },
             Priority = 130,
         })
-        opai:SetChildQuantity({'HeavyTanks'}, 6)
+        opai:SetChildQuantity('HeavyTanks', 6)
     end
 
     -- Base Defense
@@ -85,7 +85,7 @@ function UEFAllyM5BaseLandAttacks()
 	            Priority = 120,
 	        }
         )
-        opai:SetChildQuantity({'MobileFlak'}, 2)
+        opai:SetChildQuantity('MobileFlak', 2)
     end
 
     for i = 1, 2 do
@@ -98,7 +98,7 @@ function UEFAllyM5BaseLandAttacks()
 	            Priority = 120,
 	        }
         )
-        opai:SetChildQuantity({'MobileFlak'}, 2)
+        opai:SetChildQuantity('MobileFlak', 2)
     end
 
     for i = 1, 2 do
@@ -111,14 +111,14 @@ function UEFAllyM5BaseLandAttacks()
 	            Priority = 120,
 	        }
         )
-        opai:SetChildQuantity({'MobileFlak'}, 2)
+        opai:SetChildQuantity('MobileFlak', 2)
     end
 
     -- Civ Defense
     for i = 1, 3 do
         opai = UEFAllyM5Base:AddOpAI('BasicLandAttack', 'M5_UEFAllyTransportDef1_' .. i,
         {
-            MasterPlatoonFunction = {'/lua/ScenarioPlatoonAI.lua', 'LandAssaultWithTransports'},
+            MasterPlatoonFunction = {SPAIFileName, 'LandAssaultWithTransports'},
             PlatoonData = {
                 AttackChain = 'M5_UEFAlly_Transport_Def_Chain',
                 LandingChain = 'M5_UEFAlly_Transport_Landing_Chain',
@@ -127,7 +127,7 @@ function UEFAllyM5BaseLandAttacks()
             },
             Priority = 100,
         })
-        opai:SetChildQuantity({'MobileFlak'}, 2)
+        opai:SetChildQuantity('MobileFlak', 2)
     end
 end
 
@@ -160,7 +160,7 @@ function UEFAllyM5GateBaseAirAttacks()
     })
     opai:SetChildActive('All', false)
     opai:SetChildActive('T2Transports', true)
-    opai:SetChildQuantity({'T2Transports'}, 1)
+    opai:SetChildQuantity('T2Transports', 1)
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
         'HaveLessThanUnitsWithCategory', {4, categories.uea0104})   -- T2 Transport
 end

@@ -12,22 +12,20 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 -- Base Managers
 ----------------
 local UEFM5IslandBase = BaseManager.CreateBaseManager()
+local UEFM5MainIslandBase = BaseManager.CreateBaseManager()
 
 ---------------------
 -- UEF M5 Island Base
 ---------------------
 function UEFM5IslandBaseAI()
     local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
-    UEFM5IslandBase:InitializeDifficultyTables(aiBrain, 'M5_UEF_Island_Base', 'M5_UEF_Island_Base_Marker', 100, {M5_UEF_Island_Base = 100})
+    UEFM5IslandBase:InitializeDifficultyTables(aiBrain, 'M5_UEF_Island_Base', 'M5_UEF_Island_Base_Marker', 100, {
+        M5_UEF_Island_Base = 100,
+        M5_UEF_Island_Base_Defences = 90,
+    })
     UEFM5IslandBase:StartNonZeroBase({{24, 20, 16}, {21, 17, 14}})
     -- UEFM5IslandBase:SetActive('AirScouting', true)
     -- UEFM5IslandBase:SetSupportACUCount(1)
-
-    ForkThread(function()
-        WaitSeconds(1)
-        UEFM5IslandBase:AddBuildGroup('M5_UEF_Island_Support_Factories', 100, true)
-        UEFM5IslandBase:AddBuildGroupDifficulty('M5_UEF_Island_Base_Defences', 90, true)
-    end)
 
     UEFM5IslandBaseAirAttacks()
     UEFM5IslandBaseLandAttacks()
@@ -38,17 +36,21 @@ function UEFM5IslandBaseAirAttacks()
 	local opai = nil
     local quantity = {}
 
+    local attackChains = {
+        'M5_UEF_Island_Air_Attack_Chain1',
+        'M5_UEF_Island_Air_Attack_Chain2',
+        'M5_UEF_Island_Hover_Attack_Chain',
+        'M5_UEF_Island_Naval_Attack_Chain1',
+        'M5_UEF_Island_Naval_Attack_Chain2'
+    }
+
     -- Sends 2 x 5 Torpedo Bombers
     for i = 1, 2 do
         opai = UEFM5IslandBase:AddOpAI('AirAttacks', 'M5_IslandAirAttack1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {'M5_UEF_Island_Air_Attack_Chain1',
-                                    'M5_UEF_Island_Air_Attack_Chain2',
-                                    'M5_UEF_Island_Hover_Attack_Chain',
-                                    'M5_UEF_Island_Naval_Attack_Chain1',
-                                    'M5_UEF_Island_Naval_Attack_Chain2'},
+                    PatrolChains = attackChains,
                 },
                 Priority = 100,
             }
@@ -79,11 +81,7 @@ function UEFM5IslandBaseAirAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {'M5_UEF_Island_Air_Attack_Chain1',
-                                    'M5_UEF_Island_Air_Attack_Chain2',
-                                    'M5_UEF_Island_Hover_Attack_Chain',
-                                    'M5_UEF_Island_Naval_Attack_Chain1',
-                                    'M5_UEF_Island_Naval_Attack_Chain2'},
+                    PatrolChains = attackChains,
                 },
                 Priority = 100,
             }
@@ -92,15 +90,16 @@ function UEFM5IslandBaseAirAttacks()
     end
 
 	-- Air Defense
-    -- Maintains 20/15/10 CombatFighters
-    for i = 1, 5 - Difficulty do
+    -- Maintains 20/15/15 CombatFighters
+    quantity = {4, 3, 3}
+    for i = 1, quantity[Difficulty] do
         opai = UEFM5IslandBase:AddOpAI('AirAttacks', 'M5_IslandAirDefense1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'RandomDefensePatrolThread'},
                 PlatoonData = {
                     PatrolChain = 'M5_UEF_Island_Air_Defense_Chain',
                 },
-                Priority = 110,
+                Priority = 210,
             }
         )
         opai:SetChildQuantity('CombatFighters', 5)
@@ -115,7 +114,7 @@ function UEFM5IslandBaseAirAttacks()
                 PlatoonData = {
                     PatrolChain = 'M5_UEF_Island_Air_Defense_Chain',
                 },
-                Priority = 100,
+                Priority = 200,
             }
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
@@ -129,13 +128,13 @@ function UEFM5IslandBaseAirAttacks()
                 PlatoonData = {
                     PatrolChain = 'M5_UEF_Island_Air_Defense_Chain',
                 },
-                Priority = 100,
+                Priority = 200,
             }
         )
         opai:SetChildQuantity('TorpedoBombers', 4)
     end
 
-    -- Maintains 10 Tropedo Bombers
+    -- Maintains 10 Interceptors
     for i = 1, 2 do
         opai = UEFM5IslandBase:AddOpAI('AirAttacks', 'M5_IslandAirDefense4_' .. i,
             {
@@ -143,7 +142,7 @@ function UEFM5IslandBaseAirAttacks()
                 PlatoonData = {
                     PatrolChain = 'M5_UEF_Island_Air_Defense_Chain',
                 },
-                Priority = 90,
+                Priority = 190,
             }
         )
         opai:SetChildQuantity('Interceptors', 5)
@@ -178,12 +177,17 @@ function UEFM5IslandBaseLandAttacks()
     opai:SetChildQuantity('CombatEngineers', 2)
 
     -- sends 12 [hover tanks] 5 times
+    local hoverChains = {
+        'M5_UEF_Island_Hover_Attack_Chain',
+        'M5_UEF_Island_Naval_Attack_Chain1',
+        'M5_UEF_Island_Naval_Attack_Chain2'
+    }
     for i = 1, 5 do
         opai = UEFM5IslandBase:AddOpAI('BasicLandAttack', 'M5_UEF_HoverAttack1_' .. i,
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
                 PlatoonData = {
-                    PatrolChains = {'M5_UEF_Island_Hover_Attack_Chain', 'M5_UEF_Island_Naval_Attack_Chain1', 'M5_UEF_Island_Naval_Attack_Chain2'},
+                    PatrolChains = hoverChains,
                 },
                 Priority = 100,
             }
@@ -195,28 +199,40 @@ end
 function UEFM5IslandBaseNavalAttacks()
     local opai = nil
     local quantity = {}
-    --[[
-    for i = 1, 2 do
-        opai = UEFM5IslandBase:AddNavalAI('M5_UEF_NavalAttack_1_' .. i,
-            {
-                MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
-                PlatoonData = {
-                    PatrolChains = {'M5_UEF_Island_Naval_Attack_Chain1', 'M5_UEF_Island_Naval_Attack_Chain2'},
-                },
-                Overrides = {
-                    CORE_TO_CRUISERS = 2,
-                    CORE_TO_UTILITY = 2,
-                },
-                EnabledTypes = {'Destroyer', 'Cruiser', 'Utility'},
-                MaxFrigates = 20,
-                MinFrigates = 20,
-                Priority = 200,
-            }
-        )
-        opai:SetChildActive('T1', false)
-        opai:SetChildActive('T3', false)
-        opai:SetLockingStyle('DeathRatio', {Ratio = 0.7})
-    ]]--
+
+    local attackChain = {'M5_UEF_Island_Naval_Attack_Chain1', 'M5_UEF_Island_Naval_Attack_Chain2'}
+    -- Attack with lower priority than defenders
+    opai = UEFM5IslandBase:AddNavalAI('M5_UEF_NavalAttack_1',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = attackChain,
+            },
+            Overrides = {
+                CORE_TO_CRUISERS = 2,
+                CORE_TO_UTILITY = 2,
+            },
+            EnabledTypes = {'Destroyer', 'Cruiser', 'Utility'},
+            MaxFrigates = 20,
+            MinFrigates = 20,
+            Priority = 110,
+        }
+    )
+    opai:SetChildActive('T1', false)
+    opai:SetChildActive('T3', false)
+
+    opai = UEFM5IslandBase:AddNavalAI('M5_UEF_NavalAttack_2',
+        {
+            MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
+            PlatoonData = {
+                PatrolChains = attackChain,
+            },
+            MaxFrigates = 4,
+            MinFrigates = 4,
+            Priority = 100,
+        }
+    )
+
 	-- Defense
     -- 4 Destroyers, 2 Cruisers, 2 Shieldboats
     opai = UEFM5IslandBase:AddNavalAI('M5_UEF_NavalDefense_1',
@@ -255,6 +271,21 @@ function UEFM5IslandBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
+
+    if Difficulty >= 3 then
+        opai = UEFM5IslandBase:AddNavalAI('M5_UEF_NavalDefense_3',
+            {
+                MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
+                PlatoonData = {
+                    PatrolChain = 'M5_UEF_Island_Naval_Defense_Chain2',
+                },
+                MaxFrigates = 4,
+                MinFrigates = 4,
+                Priority = 200,
+            }
+        )
+    end
 end
 
 function EscapeTransportBuilder()
@@ -297,4 +328,42 @@ function DisbandSACUPlatoon()
             end
         end
     end
+end
+
+---Creates the small resource outpost base on the main island
+function UEFMainIslandBase()
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM5MainIslandBase:Initialize(aiBrain, 'M5_UEF_Main_Island_Base', 'M5_UEF_Main_Island_Base_Marker', 30, {
+        M5_UEF_Main_Island_Base = 100,
+    })
+    UEFM5MainIslandBase:StartNonZeroBase(2)
+
+    UEFMainIslandBaseSparkyPlatoon()
+end
+
+function UEFMainIslandBaseSparkyPlatoon()
+    -- Makes the base use Sparkies for maintaining the base
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(
+        {
+            BuilderName = 'T2BaseManaqer_SparkyEngineersWork_M5_UEF_Main_Island_Base',
+            PlatoonTemplate = {
+                'EngineerThing',
+                'NoPlan',
+                {'xel0209', 1, 1, 'Support', 'None'},
+            },
+            Priority = 1,
+            PlatoonAIFunction = {'/lua/ai/opai/BaseManagerPlatoonThreads.lua', 'BaseManagerEngineerPlatoonSplit'},
+            BuildConditions = {
+                {'/lua/editor/BaseManagerBuildConditions.lua', 'BaseManagerNeedsEngineers', {'M5_UEF_Main_Island_Base'}},
+                {'/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M5_UEF_Main_Island_Base'}},
+            },
+            PlatoonData = {
+                BaseName = 'M5_UEF_Main_Island_Base',
+            },
+            PlatoonType = 'Any',
+            RequiresConstruction = false,
+            LocationType = 'M5_UEF_Main_Island_Base',
+        }
+    )
 end
