@@ -483,7 +483,7 @@ function SeraphimM5MainBaseNavalAttacks()
     )
     opai:SetChildActive('T1', false)
     opai:SetChildActive('T3', false)
-    opai:SetLockingStyle('DeathRatio', {Ratio = 0.8})
+    opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
 
     -- Sends 5 Destroyer to UEF
     opai = SeraphimM5MainBase:AddNavalAI('M5_Sera_NavalAttack_UEF_2',
