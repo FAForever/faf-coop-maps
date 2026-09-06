@@ -1204,13 +1204,14 @@ function IntroMission5()
             coop = coop + 1
         end
     end
-    
+
     ---------
     -- UEF AI
     ---------
     -- Island base with sACU
     M5UEFAI.UEFM5IslandBaseAI()
-    
+    M5UEFAI.UEFMainIslandBase()
+
     -- Fill the storages
     ArmyBrains[UEF]:GiveResource('MASS', 8000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 30000)
@@ -1219,9 +1220,19 @@ function IntroMission5()
     ScenarioInfo.UEFSACU = ScenarioFramework.SpawnCommander('UEF', 'M5_UEF_Island_sACU', nil, 'sCDR Morax', true, nil,
         {'AdvancedCoolingUpgrade', 'HighExplosiveOrdnance', 'Shield'})
 
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Battleships', 'NoFormation')
+    platoon:MoveToLocation(ScenarioUtils.MarkerToPosition("M3_UEF_Battleship_Move"), false)
+    local fraction = {0.5, 0.4, 0.3}
+    for i, battleship in pairs(platoon:GetPlatoonUnits()) do
+        local baseHP = battleship:GetHealth()
+        local low = baseHP * fraction[Difficulty]
+        battleship:SetHealth(battleship, Random(low - 1000, low + 1000))
+        IssueMove({battleship}, ScenarioUtils.MarkerToPosition("M3_UEF_Battleship_" .. i))
+    end
+
     --------------
     -- UEF Ally AI
-    --------------
+    ----------
     -- Start unit production from the civilian bases
     M5UEFALLYAI.UEFAllyM5BaseAI()
     M5UEFALLYAI.UEFAllyM5GateBaseAI()
@@ -1244,7 +1255,7 @@ function IntroMission5()
     -- Initial Patrols
     ------------------
     -- Seraphim
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Main_Base_Air_Def_Chain')))
     end
@@ -1990,10 +2001,8 @@ function SecondSeraACU()
     ScenarioInfo.EastSeraCDR:CreateEnhancement('ResourceAllocationAdvanced')
     ScenarioInfo.EastSeraCDR:CreateEnhancement('T3Engineering')
     ScenarioInfo.EastSeraCDR:CreateEnhancement('RateOfFire')
-    
-    -- ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
-    -- FletcherTM:AddTauntingCharacter(ScenarioInfo.FletcherCDR)
-    ScenarioInfo.EastSeraCDR:SetCustomName( "Evil One" )
+
+    ScenarioInfo.EastSeraCDR:SetCustomName("Issout-Thustih")
 
     M6SeraphimAI.SeraphimM6IslandBaseAI()
 
