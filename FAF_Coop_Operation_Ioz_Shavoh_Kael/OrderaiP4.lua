@@ -1,8 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Ioz_Shavoh_Kael/FAF_Coop_Operation_Ioz_Shavoh_Kael_CustomFunctions.lua'
 
 
@@ -16,7 +16,8 @@ local P4KBase3 = BaseManager.CreateBaseManager()
 local Difficulty = ScenarioInfo.Options.Difficulty
 
 function P4Kaelbase1AI()
-    P4KBase1:InitializeDifficultyTables(ArmyBrains[Kael], 'P4KaelBase1', 'P4KB1MK', 80, {P4KBase1 = 100})
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    P4KBase1:InitializeDifficultyTables(aiBrain, 'P4KaelBase1', 'P4KB1MK', 80, {P4KBase1 = 100})
     P4KBase1:StartNonZeroBase({{12, 18, 26}, {10, 14, 18}})
 
     P4KB1Airattacks()
@@ -25,7 +26,7 @@ function P4Kaelbase1AI()
 end
 
 function P4KB1Airattacks()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -48,7 +49,8 @@ function P4KB1Airattacks()
             PatrolChains = {'P4KB1Airattack1','P4KB1Airattack2', 'P4KB1Airattack3', 'P4KB1Airattack4'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 8, 10}
     trigger = {35, 25, 20}
@@ -67,14 +69,14 @@ function P4KB1Airattacks()
         LocationType = 'P4KaelBase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB1Airattack1','P4KB1Airattack2', 'P4KB1Airattack3', 'P4KB1Airattack4'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {5, 8, 10}
     trigger = {35, 25, 20}
@@ -93,14 +95,14 @@ function P4KB1Airattacks()
         LocationType = 'P4KaelBase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB1Airattack1','P4KB1Airattack2', 'P4KB1Airattack3', 'P4KB1Airattack4'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {10, 13, 15}
     opai = P4KBase1:AddOpAI('AirAttacks', 'M4_Kael_Air_Attack_1',
@@ -115,11 +117,10 @@ function P4KB1Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.AIR * categories.MOBILE, '>='})
+            {{'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.AIR * categories.MOBILE, '>='})
 end
 
 function P4KB1Landattacks()
-
     local quantity = {}
     local trigger = {}
 
@@ -144,7 +145,8 @@ function P4KB1Landattacks()
             PatrolChains = {'P4KB1Landattack1','P4KB1Landattack2', 'P4KB1Landattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )  
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )  
 
     quantity = {4, 5, 6}
     trigger = {20, 15, 10}
@@ -164,14 +166,14 @@ function P4KB1Landattacks()
         LocationType = 'P4KaelBase1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.SHIELD}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.SHIELD}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB1Landattack1','P4KB1Landattack2', 'P4KB1Landattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )  
+    aiBrain:PBMAddPlatoon( Builder )  
 end
 
 function P4KB1EXPattacks()
@@ -194,7 +196,8 @@ function P4KB1EXPattacks()
 end
 
 function P4Kaelbase2AI()
-    P4KBase2:InitializeDifficultyTables(ArmyBrains[Kael], 'P4KaelBase2', 'P4KB2MK', 80, {P4KBase2 = 100})
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    P4KBase2:InitializeDifficultyTables(aiBrain, 'P4KaelBase2', 'P4KB2MK', 80, {P4KBase2 = 100})
     P4KBase2:StartNonZeroBase({{10, 17, 22}, {8, 11, 14}})
 
     P4KB2Navalattacks()
@@ -203,10 +206,9 @@ function P4Kaelbase2AI()
 end
 
 function P4KB2Navalattacks()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
-    local opai = nil
 
     -- Extra engineers assisting T2 naval factories, all T2 factories has to be built
     -- Count is {X, 0} since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
@@ -224,7 +226,7 @@ function P4KB2Navalattacks()
     opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.TECH3 * categories.NAVAL * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {2, categories.TECH3 * categories.NAVAL * categories.FACTORY})
 
     quantity = {2, 2, 3}
     local Temp = {
@@ -247,7 +249,8 @@ function P4KB2Navalattacks()
             PatrolChains = {'P4KB2Navalattack1','P4KB2Navalattack2', 'P4KB2Navalattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
     trigger = {4, 3, 2}
@@ -267,14 +270,14 @@ function P4KB2Navalattacks()
         LocationType = 'P4KaelBase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.BATTLESHIP}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB2Navalattack1','P4KB2Navalattack2', 'P4KB2Navalattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {1, 2, 3}
     trigger = {30, 25, 20}
@@ -294,18 +297,18 @@ function P4KB2Navalattacks()
         LocationType = 'P4KaelBase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB2Navalattack1','P4KB2Navalattack2', 'P4KB2Navalattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4KB2Airattacks()
-
+    local opai = nil
     local quantity = {}
     local trigger = {}
 
@@ -328,7 +331,8 @@ function P4KB2Airattacks()
             PatrolChains = {'P4KB2Navalattack1','P4KB2Navalattack2', 'P4KB2Navalattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {2, 3, 4}
     trigger = {35, 25, 20}
@@ -347,14 +351,14 @@ function P4KB2Airattacks()
         LocationType = 'P4KaelBase2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
+        {{'HumanPlayers'}, trigger[Difficulty], categories.NAVAL * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB2Navalattack1','P4KB2Navalattack2', 'P4KB2Navalattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )   
+    aiBrain:PBMAddPlatoon( Builder )   
 
     quantity = {5, 6, 8}
     opai = P4KBase2:AddOpAI('AirAttacks', 'M4_Kael_Air_Attack_2',
@@ -369,7 +373,7 @@ function P4KB2Airattacks()
     opai:SetChildQuantity('TorpedoBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.NAVAL * categories.MOBILE, '>='})
+            {{'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.NAVAL * categories.MOBILE, '>='})
 end
 
 function P4KB2EXPattacks()
@@ -393,7 +397,8 @@ function P4KB2EXPattacks()
 end
 
 function P4Kaelbase3AI()
-    P4KBase3:InitializeDifficultyTables(ArmyBrains[Kael], 'P4KaelBase3', 'P4KB3MK', 80, {P4KBase3 = 100})
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    P4KBase3:InitializeDifficultyTables(aiBrain, 'P4KaelBase3', 'P4KB3MK', 80, {P4KBase3 = 100})
     P4KBase3:StartNonZeroBase({{7, 12, 18}, {5, 8, 10}})
 
     P4KB3Navalattacks()
@@ -403,7 +408,7 @@ function P4Kaelbase3AI()
 end
 
 function P4KB3Airattacks()
-
+    local opai = nil
     local quantity = {}
 
     quantity = {5, 7, 9}
@@ -426,7 +431,8 @@ function P4KB3Airattacks()
             PatrolChains = {'P4KB3Airattack1','P4KB3Airattack2', 'P4KB3Airattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 6}
 
@@ -445,14 +451,14 @@ function P4KB3Airattacks()
         LocationType = 'P4KaelBase3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 25, categories.AIR * categories.MOBILE}},
+        {{'HumanPlayers'}, 25, categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB3Airattack1','P4KB3Airattack2', 'P4KB3Airattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {4, 5, 6}
 
@@ -471,14 +477,14 @@ function P4KB3Airattacks()
         LocationType = 'P4KaelBase3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, 25, categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
+        {{'HumanPlayers'}, 25, categories.TECH3 * categories.STRUCTURE * categories.DEFENSE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P4KB3Airattack1','P4KB3Airattack2', 'P4KB3Airattack3'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     quantity = {6, 7, 9}
     opai = P4KBase3:AddOpAI('AirAttacks', 'M4_Kael_Air_Attack_3',
@@ -493,12 +499,13 @@ function P4KB3Airattacks()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.LAND * categories.MOBILE, '>='})
+            {{'HumanPlayers'}, 1,  categories.EXPERIMENTAL * categories.LAND * categories.MOBILE, '>='})
 end
 
 function P4KB3Landattacks()
-
+    local opai = nil
     local quantity = {}
+    local trigger = {}
 
     quantity = {4, 5, 6}
 
@@ -522,13 +529,12 @@ function P4KB3Landattacks()
             PatrolChains = {'P4KB3Landattack1','P4KB3Landattack2'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )   
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )   
 
-    local opai = nil
-    local trigger = {}
     local poolName = 'P4KaelBase3_TransportPool'
     
-    local quantity = {3, 4, 6}
+    quantity = {3, 4, 6}
     -- T2 Transport Platoon
     local Temp = {
         'M4_Kael_Western_Transport_Platoon',
@@ -551,7 +557,7 @@ function P4KB3Landattacks()
             BaseName = 'P4KaelBase3',
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     local Quantity1 = {2, 3, 4}
     local Quantity2 = {3, 4, 6}
@@ -581,13 +587,12 @@ function P4KB3Landattacks()
             GenerateSafePath = true,
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4KB3Navalattacks()
-
-    local quantity = {}
     local opai = nil
+    local quantity = {}
 
     -- Extra engineers assisting T2 naval factories, all T2 factories has to be built
     -- Count is {X, 0} since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
@@ -605,7 +610,7 @@ function P4KB3Navalattacks()
     opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.TECH3 * categories.NAVAL * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {2, categories.TECH3 * categories.NAVAL * categories.FACTORY})
 
     quantity = {2, 3, 4}
 
@@ -629,7 +634,8 @@ function P4KB3Navalattacks()
             PatrolChains = {'P4KB3Navalattack1','P4KB3Navalattack2'}
         },
     }
-    ArmyBrains[Kael]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Kael]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4KB3EXPattacks()

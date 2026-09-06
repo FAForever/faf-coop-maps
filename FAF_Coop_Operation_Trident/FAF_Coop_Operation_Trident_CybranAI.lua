@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CustomFunctions.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ThisFile = '/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_CybranAI.lua'
 
@@ -55,7 +55,8 @@ function ResetEngineerCount()
     M1CybranMainBase:SetEngineerCount({10, 8})
     M1CybranMainBase:SetMaximumConstructionEngineers(2)
 
-    ArmyBrains[Cybran]:PBMSetCheckInterval(13)
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(13)
 end
 
 -------------
@@ -67,7 +68,8 @@ function M1CybranMainBaseAirAttacks()
     local trigger = {}
 
     -- Air Scouts for players, only in the first part and after 2 air factories are built
-    ArmyBrains[Cybran]:PBMAddPlatoon(
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(
         {
             BuilderName = 'M1_Cybran_AirScouts_Builder',
             PlatoonTemplate = {
@@ -75,12 +77,12 @@ function M1CybranMainBaseAirAttacks()
                 'NoPlan',
                 {'ura0101', 1, 3, 'Scout', 'None'},
             },
-            Priority = 200,
+            Priority = 700,
             PlatoonAIFunction = {'/maps/FAF_Coop_Operation_Trident/FAF_Coop_Operation_Trident_script.lua', 'M1ScoutPlatoonFormed'},
             BuildConditions = {
                 {'/lua/editor/BaseManagerBuildConditions.lua', 'BaseActive', {'M1_Cybran_Main_Base'}},
-                {'/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1}},
-                --{'/lua/editor/UnitCountBuildConditions.lua', 'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.FACTORY * categories.AIR * categories.TECH2}},
+                {'/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1}},
+                --{'/lua/editor/UnitCountBuildConditions.lua', 'HaveGreaterThanUnitsWithCategory', {1, categories.FACTORY * categories.AIR * categories.TECH2}},
             },
             PlatoonData = {
                 BaseName = 'M1_Cybran_Main_Base',
@@ -103,9 +105,9 @@ function M1CybranMainBaseAirAttacks()
     )
     opai:SetChildQuantity('T2Transports', 3)
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {'default_brain', 600})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {600})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 3, categories.ura0104})
+        'HaveLessThanUnitsWithCategory', {3, categories.ura0104})
 
     ----------
     -- Attacks
@@ -119,7 +121,7 @@ function M1CybranMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     quantity = {12, 9, 9}
     opai = M1CybranMainBase:AddOpAI('AirAttacks', 'M1_Cybran_AirAttack_2',
@@ -129,7 +131,7 @@ function M1CybranMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     quantity = {7, 6, 5}
     opai = M1CybranMainBase:AddOpAI('AirAttacks', 'M1_Cybran_AirAttack_3',
@@ -139,7 +141,7 @@ function M1CybranMainBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('Gunships', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     ----------
     -- Patrols
@@ -223,9 +225,9 @@ function M1CybranMainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('T1Engineers', 3)
-    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 4000})
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
-    --opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {'default_brain', 300})
+    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {4000})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
+    --opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {300})
 
     -- Engineer for reclaiming if there's less than 2000 Mass in the storage, starting after 5 minutes
     opai = M1CybranMainBase:AddOpAI('EngineerAttack', 'M1_Cybran_Reclaim_Engineers_3',
@@ -241,9 +243,9 @@ function M1CybranMainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('T1Engineers', 6)
-    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {'default_brain', 2000})
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
-    --opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {'default_brain', 300})
+    opai:AddBuildCondition(CustomFunctions, 'LessMassStorageCurrent', {2000})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
+    --opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'GreaterThanGameTime', {300})
 
     -- Extra engineers assisting T1 naval factories, both T1 factories has to be built
     quantity = {4, 4, 6}
@@ -260,7 +262,7 @@ function M1CybranMainBaseLandAttacks()
     opai:SetChildQuantity('T1Engineers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.TECH2 * categories.NAVAL * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {1, categories.TECH2 * categories.NAVAL * categories.FACTORY})
 
     -- Extra engineers assisting T2 naval factories, both T2 factories has to be built
     -- Count is X, 0 since the platoon contains shields/stealth as well and we want just the engineers. And too lazy to make a new platoon rn.
@@ -278,7 +280,7 @@ function M1CybranMainBaseLandAttacks()
     opai:SetChildQuantity('T2Engineers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.TECH2 * categories.NAVAL * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {1, categories.TECH2 * categories.NAVAL * categories.FACTORY})
 
     ------------------
     -- M1 Land Attacks
@@ -292,7 +294,7 @@ function M1CybranMainBaseLandAttacks()
     )
     opai:SetChildQuantity('LightArtillery', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     quantity = {6, 5, 3}
     opai = M1CybranMainBase:AddOpAI('BasicLandAttack', 'M1_Cybran_LandAttack_2',
@@ -302,7 +304,7 @@ function M1CybranMainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     quantity = {4, 3, 2}
     opai = M1CybranMainBase:AddOpAI('BasicLandAttack', 'M1_Cybran_LandAttack_3',
@@ -312,7 +314,7 @@ function M1CybranMainBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileFlak', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     -- Hoplites if there are at least 2 T2 Land Factories
     quantity = {8, 6, 6}
@@ -324,9 +326,9 @@ function M1CybranMainBaseLandAttacks()
     )
     opai:SetChildQuantity('RangeBots', quantity[Difficulty])
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 1, categories.TECH2 * categories.LAND * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {1, categories.TECH2 * categories.LAND * categories.FACTORY})
 
     -- Hoplites if there are at least 3 T2 Land Factories
     quantity = {{6, 4}, {6, 4}, {4, 4}}
@@ -338,9 +340,9 @@ function M1CybranMainBaseLandAttacks()
     )
     opai:SetChildQuantity({'RangeBots', 'LightArtillery'}, quantity[Difficulty])
     opai:SetFormation('AttackFormation')
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveGreaterThanUnitsWithCategory', {'default_brain', 2, categories.TECH2 * categories.LAND * categories.FACTORY})
+        'HaveGreaterThanUnitsWithCategory', {2, categories.TECH2 * categories.LAND * categories.FACTORY})
 end
 
 function M1CybranMainBaseNavalAttacks()
@@ -359,7 +361,7 @@ function M1CybranMainBaseNavalAttacks()
         }
     )
     opai:SetChildQuantity({'Frigates', 'Submarines'}, 4)
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     -- Basic Naval attack to help player killing UEF base.
     opai = M1CybranMainBase:AddOpAI('NavalAttacks', 'M1_Cybran_NavalAttack_2',
@@ -372,7 +374,7 @@ function M1CybranMainBaseNavalAttacks()
         }
     )
     opai:SetChildQuantity({'Destroyers', 'Frigates'}, 4)
-    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/MiscBuildConditions.lua', 'MissionNumber', {1})
 
     -- Patrols
     -- 2 T2 and 2 T1 Subs
@@ -423,11 +425,12 @@ end
 -- Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
 function M1CybranLandAttackThread(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while aiBrain:PlatoonExists(platoon) do
-        if (not cmd or not platoon:IsCommandsActive(cmd)) then
+        if (not cmd or IsCommandDone(cmd)) then
             if ScenarioInfo.MissionNumber == 1 then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M1_Cybran_Land_Attack_Chain')
             elseif ScenarioInfo.MissionNumber == 2 then
@@ -438,14 +441,16 @@ function M1CybranLandAttackThread(platoon)
     end
 end
 
--- Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
+---Attack chain during M1 is to help clean the UEF base, once in M2, it sends the platoon towards the Aeon base.
+---@param platoon Platoon
 function M1CybranAirAttackThread(platoon)
     local aiBrain = platoon:GetBrain()
-    local cmd = false
+    ---@type SimCommand?
+    local cmd
 
     -- Switches attack chains based on mission number
     while aiBrain:PlatoonExists(platoon) do
-        if (not cmd or not platoon:IsCommandsActive(cmd)) then
+        if (not cmd or IsCommandDone(cmd)) then
             if ScenarioInfo.MissionNumber == 1 then
                 cmd = ScenarioFramework.PlatoonAttackChain(platoon, 'M1_Cybran_Air_Attack_Chain')
             elseif ScenarioInfo.MissionNumber == 2 then
@@ -464,10 +469,6 @@ function M2BuildExtraEconomy()
     M1CybranMainBase:AddBuildGroupDifficulty('M2_Expand_Defense', 80)
 end
 
-function M2RemoveACUFromConstruction()
-    M1CybranMainBase:RemoveConstructionEngineer(ScenarioInfo.CybranACU)
-end
-
 function M2ChangeACUEnhancements()
     M1CybranMainBase:SetACUUpgrades({'AdvancedEngineering', 'NaniteTorpedoTube', 'StealthGenerator'})
 end
@@ -476,11 +477,10 @@ end
 -- M2 Attacks
 -------------
 function M2CybranMainBaseAirAttacks()
-    M1CybranMainBase:SetActive('AirScouting', true)
-
     local opai = nil
     local quantity = {}
     local trigger = {}
+    M1CybranMainBase:SetActive('AirScouting', true)
 
     quantity = {15, 12, 10}
     opai = M1CybranMainBase:AddOpAI('AirAttacks', 'M2_Cybran_AirAttack_1',

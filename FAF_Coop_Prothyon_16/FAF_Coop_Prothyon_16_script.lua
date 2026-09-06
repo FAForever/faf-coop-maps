@@ -1,24 +1,21 @@
 -- Custom Mission
 -- Author: speed2
 
-local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local CustomFunctions = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
-local M1UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m1uefai.lua')
-local M2UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m2uefai.lua')
-local M3UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua')
-local M5UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefai.lua')
-local M5UEFALLYAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefallyai.lua')
-local M5SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai.lua')
-local M6SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m6seraphimai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local Utilities = import('/lua/utilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local CustomFunctions = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_CustomFunctions"
+local M1UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m1uefai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m1uefai"
+local M2UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m2uefai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m2uefai"
+local M3UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m3uefai"
+local M5UEFAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefai"
+local M5UEFALLYAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefallyai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5uefallyai"
+local M5SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m5seraphimai"
+local M6SeraphimAI = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m6seraphimai.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_m6seraphimai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings.lua')---@module "FAF_Coop_Prothyon_16/FAF_Coop_Prothyon_16_strings"
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 local Weather = import('/lua/weather.lua')
 
 ----------
@@ -125,7 +122,8 @@ function OnPopulate(scenario)
     M1UEFAI.UEFM1EastBaseAI()
 
     -- This will make AI to assembly platoons faster (qeue up new units). Default value is 15. Use this only for small bases!!
-    ArmyBrains[UEF]:PBMSetCheckInterval(6)
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(6)
 
     -- Slight delay for giving resources, else they are not given
     ForkThread(function()
@@ -203,7 +201,7 @@ function OnStart(scenario)
 
     -- Set up initial camera
     if not SkipNIS1 then
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_1', 0)
     end
 
     -- ForkThread is needed here since we are using WaitSecond() inside IntroMission1NIS function.
@@ -297,7 +295,7 @@ function IntroMission1NIS()
         local VisMarker1_3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('M1_Vis_1_3'), 0, ArmyBrains[Player1])
 
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
         -- Let slower machines catch up before we get going
         WaitSeconds(NIS1InitialDelay)
@@ -305,10 +303,10 @@ function IntroMission1NIS()
         WaitSeconds(1)
         ScenarioFramework.Dialogue(OpStrings.intro1, nil, true)
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 15)
+        Cinematics.CameraMoveToMarker('Cam_1_2', 15)
 
         ScenarioFramework.Dialogue(OpStrings.intro2, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
+        Cinematics.CameraMoveToMarker('Cam_1_3', 3)
         WaitSeconds(3)
 
         -- ForkThread so ACU are spawned while other code is executed
@@ -349,7 +347,7 @@ function IntroMission1NIS()
             -- spawn coop players too
             ScenarioInfo.CoopCDR = {}
             local tblArmy = ListArmies()
-            coop = 1
+            local coop = 1
             for iArmy, strArmy in pairs(tblArmy) do
                 if iArmy >= ScenarioInfo.Player2 then
                     ForkThread(CreateAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
@@ -359,7 +357,7 @@ function IntroMission1NIS()
         end)
         
         ScenarioFramework.Dialogue(OpStrings.intro3, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 7)
+        Cinematics.CameraMoveToMarker('Cam_1_4', 7)
         WaitSeconds(3)
 
         ForkThread(
@@ -385,7 +383,7 @@ function IntroMission1NIS()
         Cinematics.CameraTrackEntity( ScenarioInfo.Player1CDR, 30, 0 )
         WaitSeconds(6)
         ScenarioFramework.Dialogue(OpStrings.postintro, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_7'), 2)
+        Cinematics.CameraMoveToMarker('Cam_1_7', 2)
 
         Cinematics.ExitNISMode()
     else
@@ -421,7 +419,7 @@ function IntroMission1NIS()
         -- spawn coop players too
     	ScenarioInfo.CoopCDR = {}
     	local tblArmy = ListArmies()
-    	coop = 1
+    	local coop = 1
     	for iArmy, strArmy in pairs(tblArmy) do
         	if iArmy >= ScenarioInfo.Player2 then
                 ForkThread(CreateAndMoveCDRByTransport, strArmy, coop, ScenarioUtils.MarkerToPosition('M3_UEF_Landing_1'))
@@ -706,15 +704,15 @@ function IntroMission2NIS()
         local VisMarker2_2 = ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M2_Vis_2'), 0, ArmyBrains[Player1])
         local VisMarker2_3 = ScenarioFramework.CreateVisibleAreaLocation(40, ScenarioUtils.MarkerToPosition('M2_Vis_3'), 0, ArmyBrains[Player1])
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_2_1', 0)
         ScenarioFramework.Dialogue(OpStrings.southbase1, nil, true)
         WaitSeconds(3)
-        --Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 4)
-        --Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 3)
-        --Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_5'), 10)
+        --Cinematics.CameraMoveToMarker('Cam_2_2', 4)
+        --Cinematics.CameraMoveToMarker('Cam_2_3', 3)
+        --Cinematics.CameraMoveToMarker('Cam_2_4', 4)
+        Cinematics.CameraMoveToMarker('Cam_2_5', 10)
         ScenarioFramework.Dialogue(OpStrings.southbase2, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_6'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_6', 3)
         ForkThread(
             function()
                 WaitSeconds(1)
@@ -732,7 +730,7 @@ function IntroMission2NIS()
                 end
             end
         )
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_7'), 3)
+        Cinematics.CameraMoveToMarker('Cam_2_7', 3)
         WaitSeconds(2)
         
         Cinematics.SetInvincible('M2_Area', true)
@@ -748,7 +746,7 @@ function M2InitialAirAttack()
     local num = ScenarioFramework.GetNumOfHumanUnits(categories.ALLUNITS - categories.WALL, false)
     
     if(num > 100) then
-        local num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
+        num = ScenarioFramework.GetNumOfHumanUnits((categories.LAND * categories.MOBILE) - categories.CONSTRUCTION, false)
 
         if(num > 0) then
             num = math.ceil(num/20)
@@ -756,14 +754,14 @@ function M2InitialAirAttack()
                 num = 6
             end
             for i = 1, num do
-                units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'M2_UEF_Adapt_Bombers', 'GrowthFormation', 5)
+                local units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'M2_UEF_Adapt_Bombers', 'GrowthFormation', 5)
                 ScenarioFramework.PlatoonPatrolChain(units, 'M2_SouthBase_Land_Attack_Chain' .. Random(1,6))
             end
         end
     end
 
     -- Spawns Interceptors for every 10 Air units, up to 5 groups
-    local num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
+    num = ScenarioFramework.GetNumOfHumanUnits(categories.AIR * categories.MOBILE, false)
 
     if(num > 0) then
         num = math.ceil(num/10)
@@ -771,7 +769,7 @@ function M2InitialAirAttack()
             num = 5
         end
         for i = 1, num do
-            units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'M2_UEF_Adapt_Intie', 'GrowthFormation', 5)
+            local units = ScenarioUtils.CreateArmyGroupAsPlatoonVeteran('UEF', 'M2_UEF_Adapt_Intie', 'GrowthFormation', 5)
             ScenarioFramework.PlatoonPatrolChain(units, 'M2_SouthBase_Land_Attack_Chain' .. Random(1,6))
         end
     end
@@ -974,11 +972,11 @@ function IntroMission3NIS()
         local VisMarker3_3 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M3_Vis_3'), 0, ArmyBrains[Player1])
         local VisMarker3_4 = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('M3_Vis_4'), 0, ArmyBrains[Player1])
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_3_1', 0)
         ScenarioFramework.Dialogue(OpStrings.airbase2, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 4)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_4'), 2)
+        Cinematics.CameraMoveToMarker('Cam_3_2', 4)
+        Cinematics.CameraMoveToMarker('Cam_3_3', 5)
+        Cinematics.CameraMoveToMarker('Cam_3_4', 2)
         ForkThread(
             function()
                 WaitSeconds(1)
@@ -1198,7 +1196,7 @@ function IntroMission5()
     -- Set up trigger if player dies
     ScenarioFramework.CreateUnitDeathTrigger(PlayerDeath, ScenarioInfo.Player1CDR)
 
-    coop = 1
+    local coop = 1
     for iArmy, strArmy in pairs(ListArmies()) do
         if iArmy >= ScenarioInfo.Player2 then
             ScenarioInfo.CoopCDR[coop].CanBeKilled = true
@@ -1206,13 +1204,14 @@ function IntroMission5()
             coop = coop + 1
         end
     end
-    
+
     ---------
     -- UEF AI
     ---------
     -- Island base with sACU
     M5UEFAI.UEFM5IslandBaseAI()
-    
+    M5UEFAI.UEFMainIslandBase()
+
     -- Fill the storages
     ArmyBrains[UEF]:GiveResource('MASS', 8000)
     ArmyBrains[UEF]:GiveResource('ENERGY', 30000)
@@ -1221,9 +1220,19 @@ function IntroMission5()
     ScenarioInfo.UEFSACU = ScenarioFramework.SpawnCommander('UEF', 'M5_UEF_Island_sACU', nil, 'sCDR Morax', true, nil,
         {'AdvancedCoolingUpgrade', 'HighExplosiveOrdnance', 'Shield'})
 
+    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', 'M5_Battleships', 'NoFormation')
+    platoon:MoveToLocation(ScenarioUtils.MarkerToPosition("M3_UEF_Battleship_Move"), false)
+    local fraction = {0.5, 0.4, 0.3}
+    for i, battleship in pairs(platoon:GetPlatoonUnits()) do
+        local baseHP = battleship:GetHealth()
+        local low = baseHP * fraction[Difficulty]
+        battleship:SetHealth(battleship, Random(low - 1000, low + 1000))
+        IssueMove({battleship}, ScenarioUtils.MarkerToPosition("M3_UEF_Battleship_" .. i))
+    end
+
     --------------
     -- UEF Ally AI
-    --------------
+    ----------
     -- Start unit production from the civilian bases
     M5UEFALLYAI.UEFAllyM5BaseAI()
     M5UEFALLYAI.UEFAllyM5GateBaseAI()
@@ -1246,7 +1255,7 @@ function IntroMission5()
     -- Initial Patrols
     ------------------
     -- Seraphim
-    local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
+    platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('Seraphim', 'M5_Sera_Main_DefGroup', 'GrowthFormation')
     for _, v in platoon:GetPlatoonUnits() do
         ScenarioFramework.GroupPatrolRoute({v}, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M5_Sera_Main_Base_Air_Def_Chain')))
     end
@@ -1332,13 +1341,13 @@ function IntroMission5NIS()
         Cinematics.EnterNISMode()
         Cinematics.SetInvincible( 'M3_Area' )
 
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_1'), 0)
+        Cinematics.CameraMoveToMarker('Cam_5_1', 0)
         ScenarioFramework.Dialogue(OpStrings.obj5intro1, nil, true)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_2'), 5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_3'), 7)
+        Cinematics.CameraMoveToMarker('Cam_5_2', 5)
+        Cinematics.CameraMoveToMarker('Cam_5_3', 7)
         Cinematics.CameraTrackEntity( ScenarioInfo.UEFSACU, 30, 6 )
         WaitSeconds(1.5)
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_4'), 3)
+        Cinematics.CameraMoveToMarker('Cam_5_4', 3)
         
         WaitSeconds(2)
         
@@ -1346,7 +1355,7 @@ function IntroMission5NIS()
         Cinematics.ExitNISMode()
                             
     else
-        Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_5_4'), 0)
+        Cinematics.CameraMoveToMarker('Cam_5_4', 0)
 
         WaitSeconds(0.1)
     end
@@ -1688,7 +1697,7 @@ function Mission5Secondary2()
         'incomplete',                                       -- complete
         'Evacuate Cicilians',                      -- title
         'Evacuate the civilians by transporting all the civilian trucks to the Quantum Gateway',                      -- description
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {                                                   -- target
             Area = 'UEF_Evac_Area',
             MarkArea = true,
@@ -1992,10 +2001,8 @@ function SecondSeraACU()
     ScenarioInfo.EastSeraCDR:CreateEnhancement('ResourceAllocationAdvanced')
     ScenarioInfo.EastSeraCDR:CreateEnhancement('T3Engineering')
     ScenarioInfo.EastSeraCDR:CreateEnhancement('RateOfFire')
-    
-    -- ScenarioFramework.CreateUnitDamagedTrigger(FletcherWarp, ScenarioInfo.FletcherCDR, .8)
-    -- FletcherTM:AddTauntingCharacter(ScenarioInfo.FletcherCDR)
-    ScenarioInfo.EastSeraCDR:SetCustomName( "Evil One" )
+
+    ScenarioInfo.EastSeraCDR:SetCustomName("Issout-Thustih")
 
     M6SeraphimAI.SeraphimM6IslandBaseAI()
 
@@ -2352,7 +2359,7 @@ function PlayRandomReminderTaunt()
     end
    
     while (true) do
-        tauntToTest = ReminderTaunts[math.random(1, table.getn(ReminderTaunts))]
+        local tauntToTest = ReminderTaunts[math.random(1, table.getn(ReminderTaunts))]
         if(tauntToTest[2] == minPlayed) then
             tauntToTest[2] = tauntToTest[2] + 1
             ScenarioFramework.Dialogue(tauntToTest[1], nil, true)

@@ -16,7 +16,8 @@ local ArielM1AirBase = BaseManager.CreateBaseManager()
 -- Ariel M1 Air Base
 --------------------
 function ArielM1AirBaseAI()
-    ArielM1AirBase:InitializeDifficultyTables(ArmyBrains[Ariel], 'M1_Air_Base', 'Ariel_M1_Air_Base_Marker', 50, {M1_Air_Base = 100})
+    local aiBrain = ArmyBrains[Ariel]--[[@as CampaignAIBrain]]
+    ArielM1AirBase:InitializeDifficultyTables(aiBrain, 'M1_Air_Base', 'Ariel_M1_Air_Base_Marker', 50, {M1_Air_Base = 100})
     ArielM1AirBase:StartNonZeroBase({{2, 4, 6}, {2, 3, 4}})
     ArielM1AirBase:SetActive('AirScouting', true)
 
@@ -40,7 +41,7 @@ function ArielM1AirBaseAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'Interceptors'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {1})
     opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 
     quantity = {12, 16, 20}
@@ -55,7 +56,7 @@ function ArielM1AirBaseAttacks()
         }
     )
     opai:SetChildQuantity({'Gunships', 'Bombers'}, quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {1})
     opai:SetLockingStyle('DeathTimer', {LockTimer = 120})
 
     quantity = {6, 8, 10}
@@ -70,5 +71,5 @@ function ArielM1AirBaseAttacks()
         }
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 1})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {1})
 end

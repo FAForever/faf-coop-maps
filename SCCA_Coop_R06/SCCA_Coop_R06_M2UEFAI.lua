@@ -5,7 +5,7 @@
 --  Summary  : UEF army AI for Mission 1-2 - SCCA_Coop_R06
 --------------------------------------------------------------------------------
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 -- ------
 -- Locals
@@ -35,7 +35,8 @@ function UEFControlCenterAI()
     -- Black Sun Control Center Expansion.
 	-- Major defensive line for the UEF.
     -- -------------------------------------
-    UEFControlCenterBase:InitializeDifficultyTables(ArmyBrains[UEF], 'UEF_Control_Center_Base', 'ControlCenter', 25,
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFControlCenterBase:InitializeDifficultyTables(aiBrain, 'UEF_Control_Center_Base', 'ControlCenter', 25,
         {
 			ControlCenterDefensesPreBuilt = 150,
         }
@@ -49,7 +50,8 @@ function UEFDefensiveLineBaseAI()
     -- Black Sun Control Center Defensive Line Expansion.
 	-- Minor defensive line for the UEF. 
     -- ---------------------------------------------------
-    UEFDefensiveLineBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_DefensiveLine', 'M2_DefensiveLine_Base_Marker', 30,
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFDefensiveLineBase:InitializeDifficultyTables(aiBrain, 'M2_UEF_DefensiveLine', 'M2_DefensiveLine_Base_Marker', 30,
         {
 			M2DefensiveLine = 100,
         }
@@ -61,7 +63,8 @@ end
 
 function MobileFactoryAI(unit, i)
     -- Adding build location for AI
-    ArmyBrains[UEF]:PBMAddBuildLocation('UEF_Mobile_Factory_Marker_' .. i, 20, 'MobileFactory' .. i)
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddBuildLocation('UEF_Mobile_Factory_Marker_' .. i, 20, 'MobileFactory' .. i)
 
     for num, loc in ArmyBrains[UEF].PBM.Locations do
         if loc.LocationType == 'MobileFactory' .. i then
@@ -80,7 +83,8 @@ function MobileFactoryAttacks(i)
 	local T1Quantity = {8, 6, 4}
     local DirectQuantity = {2, 3, 4}
     local SupportQuantity = {1, 2, 3}
-	
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+
     if i == 1 then
 		-- 1st Fatboy platoon, mix of T3 and T2
         local Builder = {
@@ -111,7 +115,7 @@ function MobileFactoryAttacks(i)
 				},
 			},
 		}
-		ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+		aiBrain:PBMAddPlatoon( Builder )
     elseif i == 2 then
 		-- 2nd Fatboy platoon, mix of T2 and T1
 		local Builder = {
@@ -142,6 +146,6 @@ function MobileFactoryAttacks(i)
 				},
 			},
 		}
-		ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+		aiBrain:PBMAddPlatoon( Builder )
     end
 end

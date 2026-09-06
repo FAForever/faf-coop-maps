@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local OpScript = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
+local OpScript = import('/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script.lua')---@module "FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_script"
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 local ThisFile = '/maps/FAF_Coop_Operation_Tight_Spot/FAF_Coop_Operation_Tight_Spot_m3loyalistai.lua'
@@ -22,7 +22,8 @@ local LoyalistM3ProxyBase2 = BaseManager.CreateBaseManager()
 -- Loyalist M3 Main Base
 ------------------------
 function LoyalistM3MainBaseAI()
-    LoyalistM3MainBase:InitializeDifficultyTables(ArmyBrains[Loyalist], 'M3_Loyalist_Base', 'M3_Loyalist_Base_Marker', 30, {M3_Loyalist_Base = 100})
+    local aiBrain = ArmyBrains[Loyalist]--[[@as CampaignAIBrain]]
+    LoyalistM3MainBase:InitializeDifficultyTables(aiBrain, 'M3_Loyalist_Base', 'M3_Loyalist_Base_Marker', 30, {M3_Loyalist_Base = 100})
     LoyalistM3MainBase:StartNonZeroBase({9, 6})
 
     LoyalistM3MainBase:SetActive('AirScouting', true)

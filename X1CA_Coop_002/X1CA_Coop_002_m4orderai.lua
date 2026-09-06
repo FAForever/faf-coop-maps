@@ -29,7 +29,8 @@ function OrderM4MainBaseAI()
     --------------------
     -- Order M4 Main Base
     --------------------
-    OrderM4MainBase:InitializeDifficultyTables(ArmyBrains[Order], 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 70, {M4_Order_Main_Base = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    OrderM4MainBase:InitializeDifficultyTables(aiBrain, 'M4_Order_Main_Base', 'Order_M4_Main_Base_Marker', 70, {M4_Order_Main_Base = 100})
     OrderM4MainBase:StartNonZeroBase({{5, 2, 2}, {4, 2, 2}})
 
 -- OrderM4MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'OrderM4MainBase_ExperimentalLand')
@@ -175,7 +176,8 @@ function OrderM4NorthBaseAI()
     ---------------------
     -- Order M4 North Base
     ---------------------
-    OrderM4NorthBase:Initialize(ArmyBrains[Order], 'M4_North_Base', 'Order_M4_North_Base', 40, {M4_North_Base = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    OrderM4NorthBase:Initialize(aiBrain, 'M4_North_Base', 'Order_M4_North_Base', 40, {M4_North_Base = 100})
     OrderM4NorthBase:StartNonZeroBase()
 
     OrderM4NorthBaseLandAttacks()
@@ -209,7 +211,8 @@ function OrderM4CenterBaseAI()
     ----------------------
     -- Order M4 Center Base
     ----------------------
-    OrderM4CenterBase:Initialize(ArmyBrains[Order], 'M4_Middle_Base', 'Order_M4_Middle_Base', 40, {M4_Middle_Base = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    OrderM4CenterBase:Initialize(aiBrain, 'M4_Middle_Base', 'Order_M4_Middle_Base', 40, {M4_Middle_Base = 100})
     OrderM4CenterBase:StartNonZeroBase()
 
     OrderM4CenterBaseAirAttacks()
@@ -265,7 +268,8 @@ function OrderM4SouthBaseAI()
     ---------------------
     -- Order M4 South Base
     ---------------------
-    OrderM4SouthBase:Initialize(ArmyBrains[Order], 'M4_South_Base', 'Order_M4_South_Base', 40, {M4_South_Base = 100})
+    local aiBrain = ArmyBrains[Order]--[[@as CampaignAIBrain]]
+    OrderM4SouthBase:Initialize(aiBrain, 'M4_South_Base', 'Order_M4_South_Base', 40, {M4_South_Base = 100})
     OrderM4SouthBase:StartNonZeroBase()
 
     OrderM4SouthBaseAirAttacks()

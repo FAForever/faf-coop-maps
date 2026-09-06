@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings.lua')---@module "FAF_Coop_Theban_Colony/FAF_Coop_Theban_Colony_strings"
 
 operationData = 
 {

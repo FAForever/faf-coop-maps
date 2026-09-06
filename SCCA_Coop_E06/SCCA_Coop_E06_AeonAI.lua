@@ -55,7 +55,8 @@ function M3AddNukePlatoon()
         RequiresConstruction = false,
         PlatoonAIFunction = {CustomFunctions, 'NukePlatoon'},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3EnableSWTMLs()
@@ -70,7 +71,8 @@ function M2AeonSEBaseAI()
 	-- -----------
     -- Aeon Base
     -- -----------
-    M2AeonSEBase:InitializeDifficultyTables(ArmyBrains[Aeon], 'M2_Aeon_SE_Base', 'M2_Aeon_SE_Base_Marker', 210,
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    M2AeonSEBase:InitializeDifficultyTables(aiBrain, 'M2_Aeon_SE_Base', 'M2_Aeon_SE_Base_Marker', 210,
 		{
 			M2_Aeon_SE_Base = 100,
 		}
@@ -84,7 +86,7 @@ function M2AeonSEBaseAI()
     M2AeonSEBase:SetActive('LandScouting', true)
 	-- Enable nukes
 	--M2AeonSEBase:SetActive('Nuke', true)
-	ArmyBrains[Aeon]:PBMSetCheckInterval(5)
+	aiBrain:PBMSetCheckInterval(5)
 	
 	M2AeonSEBaseNavalAttacks()
 	M2AeonSEBaseTransportAttacks()
@@ -94,13 +96,14 @@ function M2AeonSEBaseAI()
 end
 
 function M2AeonSEBaseNavalAttacks()
-	local opai = nil
+    local opai = nil
+    local quantity = {}
 	local T3Quantity = {1, 1, 2}
 	local T2Quantity = {2, 3, 4}
 	local T1Quantity = {5, 4, 3}
 	
 	-- M1 Aeon Fleet for blocking easy access to the Black Sun Component
-	local quantity = {{2, 1}, {4, 2}, {6, 3}}
+	quantity = {{2, 1}, {4, 2}, {6, 3}}
     opai = M2AeonSEBase:AddOpAI('NavalAttacks', 'M1_Aeon_Component_Blockade_Fleet',
         {
             MasterPlatoonFunction = {SPAIFileName, 'PatrolChainPickerThread'},
@@ -140,10 +143,11 @@ function M2AeonSEBaseNavalAttacks()
         PlatoonAIFunction = {CustomFunctions, 'NavalHuntAI'},
 		PlatoonData = {
 			UseFormation = 'AttackFormation',
-        },     
+        },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-	
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
+
 	-- M1 Aeon Fleet for probe attacks
 	Temp = {
         'M2_Aeon_SouthEastern_Naval_Probe_Attack',
@@ -169,12 +173,13 @@ function M2AeonSEBaseNavalAttacks()
 			UseFormation = 'AttackFormation',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M2AeonSEBaseTransportAttacks()
-	local opai = nil
-	local quantity = {2, 4, 6}
+    local opai = nil
+    local quantity = {}
+	quantity = {2, 4, 6}
 	local T3Quantity = {1, 2, 3}
 	local T2Quantity = {2, 3, 4}
 	local poolName = 'M2_Aeon_SE_Base_TransportPool'
@@ -201,8 +206,9 @@ function M2AeonSEBaseTransportAttacks()
 			BaseName = 'M2_Aeon_SE_Base',
 		},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-	
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
+
 	Builder = {
         BuilderName = 'M2_Aeon_Southern_Land_Assault',
         PlatoonTemplate = {
@@ -231,13 +237,15 @@ function M2AeonSEBaseTransportAttacks()
 			BaseName = 'M2_Aeon_SE_Base',
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M2AeonSEBaseAirAttacks()
     local opai = nil
-	local quantity = {6, 12, 18}
-	local trigger = {30, 25, 20}
+    local quantity = {}
+    local trigger = {}
+	quantity = {6, 12, 18}
+	trigger = {30, 25, 20}
 		
 	-- Sends [6, 12, 18] Air Superiority Fighters to players if they have >= 30, 25, 20 air units
 	opai = M2AeonSEBase:AddOpAI('AirAttacks', 'M2_AeonSouthEastern_AirSuperiority_Attack',
@@ -303,12 +311,14 @@ function M2AeonSEBaseAirAttacks()
 		},
         PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M2AeonSEBaseAirDefense()
     local opai = nil
-	local quantity = {6, 12, 18}	-- Air Factories = [2, 4, 6] depending on the Difficulty
+    local quantity = {}
+	quantity = {6, 12, 18}	-- Air Factories = [2, 4, 6] depending on the Difficulty
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships', 'TorpedoBombers'}
 	
 	-- Maintains [6, 12, 18] units defined in ChildType
@@ -370,7 +380,8 @@ function M3AeonArnoldBaseAI()
 	M3AeonArnoldBase:StartNonZeroBase({9, 15, 21})
 	M3AeonArnoldBase:SetMaximumConstructionEngineers(15)
 	M3AeonArnoldBase:SetConstructionAlwaysAssist(true)
-	ArmyBrains[Aeon]:PBMSetCheckInterval(7)
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+	aiBrain:PBMSetCheckInterval(7)
 	
 	M3AeonArnoldBase:SetSupportACUCount(1)
 	M3AeonArnoldBase:SetSACUUpgrades({'SystemIntegrityCompensator', 'ResourceAllocation', 'EngineeringFocusingModule'}, false)
@@ -390,7 +401,8 @@ end
 
 function M3AeonArnoldBaseAirDefense()
     local opai = nil
-	local quantity = {4, 6, 8}
+    local quantity = {}
+	quantity = {4, 6, 8}
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships', 'TorpedoBombers'}
 		
 	-- Maintains [4, 6, 8] units defined in ChildType
@@ -476,10 +488,11 @@ function M3AeonArnoldBaseAirAttacks()
 		BuildConditions = {
 			{'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual', {3}},
 		},
-        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
+        PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-	
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
+
 	-- Builds [4, 8, 12] Strategic Bombers if players have >= 3, 2, 1 active SMLs, T3 Artillery, etc., and attacks said structures.
 	quantity = {4, 8, 12}
 	trigger = {3, 2, 1}
@@ -541,7 +554,8 @@ function M3AeonArnoldBaseNavalAttacks()
 	local T1Quantity = {2, 4, 6}
 	local Temp
 	local Builder
-	
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+
 	-- Probing Aeon Fleet to let the players know of the off-map Aeon base
 	opai = M3AeonArnoldBase:AddOpAI('NavalAttacks', 'M3_Arnold_Probe_Fleet',
         {
@@ -585,7 +599,7 @@ function M3AeonArnoldBaseNavalAttacks()
 				},
 			},
 		}
-		ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+		aiBrain:PBMAddPlatoon( Builder )
 	end
 	
 	-- Small Naval Fleet, with an added Battleship, to counter Cybran Naval forces better
@@ -617,8 +631,8 @@ function M3AeonArnoldBaseNavalAttacks()
 				},
             },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
-	
+    aiBrain:PBMAddPlatoon( Builder )
+
 	-- Not exactly a 'Naval' attack, but it's going to come from the sea
 	opai = M3AeonArnoldBase:AddOpAI('M3_Arnold_GC_Extra',
         {
@@ -664,7 +678,8 @@ function M3AeonArnoldBaseTransportAttacks()
 			BaseName = 'M3_Arnold_Base',
 		},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	Builder = {
         BuilderName = 'M3_Arnold_Land_Assault',
@@ -695,13 +710,14 @@ function M3AeonArnoldBaseTransportAttacks()
 			GenerateSafePath = true,
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 -- Arnold Experimentals for Phase 3
 function M3AeonArnoldBaseExperimentalAttacks()
-	local opai = nil
-	local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+	quantity = {1, 1, 2}
 	local platoonUnitCount = {1, 2, 3}
 	
 	-- Sends [1, 2, 3] Galactic Collosuses to the players
@@ -787,7 +803,8 @@ end
 
 function M3AeonSWBaseAirDefense()
     local opai = nil
-	local quantity = {4, 6, 8}
+    local quantity = {}
+	quantity = {4, 6, 8}
 	local ChildType = {'AirSuperiority', 'StratBombers', 'Gunships', 'TorpedoBombers'}
 
 	-- Maintains [4, 6, 8] units defined in ChildType
@@ -849,7 +866,8 @@ function M3AeonSWBaseAirAttacks()
 		},
         PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}    
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	-- Builds [4, 8, 12] Torpedo Bombers if players have >= 15, 10, 5 naval units
 	quantity = {4, 8, 12}
@@ -926,6 +944,7 @@ function M3AeonSWBaseNavalAttacks()
 	local T1Quantity = {5, 4, 3}
 	local Temp
 	local Builder
+	local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
 	
 	-- Probing Aeon Fleet to let the players know of the off-map Aeon base
 	opai = M3AeonSWBase:AddOpAI('NavalAttacks', 'M3_SW_Probe_Fleet',
@@ -970,7 +989,7 @@ function M3AeonSWBaseNavalAttacks()
 				},
 			},
 		}
-		ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+		aiBrain:PBMAddPlatoon( Builder )
 	end
 	
 	-- Smaller Naval Fleet
@@ -1001,7 +1020,7 @@ function M3AeonSWBaseNavalAttacks()
 			},
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function M3AeonSWBaseTransportAttacks()
@@ -1031,7 +1050,8 @@ function M3AeonSWBaseTransportAttacks()
 			BaseName = 'M3_SW_Base',
 		},
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[Aeon]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 	
 	Builder = {
         BuilderName = 'M3_SW_Land_Assault',
@@ -1062,13 +1082,14 @@ function M3AeonSWBaseTransportAttacks()
 			GenerateSafePath = true,
         },
     }
-    ArmyBrains[Aeon]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 -- SW Experimentals for Phase 3
 function M3AeonSWBaseExperimentalAttacks()
-	local opai = nil
-	local quantity = {1, 1, 2}
+    local opai = nil
+    local quantity = {}
+	quantity = {1, 1, 2}
 	local platoonUnitCount = {1, 2, 3}
 	
 	-- Send [1, 1, 2] Tempests at the Players

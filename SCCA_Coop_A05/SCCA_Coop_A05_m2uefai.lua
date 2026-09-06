@@ -19,7 +19,8 @@ local UEFM2ArtySouth = BaseManager.CreateBaseManager()
 -- UEF M2 Main Base
 -------------------
 function UEFM2BaseAI()
-    UEFM2Base:InitializeDifficultyTables(ArmyBrains[UEF], 'West_Base', 'UEF_West_Base', 90, {West_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2Base:InitializeDifficultyTables(aiBrain, 'West_Base', 'UEF_West_Base', 90, {West_Base = 100})
     UEFM2Base:StartNonZeroBase({{5, 9, 13}, {3, 7, 10}})
     UEFM2Base:SetActive('AirScouting', true)
 
@@ -50,7 +51,7 @@ function UEFM2BaseAirAttacks()
     opai:SetChildQuantity('T2Transports', 4)
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 7, categories.uea0104})
+        'HaveLessThanUnitsWithCategory', {7, categories.uea0104})
 
     quantity = {8, 12, 16}
     opai = UEFM2Base:AddOpAI('AirAttacks', 'M2_UEF_AirAttack_1',
@@ -117,7 +118,7 @@ function UEFM2BaseAirAttacks()
     )
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR - categories.TECH2, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.MOBILE * categories.AIR - categories.TECH2, '>='})
 
     -- Strat attack
     quantity = {2, 3, 4}
@@ -153,7 +154,7 @@ function UEFM2BaseAirAttacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathTimer', {LockTimer = 180})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-        {'default_brain', {'HumanPlayers'}, trigger[Difficulty], categories.uaa0304, '>='})
+        {{'HumanPlayers'}, trigger[Difficulty], categories.uaa0304, '>='})
 
     -- Defense
     -- UEF_WestBase_Air_Patrol_Chain
@@ -227,19 +228,22 @@ end
 -- UEF M2 Arty Bases
 --------------------
 function UEFM2ArtyNorthBaseAI()
-    UEFM2ArtyNorth:InitializeDifficultyTables(ArmyBrains[UEF], 'North_Artillery_Base', 'North_Artillery_Base_Marker', 40, {North_Artillery_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ArtyNorth:InitializeDifficultyTables(aiBrain, 'North_Artillery_Base', 'North_Artillery_Base_Marker', 40, {North_Artillery_Base = 100})
     UEFM2ArtyNorth:StartNonZeroBase({1, 2, 2})
     UEFM2ArtyNorth:AddBuildGroup('North_Artillery_Build', 90, true) -- Spawn north arty right away
 end
 
 function UEFM2ArtyMiddleBaseAI()
-    UEFM2ArtyMiddle:InitializeDifficultyTables(ArmyBrains[UEF], 'Middle_Artillery_Base', 'Middle_Artillery_Base_Marker', 40, {Middle_Artillery_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ArtyMiddle:InitializeDifficultyTables(aiBrain, 'Middle_Artillery_Base', 'Middle_Artillery_Base_Marker', 40, {Middle_Artillery_Base = 100})
     UEFM2ArtyMiddle:StartNonZeroBase({2, 3, 3})
     UEFM2ArtyMiddle:AddBuildGroup('Middle_Artillery_Build', 90)
 end
 
 function UEFM2ArtySouthBaseAI()
-    UEFM2ArtySouth:InitializeDifficultyTables(ArmyBrains[UEF], 'South_Artillery_Base', 'South_Artillery_Base_Marker', 40, {South_Artillery_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM2ArtySouth:InitializeDifficultyTables(aiBrain, 'South_Artillery_Base', 'South_Artillery_Base_Marker', 40, {South_Artillery_Base = 100})
     UEFM2ArtySouth:StartNonZeroBase({1, 2, 2})
     UEFM2ArtySouth:AddBuildGroup('South_Artillery_Build', 90)
 end

@@ -1,4 +1,4 @@
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 local Cybran = 3
 local Aeon = 4
@@ -144,10 +144,11 @@ function EnableStealthOnAir()
 end
 
 function CheatEco()
+    local quantity = {}
     WaitSeconds(5)
 
     -- Bonus mass income 50, 100, 150 mass/second
-    local quantity = {5000, 10000, 15000}
+    quantity = {5000, 10000, 15000}
     while ScenarioInfo.MissionNumber == 2 do
         ArmyBrains[Cybran]:GiveResource('MASS', quantity[Difficulty])
         WaitSeconds(100)

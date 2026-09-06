@@ -8,9 +8,9 @@
 -- **  Copyright © 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 
 local SPAIFileName = '/lua/ScenarioPlatoonAI.lua'
 
@@ -155,7 +155,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('HeavyTanks', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {2})
 
 -- ========================================================================
 
@@ -167,7 +167,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileMissiles', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {2})
 
 -- ========================================================================
 
@@ -179,7 +179,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileFlak', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 2})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {2})
     end
 
 -- ========================================================================
@@ -203,7 +203,8 @@ function FletcherBaseLandAttacks()
         LocationType = 'M1_Fletcher_Base',
         PlatoonAIFunction = {'/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua', 'FletcherLandPlatoonThread'},
     }
-    ArmyBrains[Fletcher]:PBMAddPlatoon( builder )
+    local aiBrain = ArmyBrains[Fletcher]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( builder )
 
 -- ========================================================================
 
@@ -215,7 +216,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('HeavyBots', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
 
 -- ========================================================================
 
@@ -227,7 +228,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('SiegeBots', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 48})
 
 -- ========================================================================
@@ -240,7 +241,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('HeavyTanks', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 36})
 
 -- ========================================================================
@@ -253,7 +254,7 @@ function FletcherBaseLandAttacks()
         }
     )
     opai:SetChildQuantity('MobileFlak', 12)
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
     opai:SetLockingStyle('BuildTimer', {LockTimer = 40})
 
 -- ========================================================================
@@ -323,7 +324,7 @@ function FletcherBaseLandAttacks()
 end
 
 function FletcherBaseAmphibiousAttacks(platoon)
-    local moveNum = false
+    local moveNum
 
     while(ArmyBrains[Fletcher]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 2) then
@@ -354,7 +355,7 @@ function FletcherBaseAmphibiousAttacks(platoon)
 end
 
 function FletcherLandPlatoonThread(platoon)
-    local moveNum = false
+    local moveNum
 
     while(ArmyBrains[Fletcher]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 2) then
@@ -425,7 +426,7 @@ function M2FletcherBaseAirAttacks()
         }
     )
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
 
     -- sends 24, 18, 9 [heavy gunships, gunships, bombers] (mission 3) (Land Path)
     quantity = {24, 18, 9}
@@ -437,7 +438,7 @@ function M2FletcherBaseAirAttacks()
     )
     opai:SetChildQuantity({'HeavyGunships', 'Gunships', 'Bombers'}, quantity[Difficulty])
     opai:SetLockingStyle('None')
-    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+    opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
 
 
     -- Air Defense
@@ -498,12 +499,12 @@ function M2FletcherBaseAirAttacks()
             }
         )
         opai:SetChildQuantity('TorpedoBombers', 6)
-        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {'default_brain', 3})
+        opai:AddBuildCondition('/lua/editor/miscbuildconditions.lua', 'MissionNumber', {3})
     end
 end
 
 function FletcherAirPlatoonThread(platoon)
-    local moveNum = false
+    local moveNum
 
     while(ArmyBrains[Fletcher]:PlatoonExists(platoon)) do
         if(ScenarioInfo.MissionNumber == 2) then

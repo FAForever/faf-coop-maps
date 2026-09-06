@@ -8,21 +8,21 @@
 -- **  Copyright 2007 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
 local Cinematics = import('/lua/cinematics.lua')
-local M1SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m1seraphimai.lua')
-local M2FletcherAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2fletcherai.lua')
-local M2OrderAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2orderai.lua')
-local M2RhizaAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2rhizaai.lua')
-local M2SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua')
-local M3SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m3seraphimai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local M1SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m1seraphimai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m1seraphimai"
+local M2FletcherAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2fletcherai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m2fletcherai"
+local M2OrderAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2orderai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m2orderai"
+local M2RhizaAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2rhizaai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m2rhizaai"
+local M2SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m2seraphimai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m2seraphimai"
+local M3SeraphimAI = import('/maps/X1CA_Coop_006/X1CA_Coop_006_m3seraphimai.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_m3seraphimai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_006/X1CA_Coop_006_strings.lua')---@module "X1CA_Coop_006/X1CA_Coop_006_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 local Utilities = import('/lua/utilities.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
+local EffectUtilities = import('/lua/effectutilities.lua')
 
 ---------
 -- Globals
@@ -32,7 +32,7 @@ ScenarioInfo.Rhiza = 2
 ScenarioInfo.Fletcher = 3
 ScenarioInfo.Order = 4
 ScenarioInfo.Seraphim = 5
-ScenarioInfo.ControlCenter = 6
+ScenarioInfo.ControlCenterArmy = 6
 ScenarioInfo.OptionZero = 7
 ScenarioInfo.Player2 = 8
 ScenarioInfo.Player3 = 9
@@ -53,7 +53,7 @@ local Rhiza = ScenarioInfo.Rhiza
 local Fletcher = ScenarioInfo.Fletcher
 local Order = ScenarioInfo.Order
 local Seraphim = ScenarioInfo.Seraphim
-local ControlCenter = ScenarioInfo.ControlCenter
+local ControlCenter = ScenarioInfo.ControlCenterArmy
 local OptionZero = ScenarioInfo.OptionZero
 
 local AssignedObjectives = {}
@@ -244,7 +244,7 @@ function FletcherTransportAI()
     local allUnits = {}
     local allTransports = {}
     for i = 1, 5 do
-        local transport = ScenarioUtils.CreateArmyUnit('Fletcher', 'M1_Fletcher_GiftMobile_Transport')
+        local transport = ScenarioUtils.CreateArmyUnit('Fletcher', 'M1_Fletcher_GiftMobile_Transport')--[[@as AirTransport]]
         local units = ScenarioUtils.CreateArmyGroup('Fletcher', 'M1_Fletcher_GiftMobile_Units')
         table.insert(allTransports, transport)
         for k, v in units do
@@ -340,11 +340,11 @@ function PlayerWin()
                 local VisMarker = ScenarioFramework.CreateVisibleAreaLocation(50, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_1'), 0, ArmyBrains[Player1])
 
                 WaitSeconds(1)
-                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_1'), 0)
+                Cinematics.CameraMoveToMarker('Cam_4_1', 0)
                 WaitSeconds(1)
-                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_2'), 8)
+                Cinematics.CameraMoveToMarker('Cam_4_2', 8)
                 WaitSeconds(3)
-                Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_4_3'), 4)
+                Cinematics.CameraMoveToMarker('Cam_4_3', 4)
                 WaitSeconds(3)
 
                 ForkThread(KillGameWin)
@@ -374,7 +374,7 @@ function IntroMission1NIS()
 
             Cinematics.EnterNISMode()
 
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+            Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
             -- Let slower machines catch up before we get going
             WaitSeconds(NIS1InitialDelay)
@@ -389,11 +389,11 @@ function IntroMission1NIS()
             end
 
             WaitSeconds(1)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_2'), 8)
+            Cinematics.CameraMoveToMarker('Cam_1_2', 8)
             ForkThread(sACUFletcherAI, SubCommanderFletcher)
             WaitSeconds(2)
 
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_3'), 3)
+            Cinematics.CameraMoveToMarker('Cam_1_3', 3)
 
             -- Rhiza's reinforcements
             if (LeaderFaction == 'aeon') then
@@ -406,11 +406,11 @@ function IntroMission1NIS()
             ScenarioFramework.CreateVisibleAreaLocation(30, ScenarioUtils.MarkerToPosition('M2_Order_AirAttack_1_3'), 1, ArmyBrains[Player1])
 
             WaitSeconds(1)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_4'), 3)
+            Cinematics.CameraMoveToMarker('Cam_1_4', 3)
             ForkThread(sACURhizaAI, SubCommanderRhiza)
             WaitSeconds(1)
 
-            -- Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_5'), 3)
+            -- Cinematics.CameraMoveToMarker('Cam_1_5', 3)
             -- WaitSeconds(1)
             -- The plan of attack
             if (LeaderFaction == 'aeon') then
@@ -432,7 +432,7 @@ function IntroMission1NIS()
                 -- Spawn Player4
                 local tblArmy = ListArmies()
                 if tblArmy[ScenarioInfo.Player4] then
-                    factionIdx = GetArmyBrain('Player4'):GetFactionIndex()
+                    local factionIdx = GetArmyBrain('Player4'):GetFactionIndex()
                     if (factionIdx == 1) then
                         ScenarioInfo.CoopCDR3 = ScenarioFramework.SpawnCommander('Player4', 'UEFPlayer', 'Warp', true, true, PlayerLose)
                     elseif (factionIdx == 2) then
@@ -443,7 +443,7 @@ function IntroMission1NIS()
                 end
             end)
 
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_6'), 3)
+            Cinematics.CameraMoveToMarker('Cam_1_6', 3)
             WaitSeconds(1)
 
             -- Closing statement
@@ -826,7 +826,7 @@ function IntroMission2NIS()
     ScenarioFramework.CreateVisibleAreaLocation(100, ScenarioUtils.MarkerToPosition('M2_Rhiza_Transport_Attack_1'), 1, ArmyBrains[Player1])
     ScenarioFramework.CreateVisibleAreaLocation(120, ScenarioUtils.MarkerToPosition('M2_Seraph_AirAttack_Rhiza_8'), 1, ArmyBrains[Player1])
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_2_1', 0)
     WaitSeconds(1)
 
     ScenarioFramework.Dialogue(OpStrings.X06_M02_011, FletcherTurns, true)
@@ -838,7 +838,7 @@ function IntroMission2NIS()
         end
     end
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_2'), 10)
+    Cinematics.CameraMoveToMarker('Cam_2_2', 10)
 
     while (not FletcherTurned) do
         WaitSeconds(0.2)
@@ -887,7 +887,7 @@ function IntroMission2NIS()
 
     ScenarioFramework.Dialogue(OpStrings.X06_M02_012, RhizaRetaliates, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3'), 4)
+    Cinematics.CameraMoveToMarker('Cam_2_3', 4)
 
     for k, target in FletcherUnits do
         if target and not target.Dead then
@@ -940,7 +940,7 @@ function IntroMission2NIS()
         end
    )
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_3_2'), 6)
+    Cinematics.CameraMoveToMarker('Cam_2_3_2', 6)
 
     while not LoopDone do
         WaitSeconds(0.5)
@@ -948,7 +948,7 @@ function IntroMission2NIS()
 
     ScenarioFramework.Dialogue(OpStrings.X06_M02_013, nil, true)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_2_4'), 3)
+    Cinematics.CameraMoveToMarker('Cam_2_4', 3)
     Cinematics.SetInvincible('M1Area', true)
     Cinematics.ExitNISMode()
 
@@ -1119,7 +1119,7 @@ function M2RhizaNuke()
         local marker = nil
         local numUnits = 0
         for i = 1, 4 do
-            local num = table.getn(ArmyBrains[Rhiza]:GetUnitsAroundPoint(categories.ALLUNITS, ScenarioUtils.MarkerToPosition('M2_RhizaNukeTarget_' .. i), 15, 'enemy'))
+            local num = table.getn(ArmyBrains[Rhiza]:GetUnitsAroundPoint(categories.ALLUNITS, ScenarioUtils.MarkerToPosition('M2_RhizaNukeTarget_' .. i), 15, 'Enemy'))
             if(num > 5) then
                 if(num > numUnits) then
                     numUnits = num
@@ -1136,9 +1136,9 @@ function M2RhizaNuke()
 end
 
 function M2FletcherCounterattack()
-    local num = nil
     local quantity = {}
     local trigger = {}
+    local num = nil
     local units = nil
 
     ------------------------
@@ -1197,9 +1197,9 @@ function M2FletcherCounterattack()
 end
 
 function M2OrderCounterattack()
-    local num = nil
     local quantity = {}
     local trigger = {}
+    local num = nil
     local units = nil
 
     ---------------------
@@ -1397,7 +1397,7 @@ function AssignM2S1()
         'incomplete',                           -- status
         OpStrings.X06_M02_OBJ_010_050,          -- title
         OpStrings.X06_M02_OBJ_010_060,          -- description
-        Objectives.GetActionIcon('capture'),
+        Objectives.GetActionIcon('Capture'),
         {                                       -- target
             FlashVisible = true,
             MarkUnits = true,
@@ -1772,11 +1772,11 @@ function IntroMission3NIS()
             local VisMarker3 = ScenarioFramework.CreateVisibleAreaLocation(20, ScenarioUtils.MarkerToPosition('NIS_M3_Reveal_3'), 0, ArmyBrains[Player1])
 
             WaitSeconds(1)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_1'), 0)
+            Cinematics.CameraMoveToMarker('Cam_3_1', 0)
             WaitSeconds(1)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_2'), 8)
+            Cinematics.CameraMoveToMarker('Cam_3_2', 8)
             WaitSeconds(3)
-            Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_3_3'), 4)
+            Cinematics.CameraMoveToMarker('Cam_3_3', 4)
             WaitSeconds(3)
 
             Cinematics.SetInvincible('M2Area', true)
@@ -2038,7 +2038,7 @@ function NukePlayer()
         while(searching) do
             WaitSeconds(5)
             for i = 1, 10 do
-                local num = table.getn(ArmyBrains[Seraphim]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M3_Seraph_NukeTarget_' .. i), 30, 'enemy'))
+                local num = table.getn(ArmyBrains[Seraphim]:GetUnitsAroundPoint((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE), ScenarioUtils.MarkerToPosition('M3_Seraph_NukeTarget_' .. i), 30, 'Enemy'))
                 if(num > 3) then
                     if(num > numUnits) then
                         numUnits = num

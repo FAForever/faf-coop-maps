@@ -3493,7 +3493,7 @@ Scenario = {
         ['M1_BaseDefense_AirPatrol_3'] = {
             'M1_BaseDefense_AirPatrol_3',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
         },
         ['M1_BaseDefense_LandPatrol_Light'] = {
             'M1_BaseDefense_LandPatrol_Light',
@@ -3515,56 +3515,56 @@ Scenario = {
         ['M1_Resource_LandAttack_Missile'] = {
             'M1_Resource_LandAttack_Missile',
             '',
-            { 'uel0111', 1, 3, 'attack', 'TravellingFormation' },
-            { 'uel0205', 1, 1, 'attack', 'TravellingFormation' },
+            { 'uel0111', 1, 3, 'attack', 'GrowthFormation' },
+            { 'uel0205', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['M1_Resource_LandAttack_Tank'] = {
             'M1_Resource_LandAttack_Tank',
             '',
-            { 'uel0205', 1, 1, 'attack', 'TravellingFormation' },
-            { 'uel0202', 1, 3, 'attack', 'TravellingFormation' },
+            { 'uel0205', 1, 1, 'attack', 'GrowthFormation' },
+            { 'uel0202', 1, 3, 'attack', 'GrowthFormation' },
         },
         ['M1_UEF_AirAttack2_MedStrong'] = {
             'M1_UEF_AirAttack2_MedStrong',
             '',
-            { 'uea0203', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uea0304', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0204', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0102', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 2, 'attack', 'AttackFormation' },
+            { 'uea0304', 1, 1, 'attack', 'AttackFormation' },
+            { 'uea0204', 1, 1, 'attack', 'AttackFormation' },
+            { 'uea0102', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_GunshipAttacks_Light'] = {
             'M1_UEF_GunshipAttacks_Light',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_GunshipAttacks_Medium'] = {
             'M1_UEF_GunshipAttacks_Medium',
             '',
-            { 'uea0203', 1, 9, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 9, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_GunshipAttacks_Strong'] = {
             'M1_UEF_GunshipAttacks_Strong',
             '',
-            { 'uea0203', 1, 9, 'unassigned', 'ChevronFormation' },
+            { 'uea0203', 1, 9, 'unassigned', 'AttackFormation' },
         },
         ['M1_UEF_ResourceBase_Air_T1-2_1'] = {
             'M1_UEF_ResourceBase_Air_T1-2_1',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
-            { 'uea0102', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
+            { 'uea0102', 1, 4, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_ResourceBase_Air_T1_1'] = {
             'M1_UEF_ResourceBase_Air_T1_1',
             '',
-            { 'uea0101', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0102', 1, 3, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0101', 1, 1, 'attack', 'AttackFormation' },
+            { 'uea0102', 1, 3, 'attack', 'AttackFormation' },
+            { 'uea0103', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_ResourceBase_Air_T1_2'] = {
             'M1_UEF_ResourceBase_Air_T1_2',
             '',
-            { 'uea0102', 1, 5, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 5, 'attack', 'AttackFormation' },
+            { 'uea0103', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M1_UEF_ResourceBase_Land_T1_1'] = {
             'M1_UEF_ResourceBase_Land_T1_1',
@@ -3584,7 +3584,7 @@ Scenario = {
             'M2_Hex5Platoon',
             '',
             { 'url0301', 1, 1, 'attack', 'AttackFormation' },
-            { 'ura0104', 1, 1, 'support', 'TravellingFormation' },
+            { 'ura0104', 1, 1, 'support', 'GrowthFormation' },
         },
         ['M2_OmniEast_NavalDefense'] = {
             'M2_OmniEast_NavalDefense',
@@ -3595,22 +3595,22 @@ Scenario = {
         ['M2_UEF_OmniEast_AirPatrol_Light'] = {
             'M2_UEF_OmniEast_AirPatrol_Light',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
         },
         ['M2_UEF_OmniEast_AirPatrol_MedStrong'] = {
             'M2_UEF_OmniEast_AirPatrol_MedStrong',
             '',
-            { 'uea0203', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M2_UEF_OmniEast_Gunship_3'] = {
             'M2_UEF_OmniEast_Gunship_3',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
         },
         ['M2_UEF_OmniNorth_GunshipAttack_Platoon'] = {
             'M2_UEF_OmniNorth_GunshipAttack_Platoon',
             '',
-            { 'uea0203', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M3_UEF_MainBase_DefPatrol_1_Light'] = {
             'M3_UEF_MainBase_DefPatrol_1_Light',
@@ -3707,13 +3707,13 @@ Scenario = {
         ['UEF_M2_OmniSW_AirPatrol_Light'] = {
             'UEF_M2_OmniSW_AirPatrol_Light',
             '',
-            { 'uea0102', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 4, 'attack', 'AttackFormation' },
         },
         ['UEF_M2_OmniSW_AirPatrol_MedStrong'] = {
             'UEF_M2_OmniSW_AirPatrol_MedStrong',
             '',
-            { 'uea0102', 1, 4, 'attack', 'ChevronFormation' },
-            { 'uea0303', 1, 1, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 4, 'attack', 'AttackFormation' },
+            { 'uea0303', 1, 1, 'attack', 'AttackFormation' },
         },
         ['UEF_M2_OmniSW_LandPatrol_Light'] = {
             'UEF_M2_OmniSW_LandPatrol_Light',
@@ -3737,50 +3737,50 @@ Scenario = {
         ['UEF_M3_AirBase_DefPatrol_Light'] = {
             'UEF_M3_AirBase_DefPatrol_Light',
             '',
-            { 'uea0203', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 4, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_AirBase_DefPatrol_Light_PV'] = {
             'UEF_M3_AirBase_DefPatrol_Light_PV',
             '',
-            { 'uea0102', 1, 4, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 4, 'attack', 'AttackFormation' },
+            { 'uea0103', 1, 2, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_AirBase_DefPatrol_Medium'] = {
             'UEF_M3_AirBase_DefPatrol_Medium',
             '',
-            { 'uea0203', 1, 4, 'attack', 'ChevronFormation' },
-            { 'uea0303', 1, 1, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 4, 'attack', 'AttackFormation' },
+            { 'uea0303', 1, 1, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_AirBase_DefPatrol_Medium_PV'] = {
             'UEF_M3_AirBase_DefPatrol_Medium_PV',
             '',
-            { 'uea0102', 1, 3, 'attack', 'ChevronFormation' },
-            { 'uea0303', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0103', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uea0102', 1, 3, 'attack', 'AttackFormation' },
+            { 'uea0303', 1, 1, 'attack', 'AttackFormation' },
+            { 'uea0103', 1, 4, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_AirBase_DefPatrol_Strong'] = {
             'UEF_M3_AirBase_DefPatrol_Strong',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
-            { 'uea0303', 1, 1, 'attack', 'ChevronFormation' },
-            { 'uea0305', 1, 1, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
+            { 'uea0303', 1, 1, 'attack', 'AttackFormation' },
+            { 'uea0305', 1, 1, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_AirBase_DefPatrol_Strong_PV'] = {
             'UEF_M3_AirBase_DefPatrol_Strong_PV',
             '',
-            { 'uea0103', 1, 4, 'attack', 'ChevronFormation' },
-            { 'uea0303', 1, 2, 'attack', 'ChevronFormation' },
-            { 'uea0305', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0103', 1, 4, 'attack', 'AttackFormation' },
+            { 'uea0303', 1, 2, 'attack', 'AttackFormation' },
+            { 'uea0305', 1, 3, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_GunshipGroup_3count'] = {
             'UEF_M3_GunshipGroup_3count',
             '',
-            { 'uea0203', 1, 3, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 3, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_GunshipGroup_4count'] = {
             'UEF_M3_GunshipGroup_4count',
             '',
-            { 'uea0203', 1, 4, 'attack', 'ChevronFormation' },
+            { 'uea0203', 1, 4, 'attack', 'AttackFormation' },
         },
         ['UEF_M3_MainBase_NormaAirPatrol_MedStrong'] = {
             'UEF_M3_MainBase_NormaAirPatrol_MedStrong',
@@ -3801,12 +3801,12 @@ Scenario = {
         ['UEF_T2_Eng_Platoon_Single'] = {
             'UEF_T2_Eng_Platoon_Single',
             '',
-            { 'uel0208', -1, 1, 'unassigned', 'TravellingFormation' },
+            { 'uel0208', -1, 1, 'unassigned', 'GrowthFormation' },
         },
         ['UEF_T3_Eng_Platoon_Group'] = {
             'UEF_T3_Eng_Platoon_Group',
             '',
-            { 'uel0309', 1, 27, 'attack', 'TravellingFormation' },
+            { 'uel0309', 1, 27, 'attack', 'GrowthFormation' },
         },
         ['UEF_T3_Eng_Platoon_Single'] = {
             'UEF_T3_Eng_Platoon_Single',
@@ -21437,12 +21437,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -21463,8 +21463,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -21485,12 +21485,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin'},
-                                {'default_brain','M1_UEFAttackBegin'}
+                                {'M1_UEFAttackBegin'},
+                                {'M1_UEFAttackBegin'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -21518,12 +21518,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin'},
-                                {'default_brain','M1_UEFAttackBegin'}
+                                {'M1_UEFAttackBegin'},
+                                {'M1_UEFAttackBegin'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -21547,12 +21547,12 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21572,8 +21572,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -21603,16 +21603,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin3'},
-                                {'default_brain','M1_UEFAttackBegin3'}
+                                {'M1_UEFAttackBegin3'},
+                                {'M1_UEFAttackBegin3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21629,8 +21629,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -21653,12 +21653,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M2_North_NumEngineers', categories.ENGINEER ,'M2_NorthOmni_Area'},
-                                {'default_brain','M2_North_NumEngineers','categories.ENGINEER','M2_NorthOmni_Area'}
+                                {'M2_North_NumEngineers', categories.ENGINEER ,'M2_NorthOmni_Area'},
+                                {'M2_North_NumEngineers','categories.ENGINEER','M2_NorthOmni_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21682,12 +21682,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonData = {
@@ -21708,12 +21708,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21734,12 +21734,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21760,8 +21760,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -21790,12 +21790,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M3_Main_NumEngineers', categories.ENGINEER ,'M3_MainBase_Area'},
-                                {'default_brain','M3_Main_NumEngineers','categories.ENGINEER','M3_MainBase_Area'}
+                                {'M3_Main_NumEngineers', categories.ENGINEER ,'M3_MainBase_Area'},
+                                {'M3_Main_NumEngineers','categories.ENGINEER','M3_MainBase_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -21818,12 +21818,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -21840,12 +21840,12 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMCheckPlatoonLock',
                                 {'Remove','default_master'},
@@ -21865,8 +21865,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21889,8 +21889,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -21907,8 +21907,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -21933,12 +21933,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -21959,12 +21959,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -21985,12 +21985,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M3_Air_NumEngineers', categories.ENGINEER ,'M3_AirBase_Area'},
-                                {'default_brain','M3_Air_NumEngineers','categories.ENGINEER','M3_AirBase_Area'}
+                                {'M3_Air_NumEngineers', categories.ENGINEER ,'M3_AirBase_Area'},
+                                {'M3_Air_NumEngineers','categories.ENGINEER','M3_AirBase_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22014,12 +22014,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22040,12 +22040,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22066,12 +22066,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -22092,16 +22092,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -22122,20 +22122,20 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMCheckPlatoonLock',
-                                {'default_brain','M2_Naval_AttackPatrol2_MedStrong'},
-                                {'default_brain','M2_Naval_AttackPatrol2_MedStrong'}
+                                {'M2_Naval_AttackPatrol2_MedStrong'},
+                                {'M2_Naval_AttackPatrol2_MedStrong'}
                             },
                             [3] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M2_DelayedNaval'},
-                                {'default_brain','M2_DelayedNaval'}
+                                {'M2_DelayedNaval'},
+                                {'M2_DelayedNaval'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -22164,12 +22164,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22190,12 +22190,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBeginIncrease'},
-                                {'default_brain','M1_UEFAttackBeginIncrease'}
+                                {'M1_UEFAttackBeginIncrease'},
+                                {'M1_UEFAttackBeginIncrease'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -22223,16 +22223,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -22253,12 +22253,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22279,16 +22279,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -22309,16 +22309,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -22335,8 +22335,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22361,12 +22361,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22386,8 +22386,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -22408,12 +22408,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22434,16 +22434,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -22464,8 +22464,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22486,16 +22486,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_PlayerAtUEFMainBase'},
-                                {'default_brain','M3_PlayerAtUEFMainBase'}
+                                {'M3_PlayerAtUEFMainBase'},
+                                {'M3_PlayerAtUEFMainBase'}
                             },
                         },
                         PlatoonData = {
@@ -22532,8 +22532,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22554,8 +22554,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22576,12 +22576,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M2_Naval_NumEngineers', categories.ENGINEER ,'M2_NavalBase_Area'},
-                                {'default_brain','M2_Naval_NumEngineers','categories.ENGINEER','M2_NavalBase_Area'}
+                                {'M2_Naval_NumEngineers', categories.ENGINEER ,'M2_NavalBase_Area'},
+                                {'M2_Naval_NumEngineers','categories.ENGINEER','M2_NavalBase_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22601,8 +22601,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22627,12 +22627,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin'},
-                                {'default_brain','M1_UEFAttackBegin'}
+                                {'M1_UEFAttackBegin'},
+                                {'M1_UEFAttackBegin'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -22660,16 +22660,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin3'},
-                                {'default_brain','M1_UEFAttackBegin3'}
+                                {'M1_UEFAttackBegin3'},
+                                {'M1_UEFAttackBegin3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -22696,12 +22696,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22722,12 +22722,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonData = {
@@ -22748,12 +22748,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -22774,12 +22774,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/amplatoonhelperfunctions.lua', 'AMCheckPlatoonLock',
                                 {'Remove','default_master'},
@@ -22803,8 +22803,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22825,12 +22825,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -22851,12 +22851,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22877,12 +22877,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin'},
-                                {'default_brain','M1_UEFAttackBegin'}
+                                {'M1_UEFAttackBegin'},
+                                {'M1_UEFAttackBegin'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -22910,8 +22910,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M1_NumEngineers', categories.ENGINEER ,'M1_UEFBase_Area'},
-                                {'default_brain','M1_NumEngineers','categories.ENGINEER','M1_UEFBase_Area'}
+                                {'M1_NumEngineers', categories.ENGINEER ,'M1_UEFBase_Area'},
+                                {'M1_NumEngineers','categories.ENGINEER','M1_UEFBase_Area'}
                             },
                         },
                         PlatoonData = {
@@ -22933,12 +22933,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -22959,12 +22959,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -22985,12 +22985,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M2_Air_NumEngineers', categories.ENGINEER ,'M2_AirBase_Area'},
-                                {'default_brain','M2_Air_NumEngineers','categories.ENGINEER','M2_AirBase_Area'}
+                                {'M2_Air_NumEngineers', categories.ENGINEER ,'M2_AirBase_Area'},
+                                {'M2_Air_NumEngineers','categories.ENGINEER','M2_AirBase_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23014,16 +23014,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin3'},
-                                {'default_brain','M1_UEFAttackBegin3'}
+                                {'M1_UEFAttackBegin3'},
+                                {'M1_UEFAttackBegin3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -23043,12 +23043,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonData = {
@@ -23069,12 +23069,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBeginIncrease'},
-                                {'default_brain','M1_UEFAttackBeginIncrease'}
+                                {'M1_UEFAttackBeginIncrease'},
+                                {'M1_UEFAttackBeginIncrease'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23102,12 +23102,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23128,12 +23128,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23154,16 +23154,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_PlayerAtUEFMainBase'},
-                                {'default_brain','M3_PlayerAtUEFMainBase'}
+                                {'M3_PlayerAtUEFMainBase'},
+                                {'M3_PlayerAtUEFMainBase'}
                             },
                         },
                         PlatoonData = {
@@ -23184,16 +23184,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_PlayerAtUEFMainBase'},
-                                {'default_brain','M3_PlayerAtUEFMainBase'}
+                                {'M3_PlayerAtUEFMainBase'},
+                                {'M3_PlayerAtUEFMainBase'}
                             },
                         },
                         PlatoonData = {
@@ -23214,12 +23214,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23239,12 +23239,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23272,16 +23272,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23298,8 +23298,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23322,12 +23322,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23348,16 +23348,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23403,8 +23403,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23434,16 +23434,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23464,12 +23464,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBeginIncrease'},
-                                {'default_brain','M1_UEFAttackBeginIncrease'}
+                                {'M1_UEFAttackBeginIncrease'},
+                                {'M1_UEFAttackBeginIncrease'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23497,8 +23497,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23528,12 +23528,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23553,12 +23553,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -23579,12 +23579,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -23605,12 +23605,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23631,12 +23631,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23664,16 +23664,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin3'},
-                                {'default_brain','M1_UEFAttackBegin3'}
+                                {'M1_UEFAttackBegin3'},
+                                {'M1_UEFAttackBegin3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -23694,8 +23694,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23725,16 +23725,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23755,16 +23755,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23797,12 +23797,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23823,12 +23823,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23849,12 +23849,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23875,12 +23875,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23901,12 +23901,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanVarTableUnitsWithCategoryInArea',
-                                {'default_brain','M2_SW_NumEngineers', categories.ENGINEER ,'M2_SWOmni_Area'},
-                                {'default_brain','M2_SW_NumEngineers','categories.ENGINEER','M2_SWOmni_Area'}
+                                {'M2_SW_NumEngineers', categories.ENGINEER ,'M2_SWOmni_Area'},
+                                {'M2_SW_NumEngineers','categories.ENGINEER','M2_SWOmni_Area'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -23930,16 +23930,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','M3_VirusUpload'},
-                                {'default_brain','M3_VirusUpload'}
+                                {'M3_VirusUpload'},
+                                {'M3_VirusUpload'}
                             },
                         },
                         PlatoonData = {
@@ -23960,16 +23960,16 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin3'},
-                                {'default_brain','M1_UEFAttackBegin3'}
+                                {'M1_UEFAttackBegin3'},
+                                {'M1_UEFAttackBegin3'}
                             },
                             [2] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -23996,12 +23996,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -24021,8 +24021,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -24043,12 +24043,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -24069,12 +24069,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBegin2'},
-                                {'default_brain','M1_UEFAttackBegin2'}
+                                {'M1_UEFAttackBegin2'},
+                                {'M1_UEFAttackBegin2'}
                             },
                         },
                         PlatoonData = {
@@ -24095,12 +24095,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -24121,8 +24121,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -24152,12 +24152,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumberGreaterOrEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -24178,12 +24178,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','M1_UEFAttackBeginIncrease'},
-                                {'default_brain','M1_UEFAttackBeginIncrease'}
+                                {'M1_UEFAttackBeginIncrease'},
+                                {'M1_UEFAttackBeginIncrease'}
                             },
                         },
                         PlatoonAddFunctions = {

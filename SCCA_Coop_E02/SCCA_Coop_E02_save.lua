@@ -1225,44 +1225,44 @@ Scenario = {
         ['Aeon_Artillery'] = {
             'Aeon_Artillery',
             '',
-            { 'ual0103', 1, 12, 'artillery', 'ChevronFormation' },
+            { 'ual0103', 1, 12, 'artillery', 'AttackFormation' },
         },
         ['Aeon_Bombers'] = {
             'Aeon_Bombers',
             '',
-            { 'uaa0103', 1, 30, 'attack', 'ChevronFormation' },
+            { 'uaa0103', 1, 30, 'attack', 'AttackFormation' },
         },
         ['Aeon_Commander'] = {
             'Aeon_Commander',
             'PatrolLocationFactoriesAI',
-            { 'ual0001', 1, 1, 'support', 'TravellingFormation' },
+            { 'ual0001', 1, 1, 'support', 'GrowthFormation' },
         },
         ['Aeon_Engineer_T1'] = {
             'Aeon_Engineer_T1',
             '',
-            { 'ual0105', 1, 1, 'support', 'TravellingFormation' },
+            { 'ual0105', 1, 1, 'support', 'GrowthFormation' },
         },
         ['Aeon_Engineer_T2'] = {
             'Aeon_Engineer_T2',
             '',
-            { 'ual0208', 1, 1, 'support', 'TravellingFormation' },
+            { 'ual0208', 1, 1, 'support', 'GrowthFormation' },
         },
         ['Aeon_Fighters'] = {
             'Aeon_Fighters',
             '',
-            { 'uaa0102', 1, 50, 'attack', 'ChevronFormation' },
+            { 'uaa0102', 1, 50, 'attack', 'AttackFormation' },
         },
         ['Aeon_Gunships'] = {
             'Aeon_Gunships',
             '',
-            { 'uaa0203', 1, 10, 'attack', 'ChevronFormation' },
+            { 'uaa0203', 1, 10, 'attack', 'AttackFormation' },
         },
         ['Aeon_Mixed_Air_Attack'] = {
             'Aeon_Mixed_Air_Attack',
             '',
-            { 'uaa0102', 0, 30, 'guard', 'ChevronFormation' },
-            { 'uaa0103', 1, 15, 'attack', 'ChevronFormation' },
-            { 'uaa0203', 0, 10, 'attack', 'ChevronFormation' },
+            { 'uaa0102', 0, 30, 'guard', 'AttackFormation' },
+            { 'uaa0103', 1, 15, 'attack', 'AttackFormation' },
+            { 'uaa0203', 0, 10, 'attack', 'AttackFormation' },
         },
         ['Aeon_Tanks'] = {
             'Aeon_Tanks',
@@ -1272,42 +1272,42 @@ Scenario = {
         ['Aeon_Transports'] = {
             'Aeon_Transports',
             '',
-            { 'uaa0104', 1, 5, 'support', 'ChevronFormation' },
+            { 'uaa0104', 1, 5, 'support', 'AttackFormation' },
         },
         ['M1_Air_Patrol'] = {
             'M1_Air_Patrol',
             '',
-            { 'uaa0101', 1, 10, 'scout', 'ChevronFormation' },
-            { 'uaa0102', 1, 20, 'guard', 'ChevronFormation' },
-            { 'uaa0103', 1, 20, 'attack', 'ChevronFormation' },
+            { 'uaa0101', 1, 10, 'scout', 'AttackFormation' },
+            { 'uaa0102', 1, 20, 'guard', 'AttackFormation' },
+            { 'uaa0103', 1, 20, 'attack', 'AttackFormation' },
         },
         ['M1_Airstrike'] = {
             'M1_Airstrike',
             '',
-            { 'uaa0101', 1, 5, 'scout', 'ChevronFormation' },
-            { 'uaa0102', 1, 20, 'attack', 'ChevronFormation' },
-            { 'uaa0103', 1, 20, 'attack', 'ChevronFormation' },
+            { 'uaa0101', 1, 5, 'scout', 'AttackFormation' },
+            { 'uaa0102', 1, 20, 'attack', 'AttackFormation' },
+            { 'uaa0103', 1, 20, 'attack', 'AttackFormation' },
         },
         ['M1_Periodic_Attack'] = {
             'M1_Periodic_Attack',
             '',
-            { 'uaa0101', 0, 4, 'scout', 'TravellingFormation' },
-            { 'uaa0102', 0, 10, 'guard', 'TravellingFormation' },
-            { 'uaa0103', 0, 10, 'attack', 'TravellingFormation' },
-            { 'ual0103', 0, 5, 'artillery', 'TravellingFormation' },
-            { 'ual0106', 0, 5, 'Unassigned', 'TravellingFormation' },
+            { 'uaa0101', 0, 4, 'scout', 'GrowthFormation' },
+            { 'uaa0102', 0, 10, 'guard', 'GrowthFormation' },
+            { 'uaa0103', 0, 10, 'attack', 'GrowthFormation' },
+            { 'ual0103', 0, 5, 'artillery', 'GrowthFormation' },
+            { 'ual0106', 0, 5, 'Unassigned', 'GrowthFormation' },
         },
         ['M2_Periodic_Attack'] = {
             'M2_Periodic_Attack',
             '',
-            { 'uaa0101', 0, 100, 'scout', 'TravellingFormation' },
-            { 'uaa0102', 0, 100, 'guard', 'TravellingFormation' },
-            { 'uaa0103', 0, 100, 'attack', 'TravellingFormation' },
-            { 'uaa0203', 0, 100, 'attack', 'TravellingFormation' },
-            { 'ual0103', 0, 100, 'attack', 'TravellingFormation' },
-            { 'ual0104', 0, 100, 'support', 'TravellingFormation' },
-            { 'ual0201', 0, 100, 'attack', 'TravellingFormation' },
-            { 'ual0106', 0, 100, 'Unassigned', 'TravellingFormation' },
+            { 'uaa0101', 0, 100, 'scout', 'GrowthFormation' },
+            { 'uaa0102', 0, 100, 'guard', 'GrowthFormation' },
+            { 'uaa0103', 0, 100, 'attack', 'GrowthFormation' },
+            { 'uaa0203', 0, 100, 'attack', 'GrowthFormation' },
+            { 'ual0103', 0, 100, 'attack', 'GrowthFormation' },
+            { 'ual0104', 0, 100, 'support', 'GrowthFormation' },
+            { 'ual0201', 0, 100, 'attack', 'GrowthFormation' },
+            { 'ual0106', 0, 100, 'Unassigned', 'GrowthFormation' },
         },
         ['M3_Air_Attack_1'] = {
             'M3_Air_Attack_1',
@@ -1342,12 +1342,12 @@ Scenario = {
         ['M3_Defense_Gunships'] = {
             'M3_Defense_Gunships',
             '',
-            { 'uaa0203', 1, 2, 'attack', 'ChevronFormation' },
+            { 'uaa0203', 1, 2, 'attack', 'AttackFormation' },
         },
         ['M3_Defense_Interceptors'] = {
             'M3_Defense_Interceptors',
             '',
-            { 'uaa0102', 1, 5, 'attack', 'ChevronFormation' },
+            { 'uaa0102', 1, 5, 'attack', 'AttackFormation' },
         },
         ['M3_Land_Attack_1'] = {
             'M3_Land_Attack_1',
@@ -1384,7 +1384,7 @@ Scenario = {
         ['UEF_Engineer_T1'] = {
             'UEF_Engineer_T1',
             '',
-            { 'uel0105', 1, 1, 'support', 'TravellingFormation' },
+            { 'uel0105', 1, 1, 'support', 'GrowthFormation' },
         },
     },
     --[[                                                                           ]]--
@@ -13743,12 +13743,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory',
-                                {'default_brain', 4 , categories.uaa0203 , false },
-                                {'default_brain','4','categories.uaa0203','false'}
+                                {4 , categories.uaa0203 , false },
+                                {'4','categories.uaa0203','false'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -13770,8 +13770,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -13798,12 +13798,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory',
-                                {'default_brain', 4 , categories.uaa0203 , false },
-                                {'default_brain','4','categories.uaa0203','false'}
+                                {4 , categories.uaa0203 , false },
+                                {'4','categories.uaa0203','false'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -13825,8 +13825,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -13851,8 +13851,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -13875,12 +13875,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/unitcountbuildconditions.lua', 'HaveLessThanUnitsWithCategory',
-                                {'default_brain', 4 , categories.uaa0203 , false },
-                                {'default_brain','4','categories.uaa0203','false'}
+                                {4 , categories.uaa0203 , false },
+                                {'4','categories.uaa0203','false'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -13906,12 +13906,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchAirAttack'},
-                                {'default_brain','LaunchAirAttack'}
+                                {'LaunchAirAttack'},
+                                {'LaunchAirAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTableFalse',
-                                {'default_brain','AttackResearchFacility'},
-                                {'default_brain','AttackResearchFacility'}
+                                {'AttackResearchFacility'},
+                                {'AttackResearchFacility'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -13939,8 +13939,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -13984,8 +13984,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14010,8 +14010,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {
@@ -14034,8 +14034,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14075,12 +14075,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchLandAttack'},
-                                {'default_brain','LaunchLandAttack'}
+                                {'LaunchLandAttack'},
+                                {'LaunchLandAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','AttackResearchFacility'},
-                                {'default_brain','AttackResearchFacility'}
+                                {'AttackResearchFacility'},
+                                {'AttackResearchFacility'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -14108,12 +14108,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchLandAttack'},
-                                {'default_brain','LaunchLandAttack'}
+                                {'LaunchLandAttack'},
+                                {'LaunchLandAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','UseLandRoute3'},
-                                {'default_brain','UseLandRoute3'}
+                                {'UseLandRoute3'},
+                                {'UseLandRoute3'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -14137,8 +14137,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14161,8 +14161,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14187,12 +14187,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchLandAttack'},
-                                {'default_brain','LaunchLandAttack'}
+                                {'LaunchLandAttack'},
+                                {'LaunchLandAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','UseLandRoute1'},
-                                {'default_brain','UseLandRoute1'}
+                                {'UseLandRoute1'},
+                                {'UseLandRoute1'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -14233,8 +14233,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14261,12 +14261,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchLandAttack'},
-                                {'default_brain','LaunchLandAttack'}
+                                {'LaunchLandAttack'},
+                                {'LaunchLandAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','UseLandRoute2'},
-                                {'default_brain','UseLandRoute2'}
+                                {'UseLandRoute2'},
+                                {'UseLandRoute2'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -14294,12 +14294,12 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','LaunchAirAttack'},
-                                {'default_brain','LaunchAirAttack'}
+                                {'LaunchAirAttack'},
+                                {'LaunchAirAttack'}
                             },
                             [1] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','AttackResearchFacility'},
-                                {'default_brain','AttackResearchFacility'}
+                                {'AttackResearchFacility'},
+                                {'AttackResearchFacility'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -14327,8 +14327,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14347,8 +14347,8 @@ Scenario = {
                         RequiresConstruction = true,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'MissionNumber',
-                                {'default_brain', 3 },
-                                {'default_brain','3'}
+                                {3 },
+                                {'3'}
                             },
                         },
                         PlatoonData = {
@@ -14375,8 +14375,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyEqual',
-                                {'default_brain', 2 },
-                                {'default_brain','2'}
+                                {2 },
+                                {'2'}
                             },
                         },
                         PlatoonData = {

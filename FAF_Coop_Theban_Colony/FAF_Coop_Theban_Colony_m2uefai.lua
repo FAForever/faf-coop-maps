@@ -17,19 +17,21 @@ local UEFM2FireBaseSouth = BaseManager.CreateBaseManager()
 
 
 function UEFM2MainBaseAI()
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    local opai = nil
     --------------------
     -- UEF M2 Main Base
     --------------------
-    UEFM2MainBase:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_UEF_Main_Base', 'M2_UEF_Main_Base_Marker', 110, {M2_UEF_Main_Base = 100,})
+    UEFM2MainBase:InitializeDifficultyTables(aiBrain, 'M2_UEF_Main_Base', 'M2_UEF_Main_Base_Marker', 110, {M2_UEF_Main_Base = 100,})
     UEFM2MainBase:StartNonZeroBase({{8, 10, 14}, {6, 8, 12}})
     UEFM2MainBase:SetActive('AirScouting', true)
 
     UEFM2MainBase:AddReactiveAI('ExperimentalLand', 'AirRetaliation', 'UEFM2Base_ExperimentalLand')
-    local opai = UEFM2MainBase:AddReactiveAI('Nuke', 'AirRetaliation', 'UEFM2Base_Nuke')
+    opai = UEFM2MainBase:AddReactiveAI('Nuke', 'AirRetaliation', 'UEFM2Base_Nuke')
     opai:SetChildActive('HeavyGunships', false)
     opai:SetChildActive('Gunships', false)
     opai:SetChildActive('StratBombers', true)
-    local opai = UEFM2MainBase:AddReactiveAI('HLRA', 'AirRetaliation', 'UEFM2Base_HLRA')
+    opai = UEFM2MainBase:AddReactiveAI('HLRA', 'AirRetaliation', 'UEFM2Base_HLRA')
     opai:SetChildActive('HeavyGunships', false)
     opai:SetChildActive('Gunships', false)
     opai:SetChildActive('StratBombers', true)
@@ -39,6 +41,7 @@ function UEFM2MainBaseAI()
 end
 
 function UEFM2MainBaseLandAttacks()
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
     local opai = nil
     local quantity = {}
     local trigger = {}
@@ -93,7 +96,7 @@ function UEFM2MainBaseLandAttacks()
         LocationType = 'M2_UEF_Main_Base',
         BuildConditions = {
             { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE}},
+        {'Player', trigger[Difficulty], categories.LAND * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},       
         PlatoonData = {
@@ -103,7 +106,7 @@ function UEFM2MainBaseLandAttacks()
                                 'M2_UEF_Main_Base_Land_Attack_Chain_4'}
         },
     }
-    ArmyBrains[UEF]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     -------------
     -- T3 Attacks
@@ -122,7 +125,7 @@ function UEFM2MainBaseLandAttacks()
         )
         opai:SetChildQuantity('SiegeBots', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+            {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 1, 4 do
@@ -143,7 +146,7 @@ function UEFM2MainBaseLandAttacks()
             opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
         end
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
+            {'Player', trigger[Difficulty], categories.TECH3})
     end
 
     for i = 1, 2 do
@@ -161,7 +164,7 @@ function UEFM2MainBaseLandAttacks()
         )
         opai:SetChildQuantity('HeavyBots', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.TECH3})
+            {'Player', trigger[Difficulty], categories.TECH3})
     end
 
     for i = 1, 3 do
@@ -185,7 +188,7 @@ function UEFM2MainBaseLandAttacks()
             opai:SetChildQuantity('MobileHeavyArtillery', quantity[Difficulty])
         end
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.TECH3 * categories.STRUCTURE})
+            {'Player', trigger[Difficulty], categories.TECH3 * categories.STRUCTURE})
     end
 
     for i = 1, 3 do
@@ -209,7 +212,7 @@ function UEFM2MainBaseLandAttacks()
             opai:SetChildQuantity('MobileMissilePlatforms', quantity[Difficulty])
         end
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE})
+            {'Player', trigger[Difficulty], categories.DEFENSE * categories.STRUCTURE})
     end
 
     -- Fatboy support
@@ -229,7 +232,7 @@ function UEFM2MainBaseLandAttacks()
         LocationType = 'M2_UEF_Main_Base',
         BuildConditions = {
             { '/lua/editor/unitcountbuildconditions.lua',
-        'HaveLessThanUnitsWithCategory', {'default_brain', 1, categories.uel0401}},
+        'HaveLessThanUnitsWithCategory', {1, categories.uel0401}},
         },
         PlatoonAIFunction = {'/maps/Colony/colony_m2uefia.lua', 'PlatoonAssistUnit'},
         PlatoonData = {
@@ -240,12 +243,13 @@ function UEFM2MainBaseLandAttacks()
 end
 
 function UEFM2MainBaseExperimentalAttacks1()
+    local opai = nil
     UEFM2MainBase:SetEngineerCount({{8, 11, 16}, {6, 8, 12}})
     ----------------
     -- Experimentals
     ----------------
     local numEngineers = {2, 3, 4}
-    local opai = UEFM2MainBase:AddOpAI('M2_UEF_Fatboy_1',
+    opai = UEFM2MainBase:AddOpAI('M2_UEF_Fatboy_1',
         {
             Amount = 1,
             KeepAlive = true,
@@ -261,8 +265,9 @@ function UEFM2MainBaseExperimentalAttacks1()
 end
 
 function UEFM2MainBaseExperimentalAttacks2()
+    local opai = nil
     local numEngineers = {2, 3, 4}
-    local opai = UEFM2MainBase:AddOpAI('M2_UEF_Fatboy_2',
+    opai = UEFM2MainBase:AddOpAI('M2_UEF_Fatboy_2',
         {
             Amount = 1,
             KeepAlive = true,
@@ -302,7 +307,7 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 1, 3 do
@@ -321,7 +326,7 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 1, 3 do
@@ -340,7 +345,7 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
     -------------
     -- T3 attacks
@@ -364,9 +369,9 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3})
+        {'Player', trigger[Difficulty], categories.AIR * categories.MOBILE * categories.TECH3})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
+        {'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
     end
 
     for i = 1, 2 do
@@ -388,9 +393,9 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE * categories.TECH3})
+        {'Player', trigger[Difficulty], categories.LAND * categories.MOBILE * categories.TECH3})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
+        {'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
     end
 
     for i = 1, 2 do
@@ -412,9 +417,9 @@ function UEFM2MainBaseAirAttacks()
         )
         opai:SetChildQuantity('StratBombers', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.LAND * categories.MOBILE * categories.TECH3})
+        {'Player', trigger[Difficulty], categories.LAND * categories.MOBILE * categories.TECH3})
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
+        {'Player', 1, categories.AIR * categories.FACTORY * categories.TECH3})
     end
     
     --[[ -- no idea what I wanted snipe here :D aka commented out for now
@@ -430,7 +435,7 @@ function UEFM2MainBaseAirAttacks()
     )
     opai:SetChildQuantity('Interceptors', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', 1, categories.ura0304})
+        {'Player', 1, categories.ura0304})
     ]]--
     
     -- Air Defense
@@ -479,10 +484,11 @@ function UEFM2MainBaseAirAttacks()
 end
 
 function UEFM2FireBaseNorthAI()
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
     -------------------------
     -- UEF M2 North Fire Base
     -------------------------
-    UEFM2FireBaseNorth:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_Fire_Base_North', 'M2_Fire_Base_North_Marker', 40, {M2_Fire_Base_North = 100,})
+    UEFM2FireBaseNorth:InitializeDifficultyTables(aiBrain, 'M2_Fire_Base_North', 'M2_Fire_Base_North_Marker', 40, {M2_Fire_Base_North = 100,})
     UEFM2FireBaseNorth:StartNonZeroBase({{3, 3, 4}, {2, 2, 3}})
     UEFM2FireBaseNorth:SetActive('AirScouting', true)
 
@@ -490,10 +496,10 @@ function UEFM2FireBaseNorthAI()
 end
 
 function UEFM2FireBaseNorthAirAttacks()
-    -- M2_UEF_North_Base_Air_Attack_Chain_1 - 4 (3, 4 for north player)
     local opai = nil
     local quantity = {}
     local trigger = {}
+    -- M2_UEF_North_Base_Air_Attack_Chain_1 - 4 (3, 4 for north player)
 
     quantity = {6, 7, 8}
     opai = UEFM2FireBaseNorth:AddOpAI('AirAttacks', 'M2_UEF_North_Base_AirAttack1',
@@ -524,7 +530,7 @@ function UEFM2FireBaseNorthAirAttacks()
     opai:SetChildQuantity('Bombers', quantity[Difficulty])
     opai:SetLockingStyle('None')
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
     for i = 3, 4 do
         quantity = {6, 7, 8}
@@ -540,7 +546,7 @@ function UEFM2FireBaseNorthAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+            {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 1, 2 do
@@ -557,7 +563,7 @@ function UEFM2FireBaseNorthAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 3, 4 do
@@ -574,7 +580,7 @@ function UEFM2FireBaseNorthAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     for i = 1, 2 do
@@ -591,15 +597,16 @@ function UEFM2FireBaseNorthAirAttacks()
         )
         opai:SetChildQuantity('Gunships', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 end
 
 function UEFM2FireBaseSouthAI()
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
     -------------------------
     -- UEF M2 South Fire Base
     -------------------------
-    UEFM2FireBaseSouth:InitializeDifficultyTables(ArmyBrains[UEF], 'M2_Fire_Base_South', 'M2_Fire_Base_South_Marker', 40, {M2_Fire_Base_South = 100,})
+    UEFM2FireBaseSouth:InitializeDifficultyTables(aiBrain, 'M2_Fire_Base_South', 'M2_Fire_Base_South_Marker', 40, {M2_Fire_Base_South = 100,})
     UEFM2FireBaseSouth:StartNonZeroBase({{3, 3, 4}, {2, 2, 3}})
     UEFM2FireBaseSouth:SetActive('LandScouting', true)
 
@@ -607,10 +614,10 @@ function UEFM2FireBaseSouthAI()
 end
 
 function UEFM2FireBaseSouthLandAttacks()
-    -- M2_UEF_South_Base_Land_Attack_Chain_1 - 3 (3 for north player)
     local opai = nil
     local quantity = {}
     local trigger = {}
+    -- M2_UEF_South_Base_Land_Attack_Chain_1 - 3 (3 for north player)
 
     quantity = {8, 10, 12}
     trigger = {70, 60, 50}
@@ -625,7 +632,7 @@ function UEFM2FireBaseSouthLandAttacks()
     )
     opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -641,7 +648,7 @@ function UEFM2FireBaseSouthLandAttacks()
         )
         opai:SetChildQuantity('HeavyTanks', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+            {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     quantity = {8, 10, 12}
@@ -657,7 +664,7 @@ function UEFM2FireBaseSouthLandAttacks()
     )
     opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+        {'Player', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -673,7 +680,7 @@ function UEFM2FireBaseSouthLandAttacks()
         )
         opai:SetChildQuantity('AmphibiousTanks', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
+            {'Coop1', trigger[Difficulty], categories.ALLUNITS - categories.WALL})
     end
 
     quantity = {8, 10, 12}
@@ -689,7 +696,7 @@ function UEFM2FireBaseSouthLandAttacks()
     )
     opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain', 'Player', trigger[Difficulty], categories.DEFENSE})
+        {'Player', trigger[Difficulty], categories.DEFENSE})
 
     for i = 1, 2 do
         quantity = {8, 10, 12}
@@ -705,7 +712,7 @@ function UEFM2FireBaseSouthLandAttacks()
         )
         opai:SetChildQuantity('MobileMissiles', quantity[Difficulty])
         opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-            {'default_brain', 'Coop1', trigger[Difficulty], categories.DEFENSE})
+            {'Coop1', trigger[Difficulty], categories.DEFENSE})
     end
 end
 --[[

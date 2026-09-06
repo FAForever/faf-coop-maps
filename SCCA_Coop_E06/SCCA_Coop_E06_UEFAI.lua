@@ -42,7 +42,8 @@ function M3AikoSEBaseAI()
 	M3AikoSEBase:SetMaximumConstructionEngineers(12)
 	
 	M3AikoSEBase:SetActive('AirScouting', true)
-	ArmyBrains[BlackSun]:PBMSetCheckInterval(7)
+	local aiBrain = ArmyBrains[BlackSun]--[[@as CampaignAIBrain]]
+	aiBrain:PBMSetCheckInterval(7)
 	
 	M3AikoSEBaseNavalAttacks()
 	M3AikoSEBaseTransportAttacks()
@@ -80,7 +81,8 @@ function M3AikoAirStagingBase()
 			PatrolChain = 'BlackSun_M3_AirStaging_Island_Patrol_Chain',
         },     
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[BlackSun]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3AikoSEBaseNavalAttacks()
@@ -88,6 +90,7 @@ function M3AikoSEBaseNavalAttacks()
 	local T3Quantity = {2, 1, 1}
 	local T2Quantity = {4, 3, 2}
 	local T1Quantity = {6, 5, 3}
+	local aiBrain = ArmyBrains[BlackSun]--[[@as CampaignAIBrain]]
 	
 	-- M3 Main Aiko Fleet for Phase 2
 	local Temp = {
@@ -121,7 +124,7 @@ function M3AikoSEBaseNavalAttacks()
         },
 		BuildTimeOut = 300, 
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	-- M3 Aiko Fleet for probe attacks
 	Temp = {
@@ -155,7 +158,7 @@ function M3AikoSEBaseNavalAttacks()
         },
 		BuildTimeOut = 150,
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	
 	-- Reclaim platoon
@@ -177,7 +180,7 @@ function M3AikoSEBaseNavalAttacks()
 		},
         PlatoonAIFunction = {CustomFunctions, 'EngineerPlatoonReclaim'},     
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3AikoSEBaseTransportAttacks()
@@ -208,7 +211,8 @@ function M3AikoSEBaseTransportAttacks()
 			BaseName = 'M3_Aiko_SE_Base',
 		},
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[BlackSun]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 	
 	Builder = {
         BuilderName = 'M3_Aiko_Southern_Land_Assault',
@@ -238,13 +242,15 @@ function M3AikoSEBaseTransportAttacks()
 			UseFormation = 'AttackFormation',
         },
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3AikoSEBaseAirAttacks()
     local opai = nil
-	local quantity = {18, 15, 12}
-	local trigger = {20, 25, 30}
+    local quantity = {}
+    local trigger = {}
+	quantity = {18, 15, 12}
+	trigger = {20, 25, 30}
 		
 	-- Sends [18, 12, 6] Air Superiority Fighters to enemies if they have >= 20, 25, 30 air units
 	opai = M3AikoSEBase:AddOpAI('AirAttacks', 'M3_AikoSouthEastern_AirSuperiority_Attack',
@@ -319,12 +325,14 @@ function M3AikoSEBaseAirAttacks()
 		},
         PlatoonAIFunction = {SPAIFileName, 'PlatoonAttackHighestThreat'}
     }
-    ArmyBrains[BlackSun]:PBMAddPlatoon(Builder)
+    local aiBrain = ArmyBrains[BlackSun]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon(Builder)
 end
 
 function M3AikoSEBaseAirDefense()
     local opai = nil
-	local quantity = {18, 15, 12}
+    local quantity = {}
+	quantity = {18, 15, 12}
 	local ChildType = {'AirSuperiority', 'StratBombers', 'HeavyGunships', 'Gunships', 'Bombers', 'Interceptors'}
 	
 	-- Maintains [18, 15, 12] units defined in ChildType

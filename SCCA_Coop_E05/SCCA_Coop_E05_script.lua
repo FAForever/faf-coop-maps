@@ -11,13 +11,13 @@
 
 local AIBuildStructures = import('/lua/ai/aibuildstructures.lua')
 local Cinematics = import('/lua/cinematics.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 local Utilities = import('/lua/utilities.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local OpStrings = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_strings.lua')
 local OpEditorFns = import ('/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua')
-local OpBehaviors = import('/lua/ai/opai/OpBehaviors.lua')
+local OpBehaviors = import('/lua/ai/opai/opbehaviors.lua')
 
 -- ===  Debug Variables === #
 local StartM2InsteadOfM1 = false
@@ -248,10 +248,10 @@ function OnPopulate(scenario)
     ScenarioInfo.AeonMainBaseWalls = ScenarioUtils.CreateArmyGroup('Aeon', 'Main_Base_Walls')
 
     -- ! Spawn initial Aeon attacks
-    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Air_Attack_D'..Difficulty, 'ChevronFormation')
+    ScenarioInfo.AeonAirAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Air_Attack_D'..Difficulty, 'AttackFormation')
     ScenarioInfo.AeonFirstGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_First_Ground_Attack_D'..Difficulty, 'AttackFormation')
     ScenarioInfo.AeonGroundAttackRF1 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Ground_Attack_RF1', 'AttackFormation')
-    ScenarioInfo.AeonAirAttackRF2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Air_Attack_RF2', 'ChevronFormation')
+    ScenarioInfo.AeonAirAttackRF2 = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Initial_Air_Attack_RF2', 'AttackFormation')
     ScenarioInfo.AeonSecondGroundAttackPlayer = ScenarioUtils.CreateArmyGroupAsPlatoon('Aeon', 'Aeon_Second_Ground_Attack_Player', 'AttackFormation')
 
     -- ! Spawn Nuke 2 base, make a new template for nuke2base engineers to maintain
@@ -592,7 +592,7 @@ function M1InitialNukeShotDownPt2()
         'incomplete',
         OpStrings.M1P2Title,
         OpStrings.M1P2Description,
-        Objectives.GetActionIcon('build'),
+        Objectives.GetActionIcon('Build'),
         {
             -- Area = 'RF1_Truck_Area',
             -- MarkArea = true, #Todo: Change this to mark the research facilities when that's in
@@ -755,7 +755,7 @@ function BigAeonAttackBuilt()
         'incomplete',                   -- complete
         OpStrings.M1P3Title,            -- title
         OpStrings.M1P3Description,      -- description
-        Objectives.GetActionIcon('kill'),
+        Objectives.GetActionIcon('Kill'),
         {
             -- Area = 'Aeon_Main_Base_Area',
             -- MarkArea = false,
@@ -1313,7 +1313,7 @@ function StartMission3()
 --    'incomplete',                   # complete
 --    OpStrings.M3P1Title,            # title
 --    OpStrings.M3P1Description,      # description
---    Objectives.GetActionIcon('protect'),
+--    Objectives.GetActionIcon('Protect'),
 --    {                               # target
 --        #Area = 'RF1_Truck_Area',
 --        #MarkArea = false,
@@ -1328,7 +1328,7 @@ function StartMission3()
         'incomplete',                   -- complete
         OpStrings.M3P2Title,            -- title
         LOCF(OpStrings.M3P2Description, ScenarioInfo.RequiredUEFTrucks),      -- description
-        Objectives.GetActionIcon('move'),
+        Objectives.GetActionIcon('Move'),
         {                               -- target
             Area = 'Gate_Area',
             MarkArea = true, -- Todo: Change this to mark the quantum gate when that's in
@@ -1941,7 +1941,7 @@ function CompleteM3B2()
         'complete',
         OpStrings.M3B2Title,
         OpStrings.M3B2Description,
-        Objectives.GetActionIcon('protect'),
+        Objectives.GetActionIcon('Protect'),
         {
         }
     )

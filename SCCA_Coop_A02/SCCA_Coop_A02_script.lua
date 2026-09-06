@@ -8,14 +8,14 @@
 -- **
 -- **  Copyright © 2006 Gas Powered Games, Inc.  All rights reserved.
 -- ****************************************************************************
-local M2CybranAI = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_m2cybranai.lua')
-local M3CybranAI = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_m3cybranai.lua')
-local Objectives = import('/lua/SimObjectives.lua')
+local M2CybranAI = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_m2cybranai.lua')---@module "SCCA_Coop_A02/SCCA_Coop_A02_m2cybranai"
+local M3CybranAI = import('/maps/SCCA_Coop_A02/SCCA_Coop_A02_m3cybranai.lua')---@module "SCCA_Coop_A02/SCCA_Coop_A02_m3cybranai"
+local Objectives = import('/lua/simobjectives.lua')
 local OpStrings = import ('/maps/SCCA_Coop_A02/SCCA_Coop_A02_strings.lua')
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioStrings = import('/lua/ScenarioStrings.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioStrings = import('/lua/scenariostrings.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local Weather = import('/lua/weather.lua')
 
 ----------
@@ -255,7 +255,7 @@ function StartMission1()
     ----------------------------------
     -- Bonus Objective - Build Auroras
     ----------------------------------
-    num = {200, 300, 400}
+    local num = {200, 300, 400}
     ScenarioInfo.M1B2Objective = Objectives.ArmyStatCompare(
         'bonus',
         'incomplete',
@@ -387,7 +387,8 @@ function IntroMission2()
     M2CybranAI.CybranM2NorthBaseAI()
     M2CybranAI.CybranM2SouthBaseAI()
 
-    ArmyBrains[Cybran]:PBMSetCheckInterval(8)
+    local aiBrain = ArmyBrains[Cybran]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(8)
 
     -- No T2 navy capturing for player
     ScenarioInfo.SouthNavalFactory = ScenarioInfo.UnitNames[Cybran]['South_Naval_Factory']

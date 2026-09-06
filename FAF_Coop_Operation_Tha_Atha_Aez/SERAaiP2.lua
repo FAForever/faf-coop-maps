@@ -1,6 +1,6 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
 
 local SeraphimAlly = 2
 
@@ -9,7 +9,8 @@ local Difficulty = ScenarioInfo.Options.Difficulty
 local Serabase = BaseManager.CreateBaseManager()
 
 function SeraphimBaseAI()
-    Serabase:InitializeDifficultyTables(ArmyBrains[SeraphimAlly], 'Seraphimbase', 'SeraphimBaseMK', 80, {Serabase1 = 400})
+    local aiBrain = ArmyBrains[SeraphimAlly]--[[@as CampaignAIBrain]]
+    Serabase:InitializeDifficultyTables(aiBrain, 'Seraphimbase', 'SeraphimBaseMK', 80, {Serabase1 = 400})
     Serabase:StartNonZeroBase({{14, 11, 8}, {12, 9, 6}})
     
     Serabase:AddBuildGroup('SeraDefenses', 50)
@@ -19,7 +20,6 @@ function SeraphimBaseAI()
 end
 
 function SeraAirPatrols()
-
     local quantity = {}
 
     quantity = {4, 3, 2}
@@ -41,7 +41,8 @@ function SeraAirPatrols()
             PatrolChain = 'P2S1B1defence1'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[SeraphimAlly]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 3, 2}
     Temp = {
@@ -62,7 +63,7 @@ function SeraAirPatrols()
             PatrolChain = 'P2S1B1defence2'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 3, 2}
     Temp = {
@@ -83,7 +84,7 @@ function SeraAirPatrols()
             PatrolChain = 'P2S1B1defence1'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 5, 4}
     Temp = {
@@ -105,11 +106,11 @@ function SeraAirPatrols()
             PatrolChains = {'P2S1B1Attack1', 'P2S1B1Attack2'}
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function SeraLandPatrols()
-
+    local opai = nil
     local quantity = {}
 
     quantity = {5, 4, 2}
@@ -132,7 +133,8 @@ function SeraLandPatrols()
             PatrolChain = 'P2S1B1defence2'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[SeraphimAlly]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 5, 4}
     local Temp = {
@@ -153,7 +155,7 @@ function SeraLandPatrols()
             PatrolChain = 'P2S1B1defence2'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 4, 3}
     Temp = {
@@ -174,7 +176,7 @@ function SeraLandPatrols()
             PatrolChain = 'P2S1B1defence2'
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
     
     opai = Serabase:AddOpAI('EngineerAttack', 'M1_West_Reclaim_Engineers',
     {
@@ -216,7 +218,7 @@ function SeraLandPatrols()
             PatrolChains = {'P2S1B1Attack1', 'P2S1B1Attack2'}
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 5, 3}
     Temp = {
@@ -235,12 +237,12 @@ function SeraLandPatrols()
         LocationType = 'Seraphimbase',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'Aeon'}, 3, categories.LAND * categories.MOBILE * categories.ARTILLERY}},
+        {{'Aeon'}, 3, categories.LAND * categories.MOBILE * categories.ARTILLERY}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
             PatrolChains = {'P2S1B1Attack1', 'P2S1B1Attack2'}
         },
     }
-    ArmyBrains[SeraphimAlly]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end

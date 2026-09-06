@@ -1,6 +1,6 @@
-local ScenarioUtils = import("/lua/sim/ScenarioUtilities.lua")
-local ScenarioFramework = import("/lua/ScenarioFramework.lua")
-local ScenarioPlatoonAI = import("/lua/ScenarioPlatoonAI.lua")
+local ScenarioUtils = import("/lua/sim/scenarioutilities.lua")
+local ScenarioFramework = import("/lua/scenarioframework.lua")
+local ScenarioPlatoonAI = import("/lua/scenarioplatoonai.lua")
 local NavUtils = import("/lua/sim/navutils.lua")
 local AIBehaviors = import("/lua/ai/aibehaviors.lua")
 local Utils = import("/lua/utilities.lua")
@@ -1173,7 +1173,7 @@ function FindTargetToNuke(unit)
     while true do
         WaitSeconds(15)
         for i, pos in positions do
-            local num = table.getn(aiBrain:GetUnitsAroundPoint(data.TargetCategory or ((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE)), pos, 30, 'enemy'))
+            local num = table.getn(aiBrain:GetUnitsAroundPoint(data.TargetCategory or ((categories.TECH2 * categories.STRUCTURE) + (categories.TECH3 * categories.STRUCTURE)), pos, 30, 'Enemy'))
             if num > 3 and num > mostUnits then
                 mostUnits = num
                 bestTarget = pos

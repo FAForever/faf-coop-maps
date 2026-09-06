@@ -16,7 +16,8 @@ local UEFM1Base = BaseManager.CreateBaseManager()
 -- UEF M1 Base
 --------------
 function UEFM1BaseAI()
-    UEFM1Base:InitializeDifficultyTables(ArmyBrains[UEF], 'M1_UEF_Base', 'M1_UEF_Base_Marker', 40, {M1_Base = 100})
+    local aiBrain = ArmyBrains[UEF]--[[@as CampaignAIBrain]]
+    UEFM1Base:InitializeDifficultyTables(aiBrain, 'M1_UEF_Base', 'M1_UEF_Base_Marker', 40, {M1_Base = 100})
     UEFM1Base:StartNonZeroBase({{2, 3, 3}, {1, 2, 2}})
 
     UEFM1BaseLandAttacks()
@@ -92,5 +93,5 @@ function UEFM1BaseNavalAttacks()
     )
     opai:SetChildQuantity('Frigates', quantity[Difficulty])
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua',
-        'BrainsCompareNumCategory', {'default_brain', {'HumanPlayers'}, 1, categories.FACTORY, '>='})
+        'BrainsCompareNumCategory', {{'HumanPlayers'}, 1, categories.FACTORY, '>='})
 end

@@ -9,18 +9,18 @@
 -- ****************************************************************************
 
 local Cinematics = import('/lua/cinematics.lua')
-local EffectUtilities = import('/lua/EffectUtilities.lua')
-local M1Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m1hex5ai.lua')
-local M2FletcherAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua')
-local M2Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua')
-local M3QAIAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua')
-local Objectives = import('/lua/ScenarioFramework.lua').Objectives
-local OpStrings = import('/maps/X1CA_Coop_005/X1CA_Coop_005_strings.lua')
-local PingGroups = import('/lua/ScenarioFramework.lua').PingGroups
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
-local TauntManager = import('/lua/TauntManager.lua')
+local EffectUtilities = import('/lua/effectutilities.lua')
+local M1Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m1hex5ai.lua')---@module "X1CA_Coop_005/X1CA_Coop_005_m1hex5ai"
+local M2FletcherAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2fletcherai.lua')---@module "X1CA_Coop_005/X1CA_Coop_005_m2fletcherai"
+local M2Hex5AI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m2hex5ai.lua')---@module "X1CA_Coop_005/X1CA_Coop_005_m2hex5ai"
+local M3QAIAI = import('/maps/X1CA_Coop_005/X1CA_Coop_005_m3qaiai.lua')---@module "X1CA_Coop_005/X1CA_Coop_005_m3qaiai"
+local Objectives = import('/lua/scenarioframework.lua').Objectives
+local OpStrings = import('/maps/X1CA_Coop_005/X1CA_Coop_005_strings.lua')---@module "X1CA_Coop_005/X1CA_Coop_005_strings"
+local PingGroups = import('/lua/scenarioframework.lua').PingGroups
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
+local TauntManager = import('/lua/tauntmanager.lua')
 local Utilities = import('/lua/utilities.lua')
 
 ---------
@@ -193,7 +193,7 @@ function OnStart(scenario)
     ScenarioFramework.AddRestriction(Fletcher, categories.uel0105 + categories.uel0208)
     ScenarioFramework.AddRestriction(Brackman, categories.url0105 + categories.url0208)
 
-    Cinematics.CameraMoveToMarker(ScenarioUtils.GetMarker('Cam_1_1'), 0)
+    Cinematics.CameraMoveToMarker('Cam_1_1', 0)
 
     ForkThread(IntroMission1NIS)
 end
@@ -502,7 +502,8 @@ function IntroMission2()
             ----------------
             M2FletcherAI.FletcherBaseAI()
 
-            ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
+            local aiBrain = ArmyBrains[Fletcher]--[[@as CampaignAIBrain]]
+            aiBrain:PBMSetCheckInterval(6)
 
             ScenarioFramework.CreateTimerTrigger(ResetBuildInterval, 300)
 
@@ -698,7 +699,8 @@ function IntroMission2NIS()
         Cinematics.SetInvincible('M1Area')
 
         -- Ensure that Fletcher starts building his base sooner rather than later
-        ArmyBrains[Fletcher]:PBMSetCheckInterval(2)
+        local aiBrain = ArmyBrains[Fletcher]--[[@as CampaignAIBrain]]
+        aiBrain:PBMSetCheckInterval(2)
 
         WaitSeconds(1)
         Cinematics.CameraMoveToMarker('Cam_2_1', 0)
@@ -721,7 +723,7 @@ function IntroMission2NIS()
         -- Post-NIS comment from Brackman
         ScenarioFramework.Dialogue(OpStrings.X05_M01_190)
         -- Set back to default
-        ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
+        aiBrain:PBMSetCheckInterval(6)
     end
 
     M2Counterattack()
@@ -729,7 +731,8 @@ function IntroMission2NIS()
 end
 
 function ResetBuildInterval()
-    ArmyBrains[Fletcher]:PBMSetCheckInterval(6)
+    local aiBrain = ArmyBrains[Fletcher]--[[@as CampaignAIBrain]]
+    aiBrain:PBMSetCheckInterval(6)
 end
 
 function M2TAir1FactoryBuilt()
@@ -755,9 +758,9 @@ function M2T3LandFactoryBuilt()
 end
 
 function M2Counterattack()
+    local trigger = {}
     ScenarioInfo.M2SpiderbotSpawned = false
     local units = nil
-    local trigger = {}
 
     -- Default Air Attacks
     for i = 1, 3 do
@@ -864,8 +867,8 @@ function M2Counterattack()
 
     trigger = {475, 450, 300}
     if(num > trigger[Difficulty]) then
-        spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider1')
-        platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
+        local spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider1')
+        local platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
         ArmyBrains[Hex5]:AssignUnitsToPlatoon(platoon, {spider}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Hex5_InitLand_3_Chain')
         ScenarioInfo.M2SpiderbotSpawned = true  -- we check this to see if spiderbot-warning VO is to be played
@@ -876,8 +879,8 @@ function M2Counterattack()
 
     trigger = {25, 15, 5}
     if(num > trigger[Difficulty]) then
-        spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider2')
-        platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
+        local spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider2')
+        local platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
         ArmyBrains[Hex5]:AssignUnitsToPlatoon(platoon, {spider}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Hex5_InitLand_3_Chain')
         ScenarioInfo.M2SpiderbotSpawned = true
@@ -888,8 +891,8 @@ function M2Counterattack()
 
     trigger = {100, 75, 25}
     if(num > trigger[Difficulty]) then
-        spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider3')
-        platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
+        local spider = ScenarioUtils.CreateArmyUnit('Hex5', 'M2_Hex5_Init_Spider3')
+        local platoon = ArmyBrains[Hex5]:MakePlatoon('', '')
         ArmyBrains[Hex5]:AssignUnitsToPlatoon(platoon, {spider}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M2_Hex5_InitLand_2_Chain')
         ScenarioInfo.M2SpiderbotSpawned = true
@@ -1397,6 +1400,7 @@ function IntroMission3NIS()
 end
 
 function M3Counterattack()
+    local quantity = {}
     local trigger = {}
 
     ---------------
@@ -1404,7 +1408,7 @@ function M3Counterattack()
     ---------------
 
     -- Default Fletcher Attacks
-    units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Counter_Fletcher_Land_D' .. Difficulty, 'GrowthFormation')
+    local units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Counter_Fletcher_Land_D' .. Difficulty, 'GrowthFormation')
     ScenarioFramework.PlatoonPatrolChain(units, 'M3_QAI_Fatboy_AttackFletcher_Chain')
 
     units = ScenarioUtils.CreateArmyGroupAsPlatoon('QAI', 'M3_QAI_Counter_Fletcher_Air_D' .. Difficulty, 'GrowthFormation')
@@ -1418,8 +1422,8 @@ function M3Counterattack()
             num = trigger[Difficulty]
         end
         for i = 1, num do
-            exp = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_EasternSpider_' .. i)
-            platoon = ArmyBrains[QAI]:MakePlatoon('', '')
+            local exp = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_EasternSpider_' .. i)
+            local platoon = ArmyBrains[QAI]:MakePlatoon('', '')
             ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {exp}, 'Attack', 'GrowthFormation')
             ScenarioFramework.PlatoonPatrolRoute(platoon, ScenarioPlatoonAI.GetRandomPatrolRoute(ScenarioUtils.ChainToPositions('M3_QAI_Easter_Adapt_Spider123_Chain')))
         end
@@ -1517,7 +1521,7 @@ function M3Counterattack()
     trigger = {475, 450, 350}
     if(num > trigger[Difficulty]) then
         local exp = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_Adapt_Fatboy_1')
-        platoon = ArmyBrains[QAI]:MakePlatoon('', '')
+        local platoon = ArmyBrains[QAI]:MakePlatoon('', '')
         ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {exp}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_ExpBase_Attack_Chain')
     end
@@ -1528,7 +1532,7 @@ function M3Counterattack()
     trigger = {4, 2, 0}
     if(num > trigger[Difficulty]) then
         local exp = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_Adapt_Fatboy_2')
-        platoon = ArmyBrains[QAI]:MakePlatoon('', '')
+        local platoon = ArmyBrains[QAI]:MakePlatoon('', '')
         ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {exp}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_ExpBase_Attack_Chain')
     end
@@ -1539,7 +1543,7 @@ function M3Counterattack()
     trigger = {25, 15, 8}
     if(num > trigger[Difficulty]) then
         local exp = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_Adapt_Fatboy_3')
-        platoon = ArmyBrains[QAI]:MakePlatoon('', '')
+        local platoon = ArmyBrains[QAI]:MakePlatoon('', '')
         ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {exp}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_ExpBase_Attack_Chain')
     end
@@ -1621,7 +1625,7 @@ function M3Counterattack()
     if(num > trigger[Difficulty]) then
         ScenarioInfo.M3Czar = ScenarioUtils.CreateArmyUnit('QAI', 'M3_QAI_Counter_Czar')
         ScenarioInfo.M3CzarPassengers = {}
-        local quantity = {50, 30, 10}
+        quantity = {50, 30, 10}
         num = math.ceil(num/quantity[Difficulty])
         local total = {3, 4, 5}
         if(num > total[Difficulty]) then
@@ -1638,7 +1642,7 @@ function M3Counterattack()
 
         ScenarioFramework.CreateUnitDamagedTrigger(CzarDamaged, ScenarioInfo.M3Czar)
 
-        platoon = ArmyBrains[QAI]:MakePlatoon('', '')
+        local platoon = ArmyBrains[QAI]:MakePlatoon('', '')
         ArmyBrains[QAI]:AssignUnitsToPlatoon(platoon, {ScenarioInfo.M3Czar}, 'Attack', 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'M3_QAI_AirBase_Attack_1_Chain')
     end

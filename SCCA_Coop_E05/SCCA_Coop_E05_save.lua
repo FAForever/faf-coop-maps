@@ -1441,38 +1441,38 @@ Scenario = {
         ['Aeon_Commander'] = {
             'Aeon_Commander',
             '',
-            { 'ual0001', 1, 1, 'attack', 'TravellingFormation' },
+            { 'ual0001', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Aeon_Easy_Air'] = {
             'Aeon_Easy_Air',
             '',
-            { 'UAA0203', 1, 2, 'attack', 'TravellingFormation' },
-            { 'UAA0103', 1, 2, 'attack', 'TravellingFormation' },
+            { 'UAA0203', 1, 2, 'attack', 'GrowthFormation' },
+            { 'UAA0103', 1, 2, 'attack', 'GrowthFormation' },
         },
         ['Aeon_Factory_T1_Air'] = {
             'Aeon_Factory_T1_Air',
             'UnitUpgradeAI',
-            { 'UAB0102', 1, 1, 'attack', 'TravellingFormation' },
+            { 'UAB0102', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Aeon_Factory_T1_Land'] = {
             'Aeon_Factory_T1_Land',
             'UnitUpgradeAI',
-            { 'UAB0101', 1, 1, 'attack', 'TravellingFormation' },
+            { 'UAB0101', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Aeon_Factory_T2_Air'] = {
             'Aeon_Factory_T2_Air',
             'UnitUpgradeAI',
-            { 'UAB0202', 1, 1, 'attack', 'TravellingFormation' },
+            { 'UAB0202', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Aeon_Factory_T2_Land'] = {
             'Aeon_Factory_T2_Land',
             'UnitUpgradeAI',
-            { 'UAB0201', 1, 1, 'attack', 'TravellingFormation' },
+            { 'UAB0201', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T1_Artillery'] = {
             'Aeon_T1_Artillery',
             '',
-            { 'UAL0103', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0103', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T1_Bomber'] = {
             'Aeon_T1_Bomber',
@@ -1487,82 +1487,82 @@ Scenario = {
         ['Aeon_T2_AAFlak'] = {
             'Aeon_T2_AAFlak',
             '',
-            { 'UAL0205', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0205', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T2_Gunship'] = {
             'Aeon_T2_Gunship',
             '',
-            { 'UAA0203', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAA0203', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T2_Missles'] = {
             'Aeon_T2_Missles',
             '',
-            { 'UAL0111', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0111', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T2_Tank'] = {
             'Aeon_T2_Tank',
             '',
-            { 'UAL0202', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0202', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T3_Artillery'] = {
             'Aeon_T3_Artillery',
             '',
-            { 'UAL0304', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0304', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T3_Bomber'] = {
             'Aeon_T3_Bomber',
             '',
-            { 'UAA0304', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAA0304', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T3_Bot'] = {
             'Aeon_T3_Bot',
             '',
-            { 'ual0303', 2, 4, 'attack', 'TravellingFormation' },
+            { 'ual0303', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T3_Engineer'] = {
             'Aeon_T3_Engineer',
             '',
-            { 'ual0309', -1, 4, 'support', 'TravellingFormation' },
+            { 'ual0309', -1, 4, 'support', 'GrowthFormation' },
         },
         ['Aeon_T3_Fighter'] = {
             'Aeon_T3_Fighter',
             '',
-            { 'UAA0303', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAA0303', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Aeon_T3_Shields'] = {
             'Aeon_T3_Shields',
             '',
-            { 'UAL0307', 2, 4, 'attack', 'TravellingFormation' },
+            { 'UAL0307', 2, 4, 'attack', 'GrowthFormation' },
         },
         ['Cybran_Commander'] = {
             'Cybran_Commander',
             '',
-            { 'URL0001', 1, 1, 'attack', 'TravellingFormation' },
+            { 'URL0001', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Cybran_T1_Factory_Air'] = {
             'Cybran_T1_Factory_Air',
             '',
-            { 'URB0102', 1, 1, 'attack', 'TravellingFormation' },
+            { 'URB0102', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Cybran_T1_Factory_Land'] = {
             'Cybran_T1_Factory_Land',
             '',
-            { 'URB0101', 1, 1, 'attack', 'TravellingFormation' },
+            { 'URB0101', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Cybran_T2_Factory_Air'] = {
             'Cybran_T2_Factory_Air',
             '',
-            { 'URB0202', 1, 1, 'attack', 'TravellingFormation' },
+            { 'URB0202', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Cybran_T2_Factory_Land'] = {
             'Cybran_T2_Factory_Land',
             '',
-            { 'URB0201', 1, 1, 'attack', 'TravellingFormation' },
+            { 'URB0201', 1, 1, 'attack', 'GrowthFormation' },
         },
         ['Cybran_T3_Engineer'] = {
             'Cybran_T3_Engineer',
             '',
-            { 'URL0309', -1, 3, 'support', 'TravellingFormation' },
+            { 'URL0309', -1, 3, 'support', 'GrowthFormation' },
         },
     },
     --[[                                                                           ]]--
@@ -10922,8 +10922,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -10952,8 +10952,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildCybranPlayerAttacks'},
-                                {'default_brain','BuildCybranPlayerAttacks'}
+                                {'BuildCybranPlayerAttacks'},
+                                {'BuildCybranPlayerAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -10977,8 +10977,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -10996,8 +10996,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildCybranPlayerAttacks'},
-                                {'default_brain','BuildCybranPlayerAttacks'}
+                                {'BuildCybranPlayerAttacks'},
+                                {'BuildCybranPlayerAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -11068,8 +11068,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -11089,8 +11089,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -11112,8 +11112,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildCybranPlayerAttacks'},
-                                {'default_brain','BuildCybranPlayerAttacks'}
+                                {'BuildCybranPlayerAttacks'},
+                                {'BuildCybranPlayerAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -11133,8 +11133,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildCybranPlayerAttacks'},
-                                {'default_brain','BuildCybranPlayerAttacks'}
+                                {'BuildCybranPlayerAttacks'},
+                                {'BuildCybranPlayerAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -11154,8 +11154,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -11177,8 +11177,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19092,8 +19092,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonSecondBasePatrols'},
-                                {'default_brain','BuildAeonSecondBasePatrols'}
+                                {'BuildAeonSecondBasePatrols'},
+                                {'BuildAeonSecondBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19140,8 +19140,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19165,8 +19165,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19190,8 +19190,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonSecondBasePatrols'},
-                                {'default_brain','BuildAeonSecondBasePatrols'}
+                                {'BuildAeonSecondBasePatrols'},
+                                {'BuildAeonSecondBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19223,8 +19223,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonSecondBasePatrols'},
-                                {'default_brain','BuildAeonSecondBasePatrols'}
+                                {'BuildAeonSecondBasePatrols'},
+                                {'BuildAeonSecondBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19260,8 +19260,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBaseAttacks'},
-                                {'default_brain','BuildAeonMainBaseAttacks'}
+                                {'BuildAeonMainBaseAttacks'},
+                                {'BuildAeonMainBaseAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -19281,8 +19281,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19306,8 +19306,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19331,8 +19331,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19356,18 +19356,18 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildBigAeonAttack'},
-                                {'default_brain','BuildBigAeonAttack'}
+                                {'BuildBigAeonAttack'},
+                                {'BuildBigAeonAttack'}
                             },
                             [1] = {'/lua/editor/platooncountbuildconditions.lua', 'NumGreaterOrEqualAMPlatoons',
-                                {'default_brain','AM_Master_Aeon_Big_Attack', 2 },
-                                {'default_brain','AM_Master_Aeon_Big_Attack','2'}
+                                {'AM_Master_Aeon_Big_Attack', 2 },
+                                {'AM_Master_Aeon_Big_Attack','2'}
                             },
                         },
                         PlatoonBuildCallbacks = {
                             [0] = {'/maps/SCCA_Coop_E05/SCCA_Coop_E05_EditorFunctions.lua', 'BigAeonAttackDied',
-                                {'default_brain','default_table'},
-                                {'default_brain','default_table'}
+                                {'default_table'},
+                                {'default_table'}
                             },
                         },
                         PlatoonAddFunctions = {
@@ -19396,8 +19396,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19428,8 +19428,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19452,8 +19452,8 @@ Scenario = {
                         RequiresConstruction = false,
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonLandAssault'},
-                                {'default_brain','BuildAeonLandAssault'}
+                                {'BuildAeonLandAssault'},
+                                {'BuildAeonLandAssault'}
                             },
                         },
                         PlatoonData = {
@@ -19477,8 +19477,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19502,8 +19502,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -19523,8 +19523,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19548,8 +19548,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19573,8 +19573,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19609,8 +19609,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBaseAttacks'},
-                                {'default_brain','BuildAeonMainBaseAttacks'}
+                                {'BuildAeonMainBaseAttacks'},
+                                {'BuildAeonMainBaseAttacks'}
                             },
                         },
                         PlatoonData = {
@@ -19630,8 +19630,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19666,8 +19666,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19689,8 +19689,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19711,8 +19711,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19750,8 +19750,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19786,8 +19786,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'DifficultyLessOrEqual',
-                                {'default_brain', 1 },
-                                {'default_brain','1'}
+                                {1 },
+                                {'1'}
                             },
                         },
                         PlatoonData = {
@@ -19818,8 +19818,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {
@@ -19845,8 +19845,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonMainBasePatrols'},
-                                {'default_brain','BuildAeonMainBasePatrols'}
+                                {'BuildAeonMainBasePatrols'},
+                                {'BuildAeonMainBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19870,8 +19870,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'CheckScenarioInfoVarTable',
-                                {'default_brain','BuildAeonSecondBasePatrols'},
-                                {'default_brain','BuildAeonSecondBasePatrols'}
+                                {'BuildAeonSecondBasePatrols'},
+                                {'BuildAeonSecondBasePatrols'}
                             },
                         },
                         PlatoonData = {
@@ -19892,8 +19892,8 @@ Scenario = {
                         },
                         BuildConditions = {
                             [0] = {'/lua/editor/miscbuildconditions.lua', 'True',
-                                {'default_brain'},
-                                {'default_brain'}
+                                {},
+                                {}
                             },
                         },
                         PlatoonData = {

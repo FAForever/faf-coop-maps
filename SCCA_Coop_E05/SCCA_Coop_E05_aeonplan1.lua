@@ -20,10 +20,10 @@ local AIBuildConditions = import('/lua/modules/ai/aibuildconditions.lua')
 local AIBuildStructures = import('/lua/modules/ai/aibuildstructures.lua')
 local AIBuildUnits = import('/lua/modules/ai/aibuildunits.lua')
 local BaseTemplates = import('/lua/modules/basetemplates.lua')
-local MapScript = import('/maps/SCCA_Coop_E05/SCCA_Coop_E05_script.lua')
+local MapScript = import('/maps/SCCA_Coop_E05/SCCA_Coop_E05_script.lua')---@module "SCCA_Coop_E05/SCCA_Coop_E05_script"
 local ScenarioFramework = import('/lua/modules/scenarioframework.lua')
-local ScenarioPlatoonAI = import('/lua/modules/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/ScenarioUtilities.lua')
+local ScenarioPlatoonAI = import('/lua/modules/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/scenarioutilities.lua')
 
 --------------------------
 -- Platoon Build Conditions

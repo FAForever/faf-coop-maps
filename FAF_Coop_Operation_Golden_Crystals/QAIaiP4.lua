@@ -1,8 +1,8 @@
 local BaseManager = import('/lua/ai/opai/basemanager.lua')
 local SPAIFileName = '/lua/scenarioplatoonai.lua'
-local ScenarioFramework = import('/lua/ScenarioFramework.lua')
-local ScenarioPlatoonAI = import('/lua/ScenarioPlatoonAI.lua')
-local ScenarioUtils = import('/lua/sim/ScenarioUtilities.lua')
+local ScenarioFramework = import('/lua/scenarioframework.lua')
+local ScenarioPlatoonAI = import('/lua/scenarioplatoonai.lua')
+local ScenarioUtils = import('/lua/sim/scenarioutilities.lua')
 local CustomFunctions = '/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_CustomFunctions.lua'
 
 local Player1 = 1
@@ -19,7 +19,8 @@ local QAIP4base6 = BaseManager.CreateBaseManager()
 
 function QAIP4base1AI()
 
-    QAIP4base1:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base1', 'QAIP4base1MK', 70, {P4Qbase1 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base1:InitializeDifficultyTables(aiBrain, 'QAIP4base1', 'QAIP4base1MK', 70, {P4Qbase1 = 100})
     QAIP4base1:StartNonZeroBase({{7, 12, 16}, {5, 8, 10}})
     QAIP4base1:SetActive('AirScouting', true)
 
@@ -28,10 +29,9 @@ function QAIP4base1AI()
 end
 
 function QP4B1landattacks()
-    
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {6, 8, 10}
     local Temp = {
        'QP4B1landAttackTemp0',
@@ -51,7 +51,8 @@ function QP4B1landattacks()
            PatrolChains = {'P4QB1Landattack1', 'P4QB1Landattack2', 'P4QB1Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 8, 10}
     trigger = {40, 30, 20}
@@ -70,14 +71,14 @@ function QP4B1landattacks()
         LocationType = 'QAIP4base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB1Landattack1', 'P4QB1Landattack2', 'P4QB1Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 8, 10}
     trigger = {40, 32, 25}
@@ -96,21 +97,20 @@ function QP4B1landattacks()
         LocationType = 'QAIP4base1',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB1Landattack1', 'P4QB1Landattack2', 'P4QB1Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4QB1Exp()
-
     local opai = nil
     local quantity = {}
-    
+
     quantity = {2, 4, 6}
     opai = QAIP4base1:AddOpAI('P4Sbot1',
         {
@@ -130,7 +130,8 @@ end
 
 function QAIP4base2AI()
 
-    QAIP4base2:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base2', 'QAIP4base2MK', 70, {P4Qbase2 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base2:InitializeDifficultyTables(aiBrain, 'QAIP4base2', 'QAIP4base2MK', 70, {P4Qbase2 = 100})
     QAIP4base2:StartNonZeroBase({{7, 12, 16}, {5, 8, 10}})
     QAIP4base2:SetActive('AirScouting', true)
     
@@ -139,10 +140,10 @@ function QAIP4base2AI()
 end
 
 function QP4B2Airattacks()
-    
+    local opai = nil
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {5, 8, 10}
     local Temp = {
         'QP4B2AirAttackTemp0',
@@ -163,7 +164,8 @@ function QP4B2Airattacks()
            PatrolChain = 'P4QAirdefense1'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 7, 10}
     Temp = {
@@ -184,7 +186,7 @@ function QP4B2Airattacks()
            PatrolChains = {'P4QB2Airattack1','P4QB2Airattack2', 'P4QB2Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 10, 15}
     trigger = {20, 18, 15}
@@ -203,14 +205,14 @@ function QP4B2Airattacks()
         LocationType = 'QAIP4base2',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P4QB2Airattack1','P4QB2Airattack2', 'P4QB2Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {8, 10, 15}
     opai = QAIP4base2:AddOpAI('AirAttacks', 'M4_QAIB2_Air_Attack_1',
@@ -225,7 +227,7 @@ function QP4B2Airattacks()
     opai:SetChildQuantity('HeavyGunships', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
 
     quantity = {8, 10, 15}
     opai = QAIP4base2:AddOpAI('AirAttacks', 'M4_QAIB2_Air_Attack_2',
@@ -240,11 +242,10 @@ function QP4B2Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 end
 
 function P4QB2Exp()
-
     local opai = nil
     local quantity = {}
 
@@ -267,7 +268,8 @@ end
 
 function QAIP4base3AI()
 
-    QAIP4base3:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base3', 'QAIP4base3MK', 70, {P4Qbase3 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base3:InitializeDifficultyTables(aiBrain, 'QAIP4base3', 'QAIP4base3MK', 70, {P4Qbase3 = 100})
     QAIP4base3:StartNonZeroBase({{7, 12, 16}, {5, 8, 10}})
     QAIP4base3:SetActive('AirScouting', true)
     QAIP4base3.MaximumConstructionEngineers = 8
@@ -279,10 +281,10 @@ function QAIP4base3AI()
 end
 
 function QP4B3Airattacks()
-    
+    local opai = nil
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {5, 8, 10}
     local Temp = {
         'QP4B3AirAttackTemp0',
@@ -303,7 +305,8 @@ function QP4B3Airattacks()
            PatrolChain = 'P4QAirdefense2'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {4, 6, 8}
     Temp = {
@@ -324,7 +327,7 @@ function QP4B3Airattacks()
            PatrolChains = {'P4QB3Airattack1','P4QB3Airattack2', 'P4QB3Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 10, 15}
     trigger = {15, 12, 10}
@@ -343,14 +346,14 @@ function QP4B3Airattacks()
         LocationType = 'QAIP4base3',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P4QB3Airattack1','P4QB3Airattack2', 'P4QB3Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {12, 14, 18}
     opai = QAIP4base3:AddOpAI('AirAttacks', 'M4_QAIB3_Air_Attack_1',
@@ -365,7 +368,7 @@ function QP4B3Airattacks()
     opai:SetChildQuantity('AirSuperiority', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.AIR - categories.SATELLITE, '>='})
 
     quantity = {12, 14, 18}
     opai = QAIP4base3:AddOpAI('AirAttacks', 'M4_QAIB3_Air_Attack_2',
@@ -380,13 +383,13 @@ function QP4B3Airattacks()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.LAND, '>='})
 end
 
 function P4QB3Exp()
-
     local opai = nil
     local quantity = {}
+
     quantity = {2, 4, 6}
     opai = QAIP4base3:AddOpAI('P4End',
         {
@@ -404,7 +407,8 @@ end
 
 function QAIP4base4AI()
 
-    QAIP4base4:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base4', 'QAIP4base4MK', 70, {P4Qbase4 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base4:InitializeDifficultyTables(aiBrain, 'QAIP4base4', 'QAIP4base4MK', 70, {P4Qbase4 = 100})
     QAIP4base4:StartNonZeroBase({{7, 9, 12}, {3, 4, 6}})
     QAIP4base4:SetActive('AirScouting', true)
 
@@ -413,10 +417,9 @@ function QAIP4base4AI()
 end
 
 function QP4B4landattacks()
-    
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {6, 7, 9}
     local Temp = {
        'QP4B4landAttackTemp0',
@@ -436,7 +439,8 @@ function QP4B4landattacks()
            PatrolChains = {'P4QB4Landattack1', 'P4QB4Landattack2', 'P4QB4Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 7, 9}
     trigger = {40, 30, 20}
@@ -455,14 +459,14 @@ function QP4B4landattacks()
         LocationType = 'QAIP4base4',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE - categories.TECH1}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB4Landattack1', 'P4QB4Landattack2', 'P4QB4Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {3, 6, 9}
     trigger = {25, 20, 15}
@@ -481,21 +485,20 @@ function QP4B4landattacks()
         LocationType = 'QAIP4base4',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB4Landattack1', 'P4QB4Landattack2', 'P4QB4Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4QB4Exp()
-
     local opai = nil
     local quantity = {}
-    
+
     quantity = {4, 5, 6}
     opai = QAIP4base4:AddOpAI('P4Mega1',
         {
@@ -520,7 +523,8 @@ end
 
 function QAIP4base5AI()
 
-    QAIP4base5:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base5', 'QAIP4base5MK', 70, {P4Qbase5 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base5:InitializeDifficultyTables(aiBrain, 'QAIP4base5', 'QAIP4base5MK', 70, {P4Qbase5 = 100})
     QAIP4base5:StartNonZeroBase({{7, 12, 21}, {5, 8, 15}})
     QAIP4base5:SetActive('AirScouting', true)
 
@@ -529,10 +533,10 @@ function QAIP4base5AI()
 end
 
 function QP4B5Airattacks()
-    
+    local opai = nil
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {5, 8, 10}
     local Temp = {
         'QP4B5AirAttackTemp0',
@@ -553,7 +557,8 @@ function QP4B5Airattacks()
            PatrolChain = 'P4QAirdefense3'
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 9, 12}
     Temp = {
@@ -574,7 +579,7 @@ function QP4B5Airattacks()
            PatrolChains = {'P4QB5Airattack1','P4QB5Airattack2', 'P4QB5Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {5, 10, 15}
     trigger = {20, 15, 10}
@@ -593,14 +598,14 @@ function QP4B5Airattacks()
         LocationType = 'QAIP4base5',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
         PlatoonData = {
            PatrolChains = {'P4QB5Airattack1','P4QB5Airattack2', 'P4QB5Airattack3'}
         },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 12, 15}
     opai = QAIP4base5:AddOpAI('AirAttacks', 'M4_QAIB5_Air_Attack_1',
@@ -615,11 +620,10 @@ function QP4B5Airattacks()
     opai:SetChildQuantity('StratBombers', quantity[Difficulty])
     opai:SetLockingStyle('DeathRatio', {Ratio = 0.5})
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
-            {'default_brain', {'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.STRUCTURE, '>='})
+            {{'HumanPlayers'}, 1, categories.EXPERIMENTAL * categories.STRUCTURE, '>='})
 end
 
 function P4QB5Exp()
-
     local opai = nil
     local quantity = {}
 
@@ -642,7 +646,8 @@ end
 
 function QAIP4base6AI()
 
-    QAIP4base6:InitializeDifficultyTables(ArmyBrains[QAI], 'QAIP4base6', 'QAIP4base6MK', 70, {P4Qbase6 = 100})
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    QAIP4base6:InitializeDifficultyTables(aiBrain, 'QAIP4base6', 'QAIP4base6MK', 70, {P4Qbase6 = 100})
     QAIP4base6:StartNonZeroBase({{8, 11, 18}, {6, 9, 12}})
     QAIP4base6:SetActive('AirScouting', true)
 
@@ -651,10 +656,9 @@ function QAIP4base6AI()
 end
 
 function QP4B6landattacks()
-    
     local quantity = {}
     local trigger = {}
-
+    
     quantity = {6, 9, 12}
     local Temp = {
        'QP4B6landAttackTemp0',
@@ -674,7 +678,8 @@ function QP4B6landattacks()
            PatrolChains = {'P4QB6Landattack1', 'P4QB6Landattack2', 'P4QB6Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    local aiBrain = ArmyBrains[QAI]--[[@as CampaignAIBrain]]
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 9, 12}
     trigger = {50, 40, 30}
@@ -693,14 +698,14 @@ function QP4B6landattacks()
         LocationType = 'QAIP4base6',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.STRUCTURE * categories.DEFENSE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB6Landattack1', 'P4QB6Landattack2', 'P4QB6Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 
     quantity = {6, 9, 12}
     trigger = {50, 40, 30}
@@ -719,18 +724,17 @@ function QP4B6landattacks()
         LocationType = 'QAIP4base6',
         BuildConditions = {
            { '/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainGreaterThanOrEqualNumCategory',
-        {'default_brain',  {'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
+           {{'HumanPlayers'}, trigger[Difficulty], categories.AIR * categories.MOBILE}},
         },
         PlatoonAIFunction = {SPAIFileName, 'PatrolChainPickerThread'},     
        PlatoonData = {
            PatrolChains = {'P4QB6Landattack1', 'P4QB6Landattack2', 'P4QB6Landattack3'}
        },
     }
-    ArmyBrains[QAI]:PBMAddPlatoon( Builder )
+    aiBrain:PBMAddPlatoon( Builder )
 end
 
 function P4QB6Exp()
-
     local opai = nil
     local quantity = {}
 

@@ -1,4 +1,4 @@
-local OpStrings = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings.lua')
+local OpStrings = import('/maps/FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings.lua')---@module "FAF_Coop_Operation_Golden_Crystals/FAF_Coop_Operation_Golden_Crystals_strings"
 
 operationData = 
 {
