@@ -88,7 +88,7 @@ function SeraphimM6IslandBaseAirAttacks()
             {
                 MasterPlatoonFunction = {SPAIFileName, 'PatrolThread'},
                 PlatoonData = {
-                    PatrolChains = 'M6_Sera_Island_Air_Attack_Chain_4',
+                    PatrolChain = 'M6_Sera_Island_Air_Attack_Chain_4',
                 },
                 Priority = 100,
             }
