@@ -34,7 +34,7 @@ function M1CybranMainBaseAI()
             Eco_5 = 110,
             Rest = 105,
             ['Def_2_D' .. Difficulty] = 100,
-            -- Walls_1 = 50,
+            Walls_1 = 50,
 
         }
     )
