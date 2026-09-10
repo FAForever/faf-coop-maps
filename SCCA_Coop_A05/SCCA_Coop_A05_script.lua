@@ -227,12 +227,13 @@ function WinGame()
 end
 
 function CheatEco(army)
-    ArmyBrains[army]:GiveStorage('MASS', 10000)
-    ArmyBrains[army]:GiveStorage('ENERGY', 100000)
+    local aiBrain = ArmyBrains[army]
+    aiBrain:GiveStorage('MASS', 10000)
+    aiBrain:GiveStorage('ENERGY', 100000)
 
     while true do
-        ArmyBrains[army]:GiveResource('MASS', 1000)
-        ArmyBrains[army]:GiveResource('ENERGY', 50000)
+        aiBrain:GiveResource('MASS', 1000)
+        aiBrain:GiveResource('ENERGY', 50000)
         WaitSeconds(10)
     end
 end
@@ -255,7 +256,7 @@ function IntroMission1()
             end
         end
     )
-    
+
     -- Delay opening of mission till after player is warped in
     if SkipM1 then
         IntroMission2()
@@ -306,22 +307,21 @@ function M1UEFAttacksThread()
             'M1_UEF_Bombers', 'M1_UEF_Bombers', 'M1_UEF_Gunships', 'M1_UEF_Gunships', 'M1_UEF_Gunships', 'M1_UEF_ASFs'
         },
     }
-    local numAirGroups = table.getn(attackGroups.Air)
-    local numLandGroups = table.getn(attackGroups.Land)
-    local delay = {{55, 100}, {45, 80}, {35, 60}}
+    local delaysDifficulty = {{55, 100}, {45, 80}, {35, 60}}
+    local delayRange = delaysDifficulty[Difficulty]
 
     while ScenarioInfo.MissionNumber == 1 do
         -- Pick random land group
-        local group = attackGroups.Land[Random(1, numLandGroups)]
+        local group = table.random(attackGroups.Land)
         local platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', group.name .. '_D' .. Difficulty, group.formation)
-        ScenarioFramework.PlatoonPatrolChain(platoon, 'UEF_M1_Attack_Chain_' .. group.chains[Random(1, table.getn(group.chains))])
+        ScenarioFramework.PlatoonPatrolChain(platoon, 'UEF_M1_Attack_Chain_' .. table.random(group.chains))
 
         -- Air group, using same formation and all 4 attack chains
-        local name = attackGroups.Air[Random(1, numAirGroups)]
+        local name = table.random(attackGroups.Air)
         platoon = ScenarioUtils.CreateArmyGroupAsPlatoon('UEF', name .. '_D' .. Difficulty, 'GrowthFormation')
         ScenarioFramework.PlatoonPatrolChain(platoon, 'UEF_M1_Attack_Chain_' .. Random(1, 4))
 
-        WaitSeconds(Random(unpack(delay[Difficulty])))
+        WaitSeconds(Random(unpack(delayRange)))
     end
 end
 
@@ -433,9 +433,9 @@ function M1AssignProtectObjective()
 end
 
 function M1RevealShieldsObjective()
-    ------------------------------------
-    -- Primary Objective - Build Shields
-    ------------------------------------
+    --------------------------------------
+    -- Secondary Objective - Build Shields
+    --------------------------------------
     ScenarioInfo.M1P1Obj = Objectives.CategoriesInArea(
         'secondary',                    -- type
         'incomplete',                   -- complete
@@ -491,7 +491,7 @@ function M1AttackShields()
         table.insert(bombers, unit)
     end
     local deathPlat = ArmyBrains[Ariel]:MakePlatoon('', '')
-    ArmyBrains[Ariel]:AssignUnitsToPlatoon(deathPlat, bombers, 'attack', 'Noformation')
+    ArmyBrains[Ariel]:AssignUnitsToPlatoon(deathPlat, bombers, 'Attack', 'NoFormation')
     ScenarioFramework.CreatePlatoonDeathTrigger(M1ShieldsHeld, deathPlat)
 end
 
@@ -681,6 +681,9 @@ function M1AttackThree()
 end
 
 -- Function to attack the colonies with transports
+---@param units Platoon
+---@param transports Platoon
+---@param direction 'West'|'East'
 function M1LandAttack(units, transports, direction)
     local chain
     local marker
@@ -691,28 +694,28 @@ function M1LandAttack(units, transports, direction)
         chain = 'Ariel_M1_East_Colony_Landing_Chain'
         marker = 'East_Colony_Marker'
     end
+
     local aiBrain = units:GetBrain()
     ScenarioFramework.AttachUnitsToTransports(units:GetPlatoonUnits(), transports:GetPlatoonUnits())
+
     local cmd = transports:UnloadAllAtLocation(ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(aiBrain, ScenarioUtils.ChainToPositions(chain), 2))
     while transports:IsCommandsActive(cmd) do
         WaitSeconds(2)
-        if not aiBrain:PlatoonExists(transports) then
-            return
-        end
+
+        if not aiBrain:PlatoonExists(transports) then return end
     end
+
     cmd = transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Ariel_Transport_Return'), false)
     if aiBrain:PlatoonExists(units) then
         units:AggressiveMoveToLocation(ScenarioUtils.MarkerToPosition(marker))
     end
-    while ArmyBrains[Ariel]:PlatoonExists(transports) and transports:IsCommandsActive(cmd) do
+
+    while aiBrain:PlatoonExists(transports) and transports:IsCommandsActive(cmd) do
         WaitSeconds(5)
     end
-    if ArmyBrains[Ariel]:PlatoonExists(transports) then
-        for num, unit in transports:GetPlatoonUnits() do
-            if not unit.Dead then
-                unit:Destroy()
-            end
-        end
+
+    if aiBrain:PlatoonExists(transports) then
+        transports:Destroy()
     end
 end
 
