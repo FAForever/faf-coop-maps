@@ -272,7 +272,7 @@ function CybranM1NodeBaseLandAttacks()
             Priority = 130,
         }
     )
-    opai:SetChildQuantity('LightAtrillery', 8)
+    opai:SetChildQuantity('LightArtillery', 8)
     opai:AddBuildCondition('/lua/editor/otherarmyunitcountbuildconditions.lua', 'BrainsCompareNumCategory',
         {{'HumanPlayers'}, trigger[Difficulty], categories.DEFENSE, '>='})
 
