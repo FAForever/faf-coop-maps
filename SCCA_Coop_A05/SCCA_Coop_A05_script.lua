@@ -535,11 +535,14 @@ end
 function SiloAmmoThread(callback, areaName)
     local hasAmmo = false
     local rect = ScenarioUtils.AreaToRect(areaName)
-    while not hasAmmo do
+    local siloCat = categories.SILO * categories.ANTIMISSILE
+    while not hasAmmo and ScenarioInfo.M1P2Obj.Active do
         local units = GetUnitsInRect(rect)
-        for k,v in units do
-            if not v.Dead and EntityCategoryContains(categories.SILO * categories.ANTIMISSILE, v) then
-                if v:GetTacticalSiloAmmoCount() > 0 then
+        if units then
+            for _, unit in pairs(units) do
+                if unit.Dead or not EntityCategoryContains(siloCat, unit) then continue end
+
+                if unit:GetTacticalSiloAmmoCount() > 0 then
                     if not hasAmmo then
                         hasAmmo = true
                         callback()
@@ -735,12 +738,12 @@ function IntroMission2()
         categories.ueb3104
     )
 
-    for num, unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_West_Area')) do
+    for num, unit in pairs(GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_West_Area')) or {}) do
         if EntityCategoryContains(categories.STRUCTURE, unit) then
             unit:SetDoNotTarget(true)
         end
     end
-    for num, unit in GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_East_Area')) do
+    for num, unit in pairs(GetUnitsInRect(ScenarioUtils.AreaToRect('M1P2_East_Area')) or {}) do
         if EntityCategoryContains(categories.STRUCTURE, unit) then
             unit:SetDoNotTarget(true)
         end
