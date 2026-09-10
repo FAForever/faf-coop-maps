@@ -877,6 +877,7 @@ function M2AttackEight()
 end
 
 -- generic function to attack mainframe from the east
+---@param units Platoon
 function M2EastLandAssault(units, transports)
     local aiBrain = units:GetBrain()
     local cmd = transports:UnloadAllAtLocation(ScenarioPlatoonAI.PlatoonChooseRandomNonNegative(aiBrain, ScenarioUtils.ChainToPositions('Cybran_M2_Mainframe_Landing_Chain'), 2))
@@ -888,8 +889,9 @@ function M2EastLandAssault(units, transports)
     end
     if aiBrain:PlatoonExists(transports) then
         transports:MoveToLocation(ScenarioUtils.MarkerToPosition('Cybran_East_Transport_Return'), false)
-        if aiBrain:PlatoonExists('TransportPool') then
-            aiBrain:AssignUnitsToPlatoon('TransportPool', transports:GetPlatoonUnits(), 'Scout', 'None')
+        local tPool = aiBrain:GetPlatoonUniquelyNamed('TransportPool')
+        if tPool then
+            aiBrain:AssignUnitsToPlatoon(tPool, transports:GetPlatoonUnits(), 'Scout', 'None')
         end
     end
     if aiBrain:PlatoonExists(units) then
