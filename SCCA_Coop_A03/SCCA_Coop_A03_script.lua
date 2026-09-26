@@ -544,7 +544,8 @@ function IntroMission2()
         categories.uab0203 +    -- T2 Naval Factory
         categories.zab9503 +    -- T2 Support Naval Factory
         categories.uas0201 +    -- Destroyer
-        categories.uaa0203,     -- T2 Gunship
+        categories.uaa0203 +    -- T2 Gunship
+        categories.uab4201,     -- TMD
         true
     )
 
