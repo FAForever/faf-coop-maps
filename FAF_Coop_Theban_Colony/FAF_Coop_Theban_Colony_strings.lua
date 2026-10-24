@@ -29,7 +29,7 @@
 
 
 
-OPERATION_NAME = 'Theban Colony'
+OPERATION_NAME = '<LOC FAF_Coop_Theban_Colony_OPERATION_NAME>Theban Colony'
 
 
 -------------
@@ -37,12 +37,12 @@ OPERATION_NAME = 'Theban Colony'
 -------------
 -- Showed on the score screen if player wins
 Debriefing_Win = {
-    {text = 'You win', faction = 'Cybran'},
+    {text = '<LOC FAF_Coop_Theban_Colony_Debriefing_Win_1>You win', faction = 'Cybran'},
 }
 
 -- Showed on the score screen if player loses
 Debriefing_Lose = {
-    {text = 'The UEF launched a major assault against our colony on Theban. Many of the symbionts were captured and several of our commander died during the evacuation.', faction = 'Cybran'},
+    {text = '<LOC FAF_Coop_Theban_Colony_Debriefing_Lose_1>The UEF launched a major assault against our colony on Theban. Many of the symbionts were captured and several of our commander died during the evacuation.', faction = 'Cybran'},
 }
 
 
@@ -51,24 +51,24 @@ Debriefing_Lose = {
 -- Prologue
 -----------
 M1_DefendCivs = {
-	{text = '[QAI]: Hold on a bit longer commander. The reinforcements should arrive soon.', vid = 'QAI.sfd', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M1_DefendCivs_1>[QAI]: Hold on a bit longer commander. The reinforcements should arrive soon.', vid = 'QAI.sfd', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M1_Reinforcements = {
-	{text = '[Cybran Commander]: My base to the south west was destroyed. I\'m sending the rest of my units to assist you.', vid = 'Hex5.sfd', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M1_Reinforcements_1>[Cybran Commander]: My base to the south west was destroyed. I\'m sending the rest of my units to assist you.', vid = 'Hex5.sfd', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M1_sACU_Dead = {
-	{text = '[QAI]: Commander, what\'s your status?', vid = 'QAI.sfd', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M1_sACU_Dead_1>[QAI]: Commander, what\'s your status?', vid = 'QAI.sfd', bank = '', cue = '', faction = 'Cybran'},
 }
 
 
 
 -- Primary Objective
-M1P1Title = 'Defend the Colony'
+M1P1Title = '<LOC FAF_Coop_Theban_Colony_M1P1Title>Defend the Colony'
 
 -- Primary Objective
-M1P1Description = 'The UEF has launched a full planetary assault. We must repeal the attack and evacuate the colonies.'
+M1P1Description = '<LOC FAF_Coop_Theban_Colony_M1P1Description>The UEF has launched a full planetary assault. We must repeal the attack and evacuate the colonies.'
 
 
 
@@ -80,35 +80,35 @@ M1P1Description = 'The UEF has launched a full planetary assault. We must repeal
 
 -- Intro
 M2_Intro_1 = {
-	{text = '[Ops]: UEF is progressing to on the other settlements. Your task is to defend them.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_Intro_1_1>[Ops]: UEF is progressing to on the other settlements. Your task is to defend them.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Intro_2 = {
-	{text = '[Ops]: Gating in first ACU. Act quicly commander. UEF units are not far.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_Intro_2_1>[Ops]: Gating in first ACU. Act quicly commander. UEF units are not far.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Intro_3 = {
-	{text = '[Ops]: This is one of the lasts bases in the area. Defeat the attacking forces and regroup with commander to your south.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_Intro_3_1>[Ops]: This is one of the lasts bases in the area. Defeat the attacking forces and regroup with commander to your south.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Intro_4 = {
-	{text = '[Ops]: Both commanders are on the planet. Good luck.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_Intro_4_1>[Ops]: Both commanders are on the planet. Good luck.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 
 
 M2_KillAttackers = {
-	{text = '[Ops]: Your primary objective is to defend the civilians. Defeat enemy focres closing to your location.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_KillAttackers_1>[Ops]: Your primary objective is to defend the civilians. Defeat enemy focres closing to your location.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_Subplot_1 = {
-	{text = '[Ops]: Scans show that the UEF base is already well established.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_Subplot_1_1>[Ops]: Scans show that the UEF base is already well established.', vid = '', bank = '', cue = '', faction = 'Cybran'},
 }
 
 M2_KillArty = {
-	{text = '[Cybran Commander]: HQ, the main city is under artillery fire. I don\'t have enough resources to kill those artilleries and defend the city from UEF attacks. I need help.', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = '[Ops]: Commanders, those heavy artillery installations are in your location. Destroy them as fast as you can.', vid = '', bank = '', cue = '', faction = 'Cybran'},
-	{text = '[UEF ACU]: You\'ll die here Cybran.', vid = '', bank = '', cue = '', faction = 'UEF'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_KillArty_1>[Cybran Commander]: HQ, the main city is under artillery fire. I don\'t have enough resources to kill those artilleries and defend the city from UEF attacks. I need help.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_KillArty_2>[Ops]: Commanders, those heavy artillery installations are in your location. Destroy them as fast as you can.', vid = '', bank = '', cue = '', faction = 'Cybran'},
+	{text = '<LOC FAF_Coop_Theban_Colony_M2_KillArty_3>[UEF ACU]: You\'ll die here Cybran.', vid = '', bank = '', cue = '', faction = 'UEF'},
 }
 
 ---------
@@ -116,9 +116,9 @@ M2_KillArty = {
 ---------
 
 TAUNT1 = {
-	{text = '[Barney]: You\'ll die here, Cybran.', vid = 'Fletcher.sfd', bank = '', cue = '', faction = 'UEF'},
+	{text = '<LOC FAF_Coop_Theban_Colony_TAUNT1_1>[Barney]: You\'ll die here, Cybran.', vid = 'Fletcher.sfd', bank = '', cue = '', faction = 'UEF'},
 }
 
 TAUNT2 = {
-	{text = '[Barney]: I got you now!', vid = 'Fletcher.sfd', bank = '', cue = '', faction = 'UEF'},
+	{text = '<LOC FAF_Coop_Theban_Colony_TAUNT2_1>[Barney]: I got you now!', vid = 'Fletcher.sfd', bank = '', cue = '', faction = 'UEF'},
 }
