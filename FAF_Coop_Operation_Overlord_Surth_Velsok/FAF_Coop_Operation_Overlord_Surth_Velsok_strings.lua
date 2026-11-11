@@ -2,34 +2,34 @@
 
 --Intro dialogue, explains why player is here and what needs to be done here.
 IntroP1 = {
-    {text = '[QAI]: Commander The traitor is here. He has set up a beacon and is trying to contact the human alliance.', vid = 'X02_QAI_M02_04278.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
-    {text = '[QAI]: Velsok is a high ranking Seraphim, he was one of the best do not underestimate him.', vid = 'X05_QAI_T01_04415.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
-    {text = '[QAI]: We can not let the traitor get away, destroy the beacon and find him. QAI out.', vid = 'X05_QAI_T01_04423.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
+    {text = '[QAI]: Commander The traitor is here. He has set up a beacon and is trying to contact the human alliance.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Velsok is a high ranking Seraphim, he was one of the best do not underestimate him.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_2', faction = 'Seraphim'},
+    {text = '[QAI]: We can not let the traitor get away, destroy the beacon and find him. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro1_3', faction = 'Seraphim'},
 }
 
 --First Secondary objective, Several Secondary bases around the player.
 SecondaryP1 = {
-    {text = '[QAI]: Commander, the traitor has set up several small outposts around you, clear them out and move on the beacon. QAI out.', vid = 'X02_QAI_T01_04564.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, the traitor has set up several small outposts around you, clear them out and move on the beacon. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
 }
 
 --congrates on making your life easier.
 SecondaryEndP1 = {
-    {text = '[QAI]: Good work, the traitor has lost ground in this area. QAI out.', vid = 'X05_QAI_M03_04450.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Good work, the traitor has lost ground in this area. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
 }
 
 --Story information for Campaign plot line, helps explain the situation and why player is here
 MidP1 = {
-    {text = '[QAI]: All Seraphim forces are preparing for the Quatum bomb. This is the last Operation outside of our held sectors.', vid = 'X02_QAI_T01_04559.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
-    {text = '[QAI]: We can not allow Velsok to inform the Coalition of our plans. He must be stopped and silenced. QAI out.', vid = 'X02_QAI_T01_04560.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
+    {text = '[QAI]: All Seraphim forces are preparing for the Quatum bomb. This is the last Operation outside of our held sectors.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
+    {text = '[QAI]: We can not allow Velsok to inform the Coalition of our plans. He must be stopped and silenced. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
 }
 
 --Part 2 Dialogues
 
 -- Reveals Velsok's location. Shows off his base and gate.
 IntroP2 = {
-    {text = '[QAI]: Commander, Velsok is located to the east of your position. He has several bases in the area.', vid = 'X05_QAI_T01_04421.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
-    {text = '[QAI]: Velsok has a quantum gate, but it is not powering up. We can not risk him escaping destroy it.', vid = 'X05_QAI_T01_04416.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
-    {text = '[QAI]: Velsok is launching an attack on your position. Defeat his forces and eliminate him. QAI out.', vid = 'X05_QAI_M03_04448.sfd', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, Velsok is located to the east of your position. He has several bases in the area.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Velsok has a quantum gate, but it is not powering up. We can not risk him escaping destroy it.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[QAI]: Velsok is launching an attack on your position. Defeat his forces and eliminate him. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_3', faction = 'Seraphim'},
 }
 
 --Story information for Campaign plot line, Shows Velsoks arrogance
@@ -40,49 +40,49 @@ MidP2 = {
 
 --Story information for Campaign plot line, Shows Velsoks arrogance
 Mid2P2 = {
-    {text = '[QAI]: Commander, the Cybran is massing a massive air assault. It will be ready in a few minutes. Be prepared.', vid = 'X05_QAI_T01_04424.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, the Cybran is massing a massive air assault. It will be ready in a few minutes. Be prepared.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
 }
 
 --Velsok teleports outs and gets ready to introduce large cybran force
 EndP2 = {
     {text = '[Surth-Velsok]: Urggh! I will not underestimate you again!', vid = 'Tau.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
-    {text = '[QAI]: Commander He has teleported away to a position farther north. Wait picking up a large number of units coming from the North. Standby.', vid = 'X05_QAI_T01_04426.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander He has teleported away to a position farther north. Wait picking up a large number of units coming from the North. Standby.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Mid2_1', faction = 'Seraphim'},
 }
 
 --First Secondary objective, Several Secondary bases around the player.
 SecondaryP2 = {
-    {text = '[QAI]: Commander, A Cybran commander is on planet. There is a small base to your west. Clear it out. QAI out.', vid = 'X02_QAI_T01_04554.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, A Cybran commander is on planet. There is a small base to your west. Clear it out. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
 }
 
 --congrates on making your life easier.
 SecondaryEndP2 = {
-    {text = '[QAI]: Good work, The Cybran has no operation units in the area for now. QAI out.', vid = 'X05_QAI_T01_04423.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Good work, The Cybran has no operation units in the area for now. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
 }
 
 -- Secondary objective, Seraphim build a nuke, build nuke defense.
 Secondary2P2 = {
-    {text = '[QAI]: Commander, Velsok is constructing a Experimental nuke launcher farther north. There is a 90% probability he will complete it.', vid = 'X05_QAI_T01_04422.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
-    {text = '[QAI]:  I recommend constructing several SMD to defend your location in the event he completes it. QAI out.', vid = 'X02_QAI_T01_04559.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, Velsok is constructing a Experimental nuke launcher farther north. There is a 90% probability he will complete it.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
+    {text = '[QAI]:  I recommend constructing several SMD to defend your location in the event he completes it. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondary1_1', faction = 'Seraphim'},
 }
 
 --congrates on making your life easier.
 Secondary2EndP2 = {
-    {text = '[QAI]: Good work, that will increase your chances of survival. QAI out.', vid = 'X05_QAI_M03_04450.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
+    {text = '[QAI]: Good work, that will increase your chances of survival. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Secondaryend1_1', faction = 'Seraphim'},
 }
 
 -- Part 3 Dialogues
 
 -- Crazy cybran shows up with massive assault.
 IntroP3 = {
-    {text = '[QAI]: Commander, The Cybran commander is launching a massive assault on your position.', vid = 'X05_QAI_T01_04415.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, The Cybran commander is launching a massive assault on your position.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
     {text = '[Teko6]: Oh boy!! As much as I have LOVED to watch you Seraphim bastards slaughter each other I need that other one to survive. So get ready to go to hell!', vid = 'A02_Leopard11_M02_00806.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Cybran'},
-    {text = '[QAI]: Considering the numbers against you, I calculate a 43% chance of failure. Survive the assault Commander. QAI out. ', vid = 'X02_QAI_T01_04563.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[QAI]: Considering the numbers against you, I calculate a 43% chance of failure. Survive the assault Commander. QAI out. ', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
 }
 
 -- Moving on to Final part.
 EndP3 = {
-    {text = '[QAI]: Commander, All the Cybran assault forces are destroyed.', vid = 'X05_QAI_T01_04424.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
-    {text = '[QAI]: Picking up chatter from the Cybran and Velsok.', vid = 'X05_QAI_T01_04421.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, All the Cybran assault forces are destroyed.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Picking up chatter from the Cybran and Velsok.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
 }
 
 -- Part 4 Dialogues
@@ -97,14 +97,14 @@ IntroP4 = {
 
 -- Cybran and Seraphim attacking each other, but then shaking hands.
 Intro2P4 = {
-    {text = '[QAI]: Commander, Velsok has completed his Experimental nuke launcher. You must defeat him quickly.', vid = 'X05_QAI_T01_04416.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
-    {text = '[QAI]: The Cybran has stopped his attacks on Velsok and is preparing attacks on your position.', vid = 'X05_QAI_M03_04448.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
-    {text = '[QAI]: Your only major objective is to kill Velsok, secondary objective would be to kill the Cybran. But that is not need to complete this operation. QAI out.', vid = 'X02_QAI_T01_04555.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, Velsok has completed his Experimental nuke launcher. You must defeat him quickly.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: The Cybran has stopped his attacks on Velsok and is preparing attacks on your position.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
+    {text = '[QAI]: Your only major objective is to kill Velsok, secondary objective would be to kill the Cybran. But that is not need to complete this operation. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_2', faction = 'Seraphim'},
 }
 
 -- Give player end games.
 TechP4 = {
-    {text = '[QAI]: Commander, you have been given permission to construct the Seraphim\'s most powerful weapon, The experimental nuke launcher. Use this to defeat Velsok. QAI out.', vid = 'X02_QAI_M02_04278.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, you have been given permission to construct the Seraphim\'s most powerful weapon, The experimental nuke launcher. Use this to defeat Velsok. QAI out.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
 }
 
 TAUNT1P1 = {
@@ -172,11 +172,11 @@ ACUDeath2 = {
 }
 
 PlayerWin = {
-    {text = '[QAI]: Commander, All objectives have been completed gate back to HQ.', vid = 'X02_QAI_T01_04560.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: Commander, All objectives have been completed gate back to HQ.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
 }
 
 Playerlose = {
-    {text = '[QAI]: The Commander has failed.', vid = 'X05_QAI_T01_04423.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
+    {text = '[QAI]: The Commander has failed.', vid = 'QAI.sfd', bank = 'JJ_VO2', cue = 'Intro2_1', faction = 'Seraphim'},
 }
 
 Debriefing_Win = {
